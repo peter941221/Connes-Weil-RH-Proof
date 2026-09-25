@@ -1,0 +1,141 @@
+{
+  "record": 1980,
+  "status": "UNDERAPPROXIMATION_NUMERIC_OVERFLOW",
+  "owner_model": "known zeta zeros in formal closed ball + hypothetical orbit + healthy targets",
+  "rho": [
+    0.55,
+    14.134725141734693
+  ],
+  "N": 10,
+  "n": 0,
+  "radius": 2064.20890406866,
+  "known_zero_count": 400,
+  "owner_cardinality": 408,
+  "target_cardinality": 8,
+  "min_separation": 0.050000000000000044,
+  "node_products": [
+    {
+      "node": [
+        0.55,
+        14.134725141734693
+      ],
+      "target_value_abs": 1.0,
+      "node_product_abs": NaN,
+      "node_product_log10_abs": NaN
+    },
+    {
+      "node": [
+        0.44999999999999996,
+        14.134725141734693
+      ],
+      "target_value_abs": 1.0,
+      "node_product_abs": NaN,
+      "node_product_log10_abs": NaN
+    },
+    {
+      "node": [
+        0.55,
+        -14.134725141734693
+      ],
+      "target_value_abs": 0.0,
+      "node_product_abs": NaN,
+      "node_product_log10_abs": NaN
+    },
+    {
+      "node": [
+        0.44999999999999996,
+        -14.134725141734693
+      ],
+      "target_value_abs": 0.0,
+      "node_product_abs": NaN,
+      "node_product_log10_abs": NaN
+    },
+    {
+      "node": [
+        1.05,
+        14.134725141734693
+      ],
+      "target_value_abs": 1.0,
+      "node_product_abs": NaN,
+      "node_product_log10_abs": NaN
+    },
+    {
+      "node": [
+        0.5,
+        0.0
+      ],
+      "target_value_abs": 0.0,
+      "node_product_abs": NaN,
+      "node_product_log10_abs": NaN
+    },
+    {
+      "node": [
+        1.0,
+        0.0
+      ],
+      "target_value_abs": 0.0,
+      "node_product_abs": NaN,
+      "node_product_log10_abs": NaN
+    },
+    {
+      "node": [
+        1.5,
+        0.0
+      ],
+      "target_value_abs": 0.0,
+      "node_product_abs": NaN,
+      "node_product_log10_abs": NaN
+    }
+  ],
+  "seed_laplace_at_zero": [
+    3.000000000000007,
+    0.0
+  ],
+  "xi_grid": {
+    "xi_max": 40.0,
+    "dxi": 0.01,
+    "points": 8001
+  },
+  "gate": {
+    "C": NaN,
+    "b": NaN,
+    "D": NaN,
+    "det": NaN,
+    "lambda": NaN,
+    "C_positive": false,
+    "b_positive": false,
+    "det_negative": false,
+    "route": null,
+    "n_primes": null,
+    "error": "ValueError: `y` must contain only finite values."
+  },
+  "decay_scan": {
+    "T_need_grid": null,
+    "base_contract_max": 144.28557894510828,
+    "base_C2_sup_grid": 40770.51927038303,
+    "C4_sup_grid": 30167131.585890308,
+    "C2_sup_grid": NaN,
+    "t_max": 220.0,
+    "nt": 441
+  },
+  "N_selection": {
+    "base_Cb_grid": 40770.51927038303,
+    "inequality": "Cb^2 * (2*pi)^4 < 2^(4*(N+1))",
+    "N_used": 10,
+    "N_is_formally_certified": false,
+    "note": "Cb is a finite-grid numerical envelope only; Lean still needs an analytic bound"
+  },
+  "tail_proxy": {
+    "H": 17.145421691571688,
+    "L_n": NaN,
+    "lambda_squared": NaN,
+    "L_over_lambda_sq": NaN,
+    "note": "beta_s and xiMultiplicity remain formal-owner inputs; this is not the Lean tail ratio"
+  },
+  "provenance": [
+    "ConnesWeilRH/Dev/C1ExplicitHealthyCorrectionBudget.lean",
+    "ConnesWeilRH/Dev/C1ExplicitSmoothSeed.lean",
+    "ConnesWeilRH/Dev/C1ExplicitFiniteNodeCorrection.lean",
+    "known zeros supplied by mpmath.zetazero; not a proof of the full source owner"
+  ]
+}

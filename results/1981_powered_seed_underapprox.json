@@ -1,0 +1,106 @@
+{
+  "record": 1981,
+  "status": "SIGN_ONLY_TAIL_FAIL",
+  "rho": [
+    0.55,
+    14.134725141734693
+  ],
+  "N": 4,
+  "owner_model": "known zeta zeros in formal closed ball + hypothetical orbit + healthy targets",
+  "radius": 48.208904068660146,
+  "known_zero_count": 19,
+  "owner_cardinality": 27,
+  "target_cardinality": 8,
+  "min_separation": 0.050000000000000044,
+  "seed": {
+    "scale": 0.5,
+    "power": 10,
+    "laplace_at_zero": [
+      59048.99999985875,
+      0.0
+    ]
+  },
+  "decay_grid": {
+    "base_C4": 152.9640664309362,
+    "base_C2": 25.135397681669808,
+    "correction_C2": 683.8644420520491,
+    "height_max": 160.0,
+    "sigma_grid": [
+      0.0,
+      0.5,
+      1.0
+    ]
+  },
+  "rows": [
+    {
+      "n": 0,
+      "support_radius": 4.0,
+      "prime_power_count": 24,
+      "C": 2372.283545851358,
+      "b": 2683710.702561368,
+      "D": 2927171476.9059277,
+      "det": -258222404493.0791,
+      "lambda": 1131.2773750231638,
+      "tail_proxy_L_over_lambda_sq": 2.143947586983198e+28,
+      "gate_signs": true,
+      "same_index_tail_below_one": false
+    },
+    {
+      "n": 1,
+      "support_radius": 6.0,
+      "prime_power_count": 98,
+      "C": -5174.028192052667,
+      "b": -7784170.149075013,
+      "D": -10175050980.182257,
+      "det": -7947304282714.391,
+      "lambda": 1504.469991298373,
+      "tail_proxy_L_over_lambda_sq": 3.0564693274182375e+27,
+      "gate_signs": false,
+      "same_index_tail_below_one": false
+    },
+    {
+      "n": 2,
+      "support_radius": 8.0,
+      "prime_power_count": 465,
+      "C": -21286.53324145657,
+      "b": -24849759.790176336,
+      "D": -27023532474.896698,
+      "det": -42273239300994.875,
+      "lambda": 1167.3934646051339,
+      "tail_proxy_L_over_lambda_sq": 1.2593780437356142e+27,
+      "gate_signs": false,
+      "same_index_tail_below_one": false
+    },
+    {
+      "n": 3,
+      "support_radius": 10.0,
+      "prime_power_count": 2532,
+      "C": -7410.351527503077,
+      "b": -8071557.018250373,
+      "D": -4050623839.929328,
+      "det": -35133486139306.176,
+      "lambda": 1089.2272773151547,
+      "tail_proxy_L_over_lambda_sq": 3.6100904178953805e+26,
+      "gate_signs": false,
+      "same_index_tail_below_one": false
+    },
+    {
+      "n": 4,
+      "support_radius": 12.0,
+      "prime_power_count": 15040,
+      "C": 3000119.3333906233,
+      "b": 4314137630.951878,
+      "D": 6198949141064.112,
+      "det": -1.41963339834368e+16,
+      "lambda": 1437.9886769624593,
+      "tail_proxy_L_over_lambda_sq": 5.2196232589646985e+25,
+      "gate_signs": true,
+      "same_index_tail_below_one": false
+    }
+  ],
+  "provenance": [
+    "ConnesWeilRH/Dev/C1ExplicitHealthyCorrectionBudget.lean",
+    "ConnesWeilRH/Dev/C1ExplicitSmoothSeed.lean",
+    "known zeros supplied by mpmath.zetazero; under-approximation only"
+  ]
+}

@@ -1,0 +1,253 @@
+{
+  "record": 1982,
+  "status": "CONTRACTION_CANDIDATE_ONLY",
+  "rho": [
+    0.55,
+    14.134725141734693
+  ],
+  "N": 4,
+  "owner_model": "known zeta zeros in formal closed ball + hypothetical orbit + healthy targets",
+  "radius": 48.208904068660146,
+  "known_zero_count": 19,
+  "owner_cardinality": 27,
+  "target_cardinality": 8,
+  "min_separation": 0.050000000000000044,
+  "seed": {
+    "scale": 0.5,
+    "power": 10,
+    "quadrature_order": 500
+  },
+  "gate_row_n4": {
+    "C": 3000119.3333906233,
+    "b": 4314137630.951878,
+    "D": 6198949141064.112,
+    "det": -1.41963339834368e+16,
+    "lambda": 1437.9886769624593,
+    "gate_signs": true
+  },
+  "profile_grid": {
+    "T_max": 64.0,
+    "dt": 0.01,
+    "sigma_step": 0.025,
+    "max_abs_base_global": 9.209066456749584,
+    "global_arg_t": -1.2700000000124803,
+    "global_arg_sigma": 0.0,
+    "threshold_maxima": {
+      "18.0": {
+        "max_abs_base": 0.0005041169653521577,
+        "arg_t": 18.009999999983677,
+        "arg_sigma": 0.0
+      },
+      "20.0": {
+        "max_abs_base": 0.0004417537942686722,
+        "arg_t": 20.00999999998328,
+        "arg_sigma": 0.0
+      },
+      "22.0": {
+        "max_abs_base": 1.6352152814660048e-06,
+        "arg_t": 22.00999999998288,
+        "arg_sigma": 0.0
+      },
+      "24.0": {
+        "max_abs_base": 1.364524875956846e-06,
+        "arg_t": 24.11999999998247,
+        "arg_sigma": 0.0
+      },
+      "28.0": {
+        "max_abs_base": 3.131211046492755e-09,
+        "arg_t": 28.199999999981657,
+        "arg_sigma": 0.0
+      },
+      "32.0": {
+        "max_abs_base": 1.2339461640925018e-12,
+        "arg_t": 32.11999999998088,
+        "arg_sigma": 0.0
+      }
+    }
+  },
+  "tail_rows": [
+    {
+      "T": 18.0,
+      "q": 1.52587890625e-05,
+      "grid_margin": -0.0004888581762896577,
+      "tail_proxy_L_over_lambda_sq": 3.9268080987735174e-11,
+      "tail_proxy_below_one": true
+    },
+    {
+      "T": 18.0,
+      "q": 7.62939453125e-06,
+      "grid_margin": -0.0004964875708209077,
+      "tail_proxy_L_over_lambda_sq": 1.5339094135834052e-13,
+      "tail_proxy_below_one": true
+    },
+    {
+      "T": 18.0,
+      "q": 3.814697265625e-06,
+      "grid_margin": -0.0005003022680865327,
+      "tail_proxy_L_over_lambda_sq": 5.991833646810177e-16,
+      "tail_proxy_below_one": true
+    },
+    {
+      "T": 18.0,
+      "q": 1.9073486328125e-06,
+      "grid_margin": -0.0005022096167193452,
+      "tail_proxy_L_over_lambda_sq": 2.3405600182852253e-18,
+      "tail_proxy_below_one": true
+    },
+    {
+      "T": 20.0,
+      "q": 1.52587890625e-05,
+      "grid_margin": -0.0004264950052061722,
+      "tail_proxy_L_over_lambda_sq": 3.9268080987735174e-11,
+      "tail_proxy_below_one": true
+    },
+    {
+      "T": 20.0,
+      "q": 7.62939453125e-06,
+      "grid_margin": -0.0004341243997374222,
+      "tail_proxy_L_over_lambda_sq": 1.5339094135834052e-13,
+      "tail_proxy_below_one": true
+    },
+    {
+      "T": 20.0,
+      "q": 3.814697265625e-06,
+      "grid_margin": -0.0004379390970030472,
+      "tail_proxy_L_over_lambda_sq": 5.991833646810177e-16,
+      "tail_proxy_below_one": true
+    },
+    {
+      "T": 20.0,
+      "q": 1.9073486328125e-06,
+      "grid_margin": -0.0004398464456358597,
+      "tail_proxy_L_over_lambda_sq": 2.3405600182852253e-18,
+      "tail_proxy_below_one": true
+    },
+    {
+      "T": 22.0,
+      "q": 1.52587890625e-05,
+      "grid_margin": 1.3623573781033996e-05,
+      "tail_proxy_L_over_lambda_sq": 3.9268080987735174e-11,
+      "tail_proxy_below_one": true
+    },
+    {
+      "T": 22.0,
+      "q": 7.62939453125e-06,
+      "grid_margin": 5.994179249783996e-06,
+      "tail_proxy_L_over_lambda_sq": 1.5339094135834052e-13,
+      "tail_proxy_below_one": true
+    },
+    {
+      "T": 22.0,
+      "q": 3.814697265625e-06,
+      "grid_margin": 2.179481984158995e-06,
+      "tail_proxy_L_over_lambda_sq": 5.991833646810177e-16,
+      "tail_proxy_below_one": true
+    },
+    {
+      "T": 22.0,
+      "q": 1.9073486328125e-06,
+      "grid_margin": 2.721333513464952e-07,
+      "tail_proxy_L_over_lambda_sq": 2.3405600182852253e-18,
+      "tail_proxy_below_one": true
+    },
+    {
+      "T": 24.0,
+      "q": 1.52587890625e-05,
+      "grid_margin": 1.3894264186543154e-05,
+      "tail_proxy_L_over_lambda_sq": 3.9268080987735174e-11,
+      "tail_proxy_below_one": true
+    },
+    {
+      "T": 24.0,
+      "q": 7.62939453125e-06,
+      "grid_margin": 6.2648696552931535e-06,
+      "tail_proxy_L_over_lambda_sq": 1.5339094135834052e-13,
+      "tail_proxy_below_one": true
+    },
+    {
+      "T": 24.0,
+      "q": 3.814697265625e-06,
+      "grid_margin": 2.450172389668154e-06,
+      "tail_proxy_L_over_lambda_sq": 5.991833646810177e-16,
+      "tail_proxy_below_one": true
+    },
+    {
+      "T": 24.0,
+      "q": 1.9073486328125e-06,
+      "grid_margin": 5.42823756855654e-07,
+      "tail_proxy_L_over_lambda_sq": 2.3405600182852253e-18,
+      "tail_proxy_below_one": true
+    },
+    {
+      "T": 28.0,
+      "q": 1.52587890625e-05,
+      "grid_margin": 1.5255657851453507e-05,
+      "tail_proxy_L_over_lambda_sq": 3.9268080987735174e-11,
+      "tail_proxy_below_one": true
+    },
+    {
+      "T": 28.0,
+      "q": 7.62939453125e-06,
+      "grid_margin": 7.626263320203507e-06,
+      "tail_proxy_L_over_lambda_sq": 1.5339094135834052e-13,
+      "tail_proxy_below_one": true
+    },
+    {
+      "T": 28.0,
+      "q": 3.814697265625e-06,
+      "grid_margin": 3.8115660545785074e-06,
+      "tail_proxy_L_over_lambda_sq": 5.991833646810177e-16,
+      "tail_proxy_below_one": true
+    },
+    {
+      "T": 28.0,
+      "q": 1.9073486328125e-06,
+      "grid_margin": 1.9042174217660072e-06,
+      "tail_proxy_L_over_lambda_sq": 2.3405600182852253e-18,
+      "tail_proxy_below_one": true
+    },
+    {
+      "T": 32.0,
+      "q": 1.52587890625e-05,
+      "grid_margin": 1.5258787828553836e-05,
+      "tail_proxy_L_over_lambda_sq": 3.9268080987735174e-11,
+      "tail_proxy_below_one": true
+    },
+    {
+      "T": 32.0,
+      "q": 7.62939453125e-06,
+      "grid_margin": 7.629393297303836e-06,
+      "tail_proxy_L_over_lambda_sq": 1.5339094135834052e-13,
+      "tail_proxy_below_one": true
+    },
+    {
+      "T": 32.0,
+      "q": 3.814697265625e-06,
+      "grid_margin": 3.814696031678836e-06,
+      "tail_proxy_L_over_lambda_sq": 5.991833646810177e-16,
+      "tail_proxy_below_one": true
+    },
+    {
+      "T": 32.0,
+      "q": 1.9073486328125e-06,
+      "grid_margin": 1.907347398866336e-06,
+      "tail_proxy_L_over_lambda_sq": 2.3405600182852253e-18,
+      "tail_proxy_below_one": true
+    }
+  ],
+  "recommended_candidate": {
+    "T": 28.0,
+    "q": 6.103515625e-05,
+    "grid_max_abs_base": 3.131211046492755e-09,
+    "grid_margin": 6.103202503895351e-05,
+    "tail_proxy_L_over_lambda_sq": 2.5734729556122124e-06,
+    "tail_proxy_below_one": true
+  },
+  "provenance": [
+    "scripts/fourpoint_powered_seed_1981.py",
+    "scripts/fourpoint_actual_owner_1980.py",
+    "results/1981_powered_seed_underapprox.json",
+    "known zeros supplied by mpmath.zetazero; under-approximation only",
+    "q and tail values are grid/proxy diagnostics, not interval proofs"
+  ]
+}

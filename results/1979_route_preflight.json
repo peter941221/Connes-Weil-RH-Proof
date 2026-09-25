@@ -1,0 +1,64 @@
+{
+  "record": 1979,
+  "status": "PREFLIGHT_ONLY",
+  "provenance": "record 1979 preflight; inputs are committed record-1959 JSON artifacts produced by fourpoint_owner_density_1959.py",
+  "inputs": [
+    "results/1959_cardinal_base_limitation.json",
+    "results/1959_fourpoint_owner_density.json"
+  ],
+  "scoped_no_go": {
+    "old_cardinal_base": true,
+    "scope": "finite scanned range only; no all-height no-go",
+    "reason": "T_need is absent and the scanned contraction profile stays above 1/2",
+    "min_contraction_profile": 0.9815124927642661,
+    "max_contraction_profile": 144.2855788618178,
+    "mass_beyond_abs_xi_4": 0.9989635633015699
+  },
+  "representative_sign_screen": {
+    "rows": 26,
+    "sign_candidates": 2,
+    "candidates": [
+      {
+        "tag": "design sc=0.90 k=30.0 d=0.05 g=14.13 n=0",
+        "C": 5.054484617691287,
+        "b": 29649.399934191257,
+        "D": -80440919.74711609,
+        "det": -1285674307.952358,
+        "lambda": 5865.959079272868,
+        "contraction_T_need": 17.74436090225564,
+        "contraction_max": 1.0703217251724986,
+        "route_spread_max": 2.470939891612041e-06,
+        "cancel_ratio_max": 1.8049325157222937
+      },
+      {
+        "tag": "design sc=1.00 k=40.0 d=0.05 g=14.13 n=0",
+        "C": 0.9844514517737935,
+        "b": 2305.038648856804,
+        "D": -7114319.158313751,
+        "det": -12316904.996507686,
+        "lambda": 2341.4447149258244,
+        "contraction_T_need": 17.543859649122805,
+        "contraction_max": 1.0890099803738942,
+        "route_spread_max": 1.7163745380945624e-05,
+        "cancel_ratio_max": 2.407615922021892
+      }
+    ],
+    "verdict": "SIGN_ONLY",
+    "owner_warning": "The design probe interpolates only eight target nodes, not healthyCorrectionNodes with the closed-ball zero prefix; its rho is a formal sample, not an established zeta zero."
+  },
+  "full_live_route": {
+    "verdict": "INSUFFICIENT_EVIDENCE",
+    "missing": [
+      "actual admissible base transform and strip contraction",
+      "complete healthyCorrectionNodes owner and node separation",
+      "actual C4 and C2 decay constants",
+      "same-owner tail ratio beta_s*L_n/(multiplicity*lambda^2)",
+      "interval-certified bounds for C, b, and determinant"
+    ]
+  },
+  "decision_rule": {
+    "GO": "all missing fields have strict interval margins on one owner and one n",
+    "SIGN_ONLY": "a representative point passes gate signs on the eight-node design owner",
+    "INSUFFICIENT_EVIDENCE": "the full zero-prefix owner or another required field is unmeasured"
+  }
+}

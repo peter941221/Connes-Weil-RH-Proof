@@ -80,6 +80,21 @@ theorem smoothSeedComplex_support_subset :
     simp [smoothSeedComplex, hzero]
   exact smoothSeedRaw_support_subset (Function.mem_support.mpr hne)
 
+theorem smoothSeedComplex_support_subset_Ioo :
+    Function.support smoothSeedComplex ⊆ Set.Ioo (-2) 2 := by
+  intro x hx
+  have hne : smoothSeedRaw x ≠ 0 := by
+    intro hzero
+    apply Function.mem_support.mp hx
+    simp [smoothSeedComplex, hzero]
+  constructor
+  · by_contra hnot
+    apply hne
+    exact smoothSeedRaw_eq_zero_of_le (le_of_not_gt hnot)
+  · by_contra hnot
+    apply hne
+    exact smoothSeedRaw_eq_zero_of_ge (le_of_not_gt hnot)
+
 theorem smoothSeedComplex_hasCompactSupport :
     HasCompactSupport smoothSeedComplex :=
   HasCompactSupport.of_support_subset_isCompact
@@ -94,6 +109,10 @@ def smoothSeed : CCM25Concrete.CompactLogConvolution.CompactLogTest :=
 theorem smoothSeed_apply (x : ℝ) :
     smoothSeed.test x = smoothSeedComplex x :=
   rfl
+
+theorem smoothSeed_support_subset_Ioo :
+    Function.support smoothSeed.test ⊆ Set.Ioo (-2) 2 := by
+  simpa only [smoothSeed_apply] using smoothSeedComplex_support_subset_Ioo
 
 theorem smoothSeed_laplaceAt_zero_eq_real_integral :
     laplaceAt smoothSeed 0 = ∫ x : ℝ, (smoothSeedRaw x : ℂ) := by
@@ -118,6 +137,33 @@ theorem smoothSeed_laplaceAt_zero_ne_zero :
       (show (0 : ℝ) ∈ Set.Icc (-1) 1 by norm_num)]
     norm_num
   exact ne_of_gt hpos
+
+/-! The powered seed is ten normalized copies of the committed smooth seed.
+Its Laplace transform is the exact powered transform used by the numerical
+conditioning probe; its support is the honest ten-unit convolution window. -/
+def poweredSeed : CCM25Concrete.CompactLogConvolution.CompactLogTest :=
+  convolutionIterate
+    (rescale smoothSeed (1 / 2) (by norm_num : (0 : ℝ) < 1 / 2)) 9
+
+theorem poweredSeed_laplaceAt (s : ℂ) :
+    laplaceAt poweredSeed s =
+      laplaceAt smoothSeed ((1 / 2 : ℂ) * s) ^ 10 := by
+  rw [poweredSeed, laplaceAt_convolutionIterate, laplaceAt_rescale]
+  norm_num
+
+theorem poweredSeed_support_subset_Ioo :
+    Function.support poweredSeed.test ⊆ Set.Ioo (-10) 10 := by
+  have hscaled := rescale_support_subset_Ioo smoothSeed
+    (by norm_num : (0 : ℝ) < 1 / 2) smoothSeed_support_subset_Ioo
+  have hiter := convolutionIterate_support_subset_Ioo
+    (rescale smoothSeed (1 / 2) (by norm_num : (0 : ℝ) < 1 / 2))
+    hscaled 9
+  simpa [poweredSeed] using hiter
+
+theorem poweredSeed_laplaceAt_zero_ne_zero :
+    laplaceAt poweredSeed 0 ≠ 0 := by
+  rw [poweredSeed_laplaceAt]
+  simpa using pow_ne_zero 10 smoothSeed_laplaceAt_zero_ne_zero
 
 end
 end ConnesWeilRH.Source.C1ExplicitSmoothSeed

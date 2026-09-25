@@ -5,6 +5,15 @@ namespace ConnesWeilRH.Source.C1ExplicitHealthyCorrectionBudget
 #print axioms explicitHealthyCorrection_targets
 #print axioms explicitHealthyCorrection_kills
 #print axioms explicitHealthyCorrection_support
+#print axioms explicitPoweredHealthyBase_targets
+#print axioms explicitPoweredHealthyCorrection_targets
+#print axioms explicitPoweredHealthyCorrection_kills
+#print axioms explicitPoweredHealthyBase_support
+#print axioms explicitPoweredHealthyCorrection_support
+#print axioms l1Mass_explicitPoweredHealthyBase_le_seed_ladder
+#print axioms l1Mass_explicitPoweredHealthyCorrection_le_seed_ladder
+#print axioms selectedOwner_explicitPoweredHealthy_target
+#print axioms selectedOwner_explicitPoweredHealthy_kills
 #print axioms l1Mass_explicitHealthyCorrection_le_budget
 
 end ConnesWeilRH.Source.C1ExplicitHealthyCorrectionBudget

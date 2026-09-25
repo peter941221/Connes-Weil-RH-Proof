@@ -885,3 +885,91 @@ node products, required higher orders, and quadratic decay constant, then run
 the determinant / same-index-tail screen without changing `N` or owner. The
 determinant and joint tail margin remain OPEN. No route ruling changes.
 Evidence and scope: [1978](../proofs/1978_explicit_healthy_correction_budget.md).
+
+## 28. Preflight before further Lean work (1979)
+
+The preflight classifier in `scripts/route_preflight_1979.py` separates three
+scopes. The old cardinal interpolation base is `SCOPED_SCAN_FAILURE`: the rerun has
+`mass(|xi| > 4) = 0.9989635633`, contraction profile range
+`[0.98151249, 144.28558]`, and no
+grid threshold `T_need` with the required half-contraction. This is only a
+finite-scan failure and does not rule out a different admissible base. The
+representative owner-density screen is now `SIGN_ONLY`: 2 of 26 rows have
+`C > 0`, `b > 0`, and `det < 0`, but they interpolate only eight target nodes
+and use a formal sample rho, not the complete closed-ball zero owner.
+
+The full live route remains `INSUFFICIENT_EVIDENCE` because the actual owner
+still lacks interval-certified `C4`, `C2`, node-separation costs, and the
+same-index ratio `beta_s * L_n / (multiplicity_rho * lambda^2)`. The formal
+owner interface and L1 budget are available in record 1978, but its zero-set
+cardinality and separation costs are still open. Evidence: [1979](../proofs/1979_route_preflight.md),
+record 1978, and `results/1979_route_preflight.json`.
+
+## 29. Actual-owner under-approximation and changed-seed test (1980)
+
+Record 1980 now probes the formal owner boundary instead of the eight-node
+design owner. With the committed `smoothSeed` cardinal selector, the finite
+grid base Cb envelope is about `4.077e4`, so the displayed height-budget
+inequality first passes at `N = 10`. A known-zero under-approximation already
+contains 400 source zeros and 408 owner nodes; binary64 node products and the
+gate become non-finite before C2/tail certification. This is a scoped selector
+conditioning failure, not an all-seed no-go.
+
+The one explicit changed assumption tested is a rescaled ten-fold convolution
+seed with transform `L_smoothSeed(0.5*s)^10`. At `N = 4`, the same
+under-approximation has 27 nodes, finite target products, and numerical
+envelopes `C4 <= 1.53e2`, `C2 <= 6.84e2`. It gives sign-side rows with the
+same `n` and vertex `lambda`, but the tail proxy is still `2.14e28` at `n=0`
+and `5.22e25` at `n=4`. Therefore this changed assumption is a candidate
+conditioning improvement, not GO. The route remains OPEN until a complete
+owner, explicit support/decay proof, and one interval-certified same-index
+tail ratio below one are available. Evidence: [1980](../proofs/1980_actual_owner_underapproximation.md),
+`scripts/fourpoint_actual_owner_1980.py`, and
+`results/1980_actual_owner_underapprox.json`.
+
+## 30. Powered-seed same-index screen (1981)
+
+The changed-seed candidate is now reproducible in record 1981. The seed is the
+rescaled ten-fold convolution with transform `L_smoothSeed(0.5*s)^10`; the
+owner is fixed at `N = 4` and is again a known-zero under-approximation of the
+formal closed-ball owner. The screen gives `C4 <= 1.53e2`, `C2 <= 6.84e2`,
+and 27 owner nodes. Using the same `n` and `lambda = b/C`, gate signs occur at
+`n = 0` and `n = 4`, but the tail proxy is `2.144e28` and `5.220e25`,
+respectively. This is `SIGN_ONLY_TAIL_FAIL`, not GO. Evidence:
+[1981](../proofs/1981_powered_seed_same_index_screen.md),
+`scripts/fourpoint_powered_seed_1981.py`, and
+`results/1981_powered_seed_underapprox.json`.
+
+## 31. Powered-seed contraction candidate (1982)
+
+Record 1982 changes one named premise of the high-shell tail only:
+
+```text
+old:  ‖laplaceAt base (sigma + i*t)‖ <= 1 / 2  for T <= |t|
+new:  ‖laplaceAt base (sigma + i*t)‖ <= q      for T <= |t|
+```
+
+For the same powered seed, under-approximate owner, `N = 4`, `n = 4`, and
+`lambda = b / C`, the proof-friendly screen target is `T = 28`, `q = 2^-14`.
+The grid maximum is `3.131211046492847e-9`, the q margin is
+`6.103202503895351e-5`, and the same-index tail proxy is
+`2.5734729556122124e-6`. The gate row remains
+`C > 0`, `b > 0`, and `det < 0`.
+
+This is a strictly smaller quantitative obligation, not GO. The contraction
+bound is still grid evidence rather than an all-strip interval proof, and the
+owner still under-approximates `sourceNontrivialZerosInClosedBallFinset`.
+The full q-parameterized tail interface is now formal:
+`convolutionIterate_convolution_vertical_sextic_bound_of_q` and
+`selectedOwner_convolutionSquare_vertical_twelfth_bound_of_q` accept an
+explicit nonnegative `q`, while
+`selectedOwner_fullOrbit_span_doubleDistance_bound_of_q` and
+`selectedOwner_fullOrbit_span_fourthOrderSpectralTail_of_q` consume it through
+the final tail interface. Their paired audit is green with 3810 jobs, zero
+`error:` lines, zero `sorryAx`, and only the standard three axioms. The
+remaining work is an interval-certified all-strip bound for the powered base
+and a complete-owner rerun. `T = 28` stays in the same dyadic prefix shell as
+`T = 22`; no route or consumer changes. Evidence:
+[1982](../proofs/1982_powered_contraction_candidate.md),
+`scripts/fourpoint_powered_contraction_1982.py`, and
+`results/1982_powered_contraction_candidate.json`.

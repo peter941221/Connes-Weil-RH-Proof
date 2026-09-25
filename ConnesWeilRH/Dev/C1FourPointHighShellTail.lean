@@ -32,6 +32,55 @@ open C1SpectralTailBound
 
 noncomputable section
 
+/-! The contraction constant is exposed as a parameter for the powered-seed
+candidate. The legacy half-contraction theorem below is kept unchanged so
+existing consumers retain their original interface. -/
+theorem convolutionIterate_convolution_vertical_sextic_bound_of_q
+    (base correction : CompactLogTest) (C4 C2 T q : Real) (n : Nat)
+    (hq : 0 ≤ q) (hC4 : 0 ≤ C4) (hC2 : 0 ≤ C2)
+    (hbaseContract : ∀ sigma ∈ Set.Icc (0 : Real) 1, ∀ t : Real,
+      T ≤ |t| →
+        ‖laplaceAt base ((sigma : Complex) + (t : Complex) * Complex.I)‖ ≤
+          q)
+    (hbaseQuartic : ∀ sigma ∈ Set.Icc (0 : Real) 1, ∀ t : Real,
+      ‖t / (2 * Real.pi)‖ ^ 4 *
+        ‖laplaceAt base ((sigma : Complex) + (t : Complex) * Complex.I)‖ ≤ C4)
+    (hcorrectionQuadratic : ∀ sigma ∈ Set.Icc (0 : Real) 1, ∀ t : Real,
+      ‖t / (2 * Real.pi)‖ ^ 2 *
+        ‖laplaceAt correction
+          ((sigma : Complex) + (t : Complex) * Complex.I)‖ ≤ C2) :
+    ∀ sigma ∈ Set.Icc (0 : Real) 1, ∀ t : Real, T ≤ |t| →
+      ‖t / (2 * Real.pi)‖ ^ 6 *
+        ‖laplaceAt ((convolutionIterate base n).convolution correction)
+          ((sigma : Complex) + (t : Complex) * Complex.I)‖ ≤
+        q ^ n * (C4 * C2) := by
+  intro sigma hsigma t hheight
+  let s : Complex := (sigma : Complex) + (t : Complex) * Complex.I
+  let r : Real := ‖t / (2 * Real.pi)‖
+  let b : Real := ‖laplaceAt base s‖
+  let c : Real := ‖laplaceAt correction s‖
+  have hcontract : b ≤ q := hbaseContract sigma hsigma t hheight
+  have hquartic : r ^ 4 * b ≤ C4 := hbaseQuartic sigma hsigma t
+  have hquadratic : r ^ 2 * c ≤ C2 :=
+    hcorrectionQuadratic sigma hsigma t
+  have hpower : b ^ n ≤ q ^ n := by
+    exact pow_le_pow_left₀ (norm_nonneg _) hcontract n
+  have hproduct : (r ^ 4 * b) * (r ^ 2 * c) ≤ C4 * C2 := by
+    exact mul_le_mul hquartic hquadratic (by positivity) hC4
+  change r ^ 6 *
+      ‖laplaceAt ((convolutionIterate base n).convolution correction) s‖ ≤
+    q ^ n * (C4 * C2)
+  rw [laplaceAt_convolution, laplaceAt_convolutionIterate, norm_mul, norm_pow]
+  calc
+    r ^ 6 * (b ^ (n + 1) * c) =
+        b ^ n * ((r ^ 4 * b) * (r ^ 2 * c)) := by
+          rw [pow_succ]
+          ring
+    _ ≤ b ^ n * (C4 * C2) :=
+      mul_le_mul_of_nonneg_left hproduct (pow_nonneg (norm_nonneg _) _)
+    _ ≤ q ^ n * (C4 * C2) :=
+      mul_le_mul_of_nonneg_right hpower (mul_nonneg hC4 hC2)
+
 /-- Reserving one base factor gives sixth-order decay of the actual unscaled
 Yoshida convolution orbit, with the remaining `n` base factors contracting.
 The threshold does not move with the convolution count. -/
@@ -129,6 +178,66 @@ theorem selectedOwner_convolutionSquare_vertical_twelfth_bound
     simpa only [hreflectIm] using h'
   have hM : 0 ≤ M :=
     mul_nonneg (pow_nonneg (by norm_num) _) (mul_nonneg hC4 hC2)
+  have hproduct :
+      (r ^ 6 * ‖laplaceAt raw (1 - star z)‖) *
+          (r ^ 6 * ‖laplaceAt raw z‖) ≤ M * M := by
+    exact mul_le_mul hsecond hfirst (by positivity) hM
+  change r ^ 12 *
+      ‖laplaceAt (selectedOwner base correction n).convolutionSquare
+        (z - 1 / 2)‖ ≤ M ^ 2
+  rw [selectedOwner_laplaceAt_convolutionSquare_centered, norm_mul, norm_star]
+  calc
+    r ^ 12 * (‖laplaceAt raw (1 - star z)‖ * ‖laplaceAt raw z‖) =
+        (r ^ 6 * ‖laplaceAt raw (1 - star z)‖) *
+          (r ^ 6 * ‖laplaceAt raw z‖) := by ring
+    _ ≤ M * M := hproduct
+    _ = M ^ 2 := by ring
+
+theorem selectedOwner_convolutionSquare_vertical_twelfth_bound_of_q
+    (base correction : CompactLogTest) (C4 C2 T q : Real) (n : Nat)
+    (hq : 0 ≤ q) (hC4 : 0 ≤ C4) (hC2 : 0 ≤ C2)
+    (hbaseContract : ∀ sigma ∈ Set.Icc (0 : Real) 1, ∀ t : Real,
+      T ≤ |t| →
+        ‖laplaceAt base ((sigma : Complex) + (t : Complex) * Complex.I)‖ ≤
+          q)
+    (hbaseQuartic : ∀ sigma ∈ Set.Icc (0 : Real) 1, ∀ t : Real,
+      ‖t / (2 * Real.pi)‖ ^ 4 *
+        ‖laplaceAt base ((sigma : Complex) + (t : Complex) * Complex.I)‖ ≤ C4)
+    (hcorrectionQuadratic : ∀ sigma ∈ Set.Icc (0 : Real) 1, ∀ t : Real,
+      ‖t / (2 * Real.pi)‖ ^ 2 *
+        ‖laplaceAt correction
+          ((sigma : Complex) + (t : Complex) * Complex.I)‖ ≤ C2) :
+    ∀ z : Complex, z.re ∈ Set.Icc (0 : Real) 1 → T ≤ |z.im| →
+      ‖z.im / (2 * Real.pi)‖ ^ 12 *
+        ‖laplaceAt (selectedOwner base correction n).convolutionSquare
+          (z - 1 / 2)‖ ≤
+        (q ^ n * (C4 * C2)) ^ 2 := by
+  intro z hz hheight
+  let raw := (convolutionIterate base n).convolution correction
+  let r : Real := ‖z.im / (2 * Real.pi)‖
+  let M : Real := q ^ n * (C4 * C2)
+  have hfirst : r ^ 6 * ‖laplaceAt raw z‖ ≤ M := by
+    have h := convolutionIterate_convolution_vertical_sextic_bound_of_q
+      base correction C4 C2 T q n hq hC4 hC2 hbaseContract hbaseQuartic
+      hcorrectionQuadratic z.re hz z.im hheight
+    simpa only [Complex.re_add_im] using h
+  have hreflectRe : (1 - star z).re ∈ Set.Icc (0 : Real) 1 := by
+    have hstarRe : (star z).re = z.re := by simp
+    rw [Complex.sub_re, Complex.one_re, hstarRe]
+    constructor <;> linarith [hz.1, hz.2]
+  have hreflectIm : (1 - star z).im = z.im := by simp
+  have hsecond : r ^ 6 * ‖laplaceAt raw (1 - star z)‖ ≤ M := by
+    have h := convolutionIterate_convolution_vertical_sextic_bound_of_q
+      base correction C4 C2 T q n hq hC4 hC2 hbaseContract hbaseQuartic
+      hcorrectionQuadratic (1 - star z).re hreflectRe
+      (1 - star z).im (by simpa only [hreflectIm] using hheight)
+    have h' :
+        ‖(1 - star z).im / (2 * Real.pi)‖ ^ 6 *
+          ‖laplaceAt raw (1 - star z)‖ ≤ M := by
+      simpa only [Complex.re_add_im] using h
+    simpa only [hreflectIm] using h'
+  have hM : 0 ≤ M :=
+    mul_nonneg (pow_nonneg hq _) (mul_nonneg hC4 hC2)
   have hproduct :
       (r ^ 6 * ‖laplaceAt raw (1 - star z)‖) *
           (r ^ 6 * ‖laplaceAt raw z‖) ≤ M * M := by
@@ -376,6 +485,149 @@ theorem selectedOwner_fullOrbit_span_doubleDistance_bound
       mul_le_mul_of_nonneg_left hrawSquare (by positivity)
     _ = K ^ 4 * L ^ 2 * (2 * Real.pi) ^ 12 * M ^ 2 := by ring
 
+theorem selectedOwner_fullOrbit_span_doubleDistance_bound_of_q
+    (base correction : CompactLogTest) (rho : Complex)
+    (lambda C4 C2 T q : Real) (n : Nat)
+    (hq : 0 ≤ q) (hC4 : 0 ≤ C4) (hC2 : 0 ≤ C2)
+    (hbaseContract : ∀ sigma ∈ Set.Icc (0 : Real) 1, ∀ t : Real,
+      T ≤ |t| →
+        ‖laplaceAt base ((sigma : Complex) + (t : Complex) * Complex.I)‖ ≤
+          q)
+    (hbaseQuartic : ∀ sigma ∈ Set.Icc (0 : Real) 1, ∀ t : Real,
+      ‖t / (2 * Real.pi)‖ ^ 4 *
+        ‖laplaceAt base ((sigma : Complex) + (t : Complex) * Complex.I)‖ ≤ C4)
+    (hcorrectionQuadratic : ∀ sigma ∈ Set.Icc (0 : Real) 1, ∀ t : Real,
+      ‖t / (2 * Real.pi)‖ ^ 2 *
+        ‖laplaceAt correction
+          ((sigma : Complex) + (t : Complex) * Complex.I)‖ ≤ C2) :
+    ∀ z : Complex, z.re ∈ Set.Icc (0 : Real) 1 →
+      T ≤ |z.im| → 1 ≤ |z.im| →
+      ‖z - rho‖ ^ 2 * ‖(1 - star z) - rho‖ ^ 2 *
+        ‖laplaceAt
+          (annihilatorDetectorSpanVector
+            (fullFunctionalEquationOrbitAnnihilator
+              (selectedOwner base correction n).sourceTest rho)
+            (selectedOwner base correction n).sourceTest lambda).convolutionSquare
+          (z - 1 / 2)‖ ≤
+        (3 + ‖rho‖) ^ 4 *
+          ((3 + ‖rho‖) ^ 4 + |lambda|) ^ 2 *
+          (2 * Real.pi) ^ 12 *
+          ((q ^ n * (C4 * C2)) ^ 2) := by
+  intro z hz hTz hone
+  let g := (selectedOwner base correction n).sourceTest
+  let v := annihilatorDetectorSpanVector
+    (fullFunctionalEquationOrbitAnnihilator g rho) g lambda
+  let K : Real := 3 + ‖rho‖
+  let L : Real := K ^ 4 + |lambda|
+  let N : Real := |z.im|
+  let r : Real := ‖z.im / (2 * Real.pi)‖
+  let M : Real := q ^ n * (C4 * C2)
+  have hKN : 0 ≤ K * N := by dsimp [K, N]; positivity
+  have hLN : 0 ≤ L * N ^ 4 := by dsimp [L, K, N]; positivity
+  have hM : 0 ≤ M :=
+    mul_nonneg (pow_nonneg hq _) (mul_nonneg hC4 hC2)
+  have hcompRe : (1 - star z).re ∈ Set.Icc (0 : Real) 1 := by
+    have hstarRe : (star z).re = z.re := by simp
+    rw [Complex.sub_re, Complex.one_re, hstarRe]
+    constructor <;> linarith [hz.1, hz.2]
+  have hcompIm : (1 - star z).im = z.im := by simp
+  have hcoord : -star (z - 1 / 2) = (1 - star z) - 1 / 2 := by
+    apply Complex.ext <;> simp [Complex.star_def] <;> ring
+  have hmultAt :
+      ‖laplaceAt v (z - 1 / 2)‖ ≤
+        (L * N ^ 4) * ‖laplaceAt g (z - 1 / 2)‖ := by
+    rw [show v = annihilatorDetectorSpanVector
+        (fullFunctionalEquationOrbitAnnihilator g rho) g lambda from rfl,
+      laplaceAt_fullOrbitSpanVector, norm_mul]
+    exact mul_le_mul_of_nonneg_right
+      (fullOrbit_span_multiplier_norm_le_height_pow_four rho z lambda hz hone)
+      (norm_nonneg _)
+  have hmultComp :
+      ‖laplaceAt v ((1 - star z) - 1 / 2)‖ ≤
+        (L * N ^ 4) * ‖laplaceAt g ((1 - star z) - 1 / 2)‖ := by
+    rw [show v = annihilatorDetectorSpanVector
+        (fullFunctionalEquationOrbitAnnihilator g rho) g lambda from rfl,
+      laplaceAt_fullOrbitSpanVector, norm_mul]
+    have hbound := fullOrbit_span_multiplier_norm_le_height_pow_four
+      rho (1 - star z) lambda hcompRe
+      (by simpa only [hcompIm] using hone)
+    exact mul_le_mul_of_nonneg_right
+      (by simpa only [hcompIm] using hbound) (norm_nonneg _)
+  have hsquare :
+      ‖laplaceAt v.convolutionSquare (z - 1 / 2)‖ ≤
+        (L * N ^ 4) ^ 2 * ‖laplaceAt g.convolutionSquare (z - 1 / 2)‖ := by
+    rw [laplaceAt_convolutionSquare, hcoord, norm_mul, norm_star]
+    calc
+      ‖laplaceAt v ((1 - star z) - 1 / 2)‖ *
+          ‖laplaceAt v (z - 1 / 2)‖ ≤
+        ((L * N ^ 4) * ‖laplaceAt g ((1 - star z) - 1 / 2)‖) *
+          ((L * N ^ 4) * ‖laplaceAt g (z - 1 / 2)‖) := by
+            exact mul_le_mul hmultComp hmultAt (norm_nonneg _) (by positivity)
+      _ = (L * N ^ 4) ^ 2 *
+          (‖laplaceAt g ((1 - star z) - 1 / 2)‖ *
+            ‖laplaceAt g (z - 1 / 2)‖) := by ring
+      _ = (L * N ^ 4) ^ 2 *
+          ‖laplaceAt g.convolutionSquare (z - 1 / 2)‖ := by
+            rw [laplaceAt_convolutionSquare, hcoord, norm_mul, norm_star]
+  have hrawSquare :
+      r ^ 12 * ‖laplaceAt g.convolutionSquare (z - 1 / 2)‖ ≤ M ^ 2 := by
+    exact selectedOwner_convolutionSquare_vertical_twelfth_bound_of_q
+      base correction C4 C2 T q n hq hC4 hC2 hbaseContract hbaseQuartic
+      hcorrectionQuadratic z hz hTz
+  have hnrho : ‖rho‖ ≤ 1 + ‖rho‖ := by linarith
+  have hdist1 : ‖z - rho‖ ≤ K * N := by
+    simpa only [norm_sub_rev] using
+      orbitPoint_norm_sub_le_height rho rho z hnrho hz hone
+  have hdist2 : ‖(1 - star z) - rho‖ ≤ K * N := by
+    have h := orbitPoint_norm_sub_le_height rho rho (1 - star z)
+      hnrho hcompRe (by simpa only [hcompIm] using hone)
+    simpa only [norm_sub_rev, hcompIm] using h
+  have hdist :
+      ‖z - rho‖ ^ 2 * ‖(1 - star z) - rho‖ ^ 2 ≤ (K * N) ^ 4 := by
+    calc
+      ‖z - rho‖ ^ 2 * ‖(1 - star z) - rho‖ ^ 2 ≤
+          (K * N) ^ 2 * (K * N) ^ 2 := by
+            exact mul_le_mul
+              (pow_le_pow_left₀ (norm_nonneg _) hdist1 2)
+              (pow_le_pow_left₀ (norm_nonneg _) hdist2 2)
+              (sq_nonneg _) (sq_nonneg _)
+      _ = (K * N) ^ 4 := by ring
+  have hr : r = N / (2 * Real.pi) := by
+    dsimp [r, N]
+    rw [abs_div, abs_of_pos (by positivity : 0 < 2 * Real.pi)]
+  have hNpow : N ^ 12 = (2 * Real.pi) ^ 12 * r ^ 12 := by
+    rw [hr]
+    field_simp [Real.pi_ne_zero]
+  change ‖z - rho‖ ^ 2 * ‖(1 - star z) - rho‖ ^ 2 *
+      ‖laplaceAt v.convolutionSquare (z - 1 / 2)‖ ≤
+    K ^ 4 * L ^ 2 * (2 * Real.pi) ^ 12 * M ^ 2
+  calc
+    ‖z - rho‖ ^ 2 * ‖(1 - star z) - rho‖ ^ 2 *
+        ‖laplaceAt v.convolutionSquare (z - 1 / 2)‖ ≤
+      (K * N) ^ 4 *
+        ((L * N ^ 4) ^ 2 *
+          ‖laplaceAt g.convolutionSquare (z - 1 / 2)‖) := by
+            exact mul_le_mul hdist hsquare (by positivity) (by positivity)
+    _ = (K ^ 4 * L ^ 2 * (2 * Real.pi) ^ 12) *
+          (r ^ 12 * ‖laplaceAt g.convolutionSquare (z - 1 / 2)‖) := by
+            calc
+              (K * N) ^ 4 *
+                  ((L * N ^ 4) ^ 2 *
+                    ‖laplaceAt g.convolutionSquare (z - 1 / 2)‖) =
+                (K ^ 4 * L ^ 2) *
+                  (N ^ 12 * ‖laplaceAt g.convolutionSquare (z - 1 / 2)‖) :=
+                    by ring
+              _ = (K ^ 4 * L ^ 2) *
+                  ((2 * Real.pi) ^ 12 * r ^ 12 *
+                    ‖laplaceAt g.convolutionSquare (z - 1 / 2)‖) := by
+                      rw [hNpow]
+              _ = (K ^ 4 * L ^ 2 * (2 * Real.pi) ^ 12) *
+                  (r ^ 12 * ‖laplaceAt g.convolutionSquare (z - 1 / 2)‖) :=
+                    by ring
+    _ ≤ (K ^ 4 * L ^ 2 * (2 * Real.pi) ^ 12) * M ^ 2 :=
+      mul_le_mul_of_nonneg_left hrawSquare (by positivity)
+    _ = K ^ 4 * L ^ 2 * (2 * Real.pi) ^ 12 * M ^ 2 := by ring
+
 /-- The selected four-point span satisfies the existing fourth-order spectral
 tail interface whenever its explicit scalar budget is below `epsilon²`.
 The `lambda` budget is deliberately exposed: a gate-selected coefficient
@@ -409,6 +661,37 @@ theorem selectedOwner_fullOrbit_span_fourthOrderSpectralTail
   intro z hz hTz hone _hrhoHeight
   exact (selectedOwner_fullOrbit_span_doubleDistance_bound
     base correction rho lambda C4 C2 T n hC4 hC2 hbaseContract
+    hbaseQuartic hcorrectionQuadratic z hz hTz hone).trans_lt hsmall
+
+theorem selectedOwner_fullOrbit_span_fourthOrderSpectralTail_of_q
+    (base correction : CompactLogTest) (rho : Complex)
+    (lambda C4 C2 T q epsilon : Real) (n : Nat)
+    (hq : 0 ≤ q) (hC4 : 0 ≤ C4) (hC2 : 0 ≤ C2)
+    (hbaseContract : ∀ sigma ∈ Set.Icc (0 : Real) 1, ∀ t : Real,
+      T ≤ |t| →
+        ‖laplaceAt base ((sigma : Complex) + (t : Complex) * Complex.I)‖ ≤
+          q)
+    (hbaseQuartic : ∀ sigma ∈ Set.Icc (0 : Real) 1, ∀ t : Real,
+      ‖t / (2 * Real.pi)‖ ^ 4 *
+        ‖laplaceAt base ((sigma : Complex) + (t : Complex) * Complex.I)‖ ≤ C4)
+    (hcorrectionQuadratic : ∀ sigma ∈ Set.Icc (0 : Real) 1, ∀ t : Real,
+      ‖t / (2 * Real.pi)‖ ^ 2 *
+        ‖laplaceAt correction
+          ((sigma : Complex) + (t : Complex) * Complex.I)‖ ≤ C2)
+    (hsmall :
+      (3 + ‖rho‖) ^ 4 *
+          ((3 + ‖rho‖) ^ 4 + |lambda|) ^ 2 *
+          (2 * Real.pi) ^ 12 *
+          ((q ^ n * (C4 * C2)) ^ 2) < epsilon ^ 2) :
+    FourthOrderSpectralTail
+      (annihilatorDetectorSpanVector
+        (fullFunctionalEquationOrbitAnnihilator
+          (selectedOwner base correction n).sourceTest rho)
+        (selectedOwner base correction n).sourceTest lambda).convolutionSquare
+      rho T epsilon := by
+  intro z hz hTz hone _hrhoHeight
+  exact (selectedOwner_fullOrbit_span_doubleDistance_bound_of_q
+    base correction rho lambda C4 C2 T q n hq hC4 hC2 hbaseContract
     hbaseQuartic hcorrectionQuadratic z hz hTz hone).trans_lt hsmall
 
 /-- For fixed base and correction owners, choose the decay constants and the
