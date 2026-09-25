@@ -72,7 +72,10 @@ DIG = 30
 GAMMAS = [14.134725141734693790, 21.022039638771554993,
           25.010857580145688763, 27.670321930357040,
           30.424876125859513210, 32.935061587739189691]
-GAMMA1 = GAMMAS[0]
+GAMMA1 = mpf(GAMMAS[0])  # exact float64 -> mpf: the registered point stays
+# bit-identical to the record-1981/1983 float instruments, but every
+# downstream square/multiply now runs at dps=30 (P_quartic's GAMMA1**2 was
+# computed in float64 before, capping the P-identity pin at ~3e-12).
 DELTA_RHO = mpf("0.10")
 SCALE = mpf(1)
 KWIN = mpf(30)
@@ -159,12 +162,12 @@ def leggauss_mp(m):
         x = mp.cos(mp.pi * (i - mpf(1) / 4) / (m + mpf(1) / 2))
         for _ in range(100):
             p0, p1 = P(m, x)
-            dx = p0 / ((m * (x * p0 - p1)) / (x * x - 1))
+            dx = p1 / ((m * (x * p1 - p0)) / (x * x - 1))
             x -= dx
-            if abs(dx) < mpf(10) ** (-(DIG + 5)):
+            if abs(dx) < mpf(10) ** (-(DIG - 2)):
                 break
         p0, p1 = P(m, x)
-        dp = m * (x * p0 - p1) / (x * x - 1)
+        dp = m * (x * p1 - p0) / (x * x - 1)
         xs.append(x)
         ws.append(2 / ((1 - x * x) * dp * dp))
     return xs, ws
