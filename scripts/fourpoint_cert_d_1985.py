@@ -367,7 +367,7 @@ def main():
     for i in range(len(nodes)):
         for j in range(len(fam)):
             M[i, j] = Vnodes[i][j]
-    lu = mp.lu_solve(M, mp.eye(M.rows))
+    lu = mp.inverse(M)
     cond = mp.norm(M, 1) * mp.norm(lu, 1)
     A_base = mp.lu_solve(M, mp.matrix([1 + 0j] * len(nodes)))
     A_corr = mp.lu_solve(M, mp.matrix(values))
