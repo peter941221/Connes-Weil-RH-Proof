@@ -195,7 +195,7 @@ def window_ops(fam, k, XWl):
         for x, w in zip(X, W):
             ax = x / a
             if abs(ax) < 1:
-                G.append(w * mp.exp(-k / (1 - ax * ax) + base * x))
+                G.append((x, w * mp.exp(-k / (1 - ax * ax) + base * x)))
         ops.append((a, G))
     return ops
 
