@@ -209,7 +209,7 @@ def eval_windows(ops, xi0, h, npts):
     a X h}, then z <- z*r along the grid."""
     V = []
     for a, G in ops:
-        c = -2 * pi * a
+        c = -2 * pi * mpc(0, 1) * a
         L = [mpc(0) for _ in range(npts)]
         for X, g in G:
             z0 = mp.exp(c * X * xi0)
