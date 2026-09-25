@@ -577,3 +577,28 @@ factor sqrt(2) low). Remaining between here and RH: bricks 1-3 (priced,
 1982), pointwise D-certification (mechanical), and the UNIFORMITY layer —
 promoting measured face coverage to a theorem over the whole off-line plane
 — now open with a measured geometry to attack. No RH claim.
+
+Record [1984](../proofs/1984_uniformity_pricing.md) (pre-registered in
+`7521811c`, run after) executes the uniformity-layer pricing probe over the
+25-cell grid (delta in {0.05, 0.10, 0.15, 0.20, 0.30} x displaced ordinate in
+{gamma_1, gamma_2, gamma_3, gamma_4, gamma_5}) at M = 12, n = 0, with a
+gamma-scaling scan (families scaled by 1/sqrt(gamma)) and fine-resolution
+blocks near gamma_1. Mechanical verdict UNIFORMITY_WEAK with face counts
+WIRE1 15 / GAP 4 / WIRE2 6 — but both WEAK triggers are rule artifacts, and
+the record says so: the rescue-dominance clause is vacuously true (the
+eligible-rescue list is empty, and an empty conjunction passes), so WEAK
+fired solely on fine_blocks_with_sign_flip = 1, and that single flip is not
+an instrument failure but the TRUE D(delta) = 0 hypersurface crossing inside
+delta in (0.05, 0.06) — precisely the surface T2 (box certification) exists
+to route around, with bracket margin 7.38e4 (~70x the instrument floor).
+Supporting readings: the gamma-scaling scan stays WIRE1 at every ordinate
+(D = -3.617e13 .. -7.244e21 at scale 0.90) with strip contraction met at
+1.02-1.08 gamma for gamma <= 200 (loose end L1: gamma = 400 not met within
+T <= 600); the fine-gamma_1 block shows the GAP -> WIRE1 crossing; the
+dead-edge row is uniformly WIRE2 with positive D (+2.15e9..+7.97e8); large
+delta is WIRE1. Conditioning is uniform: cond <= 3.8e3 on all 25 cells (T1
+analyticity brick is one Forest-style estimate away). Price list handed to
+the deterministic path: T1 analyticity, T2 box certification avoiding the
+delta* hypersurface (primary works from gamma = 50 up; the sc = 0.90 band
+covers the rest), T3 re-scoped from full-plane to the bounded patch with
+{primary, sc = 0.90, WIRE2} carriers. No RH claim.
