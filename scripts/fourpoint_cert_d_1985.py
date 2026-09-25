@@ -311,9 +311,12 @@ def channel_B(pset, W, PW, P2W, xi0, h, npts):
             trap([sig[k] * PW[k] for k in range(npts)], h),
             trap([sig[k] * P2W[k] for k in range(npts)], h)]
     kern = [mpc(0), mpc(0), mpc(0)]
-    for _nn, lp in pset:
-        cl = cos_grid(2 * pi * lp, xi0, h, npts)
-        coef = 2 * lp * mp.exp(-lp / 2)
+    for nn, lp in pset:
+        # lp = Lambda(n) = log p; the cosine frequency is log n (the full
+        # log of the prime power) and the amplitude carries n^{-1/2} --
+        # both differ from log p / p^{-1/2} once k >= 2.
+        cl = cos_grid(2 * pi * mp.log(nn), xi0, h, npts)
+        coef = 2 * lp * mp.exp(-mp.log(nn) / 2)
         for arr, idx in ((W, 0), (PW, 1), (P2W, 2)):
             kern[idx] += coef * trap([cl[k] * arr[k] for k in range(npts)], h)
     return arch, kern
@@ -328,9 +331,9 @@ def channel_Ap(ops, A, pset, xi0, h, npts, reffac=8):
     W, PW, P2W = profiles(ops, A, xi0, hf, nref)
     arch = channel_B([], W, PW, P2W, xi0, hf, nref)[0]
     out = list(arch)
-    for _nn, lp in pset:
-        cl = cos_grid(2 * pi * lp, xi0, hf, nref)
-        coef = 2 * lp * mp.exp(-lp / 2)
+    for nn, lp in pset:
+        cl = cos_grid(2 * pi * mp.log(nn), xi0, hf, nref)
+        coef = 2 * lp * mp.exp(-mp.log(nn) / 2)
         for arr, idx in ((W, 0), (PW, 1), (P2W, 2)):
             out[idx] += coef * trap([cl[k] * arr[k] for k in range(nref)], hf)
     return out
