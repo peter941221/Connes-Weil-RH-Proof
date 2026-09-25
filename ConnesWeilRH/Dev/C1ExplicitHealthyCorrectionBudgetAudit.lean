@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1ExplicitHealthyCorrectionBudget
+
+namespace ConnesWeilRH.Source.C1ExplicitHealthyCorrectionBudget
+
+#print axioms explicitHealthyCorrection_targets
+#print axioms explicitHealthyCorrection_kills
+#print axioms explicitHealthyCorrection_support
+#print axioms l1Mass_explicitHealthyCorrection_le_budget
+
+end ConnesWeilRH.Source.C1ExplicitHealthyCorrectionBudget

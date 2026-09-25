@@ -860,3 +860,28 @@ and the required finite-order / separation / decay costs, followed by an
 actual-owner joint margin screen. The determinant and same-index tail are
 OPEN. No route ruling changes. Evidence and scope:
 [`1977`](../proofs/1977_cardinal_unweighted_seed_budget.md).
+
+## 27. The seed-ladder budget is on the complete healthy owner (1978)
+
+FORMAL: `C1ExplicitHealthyCorrectionBudget.lean` names the exact finite owner
+already consumed by `exists_smallSupport_healthyDetectorData_of_heightDecay`:
+
+```text
+killSet = sourceNontrivialZerosInClosedBallFinset rho
+    (2^(N+1) + 2 + dist 2 rho) union routeNodes
+nodes = killSet union healthyUnscaledTargetNodes rho.
+```
+
+On this same `nodes`, `explicitHealthyCorrection` uses `smoothSeed`, realizes
+every committed healthy target value, kills every non-target point of the full
+prefix owner, keeps support in `[-2,2]`, and satisfies the 1977 finite-order L1
+budget. Thus the arbitrary-node budget is now connected to the actual
+healthy-detector prefix owner; the full zero prefix and route nodes have not
+been replaced by a small model list. For `nodes.card = M`, only seed orders
+`4 <= j < M` remain as derivative inputs.
+
+The next quantitative obligation is to bound this exact owner's cardinality,
+node products, required higher orders, and quadratic decay constant, then run
+the determinant / same-index-tail screen without changing `N` or owner. The
+determinant and joint tail margin remain OPEN. No route ruling changes.
+Evidence and scope: [1978](../proofs/1978_explicit_healthy_correction_budget.md).
