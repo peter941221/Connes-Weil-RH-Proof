@@ -61,6 +61,9 @@ delta-floor scan
   scales       the same 21 values, swept and never sampled
   rows         6 x 8 x 21 = 1008, of which the delta = 0.10 slice is the
                width-law scan: 840 new rows
+  cost structure  see section 2a: the floor scan runs in two registered
+               stages so that no negative reading is ever taken from a
+               five-point sample
 
 gate settings  k = 30, n = 0, xi_max = 40, dxi = 0.004
 ```
@@ -68,6 +71,39 @@ gate settings  k = 30, n = 0, xi_max = 40, dxi = 0.004
 `dxi = 0.004` is the published resolution of the 1994/1996 cells used as
 anchors below; the resolution offset of a scan this size is a registered cost
 choice, not a physics claim.
+
+## 2a. Registered cost structure of the floor scan (amendment, pre-run)
+
+Record 1996's lane law is "sweep scale, never sample it", and it exists because
+a five-point sample missed the health window at gamma_7/gamma_8 entirely. The
+same trap applies to the floor scan, but with one asymmetry that can be used
+without weakening the rule:
+
+```text
+a POSITIVE reading (a certified host at some scale) is decisive - it cannot be
+a sampling artefact, because the host is certified wherever it was found;
+a NEGATIVE reading (no host at a delta) may only be taken from a full sweep.
+```
+
+So the floor scan is registered in two stages:
+
+```text
+stage A   6 deltas x 8 heights x the five-point grid {0.86, ..., 0.94}
+          = 240 cells.  Only its positives are read.
+          If every height has a host at delta = 0.02 in stage A, the verdict
+          is FLOOR_UNIFORM immediately and stage B is empty: the floor cannot
+          be below 0.02 and 0.02 <= 0.05 is the FLOOR_UNIFORM bar.
+stage B   for every height whose stage-A floor candidate is greater than 0.05,
+          sweep the FULL 21-point grid at delta = 0.02, at delta = 0.05, and
+          at that candidate delta, and read the floor from the sweep.
+          A height with no host anywhere in stage B keeps floor = "none" and
+          that is the reading.
+```
+
+The floor read for every height is therefore either a certified positive (stage
+A) or a swept reading (stage B); no floor value in this record is a
+five-point-sampling negative. The delta = 0.10 width-law row is measured on
+the full 21-point grid regardless (section 2).
 
 ## 3. Registered instrument checks
 

@@ -2,8 +2,9 @@
 """Record 2012: COVER health-window width law and delta-floor scans.
 
 Pre-registered in docs/proofs/2012_cover_window_floor_scans_preregistration.md
-(committed before this run).  Heights gamma_1..gamma_6 run through the
-committed convention (record-1983 layer) and gamma_7/gamma_8 through the
+(committed before this run; the two-stage floor cost structure of its section
+2a is pre-run as well).  Heights gamma_1..gamma_6 run through the committed
+convention (record-1983 layer) and gamma_7/gamma_8 through the
 height-extension layer (record-1994 EXT), with one gamma_5 EXT layer control.
 The row body mirrors `fourpoint_rh_reach_probe_1983.run_row` and
 `routea_opposite_gates_height_1994.run_row_ext` (same calls, same order); the
@@ -34,6 +35,7 @@ COMMITTED_HEIGHTS = list(r80.GAMMAS)          # gamma_1 .. gamma_6
 EXT_HEIGHTS = [r94.G7, r94.G8]                # gamma_7, gamma_8
 LAYER_CONTROL = r94.G5                        # gamma_5 through the EXT layer
 SCALES = [round(0.80 + 0.01 * i, 2) for i in range(21)]
+ANCHOR_SCALES = (0.86, 0.88, 0.90, 0.92, 0.94)
 WIDTH_DELTA = 0.10
 FLOOR_DELTAS = (0.02, 0.05, 0.10, 0.15, 0.20, 0.30)
 DXI = 0.004
@@ -45,7 +47,6 @@ WIDTH_STABLE_STEPS = 3
 WIDTH_PINCH_STEPS = 2
 WIDTH_ANCHOR_STEPS = 5
 FLOOR_UNIFORM_BAR = 0.05
-CHECKPOINT_EVERY = 25
 
 # K1 anchors, committed cells of records 1994/1996 (same layer, same dxi).
 ANCHORS = [
@@ -62,14 +63,13 @@ ANCHORS = [
 ]
 ANCHOR_BAR = 1.0e-6
 
+HEIGHTS = [("committed", g) for g in COMMITTED_HEIGHTS] + \
+    [("ext", g) for g in EXT_HEIGHTS]
+CONTROL = ("ext", LAYER_CONTROL)
+
 
 def log(message):
     print("[%7.1fs] %s" % (time.time() - T0, message), flush=True)
-
-
-def commit_bounds(rho, gk):
-    r = r80.ball_radius(rho, 0)
-    return abs((0.5 + 1j * gk) - rho), r
 
 
 def measure_row(delta, gk, scale, layer):
@@ -98,7 +98,7 @@ def measure_row(delta, gk, scale, layer):
         finite = bool(np.isfinite(W).all()) and bool(np.isfinite(Lb).all())
         if finite:
             P = np.real(r59.P_from_nodes(xi, r80.counterpart_nodes(rho)))
-            support_radius = max(a for a, _t in fam) * (N + 2)
+            support_radius = max(a for a, _ in fam) * (N + 2)
             ge = r59.gate_entries(xi, W, P, support_radius)
             spread = r59.route_spread(ge)
             D, C, B01 = ge["D"], ge["C"], ge["B01"]
@@ -116,7 +116,7 @@ def measure_row(delta, gk, scale, layer):
                              "var_plus": float(vp), "var_minus": float(vm),
                              "A": vcheck["A"], "f": vcheck["f"],
                              "sigma_p": vcheck["delta_mean"]}
-            except Exception as exc:      # pragma: no cover - reported, not used
+            except Exception as exc:      # pragma: no cover - reported only
                 stats = {"error": str(exc)}
             routes = sorted(ge["prime"].keys())
             n_primes = int(ge["n_primes"])
@@ -157,22 +157,41 @@ def measure_row(delta, gk, scale, layer):
     }
 
 
-def scan(layer, gk, deltas, scales):
-    """Run the registered grid, checkpointing as it goes."""
-    rows = []
-    for delta in deltas:
-        for scale in scales:
+class Cache(object):
+    """Row cache: the delta = 0.10 slice is shared by both scans."""
+
+    def __init__(self):
+        self.rows = {}
+
+    def get(self, layer, gk, delta, scale):
+        key = (layer, round(gk, 6), round(delta, 6), round(scale, 6))
+        if key not in self.rows:
             row = measure_row(delta, gk, scale, layer)
-            rows.append(row)
+            self.rows[key] = row
             log("  [%s g=%.4f d=%.2f sc=%.2f] np=%s C=%+.4e D=%+.4e det=%+.4e "
-                "sD=%.1e face=%s" % (layer, gk, delta, scale,
-                                     row["n_primes"], row["C"], row["D"],
-                                     row["det"], row["spread_D"], row["face"]))
-    return rows
+                "sD=%.1e face=%s" % (layer, gk, delta, scale, row["n_primes"],
+                                     row["C"], row["D"], row["det"],
+                                     row["spread_D"], row["face"]))
+        return self.rows[key]
+
+    def slice(self, layer, gk, delta):
+        out = [row for row in self.rows.values()
+               if row["layer"] == layer
+               and abs(row["gamma"] - gk) < 1e-9
+               and abs(row["delta"] - delta) < 1e-12]
+        out.sort(key=lambda row: row["scale"])
+        return out
+
+    def dump(self, path):
+        with open(path, "w", encoding="utf-8") as stream:
+            json.dump({"record": "2012", "status": "PARTIAL",
+                       "dxi": DXI, "rows": list(self.rows.values())},
+                      stream, indent=2)
+            stream.write("\n")
 
 
 def runs_over(cells, predicate):
-    """Maximal contiguous runs of a per-scale predicate over the 21 steps."""
+    """Maximal contiguous runs of a per-scale predicate, as scale lists."""
     out, cur = [], []
     for cell in cells:
         if predicate(cell):
@@ -185,46 +204,127 @@ def runs_over(cells, predicate):
     return out
 
 
+def width_reading(cache, layer, gk):
+    cells = cache.slice(layer, gk, WIDTH_DELTA)
+    bands = runs_over(cells, lambda row: row["c_positive"])
+    hosts = runs_over(cells, lambda row: row["host"])
+    return {
+        "layer": layer, "gamma": gk, "n_cells": len(cells),
+        "bands": bands, "n_bands": len(bands),
+        "width_steps": max((len(b) for b in bands), default=0),
+        "host_runs": hosts, "n_host_runs": len(hosts),
+        "c_signs": [[row["scale"], row["C"], row["certified"],
+                     row["face"]] for row in cells],
+        "f_values": [[row["scale"], (row["stats"] or {}).get("f")]
+                     for row in cells],
+    }
+
+
 def main():
     smoke = "--smoke" in sys.argv
-    tag = "smoke" if smoke else "full"
-    log("record 2012 - COVER width law and delta-floor scans (%s)" % tag)
+    phase = "all"
+    for arg in sys.argv[1:]:
+        if arg.startswith("--phase="):
+            phase = arg.split("=", 1)[1]
+    log("record 2012 - COVER width law and delta-floor scans (%s, phase=%s)"
+        % ("smoke" if smoke else "full", phase))
 
+    cache = Cache()
     if smoke:
-        height_specs = [("committed", r80.GAMMA1), ("ext", r94.G7)]
-        deltas = (0.10, 0.05)
-        scales = (0.88, 0.92, 0.96)
+        heights = [("committed", r80.GAMMA1), ("ext", r94.G7)]
+        control = None
+        width_scales = (0.88, 0.90, 0.92)
+        floor_scales = (0.90, 0.92)
+        floor_deltas = (0.02, 0.10)
     else:
-        height_specs = [("committed", g) for g in COMMITTED_HEIGHTS] + \
-            [("ext", g) for g in EXT_HEIGHTS] + [("ext", LAYER_CONTROL)]
-        deltas = FLOOR_DELTAS
-        scales = SCALES
+        heights = HEIGHTS
+        control = CONTROL
+        width_scales = SCALES
+        floor_scales = ANCHOR_SCALES
+        floor_deltas = FLOOR_DELTAS
 
-    all_rows = {}
-    for layer, gk in height_specs:
-        log("scan %s gamma=%.4f" % (layer, gk))
-        rows = scan(layer, gk, deltas, scales)
-        all_rows[(layer, round(gk, 6))] = rows
+    width_map, floor_map, anchors = {}, {}, []
+    layer_control = None
+
+    # ------------------------------------------------ stage 1: width law
+    if phase in ("all", "width"):
+        for layer, gk in (heights + ([control] if control else [])):
+            for scale in width_scales:
+                cache.get(layer, gk, WIDTH_DELTA, scale)
+        for layer, gk in heights:
+            width_map["%s:%.6f" % (layer, gk)] = width_reading(cache, layer, gk)
+        if control:
+            layer_control = {
+                "gamma": control[1],
+                "ext_bands": width_reading(cache, "ext", control[1])["bands"],
+                "committed_bands": width_reading(cache, "committed",
+                                                 control[1])["bands"],
+                "ext_C": [[row["scale"], row["C"]] for row in
+                          cache.slice("ext", control[1], WIDTH_DELTA)],
+                "committed_C": [[row["scale"], row["C"]] for row in
+                                cache.slice("committed", control[1],
+                                            WIDTH_DELTA)],
+            }
         if not smoke:
-            partial = os.path.join(REPO, "results",
-                                   "2012_cover_scans_partial.json")
-            with open(partial, "w", encoding="utf-8") as stream:
-                json.dump({"record": "2012", "status": "PARTIAL",
-                           "rows": [row for group in all_rows.values()
-                                    for row in group]}, stream, indent=2)
-                stream.write("\n")
+            cache.dump(os.path.join(REPO, "results",
+                                    "2012_cover_scans_partial.json"))
 
-    anchors = []
+    # --------------------------------------- stage 2a: floor, five-point grid
+    if phase in ("all", "floor"):
+        for layer, gk in heights:
+            for delta in floor_deltas:
+                for scale in floor_scales:
+                    cache.get(layer, gk, delta, scale)
+        if control:
+            for delta in floor_deltas:
+                for scale in floor_scales:
+                    cache.get(control[0], control[1], delta, scale)
+
+        # ----------------------------------- stage 2b: sweep the candidates
+        for layer, gk in heights:
+            hosts_per_delta = {}
+            for delta in floor_deltas:
+                cells = cache.slice(layer, gk, delta)
+                hosts_per_delta[delta] = sum(1 for row in cells if row["host"])
+            with_host = [d for d in floor_deltas if hosts_per_delta[d] > 0]
+            candidate = with_host[0] if with_host else None
+            if candidate is None or candidate > FLOOR_UNIFORM_BAR:
+                sweep = [d for d in (0.02, 0.05, candidate)
+                         if d is not None]
+                if candidate is None and not smoke:
+                    log("  %s g=%.4f: no stage-A host anywhere -> full sweep"
+                        % (layer, gk))
+                    sweep = list(floor_deltas)
+                for delta in sweep:
+                    for scale in (SCALES if not smoke else width_scales):
+                        cache.get(layer, gk, delta, scale)
+                hosts_per_delta = {}
+                for delta in floor_deltas:
+                    cells = cache.slice(layer, gk, delta)
+                    hosts_per_delta[delta] = sum(1 for row in cells
+                                                 if row["host"])
+                with_host = [d for d in floor_deltas if hosts_per_delta[d] > 0]
+            floor_map["%s:%.6f" % (layer, gk)] = {
+                "layer": layer, "gamma": gk,
+                "hosts_per_delta": hosts_per_delta,
+                "deltas_with_host": with_host,
+                "floor": (with_host[0] if with_host else None),
+            }
+            log("  floor %s g=%.4f -> %s (hosts %s)"
+                % (layer, gk, floor_map["%s:%.6f" % (layer, gk)]["floor"],
+                   {round(k, 2): v for k, v in hosts_per_delta.items()}))
+        if not smoke:
+            cache.dump(os.path.join(REPO, "results",
+                                    "2012_cover_scans_partial.json"))
+
+    # --------------------------------------------------------- anchors (K1)
     for spec in ANCHORS:
         key = (spec["layer"], round(spec["gamma"], 6))
-        if key not in all_rows:
+        if not any(k[0] == key[0] and abs(k[1] - key[1]) < 1e-9
+                   for k in cache.rows):
             continue
-        hit = [row for row in all_rows[key]
-               if abs(row["delta"] - spec["delta"]) < 1e-12
-               and abs(row["scale"] - spec["scale"]) < 1e-12]
-        if not hit:
-            continue
-        row = hit[0]
+        row = cache.get(spec["layer"], spec["gamma"], spec["delta"],
+                        spec["scale"])
         dev_c = abs(row["C"] - spec["C"]) / abs(spec["C"])
         dev_d = abs(row["D"] - spec["D"]) / abs(spec["D"])
         anchors.append({"layer": spec["layer"], "gamma": spec["gamma"],
@@ -238,132 +338,84 @@ def main():
             % (spec["source"], spec["gamma"], spec["scale"], dev_c, dev_d,
                anchors[-1]["pass"]))
 
-    width_map = {}
-    for layer, gk in [("committed", g) for g in COMMITTED_HEIGHTS] + \
-            [("ext", g) for g in EXT_HEIGHTS]:
-        key = (layer, round(gk, 6))
-        cells = [row for row in all_rows.get(key, [])
-                 if abs(row["delta"] - WIDTH_DELTA) < 1e-12]
-        cells.sort(key=lambda row: row["scale"])
-        bands = runs_over(cells, lambda row: row["c_positive"])
-        hosts = runs_over(cells, lambda row: row["host"])
-        width_map["%s:%s" % (layer, ("%.6f" % gk))] = {
-            "layer": layer, "gamma": gk, "n_cells": len(cells),
-            "bands": bands, "n_bands": len(bands),
-            "width_steps": max((len(b) for b in bands), default=0),
-            "host_runs": hosts, "n_host_runs": len(hosts),
-            "c_signs": [[row["scale"], round(row["C"], 10), row["certified"]]
-                        for row in cells],
-            "f_values": [[row["scale"],
-                          (row["stats"] or {}).get("f")] for row in cells],
-        }
-
+    # ----------------------------------------------------------- verdicts
     w7 = width_map.get("ext:%.6f" % r94.G7, {}).get("width_steps")
     w8 = width_map.get("ext:%.6f" % r94.G8, {}).get("width_steps")
     w1 = width_map.get("committed:%.6f" % r80.GAMMA1, {}).get("width_steps")
-    if all(entry["width_steps"] >= WIDTH_STABLE_STEPS
-           and entry["n_bands"] <= 1 for entry in width_map.values()):
-        window_verdict = "WINDOW_STABLE"
-    elif (w7 is not None and w8 is not None and w1 is not None
-          and w7 <= WIDTH_PINCH_STEPS and w8 <= WIDTH_PINCH_STEPS
-          and w1 >= WIDTH_ANCHOR_STEPS):
-        window_verdict = "WINDOW_PINCHING"
+    if width_map:
+        if all(entry["width_steps"] >= WIDTH_STABLE_STEPS
+               and entry["n_bands"] <= 1 for entry in width_map.values()):
+            window_verdict = "WINDOW_STABLE"
+        elif (w7 is not None and w8 is not None and w1 is not None
+              and w7 <= WIDTH_PINCH_STEPS and w8 <= WIDTH_PINCH_STEPS
+              and w1 >= WIDTH_ANCHOR_STEPS):
+            window_verdict = "WINDOW_PINCHING"
+        else:
+            window_verdict = "KNOT_COMPLEX"
     else:
-        window_verdict = "KNOT_COMPLEX"
+        window_verdict = None
 
-    floor_map = {}
-    for layer, gk in [("committed", g) for g in COMMITTED_HEIGHTS] + \
-            [("ext", g) for g in EXT_HEIGHTS]:
-        key = (layer, round(gk, 6))
-        rows = all_rows.get(key, [])
-        by_delta = {}
-        for delta in FLOOR_DELTAS:
-            hit = [row for row in rows
-                   if abs(row["delta"] - delta) < 1e-12 and row["host"]]
-            by_delta[delta] = len(hit)
-        with_host = sorted(d for d, count in by_delta.items() if count > 0)
-        floor_map["%s:%s" % (layer, ("%.6f" % gk))] = {
-            "layer": layer, "gamma": gk, "hosts_per_delta": by_delta,
-            "deltas_with_host": with_host,
-            "floor": (with_host[0] if with_host else None),
-        }
-
-    floors = {key: entry["floor"] for key, entry in floor_map.items()}
     f1 = floor_map.get("committed:%.6f" % r80.GAMMA1, {}).get("floor")
     f7 = floor_map.get("ext:%.6f" % r94.G7, {}).get("floor")
     f8 = floor_map.get("ext:%.6f" % r94.G8, {}).get("floor")
-    known = [v for v in floors.values() if v is not None]
-    if len(known) == len(floors) and all(v <= FLOOR_UNIFORM_BAR
-                                         for v in known):
-        floor_verdict = "FLOOR_UNIFORM"
-    elif f1 is not None and ((f7 is not None and f7 > f1)
-                             or (f8 is not None and f8 > f1)):
-        floor_verdict = "FLOOR_RISING"
+    if floor_map:
+        known = [entry["floor"] for entry in floor_map.values()]
+        if all(v is not None and v <= FLOOR_UNIFORM_BAR for v in known):
+            floor_verdict = "FLOOR_UNIFORM"
+        elif f1 is not None and ((f7 is not None and f7 > f1)
+                                 or (f8 is not None and f8 > f1)):
+            floor_verdict = "FLOOR_RISING"
+        else:
+            floor_verdict = "FLOOR-MIXED"
     else:
-        floor_verdict = "FLOOR-MIXED"
+        floor_verdict = None
 
-    layer_control = None
-    ctrl_key = ("ext", round(LAYER_CONTROL, 6))
-    if ctrl_key in all_rows:
-        c_ext = [row for row in all_rows[ctrl_key]
-                 if abs(row["delta"] - WIDTH_DELTA) < 1e-12]
-        c_ext.sort(key=lambda row: row["scale"])
-        c_int = [row for row in all_rows.get(("committed",
-                                              round(LAYER_CONTROL, 6)), [])
-                 if abs(row["delta"] - WIDTH_DELTA) < 1e-12]
-        c_int.sort(key=lambda row: row["scale"])
-        layer_control = {
-            "gamma": LAYER_CONTROL,
-            "ext_bands": runs_over(c_ext, lambda row: row["c_positive"]),
-            "committed_bands": runs_over(c_int, lambda row: row["c_positive"]),
-            "ext_C": [[row["scale"], round(row["C"], 10)] for row in c_ext],
-            "committed_C": [[row["scale"], round(row["C"], 10)]
-                            for row in c_int],
-        }
-
-    verdict = "SMOKE" if smoke else "%s/%s" % (window_verdict, floor_verdict)
+    verdict = "SMOKE" if smoke else "/".join(
+        part for part in (window_verdict, floor_verdict) if part)
     log("=" * 96)
-    for key, entry in width_map.items():
+    for key, entry in sorted(width_map.items()):
         log("  width %-28s bands=%d width=%d host_runs=%d"
             % (key, entry["n_bands"], entry["width_steps"],
                entry["n_host_runs"]))
-    for key, entry in floor_map.items():
-        log("  floor %-28s floor=%s hosts=%s"
-            % (key, entry["floor"],
-               {k: v for k, v in entry["hosts_per_delta"].items()}))
-    log("layer control at gamma_5: %s" % json.dumps(layer_control))
+    for key, entry in sorted(floor_map.items()):
+        log("  floor %-28s floor=%s" % (key, entry["floor"]))
+    log("layer control: %s" % json.dumps(layer_control))
     log("VERDICT: %s" % verdict)
 
-    campaigns = {"committed": [g for g in COMMITTED_HEIGHTS],
+    campaigns = {"committed": list(COMMITTED_HEIGHTS),
                  "ext": list(EXT_HEIGHTS) + [LAYER_CONTROL]}
-    rows = [row for group in all_rows.values() for row in group]
     suffix = "_smoke" if smoke else ""
-    window_out = os.path.join(REPO, "results",
-                              "2012_cover_window_law%s.json" % suffix)
-    with open(window_out, "w", encoding="utf-8") as stream:
-        json.dump({"record": "2012", "scan": "width-law",
-                   "width_delta": WIDTH_DELTA, "scales": list(scales),
-                   "verdict": window_verdict,
-                   "windows": width_map, "anchors": anchors,
-                   "layer_control": layer_control,
-                   "layer_campaigns": campaigns}, stream, indent=2)
-        stream.write("\n")
-    floor_out = os.path.join(REPO, "results",
-                             "2012_cover_delta_floor%s.json" % suffix)
-    with open(floor_out, "w", encoding="utf-8") as stream:
-        json.dump({"record": "2012", "scan": "delta-floor",
-                   "deltas": list(FLOOR_DELTAS), "scales": list(scales),
-                   "verdict": floor_verdict, "floors": floor_map,
-                   "anchors": anchors, "layer_campaigns": campaigns},
-                  stream, indent=2)
-        stream.write("\n")
-    rows_out = os.path.join(REPO, "results",
-                            "2012_cover_scan_rows%s.json" % suffix)
-    with open(rows_out, "w", encoding="utf-8") as stream:
-        json.dump({"record": "2012", "status": "FULL" if not smoke else "SMOKE",
+    rows = list(cache.rows.values())
+    if width_map:
+        out = os.path.join(REPO, "results",
+                           "2012_cover_window_law%s.json" % suffix)
+        with open(out, "w", encoding="utf-8") as stream:
+            json.dump({"record": "2012", "scan": "width-law",
+                       "width_delta": WIDTH_DELTA,
+                       "scales": list(width_scales),
+                       "verdict": window_verdict, "windows": width_map,
+                       "anchors": anchors, "layer_control": layer_control,
+                       "layer_campaigns": campaigns}, stream, indent=2)
+            stream.write("\n")
+        log("results -> %s" % out)
+    if floor_map:
+        out = os.path.join(REPO, "results",
+                           "2012_cover_delta_floor%s.json" % suffix)
+        with open(out, "w", encoding="utf-8") as stream:
+            json.dump({"record": "2012", "scan": "delta-floor",
+                       "deltas": list(floor_deltas), "floors": floor_map,
+                       "verdict": floor_verdict, "anchors": anchors,
+                       "layer_campaigns": campaigns}, stream, indent=2)
+            stream.write("\n")
+        log("results -> %s" % out)
+    out = os.path.join(REPO, "results",
+                       "2012_cover_scan_rows%s.json" % suffix)
+    with open(out, "w", encoding="utf-8") as stream:
+        json.dump({"record": "2012",
+                   "status": "SMOKE" if smoke else "FULL",
                    "dxi": DXI, "rows": rows}, stream, indent=2)
         stream.write("\n")
-    log("results -> %s | %s | %s" % (window_out, floor_out, rows_out))
+    log("results -> %s" % out)
 
 
 if __name__ == "__main__":
