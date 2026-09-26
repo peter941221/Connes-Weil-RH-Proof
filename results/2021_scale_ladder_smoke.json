@@ -1,0 +1,288 @@
+{
+  "record": "2021",
+  "scan": "scale-ladder",
+  "dxi": 0.004,
+  "delta": 0.1,
+  "range": [
+    0.86,
+    0.96
+  ],
+  "steps": [
+    0.005,
+    0.002
+  ],
+  "verdict": "SAMPLER-ALL-RESOLUTIONS",
+  "instrument_fail": false,
+  "mu_pooled": 0.0,
+  "mu_pooled_c_pos": 0.0,
+  "mu_resolution_clause": {
+    "mu_002": 0.0,
+    "mu_01": 0.0,
+    "n_01": 1,
+    "sigma": 0.0,
+    "dev_sigma": null
+  },
+  "pooled": {
+    "h=0.002 (step 0.002 stride 1)": {
+      "n_pairs": 2,
+      "n_end": 4,
+      "c_end": 0,
+      "h_end": 0,
+      "c_rate": 0.0,
+      "h_rate": 0.0
+    },
+    "h=0.005 (step 0.005 stride 1)": {
+      "n_pairs": 2,
+      "n_end": 4,
+      "c_end": 0,
+      "h_end": 0,
+      "c_rate": 0.0,
+      "h_rate": 0.0
+    },
+    "h=0.01 (step 0.005 stride 2)": {
+      "n_pairs": 1,
+      "n_end": 2,
+      "c_end": 0,
+      "h_end": 0,
+      "c_rate": 0.0,
+      "h_rate": 0.0
+    },
+    "h=0.01 (step 0.002 stride 5)": {
+      "n_pairs": 0,
+      "n_end": 0,
+      "c_end": 0,
+      "h_end": 0,
+      "c_rate": null,
+      "h_rate": null
+    }
+  },
+  "refs": {
+    "h=0.002 (step 0.002 stride 1)": {
+      "mu_endpoints": 0.0,
+      "mu_endpoints_c": 0.0,
+      "ref_h": 0.0,
+      "sigma_h": 0.0,
+      "ref_c": 0.0,
+      "sigma_c": 0.0,
+      "dev_h": null,
+      "dev_c": null
+    },
+    "h=0.005 (step 0.005 stride 1)": {
+      "mu_endpoints": 0.0,
+      "mu_endpoints_c": 0.0,
+      "ref_h": 0.0,
+      "sigma_h": 0.0,
+      "ref_c": 0.0,
+      "sigma_c": 0.0,
+      "dev_h": null,
+      "dev_c": null
+    },
+    "h=0.01 (step 0.005 stride 2)": {
+      "mu_endpoints": 0.0,
+      "mu_endpoints_c": 0.0,
+      "ref_h": 0.0,
+      "sigma_h": 0.0,
+      "ref_c": 0.0,
+      "sigma_c": 0.0,
+      "dev_h": null,
+      "dev_c": null
+    }
+  },
+  "slots": {
+    "committed:14.134725": {
+      "layer": "committed",
+      "gamma": 14.134725141734695,
+      "m_pool": 3.4,
+      "grids": {
+        "step_0.005": {
+          "n_certified": 3,
+          "mu_healthy": 0.0,
+          "mu_c_pos": 0.0,
+          "h_scales": [],
+          "certified_rows": [
+            {
+              "scale": 0.86,
+              "face": "NO_HOST"
+            },
+            {
+              "scale": 0.865,
+              "face": "NO_HOST"
+            },
+            {
+              "scale": 0.87,
+              "face": "NO_HOST"
+            }
+          ],
+          "by_stride": {
+            "stride_1": {
+              "h": 0.005,
+              "n_pairs": 2,
+              "c_flip": 0,
+              "h_flip": 0,
+              "n_end": 4,
+              "c_end": 0,
+              "h_end": 0,
+              "c_rate": 0.0,
+              "h_rate": 0.0
+            },
+            "stride_2": {
+              "h": 0.01,
+              "n_pairs": 1,
+              "c_flip": 0,
+              "h_flip": 0,
+              "n_end": 2,
+              "c_end": 0,
+              "h_end": 0,
+              "c_rate": 0.0,
+              "h_rate": 0.0
+            }
+          }
+        },
+        "step_0.002": {
+          "n_certified": 3,
+          "mu_healthy": 0.0,
+          "mu_c_pos": 0.0,
+          "h_scales": [],
+          "certified_rows": [
+            {
+              "scale": 0.86,
+              "face": "NO_HOST"
+            },
+            {
+              "scale": 0.862,
+              "face": "NO_HOST"
+            },
+            {
+              "scale": 0.864,
+              "face": "NO_HOST"
+            }
+          ],
+          "by_stride": {
+            "stride_1": {
+              "h": 0.002,
+              "n_pairs": 2,
+              "c_flip": 0,
+              "h_flip": 0,
+              "n_end": 4,
+              "c_end": 0,
+              "h_end": 0,
+              "c_rate": 0.0,
+              "h_rate": 0.0
+            },
+            "stride_2": {
+              "h": 0.004,
+              "n_pairs": 1,
+              "c_flip": 0,
+              "h_flip": 0,
+              "n_end": 2,
+              "c_end": 0,
+              "h_end": 0,
+              "c_rate": 0.0,
+              "h_rate": 0.0
+            }
+          }
+        }
+      }
+    }
+  },
+  "missing": [],
+  "np_check": {
+    "cells": 6,
+    "mismatches": 0
+  },
+  "determinism": [
+    {
+      "layer": "committed",
+      "gamma": 14.134725141734695,
+      "scale": 0.88,
+      "dev_C": 0.0,
+      "dev_D": 0.0
+    },
+    {
+      "layer": "committed",
+      "gamma": 14.134725141734695,
+      "scale": 0.9,
+      "dev_C": 0.0,
+      "dev_D": 0.0
+    },
+    {
+      "layer": "committed",
+      "gamma": 14.134725141734695,
+      "scale": 0.92,
+      "dev_C": 0.0,
+      "dev_D": 0.0
+    }
+  ],
+  "anchors": [
+    {
+      "layer": "ext",
+      "gamma": 37.58617815882567,
+      "delta": 0.1,
+      "scale": 0.92,
+      "source": "1996",
+      "C": 173.2980278055402,
+      "D": -2.0359193769218664e+20,
+      "ref_C": 173.2980278055402,
+      "ref_D": -2.0359193769218664e+20,
+      "dev_C": 0.0,
+      "dev_D": 0.0,
+      "pass": true
+    },
+    {
+      "layer": "ext",
+      "gamma": 40.9187190121475,
+      "delta": 0.1,
+      "scale": 0.88,
+      "source": "1996",
+      "C": 664.3518622617412,
+      "D": -1.111261609813454e+20,
+      "ref_C": 664.3518622617412,
+      "ref_D": -1.111261609813454e+20,
+      "dev_C": 0.0,
+      "dev_D": 0.0,
+      "pass": true
+    },
+    {
+      "layer": "committed",
+      "gamma": 30.424876125859512,
+      "delta": 0.1,
+      "scale": 0.92,
+      "source": "1994",
+      "C": 57.88031125492216,
+      "D": -7618836674.375,
+      "ref_C": 57.88031125492216,
+      "ref_D": -7618836674.375,
+      "dev_C": 0.0,
+      "dev_D": 0.0,
+      "pass": true
+    },
+    {
+      "layer": "committed",
+      "gamma": 30.424876125859512,
+      "delta": 0.2,
+      "scale": 0.86,
+      "source": "1994",
+      "C": 80.09172416637011,
+      "D": -242154963980.20312,
+      "ref_C": 80.09172416637011,
+      "ref_D": -242154963980.20312,
+      "dev_C": 0.0,
+      "dev_D": 0.0,
+      "pass": true
+    },
+    {
+      "layer": "ext",
+      "gamma": 30.424876125859512,
+      "delta": 0.1,
+      "scale": 0.92,
+      "source": "1994b",
+      "C": 1.494812433412335,
+      "D": -6307380989581.586,
+      "ref_C": 1.494812433412335,
+      "ref_D": -6307380989581.586,
+      "dev_C": 0.0,
+      "dev_D": 0.0,
+      "pass": true
+    }
+  ]
+}

@@ -27,6 +27,14 @@ registered COVER follow-ups of records 2016/2017/2018:
                    stage A five-point positives only, with the registered
                    conditional stage-B sweep at 0.005 for every slot with no
                    stage-A host at either new delta.
+  --phase=ladder   record-2021 C1 (registered in record 2020 section 8): the
+                   scale ladder - committed gamma_1, committed gamma_4, ext
+                   gamma_5 over scale in [0.86, 0.96] at delta = 0.10 on the
+                   grids 0.005 (21 points) and 0.002 (51 points); the shared
+                   0.01 sublattice is preloaded from the committed width rows
+                   and a registered subset is re-measured as the cross-run
+                   determinism check; np is checked cell-by-cell against the
+                   record-2020 book identification.
 
 From this extension the row carries its own `dxi` and the cache is keyed by
 it, so one process holds the committed 0.004 rows and the fresh 0.002 rows of
@@ -34,6 +42,7 @@ the same cell without either shadowing the other.
 """
 
 import json
+import math
 import os
 import sys
 import time
@@ -59,6 +68,20 @@ FLOOR_DELTAS = (0.02, 0.05, 0.10, 0.15, 0.20, 0.30)
 DXI = 0.004
 EDGE_DXI = 0.002               # record 2019 M1: the refinement target
 REFINED_DELTAS = (0.005, 0.01)  # record 2019 M2: the finer delta grid
+# record-2021 C1 (registered in record 2020 section 8): the scale ladder on
+# three slots over scale in [0.86, 0.96] at delta = 0.10, dxi = 0.004.  The
+# 0.005 grid (21 points) and the 0.002 grid (51 points) share a 0.01-spaced
+# sublattice (11 points), all of which exist in the committed width rows at
+# this delta and are preloaded through --resume-from, never re-measured; a
+# registered subset of the coincident cells is then re-measured once as the
+# cross-run determinism check (record-2017 45-cell pattern).
+LADDER_SLOTS = [("committed", COMMITTED_HEIGHTS[0]),
+                ("committed", COMMITTED_HEIGHTS[3]),
+                ("ext", LAYER_CONTROL)]
+LADDER_DELTA = 0.10
+LADDER_RANGE = (0.86, 0.96)
+LADDER_STEPS = (0.005, 0.002)
+LADDER_DETERMINISM_SCALES = (0.88, 0.90, 0.92)
 CELLS_ARTIFACT = "results/2019_registered_cells.json"
 CHECKPOINT_EVERY = 25
 SMOKE_SUFFIX = ""              # set to "_smoke" by a --smoke run
@@ -215,7 +238,7 @@ class Cache(object):
         if force or key not in self.rows:
             row = measure_row(delta, gk, scale, layer, dxi)
             self.rows[key] = row
-            log("  [%s g=%.4f d=%.3f sc=%.2f dxi=%.4f] np=%s C=%+.4e "
+            log("  [%s g=%.4f d=%.3f sc=%.3f dxi=%.4f] np=%s C=%+.4e "
                 "D=%+.4e det=%+.4e sD=%.1e face=%s"
                 % (layer, gk, delta, scale, dxi, row["n_primes"], row["C"],
                    row["D"], row["det"], row["spread_D"], row["face"]))
@@ -540,6 +563,250 @@ def floor2_reading(cache, cells_path, anchors):
     log("results -> %s" % out)
 
 
+def ladder_grid(step):
+    lo, hi = LADDER_RANGE
+    count = int(round((hi - lo) / step)) + 1
+    return [round(lo + step * i, 6) for i in range(count)]
+
+
+def slot_book_width(layer, gk):
+    """m_pool = max family width at s = 1 (record 2020 section 3), used for
+    the per-cell np check n_primes(s) = #{n prime power <= exp(2 s m_pool)}."""
+    rho = (0.5 + LADDER_DELTA) + 1j * gk
+    if layer == "committed":
+        nodes, _ = r83.owner_nodes_g(rho, gk)
+        fam = r83.family_for_g(nodes, 1.0, gk)
+    else:
+        nodes, _ = r94.owner_nodes_ext(rho, gk)
+        fam = r94.family_for_ext(nodes, 1.0, gk)
+    return max(a for a, _ in fam)
+
+
+def flip_rate(rows, stride, step):
+    """Certified pairs at scale distance stride * step: flip counts for the
+    C-sign and the healthy (WIRE1) indicators, plus the endpoint totals for
+    the estimator's own independence reference."""
+    n = c_flip = h_flip = 0
+    n_end = c_end = h_end = 0
+    for i in range(len(rows) - stride):
+        a, b = rows[i], rows[i + stride]
+        if abs((b["scale"] - a["scale"]) - stride * step) > 1e-6:
+            continue
+        n += 1
+        if (a["C"] > 0) != (b["C"] > 0):
+            c_flip += 1
+        if (a.get("face") == "WIRE1") != (b.get("face") == "WIRE1"):
+            h_flip += 1
+        for r in (a, b):
+            n_end += 1
+            c_end += 1 if r["C"] > 0 else 0
+            h_end += 1 if r.get("face") == "WIRE1" else 0
+    return n, c_flip, h_flip, n_end, c_end, h_end
+
+
+def rate_sigma(p, n):
+    return math.sqrt(p * (1.0 - p) / n) if n else 0.0
+
+
+def ladder_reading(cache, anchors, det_cells):
+    """record-2021 C1: the scale ladder reading (verdicts fixed in record 2020
+    section 8).  Instrument checks first: anchors, np against the record-2020
+    book identification, the cross-run determinism re-reads, missing cells."""
+    grids = {step: ladder_grid(step) for step in LADDER_STEPS}
+    slots = LADDER_SLOTS[:1] if SMOKE_SUFFIX else LADDER_SLOTS
+    if SMOKE_SUFFIX:
+        grids = {step: scales[:3] for step, scales in grids.items()}
+    np_cells = np_bad = 0
+    missing = []
+    slot_rows = {}
+    for layer, gk in slots:
+        m_pool = slot_book_width(layer, gk)
+        entry = {"layer": layer, "gamma": gk, "m_pool": m_pool, "grids": {}}
+        for step, scales in grids.items():
+            rows = []
+            for sc in scales:
+                row = cache.peek(layer, gk, LADDER_DELTA, sc)
+                if row is None:
+                    missing.append([layer, gk, step, sc])
+                    continue
+                np_cells += 1
+                np_pred = len(r59.rig.prime_powers_up_to(
+                    math.exp(2.0 * sc * m_pool)))
+                if row["n_primes"] != np_pred:
+                    np_bad += 1
+                    log("  ladder np MISMATCH %s:%.6f sc=%.4f meas=%d pred=%d"
+                        % (layer, gk, sc, row["n_primes"], np_pred))
+                if row.get("face") != "INSTRUMENT":
+                    rows.append(row)
+            n_cert = len(rows)
+            mu_h = (sum(1 for r in rows if r.get("face") == "WIRE1") / n_cert
+                    if n_cert else None)
+            mu_c = (sum(1 for r in rows if r["C"] > 0) / n_cert
+                    if n_cert else None)
+            by_stride = {}
+            for stride in range(1, len(rows)):
+                if stride * step > 0.011:
+                    break
+                n, c_flip, h_flip, n_end, c_end, h_end = flip_rate(rows, stride, step)
+                by_stride["stride_%d" % stride] = {
+                    "h": stride * step, "n_pairs": n,
+                    "c_flip": c_flip, "h_flip": h_flip,
+                    "n_end": n_end, "c_end": c_end, "h_end": h_end,
+                    "c_rate": (c_flip / n) if n else None,
+                    "h_rate": (h_flip / n) if n else None}
+            entry["grids"]["step_%g" % step] = {
+                "n_certified": n_cert, "mu_healthy": mu_h, "mu_c_pos": mu_c,
+                "h_scales": [r["scale"] for r in rows
+                             if r.get("face") == "WIRE1"],
+                "certified_rows": [{"scale": r["scale"], "face": r.get("face")}
+                                   for r in rows],
+                "by_stride": by_stride}
+        slot_rows["%s:%.6f" % (layer, gk)] = entry
+
+    # pooled flip rates at h = 0.002 / 0.005 / 0.01 (healthy + C indicators)
+    estimators = [("h=0.002 (step 0.002 stride 1)", 0.002, 1),
+                  ("h=0.005 (step 0.005 stride 1)", 0.005, 1),
+                  ("h=0.01 (step 0.005 stride 2)", 0.005, 2),
+                  ("h=0.01 (step 0.002 stride 5)", 0.002, 5)]
+    pooled = {}
+    for name, step, stride in estimators:
+        n = c_flip = h_flip = n_end = c_end = h_end = 0
+        for entry in slot_rows.values():
+            blob = entry["grids"]["step_%g" % step]["by_stride"]
+            key = "stride_%d" % stride
+            if key in blob:
+                n += blob[key]["n_pairs"]
+                c_flip += blob[key]["c_flip"]
+                h_flip += blob[key]["h_flip"]
+                n_end += blob[key]["n_end"]
+                c_end += blob[key]["c_end"]
+                h_end += blob[key]["h_end"]
+        pooled[name] = {
+            "n_pairs": n, "n_end": n_end, "c_end": c_end, "h_end": h_end,
+            "c_rate": (c_flip / n) if n else None,
+            "h_rate": (h_flip / n) if n else None}
+    # independence references from the pooled healthy fraction of the finest
+    # grid (the endpoints of every estimator lie in the 0.002 grid)
+    mu_pool = None
+    ns = [e["grids"]["step_0.002"]["n_certified"] for e in slot_rows.values()]
+    hosts = [len(e["grids"]["step_0.002"]["h_scales"])
+             for e in slot_rows.values()]
+    if sum(ns):
+        mu_pool = sum(hosts) / sum(ns)
+    mu_pool_c = None
+    if sum(ns):
+        mu_pool_c = sum((e["grids"]["step_0.002"]["mu_c_pos"] or 0.0) * n
+                        for e, n in zip(slot_rows.values(), ns)) / sum(ns)
+    refs = {}
+    for name, _step, _stride in estimators:
+        blob = pooled[name]
+        if blob["n_end"]:
+            # the independence reference from THIS estimator's own endpoints
+            mu_e = blob["h_end"] / blob["n_end"]
+            mu_e_c = blob["c_end"] / blob["n_end"]
+            ref = 2.0 * mu_e * (1.0 - mu_e)
+            ref_c = 2.0 * mu_e_c * (1.0 - mu_e_c)
+            sig = rate_sigma(blob["h_rate"] or 0.0, blob["n_pairs"])
+            sig_c = rate_sigma(blob["c_rate"] or 0.0, blob["n_pairs"])
+            refs[name] = {"mu_endpoints": mu_e, "mu_endpoints_c": mu_e_c,
+                          "ref_h": ref, "sigma_h": sig,
+                          "ref_c": ref_c, "sigma_c": sig_c,
+                          "dev_h": ((blob["h_rate"] - ref) / sig
+                                    if sig else None),
+                          "dev_c": ((blob["c_rate"] - ref_c) / sig_c
+                                    if sig_c else None)}
+    anchors_ok = all(a.get("pass") for a in anchors)
+    # mu resolution clause: healthy fraction on the 0.002 grid vs on the
+    # 0.01-spaced sublattice (preloaded committed cells, same dxi)
+    mu01 = None
+    n01 = 0
+    hosts01 = 0
+    for entry in slot_rows.values():  # 0.01 sublattice (registered window)
+        rows01 = [(r, r.get("face") == "WIRE1")
+                  for r in entry["grids"]["step_0.002"]["certified_rows"]
+                  if abs(round(r["scale"] * 100.0) - r["scale"] * 100.0)
+                  < 1e-6]
+        n01 += len(rows01)
+        hosts01 += sum(1 for _r, is_h in rows01 if is_h)
+    if n01:
+        mu01 = hosts01 / n01
+    mu_clause = None
+    if mu_pool is not None and mu01 is not None and n01:
+        n2 = sum(ns)
+        se = math.sqrt(mu_pool * (1.0 - mu_pool) / n2
+                       + mu01 * (1.0 - mu01) / n01)
+        mu_clause = {"mu_002": mu_pool, "mu_01": mu01, "n_01": n01,
+                     "sigma": se,
+                     "dev_sigma": (abs(mu_pool - mu01) / se) if se else None}
+    det_ok = all(d["dev_C"] == 0.0 and d["dev_D"] == 0.0
+                 for d in det_cells) if det_cells else False
+    # a degenerate (sigma = 0) clause passes only if the two mu agree exactly
+    mu_ok = True
+    if mu_clause is not None:
+        dev = mu_clause["dev_sigma"]
+        mu_ok = (dev <= 3.0 if dev is not None
+                 else mu_clause["mu_002"] == mu_clause["mu_01"])
+    instrument_fail = bool(missing) or np_bad > 0 or not anchors_ok \
+        or not det_ok
+    verdict = None
+    if not instrument_fail:
+        key2 = "h=0.002 (step 0.002 stride 1)"
+        key5 = "h=0.005 (step 0.005 stride 1)"
+        r2 = pooled[key2]["h_rate"]
+        r5 = pooled[key5]["h_rate"]
+        f2 = refs[key2]
+        f5 = refs[key5]
+        if r2 is None or r5 is None:
+            verdict = "LADDER-INSTRUMENT-FAIL"
+            instrument_fail = True
+        elif (abs(r2 - f2["ref_h"]) <= 3 * f2["sigma_h"]
+              and abs(r5 - f5["ref_h"]) <= 3 * f5["sigma_h"]
+              and mu_ok):
+            verdict = "SAMPLER-ALL-RESOLUTIONS"
+        elif r2 <= f2["ref_h"] - 3 * f2["sigma_h"]:
+            verdict = "WINDOW-LADDER"
+        elif r2 >= f2["ref_h"] + 3 * f2["sigma_h"]:
+            verdict = "ALTERNATING-LADDER"
+        else:
+            verdict = "LADDER-MIXED"
+    if instrument_fail:
+        verdict = "LADDER-INSTRUMENT-FAIL"
+
+    out = os.path.join(REPO, "results",
+                       "2021_scale_ladder%s.json" % SMOKE_SUFFIX)
+    with open(out, "w", encoding="utf-8") as stream:
+        json.dump({
+            "record": "2021", "scan": "scale-ladder", "dxi": DXI,
+            "delta": LADDER_DELTA, "range": list(LADDER_RANGE),
+            "steps": list(LADDER_STEPS), "verdict": verdict,
+            "instrument_fail": instrument_fail, "mu_pooled": mu_pool,
+            "mu_pooled_c_pos": mu_pool_c,
+            "mu_resolution_clause": mu_clause,
+            "pooled": pooled, "refs": refs, "slots": slot_rows,
+            "missing": missing, "np_check": {"cells": np_cells,
+                                             "mismatches": np_bad},
+            "determinism": det_cells, "anchors": anchors}, stream, indent=2)
+        stream.write("\n")
+    log("=" * 96)
+    for name in sorted(pooled):
+        blob = pooled[name]
+        ref = refs.get(name, {})
+        log("  ladder %-28s C %.3f  H %.3f  ref %.3f (dev %.2f sigma)"
+            % (name, blob["c_rate"] or 0.0, blob["h_rate"] or 0.0,
+               ref.get("ref_h", 0.0), ref.get("dev_h") or 0.0))
+    log("  ladder mu pooled (0.002 grid) = %s; np check %d cells, %d "
+        "mismatches; determinism %d cells, %s"
+        % (mu_pool, np_cells, np_bad, len(det_cells),
+           "bit-identical" if det_ok else "FAILED"))
+    if mu_clause:
+        log("  ladder mu clause: mu(0.002) %.4f vs mu(0.01 sublattice) %.4f "
+            "-> %.2f sigma (n_01 = %d)"
+            % (mu_clause["mu_002"], mu_clause["mu_01"],
+               mu_clause["dev_sigma"] or 0.0, mu_clause["n_01"]))
+    log("VERDICT: %s" % verdict)
+    log("results -> %s" % out)
+
+
 def verdict_only(rows_path=None):
     """Recompute the width verdict from the rows artifact.
 
@@ -662,6 +929,7 @@ def main():
 
     width_map, floor_map, anchors = {}, {}, []
     layer_control = None
+    ladder_det = []
 
     # ------------------------------------------------ stage 1: width law
     if phase in ("all", "width"):
@@ -788,8 +1056,49 @@ def main():
                                 "2019_floor_refined_partial%s.json"
                                 % SMOKE_SUFFIX))
 
+    # --------------------------------- record-2021 C1: the scale ladder
+    if phase == "ladder":
+        slots = LADDER_SLOTS[:1] if smoke else LADDER_SLOTS
+        for layer, gk in slots:
+            for step in LADDER_STEPS:
+                scales = ladder_grid(step)
+                if smoke:
+                    scales = scales[:3]
+                for sc in scales:
+                    cache.get(layer, gk, LADDER_DELTA, sc)
+                    if len(cache.rows) % CHECKPOINT_EVERY == 0:
+                        cache.dump(os.path.join(
+                            REPO, "results",
+                            "2021_scale_ladder_partial%s.json"
+                            % SMOKE_SUFFIX))
+        # cross-run determinism: the coincident (0.01-sublattice) cells were
+        # preloaded from the committed width rows; re-measure the registered
+        # subset once and require bit-identity.
+        for layer, gk in slots:
+            for sc in LADDER_DETERMINISM_SCALES:
+                prev = cache.peek(layer, gk, LADDER_DELTA, sc)
+                if prev is None:
+                    log("  ladder determinism %s g=%.4f sc=%.2f: NO preloaded "
+                        "counterpart - check skipped (register expects one)"
+                        % (layer, gk, sc))
+                    continue
+                row = cache.get(layer, gk, LADDER_DELTA, sc, force=True)
+                det = {"layer": layer, "gamma": gk, "scale": sc,
+                       "dev_C": abs(row["C"] - prev["C"]) / abs(prev["C"])
+                       if prev["C"] else float("inf"),
+                       "dev_D": abs(row["D"] - prev["D"]) / abs(prev["D"])
+                       if prev["D"] else float("inf")}
+                ladder_det.append(det)
+                log("  ladder determinism %s g=%.4f sc=%.2f: dev_C=%.1e "
+                    "dev_D=%.1e" % (layer, gk, sc, det["dev_C"],
+                                    det["dev_D"]))
+        cache.dump(os.path.join(REPO, "results",
+                                "2021_scale_ladder_partial%s.json"
+                                % SMOKE_SUFFIX))
+
     # --------------------------------------------------------- anchors (K1)
-    anchors = anchor_block(cache, force=(phase in ("edges", "floor2")))
+    anchors = anchor_block(cache,
+                           force=(phase in ("edges", "floor2", "ladder")))
 
     if phase == "edges":
         cache.dump(os.path.join(REPO, "results",
@@ -802,6 +1111,12 @@ def main():
                                 "2019_floor_refined_rows%s.json"
                                 % SMOKE_SUFFIX), status="FULL")
         floor2_reading(cache, cells_path, anchors)
+        return
+    if phase == "ladder":
+        cache.dump(os.path.join(REPO, "results",
+                                "2021_scale_ladder_rows%s.json"
+                                % SMOKE_SUFFIX), status="FULL")
+        ladder_reading(cache, anchors, ladder_det)
         return
 
     # ----------------------------------------------------------- verdicts
