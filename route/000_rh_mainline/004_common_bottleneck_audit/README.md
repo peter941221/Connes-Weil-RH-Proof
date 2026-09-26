@@ -38,11 +38,18 @@ B5 CompactLog same-owner semi-local positivity
 The fastest shared decision variables are:
 
 ```text
+C > 0 health screen (PREREQUISITE; 1931 forces ICgate(g^2) > 0 for
+  every healthy detector, so a C < 0 reading certifies the owner
+  unhealthy and kills the 1902 opposite-gates certificate before D
+  is read — no extension experiment may proceed past a failed screen)
 owner cardinality and separation
 correction condition and mass
 signed determinant or residual margin
 same-index tail ratio
 margin degradation as Im(rho) grows
+instrument certification (n_primes <= 4000 for three live routes;
+  above that route Ap is dropped and spread 0.0 means "one route",
+  not agreement — 1994 instrument law)
 ```
 
 Decision rule:
@@ -65,18 +72,19 @@ Current recommendation:
 Execution status:
 
 ```text
-2. EXECUTED (record 1994, pre-registered + post-hoc control 1994b):
-   opposite-gates height audit on the committed owner class.
-   gamma_5 hole rescued (6/15 cells, sign-stable in delta); committed
-   basis hole-free through gamma_6. gamma_7/gamma_8 extension reads
-   C < 0 / det > 0 on all sampled cells = UNHEALTHY per 1931; control
-   shows the same face is convention-reachable at gamma_5 (MIXED), so
-   height vs convention is unresolved at 2 cells per height. New
-   necessary condition for any extension: C > 0 health screen across
-   the full scale grid.
+2. EXECUTED (records 1994 + 1996): opposite-gates height audit on the
+   committed owner class, then the full scale sweep. gamma_5 hole
+   rescued (6/15 cells); gamma_7/gamma_8 both HOST_CONFIRMED with
+   ordinate-dependent single-scale health windows (0.92 / 0.88) at
+   every delta, D < 0 on 33/33 cells certified. The 1994 "collapse"
+   was a 2-cell sampling artifact; hosts now certified at every
+   measured ordinate gamma_1..gamma_8. The C > 0 health screen and
+   the sweep-don't-sample rule are binding for any future extension.
 3. EXECUTED (record 1995): Route C / Velez stabilization claim FAILS
    the five-question promotion audit. Route C remains audit-only.
-1, 4. OPEN.
+1, 4. OPEN. (F2 remains gated by the owner-transport bridge — desk
+   record 1997 prices the un-gating path: resolution certificate ->
+   owner-window ladder + domination measurement -> F2.)
 ```
 
 Authoritative route records remain `docs/map/104_*.md`, `docs/map/106_*.md`,

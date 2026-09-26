@@ -46,14 +46,18 @@ opposite-gates certificate (1902) on the committed owner class:
            the 1983 hole was a sampling artifact of the 0.90 band
   committed convention basis is now hole-free through gamma_6
 
-extension beyond gamma_6 (gamma_7/gamma_8, EXT convention):
-  C < 0 with det > 0 on all sampled cells — per 1931 a C < 0 reading
-  certifies the owner UNHEALTHY, so the certificate is dead there
-  before D is read; control 1994b reproduces the same face at gamma_5
-  by convention switch alone (label MIXED), so height vs convention is
-  UNRESOLVED at 2 cells per height
-  necessary condition for any extension: pass the C > 0 health screen
-  across the full scale grid first
+extension beyond gamma_6 (records 1994 + 1996, EXT convention):
+  1994's 2-cell sample read C < 0 / det > 0 (unhealthy per 1931) and
+  left height vs convention UNRESOLVED; the 1996 FULL scale sweep
+  (5 scales x 3 deltas per height, pre-registered) closes the
+  question as a SAMPLING ARTIFACT —
+    gamma_7: HOST_CONFIRMED (window sc = 0.92, all three deltas)
+    gamma_8: HOST_CONFIRMED (window sc = 0.88, all three deltas)
+    D < 0 on 33/33 cells with certified spreads
+  the C health window is ordinate-dependent and single-scale at the
+  higher ordinates: future extensions must SWEEP scale, not sample it.
+  Opposite-gates hosts now certified at every measured ordinate
+  gamma_1 .. gamma_8; no height wall through gamma_8.
 ```
 
 Authoritative records:
@@ -63,3 +67,6 @@ Authoritative records:
 - `docs/proofs/1929_route_a_finite_basis_minimum_selector.md`
 - `docs/proofs/1994_opposite_gates_height_audit.md`
 - `docs/proofs/1994_opposite_gates_height_preregistration.md`
+- `docs/proofs/1996_gamma78_full_sweep_preregistration.md`
+- `docs/proofs/1996_gamma78_full_sweep_audit.md`
+- `docs/proofs/1997_f2_transport_bridge_desk.md`
