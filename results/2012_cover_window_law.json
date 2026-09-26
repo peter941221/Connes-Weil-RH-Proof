@@ -2647,7 +2647,7 @@
   },
   "driver": {
     "mode": "verdict-only",
-    "source": "results/2012_cover_scan_rows.json",
+    "source": "results/2012_cover_scan_rows_width.json",
     "note": "registered width verdict recomputed from the measured rows; the layer control is excluded from the every-height clause per section A2"
   },
   "floor_map_if_present": {}

@@ -13,6 +13,24 @@ contraction scan, which this question does not use.  The copy is validated by
 the K1 anchor reproduction against the committed record-1994/1996 cells.
 
 No theorem, no Lean brick, no RH claim.
+
+Record-2019 extension (pre-registered in
+docs/proofs/2019_cover_resolution_refinement_preregistration.md), the two
+registered COVER follow-ups of records 2016/2017/2018:
+
+  --phase=edges    M1: re-read the complete delta = 0.10 slices of the nine
+                   registered slots at dxi = 0.002, pair every cell with its
+                   committed 0.004 row (preloaded through --resume-from and
+                   never re-measured), and read the sign-conservation, band
+                   census and eps/r tables of record 2019 sections 3-5.
+  --phase=floor2   M2: the finer delta grid {0.005, 0.01} on the same slots,
+                   stage A five-point positives only, with the registered
+                   conditional stage-B sweep at 0.005 for every slot with no
+                   stage-A host at either new delta.
+
+From this extension the row carries its own `dxi` and the cache is keyed by
+it, so one process holds the committed 0.004 rows and the fresh 0.002 rows of
+the same cell without either shadowing the other.
 """
 
 import json
@@ -39,6 +57,11 @@ ANCHOR_SCALES = (0.86, 0.88, 0.90, 0.92, 0.94)
 WIDTH_DELTA = 0.10
 FLOOR_DELTAS = (0.02, 0.05, 0.10, 0.15, 0.20, 0.30)
 DXI = 0.004
+EDGE_DXI = 0.002               # record 2019 M1: the refinement target
+REFINED_DELTAS = (0.005, 0.01)  # record 2019 M2: the finer delta grid
+CELLS_ARTIFACT = "results/2019_registered_cells.json"
+CHECKPOINT_EVERY = 25
+SMOKE_SUFFIX = ""              # set to "_smoke" by a --smoke run
 K = 30.0
 N = 0
 XI_MAX = 40.0
@@ -82,8 +105,9 @@ def log(message):
     print("[%7.1fs] %s" % (time.time() - T0, message), flush=True)
 
 
-def measure_row(delta, gk, scale, layer):
+def measure_row(delta, gk, scale, layer, dxi=None):
     """One registered cell: the r83/r94 row plus the 1919 statistics."""
+    dxi = DXI if dxi is None else dxi
     rho = (0.5 + delta) + 1j * gk
     if layer == "committed":
         nodes, values = r83.owner_nodes_g(rho, gk)
@@ -99,7 +123,7 @@ def measure_row(delta, gk, scale, layer):
     pin_b = max(p["err_base"] for p in pins)
     pin_c = max(p["err_corr"] for p in pins)
     cond = max(A[2]["base"]["cond"], A[2]["corr"]["cond"])
-    nxi = int(round(2.0 * XI_MAX / DXI)) + 1
+    nxi = int(round(2.0 * XI_MAX / dxi)) + 1
     xi = np.linspace(-XI_MAX, XI_MAX, nxi)
     stats = None
     with np.errstate(over="ignore", invalid="ignore"):
@@ -153,6 +177,7 @@ def measure_row(delta, gk, scale, layer):
             face = "NO_HOST"
     return {
         "layer": layer, "delta": delta, "gamma": gk, "scale": scale,
+        "dxi": dxi,
         "M": len(nodes), "kill_imag": [float(z.imag) for z in kills],
         "basis_size": len(fam), "cond": cond,
         "pin_err_base": pin_b, "pin_err_corr": pin_c, "density_finite": finite,
@@ -168,33 +193,55 @@ def measure_row(delta, gk, scale, layer):
 
 
 class Cache(object):
-    """Row cache: the delta = 0.10 slice is shared by both scans."""
+    """Row cache keyed by (layer, gamma, delta, scale, dxi).
+
+    The delta = 0.10 slice is shared by both 2012 scans; from the record-2019
+    extension the dxi is part of the key, so one process can hold the
+    committed 0.004 rows and the fresh 0.002 rows of the same cell without
+    either shadowing the other.
+    """
 
     def __init__(self):
         self.rows = {}
 
-    def get(self, layer, gk, delta, scale):
-        key = (layer, round(gk, 6), round(delta, 6), round(scale, 6))
-        if key not in self.rows:
-            row = measure_row(delta, gk, scale, layer)
+    @staticmethod
+    def key(layer, gk, delta, scale, dxi):
+        return (layer, round(gk, 6), round(delta, 6), round(scale, 6),
+                round(dxi, 6))
+
+    def get(self, layer, gk, delta, scale, dxi=None, force=False):
+        dxi = DXI if dxi is None else dxi
+        key = self.key(layer, gk, delta, scale, dxi)
+        if force or key not in self.rows:
+            row = measure_row(delta, gk, scale, layer, dxi)
             self.rows[key] = row
-            log("  [%s g=%.4f d=%.2f sc=%.2f] np=%s C=%+.4e D=%+.4e det=%+.4e "
-                "sD=%.1e face=%s" % (layer, gk, delta, scale, row["n_primes"],
-                                     row["C"], row["D"], row["det"],
-                                     row["spread_D"], row["face"]))
+            log("  [%s g=%.4f d=%.2f sc=%.2f dxi=%.4f] np=%s C=%+.4e "
+                "D=%+.4e det=%+.4e sD=%.1e face=%s"
+                % (layer, gk, delta, scale, dxi, row["n_primes"], row["C"],
+                   row["D"], row["det"], row["spread_D"], row["face"]))
         return self.rows[key]
 
-    def slice(self, layer, gk, delta):
+    def peek(self, layer, gk, delta, scale, dxi=None):
+        """Preloaded row or None - never measures.  The record-2019 pair
+        reads take their 0.004 half from the committed artifact through this
+        path, so a missing counterpart fails loudly instead of silently
+        re-measuring the committed cell."""
+        dxi = DXI if dxi is None else dxi
+        return self.rows.get(self.key(layer, gk, delta, scale, dxi))
+
+    def slice(self, layer, gk, delta, dxi=None):
+        eff = DXI if dxi is None else dxi
         out = [row for row in self.rows.values()
                if row["layer"] == layer
                and abs(row["gamma"] - gk) < 1e-9
-               and abs(row["delta"] - delta) < 1e-12]
+               and abs(row["delta"] - delta) < 1e-12
+               and abs(row.get("dxi", DXI) - eff) < 1e-12]
         out.sort(key=lambda row: row["scale"])
         return out
 
-    def dump(self, path):
+    def dump(self, path, status="PARTIAL"):
         with open(path, "w", encoding="utf-8") as stream:
-            json.dump({"record": "2012", "status": "PARTIAL",
+            json.dump({"record": "2012+2019", "status": status,
                        "dxi": DXI, "rows": list(self.rows.values())},
                       stream, indent=2)
             stream.write("\n")
@@ -230,6 +277,269 @@ def width_reading(cache, layer, gk):
     }
 
 
+def anchor_block(cache, force=False):
+    """The K1 anchor reproduction (record 2012 section 3).
+
+    force=True re-measures the five committed anchor cells at the process dxi.
+    The record-2019 phases preload their committed counterparts, so a cached
+    read there would be a no-op instead of a rig-identity check; with force
+    the check goes through the exact measure_row path the phase itself uses.
+    """
+    anchors = []
+    for spec in ANCHORS:
+        if not force and not any(k[0] == spec["layer"]
+                                 and abs(k[1] - spec["gamma"]) < 1e-9
+                                 for k in cache.rows):
+            continue
+        row = cache.get(spec["layer"], spec["gamma"], spec["delta"],
+                        spec["scale"], force=force)
+        dev_c = abs(row["C"] - spec["C"]) / abs(spec["C"])
+        dev_d = abs(row["D"] - spec["D"]) / abs(spec["D"])
+        anchors.append({"layer": spec["layer"], "gamma": spec["gamma"],
+                        "delta": spec["delta"], "scale": spec["scale"],
+                        "source": spec["source"], "C": row["C"], "D": row["D"],
+                        "ref_C": spec["C"], "ref_D": spec["D"],
+                        "dev_C": dev_c, "dev_D": dev_d,
+                        "pass": bool(dev_c <= ANCHOR_BAR
+                                     and dev_d <= ANCHOR_BAR)})
+        log("anchor %s g=%.4f sc=%.2f: dev_C=%.1e dev_D=%.1e pass=%s"
+            % (spec["source"], spec["gamma"], spec["scale"], dev_c, dev_d,
+               anchors[-1]["pass"]))
+    return anchors
+
+
+def sign_of(row):
+    if not row["certified"]:
+        return "u"
+    return "+" if row["C"] > 0.0 else "-"
+
+
+def pair_block(r4, r2):
+    """The record-2019 section 3 pair quantities of one re-read cell."""
+    s4, s2 = sign_of(r4), sign_of(r2)
+    if s4 == "u" and s2 == "u":
+        conservation = "REPORTED"          # uncertified at both resolutions
+    elif s4 == "u":
+        conservation = "APPEARED"          # gains a reading at the finer grid
+    elif s2 == "u":
+        conservation = "LOST"              # loses its reading at the finer grid
+    elif s4 == s2:
+        conservation = "CONSERVED"
+    else:
+        conservation = "FLIPPED"
+    c_off = abs(r2["C"] - r4["C"]) / abs(r2["C"]) if r2["C"] else None
+    d_off = abs(r2["D"] - r4["D"]) / abs(r2["D"]) if r2["D"] else None
+    st4 = r4.get("stats") or {}
+    st2 = r2.get("stats") or {}
+    eps = None
+    if all(k in st4 and k in st2 for k in ("mp", "mm")) \
+            and st2["mp"] and st2["mm"]:
+        eps = max(abs(st4["mp"] - st2["mp"]) / abs(st2["mp"]),
+                  abs(st4["mm"] - st2["mm"]) / abs(st2["mm"]))
+    f2 = st2.get("f")
+    amp = abs(2.0 + f2) if f2 is not None else None
+    worst = eps * amp if (eps is not None and amp is not None) else None
+    ratio = (c_off / worst if (c_off is not None and worst) else None)
+    return {
+        "conservation": conservation, "s4": s4, "s2": s2,
+        "C4": r4["C"], "C2": r2["C"], "D4": r4["D"], "D2": r2["D"],
+        "c_offset": c_off, "d_offset": d_off,
+        "eps": eps, "f2": f2, "amp": amp, "worst_case": worst, "r": ratio,
+        "n_primes_4": r4["n_primes"], "n_primes_2": r2["n_primes"],
+        "np_match": bool(r4["n_primes"] == r2["n_primes"]),
+    }
+
+
+def edges_reading(cache, cells_path, anchors):
+    """The registered M1 reading (record 2019 sections 3-5)."""
+    with open(cells_path, encoding="utf-8") as stream:
+        cells = json.load(stream)
+    r_keys = cells["m1"]["r_table_keys"]
+    edge_set = set()
+    for cell in cells["m1"]["edge_cells"]:
+        edge_set.add((cell["layer"], round(cell["gamma"], 6),
+                      round(cell["delta"], 6), round(cell["scale"], 6)))
+    per_cell, missing = [], []
+    for cell in cells["m1"]["cells"]:
+        layer, gk, delta, sc = (cell["layer"], cell["gamma"], cell["delta"],
+                                cell["scale"])
+        r4 = cache.peek(layer, gk, delta, sc, dxi=DXI)
+        r2 = cache.peek(layer, gk, delta, sc, dxi=EDGE_DXI)
+        if r4 is None or r2 is None:
+            missing.append({"layer": layer, "gamma": gk, "scale": sc,
+                            "have_004": r4 is not None,
+                            "have_002": r2 is not None})
+            continue
+        block = pair_block(r4, r2)
+        block.update({
+            "layer": layer, "gamma": gk, "delta": delta, "scale": sc,
+            "is_edge": (layer, round(gk, 6), round(delta, 6),
+                        round(sc, 6)) in edge_set,
+            "r_table": "%s:%.6f" % (layer, gk) in r_keys,
+        })
+        per_cell.append(block)
+
+    census = {}
+    for key, entry in sorted(cells["m1"]["heights"].items()):
+        sl = cache.slice(entry["layer"], entry["gamma"], WIDTH_DELTA,
+                         dxi=EDGE_DXI)
+        bands = runs_over(sl, lambda row: row["c_positive"])
+        widths = [len(b) for b in bands]
+        census[key] = {
+            "n_bands_004": entry["n_bands"], "bands_004": entry["band_widths"],
+            "n_bands_002": len(bands), "bands_002": widths,
+            "reproduced": bool(len(bands) == entry["n_bands"]
+                               and widths == entry["band_widths"]),
+            "signs_002": "".join(sign_of(row) for row in sl),
+        }
+
+    flips = [c for c in per_cell if c["conservation"] == "FLIPPED"]
+    edge_flips = [c for c in flips if c["is_edge"]]
+    lost = [c for c in per_cell if c["conservation"] == "LOST"]
+    appeared = [c for c in per_cell if c["conservation"] == "APPEARED"]
+    np_bad = [c for c in per_cell if not c["np_match"]]
+    r_rows = [c for c in per_cell if c["r_table"]]
+    r_vals = sorted(c["r"] for c in r_rows if c["r"] is not None)
+    r_complete = bool(r_rows) and all(c["r"] is not None for c in r_rows)
+    anchor_fail = [a for a in anchors if not a["pass"]]
+    instrument_fail = bool(missing or lost or np_bad or anchor_fail)
+    edge_verdict = "EDGE-FLIPPED" if flips else "EDGE-CONSERVED"
+    band_verdict = ("BAND-REPRODUCED"
+                    if all(v["reproduced"] for v in census.values())
+                    else "BAND-SHIFTED")
+    if instrument_fail:
+        overall = "COMB-RESOLUTION-INSTRUMENT-FAIL"
+    elif edge_verdict == "EDGE-CONSERVED" and band_verdict == "BAND-REPRODUCED":
+        overall = "COMB-RESOLUTION-STABLE"
+    else:
+        overall = "COMB-RESOLUTION-SHIFTED"
+
+    out = os.path.join(REPO, "results",
+                       "2019_band_edges_reading%s.json" % SMOKE_SUFFIX)
+    with open(out, "w", encoding="utf-8") as stream:
+        json.dump({
+            "record": "2019", "scan": "band-edges-d002",
+            "dxi_pair": [DXI, EDGE_DXI],
+            "cells_source": os.path.relpath(cells_path, REPO).replace(
+                os.sep, "/"),
+            "verdict": overall, "edge_verdict": edge_verdict,
+            "band_verdict": band_verdict, "instrument_fail": instrument_fail,
+            "n_cells": len(per_cell), "n_missing": len(missing),
+            "n_flips": len(flips), "n_edge_flips": len(edge_flips),
+            "n_lost": len(lost), "n_appeared": len(appeared),
+            "n_np_mismatch": len(np_bad),
+            "r_table_verdict": "RP-COMPLETE" if r_complete else "RP-PARTIAL",
+            "r_min": r_vals[0] if r_vals else None,
+            "r_max": r_vals[-1] if r_vals else None,
+            "census": census, "cells": per_cell, "missing": missing,
+            "anchors": anchors}, stream, indent=2)
+        stream.write("\n")
+    log("=" * 96)
+    log("edges VERDICT: %s / %s / %s (flips %d, edge-flips %d, appeared %d, "
+        "lost %d, missing %d)" % (overall, edge_verdict, band_verdict,
+                                  len(flips), len(edge_flips), len(appeared),
+                                  len(lost), len(missing)))
+    for key, entry in sorted(census.items()):
+        log("  census %-24s bands %s -> %s  widths %s -> %s  %s"
+            % (key, entry["n_bands_004"], entry["n_bands_002"],
+               entry["bands_004"], entry["bands_002"],
+               "OK" if entry["reproduced"] else "SHIFTED"))
+    log("  r table: %d cells, r in [%s, %s]"
+        % (len(r_rows), r_vals[0] if r_vals else "n/a",
+           r_vals[-1] if r_vals else "n/a"))
+    log("results -> %s" % out)
+
+
+def floor2_reading(cache, cells_path, anchors):
+    """The registered M2 reading (record 2019 sections 3-5)."""
+    with open(cells_path, encoding="utf-8") as stream:
+        cells = json.load(stream)
+    five_point = [round(p, 6) for p in cells["m2"]["five_point"]]
+    with open(os.path.join(REPO, "results", "2012_cover_scan_rows_floor.json"),
+              encoding="utf-8") as stream:
+        committed = json.load(stream)
+    ref_np = {}
+    for row in committed["rows"]:
+        ref_np[(row["layer"], round(row["gamma"], 6),
+                round(row["scale"], 6))] = row["n_primes"]
+
+    slot_rows, np_bad, unresolved = [], [], []
+    for key in sorted(cells["m2"]["slots"]):
+        entry = cells["m2"]["slots"][key]
+        layer, gk = entry["layer"], entry["gamma"]
+        hosts_new, swept = {}, []
+        for delta in REFINED_DELTAS:
+            rows_d = cache.slice(layer, gk, delta, dxi=DXI)
+            hosts_new[delta] = sorted(r["scale"] for r in rows_d if r["host"])
+        full_005 = cache.slice(layer, gk, REFINED_DELTAS[0], dxi=DXI)
+        if not hosts_new[REFINED_DELTAS[0]] \
+                and not hosts_new[REFINED_DELTAS[1]] \
+                and len(full_005) > len(five_point):
+            swept = [REFINED_DELTAS[0]]
+            hosts_new[REFINED_DELTAS[0]] = sorted(
+                r["scale"] for r in full_005 if r["host"])
+        if hosts_new[REFINED_DELTAS[0]]:
+            refined = REFINED_DELTAS[0]
+        elif hosts_new[REFINED_DELTAS[1]]:
+            refined = REFINED_DELTAS[1]
+        else:
+            refined = entry["committed_floor"]
+        for delta in REFINED_DELTAS:
+            for row in cache.slice(layer, gk, delta, dxi=DXI):
+                ref = ref_np.get((layer, round(gk, 6),
+                                  round(row["scale"], 6)))
+                if ref is not None and ref != row["n_primes"]:
+                    np_bad.append({"layer": layer, "gamma": gk,
+                                   "delta": delta, "scale": row["scale"],
+                                   "n_primes": row["n_primes"], "ref": ref})
+                if not row["certified"]:
+                    unresolved.append({"layer": layer, "gamma": gk,
+                                       "delta": delta, "scale": row["scale"],
+                                       "instrument_limited":
+                                           row["instrument_limited"]})
+        slot_rows.append({
+            "layer": layer, "gamma": gk,
+            "hosts_005": hosts_new[REFINED_DELTAS[0]],
+            "hosts_010": hosts_new[REFINED_DELTAS[1]],
+            "swept_005": swept,
+            "committed_floor": entry["committed_floor"],
+            "refined_floor": refined,
+        })
+
+    anchor_fail = [a for a in anchors if not a["pass"]]
+    instrument_fail = bool(anchor_fail or np_bad or unresolved)
+    if instrument_fail:
+        overall = "FLOOR-REFINED-INSTRUMENT-FAIL"
+    elif all(r["refined_floor"] == REFINED_DELTAS[0] for r in slot_rows):
+        overall = "FLOOR-REFINED-0.005"
+    elif all(r["refined_floor"] in REFINED_DELTAS for r in slot_rows):
+        overall = "FLOOR-REFINED-0.01"
+    else:
+        overall = "FLOOR-REFINED-MIXED"
+
+    out = os.path.join(REPO, "results",
+                       "2019_floor_refined%s.json" % SMOKE_SUFFIX)
+    with open(out, "w", encoding="utf-8") as stream:
+        json.dump({
+            "record": "2019", "scan": "floor-refined",
+            "deltas_new": list(REFINED_DELTAS), "dxi": DXI,
+            "cells_source": os.path.relpath(cells_path, REPO).replace(
+                os.sep, "/"),
+            "verdict": overall, "instrument_fail": instrument_fail,
+            "slots": slot_rows, "n_np_mismatch": len(np_bad),
+            "unresolved": unresolved, "anchors": anchors}, stream, indent=2)
+        stream.write("\n")
+    log("=" * 96)
+    for entry in slot_rows:
+        log("  floor2 %-24s refined=%s (005 hosts %s%s, 010 hosts %s)"
+            % ("%s:%.6f" % (entry["layer"], entry["gamma"]),
+               entry["refined_floor"], entry["hosts_005"],
+               " swept" if entry["swept_005"] else "",
+               entry["hosts_010"]))
+    log("VERDICT: %s" % overall)
+    log("results -> %s" % out)
+
+
 def verdict_only(rows_path=None):
     """Recompute the width verdict from the rows artifact.
 
@@ -240,14 +550,16 @@ def verdict_only(rows_path=None):
     cell is touched.
     """
     path = rows_path or os.path.join(REPO, "results",
-                                     "2012_cover_scan_rows.json")
+                                     "2012_cover_scan_rows_width.json")
     with open(path, encoding="utf-8") as stream:
         artifact = json.load(stream)
     cache = Cache()
+    top_dxi = artifact.get("dxi", DXI)
     for row in artifact["rows"]:
-        key = (row["layer"], round(row["gamma"], 6), round(row["delta"], 6),
-               round(row["scale"], 6))
-        cache.rows[key] = row
+        dxi = row.get("dxi", top_dxi)
+        row.setdefault("dxi", dxi)
+        cache.rows[cache.key(row["layer"], row["gamma"], row["delta"],
+                             row["scale"], dxi)] = row
     log("verdict-only from %s: %d measured rows" % (path, len(artifact["rows"])))
     width_map, floor_map = {}, {}
     for layer, gk in HEIGHTS + [CONTROL]:
@@ -298,31 +610,41 @@ def verdict_only(rows_path=None):
 
 
 def main():
+    global SMOKE_SUFFIX
     smoke = "--smoke" in sys.argv
+    SMOKE_SUFFIX = "_smoke" if smoke else ""
     if "--verdict-only" in sys.argv:
         verdict_only()
         return
-    resume = None
+    resume = []
     for arg in sys.argv[1:]:
         if arg.startswith("--resume-from="):
-            resume = arg.split("=", 1)[1]
+            resume = [p for p in arg.split("=", 1)[1].split(",") if p]
     phase = "all"
     for arg in sys.argv[1:]:
         if arg.startswith("--phase="):
             phase = arg.split("=", 1)[1]
+    cells_path = os.path.join(REPO, CELLS_ARTIFACT)
+    for arg in sys.argv[1:]:
+        if arg.startswith("--cells-from="):
+            cells_path = arg.split("=", 1)[1]
+            if not os.path.isabs(cells_path):
+                cells_path = os.path.join(REPO, cells_path)
     log("record 2012 - COVER width law and delta-floor scans (%s, phase=%s)"
         % ("smoke" if smoke else "full", phase))
 
     cache = Cache()
-    if resume:
-        resume_path = (resume if os.path.isabs(resume)
-                       else os.path.join(REPO, resume))
+    for path in resume:
+        resume_path = (path if os.path.isabs(path)
+                       else os.path.join(REPO, path))
         with open(resume_path, encoding="utf-8") as stream:
             loaded = json.load(stream)
+        top_dxi = loaded.get("dxi", DXI)
         for row in loaded["rows"]:
-            cache.rows[(row["layer"], round(row["gamma"], 6),
-                        round(row["delta"], 6),
-                        round(row["scale"], 6))] = row
+            dxi = row.get("dxi", top_dxi)
+            row.setdefault("dxi", dxi)
+            cache.rows[cache.key(row["layer"], row["gamma"], row["delta"],
+                                 row["scale"], dxi)] = row
         log("resume: %d rows preloaded from %s (no re-measurement)"
             % (len(loaded["rows"]), resume_path))
     if smoke:
@@ -412,26 +734,75 @@ def main():
             cache.dump(os.path.join(REPO, "results",
                                     "2012_cover_scans_partial.json"))
 
+    # ------------------------------------ record-2019 M1: edges at dxi 0.002
+    if phase == "edges":
+        with open(cells_path, encoding="utf-8") as stream:
+            cells_2019 = json.load(stream)
+        m1_cells = cells_2019["m1"]["cells"]
+        if smoke:
+            m1_cells = m1_cells[:4]
+        for cell in m1_cells:
+            cache.get(cell["layer"], cell["gamma"], cell["delta"],
+                      cell["scale"], dxi=EDGE_DXI)
+            if len(cache.rows) % CHECKPOINT_EVERY == 0:
+                cache.dump(os.path.join(
+                    REPO, "results",
+                    "2019_band_edges_partial%s.json" % SMOKE_SUFFIX))
+        log("edges: %d cells at dxi=%.4f measured" % (len(m1_cells), EDGE_DXI))
+
+    # ---------------------------------- record-2019 M2: finer delta grid
+    if phase == "floor2":
+        with open(cells_path, encoding="utf-8") as stream:
+            cells_2019 = json.load(stream)
+        slots = [(cells_2019["m2"]["slots"][key]["layer"],
+                  cells_2019["m2"]["slots"][key]["gamma"])
+                 for key in sorted(cells_2019["m2"]["slots"])]
+        five_point = [round(p, 6) for p in cells_2019["m2"]["five_point"]]
+        if smoke:
+            slots = slots[:1]
+            five_point = five_point[:1]
+        for layer, gk in slots:
+            for delta in REFINED_DELTAS:
+                for sc in five_point:
+                    cache.get(layer, gk, delta, sc)
+                    if len(cache.rows) % CHECKPOINT_EVERY == 0:
+                        cache.dump(os.path.join(
+                            REPO, "results",
+                            "2019_floor_refined_partial%s.json"
+                            % SMOKE_SUFFIX))
+        for layer, gk in slots:
+            hosts = [row["host"] for delta in REFINED_DELTAS
+                     for row in cache.slice(layer, gk, delta, dxi=DXI)]
+            if not any(hosts):
+                log("  floor2 %s: no stage-A host at the new deltas -> "
+                    "sweep delta=%.3f" % ("%s:%.6f" % (layer, gk),
+                                          REFINED_DELTAS[0]))
+                for sc in SCALES:
+                    cache.get(layer, gk, REFINED_DELTAS[0], sc)
+                    if len(cache.rows) % CHECKPOINT_EVERY == 0:
+                        cache.dump(os.path.join(
+                            REPO, "results",
+                            "2019_floor_refined_partial%s.json"
+                            % SMOKE_SUFFIX))
+        cache.dump(os.path.join(REPO, "results",
+                                "2019_floor_refined_partial%s.json"
+                                % SMOKE_SUFFIX))
+
     # --------------------------------------------------------- anchors (K1)
-    for spec in ANCHORS:
-        key = (spec["layer"], round(spec["gamma"], 6))
-        if not any(k[0] == key[0] and abs(k[1] - key[1]) < 1e-9
-                   for k in cache.rows):
-            continue
-        row = cache.get(spec["layer"], spec["gamma"], spec["delta"],
-                        spec["scale"])
-        dev_c = abs(row["C"] - spec["C"]) / abs(spec["C"])
-        dev_d = abs(row["D"] - spec["D"]) / abs(spec["D"])
-        anchors.append({"layer": spec["layer"], "gamma": spec["gamma"],
-                        "delta": spec["delta"], "scale": spec["scale"],
-                        "source": spec["source"], "C": row["C"], "D": row["D"],
-                        "ref_C": spec["C"], "ref_D": spec["D"],
-                        "dev_C": dev_c, "dev_D": dev_d,
-                        "pass": bool(dev_c <= ANCHOR_BAR
-                                     and dev_d <= ANCHOR_BAR)})
-        log("anchor %s g=%.4f sc=%.2f: dev_C=%.1e dev_D=%.1e pass=%s"
-            % (spec["source"], spec["gamma"], spec["scale"], dev_c, dev_d,
-               anchors[-1]["pass"]))
+    anchors = anchor_block(cache, force=(phase in ("edges", "floor2")))
+
+    if phase == "edges":
+        cache.dump(os.path.join(REPO, "results",
+                                "2019_band_edges_rows%s.json" % SMOKE_SUFFIX),
+                   status="FULL")
+        edges_reading(cache, cells_path, anchors)
+        return
+    if phase == "floor2":
+        cache.dump(os.path.join(REPO, "results",
+                                "2019_floor_refined_rows%s.json"
+                                % SMOKE_SUFFIX), status="FULL")
+        floor2_reading(cache, cells_path, anchors)
+        return
 
     # ----------------------------------------------------------- verdicts
     # The registered width verdict is over the eight registered heights
