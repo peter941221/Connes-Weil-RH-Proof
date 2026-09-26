@@ -1,0 +1,355 @@
+{
+  "record": "2020",
+  "delta": 0.1,
+  "scales": [
+    0.8,
+    0.9,
+    1.0
+  ],
+  "cells": {
+    "committed:14.134725:0.80": {
+      "layer": "committed",
+      "gamma": 14.134725141734695,
+      "scale": 0.8,
+      "max_width": 2.72,
+      "support_radius": 5.44,
+      "xmax": 230.44218346064218,
+      "np_pred": 64,
+      "np_measured": 64,
+      "match": true
+    },
+    "committed:14.134725:0.90": {
+      "layer": "committed",
+      "gamma": 14.134725141734695,
+      "scale": 0.9,
+      "max_width": 3.06,
+      "support_radius": 6.12,
+      "xmax": 454.864694499525,
+      "np_pred": 106,
+      "np_measured": 106,
+      "match": true
+    },
+    "committed:14.134725:1.00": {
+      "layer": "committed",
+      "gamma": 14.134725141734695,
+      "scale": 1.0,
+      "max_width": 3.4,
+      "support_radius": 6.8,
+      "xmax": 897.8472916504176,
+      "np_pred": 178,
+      "np_measured": 178,
+      "match": true
+    },
+    "committed:21.022040:0.80": {
+      "layer": "committed",
+      "gamma": 21.022039638771556,
+      "scale": 0.8,
+      "max_width": 3.04,
+      "support_radius": 6.08,
+      "xmax": 437.02919471839147,
+      "np_pred": 103,
+      "np_measured": 103,
+      "match": true
+    },
+    "committed:21.022040:0.90": {
+      "layer": "committed",
+      "gamma": 21.022039638771556,
+      "scale": 0.9,
+      "max_width": 3.42,
+      "support_radius": 6.84,
+      "xmax": 934.4891347292101,
+      "np_pred": 182,
+      "np_measured": 182,
+      "match": true
+    },
+    "committed:21.022040:1.00": {
+      "layer": "committed",
+      "gamma": 21.022039638771556,
+      "scale": 1.0,
+      "max_width": 3.8,
+      "support_radius": 7.6,
+      "xmax": 1998.1958951041172,
+      "np_pred": 332,
+      "np_measured": 332,
+      "match": true
+    },
+    "committed:25.010858:0.80": {
+      "layer": "committed",
+      "gamma": 25.01085758014569,
+      "scale": 0.8,
+      "max_width": 3.04,
+      "support_radius": 6.08,
+      "xmax": 437.02919471839147,
+      "np_pred": 103,
+      "np_measured": 103,
+      "match": true
+    },
+    "committed:25.010858:0.90": {
+      "layer": "committed",
+      "gamma": 25.01085758014569,
+      "scale": 0.9,
+      "max_width": 3.42,
+      "support_radius": 6.84,
+      "xmax": 934.4891347292101,
+      "np_pred": 182,
+      "np_measured": 182,
+      "match": true
+    },
+    "committed:25.010858:1.00": {
+      "layer": "committed",
+      "gamma": 25.01085758014569,
+      "scale": 1.0,
+      "max_width": 3.8,
+      "support_radius": 7.6,
+      "xmax": 1998.1958951041172,
+      "np_pred": 332,
+      "np_measured": 332,
+      "match": true
+    },
+    "committed:27.670322:0.80": {
+      "layer": "committed",
+      "gamma": 27.67032193035704,
+      "scale": 0.8,
+      "max_width": 3.04,
+      "support_radius": 6.08,
+      "xmax": 437.02919471839147,
+      "np_pred": 103,
+      "np_measured": 103,
+      "match": true
+    },
+    "committed:27.670322:0.90": {
+      "layer": "committed",
+      "gamma": 27.67032193035704,
+      "scale": 0.9,
+      "max_width": 3.42,
+      "support_radius": 6.84,
+      "xmax": 934.4891347292101,
+      "np_pred": 182,
+      "np_measured": 182,
+      "match": true
+    },
+    "committed:27.670322:1.00": {
+      "layer": "committed",
+      "gamma": 27.67032193035704,
+      "scale": 1.0,
+      "max_width": 3.8,
+      "support_radius": 7.6,
+      "xmax": 1998.1958951041172,
+      "np_pred": 332,
+      "np_measured": 332,
+      "match": true
+    },
+    "committed:30.424876:0.80": {
+      "layer": "committed",
+      "gamma": 30.424876125859512,
+      "scale": 0.8,
+      "max_width": 3.04,
+      "support_radius": 6.08,
+      "xmax": 437.02919471839147,
+      "np_pred": 103,
+      "np_measured": 103,
+      "match": true
+    },
+    "committed:30.424876:0.90": {
+      "layer": "committed",
+      "gamma": 30.424876125859512,
+      "scale": 0.9,
+      "max_width": 3.42,
+      "support_radius": 6.84,
+      "xmax": 934.4891347292101,
+      "np_pred": 182,
+      "np_measured": 182,
+      "match": true
+    },
+    "committed:30.424876:1.00": {
+      "layer": "committed",
+      "gamma": 30.424876125859512,
+      "scale": 1.0,
+      "max_width": 3.8,
+      "support_radius": 7.6,
+      "xmax": 1998.1958951041172,
+      "np_pred": 332,
+      "np_measured": 332,
+      "match": true
+    },
+    "committed:32.935062:0.80": {
+      "layer": "committed",
+      "gamma": 32.93506158773919,
+      "scale": 0.8,
+      "max_width": 3.04,
+      "support_radius": 6.08,
+      "xmax": 437.02919471839147,
+      "np_pred": 103,
+      "np_measured": 103,
+      "match": true
+    },
+    "committed:32.935062:0.90": {
+      "layer": "committed",
+      "gamma": 32.93506158773919,
+      "scale": 0.9,
+      "max_width": 3.42,
+      "support_radius": 6.84,
+      "xmax": 934.4891347292101,
+      "np_pred": 182,
+      "np_measured": 182,
+      "match": true
+    },
+    "committed:32.935062:1.00": {
+      "layer": "committed",
+      "gamma": 32.93506158773919,
+      "scale": 1.0,
+      "max_width": 3.8,
+      "support_radius": 7.6,
+      "xmax": 1998.1958951041172,
+      "np_pred": 332,
+      "np_measured": 332,
+      "match": true
+    },
+    "ext:30.424876:0.80": {
+      "layer": "ext",
+      "gamma": 30.424876125859512,
+      "scale": 0.8,
+      "max_width": 4.32,
+      "support_radius": 8.64,
+      "xmax": 5653.329824436018,
+      "np_pred": 788,
+      "np_measured": 788,
+      "match": true
+    },
+    "ext:30.424876:0.90": {
+      "layer": "ext",
+      "gamma": 30.424876125859512,
+      "scale": 0.9,
+      "max_width": 4.86,
+      "support_radius": 9.72,
+      "xmax": 16647.244729445592,
+      "np_pred": 1985,
+      "np_measured": 1985,
+      "match": true
+    },
+    "ext:30.424876:1.00": {
+      "layer": "ext",
+      "gamma": 30.424876125859512,
+      "scale": 1.0,
+      "max_width": 5.4,
+      "support_radius": 10.8,
+      "xmax": 49020.80113638175,
+      "np_pred": 5121,
+      "np_measured": 5121,
+      "match": true
+    },
+    "ext:37.586178:0.80": {
+      "layer": "ext",
+      "gamma": 37.58617815882567,
+      "scale": 0.8,
+      "max_width": 4.32,
+      "support_radius": 8.64,
+      "xmax": 5653.329824436018,
+      "np_pred": 788,
+      "np_measured": 788,
+      "match": true
+    },
+    "ext:37.586178:0.90": {
+      "layer": "ext",
+      "gamma": 37.58617815882567,
+      "scale": 0.9,
+      "max_width": 4.86,
+      "support_radius": 9.72,
+      "xmax": 16647.244729445592,
+      "np_pred": 1985,
+      "np_measured": 1985,
+      "match": true
+    },
+    "ext:37.586178:1.00": {
+      "layer": "ext",
+      "gamma": 37.58617815882567,
+      "scale": 1.0,
+      "max_width": 5.4,
+      "support_radius": 10.8,
+      "xmax": 49020.80113638175,
+      "np_pred": 5121,
+      "np_measured": 5121,
+      "match": true
+    },
+    "ext:40.918719:0.80": {
+      "layer": "ext",
+      "gamma": 40.9187190121475,
+      "scale": 0.8,
+      "max_width": 4.32,
+      "support_radius": 8.64,
+      "xmax": 5653.329824436018,
+      "np_pred": 788,
+      "np_measured": 788,
+      "match": true
+    },
+    "ext:40.918719:0.90": {
+      "layer": "ext",
+      "gamma": 40.9187190121475,
+      "scale": 0.9,
+      "max_width": 4.86,
+      "support_radius": 9.72,
+      "xmax": 16647.244729445592,
+      "np_pred": 1985,
+      "np_measured": 1985,
+      "match": true
+    },
+    "ext:40.918719:1.00": {
+      "layer": "ext",
+      "gamma": 40.9187190121475,
+      "scale": 1.0,
+      "max_width": 5.4,
+      "support_radius": 10.8,
+      "xmax": 49020.80113638175,
+      "np_pred": 5121,
+      "np_measured": 5121,
+      "match": true
+    }
+  },
+  "book_step_spacing": {
+    "committed:14.134725": {
+      "xmax": 897.8472916504176,
+      "prime_powers_in_last_half_percent": 10,
+      "book_step_spacing_in_scale": 0.0034000000000000002
+    },
+    "committed:21.022040": {
+      "xmax": 1998.1958951041172,
+      "prime_powers_in_last_half_percent": 19,
+      "book_step_spacing_in_scale": 0.002
+    },
+    "committed:25.010858": {
+      "xmax": 1998.1958951041172,
+      "prime_powers_in_last_half_percent": 19,
+      "book_step_spacing_in_scale": 0.002
+    },
+    "committed:27.670322": {
+      "xmax": 1998.1958951041172,
+      "prime_powers_in_last_half_percent": 19,
+      "book_step_spacing_in_scale": 0.002
+    },
+    "committed:30.424876": {
+      "xmax": 1998.1958951041172,
+      "prime_powers_in_last_half_percent": 19,
+      "book_step_spacing_in_scale": 0.002
+    },
+    "committed:32.935062": {
+      "xmax": 1998.1958951041172,
+      "prime_powers_in_last_half_percent": 19,
+      "book_step_spacing_in_scale": 0.002
+    },
+    "ext:30.424876": {
+      "xmax": 49020.80113638175,
+      "prime_powers_in_last_half_percent": 460,
+      "book_step_spacing_in_scale": 0.0001173913043478261
+    },
+    "ext:37.586178": {
+      "xmax": 49020.80113638175,
+      "prime_powers_in_last_half_percent": 460,
+      "book_step_spacing_in_scale": 0.0001173913043478261
+    },
+    "ext:40.918719": {
+      "xmax": 49020.80113638175,
+      "prime_powers_in_last_half_percent": 460,
+      "book_step_spacing_in_scale": 0.0001173913043478261
+    }
+  }
+}
