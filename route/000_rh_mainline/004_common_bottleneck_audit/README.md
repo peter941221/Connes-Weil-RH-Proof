@@ -62,5 +62,24 @@ Current recommendation:
 4. Promote Route C only if it removes the same-owner sign obligation directly.
 ```
 
+Execution status:
+
+```text
+2. EXECUTED (record 1994, pre-registered + post-hoc control 1994b):
+   opposite-gates height audit on the committed owner class.
+   gamma_5 hole rescued (6/15 cells, sign-stable in delta); committed
+   basis hole-free through gamma_6. gamma_7/gamma_8 extension reads
+   C < 0 / det > 0 on all sampled cells = UNHEALTHY per 1931; control
+   shows the same face is convention-reachable at gamma_5 (MIXED), so
+   height vs convention is unresolved at 2 cells per height. New
+   necessary condition for any extension: C > 0 health screen across
+   the full scale grid.
+3. EXECUTED (record 1995): Route C / Velez stabilization claim FAILS
+   the five-question promotion audit. Route C remains audit-only.
+1, 4. OPEN.
+```
+
 Authoritative route records remain `docs/map/104_*.md`, `docs/map/106_*.md`,
-and `docs/map/README.md`.
+and `docs/map/README.md`. Executed-audit records:
+`docs/proofs/1994_opposite_gates_height_audit.md`,
+`docs/proofs/1995_route_c_velez_stabilization_audit.md`.

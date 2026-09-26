@@ -24,12 +24,13 @@ This is an evidence record, not an endorsement of any claimed RH proof.
 |                              |                              | doubly exponential while   |
 |                              |                              | the margin collapses.      |
 +------------------------------+------------------------------+------------------------------+
-| Velez, Zenodo 21184595 v5   | A preprint claims full Weil  | No independent verification |
-| A proof of the Riemann      | positivity via Connes'      | or peer-reviewed audit was  |
-| Hypothesis                  | semilocal trace formula and | found in the record; the    |
-|                              | exact stabilization.        | key stabilization and       |
-|                              |                              | positivity steps require   |
-|                              |                              | line-by-line audit.         |
+| Velez, Zenodo 21184595 v5   | A preprint claims full Weil  | AUDITED and FAILED          |
+| A proof of the Riemann      | positivity via Connes'      | (record 1995): the          |
+| Hypothesis                  | semilocal trace formula and | load-bearing Proposition    |
+|                              | exact stabilization.        | 6.1 identity is asserted,   |
+|                              |                              | not proved; exactness from  |
+|                              |                              | an o(1) asymptotic, no      |
+|                              |                              | zero-side control.          |
 +------------------------------+------------------------------+------------------------------+
 
 Source URLs:
