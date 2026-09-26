@@ -313,3 +313,46 @@ obligation.
 Evidence level: measurements, not progress. No bound on the selected
 detector, no new no-go, no smaller obligation; record 1926's selector no-go
 stands, TAIL and COVER are untouched, and no RH claim is made.
+
+## 2026-09-26 — A-HD constrained health maximization under records 2011/2014/2014a
+
+The cone question was inverted and pre-registered as a design problem -
+maximize `C` over the feasible fibre subject to `D < 0` - on an amplitude grid
+extended past the record-2004/2010 range (record 2011). Record 2014 is the
+outcome and record 2014a the instrument amendment it needed.
+
+```text
+registered verdict     INSTRUMENT-FAIL   (the J1 anchor band on the C
+                                         coordinate at G5-W)
+amended verdict        A-HD-MIXED        (same checkpoint, no new rows)
+stage 2                NOT licensed (needs A-HD-GAIN)
+instrument             4/4 owners pass the amended gate; 112/112 rows
+                       certified on three routes, D < 0 in 112/112;
+                       the sigma = 0 rows equal the committed record-2006
+                       cone anchors to 0.00e+00 on C and D, and the 48 shared
+                       grid cells reproduce that artifact to 0.00e+00 on
+                       C, B01, D, det with identical health verdicts
+```
+
+The gain is not a height law. Ranking the four owners by the attained
+`G = C(M)/C(0)` reproduces their ranking by `1 / (2 + f)`, the committed
+cancellation order: `G` = `-45.873` (G5-W, `f = 8.6e+04`), `-2.288` (G5-H,
+`7.2e+03`), `1.653` (G7-H, `133`), `14.096` (G8-H, `51`). The two owners that
+share the ordinate `gamma_5` sit at opposite ends; the two positive owners are
+the two lowest-`f` owners. At G8-H the branch is still increasing at the
+largest registered amplitude (`sigma = 1.60`, rank 6), with `det < 0` and
+`|D|` growing by 1.865; at G7-H it turns immediately (maximiser at
+`sigma = 0.05`); at G5-H and G5-W every one of the 28 rows is unhealthy.
+
+Two consequences for the campaign. The selector freedom is a relief on the
+cancellation order, so it cannot be spent at `gamma_1..gamma_6` - the
+committed selector remains the binding object at those heights, which is what
+the published COVER scans (record 2012) measure on. And the measured
+mass-level resolution offset at half resolution is `2.6e-07` to `7.0e-06` per
+owner, with the C coordinate exposed to it by the factor `|2 + f|` - the first
+measured constant behind record 2013's `P1`, with an erratum correcting 2013
+section 2's factor `(1 + f)` to `(2 + f)` (record 2014 section 5).
+
+Evidence level: measurements, not progress. No producer is licensed (record
+2011 section 6 stands), stage 2 is not run, the binding obligation is
+unchanged, and no RH claim is made.

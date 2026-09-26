@@ -78,6 +78,10 @@ Authoritative records:
 - `docs/proofs/2007_record_2006_check_amendment.md`
 - `docs/proofs/2009_record_2006_anchor_gate_amendment.md`
 - `docs/proofs/2010_route_a_health_cone_outcome.md`
+- `docs/proofs/2011_route_a_ahd_dual_desk_preregistration.md`
+- `docs/proofs/2013_certified_evaluation_layer_pricing_desk.md`
+- `docs/proofs/2014_route_a_ahd_dual_outcome.md`
+- `docs/proofs/2014a_route_a_ahd_anchor_gate_amendment.md`
 ## Recommended next subroute: A-V variational selector
 
 Record 1999 selects `A-V owner-preserving constrained variational selector`
@@ -178,6 +182,43 @@ in the admissibility check, not in the binding obligation.
 Not core progress by the core-progress gate: no unconditional bound on the
 selected detector, no new no-go (record 1926 stands), no smaller obligation.
 
-Next: test whether the margin-increasing branch is a law in the ordinate
-rather than a gamma_8 accident, and check whether the `D < 0` margin on the
-same rows is monotone in the same directions.
+## A-HD outcome: the gain is an owner effect, not a height law
+
+Records 2011 (pre-registration), 2014 (outcome), 2014a (anchor-gate
+amendment). The cone question was inverted into a constrained design problem -
+maximize `C` over the feasible fibre subject to `D < 0` - on an amplitude grid
+extended past the record-2004/2010 range.
+
+```text
+registered verdict   INSTRUMENT-FAIL (J1 anchor band on C at G5-W)
+amended verdict      A-HD-MIXED      (same checkpoint, no new rows)
+stage 2              NOT licensed (registered gate A-HD-GAIN unmet)
+instrument           4/4 amended gate, 112/112 rows certified on three
+                     routes, D < 0 in 112/112; the sigma = 0 rows equal the
+                     committed record-2006 cone anchors to 0.00e+00 on C and
+                     D, and the 48 shared grid cells reproduce that artifact
+                     to 0.00e+00 on C, B01, D, det
+gain                 G5-W -45.873, G5-H -2.288, G7-H 1.653, G8-H 14.096
+                     at (rank 6, sigma 1.60), still increasing
+```
+
+The gain ranking equals the `1 / (2 + f)` ranking of the committed
+cancellation orders (record 2010 section 4), so the selector freedom is a
+relief on the cancellation order and not on the ordinate: the two `gamma_5`
+owners sit at opposite ends, and the two positive owners are the two
+lowest-`f` owners. At `gamma_5` every registered row is unhealthy - the
+committed selector is the only selector available at those heights, which is
+what the published COVER scans (record 2012) measure on. At G8-H the branch
+does not turn within the registered grid (up to `sigma = 1.60`), `det < 0`
+throughout, and `|D|` grows with it (1.865 at the maximiser).
+
+Record 2014 section 5 also measures the first constant behind record 2013's
+`P1`: the mass-level resolution offset at `dxi = 0.008` is `2.6e-07` to
+`7.0e-06` per owner, the C coordinate is exposed to it by `|2 + f|`, and
+record 2013 section 2's `(1 + f)` factor is corrected to `(2 + f)` there.
+
+Next: the health-window question of record 2011 section 5 is still open, and
+its gate must be set on the amended verdict shape before its run - a window
+scan at the G8-H rule's maximisers (does the window move with the selector, or
+is it an owner property?). The definability clause of record 2011 section 6
+stands: no producer is licensed until a canonical rule exists.

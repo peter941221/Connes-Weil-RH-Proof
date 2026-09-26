@@ -40,6 +40,23 @@ GAIN_BAR = 2.0
 NOGAIN_BAR = 1.2
 J4_DXI = 0.004
 J4_BAR = 5.0e-3
+# ---------------------------------------------------------------------------
+# Amendment 2014a (registered before this mode is run): the original J1 gated
+# the cross-resolution offset of BOTH C and D at 5e-3.  The committed cone
+# instrument (record 2006, same dxi = 0.008 as this desk) gated D only, at
+# 1e-3, and REPORTED the C offset: C is the f-cancelled coordinate
+# (f = mm / A, record 2010 section 4), so a fixed-resolution offset on C is a
+# property of the owner, not a machinery error.  The amended gate is the
+# record-2006 gate, plus the stronger layer check that the sigma = 0 row
+# equals the committed cone anchor row on both entries.
+ANCHOR_BAND_AMENDED = 1.0e-3
+LAYER_BAR = 1.0e-9
+LAYER_ANCHORS = {
+    "G5-H": (+1.49089499804813386e+00, -6.30752072626298047e+12),
+    "G5-W": (+2.50171187903106329e-01, -2.25136825561206312e+14),
+    "G7-H": (+1.73154001136437728e+02, -2.03596080584510210e+20),
+    "G8-H": (+6.64107474896016356e+02, -1.11126519153653187e+20),
+}
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -68,7 +85,7 @@ def setup_case(delta, gamma, scale, tag):
         "nodes": nodes, "values": values, "fam": fam, "xw": xw, "base": base,
         "corr": corr, "e_ref": e_ref, "cond": cond, "dirs": dirs,
         "spectrum": spec["spectrum"], "nullity": spec["nullity"],
-        "support_radius": max(a for a, _t in fam) * (r06.N + 2),
+        "support_radius": max(a for a, _ in fam) * (r06.N + 2),
         "basis_size": len(fam),
     }
 
@@ -255,6 +272,12 @@ def stage2(tag, delta, gamma):
             % (sc, anchor["C"], anchor["healthy"],
                "%.3f" % gain if gain is not None else "none",
                best["healthy"] if best is not None else None))
+        partial = os.path.join(REPO, "results",
+                               "2011_route_a_ahd_dual_partial.json")
+        with open(partial, "w", encoding="utf-8") as stream:
+            json.dump({"record": "2011", "status": "PARTIAL_STAGE2",
+                       "owner": tag, "cells": cells}, stream, indent=2)
+            stream.write("\n")
     return {"owner": tag, "cells": cells}
 
 
@@ -282,9 +305,33 @@ def stage2_verdict(cells):
 
 def main():
     smoke = "--smoke" in sys.argv
-    cases = CASES[:1] if smoke else CASES
-    anchors = r06.load_anchors()
-    records = [run_case(*case[:3], case[3], anchors) for case in cases]
+    # `--reduce` recomputes the registered verdict from the checkpoint written
+    # by the measurement pass.  It exists because the driver's verdict block
+    # raised a TypeError (a boolean treated as an iterable in the j4
+    # aggregation) after all four cases had already been measured and
+    # checkpointed: the measurement is complete and the fix touches only the
+    # type of that aggregation, so no row is re-measured and no threshold is
+    # touched.
+    reduce_only = "--reduce" in sys.argv
+    amended = "--amended-anchor" in sys.argv
+    partial = os.path.join(REPO, "results",
+                           "2011_route_a_ahd_dual_partial.json")
+    if reduce_only:
+        with open(partial, encoding="utf-8") as stream:
+            records = json.load(stream)["cases"]
+        log("reduce from checkpoint: %d cases, %d rows"
+            % (len(records), sum(len(rec["rows"]) for rec in records)))
+    else:
+        cases = CASES[:1] if smoke else CASES
+        anchors = r06.load_anchors()
+        records = []
+        for case in cases:
+            records.append(run_case(*case[:3], case[3], anchors))
+            if not smoke:
+                with open(partial, "w", encoding="utf-8") as stream:
+                    json.dump({"record": "2011", "status": "PARTIAL",
+                               "cases": records}, stream, indent=2)
+                    stream.write("\n")
 
     checks = []
     for rec in records:
@@ -299,23 +346,36 @@ def main():
                 and r["identity"]["dev_moment"] <= 5.0e-3
                 and r["identity"]["dev_alg"] <= 1.0e-9)
             for r in rec["rows"])
-        j4_ok = all(rec["j4"]["pass"]) if rec["j4"] else None
+        j4_ok = rec["j4"]["pass"] if rec["j4"] else None
+        layer_ref = LAYER_ANCHORS.get(rec["tag"])
+        layer_dev = {}
+        if layer_ref:
+            for key, ref in zip(("C", "D"), layer_ref):
+                layer_dev[key] = abs(rec["anchor"][key] - ref) / abs(ref)
+        amended_ok = bool(rec["anchor"]["certified"]
+                          and dev.get("D", 1.0) <= ANCHOR_BAND_AMENDED
+                          and layer_dev
+                          and max(layer_dev.values()) <= LAYER_BAR)
         checks.append({"tag": rec["tag"], "anchor_ok": anchor_ok,
+                       "anchor_ok_amended": amended_ok,
                        "rows_ok": rows_ok, "identity_ok": ident_ok,
                        "j4_ok": j4_ok,
-                       "anchor_dev_C": dev.get("C"), "anchor_dev_D": dev.get("D")})
+                       "anchor_dev_C": dev.get("C"), "anchor_dev_D": dev.get("D"),
+                       "layer_dev_C": layer_dev.get("C"),
+                       "layer_dev_D": layer_dev.get("D")})
 
     gains = [(rec["tag"], rec["gain"]) for rec in records
              if rec["gain"] is not None]
-    n_gain = sum(1 for _t, gvalue in gains if gvalue >= GAIN_BAR)
+    n_gain = sum(1 for item in gains if item[1] >= GAIN_BAR)
+    ok_key = "anchor_ok_amended" if amended else "anchor_ok"
     if smoke:
         verdict = "SMOKE"
-    elif not all(c["anchor_ok"] and c["rows_ok"] and c["identity_ok"]
+    elif not all(c[ok_key] and c["rows_ok"] and c["identity_ok"]
                  and (c["j4_ok"] in (True, None)) for c in checks):
         verdict = "INSTRUMENT-FAIL"
     elif n_gain >= 2:
         verdict = "A-HD-GAIN"
-    elif all(gvalue < NOGAIN_BAR for _t, gvalue in gains) and gains:
+    elif all(item[1] < NOGAIN_BAR for item in gains) and gains:
         verdict = "A-HD-NOGAIN"
     else:
         verdict = "A-HD-MIXED"
@@ -342,14 +402,35 @@ def main():
     log("VERDICT: %s" % verdict)
 
     suffix = "_smoke" if smoke else ""
+    if amended:
+        suffix = "_amended"
     out = os.path.join(REPO, "results",
                        "2011_route_a_ahd_dual%s.json" % suffix)
+    driver = {
+        "mode": "reduce-from-checkpoint" if reduce_only
+        else ("smoke" if smoke else "measure"),
+        "checkpoint": os.path.relpath(partial, REPO).replace("\\", "/")
+        if reduce_only else None,
+        "note": ("verdict recomputed from the four measured cases after a "
+                 "driver TypeError fix in the j4 aggregation; no row was "
+                 "re-measured and no threshold was changed")
+        if reduce_only else "single-pass measurement and verdict",
+    }
+    instrument = {
+        "anchor_gate": ("amendment 2014a: D dev <= 1e-3 gated, C dev reported, "
+                        "plus the sigma = 0 row equal to the record-2006 "
+                        "committed cone anchor within 1e-9 on C and D")
+        if amended else
+        "registered J1: C dev <= 5e-3 and D dev <= 5e-3, both gated",
+        "verdict_key": ok_key,
+    }
     with open(out, "w", encoding="utf-8") as stream:
         json.dump({"record": "2011", "verdict": verdict,
+                   "amended": bool(amended), "instrument": instrument,
                    "ranks": list(RANKS), "sigma_grid": list(SIGMAS),
                    "stage2_scales": list(STAGE2_SCALES),
                    "gain_bar": GAIN_BAR, "nogain_bar": NOGAIN_BAR,
-                   "checks": checks, "gains": gains,
+                   "driver": driver, "checks": checks, "gains": gains,
                    "stage2": stage2_out, "cases": records},
                   stream, indent=2)
         stream.write("\n")
