@@ -1,0 +1,217 @@
+{
+  "record": "2019",
+  "scan": "floor-refined",
+  "deltas_new": [
+    0.005,
+    0.01
+  ],
+  "dxi": 0.004,
+  "cells_source": "results/2019_registered_cells.json",
+  "verdict": "FLOOR-REFINED-0.005",
+  "instrument_fail": false,
+  "slots": [
+    {
+      "layer": "committed",
+      "gamma": 14.134725141734695,
+      "hosts_005": [
+        0.88,
+        0.9
+      ],
+      "hosts_010": [
+        0.88,
+        0.9
+      ],
+      "swept_005": [],
+      "committed_floor": 0.02,
+      "refined_floor": 0.005
+    },
+    {
+      "layer": "committed",
+      "gamma": 21.022039638771556,
+      "hosts_005": [
+        0.88
+      ],
+      "hosts_010": [
+        0.88
+      ],
+      "swept_005": [],
+      "committed_floor": 0.02,
+      "refined_floor": 0.005
+    },
+    {
+      "layer": "committed",
+      "gamma": 25.01085758014569,
+      "hosts_005": [
+        0.88,
+        0.9
+      ],
+      "hosts_010": [
+        0.88,
+        0.9
+      ],
+      "swept_005": [],
+      "committed_floor": 0.02,
+      "refined_floor": 0.005
+    },
+    {
+      "layer": "committed",
+      "gamma": 27.67032193035704,
+      "hosts_005": [
+        0.86,
+        0.88,
+        0.9
+      ],
+      "hosts_010": [
+        0.86,
+        0.88,
+        0.9
+      ],
+      "swept_005": [],
+      "committed_floor": 0.02,
+      "refined_floor": 0.005
+    },
+    {
+      "layer": "committed",
+      "gamma": 30.424876125859512,
+      "hosts_005": [
+        0.86,
+        0.92
+      ],
+      "hosts_010": [
+        0.86,
+        0.92
+      ],
+      "swept_005": [],
+      "committed_floor": 0.02,
+      "refined_floor": 0.005
+    },
+    {
+      "layer": "committed",
+      "gamma": 32.93506158773919,
+      "hosts_005": [
+        1.0
+      ],
+      "hosts_010": [],
+      "swept_005": [],
+      "committed_floor": 0.02,
+      "refined_floor": 0.005
+    },
+    {
+      "layer": "ext",
+      "gamma": 30.424876125859512,
+      "hosts_005": [
+        0.9,
+        0.92,
+        0.94
+      ],
+      "hosts_010": [
+        0.9,
+        0.92,
+        0.94
+      ],
+      "swept_005": [],
+      "committed_floor": null,
+      "refined_floor": 0.005
+    },
+    {
+      "layer": "ext",
+      "gamma": 37.58617815882567,
+      "hosts_005": [
+        0.92
+      ],
+      "hosts_010": [
+        0.92
+      ],
+      "swept_005": [],
+      "committed_floor": 0.02,
+      "refined_floor": 0.005
+    },
+    {
+      "layer": "ext",
+      "gamma": 40.9187190121475,
+      "hosts_005": [
+        0.88
+      ],
+      "hosts_010": [
+        0.88
+      ],
+      "swept_005": [],
+      "committed_floor": 0.02,
+      "refined_floor": 0.005
+    }
+  ],
+  "n_np_mismatch": 0,
+  "unresolved": [],
+  "anchors": [
+    {
+      "layer": "ext",
+      "gamma": 37.58617815882567,
+      "delta": 0.1,
+      "scale": 0.92,
+      "source": "1996",
+      "C": 173.2980278055402,
+      "D": -2.0359193769218664e+20,
+      "ref_C": 173.2980278055402,
+      "ref_D": -2.0359193769218664e+20,
+      "dev_C": 0.0,
+      "dev_D": 0.0,
+      "pass": true
+    },
+    {
+      "layer": "ext",
+      "gamma": 40.9187190121475,
+      "delta": 0.1,
+      "scale": 0.88,
+      "source": "1996",
+      "C": 664.3518622617412,
+      "D": -1.111261609813454e+20,
+      "ref_C": 664.3518622617412,
+      "ref_D": -1.111261609813454e+20,
+      "dev_C": 0.0,
+      "dev_D": 0.0,
+      "pass": true
+    },
+    {
+      "layer": "committed",
+      "gamma": 30.424876125859512,
+      "delta": 0.1,
+      "scale": 0.92,
+      "source": "1994",
+      "C": 57.88031125492216,
+      "D": -7618836674.375,
+      "ref_C": 57.88031125492216,
+      "ref_D": -7618836674.375,
+      "dev_C": 0.0,
+      "dev_D": 0.0,
+      "pass": true
+    },
+    {
+      "layer": "committed",
+      "gamma": 30.424876125859512,
+      "delta": 0.2,
+      "scale": 0.86,
+      "source": "1994",
+      "C": 80.09172416637011,
+      "D": -242154963980.20312,
+      "ref_C": 80.09172416637011,
+      "ref_D": -242154963980.20312,
+      "dev_C": 0.0,
+      "dev_D": 0.0,
+      "pass": true
+    },
+    {
+      "layer": "ext",
+      "gamma": 30.424876125859512,
+      "delta": 0.1,
+      "scale": 0.92,
+      "source": "1994b",
+      "C": 1.494812433412335,
+      "D": -6307380989581.586,
+      "ref_C": 1.494812433412335,
+      "ref_D": -6307380989581.586,
+      "dev_C": 0.0,
+      "dev_D": 0.0,
+      "pass": true
+    }
+  ]
+}

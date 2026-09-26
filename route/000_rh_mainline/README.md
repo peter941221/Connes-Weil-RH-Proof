@@ -68,17 +68,22 @@ visible-prime book.  Direction D (the Speiser split) stays down-graded, and
 the quantifier is explicit in the record: the verdict is a statement about
 `delta >= 0.02`, so it cannot distinguish "no wall" from "a wall below 0.02";
 the finer delta grid and the `dxi = 0.002` band-edge re-read are the
-registered follow-ups, now running as record 2019.  The record-2020 currency
-desk then identified the visible book exactly (`np(s) = #{n prime power :
-n <= exp(2 s m_pool)}`, 27/27 committed cells), measured the comb as a
-near-white sequence along scale at the 0.01 grid (flip rates at the
-independence reference, flat in the step), and priced the currencies that
-survive: no 0.01-scale window structure, healthy measure `mu = 0.306`
-(`H = 3.27`) at `delta = 0.10`, and pointwise-in-scale certification
-book-exact and finite - the scale ladder is registered as C1 in record 2020
-section 8.  With both halves measured, the COVER layer's analytic currency is
-an open question with directions A and D excluded by measurement and C/E
-unselected - see `docs/map/107_cover_layer_measured_state.md`.
+registered follow-ups.  Both have since run and are read in record 2022: the
+comb is **resolution-stable** (zero flips over the 189-cell re-read set, all
+nine band censuses identical at `dxi = 0.002`, `r <= 8.87e-05` over the
+`gamma_1`/`gamma_2` cells), and the floor **refines to 0.005** on all nine
+slots (committed `gamma_6` through the registered stage-B sweep at scale
+1.00).  The record-2020 currency desk then identified the visible book
+exactly (`np(s) = #{n prime power : n <= exp(2 s m_pool)}`, 27/27 committed
+cells), measured the comb as a near-white sequence along scale at the 0.01
+grid (flip rates at the independence reference, flat in the step), and
+priced the currencies that survive: no 0.01-scale window structure, healthy
+measure `mu = 0.306` (`H = 3.27`) at `delta = 0.10`, and pointwise-in-scale
+certification book-exact and finite - the scale ladder is registered as C1 in
+record 2020 section 8 and running as record 2021.  With both halves measured,
+the COVER layer's analytic currency is an open question with directions A and
+D excluded by measurement and C/E unselected - see
+`docs/map/107_cover_layer_measured_state.md`.
 
 Authority remains in `docs/map/`; this directory is the navigational topology.
 

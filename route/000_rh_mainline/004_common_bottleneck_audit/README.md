@@ -98,13 +98,17 @@ COVER. MEASURED for the width track (record 2016, KNOT_COMPLEX): over the
    delta-stable while the C-comb is not, and n_primes does not move with
    delta. Direction D stays down-graded; the verdict covers delta >= 0.02
    only. One-resolution caveat and the dxi = 0.002 re-read are registered
-   in record 2016 section 5 (now running as record 2019); the currency desk
-   (record 2020) identifies the visible book exactly and reads the comb as
-   a near-white sequence along scale at the 0.01 grid, so no window
-   currency survives there - the measured healthy measure (mu = 0.306,
-   H = 3.27 at delta = 0.10) and pointwise certification remain; the scale
-   ladder is registered as C1. The COVER currency question is mapped in
-   docs/map/107_cover_layer_measured_state.md.
+   in record 2016 section 5; both follow-ups have since run (record 2022):
+   the comb is resolution-stable (zero flips over the 189-cell re-read set,
+   nine of nine censuses identical at dxi = 0.002, r <= 8.87e-05 on the
+   gamma_1/gamma_2 cells) and the floor refines to 0.005 on all nine slots
+   (committed gamma_6 via the registered stage-B sweep at scale 1.00); the
+   currency desk (record 2020) identifies the visible book exactly and reads
+   the comb as a near-white sequence along scale at the 0.01 grid, so no
+   window currency survives there - the measured healthy measure (mu =
+   0.306, H = 3.27 at delta = 0.10) and pointwise certification remain; the
+   scale ladder is registered as C1 (record 2021, running). The COVER
+   currency question is mapped in docs/map/107_cover_layer_measured_state.md.
 ```
 
 Authoritative route records remain `docs/map/104_*.md`, `docs/map/106_*.md`,

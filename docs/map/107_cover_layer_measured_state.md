@@ -87,6 +87,25 @@ healthy set's 0.01 window currency is measured absent, its *measure* currency
 is measured (H = 3.27 at delta = 0.10), and the surviving requirement is
 pointwise-in-scale certification at the measured cancellation depth.
 
+Record 2022 then closed the two registered measurement debts on the other
+axes:
+
+```text
+resolution (2022) re-read of the comb at dxi = 0.002: zero flips, zero
+                  lost, zero appeared, zero missing over 189 cells, nine of
+                  nine band censuses identical (COMB-RESOLUTION-STABLE);
+                  r <= 8.87e-05 over the 42 gamma_1/gamma_2 cells
+                  (RP-COMPLETE), eps 6.4e-06 .. 8.7e-04
+delta (2022)      the floor refines: a certified host at delta = 0.005 on
+                  all nine slots (FLOOR-REFINED-0.005; committed gamma_6 via
+                  the registered stage-B sweep, host at scale 1.00)
+```
+
+The comb therefore survives the quadrature refinement at the certified cells
+- it is a resolution fact, not a quadrature artifact - and FLOOR_UNIFORM is
+no longer a statement about `delta >= 0.02` alone: at this refinement the
+floor sits at the smallest registered delta on every measured slot.
+
 ## 3. Routing rulings
 
 Only the registered precedence rules were applied, and they give:
@@ -133,7 +152,8 @@ mechanism may be promoted while the producer's own margin is open.
 
 ## 5. Registered follow-up measurements
 
-Two are registered, and both are measurements rather than mechanisms:
+Two were registered, and both were measurements rather than mechanisms.
+Both have now run and are read in record 2022:
 
 ```text
 M1  the band-edge re-read at dxi = 0.002 (registered in 2016 section 5):
@@ -142,23 +162,30 @@ M1  the band-edge re-read at dxi = 0.002 (registered in 2016 section 5):
     1.6e+06 at gamma_2 against 8.6e+04 where record 2014 measured the
     amplification - so the comb's fine structure, and at gamma_2 the sign of C
     itself, must be re-read at half resolution before any decision rests on it
+    read 2026-09-27: COMB-RESOLUTION-STABLE / EDGE-CONSERVED /
+    BAND-REPRODUCED / RP-COMPLETE - zero flips, zero lost, zero appeared,
+    zero missing over the 189-cell re-read set, nine of nine censuses
+    identical, r in [1.79e-08, 8.87e-05] over the 42 gamma_1/gamma_2 cells
 M2  a finer delta grid (0.005, 0.01, 0.02) on the heights whose hosts sit
     inside the five-point grid (registered in 2017 section 5): FLOOR_UNIFORM is
     a statement about delta >= 0.02 and cannot distinguish "no wall" from "a
     wall below 0.02"; M2 is the only registered way to move the near-line
     quantifier
+    read 2026-09-27: FLOOR-REFINED-0.005 - all nine slots carry a certified
+    host at delta = 0.005 (committed gamma_6 by the registered stage-B sweep,
+    at scale 1.00); the floor of record 2017 refines at this resolution
 ```
 
-Both are RUNNING as record 2019 (pre-registration c9cde2ef: M1 = phase
-`edges`, 189 cells at dxi = 0.002 chained to M2 = phase `floor2`).  The third
-axis - the scale side - is registered by record 2020 as C1:
+The third axis - the scale side - is registered by record 2020 as C1 and is
+RUNNING as record 2021 (pre-registration ae03d687, launched on the lock
+released by M2):
 
 ```text
 C1  the scale ladder: three slots (committed gamma_1, committed gamma_4,
     ext gamma_5), sub-window scale in [0.86, 0.96], grids step 0.005 (21
     cells) and 0.002 (51 cells) per slot; verdicts SAMPLER-ALL-RESOLUTIONS /
-    WINDOW-LADDER / ALTERNATING-LADDER / INSTRUMENT-FAIL as fixed in record
-    2020 section 8
+    WINDOW-LADDER / ALTERNATING-LADDER / LADDER-MIXED / INSTRUMENT-FAIL as
+    fixed in record 2020 section 8
 ```
 
 A third, deliberately not registered: the far-delta side.  Two heights lose
