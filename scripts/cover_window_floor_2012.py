@@ -36,6 +36,24 @@ registered COVER follow-ups of records 2016/2017/2018:
                    determinism check; np is checked cell-by-cell against the
                    record-2020 book identification.
 
+Record-2024 L-ladder extension (pre-registered in
+docs/proofs/2024_l_ladder_preregistration.md), read in record 2025:
+
+  --phase=ladder9      P1: the record-2021 ladder extended to the six slots
+                       C1 did not measure (committed gamma_2, gamma_3,
+                       gamma_5, gamma_6 and the EXT heights gamma_7, gamma_8)
+                       at delta = 0.10 on the same two grids; the sublattice
+                       preload and the registered determinism re-reads follow
+                       the C1 pattern; the reading reports the per-slot flip
+                       rates, the per-slot band scale L = step/rate on both
+                       grids and the pooled nine-slot flip ladder.
+  --phase=deltaladder  P2: the delta axis on the three C1 slots - the same
+                       two grids at delta = 0.02 and 0.05, with the five-point
+                       cells preloaded from the committed floor rows; the
+                       delta = 0.10 reference is the committed C1 rows
+                       artifact, never re-measured; the reading reports the
+                       per-slot band-scale ladder L(0.02), L(0.05), L(0.10).
+
 From this extension the row carries its own `dxi` and the cache is keyed by
 it, so one process holds the committed 0.004 rows and the fresh 0.002 rows of
 the same cell without either shadowing the other.
@@ -82,6 +100,23 @@ LADDER_DELTA = 0.10
 LADDER_RANGE = (0.86, 0.96)
 LADDER_STEPS = (0.005, 0.002)
 LADDER_DETERMINISM_SCALES = (0.88, 0.90, 0.92)
+# record-2024 L-ladder wave (pre-registered in
+# docs/proofs/2024_l_ladder_preregistration.md, read in record 2025): P1
+# completes the record-2021 ladder on the six unmeasured slots; P2 reads the
+# delta axis (0.02 / 0.05) on the three C1 slots against the committed
+# delta = 0.10 rows.  The registered census is generated from the committed
+# artifacts by scripts/cover_ladder_cells_2024.py and cross-checked by A0.
+LADDER9_SLOTS = [("committed", COMMITTED_HEIGHTS[1]),
+                 ("committed", COMMITTED_HEIGHTS[2]),
+                 ("committed", COMMITTED_HEIGHTS[4]),
+                 ("committed", COMMITTED_HEIGHTS[5]),
+                 ("ext", r94.G7), ("ext", r94.G8)]
+DELTA_LADDER_SLOTS = list(LADDER_SLOTS)
+DELTA_LADDER_DELTAS = (0.02, 0.05)
+DELTA_LADDER_REFERENCE = LADDER_DELTA
+L_AGREE_BAR = 0.25             # registered relative L-agreement bar
+CELLS_ARTIFACT_2024 = "results/2024_registered_cells.json"
+C1_ROWS_ARTIFACT = "results/2021_scale_ladder_rows.json"
 CELLS_ARTIFACT = "results/2019_registered_cells.json"
 CHECKPOINT_EVERY = 25
 SMOKE_SUFFIX = ""              # set to "_smoke" by a --smoke run
@@ -807,6 +842,426 @@ def ladder_reading(cache, anchors, det_cells):
     log("results -> %s" % out)
 
 
+def grid_stats(rows, step, max_lag=0.011):
+    """One grid's certified rows at one delta: mu values and the by-stride
+    flip table (the record-2021 flip_rate primitive, factored out; the C1
+    reading keeps its own frozen copy)."""
+    n_cert = len(rows)
+    mu_h = (sum(1 for r in rows if r.get("face") == "WIRE1") / n_cert
+            if n_cert else None)
+    mu_c = (sum(1 for r in rows if r["C"] > 0) / n_cert if n_cert else None)
+    by_stride = {}
+    for stride in range(1, len(rows)):
+        if stride * step > max_lag:
+            break
+        n, c_flip, h_flip, n_end, c_end, h_end = flip_rate(rows, stride, step)
+        by_stride["stride_%d" % stride] = {
+            "h": stride * step, "n_pairs": n, "c_flip": c_flip,
+            "h_flip": h_flip, "n_end": n_end, "c_end": c_end,
+            "h_end": h_end,
+            "c_rate": (c_flip / n) if n else None,
+            "h_rate": (h_flip / n) if n else None}
+    return {"n_certified": n_cert, "mu_healthy": mu_h, "mu_c_pos": mu_c,
+            "h_scales": [r["scale"] for r in rows
+                         if r.get("face") == "WIRE1"],
+            "certified_rows": [{"scale": r["scale"], "face": r.get("face")}
+                               for r in rows],
+            "by_stride": by_stride}
+
+
+def pool_estimators(grids_by_slot, estimators):
+    """Pooled flip rates and endpoint independence references over a family
+    of grid blocks keyed by slot (or (slot, delta)), the record-2021 pooled
+    block factored out for the record-2024 readings."""
+    pooled, refs = {}, {}
+    for name, step, stride in estimators:
+        n = c_flip = h_flip = n_end = c_end = h_end = 0
+        for grids in grids_by_slot.values():
+            blob = grids["step_%g" % step]["by_stride"].get(
+                "stride_%d" % stride)
+            if blob:
+                n += blob["n_pairs"]
+                c_flip += blob["c_flip"]
+                h_flip += blob["h_flip"]
+                n_end += blob["n_end"]
+                c_end += blob["c_end"]
+                h_end += blob["h_end"]
+        pooled[name] = {
+            "n_pairs": n, "n_end": n_end, "c_end": c_end, "h_end": h_end,
+            "c_flip": c_flip, "h_flip": h_flip,
+            "c_rate": (c_flip / n) if n else None,
+            "h_rate": (h_flip / n) if n else None}
+        if n_end:
+            mu_e = h_end / n_end
+            mu_e_c = c_end / n_end
+            ref = 2.0 * mu_e * (1.0 - mu_e)
+            ref_c = 2.0 * mu_e_c * (1.0 - mu_e_c)
+            sig = rate_sigma(pooled[name]["h_rate"] or 0.0, n)
+            sig_c = rate_sigma(pooled[name]["c_rate"] or 0.0, n)
+            refs[name] = {
+                "mu_endpoints": mu_e, "mu_endpoints_c": mu_e_c,
+                "ref_h": ref, "sigma_h": sig, "ref_c": ref_c,
+                "sigma_c": sig_c,
+                "dev_h": ((pooled[name]["h_rate"] - ref) / sig)
+                if sig else None,
+                "dev_c": ((pooled[name]["c_rate"] - ref_c) / sig_c)
+                if sig_c else None}
+    return pooled, refs
+
+
+def slot_delta_entry(cache, layer, gk, delta, steps, smoke, missing,
+                     limit=3):
+    """One (slot, delta) block: per-grid stats through Cache.peek (never
+    measures), the book-identification np check on every present cell, and
+    the certified-row filter (an INSTRUMENT row drops out of the estimators).
+    Returns (entry, np_cells, np_bad)."""
+    m_pool = slot_book_width(layer, gk)
+    entry = {"layer": layer, "gamma": gk, "delta": delta, "m_pool": m_pool,
+             "grids": {}}
+    np_cells = np_bad = 0
+    for step in steps:
+        scales = ladder_grid(step)
+        if smoke:
+            scales = scales[:limit]
+        rows = []
+        for sc in scales:
+            row = cache.peek(layer, gk, delta, sc)
+            if row is None:
+                missing.append([layer, gk, delta, step, sc])
+                continue
+            np_cells += 1
+            np_pred = len(r59.rig.prime_powers_up_to(
+                math.exp(2.0 * sc * m_pool)))
+            if row["n_primes"] != np_pred:
+                np_bad += 1
+                log("  np MISMATCH %s:%.6f d=%.3f sc=%.4f meas=%s pred=%d"
+                    % (layer, gk, delta, sc, row["n_primes"], np_pred))
+            if row.get("face") != "INSTRUMENT":
+                rows.append(row)
+        entry["grids"]["step_%g" % step] = grid_stats(rows, step)
+    return entry, np_cells, np_bad
+
+
+def c1_reference_rows(ref_by_slot, layer, gk, steps, smoke):
+    """The delta = 0.10 reference rows for one slot, read from the committed
+    record-2021 C1 rows artifact (never re-measured), restricted to the
+    registered grids."""
+    want = set()
+    for step in steps:
+        scales = ladder_grid(step)
+        if smoke:
+            scales = scales[:3]
+        want.update(round(sc, 6) for sc in scales)
+    rows = [r for r in ref_by_slot.get((layer, round(gk, 6)), [])
+            if abs(r["delta"] - DELTA_LADDER_REFERENCE) < 1e-12
+            and abs(r.get("dxi", DXI) - DXI) < 1e-12
+            and round(r["scale"], 6) in want
+            and r.get("face") != "INSTRUMENT"]
+    rows.sort(key=lambda r: r["scale"])
+    return rows
+
+
+def ladder_census_ok(phase):
+    """A0 of record 2024: the rig's registered slot sets must match the
+    generated census artifact slot-for-slot, and the artifact's own new-cell
+    arithmetic must reproduce from its recorded preload lists.  The census is
+    generated from committed artifacts by scripts/cover_ladder_cells_2024.py,
+    never typed."""
+    path = os.path.join(REPO, CELLS_ARTIFACT_2024)
+    if not os.path.exists(path):
+        log("  census A0: %s missing" % CELLS_ARTIFACT_2024)
+        return False
+    with open(path, encoding="utf-8") as stream:
+        census = json.load(stream)
+    union = sorted(set(ladder_grid(0.005)) | set(ladder_grid(0.002)))
+
+    def count_new(preload):
+        return len([sc for sc in union
+                    if not any(abs(sc - p) < 1e-9 for p in preload)])
+
+    if phase == "ladder9":
+        want = sorted("%s:%.6f" % (l, g) for l, g in LADDER9_SLOTS)
+        block = census.get("p1", {})
+        have = sorted(block.get("slots", {}))
+        if want != have or block.get("missing_preload"):
+            log("  census A0: ladder9 slots %s vs registered %s" % (have, want))
+            return False
+        total = 0
+        for entry in block["slots"].values():
+            want_new = count_new(entry["preloaded_sublattice"])
+            if entry["new_cells"] != want_new:
+                log("  census A0: %s new_cells %s != %s"
+                    % (entry["gamma"], entry["new_cells"], want_new))
+                return False
+            total += want_new
+        return total == block.get("new_cells")
+    if phase == "deltaladder":
+        want = sorted("%s:%.6f" % (l, g) for l, g in DELTA_LADDER_SLOTS)
+        block = census.get("p2", {})
+        have = sorted(block.get("slots", {}))
+        if want != have or block.get("missing_preload"):
+            log("  census A0: deltaladder slots %s vs registered %s"
+                % (have, want))
+            return False
+        total = 0
+        for entry in block["slots"].values():
+            for dkey, dblob in entry["deltas"].items():
+                want_new = count_new(dblob["preloaded_five_point"])
+                if dblob["new_cells"] != want_new:
+                    log("  census A0: %s d=%s new_cells %s != %s"
+                        % (entry["gamma"], dkey, dblob["new_cells"],
+                           want_new))
+                    return False
+                total += want_new
+        refs = block.get("reference_check", {})
+        ref_ok = bool(refs) and all(v.get("complete") for v in refs.values())
+        return total == block.get("new_cells") and ref_ok
+    return False
+
+
+def fine_L(rate):
+    """L = 0.002 / flip rate on the fine grid.  A zero flip count is a
+    no-flips reading (L not finite), reported as such - never silently
+    conflated with a missing estimate (the degenerate-clause rule)."""
+    if rate is None:
+        return None, False
+    if rate == 0.0:
+        return None, True
+    return 0.002 / rate, False
+
+
+def fmt_L(value, no_flips):
+    if value is not None:
+        return "%.5f" % value
+    return "no-flips" if no_flips else "n/a"
+
+
+def ladder9_reading(cache, anchors, det_cells):
+    """record-2024 P1: the nine-slot ladder (the six slots C1 did not
+    measure).  Verdict clauses fixed in record 2024 section 5."""
+    steps = LADDER_STEPS
+    slots = LADDER9_SLOTS[:1] if SMOKE_SUFFIX else LADDER9_SLOTS
+    missing, np_bad, np_cells = [], 0, 0
+    slot_rows = {}
+    for layer, gk in slots:
+        entry, n_c, n_b = slot_delta_entry(cache, layer, gk, LADDER_DELTA,
+                                           steps, bool(SMOKE_SUFFIX), missing)
+        np_cells += n_c
+        np_bad += n_b
+        slot_rows["%s:%.6f" % (layer, gk)] = entry
+    estimators = [("h=0.002 (step 0.002 stride 1)", 0.002, 1),
+                  ("h=0.005 (step 0.005 stride 1)", 0.005, 1),
+                  ("h=0.01 (step 0.005 stride 2)", 0.005, 2),
+                  ("h=0.01 (step 0.002 stride 5)", 0.002, 5)]
+    grids_by_slot = {key: entry["grids"] for key, entry in slot_rows.items()}
+    pooled, refs = pool_estimators(grids_by_slot, estimators)
+    per_slot = {}
+    for key, entry in slot_rows.items():
+        r = {"layer": entry["layer"], "gamma": entry["gamma"],
+             "m_pool": entry["m_pool"], "estimators": {}}
+        for name, step, stride in estimators:
+            blob = entry["grids"]["step_%g" % step]["by_stride"].get(
+                "stride_%d" % stride)
+            if blob is None or not blob["n_pairs"]:
+                r["estimators"][name] = None
+                continue
+            mu_e = blob["h_end"] / blob["n_end"]
+            mu_e_c = blob["c_end"] / blob["n_end"]
+            ref_h = 2.0 * mu_e * (1.0 - mu_e)
+            ref_c = 2.0 * mu_e_c * (1.0 - mu_e_c)
+            sig_h = rate_sigma(blob["h_rate"], blob["n_pairs"])
+            sig_c = rate_sigma(blob["c_rate"], blob["n_pairs"])
+            r["estimators"][name] = {
+                "n_pairs": blob["n_pairs"], "c_flip": blob["c_flip"],
+                "h_flip": blob["h_flip"], "c_rate": blob["c_rate"],
+                "h_rate": blob["h_rate"], "ref_h": ref_h, "ref_c": ref_c,
+                "dev_h": ((blob["h_rate"] - ref_h) / sig_h)
+                if sig_h else None,
+                "dev_c": ((blob["c_rate"] - ref_c) / sig_c)
+                if sig_c else None}
+        e2 = r["estimators"][estimators[0][0]]
+        e5 = r["estimators"][estimators[1][0]]
+        l2, nf2 = fine_L(e2["c_rate"] if e2 else None)
+        l5, nf5 = fine_L(e5["c_rate"] if e5 else None)
+        r["L_002"] = l2
+        r["L_005"] = l5
+        r["no_flips_002"] = nf2
+        r["no_flips_005"] = nf5
+        r["counts_equal"] = bool(e2 and e5 and e2["c_flip"] == e5["c_flip"])
+        r["resolution_consistent"] = bool(
+            l2 is not None and l5 is not None
+            and abs(l2 - l5) / max(l2, l5) <= L_AGREE_BAR)
+        per_slot[key] = r
+    anchors_ok = all(a.get("pass") for a in anchors)
+    det_ok = all(d["dev_C"] == 0.0 and d["dev_D"] == 0.0
+                 for d in det_cells) if det_cells else False
+    census_ok = ladder_census_ok("ladder9")
+    instrument_fail = bool(missing) or np_bad > 0 or not anchors_ok \
+        or not det_ok or not census_ok
+    verdict = "LADDER9-INSTRUMENT-FAIL" if instrument_fail else None
+    if not instrument_fail:
+        key2 = estimators[0][0]
+        win = [k for k, r in per_slot.items()
+               if r["estimators"][key2] is not None
+               and r["estimators"][key2]["dev_h"] is not None
+               and r["estimators"][key2]["dev_h"] <= -3.0]
+        if len(win) == len(per_slot):
+            verdict = "LADDER9-UNIFORM"
+        elif win:
+            verdict = "LADDER9-PARTIAL"
+        else:
+            verdict = "LADDER9-NONE"
+    out = os.path.join(REPO, "results",
+                       "2024_ladder9%s.json" % SMOKE_SUFFIX)
+    with open(out, "w", encoding="utf-8") as stream:
+        json.dump({
+            "record": "2024", "scan": "ladder9", "dxi": DXI,
+            "delta": LADDER_DELTA, "range": list(LADDER_RANGE),
+            "steps": list(LADDER_STEPS), "verdict": verdict,
+            "instrument_fail": instrument_fail, "census_ok": census_ok,
+            "pooled": pooled, "refs": refs, "slots": per_slot,
+            "slot_grids": slot_rows, "missing": missing,
+            "np_check": {"cells": np_cells, "mismatches": np_bad},
+            "determinism": det_cells, "anchors": anchors}, stream, indent=2)
+        stream.write("\n")
+    log("=" * 96)
+    for key in sorted(per_slot):
+        entry = per_slot[key]
+        e2 = entry["estimators"][estimators[0][0]]
+        log("  ladder9 %-24s h=0.002 H %.3f (dev %s)  L_002 %s  "
+            "L_005 %s  counts_equal %s"
+            % (key, (e2 or {}).get("h_rate") or 0.0,
+               "%.2f" % e2["dev_h"] if e2 and e2["dev_h"] is not None
+               else "n/a",
+               fmt_L(entry["L_002"], entry["no_flips_002"]),
+               fmt_L(entry["L_005"], entry["no_flips_005"]),
+               entry["counts_equal"]))
+    for name in sorted(pooled):
+        blob = pooled[name]
+        ref = refs.get(name, {})
+        log("  ladder9 pooled %-28s C %.3f  H %.3f  ref %.3f (dev %.2f)"
+            % (name, blob["c_rate"] or 0.0, blob["h_rate"] or 0.0,
+               ref.get("ref_h", 0.0), ref.get("dev_h") or 0.0))
+    log("  ladder9 np %d cells, %d mismatches; determinism %d cells, %s; "
+        "census A0 %s"
+        % (np_cells, np_bad, len(det_cells),
+           "bit-identical" if det_ok else "FAILED", census_ok))
+    log("VERDICT: %s" % verdict)
+    log("results -> %s" % out)
+
+
+def delta_ladder_reading(cache, anchors, det_cells):
+    """record-2024 P2: the delta axis on the three C1 slots.  The delta =
+    0.10 reference rows are the committed record-2021 C1 rows, never
+    re-measured.  Verdict clauses fixed in record 2024 section 5."""
+    steps = LADDER_STEPS
+    smoke = bool(SMOKE_SUFFIX)
+    slots = DELTA_LADDER_SLOTS[:1] if smoke else DELTA_LADDER_SLOTS
+    deltas = DELTA_LADDER_DELTAS[:1] if smoke else DELTA_LADDER_DELTAS
+    with open(os.path.join(REPO, C1_ROWS_ARTIFACT), encoding="utf-8") as stream:
+        c1 = json.load(stream)
+    ref_by = {}
+    for r in c1["rows"]:
+        ref_by.setdefault((r["layer"], round(r["gamma"], 6)), []).append(r)
+    missing, np_bad, np_cells = [], 0, 0
+    ref_incomplete = []
+    slot_rows = {}
+    for layer, gk in slots:
+        entry = {"layer": layer, "gamma": gk, "deltas": {}}
+        rows_ref = c1_reference_rows(ref_by, layer, gk, steps, smoke)
+        grids_ref = {}
+        for step in steps:
+            scales = ladder_grid(step)
+            if smoke:
+                scales = scales[:3]
+            want = set(round(s, 6) for s in scales)
+            rr = [r for r in rows_ref if round(r["scale"], 6) in want]
+            if len(rr) != len(want):
+                ref_incomplete.append([layer, gk, step, len(rr), len(want)])
+            grids_ref["step_%g" % step] = grid_stats(rr, step)
+        entry["deltas"]["%.3f" % DELTA_LADDER_REFERENCE] = {
+            "reference": True, "grids": grids_ref}
+        for delta in deltas:
+            blk, n_c, n_b = slot_delta_entry(cache, layer, gk, delta, steps,
+                                             smoke, missing)
+            np_cells += n_c
+            np_bad += n_b
+            entry["deltas"]["%.3f" % delta] = blk
+        slot_rows["%s:%.6f" % (layer, gk)] = entry
+    per_slot = {}
+    for key, entry in slot_rows.items():
+        r = {"layer": entry["layer"], "gamma": entry["gamma"],
+             "L": {}, "no_flips": {}, "h_rate": {}, "mu": {},
+             "n_pairs_002": {}}
+        for dkey, dblob in entry["deltas"].items():
+            grid = dblob["grids"]["step_0.002"]
+            blob = grid["by_stride"].get("stride_1")
+            cr = blob["c_rate"] if blob and blob["n_pairs"] else None
+            l, nf = fine_L(cr)
+            r["L"][dkey] = l
+            r["no_flips"][dkey] = nf
+            r["h_rate"][dkey] = (blob["h_rate"] if blob and blob["n_pairs"]
+                                 else None)
+            r["mu"][dkey] = grid["mu_healthy"]
+            r["n_pairs_002"][dkey] = blob["n_pairs"] if blob else 0
+        ls = [v for v in r["L"].values() if v is not None]
+        r["stability_ratio"] = (max(ls) / min(ls)
+                                if len(ls) == len(r["L"]) and ls else None)
+        r["stable"] = bool(r["stability_ratio"] is not None
+                           and r["stability_ratio"] <= 1.0 + L_AGREE_BAR)
+        r["degenerate"] = bool(r["stability_ratio"] is None)
+        per_slot[key] = r
+    anchors_ok = all(a.get("pass") for a in anchors)
+    det_ok = all(d["dev_C"] == 0.0 and d["dev_D"] == 0.0
+                 for d in det_cells) if det_cells else False
+    census_ok = ladder_census_ok("deltaladder")
+    instrument_fail = bool(missing) or np_bad > 0 or bool(ref_incomplete) \
+        or not anchors_ok or not det_ok or not census_ok
+    verdict = "L-DELTA-INSTRUMENT-FAIL" if instrument_fail else None
+    if not instrument_fail:
+        if all(r["stable"] for r in per_slot.values()):
+            verdict = "L-DELTA-STABLE"
+        elif any(r["stability_ratio"] is not None
+                 and r["stability_ratio"] > 1.0 + L_AGREE_BAR
+                 for r in per_slot.values()):
+            verdict = "L-DELTA-SHIFTED"
+        else:
+            verdict = "L-DELTA-DEGENERATE"
+    out = os.path.join(REPO, "results",
+                       "2024_delta_ladder%s.json" % SMOKE_SUFFIX)
+    with open(out, "w", encoding="utf-8") as stream:
+        json.dump({
+            "record": "2024", "scan": "delta-ladder", "dxi": DXI,
+            "range": list(LADDER_RANGE), "steps": list(LADDER_STEPS),
+            "deltas": list(deltas),
+            "reference_delta": DELTA_LADDER_REFERENCE,
+            "reference_source": C1_ROWS_ARTIFACT,
+            "verdict": verdict, "instrument_fail": instrument_fail,
+            "census_ok": census_ok, "l_agree_bar": L_AGREE_BAR,
+            "slots": per_slot, "slot_grids": slot_rows,
+            "missing": missing, "ref_incomplete": ref_incomplete,
+            "np_check": {"cells": np_cells, "mismatches": np_bad},
+            "determinism": det_cells, "anchors": anchors}, stream, indent=2)
+        stream.write("\n")
+    log("=" * 96)
+    for key in sorted(per_slot):
+        entry = per_slot[key]
+        log("  delta-ladder %-24s L %s  ratio %s  stable %s"
+            % (key,
+               {d: fmt_L(v, entry["no_flips"][d])
+                for d, v in sorted(entry["L"].items())},
+               ("%.3f" % entry["stability_ratio"])
+               if entry["stability_ratio"] is not None else "n/a",
+               entry["stable"]))
+    log("  delta-ladder np %d cells, %d mismatches; determinism %d cells, "
+        "%s; census A0 %s; ref_incomplete %s"
+        % (np_cells, np_bad, len(det_cells),
+           "bit-identical" if det_ok else "FAILED", census_ok,
+           ref_incomplete))
+    log("VERDICT: %s" % verdict)
+    log("results -> %s" % out)
+
+
 def verdict_only(rows_path=None):
     """Recompute the width verdict from the rows artifact.
 
@@ -1096,9 +1551,91 @@ def main():
                                 "2021_scale_ladder_partial%s.json"
                                 % SMOKE_SUFFIX))
 
+    # ------------------------------ record-2024 P1: the nine-slot ladder
+    ladder9_det = []
+    if phase == "ladder9":
+        slots = LADDER9_SLOTS[:1] if smoke else LADDER9_SLOTS
+        for layer, gk in slots:
+            for step in LADDER_STEPS:
+                scales = ladder_grid(step)
+                if smoke:
+                    scales = scales[:3]
+                for sc in scales:
+                    cache.get(layer, gk, LADDER_DELTA, sc)
+                    if len(cache.rows) % CHECKPOINT_EVERY == 0:
+                        cache.dump(os.path.join(
+                            REPO, "results",
+                            "2024_ladder9_partial%s.json" % SMOKE_SUFFIX))
+        # cross-run determinism on the preloaded sublattice cells
+        for layer, gk in slots:
+            for sc in LADDER_DETERMINISM_SCALES:
+                prev = cache.peek(layer, gk, LADDER_DELTA, sc)
+                if prev is None:
+                    log("  ladder9 determinism %s g=%.4f sc=%.2f: NO "
+                        "preloaded counterpart - check skipped"
+                        % (layer, gk, sc))
+                    continue
+                row = cache.get(layer, gk, LADDER_DELTA, sc, force=True)
+                det = {"layer": layer, "gamma": gk, "scale": sc,
+                       "dev_C": abs(row["C"] - prev["C"]) / abs(prev["C"])
+                       if prev["C"] else float("inf"),
+                       "dev_D": abs(row["D"] - prev["D"]) / abs(prev["D"])
+                       if prev["D"] else float("inf")}
+                ladder9_det.append(det)
+                log("  ladder9 determinism %s g=%.4f sc=%.2f: dev_C=%.1e "
+                    "dev_D=%.1e" % (layer, gk, sc, det["dev_C"],
+                                    det["dev_D"]))
+        cache.dump(os.path.join(REPO, "results",
+                                "2024_ladder9_partial%s.json"
+                                % SMOKE_SUFFIX))
+
+    # ------------------------- record-2024 P2: the delta ladder (0.02/0.05)
+    delta_det = []
+    if phase == "deltaladder":
+        slots = DELTA_LADDER_SLOTS[:1] if smoke else DELTA_LADDER_SLOTS
+        deltas = DELTA_LADDER_DELTAS[:1] if smoke else DELTA_LADDER_DELTAS
+        for layer, gk in slots:
+            for delta in deltas:
+                for step in LADDER_STEPS:
+                    scales = ladder_grid(step)
+                    if smoke:
+                        scales = scales[:3]
+                    for sc in scales:
+                        cache.get(layer, gk, delta, sc)
+                        if len(cache.rows) % CHECKPOINT_EVERY == 0:
+                            cache.dump(os.path.join(
+                                REPO, "results",
+                                "2024_delta_ladder_partial%s.json"
+                                % SMOKE_SUFFIX))
+        # cross-run determinism on the preloaded five-point cells
+        for layer, gk in slots:
+            for delta in DELTA_LADDER_DELTAS:
+                for sc in LADDER_DETERMINISM_SCALES:
+                    prev = cache.peek(layer, gk, delta, sc)
+                    if prev is None:
+                        log("  delta-ladder determinism %s g=%.4f d=%.2f "
+                            "sc=%.2f: NO preloaded counterpart - check "
+                            "skipped" % (layer, gk, delta, sc))
+                        continue
+                    row = cache.get(layer, gk, delta, sc, force=True)
+                    det = {"layer": layer, "gamma": gk, "delta": delta,
+                           "scale": sc,
+                           "dev_C": abs(row["C"] - prev["C"]) / abs(prev["C"])
+                           if prev["C"] else float("inf"),
+                           "dev_D": abs(row["D"] - prev["D"]) / abs(prev["D"])
+                           if prev["D"] else float("inf")}
+                    delta_det.append(det)
+                    log("  delta-ladder determinism %s g=%.4f d=%.2f "
+                        "sc=%.2f: dev_C=%.1e dev_D=%.1e"
+                        % (layer, gk, delta, sc, det["dev_C"], det["dev_D"]))
+        cache.dump(os.path.join(REPO, "results",
+                                "2024_delta_ladder_partial%s.json"
+                                % SMOKE_SUFFIX))
+
     # --------------------------------------------------------- anchors (K1)
     anchors = anchor_block(cache,
-                           force=(phase in ("edges", "floor2", "ladder")))
+                           force=(phase in ("edges", "floor2", "ladder",
+                                            "ladder9", "deltaladder")))
 
     if phase == "edges":
         cache.dump(os.path.join(REPO, "results",
@@ -1117,6 +1654,18 @@ def main():
                                 "2021_scale_ladder_rows%s.json"
                                 % SMOKE_SUFFIX), status="FULL")
         ladder_reading(cache, anchors, ladder_det)
+        return
+    if phase == "ladder9":
+        cache.dump(os.path.join(REPO, "results",
+                                "2024_ladder9_rows%s.json"
+                                % SMOKE_SUFFIX), status="FULL")
+        ladder9_reading(cache, anchors, ladder9_det)
+        return
+    if phase == "deltaladder":
+        cache.dump(os.path.join(REPO, "results",
+                                "2024_delta_ladder_rows%s.json"
+                                % SMOKE_SUFFIX), status="FULL")
+        delta_ladder_reading(cache, anchors, delta_det)
         return
 
     # ----------------------------------------------------------- verdicts
