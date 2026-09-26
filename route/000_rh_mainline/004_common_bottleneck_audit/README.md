@@ -98,7 +98,12 @@ COVER. MEASURED for the width track (record 2016, KNOT_COMPLEX): over the
    delta-stable while the C-comb is not, and n_primes does not move with
    delta. Direction D stays down-graded; the verdict covers delta >= 0.02
    only. One-resolution caveat and the dxi = 0.002 re-read are registered
-   in record 2016 section 5; the COVER currency question is mapped in
+   in record 2016 section 5 (now running as record 2019); the currency desk
+   (record 2020) identifies the visible book exactly and reads the comb as
+   a near-white sequence along scale at the 0.01 grid, so no window
+   currency survives there - the measured healthy measure (mu = 0.306,
+   H = 3.27 at delta = 0.10) and pointwise certification remain; the scale
+   ladder is registered as C1. The COVER currency question is mapped in
    docs/map/107_cover_layer_measured_state.md.
 ```
 
