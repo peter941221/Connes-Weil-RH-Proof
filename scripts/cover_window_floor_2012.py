@@ -220,8 +220,78 @@ def width_reading(cache, layer, gk):
     }
 
 
+def verdict_only(rows_path=None):
+    """Recompute the width verdict from the rows artifact.
+
+    The verdict block is a pure function of the measured rows.  If the driver
+    that wrote them aggregated the registered heights wrongly (or crashed
+    after measuring), the registered verdict is recomputed here from the
+    artifact instead of re-measuring 189 cells.  No threshold, no scale and no
+    cell is touched.
+    """
+    path = rows_path or os.path.join(REPO, "results",
+                                     "2012_cover_scan_rows.json")
+    with open(path, encoding="utf-8") as stream:
+        artifact = json.load(stream)
+    cache = Cache()
+    for row in artifact["rows"]:
+        key = (row["layer"], round(row["gamma"], 6), round(row["delta"], 6),
+               round(row["scale"], 6))
+        cache.rows[key] = row
+    log("verdict-only from %s: %d measured rows" % (path, len(artifact["rows"])))
+    width_map, floor_map = {}, {}
+    for layer, gk in HEIGHTS + [CONTROL]:
+        if not cache.slice(layer, gk, WIDTH_DELTA):
+            continue
+        width_map["%s:%.6f" % (layer, gk)] = width_reading(cache, layer, gk)
+    control_key = "ext:%.6f" % CONTROL[1]
+    verdict_windows = {key: entry for key, entry in width_map.items()
+                       if key != control_key}
+    w7 = width_map.get("ext:%.6f" % r94.G7, {}).get("width_steps")
+    w8 = width_map.get("ext:%.6f" % r94.G8, {}).get("width_steps")
+    w1 = width_map.get("committed:%.6f" % r80.GAMMA1, {}).get("width_steps")
+    if verdict_windows and all(entry["width_steps"] >= WIDTH_STABLE_STEPS
+                               and entry["n_bands"] <= 1
+                               for entry in verdict_windows.values()):
+        window_verdict = "WINDOW_STABLE"
+    elif (w7 is not None and w8 is not None and w1 is not None
+          and w7 <= WIDTH_PINCH_STEPS and w8 <= WIDTH_PINCH_STEPS
+          and w1 >= WIDTH_ANCHOR_STEPS):
+        window_verdict = "WINDOW_PINCHING"
+    else:
+        window_verdict = "KNOT_COMPLEX"
+    # The floor verdict belongs to the floor phase, whose own artifact carries
+    # it; a width-only row set must never be read as giving a floor (a single
+    # delta with a host is not a floor reading, it is the width-law slice).
+    floor_map = {}
+    floor_verdict = None
+    log("verdict-only VERDICT: %s"
+        % "/".join(part for part in (window_verdict, floor_verdict) if part))
+    out = os.path.join(REPO, "results", "2012_cover_window_law.json")
+    with open(out, "w", encoding="utf-8") as stream:
+        json.dump({"record": "2012", "scan": "width-law",
+                   "width_delta": WIDTH_DELTA, "scales": list(SCALES),
+                   "verdict": window_verdict, "windows": width_map,
+                   "verdict_keys": sorted(verdict_windows),
+                   "control_key": control_key,
+                   "layer_control_width": width_map.get(control_key),
+                   "driver": {
+                       "mode": "verdict-only",
+                       "source": os.path.relpath(path, REPO).replace(os.sep, "/"),
+                       "note": "registered width verdict recomputed from the "
+                               "measured rows; the layer control is excluded "
+                               "from the every-height clause per section A2"},
+                   "floor_map_if_present": floor_map},
+                  stream, indent=2)
+        stream.write("\n")
+    log("results -> %s" % out)
+
+
 def main():
     smoke = "--smoke" in sys.argv
+    if "--verdict-only" in sys.argv:
+        verdict_only()
+        return
     phase = "all"
     for arg in sys.argv[1:]:
         if arg.startswith("--phase="):
@@ -339,12 +409,22 @@ def main():
                anchors[-1]["pass"]))
 
     # ----------------------------------------------------------- verdicts
+    # The registered width verdict is over the eight registered heights
+    # (gamma_1..gamma_6 committed layer, gamma_7/gamma_8 EXT).  The gamma_5 EXT
+    # layer control is the same height measured through the other layer, so it
+    # is reported as a control (section A2) and kept OUT of the "every height"
+    # clause: letting it in would double-count gamma_5 and let the layer
+    # question decide the window law.
+    control_key = ("ext:%.6f" % LAYER_CONTROL) if control else None
+    verdict_windows = {key: entry for key, entry in width_map.items()
+                       if key != control_key}
     w7 = width_map.get("ext:%.6f" % r94.G7, {}).get("width_steps")
     w8 = width_map.get("ext:%.6f" % r94.G8, {}).get("width_steps")
     w1 = width_map.get("committed:%.6f" % r80.GAMMA1, {}).get("width_steps")
     if width_map:
         if all(entry["width_steps"] >= WIDTH_STABLE_STEPS
-               and entry["n_bands"] <= 1 for entry in width_map.values()):
+               and entry["n_bands"] <= 1
+               for entry in verdict_windows.values()):
             window_verdict = "WINDOW_STABLE"
         elif (w7 is not None and w8 is not None and w1 is not None
               and w7 <= WIDTH_PINCH_STEPS and w8 <= WIDTH_PINCH_STEPS
@@ -367,8 +447,11 @@ def main():
             floor_verdict = "FLOOR_RISING"
         else:
             floor_verdict = "FLOOR-MIXED"
-    else:
+    elif not floor_readable:
         floor_verdict = None
+    else:
+        floor_verdict = "FLOOR-UNREAD"
+    _ = deltas_present
 
     verdict = "SMOKE" if smoke else "/".join(
         part for part in (window_verdict, floor_verdict) if part)
@@ -394,6 +477,9 @@ def main():
                        "width_delta": WIDTH_DELTA,
                        "scales": list(width_scales),
                        "verdict": window_verdict, "windows": width_map,
+                       "verdict_keys": sorted(verdict_windows),
+                       "control_key": control_key,
+                       "layer_control_width": width_map.get(control_key),
                        "anchors": anchors, "layer_control": layer_control,
                        "layer_campaigns": campaigns}, stream, indent=2)
             stream.write("\n")
