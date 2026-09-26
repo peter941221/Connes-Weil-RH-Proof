@@ -36,6 +36,12 @@ The child directories are subroutes of this goal. They are not independent
 RH proofs. A child route survives only if it preserves the same owner,
 support, visible-prime set, detector, and quantifiers through the consumer.
 
+The open layer shared by every route is COVER (uniformity over all hypothetical off-line zeros). Per-rho SIGN is empirically green through gamma_8 (records 1981/1994/1996), but this is not yet an analytic theorem. The first strategy desk for the
+(delta, gamma, scale) window problem is
+`docs/proofs/1998_cover_strategy_desk.md` (verified knot anatomy,
+margin growth, five priced directions, decision rules fixed for the
+next scans).
+
 Authority remains in `docs/map/`; this directory is the navigational topology.
 
 Read the binding parent first:
