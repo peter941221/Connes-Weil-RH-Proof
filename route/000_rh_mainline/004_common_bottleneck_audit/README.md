@@ -85,9 +85,20 @@ Execution status:
 1, 4. OPEN. (F2 remains gated by the owner-transport bridge — desk
    record 1997 prices the un-gating path: resolution certificate ->
    owner-window ladder + domination measurement -> F2.)
+
+COVER. MEASURED for the width track (record 2016, KNOT_COMPLEX): over the
+   eight registered heights the health predicate C > 0 is a comb of 4-7
+   disjoint scale bands, not a window; D >= 0 on 43 of 190 cells, all at
+   gamma_1..gamma_5; the gamma_5 layer control fires, so no cross-height
+   width law is licensed. Consequence for this audit: the C > 0 health
+   screen stays binding pointwise, but it cannot be spent as the COVER
+   currency, and direction A of record 1998 is excluded by measurement.
+   Floor half: record 2017 (running). One-resolution caveat and the
+   dxi = 0.002 re-read are registered in record 2016 section 5.
 ```
 
 Authoritative route records remain `docs/map/104_*.md`, `docs/map/106_*.md`,
 and `docs/map/README.md`. Executed-audit records:
 `docs/proofs/1994_opposite_gates_height_audit.md`,
-`docs/proofs/1995_route_c_velez_stabilization_audit.md`.
+`docs/proofs/1995_route_c_velez_stabilization_audit.md`,
+`docs/proofs/2016_cover_window_law_outcome.md`.

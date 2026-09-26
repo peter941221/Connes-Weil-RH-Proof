@@ -42,6 +42,22 @@ The open layer shared by every route is COVER (uniformity over all hypothetical 
 margin growth, five priced directions, decision rules fixed for the
 next scans).
 
+The width track has since been measured and its first direction closed by
+that measurement: record 2016 scans the committed scale family over eight
+heights (190 cells, 181 certified) and reports KNOT_COMPLEX - `C > 0` holds
+on 4-7 disjoint runs of scale per height with maximal contiguous width 4, 4,
+4, 4, 2, 1 from `gamma_1` to `gamma_6`; `D >= 0` on 43 of 190 cells, all of
+them at `gamma_1..gamma_5`; and the `gamma_5` layer control disagrees
+between the committed and EXT layers position by position (record 2012
+section A2), so no cross-height width law is licensed.  Direction A (the
+window-track theorem) is therefore excluded on this data, `WINDOW_PINCHING`
+was not triggered, and directions C/E are not selected by the registered
+rules.  The reading is one-resolution and the record says so: `C` is the
+cancelled coordinate amplified by `|2 + f|` (record 2014 section 5), `f`
+reaches `1.6e+06` at `gamma_2`, and the band edges are registered for a
+re-read at `dxi = 0.002` before any routing decision rests on the comb.
+The delta-floor half is record 2017.
+
 Authority remains in `docs/map/`; this directory is the navigational topology.
 
 Read the binding parent first:
