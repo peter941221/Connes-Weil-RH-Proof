@@ -215,7 +215,7 @@ class Cache(object):
         if force or key not in self.rows:
             row = measure_row(delta, gk, scale, layer, dxi)
             self.rows[key] = row
-            log("  [%s g=%.4f d=%.2f sc=%.2f dxi=%.4f] np=%s C=%+.4e "
+            log("  [%s g=%.4f d=%.3f sc=%.2f dxi=%.4f] np=%s C=%+.4e "
                 "D=%+.4e det=%+.4e sD=%.1e face=%s"
                 % (layer, gk, delta, scale, dxi, row["n_primes"], row["C"],
                    row["D"], row["det"], row["spread_D"], row["face"]))
