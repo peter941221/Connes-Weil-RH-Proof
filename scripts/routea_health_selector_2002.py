@@ -88,8 +88,8 @@ def embedded_reference(base_coeff):
     return out
 
 
-def measure(nodes, rho, fam, xw, base, corr, base_info, corr_info, t):
-    pins = r80.check_pins(nodes, [0] * len(nodes), fam, K, xw, (base, corr))
+def measure(nodes, rho, values, fam, xw, base, corr, base_info, corr_info, t):
+    pins = r80.check_pins(nodes, values, fam, K, xw, (base, corr))
     # check_pins expects correction targets; recompute the actual owner target
     # at the call site and replace this placeholder field below.
     xi = np.linspace(-40.0, 40.0, int(round(80.0 / DXI)) + 1)
@@ -113,6 +113,8 @@ def measure(nodes, rho, fam, xw, base, corr, base_info, corr_info, t):
     certified = finite and spread[2] < 1.0 / 3.0
     return {
         "t": float(t), "finite": finite, "certified": certified,
+        "pin_err_base": max(p["err_base"] for p in pins),
+        "pin_err_corr": max(p["err_corr"] for p in pins),
         "C": c, "B01": b, "D": d, "det": det,
         "spread_C": spread[0], "spread_B01": spread[1],
         "spread_D": spread[2], "routes": routes,
@@ -127,11 +129,9 @@ def run_case(delta, gamma, scale, tag):
     nodes, values = r94.owner_nodes_ext(rho, gamma)
     fam, base_fam = three_copy_family(nodes, scale, gamma)
     xw = r80.family_quad(fam, K)
-    base_ref, _ = r80.amplitudes(nodes, values, base_fam, K,
-                                  r80.family_quad(base_fam, K))
+    base_ref, corr_ref, _amp_info = r80.amplitudes(nodes, values, base_fam, K,
+                                               r80.family_quad(base_fam, K))
     base = embedded_reference(base_ref)
-    corr_ref, _ = r80.amplitudes(nodes, values, base_fam, K,
-                                  r80.family_quad(base_fam, K))
     corr_min, gram, corr_info = minimum_h1(fam, nodes, values, K, xw)
     # The base is kept at the committed owner selector; only the correction
     # varies along the registered feasible segment.
@@ -139,7 +139,7 @@ def run_case(delta, gamma, scale, tag):
     corr_results = []
     for t in T_GRID:
         corr = (1.0 - t) * corr_min + t * embedded_reference(corr_ref)
-        row = measure(nodes, rho, fam, xw, base, corr,
+        row = measure(nodes, rho, values, fam, xw, base, corr,
                       base_info, corr_info, t)
         corr_results.append(row)
         log("  %s t=%.1f C=%+.3e D=%+.3e det=%+.3e spreadD=%.2e %s" %
