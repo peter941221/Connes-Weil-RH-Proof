@@ -83,3 +83,11 @@ pre-registered finite constrained quadratic probe. It must report feasibility,
 minimum derivative cost, grouped residual, margin ratio, conditioning, and
 active constraints. A nonpositive margin, infeasibility, divergent budget
 ratio, or owner mismatch is a scoped no-go for A-V.
+
+A-V outcome (record 2001): the unconstrained minimum-H1 selector is a scoped
+no-go. On certified gamma_7/gamma_8 owners it produced C < 0; gamma_8 also
+had det > 0. gamma_5 rows were rank/pin unresolved at the registered cutoff.
+Do not formalize A-V. A possible next Route-A mechanism is A-H, a separately
+pre-registered health-constrained selector in the same owner fibre; C > 0 must
+be an admissibility condition, not a hidden replacement for the missing D < 0
+proof. If A-H fails, Route B becomes the primary research route.
