@@ -130,11 +130,11 @@
         "h=0.01 (step 0.002 stride 5)": null
       },
       "L_002": 0.004,
-      "L_005": 0.004,
+      "L_005": 0.01,
       "no_flips_002": false,
       "no_flips_005": false,
       "counts_equal": true,
-      "resolution_consistent": true
+      "resolution_consistent": false
     }
   },
   "slot_grids": {

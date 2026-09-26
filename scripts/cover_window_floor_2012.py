@@ -1019,15 +1019,16 @@ def ladder_census_ok(phase):
     return False
 
 
-def fine_L(rate):
-    """L = 0.002 / flip rate on the fine grid.  A zero flip count is a
-    no-flips reading (L not finite), reported as such - never silently
-    conflated with a missing estimate (the degenerate-clause rule)."""
+def fine_L(rate, step=0.002):
+    """L = step / flip rate (the registered small-lag slope).  A zero flip
+    count is a no-flips reading (L not finite), reported as such - never
+    silently conflated with a missing estimate (the degenerate-clause
+    rule).  step is explicit: P1's L_005 uses the 0.005 grid, not 0.002."""
     if rate is None:
         return None, False
     if rate == 0.0:
         return None, True
-    return 0.002 / rate, False
+    return step / rate, False
 
 
 def fmt_L(value, no_flips):
@@ -1081,8 +1082,8 @@ def ladder9_reading(cache, anchors, det_cells):
                 if sig_c else None}
         e2 = r["estimators"][estimators[0][0]]
         e5 = r["estimators"][estimators[1][0]]
-        l2, nf2 = fine_L(e2["c_rate"] if e2 else None)
-        l5, nf5 = fine_L(e5["c_rate"] if e5 else None)
+        l2, nf2 = fine_L(e2["c_rate"] if e2 else None, 0.002)
+        l5, nf5 = fine_L(e5["c_rate"] if e5 else None, 0.005)
         r["L_002"] = l2
         r["L_005"] = l5
         r["no_flips_002"] = nf2
