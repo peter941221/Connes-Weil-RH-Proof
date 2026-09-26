@@ -98,9 +98,14 @@ pooled              0.002 / 0.160  = 0.01250    0.005 / 0.400  = 0.01250
 
 Both grids agree per slot to the printed digits (healthy indicator: 2 of 3
 slots; committed gamma_4 reads 0.0077 vs 0.0111 with only n = 20 pairs at
-0.005).  So the flip curve in the small-lag regime is linear in h with a
-slot-specific slope 1/L: the sign field has a genuine band scale, gamma_1's
-(0.025) twice gamma_4's (0.011), the control's (0.009) smallest.  The
+0.005).  In fact the per-slot flip COUNTS are identical at both grids - 4
+(gamma_1), 9 (gamma_4), 11 (ext gamma_5) - over the same 0.1 span in scale
+(50 steps of 0.002 against 20 steps of 0.005 per slot), so the C sign's total
+variation over the window is resolution-independent at these two grids: the
+strongest form of the L agreement, and an instrument check that the two grids
+read the same object.  So the flip curve in the small-lag regime is linear in
+h with a slot-specific slope 1/L: the sign field has a genuine band scale,
+gamma_1's (0.025) twice gamma_4's (0.011), the control's (0.009) smallest.  The
 h = 0.01 lag then sits at h/L = 0.40 (gamma_1), 0.90 (gamma_4), 1.10 (ext
 gamma_5), and the measured 0.01 rates order exactly that way (0.37, 0.67,
 0.87): one lag past the band scale the field is past independence, which is
