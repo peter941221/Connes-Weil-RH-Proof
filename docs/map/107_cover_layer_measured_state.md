@@ -66,6 +66,27 @@ of (layer, height, scale) alone, so moving the witness toward the line costs
 nothing in the visible-prime book.  The cost of the near-line direction is not
 information, it is resolution.
 
+The record-2020 currency desk then identified that book exactly and measured
+the comb as a sequence:
+
+```text
+book (2020)     np(s) = #{n prime power : n <= exp(2*s*m_pool)} — an identity,
+                27/27 committed cells; the book moves with the height too
+                (m_pool 3.40 at gamma_1 vs 3.80 at gamma_2..gamma_6)
+crossing (2020) one book step moves C by <= 0.574|C| (committed gamma_1@0.88,
+                4 steps per 0.01 cell) and <= 0.0686|C| (ext gamma_7@0.92,
+                227 steps per 0.01 cell)
+comb (2020)     sign(C) along scale is white at the 0.01 grid: flip rate
+                0.468 (C) / 0.409 (healthy) against independence references
+                0.494 / 0.424, flat in h; healthy measure mu = 0.306 over 180
+                certified cells -> H = 3.27 (per height 1.64 .. 21.0)
+```
+
+So the 2016 KNOT_COMPLEX is the run structure of a near-white sequence, the
+healthy set's 0.01 window currency is measured absent, its *measure* currency
+is measured (H = 3.27 at delta = 0.10), and the surviving requirement is
+pointwise-in-scale certification at the measured cancellation depth.
+
 ## 3. Routing rulings
 
 Only the registered precedence rules were applied, and they give:
@@ -86,6 +107,10 @@ C and E       total positivity / variation (E)      NOT SELECTED
               anchor bar, so the branch fails on its wide-anchor clause)
 ```
 
+The C ruling above is the *selector's* precedence read; record 2020 leaves it
+standing and adds only that C is the shape the measured data leaves and that
+its scale-side debt is now priced and registered (section 5, C1).
+
 ## 4. The live obligation
 
 COVER's analytic currency is now an open question again, and that state is the
@@ -94,7 +119,12 @@ cannot be produced by a *near-line obstruction* argument (D).  What survives
 both measurements is the structure the data actually shows - a per-height,
 scale-specific, delta-stable witness with a frozen visible-prime book - which
 is exactly the shape direction C is priced for (a family-covering certificate
-with explicit Diophantine control of the phase vectors `gamma*log p`).
+with explicit Diophantine control of the phase vectors `gamma*log p`).  The
+record-2020 desk keeps that ruling and sharpens it: the book is exact at any
+point (so pointwise-in-scale certification is finite and carries no book
+error), the 0.01 interval currency is gone, and the operative currencies are
+the measured healthy *measure* (H = 3.27 at delta = 0.10) and pointwise
+certification at the measured cancellation depth.
 
 This does not reorder the mainline.  COVER is downstream of the producer: the
 binding obligation remains `D < 0` on the selected healthy owner (map 104,
@@ -117,6 +147,18 @@ M2  a finer delta grid (0.005, 0.01, 0.02) on the heights whose hosts sit
     a statement about delta >= 0.02 and cannot distinguish "no wall" from "a
     wall below 0.02"; M2 is the only registered way to move the near-line
     quantifier
+```
+
+Both are RUNNING as record 2019 (pre-registration c9cde2ef: M1 = phase
+`edges`, 189 cells at dxi = 0.002 chained to M2 = phase `floor2`).  The third
+axis - the scale side - is registered by record 2020 as C1:
+
+```text
+C1  the scale ladder: three slots (committed gamma_1, committed gamma_4,
+    ext gamma_5), sub-window scale in [0.86, 0.96], grids step 0.005 (21
+    cells) and 0.002 (51 cells) per slot; verdicts SAMPLER-ALL-RESOLUTIONS /
+    WINDOW-LADDER / ALTERNATING-LADDER / INSTRUMENT-FAIL as fixed in record
+    2020 section 8
 ```
 
 A third, deliberately not registered: the far-delta side.  Two heights lose
