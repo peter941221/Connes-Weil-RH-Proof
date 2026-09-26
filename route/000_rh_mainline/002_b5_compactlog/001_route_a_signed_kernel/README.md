@@ -70,3 +70,16 @@ Authoritative records:
 - `docs/proofs/1996_gamma78_full_sweep_preregistration.md`
 - `docs/proofs/1996_gamma78_full_sweep_audit.md`
 - `docs/proofs/1997_f2_transport_bridge_desk.md`
+## Recommended next subroute: A-V variational selector
+
+Record 1999 selects `A-V owner-preserving constrained variational selector`
+as the next Route-A probe. It replaces the current interpolation selector,
+which is blocked by record 1926, with a finite-owner minimum physical-energy
+problem and a dual certificate. The selector must preserve the actual support,
+Mellin nodes, visible-prime set, grouped aggregate, and quantifier order.
+
+This is a candidate mechanism, not a theorem. The first kill test is a
+pre-registered finite constrained quadratic probe. It must report feasibility,
+minimum derivative cost, grouped residual, margin ratio, conditioning, and
+active constraints. A nonpositive margin, infeasibility, divergent budget
+ratio, or owner mismatch is a scoped no-go for A-V.
