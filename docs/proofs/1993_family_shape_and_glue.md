@@ -129,7 +129,19 @@ Mirrored into the internal WSL-side hazard catalogue (§7-series):
    with `rel ≈ 1` everywhere is a STRUCTURAL desync signature, not noise —
    diff the channel, do not tune the tolerance (F80 spirit).
 
-## 4. Next steps (brick order stands)
+## 4. Route status and next steps
+
+F2 is not an approved active next step under the binding route map. The
+Gevrey-window estimate above has no established owner-preserving interface to
+the selected healthy `CompactLog` detector or its finite visible-prime set.
+Until that interface is proved, its proposed consumer is a disconnected side
+campaign, not progress toward the RH core obligation `qw(g) >= 0` for that
+same owner.
+
+The binding next step is an active same-owner lane (currently map records
+104/106), or a precise theorem that transports this estimate to the selected
+detector without changing its owner, support, or prime set. Only after that
+bridge is proved should F2 and downstream re-bracketing resume.
 
 1. **F2 (consumer)**: order-n IBP with boundary killed by
    `hasDerivAt_iterate_gevreyInner_ext`, per-term annulus mass via the
