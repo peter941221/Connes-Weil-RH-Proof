@@ -23,7 +23,8 @@ import fourpoint_owner_completion_1980 as r80  # noqa: E402
 import fourpoint_owner_density_1959 as r59  # noqa: E402
 import routea_health_cone_2006 as h06  # noqa: E402
 
-CASES = [(r94.G5, 0.92, "G5-H"), (r94.G7, 0.92, "G7-H")]
+CASES = [(r94.G5, 0.92, "G5-H"), (r94.G5, 0.90, "G5-W"),
+         (r94.G7, 0.92, "G7-H"), (r94.G8, 0.88, "G8-H")]
 DXIS = (0.004, 0.008, 0.016)
 
 
