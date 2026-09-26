@@ -12,8 +12,12 @@ This is the parent node for every admissible route in this repository.
 |   +-- 001 Route A: signed physical kernel
 |   |
 |   +-- 002 Route B: four-point SPAN
-|   |
-|   +-- 099 frozen or audit-only branches
+|
++-- 003 Route C: trace-formula positivity candidate
+|
++-- 004 A/B common-bottleneck audit
+|
++-- 099 frozen or audit-only branches
 |
 +-- final consumer: SourceRH -> Mathlib RiemannHypothesis
 ```

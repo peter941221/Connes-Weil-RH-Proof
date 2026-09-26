@@ -55,4 +55,7 @@ Read next:
 1. `000_rh_mainline/README.md`
 2. `000_rh_mainline/002_b5_compactlog/README.md`
 3. `000_rh_mainline/001_shared_contracts/README.md`
-4. `docs/map/README.md` for binding decisions
+3. `000_rh_mainline/003_route_c_trace_formula/README.md`
+4. `000_rh_mainline/004_common_bottleneck_audit/README.md`
+5. `000_rh_mainline/001_shared_contracts/README.md`
+6. `docs/map/README.md` for binding decisions
