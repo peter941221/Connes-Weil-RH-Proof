@@ -55,10 +55,14 @@ ANCHOR_L1 = {
     "G8-H": (+6.64107474896016356e+02, -1.11126519153653187e+20),
 }
 ANCHOR_L2 = {
-    "G5-H": (+1.494812e+00, -6.307381e+12),
-    "G5-W": (+2.559099e-01, -2.251357e+14),
-    "G7-H": (+1.732980e+02, -2.035919e+20),
-    "G8-H": (+6.643519e+02, -1.111262e+20),
+    # Read at full precision from results/2003_route_a_health_selector.json
+    # (cases[].rows[0], the sigma = 0 row).  The first pass of this rig carried
+    # seven-significant-digit transcriptions here and the registered 1e-9 bar
+    # is tighter than such a reference can support; see record 2018 section 4.
+    "G5-H": (+1.49481243341233500e+00, -6.30738098958158200e+12),
+    "G5-W": (+2.55909888488531600e-01, -2.25135731196973470e+14),
+    "G7-H": (+1.73298027805529270e+02, -2.03591937692186900e+20),
+    "G8-H": (+6.64351862261741200e+02, -1.11126160981345400e+20),
 }
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 

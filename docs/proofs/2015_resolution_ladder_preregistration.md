@@ -144,6 +144,14 @@ owner and <= 100 times it; all four within the band is reported as
 LADDER-BAND-CONFIRMED, and any owner outside it is reported with its value
 ```
 
+Correction (record 2018 section 4, added after the run, clause left as
+registered): the four `lo` values are `eps * r`, not `eps`.  Record 2014
+section 5 tabulated the inverted lower bound `dev_C / |2+f|`, and this ladder
+measures the attainment factor separately (`r` in `1e-4 .. 4e-3`, the
+registered `AMP-SLACK` clause).  The band therefore reads OUT at all four
+owners, and that reading is an instrument fact about the band's construction,
+not a measurement of the mass coordinate.
+
 Registered secondary readings:
 
 ```text

@@ -151,6 +151,16 @@ G7-H    6.17e-06                  7.09e-06
 G8-H    6.91e-06                  5.81e-06
 ```
 
+**Correction (record 2018, section 4).**  The two columns are lower bounds,
+and the sentence that follows reads them as if they were the mass-level offset
+itself.  The ladder of record 2015 measured the split directly and finds the
+offset larger by 270x to 2900x: the C offset is `r * eps * |2 + f|` with the
+attainment factor `r ~ 1e-4..4e-3` (`AMP-SLACK`), so the number tabulated
+here is `eps * r`, not `eps`.  Every inequality in this section stands - the
+bound is real, it is simply never approached - and the tables that quote these
+values as `eps` (record 2015's band check among them) are corrected by record
+2018.  The tables below keep the original figures.
+
 The two columns agree per owner (to 5 percent at G7-H, 16 percent at G8-H):
 the mass-level offset at half resolution is an owner property, between
 `2.6e-07` and `7.0e-06`, and the C coordinate's exposure is that number times
