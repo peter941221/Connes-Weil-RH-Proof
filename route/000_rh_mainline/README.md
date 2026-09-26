@@ -56,7 +56,21 @@ rules.  The reading is one-resolution and the record says so: `C` is the
 cancelled coordinate amplified by `|2 + f|` (record 2014 section 5), `f`
 reaches `1.6e+06` at `gamma_2`, and the band edges are registered for a
 re-read at `dxi = 0.002` before any routing decision rests on the comb.
-The delta-floor half is record 2017.
+
+The delta-floor half then closed the other coordinate: record 2017 reports
+FLOOR_UNIFORM - floor = 0.02, the smallest registered delta, at all eight
+heights and at the layer control (366 cells, 366/366 certified), with the
+registered stage-B trigger firing at `gamma_6`, whose only host lives at scale
+1.00 outside the five-point grid.  The host scale window is delta-stable while
+the `C`-comb is not, and `n_primes` is a function of (layer, height, scale)
+alone, so moving the witness toward the line costs nothing in the
+visible-prime book.  Direction D (the Speiser split) stays down-graded, and
+the quantifier is explicit in the record: the verdict is a statement about
+`delta >= 0.02`, so it cannot distinguish "no wall" from "a wall below 0.02";
+the finer delta grid and the `dxi = 0.002` band-edge re-read are the
+registered follow-ups.  With both halves measured, the COVER layer's analytic
+currency is an open question with directions A and D excluded by measurement
+and C/E unselected - see `docs/map/107_cover_layer_measured_state.md`.
 
 Authority remains in `docs/map/`; this directory is the navigational topology.
 

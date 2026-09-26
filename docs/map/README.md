@@ -147,6 +147,13 @@ why the obstruction no longer applies.
 
 ## Shared and fallback interfaces
 
+- [107](107_cover_layer_measured_state.md): the COVER layer - the uniformity
+  clause over hypothetical off-line zeros - after both halves of the
+  record-2012 pre-registration were measured.  Direction A (window-track) is
+  excluded by measurement, direction D (Speiser split / near-line) stays
+  down-graded, directions C/E were not selected, and the registered follow-ups
+  are the `dxi = 0.002` band-edge re-read and a finer `delta` grid.  The
+  binding producer obligation is untouched.
 - [001](001_first_cut_window_architecture.md) and
   [004](004_endpoint_literature_interface_audit.md): ROOT-local endpoint base.
 - [007](007_b5_quantifier_repair_and_target_ladder.md): B5 quantifier and owner

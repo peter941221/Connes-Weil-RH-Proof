@@ -93,12 +93,18 @@ COVER. MEASURED for the width track (record 2016, KNOT_COMPLEX): over the
    width law is licensed. Consequence for this audit: the C > 0 health
    screen stays binding pointwise, but it cannot be spent as the COVER
    currency, and direction A of record 1998 is excluded by measurement.
-   Floor half: record 2017 (running). One-resolution caveat and the
-   dxi = 0.002 re-read are registered in record 2016 section 5.
+   Floor half (record 2017, FLOOR_UNIFORM): floor = 0.02, the smallest
+   registered delta, at all eight heights; the host scale window is
+   delta-stable while the C-comb is not, and n_primes does not move with
+   delta. Direction D stays down-graded; the verdict covers delta >= 0.02
+   only. One-resolution caveat and the dxi = 0.002 re-read are registered
+   in record 2016 section 5; the COVER currency question is mapped in
+   docs/map/107_cover_layer_measured_state.md.
 ```
 
 Authoritative route records remain `docs/map/104_*.md`, `docs/map/106_*.md`,
 and `docs/map/README.md`. Executed-audit records:
 `docs/proofs/1994_opposite_gates_height_audit.md`,
 `docs/proofs/1995_route_c_velez_stabilization_audit.md`,
-`docs/proofs/2016_cover_window_law_outcome.md`.
+`docs/proofs/2016_cover_window_law_outcome.md`,
+`docs/proofs/2017_cover_delta_floor_outcome.md`.
