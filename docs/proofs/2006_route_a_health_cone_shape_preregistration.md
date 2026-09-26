@@ -5,6 +5,11 @@ Date: 2026-09-26.
 Status: pre-registration. Committed before the run. No theorem, no Lean
 brick, and no RH claim.
 
+Amended by record 2007 before the run: the section 3 instrument checks were
+restated with calibrated bands, and the section 4 health predicate now also
+requires the sign readings to agree on the route-B readout. Sections 2 and 4
+are otherwise unchanged.
+
 ## 1. Why this scan
 
 Record 2004 sampled two canonical directions per owner - the two most

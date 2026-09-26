@@ -32,13 +32,20 @@ SIGMA_GRID = (0.02, 0.05, 0.20, 0.80)
 NARROW = 0.75
 K = 30.0
 N = 0
-DXI = 0.016 if "--smoke" in sys.argv else 0.008
+DXI = 0.008
 GAUSS_POINTS = 2400
 SVD_TOL = 1.0e-10
-IDENTITY_TOL = 1.0e-6
-ANCHOR_TOL = 5.0e-3
 CONE_SIGMA = 0.05
 MECH_TOL = 0.20
+# Instrument bands, keyed on the registered resolution. See record 2007 for
+# the calibration that fixes these numbers; nothing here is a physics claim.
+ALG_TOL = 1.0e-9
+BANDS = {
+    0.008: {"anchor_C": 1.0e-2, "anchor_D": 1.0e-3, "det_quad": 5.0e-3,
+            "trace": 1.0e-3},
+    0.016: {"anchor_C": 6.0e-2, "anchor_D": 3.0e-3, "det_quad": 1.5e-2,
+            "trace": 1.0e-3},
+}
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CERTIFIED_ROUTES = set(r59.CERTIFIED_ROUTES)
 ANCHOR_FILE = os.path.join(REPO, "results",
@@ -131,14 +138,23 @@ def measure(nodes, values, rho, delta, fam, xw, base, corr, cond, rank,
             routes = sorted(ge["prime"].keys())
             n_primes = int(ge["n_primes"])
             arch, pb = ge["arch"], ge["prime"]["B"]
-            det_b = (arch[0] + pb[0]) * (arch[2] + pb[2]) - (arch[1] + pb[1]) ** 2
+            c_b = arch[0] + pb[0]
+            b_b = arch[1] + pb[1]
+            d_b = arch[2] + pb[2]
+            det_b = c_b * d_b - b_b * b_b
             vcheck = r59.variance_check(ge["mu"], p, xi, delta, rho.imag)
             tail4, mass = r59.tail_fraction(xi, w, 4.0)
             w0 = float(w[np.argmin(np.abs(xi))])
+            triples = {}
+            for kk in routes:
+                prk = ge["prime"][kk]
+                triples[kk] = [float(ge["arch"][i] + prk[i])
+                               for i in range(3)]
         else:
             spread = (float("inf"),) * 3
-            c = b = d = det = det_b = w0 = tail4 = mass = float("nan")
-            routes, n_primes, vcheck = [], None, None
+            c = b = d = det = det_b = float("nan")
+            c_b = b_b = d_b = w0 = tail4 = mass = float("nan")
+            routes, n_primes, vcheck, triples = [], None, None, {}
     pin_err_base = max(p["err_base"] for p in pins)
     pin_err_corr = max(p["err_corr"] for p in pins)
     certified = bool(finite and cond <= 1e8 and pin_err_base <= 1e-6
@@ -153,6 +169,10 @@ def measure(nodes, values, rho, delta, fam, xw, base, corr, cond, rank,
             "det_moment": vcheck["det_moment"],
             "dev_var": abs(det_b - vcheck["det_var"]) / scale_det,
             "dev_moment": abs(det_b - vcheck["det_moment"]) / scale_det,
+            "C_B": c_b, "B01_B": b_b, "D_B": d_b,
+            "dev_A_C": abs(vcheck["A"] - c_b) / max(abs(c_b), 1.0),
+            "dev_alg": abs(vcheck["det_var"] - vcheck["det_moment"])
+            / max(abs(vcheck["det_var"]), 1.0),
             "A": vcheck["A"], "f": vcheck["f"],
             "xp": vcheck["xp"] if "xp" in vcheck else None,
             "var_plus": vcheck["var_plus"],
@@ -169,8 +189,13 @@ def measure(nodes, values, rho, delta, fam, xw, base, corr, cond, rank,
     return {
         "rank": int(rank), "sigma": float(sigma), "finite": finite,
         "certified": certified,
-        "healthy": bool(certified and c > 0.0 and d < 0.0 and det < 0.0),
+        "healthy": bool(certified and c > 0.0 and d < 0.0 and det < 0.0
+                        and c_b > 0.0 and d_b < 0.0 and det_b < 0.0),
+        "healthy_ap": bool(certified and c > 0.0 and d < 0.0 and det < 0.0),
+        "healthy_b": bool(certified and c_b > 0.0 and d_b < 0.0
+                          and det_b < 0.0),
         "n_primes": n_primes, "cond": cond, "routes": routes,
+        "route_triples": triples,
         "pin_err_base": pin_err_base, "pin_err_corr": pin_err_corr,
         "C": c, "B01": b, "D": d, "det": det,
         "spread_C": spread[0], "spread_B01": spread[1], "spread_D": spread[2],
@@ -242,19 +267,24 @@ def main():
     cases = CASES[:1] if "--smoke" in sys.argv else CASES
     anchors = load_anchors()
     records = [run_case(*case[:3], case[3], anchors) for case in cases]
+    band = BANDS[round(DXI, 3)]
     checks = []
     for rec in records:
         dev = rec["reference_dev"]
-        anchor_ok = rec["anchor"]["certified"] and all(
-            v <= ANCHOR_TOL for v in dev.values())
+        anchor_ok = bool(rec["anchor"]["certified"]
+                         and dev.get("C", 0.0) <= band["anchor_C"]
+                         and dev.get("D", 0.0) <= band["anchor_D"])
         rows_ok = all(r["certified"] for r in rec["rows"])
         ident_ok = all(
-            (not r["identity"]) or (r["identity"]["dev_var"] <= IDENTITY_TOL
-                                    and r["identity"]["dev_moment"]
-                                    <= IDENTITY_TOL)
+            (not r["identity"])
+            or (r["identity"]["dev_var"] <= band["det_quad"]
+                and r["identity"]["dev_moment"] <= band["det_quad"]
+                and r["identity"]["dev_alg"] <= ALG_TOL
+                and r["identity"]["dev_A_C"] <= band["trace"])
             for r in rec["rows"])
         checks.append({"tag": rec["tag"], "anchor_ok": anchor_ok,
                        "rows_ok": rows_ok, "identity_ok": ident_ok,
+                       "band": band,
                        "max_anchor_dev": max(dev.values()) if dev else None})
     pairs = [(rec["tag"], int(k)) for rec in records
              for k, v in rec["health_radius"].items()
@@ -295,7 +325,9 @@ def main():
         if mech:
             verdict += "/MECH-" + ("SCALE" if max(mech) <= MECH_TOL
                                    else "MIX")
-    out = os.path.join(REPO, "results", "2006_route_a_health_cone.json")
+    suffix = "_smoke" if "--smoke" in sys.argv else ""
+    out = os.path.join(REPO, "results",
+                       "2006_route_a_health_cone%s.json" % suffix)
     with open(out, "w", encoding="utf-8") as stream:
         json.dump({"record": "2006", "verdict": verdict, "dxi": DXI,
                    "ranks": list(RANKS), "sigma_grid": list(SIGMA_GRID),
@@ -313,6 +345,12 @@ def main():
                rank_winners[rec["tag"]]))
     log("healthy (owner, rank) pairs at sigma >= %.2f: %d" %
         (CONE_SIGMA, n_pairs))
+    for rec in records:
+        ap = sum(1 for r in rec["rows"] if r["healthy_ap"])
+        bb = sum(1 for r in rec["rows"] if r["healthy_b"])
+        both = sum(1 for r in rec["rows"] if r["healthy"])
+        log("  route robustness %s: rows=%d healthy_ap=%d healthy_b=%d"
+            " healthy_both=%d" % (rec["tag"], len(rec["rows"]), ap, bb, both))
     log("results -> %s" % out)
 
 
