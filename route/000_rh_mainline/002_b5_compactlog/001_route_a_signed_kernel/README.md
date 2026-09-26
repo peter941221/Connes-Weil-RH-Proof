@@ -1,4 +1,4 @@
-# 002 — Route A: same-owner signed physical kernel
+# 002.001 — Route A: same-owner signed physical kernel
 
 Status: ACTIVE CAMPAIGN. RH is not claimed.
 

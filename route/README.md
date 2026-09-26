@@ -23,25 +23,17 @@ Lean source + paired audits + proof records
 Current topology:
 
 ```text
-001_binding_b5_compactlog/
-    Healthy CompactLog B5-shaped mainline
-    Status: binding producer route; detector-specific positivity OPEN
-
-002_route_a_signed_kernel/
-    Same-owner signed physical-kernel / C3' campaign
-    Status: active, current selector has a scoped final-sign no-go
-
-003_route_b_fourpoint_span/
-    Same-owner four-point SPAN / determinant + joint-tail campaign
-    Status: project candidate; fast survival screen required
-
-004_shared_contracts/
-    SourceRH consumer, owner rules, quantifier rules, audit gates
-    Status: shared infrastructure, not a producer by itself
-
-099_frozen_or_audit_only/
-    Normalized ROOT socket, retired shortcuts, and disconnected branches
-    Status: do not start new producer work here
+000_rh_mainline/
+    001_shared_contracts/
+        SourceRH consumer, owner rules, quantifier rules, audit gates
+    002_b5_compactlog/
+        Healthy CompactLog B5-shaped producer mainline
+        001_route_a_signed_kernel/
+            Same-owner signed physical-kernel / C3' campaign
+        002_route_b_fourpoint_span/
+            Same-owner four-point SPAN / determinant + joint-tail campaign
+        099_frozen_or_audit_only/
+            Frozen descendants of the B5 campaign
 ```
 
 The single RH core obligation is:
@@ -60,7 +52,7 @@ set, detector, and quantifiers through the final consumer.
 
 Read next:
 
-1. `001_binding_b5_compactlog/README.md`
-2. `003_route_b_fourpoint_span/README.md`
-3. `004_shared_contracts/README.md`
+1. `000_rh_mainline/README.md`
+2. `000_rh_mainline/002_b5_compactlog/README.md`
+3. `000_rh_mainline/001_shared_contracts/README.md`
 4. `docs/map/README.md` for binding decisions

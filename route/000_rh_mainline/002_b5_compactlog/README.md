@@ -1,4 +1,4 @@
-# 001 — Binding B5 CompactLog mainline
+# 002 — Binding B5 CompactLog mainline
 
 Status: BINDING MAINLINE. RH is not claimed.
 
@@ -23,6 +23,12 @@ formal:
 open:
   detector-specific semi-local nonnegativity
 ```
+
+Child routes:
+
+- `001_route_a_signed_kernel/README.md`
+- `002_route_b_fourpoint_span/README.md`
+- `099_frozen_or_audit_only/README.md`
 
 Authoritative records:
 

@@ -1,4 +1,4 @@
-# 003 — Route B: same-owner four-point SPAN
+# 002.002 — Route B: same-owner four-point SPAN
 
 Status: PROJECT CANDIDATE. RH is not claimed.
 
