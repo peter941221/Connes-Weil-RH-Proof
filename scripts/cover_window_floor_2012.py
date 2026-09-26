@@ -50,16 +50,26 @@ FLOOR_UNIFORM_BAR = 0.05
 
 # K1 anchors, committed cells of records 1994/1996 (same layer, same dxi).
 ANCHORS = [
+    # References are the committed artifact values at full precision, not
+    # prose transcriptions: record 2016 section 4 lost one anchor to a 5-digit
+    # rounding grabbed from an audit paragraph.  Cell (layer, gamma, delta,
+    # scale) and the artifact it is read from are both named here.
     {"layer": "ext", "gamma": r94.G7, "delta": 0.10, "scale": 0.92,
-     "C": +1.732980e+02, "D": -2.035919e+20, "source": "1996"},
+     "C": +1.73298027805540190e+02, "D": -2.03591937692186640e+20,
+     "source": "1996", "artifact": "results/1996_gamma78_full_sweep.json"},
     {"layer": "ext", "gamma": r94.G8, "delta": 0.10, "scale": 0.88,
-     "C": +6.6435e+02, "D": -1.1113e+20, "source": "1996"},
+     "C": +6.64351862261741190e+02, "D": -1.11126160981345400e+20,
+     "source": "1996", "artifact": "results/1996_gamma78_full_sweep.json"},
     {"layer": "committed", "gamma": r94.G5, "delta": 0.10, "scale": 0.92,
-     "C": +5.788031e+01, "D": -7.618837e+09, "source": "1994"},
+     "C": +5.78803112549221620e+01, "D": -7.61883667437500000e+09,
+     "source": "1994", "artifact": "results/1994_opposite_gates_height.json"},
     {"layer": "committed", "gamma": r94.G5, "delta": 0.20, "scale": 0.86,
-     "C": +8.009172e+01, "D": -2.421550e+11, "source": "1994"},
+     "C": +8.00917241663701130e+01, "D": -2.42154963980203120e+11,
+     "source": "1994", "artifact": "results/1994_opposite_gates_height.json"},
     {"layer": "ext", "gamma": r94.G5, "delta": 0.10, "scale": 0.92,
-     "C": +1.494812e+00, "D": -6.307381e+12, "source": "1994b"},
+     "C": +1.49481243341233500e+00, "D": -6.30738098958158600e+12,
+     "source": "1994b",
+     "artifact": "results/1994b_ext_convention_control.json"},
 ]
 ANCHOR_BAR = 1.0e-6
 
@@ -292,6 +302,10 @@ def main():
     if "--verdict-only" in sys.argv:
         verdict_only()
         return
+    resume = None
+    for arg in sys.argv[1:]:
+        if arg.startswith("--resume-from="):
+            resume = arg.split("=", 1)[1]
     phase = "all"
     for arg in sys.argv[1:]:
         if arg.startswith("--phase="):
@@ -300,6 +314,17 @@ def main():
         % ("smoke" if smoke else "full", phase))
 
     cache = Cache()
+    if resume:
+        resume_path = (resume if os.path.isabs(resume)
+                       else os.path.join(REPO, resume))
+        with open(resume_path, encoding="utf-8") as stream:
+            loaded = json.load(stream)
+        for row in loaded["rows"]:
+            cache.rows[(row["layer"], round(row["gamma"], 6),
+                        round(row["delta"], 6),
+                        round(row["scale"], 6))] = row
+        log("resume: %d rows preloaded from %s (no re-measurement)"
+            % (len(loaded["rows"]), resume_path))
     if smoke:
         heights = [("committed", r80.GAMMA1), ("ext", r94.G7)]
         control = None
@@ -447,11 +472,8 @@ def main():
             floor_verdict = "FLOOR_RISING"
         else:
             floor_verdict = "FLOOR-MIXED"
-    elif not floor_readable:
-        floor_verdict = None
     else:
-        floor_verdict = "FLOOR-UNREAD"
-    _ = deltas_present
+        floor_verdict = None
 
     verdict = "SMOKE" if smoke else "/".join(
         part for part in (window_verdict, floor_verdict) if part)
