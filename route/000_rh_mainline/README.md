@@ -79,10 +79,13 @@ cells), measured the comb as a near-white sequence along scale at the 0.01
 grid (flip rates at the independence reference, flat in the step), and
 priced the currencies that survive: no 0.01-scale window structure, healthy
 measure `mu = 0.306` (`H = 3.27`) at `delta = 0.10`, and pointwise-in-scale
-certification book-exact and finite - the scale ladder is registered as C1 in
-record 2020 section 8 and running as record 2021.  With both halves measured,
-the COVER layer's analytic currency is an open question with directions A and
-D excluded by measurement and C/E unselected - see
+certification book-exact and finite - the scale ladder was registered as C1 in
+record 2020 section 8 and is read in record 2023: **WINDOW-LADDER** (healthy
+flips at `h = 0.002` run 9.85 sigma below independence, so windows wider than
+0.002 exist), with a measured band scale per slot (`L = 0.009 .. 0.025`,
+pooled 0.0125) that puts the 0.01 grid at one step per band.  With both halves
+measured, the COVER layer's analytic currency is an open question with
+directions A and D excluded by measurement and C/E unselected - see
 `docs/map/107_cover_layer_measured_state.md`.
 
 Authority remains in `docs/map/`; this directory is the navigational topology.

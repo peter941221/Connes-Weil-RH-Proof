@@ -106,6 +106,24 @@ The comb therefore survives the quadrature refinement at the certified cells
 no longer a statement about `delta >= 0.02` alone: at this refinement the
 floor sits at the smallest registered delta on every measured slot.
 
+Record 2023 (C1, the scale ladder) then read the scale side at the
+crossing-resolving grid:
+
+```text
+ladder (2023)   WINDOW-LADDER: healthy flips at h = 0.002 run 9.85 sigma
+                BELOW independence (81 percent same-sign persistence), so
+                windows wider than 0.002 exist; the small-lag slope
+                step/rate is a slot-specific band scale L (gamma_1 0.025,
+                gamma_4 0.011, ext gamma_5 0.009, pooled 0.0125) reproduced
+                by both fine grids; the 0.01 grid sits at h ~ L, which is
+                why its pooled reading is white-looking; mu ladder agrees to
+                0.06 sigma (H = 2.04 in this window)
+```
+
+So the record-2020 "white at 0.01" ruling now has its mechanism measured: the
+0.01 grid is a one-step-per-band sample, not a white field, and the
+certification granularity at a fixed slot is `L_slot`.
+
 ## 3. Routing rulings
 
 Only the registered precedence rules were applied, and they give:
@@ -143,7 +161,11 @@ record-2020 desk keeps that ruling and sharpens it: the book is exact at any
 point (so pointwise-in-scale certification is finite and carries no book
 error), the 0.01 interval currency is gone, and the operative currencies are
 the measured healthy *measure* (H = 3.27 at delta = 0.10) and pointwise
-certification at the measured cancellation depth.
+certification at the measured cancellation depth.  Record 2023 adds the
+granularity of that pointwise currency: the sign field has a band scale
+`L_slot` (0.009 .. 0.025 at the three measured slots), the 0.01 grid samples
+one step per band, and independent certification cells at a fixed slot should
+be spaced `>= L_slot`.
 
 This does not reorder the mainline.  COVER is downstream of the producer: the
 binding obligation remains `D < 0` on the selected healthy owner (map 104,
@@ -176,16 +198,24 @@ M2  a finer delta grid (0.005, 0.01, 0.02) on the heights whose hosts sit
     at scale 1.00); the floor of record 2017 refines at this resolution
 ```
 
-The third axis - the scale side - is registered by record 2020 as C1 and is
-RUNNING as record 2021 (pre-registration ae03d687, launched on the lock
-released by M2):
+The third axis - the scale side - was registered by record 2020 as C1, ran as
+record 2021 (pre-registration ae03d687, launched on the lock M2 released), and
+is read in record 2023:
 
 ```text
 C1  the scale ladder: three slots (committed gamma_1, committed gamma_4,
     ext gamma_5), sub-window scale in [0.86, 0.96], grids step 0.005 (21
-    cells) and 0.002 (51 cells) per slot; verdicts SAMPLER-ALL-RESOLUTIONS /
-    WINDOW-LADDER / ALTERNATING-LADDER / LADDER-MIXED / INSTRUMENT-FAIL as
-    fixed in record 2020 section 8
+    cells) and 0.002 (51 cells) per slot
+    read 2026-09-27: WINDOW-LADDER - the healthy-indicator flip rate at
+    h = 0.002 is 28/150 = 0.187 against the independence reference 0.500,
+    dev -9.85 sigma (C indicator -11.12 sigma): adjacent fine cells co-sign
+    81 percent of the time, so windows wider than 0.002 exist
+    quantitative reading: the small-lag slope step/rate gives a slot-specific
+    band scale L (gamma_1 0.025, gamma_4 0.011, ext gamma_5 0.009, pooled
+    0.0125), reproduced by both fine grids; the 0.01 grid sits at h ~ L
+    (that is why its pooled reading is white-looking), and the per-slot
+    classes of record 2020 (gamma_1 smooth, gamma_4 / ext gamma_5
+    alternating) reproduce on these independent grids
 ```
 
 A third, deliberately not registered: the far-delta side.  Two heights lose

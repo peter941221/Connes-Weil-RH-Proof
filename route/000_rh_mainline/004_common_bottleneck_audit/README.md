@@ -107,8 +107,12 @@ COVER. MEASURED for the width track (record 2016, KNOT_COMPLEX): over the
    the comb as a near-white sequence along scale at the 0.01 grid, so no
    window currency survives there - the measured healthy measure (mu =
    0.306, H = 3.27 at delta = 0.10) and pointwise certification remain; the
-   scale ladder is registered as C1 (record 2021, running). The COVER
-   currency question is mapped in docs/map/107_cover_layer_measured_state.md.
+   scale ladder (C1, record 2021) is read in record 2023: WINDOW-LADDER
+   (healthy flips at h = 0.002 sit 9.85 sigma below independence; windows
+   wider than 0.002 exist), with a measured per-slot band scale L = 0.009 ..
+   0.025 (pooled 0.0125) - the 0.01 grid samples one step per band, which is
+   why its pooled reading is white-looking. The COVER currency question is
+   mapped in docs/map/107_cover_layer_measured_state.md.
 ```
 
 Authoritative route records remain `docs/map/104_*.md`, `docs/map/106_*.md`,
