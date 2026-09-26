@@ -70,6 +70,10 @@ Authoritative records:
 - `docs/proofs/1996_gamma78_full_sweep_preregistration.md`
 - `docs/proofs/1996_gamma78_full_sweep_audit.md`
 - `docs/proofs/1997_f2_transport_bridge_desk.md`
+- `docs/proofs/2001_route_a_variational_probe_outcome.md`
+- `docs/proofs/2003_route_a_health_selector_reregistration.md`
+- `docs/proofs/2004_route_a_health_selector_outcome.md`
+- `docs/proofs/2005_route_a_variational_probe_evidence_correction.md`
 ## Recommended next subroute: A-V variational selector
 
 Record 1999 selects `A-V owner-preserving constrained variational selector`
@@ -91,3 +95,48 @@ Do not formalize A-V. A possible next Route-A mechanism is A-H, a separately
 pre-registered health-constrained selector in the same owner fibre; C > 0 must
 be an admissibility condition, not a hidden replacement for the missing D < 0
 proof. If A-H fails, Route B becomes the primary research route.
+
+CORRECTION (record 2005). The A-V certification above is not supported by the
+run artifact. `results/2000_route_a_variational_probe.json` records route set
+`["A", "B"]` and `spread_D = 0.0` on all four rows: `route_spread` averages
+only over `("Ap", "B")`, so a singleton certified route gave the degenerate
+floor (law F52). The record-2000 family also used width copies `0.86a` /
+`1.14a`, which raised the support radius past the `Ap` guard (G5-H and G7-H:
+`9.9360 -> 11.3270`, `2393 -> 8212` prime powers; G8-H: `9.5040 -> 10.8346`,
+`1647 -> 5284`) and so measured a larger visible-prime set than the committed
+owner's. A-V status is therefore UNRESOLVED, not a scoped no-go. Do not
+formalize A-V remains correct advice, for the different reason that the probe
+cannot be read.
+
+## A-H outcome: health cone has positive extent at high ordinate
+
+Records 2003/2004. Record 2002's registered instrument is superseded: its
+`1.2a` copy inflated the support the same way. The replacement keeps two
+width copies per node, `0.75a` and `a`, so the support radius, the prime set
+and the gate instrument are the committed ones, and scans the feasible fiber
+along canonical unit-H1 nullspace directions.
+
+```text
+verdict            A-H-CONE-MIXED
+instrument check   4/4 anchors reproduce the committed rows (<= 4.3e-11)
+scan               4 owners x 2 directions x 7 amplitudes = 56 rows
+                   56/56 certified on three routes, D < 0 in 56/56
+health radius      G5-H 0, G5-W 0, G7-H 0.10 (both), G8-H 0.10 (dir 1), 0.80 (dir 2)
+```
+
+Structural finding: at gamma_8 direction 2 the margin increases monotonically
+with the perturbation, `C = 664.35 -> 2128.7` (factor 3.20), with `D < 0` and
+`det < 0` certified at every registered amplitude. The committed selector is
+therefore not extremal for health; feasible interpolants with a strictly
+larger margin exist. The two gamma_5 owners lose health at the first
+non-zero amplitude `0.02`; they also hold the two smallest committed margins.
+
+Record 2003 also records that the minimum-H1 endpoint of records 1999/2000 is
+not numerically well defined: the family H1 Gram is rank deficient at
+`1e-14..1e-15` relative and clipped pseudo-inverses miss the registered pin
+gate while the exact-constrained solution needs coefficients of order `1e+14`.
+The ray scan replaces that endpoint.
+
+Next: the health-cone and dual-certificate desk authorized by
+`A-H-CONE-MIXED`, beginning with a rank-spread direction scan, since the two
+most energetic directions are a worst-case-biased sample of the fiber.

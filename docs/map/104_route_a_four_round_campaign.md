@@ -243,3 +243,37 @@ would not count as progress.
 
 Evidence level: FORMAL for Round 1; PARTIAL FORMAL plus scoped final-sign
 NO-GO for Round 2; PROJECT CANDIDATE/OPEN for Rounds 3–4.
+
+## 2026-09-26 — selector status under records 2003/2004/2005
+
+No-go status changed. The A-V no-go reported in record 2001 is withdrawn as
+unsupported evidence (record 2005): its artifact carries route set
+`["A", "B"]` with `spread_D = 0.0` on all four rows, so the rows had a single
+certified route, and its family inflated the support radius past the `Ap`
+guard and therefore measured a larger visible-prime set than the committed
+owner's. A-V is UNRESOLVED, not adjudicated. The advice not to formalize it
+stands, for the reason that the probe cannot be read.
+
+New mechanism status (records 2003/2004). The support-preserving feasible-fiber
+ray scan gives `A-H-CONE-MIXED`: all four anchors reproduce the committed
+rows (<= 4.3e-11) on three routes with `D < 0` in 56/56 rows, and two of four
+owners keep a certified healthy row at `sigma >= 0.05`. At gamma_8 direction 2
+the health margin increases monotonically from `+664.35` to `+2128.7` with
+`D < 0` and `det < 0` throughout, so the committed selector is not extremal
+for health. The two gamma_5 owners lose health at the first non-zero
+amplitude and hold the two smallest committed margins.
+
+Also recorded in record 2003: the minimum-H1 selector endpoint of records
+1999/2000 is not numerically well defined at this basis size (H1 Gram rank
+deficient at `1e-14..1e-15` relative; clipped pseudo-inverses miss the pin
+gate, the exact-constrained solution needs coefficients of order `1e+14`).
+Future selector probes must use the ray formulation or an equivalent
+well-posed one.
+
+Binding obligation unchanged: `D < 0` on the selected healthy owner. Nothing
+in these records touches the COVER layer, and no RH claim is made.
+
+Authorized next step: the health-cone and dual-certificate desk that
+`A-H-CONE-MIXED` reserves, beginning with a rank-spread direction scan, since
+the two most energetic directions are a worst-case-biased sample of the
+fiber.
