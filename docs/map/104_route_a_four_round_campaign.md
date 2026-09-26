@@ -277,3 +277,39 @@ Authorized next step: the health-cone and dual-certificate desk that
 `A-H-CONE-MIXED` reserves, beginning with a rank-spread direction scan, since
 the two most energetic directions are a worst-case-biased sample of the
 fiber.
+
+## 2026-09-26 — health-cone shape scan under records 2006/2007/2009/2010
+
+The rank-spread direction scan is done. Record 2006 pre-registered it; records
+2007 and 2009 restated the instrument before and after the first execution;
+record 2010 is the outcome. Instrument amendments were needed twice: the
+route-keyed gate readout is the `Ap` route, which carries a resolution-
+dependent spline error, so `C > 0` was made a route-robust conjunction and the
+in-run anchor gate was moved to `D` (the binding entry, certified-route spread
+`<= 6.0e-04`).
+
+```text
+verdict            H-CONE-STRATIFIED / RANK-FLAT / MECH-MIX
+instrument         4/4 anchors pass, 128/128 rows certified, ident on every row
+reproducibility    run 2 equals run 1 bit-for-bit on all 128 rows
+health radius      G5-H none/0.02, G5-W none, G7-H 0.05..0.20, G8-H 0.80
+                   at ranks 2, 4, 6 and 0.05 at ranks 1, 9, 12, 17
+N                  14 of 32 pairs at sigma >= 0.05 (H-CONE-FAT needs 16)
+```
+
+Only three `(owner, rank)` pairs increase the margin with the perturbation,
+all at gamma_8 and all in the energetic subspace (ranks 2, 4, 6; factors
+3.20, 4.26, 4.04). The registered `RANK-FLAT` label is a rule artifact: when
+every ratio `C(0.80) / C(0)` is negative the argmax returns the
+least-collapsed rank. No registered threshold is changed.
+
+Conditioning finding: `f = mm / A` at the committed anchors is 7196 (G5-H),
+86087 (G5-W), 133 (G7-H) and 51 (G8-H), so the committed `A` is the residual
+of a cancellation of order `f`. The obligation `D < 0` is well conditioned
+while the health witness `C > 0` is not, which is why the gamma_5 owners have
+no cone. Route-A numeric exposure is in the admissibility check, not in the
+obligation.
+
+Evidence level: measurements, not progress. No bound on the selected
+detector, no new no-go, no smaller obligation; record 1926's selector no-go
+stands, TAIL and COVER are untouched, and no RH claim is made.

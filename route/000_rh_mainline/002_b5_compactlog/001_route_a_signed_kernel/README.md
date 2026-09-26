@@ -74,6 +74,10 @@ Authoritative records:
 - `docs/proofs/2003_route_a_health_selector_reregistration.md`
 - `docs/proofs/2004_route_a_health_selector_outcome.md`
 - `docs/proofs/2005_route_a_variational_probe_evidence_correction.md`
+- `docs/proofs/2006_route_a_health_cone_shape_preregistration.md`
+- `docs/proofs/2007_record_2006_check_amendment.md`
+- `docs/proofs/2009_record_2006_anchor_gate_amendment.md`
+- `docs/proofs/2010_route_a_health_cone_outcome.md`
 ## Recommended next subroute: A-V variational selector
 
 Record 1999 selects `A-V owner-preserving constrained variational selector`
@@ -137,6 +141,43 @@ not numerically well defined: the family H1 Gram is rank deficient at
 gate while the exact-constrained solution needs coefficients of order `1e+14`.
 The ray scan replaces that endpoint.
 
-Next: the health-cone and dual-certificate desk authorized by
-`A-H-CONE-MIXED`, beginning with a rank-spread direction scan, since the two
-most energetic directions are a worst-case-biased sample of the fiber.
+## Health-cone shape scan: stratified, energetic branch at high ordinate
+
+Records 2006 (pre-registration), 2007 and 2009 (instrument amendments) and
+2010 (outcome). The scan samples 8 of the 17 restricted-spectrum directions
+at 4 amplitudes on the same 4 owners, with a route-robust health predicate.
+
+```text
+verdict            H-CONE-STRATIFIED / RANK-FLAT / MECH-MIX
+instrument         4/4 anchors pass, 128/128 rows certified, identity
+                   checks pass on every row
+reproducibility    the re-executed artifact equals the first full run
+                   bit-for-bit on C, B01, D, det, W0 (worst 0.0e+00)
+health radius      G5-H none/0.02, G5-W none, G7-H 0.05..0.20,
+                   G8-H 0.05 at 5 ranks and 0.80 at ranks 2, 4, 6
+N = 14 pairs at sigma >= 0.05    (H-CONE-FAT needs 16)
+D < 0              128/128 rows on both the route-keyed and route-B readouts
+route robustness   healthy_ap = healthy_b on all four owners (4, 0, 16, 21)
+```
+
+The improvement direction is the energetic end of the restricted spectrum,
+and only at the highest ordinate: exactly three `(owner, rank)` pairs have
+`C(0.80) / C(0) > 1`, all G8-H, at ranks 2, 4, 6, with factors 3.20, 4.26,
+4.04. Every other pair collapses, most through a sign flip. The registered
+`RANK-FLAT` label is a rule artifact (argmax over ratios that are all
+negative) and is reported as such.
+
+Conditioning finding (record 2010 section 4): the committed `A` is the
+residual of a cancellation of order `f = mm / A`, which is 7196 (G5-H),
+86087 (G5-W), 133 (G7-H) and 51 (G8-H). The obligation `D < 0` is well
+conditioned (certified-route spread `<= 6.0e-04`), while the health witness
+`C > 0` is a cancelled quantity (spread up to `6.9e-02`), which is why the
+two gamma_5 owners have no cone. The route-A numeric exposure therefore sits
+in the admissibility check, not in the binding obligation.
+
+Not core progress by the core-progress gate: no unconditional bound on the
+selected detector, no new no-go (record 1926 stands), no smaller obligation.
+
+Next: test whether the margin-increasing branch is a law in the ordinate
+rather than a gamma_8 accident, and check whether the `D < 0` margin on the
+same rows is monotone in the same directions.
