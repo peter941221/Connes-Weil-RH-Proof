@@ -1,0 +1,60 @@
+{
+  "record": 2044,
+  "status": "r-GENERIC",
+  "smoke": false,
+  "owner": "one-copy G8-H",
+  "rho": [
+    0.6,
+    40.9187190121475
+  ],
+  "k1": {
+    "amax": 4.752000000000001,
+    "boundary_integers": 13413,
+    "support_cut_exact": true,
+    "note": "translations with log n > a_i + a_j have empty quadrature windows by support algebra; integer lattice, not prime powers",
+    "total_translations_measured": 206771,
+    "pairs_measured": 289
+  },
+  "anchors": {
+    "q_h1_dxi008": -1.1110958655313414e+20,
+    "q_committed": -1.111095866723678e+20,
+    "q_rel_diff": 1.0731176530391379e-09,
+    "overlap0_vs_gram_max": 2.1689347790975582e-23,
+    "quad_64_vs_128_rel": 9.60661717052324e-15
+  },
+  "structure": {
+    "r_identity_only": 0.9608759168314264,
+    "r_span3": 0.9608150552164121,
+    "r_span5": 0.8959848653272731,
+    "r_full7": 0.7214778570298926,
+    "commutator_MS_over_M": 0.39791429109322396,
+    "commutator_SSH_over_S": 0.1263037215918594,
+    "M_fro_norm_whitened": 1.2650219645805372e+16,
+    "coef_full7_real": [
+      -436178160243504.0,
+      -704669876079954.0,
+      -704669876079974.0,
+      -4.2339497413566664e+16,
+      -1.9871821488130796e+16,
+      4.182747815832998e+16,
+      4.182747815832981e+16
+    ],
+    "coef_full7_imag": [
+      -0.3295056261642481,
+      -5604805959616887.0,
+      5604805959616886.0,
+      -112.5,
+      -122.5,
+      9.667390933798574e+16,
+      -9.667390933798552e+16
+    ]
+  },
+  "nonclaims": [
+    "float scout, no interval arithmetic",
+    "quadrature 64-node Gauss with 128-node self-check",
+    "smoke truncates the lattice and the pair set; structure reading only meaningful in the full run",
+    "not a producer theorem",
+    "not RH"
+  ],
+  "seconds": 18.2
+}

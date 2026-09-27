@@ -17,7 +17,7 @@ This is the parent node for every admissible route in this repository.
 |
 +-- 004 A/B common-bottleneck audit
 |
-+-- 005 Route E: co-Poisson intertwining desk (DESK status)
++-- 005 Route E: co-Poisson intertwining desk (CLOSED AT THIS OWNER, record 2044)
 |
 +-- 099 frozen or audit-only branches
 |

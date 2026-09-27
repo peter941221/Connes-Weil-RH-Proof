@@ -176,3 +176,18 @@ consumes only landed constants.
 - `scripts/fourpoint_interval_mass_2033.py` (L3 precedent machine)
 
 No RH claim.
+
+## Outcome (added 2026-09-27, record 2043)
+
+Part 2 of this preregistration is settled NEGATIVE at its first link:
+L2 reads **L2-WIDTH-FAIL** (kernel-side projected total width 1.54e22 /
+6.90e21 / 3.51e21 at dxi 0.05/0.02/0.01 = 139x / 62x / 32x of |Q|;
+width linear in dxi with constant ~1.29e4, the independent-sum
+oscillatory-book coefficient).  The S1 sub-task settled POSITIVELY
+(interval sigma, 4/4 anchors contained at width ~2.5e-14).  Links L3/L1/L4
+were not reached.  The uniform-panel chain as preregistered here is dead;
+the only registered reopen is a certificate-type change (panel-local
+quadrature by parts, or adaptive clustering on g), unpriced.  Part 1
+(health screen PASS on committed 1996 data) stands.  Full readings and
+instrument notes: `docs/proofs/2043_route_a_interval_kernel_width_outcome.md`,
+artifact `results/2043_interval_kernel_width.json`.

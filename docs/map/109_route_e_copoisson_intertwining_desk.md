@@ -1,9 +1,15 @@
 # 109 — Route E: co-Poisson intertwining desk
 
-Date: 2026-09-27.
+Date: 2026-09-27. Updated same day (first brick outcome).
 
-Status: REGISTERED AS DESK. No producer licensed, no scan, no Lean, no RH
-claim. Full desk record: `docs/proofs/2040_route_e_copoisson_intertwining_desk.md`.
+Status: **CLOSED AT THIS OWNER** (record 2044: k1 PASS, B1 DONE, B2
+r-GENERIC — residual 0.7215 of ||M||, commutator 0.398 on the complete
+integer lattice).  The E2 exact-exchange shape is dead at this
+owner/span/resolution; E1 stays unselected with no desk action
+registered.  Reopen requires a changed transcription algebra, a changed
+owner, or an independent E1 preregistration.  Full desk record:
+`docs/proofs/2040_route_e_copoisson_intertwining_desk.md`; outcome
+record: `docs/proofs/2044_route_e_copoisson_first_brick_outcome.md`.
 Registered subject to law F82 (sign-conservation-under-splitting, record
 2039 — Route D's closure).
 

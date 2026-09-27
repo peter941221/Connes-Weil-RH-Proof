@@ -46,9 +46,10 @@ def run(two_copy,dxi):
     else: emin=emax=None; stat="NO_NULLSPACE"
     return {"basis":"two-copy" if two_copy else "one-copy","dxi":dxi,"basis_size":len(fam),"rank":rank,"nullity":int(null.shape[1]),"q_h1":q,"constraint_resid":hi["resid"],"gram_condition_raw":hi["cond_raw"],"projected_q_min":emin,"projected_q_max":emax,"fibre_status":stat,"support":support,"prime_power_count":npow}
 
-rows=[run(two,dxi) for two in (False,True) for dxi in (0.008,0.004)]
-for row in rows: print(json.dumps(row))
-out={"record":2037,"status":"BASIS_COMPARISON","rows":rows,"nonclaims":["not interval certified","not complete owner","not uniform","not RH"]}
-path=os.path.join(ROOT,"results","2037_route_a_g8h_basis_comparison.json")
-with open(path,"w",encoding="utf-8",newline="\n") as f: json.dump(out,f,indent=2); f.write("\n")
-print("RESULT",path)
+if __name__ == "__main__":
+    rows=[run(two,dxi) for two in (False,True) for dxi in (0.008,0.004)]
+    for row in rows: print(json.dumps(row))
+    out={"record":2037,"status":"BASIS_COMPARISON","rows":rows,"nonclaims":["not interval certified","not complete owner","not uniform","not RH"]}
+    path=os.path.join(ROOT,"results","2037_route_a_g8h_basis_comparison.json")
+    with open(path,"w",encoding="utf-8",newline="\n") as f: json.dump(out,f,indent=2); f.write("\n")
+    print("RESULT",path)

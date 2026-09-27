@@ -1,6 +1,17 @@
 # 005 - Route E: co-Poisson intertwining desk
 
-Status: DESK. Not a producer route. RH is not claimed.
+Status: **CLOSED AT THIS OWNER** (record 2044, 2026-09-27). Not a
+producer route. RH is not claimed.
+
+First-brick outcome: k1 PASS (support cut exact, integer lattice
+n <= 13413 = exp(2 a_max), overlap(0) = committed gram to 2.2e-23);
+B1 derivation stands (continuous exchange + right-tail remainder zero
+beyond support); B2 NEGATIVE — the transcription matrix S is r-GENERIC
+against the Weil matrix M (residual 0.7215 of ||M||, commutator
+||[M,S]||/||M|| = 0.398; bars 1e-3 / 0.1 frozen before the run).
+Lattice truncation manufactures spurious structure (smoke n <= 500:
+normality 2.45e-4, commutator 0.071) — structure verdicts are only
+readable on the complete book.
 
 ```text
 selected healthy CompactLog detector g

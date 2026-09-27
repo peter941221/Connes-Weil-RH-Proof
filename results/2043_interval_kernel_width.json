@@ -1,0 +1,83 @@
+{
+  "record": 2043,
+  "status": "L2-WIDTH-FAIL",
+  "owner": "one-copy G8-H",
+  "rho": [
+    0.6,
+    40.9187190121475
+  ],
+  "scale": 0.88,
+  "support": 9.504000000000001,
+  "book_size": 1647,
+  "nyquist": {
+    "max_log_k": 9.50383054471094,
+    "arg_width_max_finest": 0.5971432844045235,
+    "note": "panel enclosure is interval arithmetic; the float-grid Nyquist bound does not apply to widths"
+  },
+  "anchors": [
+    {
+      "u": 0.0,
+      "iv_lo": 5.3721834192256415,
+      "iv_hi": 5.372183419225666,
+      "float_committed": 5.372183419225654,
+      "contained": true
+    },
+    {
+      "u": 6.283185307179586,
+      "iv_lo": 0.001060180174162516,
+      "iv_hi": 0.0010601801741871475,
+      "float_committed": 0.0010601801741747519,
+      "contained": true
+    },
+    {
+      "u": 62.83185307179586,
+      "iv_lo": -2.3025745382361817,
+      "iv_hi": -2.3025745382361573,
+      "float_committed": -2.3025745382361693,
+      "contained": true
+    },
+    {
+      "u": 251.32741228718345,
+      "iv_lo": -3.6888787944689985,
+      "iv_hi": -3.6888787944689736,
+      "float_committed": -3.6888787944689874,
+      "contained": true
+    }
+  ],
+  "rows": [
+    {
+      "dxi": 0.05,
+      "panels": 1600,
+      "width_max": 710.1202529481932,
+      "width_mean": 569.0867771360982,
+      "kernel_side_projected_total_width": 1.5411483139235369e+22,
+      "float_Q_midpoint_reference": -1.0953515928684388e+20,
+      "seconds": 39.4
+    },
+    {
+      "dxi": 0.02,
+      "panels": 4000,
+      "width_max": 378.9644096249431,
+      "width_mean": 254.6580376418138,
+      "kernel_side_projected_total_width": 6.898378417622352e+21,
+      "float_Q_midpoint_reference": -1.1096822156049298e+20,
+      "seconds": 94.5
+    },
+    {
+      "dxi": 0.01,
+      "panels": 8000,
+      "width_max": 189.9711108380804,
+      "width_mean": 129.42875777745576,
+      "kernel_side_projected_total_width": 3.506221767859835e+21,
+      "float_Q_midpoint_reference": -1.1109205838368376e+20,
+      "seconds": 187.2
+    }
+  ],
+  "nonclaims": [
+    "kernel-side width projection only; L1/L3 slack not counted",
+    "no full-line tail (L4 separate)",
+    "no coefficient enclosure",
+    "not a producer theorem",
+    "not RH"
+  ]
+}
