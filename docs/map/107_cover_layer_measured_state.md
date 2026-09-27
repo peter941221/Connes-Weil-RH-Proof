@@ -124,6 +124,51 @@ So the record-2020 "white at 0.01" ruling now has its mechanism measured: the
 0.01 grid is a one-step-per-band sample, not a white field, and the
 certification granularity at a fixed slot is `L_slot`.
 
+Record 2024 then registered the two debts record 2023 left open (the six
+unmeasured slots; the delta axis), and record 2025 reads them:
+
+```text
+ladder (2025)   LADDER9-PARTIAL: the h = 0.002 healthy suppression holds on
+                4 of the 6 unmeasured slots (dev -6.26, -5.86, -4.37, -3.46
+                sigma; pooled -11.22 sigma over 300 pairs), misses on ext
+                gamma_7 (-2.12 sigma) and is unreadable on committed
+                gamma_6 (zero flips in the window, 50 + 20 pairs).  The
+                registered nine now read L = 0.02500 (gamma_1), 0.02000
+                (gamma_2), 0.01429 (gamma_3), 0.01111 (gamma_4), 0.01250
+                (gamma_5 committed), no-flips (gamma_6), 0.01000 (gamma_7
+                ext), 0.00833 (gamma_8 ext), with 0.00909 for the ext
+                gamma_5 control.  counts_equal is a per-slot property, not
+                a layer law: it holds on every committed slot (minimum
+                consecutive-flip gap 0.006 .. 0.016, wider than the 0.005
+                step) and fails on ext gamma_7 (gaps down to 0.002; 10
+                flips at 0.002 vs 6 at 0.005) and ext gamma_8 (0.004 gap;
+                12 vs 10) - those two windows carry sign excursions
+                narrower than 0.005, whose double crossings a 0.005 pair
+                merges to a net zero, so their L_005 (0.01667 / 0.01000)
+                over-states L and only L_002 (0.01000 / 0.00833) is
+                registered
+delta (2025)    L-DELTA-STABLE: on the three C1 slots L is identical at
+                delta = 0.02, 0.05, 0.10 (ratio 1.0000 against the
+                registered bar 1.25), and so are the underlying C flip
+                count, the healthy flip count and mu_healthy - the
+                stability is a count identity, not a tolerance result.
+                Beyond the registered clause (record 2025 section 4, read
+                cell-by-cell from the committed rows): the sign of C, the
+                sign of D and the healthy face are identical at delta =
+                0.02 / 0.05 / 0.10 on every one of the 153 shared
+                0.002-grid cells (3 slots x 51, 0 mismatches), while C's
+                own magnitude moves by more than a factor of 30 across
+                that delta range (gamma_1, scale 0.86: -2.06 / -9.68 /
+                -66.94) - the sign pattern is a function of (layer,
+                height, scale) alone and delta only scales the magnitudes
+```
+
+So the record-2023 granularity ruling is a function of the slot and not of
+`delta` over the registered range, and the nine-slot table prices it: `L`
+decreases with height from 0.025 at `gamma_1` to 0.008 at `gamma_8`, with the
+layer as the one measured counterexample at a fixed height (`gamma_5`:
+committed 0.0125 against ext 0.0091).
+
 ## 3. Routing rulings
 
 Only the registered precedence rules were applied, and they give:
@@ -166,6 +211,16 @@ granularity of that pointwise currency: the sign field has a band scale
 `L_slot` (0.009 .. 0.025 at the three measured slots), the 0.01 grid samples
 one step per band, and independent certification cells at a fixed slot should
 be spaced `>= L_slot`.
+
+Record 2025 extends that spacing rule to the registered nine and removes
+`delta` from it: `L_slot` is a property of the slot (0.008 .. 0.025 over the
+readable slots; committed `gamma_6` carries no band at all in this window) and
+is unchanged over `delta` in {0.02, 0.05, 0.10}, so the spacing currency is
+`L_slot` at any registered delta.  The two EXT slots' L values are read on the
+0.002 grid only: their 0.005-grid readings merge sub-0.005 flip doublets and
+over-state L (0.01667 / 0.01000 against 0.01000 / 0.00833), and count-based L
+readings can only over-state L, so spacings taken from `L_002` stay
+conservative.
 
 This does not reorder the mainline.  COVER is downstream of the producer: the
 binding obligation remains `D < 0` on the selected healthy owner (map 104,
@@ -222,6 +277,35 @@ A third, deliberately not registered: the far-delta side.  Two heights lose
 their five-point host at `delta = 0.30`, and section 2a of the registration
 forbids reading a negative from a five-point grid, so this is an observation
 about an unmeasured question - the delta-interval question - not a finding.
+
+Records 2024/2025 then registered and read the two debts record 2023 left
+open.  Both are measurements, not mechanisms:
+
+```text
+P1  the nine-slot ladder (registered in 2024 section 5): complete the record
+    2021 ladder on the six slots C1 did not measure
+    read 2026-09-27: LADDER9-PARTIAL - 4 of 6 slots suppress the healthy
+    indicator at h = 0.002 below -3 sigma (pooled -11.22 sigma); ext gamma_7
+    misses at -2.12 sigma and committed gamma_6 has no flip to read; the
+    nine-slot L table is 0.02500 / 0.02000 / 0.01429 / 0.01111 / 0.01250 /
+    no-flips / 0.01000 / 0.00833 (committed gamma_1..gamma_6, ext
+    gamma_7/gamma_8) plus 0.00909 for the ext gamma_5 control
+P2  the delta axis (registered in 2024 section 5): L at delta = 0.02 and
+    0.05 on the three C1 slots against the committed delta = 0.10 rows
+    read 2026-09-27: L-DELTA-STABLE - ratio exactly 1.0000 (bar 1.25), with
+    the C flip count, the healthy flip count and mu_healthy also identical
+    across the three deltas; the labeled post-hoc extension shows the whole
+    C sign string is delta-invariant between delta = 0.02 and 0.05
+```
+
+Both phases were instrument-clean (anchors 5/5 bit-exact, 432/432 book
+identification, 18/18 bit-exact determinism, 0 missing).  The P1 reading was
+re-derived by a no-measurement replay after its driver defect was caught by an
+independent recomputation checker; the first-pass artifact is archived
+(`results/2024_ladder9_driver-uncorrected.json`) and the replay measured zero
+registered cells.  The two pre-registration errata (a 7.04e-7 transcription of
+`gamma_3` and a field name) are in record 2025 section 7 and change no
+reading.
 
 ## 6. Boundaries
 

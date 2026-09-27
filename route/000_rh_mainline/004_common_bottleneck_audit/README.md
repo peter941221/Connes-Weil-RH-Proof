@@ -111,8 +111,16 @@ COVER. MEASURED for the width track (record 2016, KNOT_COMPLEX): over the
    (healthy flips at h = 0.002 sit 9.85 sigma below independence; windows
    wider than 0.002 exist), with a measured per-slot band scale L = 0.009 ..
    0.025 (pooled 0.0125) - the 0.01 grid samples one step per band, which is
-   why its pooled reading is white-looking. The COVER currency question is
-   mapped in docs/map/107_cover_layer_measured_state.md.
+   why its pooled reading is white-looking. The ladder was then completed
+   over the registered nine and its delta axis read (records 2024/2025):
+   LADDER9-PARTIAL (4 of the 6 new slots hold the suppression, ext gamma_7
+   misses at -2.12 sigma, committed gamma_6 has no band in this window) and
+   L-DELTA-STABLE (L identical at delta = 0.02, 0.05, 0.10; ratio 1.0000
+   against the registered bar 1.25), so L_slot is a slot property and the
+   certification spacing does not depend on delta - except on the two EXT
+   slots whose sub-0.005 sign structure makes their L a resolution-limited
+   understatement. The COVER currency question is mapped in
+   docs/map/107_cover_layer_measured_state.md.
 ```
 
 Authoritative route records remain `docs/map/104_*.md`, `docs/map/106_*.md`,
@@ -120,4 +128,5 @@ and `docs/map/README.md`. Executed-audit records:
 `docs/proofs/1994_opposite_gates_height_audit.md`,
 `docs/proofs/1995_route_c_velez_stabilization_audit.md`,
 `docs/proofs/2016_cover_window_law_outcome.md`,
-`docs/proofs/2017_cover_delta_floor_outcome.md`.
+`docs/proofs/2017_cover_delta_floor_outcome.md`,
+`docs/proofs/2025_l_ladder_outcome.md`.
