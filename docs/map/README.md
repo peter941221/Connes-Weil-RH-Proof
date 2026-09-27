@@ -139,6 +139,34 @@ vertex coefficient tracks `~0.5 * K^4` with the window factor `~7-10`, and the
 relative determinant margin is thin (`5e-5 .. 0.116`), so any estimate route
 to the determinant must be sharp (numeric branch discipline: law F79).
 
+### Route state after the 2026-09-27 desk batch (records 2039-2042)
+
+```text
+Route A: 2038 no-go stands; the registered reopen attempt is the record
+         2041 interval certificate chain on the one-copy G8-H selector
+         (health screen C > 0 passes on committed 1996 data at all three
+         deltas; four named links L1-L4 with prices and kill conditions).
+Route B: DEAD_ON_CURRENT_FAMILY stands (2035).
+Route C: literature-audit lane stands (1995); the Moran Ledezma
+         probabilistic companion is PARKED by record 2042.
+Route D: CLOSED by record 2039 (law F82: sign conservation under identity
+         splitting — the owner-specific factorization reopen condition of
+         map 108 is unreachable; boundary forced >= -QW for every owner).
+         Direct defect negativity D <= 0 remains open as a Route-A-shaped
+         non-split mechanism.
+Route E: REGISTERED AS DESK — [109](109_route_e_copoisson_intertwining_desk.md):
+         Burnol co-Poisson intertwining (exact full-line exchange of the
+         two channels every dead route tried to estimate; transcription
+         bridge already committed in record 109). Admissible only in the
+         non-split shapes E1 (norm/placement) / E2 (exact exchange,
+         remainder zero by support algebra); first brick = 111-scope
+         check + exact transcription + remainder-structure test. No scan,
+         no Lean until B1/B2 land.
+Route H (Helson matrices): NOT REGISTERED — record 2042 channel-mismatch
+         verdict (the prime channel is already positive-definite by
+         construction; the Helson dictionary speaks to the wrong side).
+```
+
 Live screen state of the same-span four-point subcampaign after the 2026-09-27
 batch (records 2028 - 2035): R-B1 is priced AND mass-certified (a genuine
 interval bracket for the `k = 3` weighted seed mass puts the strip bound at

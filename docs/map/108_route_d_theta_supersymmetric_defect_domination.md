@@ -166,3 +166,17 @@ Route D: CURRENT SKETCH FROZEN; NEW OWNER-SPECIFIC IDENTITY REQUIRED.
 No new producer campaign is authorized by this sketch. Reopen only with a
 new owner-specific arithmetic identity that strictly reduces the named
 analytic premise rather than defining `C` from the desired sign.
+
+## Closure addendum (2026-09-27, record 2039)
+
+Route D is now CLOSED, not merely frozen. The reopen condition above is
+unreachable: at the M0 interface, "there exist C with 0 <= C <= I and
+boundary b <= 0 with D = Tr(A* C A) + b" is EXACTLY EQUIVALENT to
+`QW(g,g) >= 0` (the C = I, b = -QW direction is the trivial factorization),
+and every decomposition's remainder is forced `>= -QW` — the boundary
+always carries at least the full gap (law F82, sign conservation under
+splitting). The kill condition of this map is met by force of the
+committed formal facts, for every owner. See
+`docs/proofs/2039_route_d_closure_sign_conservation.md`. What survives
+outside this closure: direct defect negativity `D <= 0` (a non-split,
+Route-A-shaped signed estimate), governed by the Route-A records.

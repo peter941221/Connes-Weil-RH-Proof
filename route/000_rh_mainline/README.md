@@ -17,10 +17,16 @@ This is the parent node for every admissible route in this repository.
 |
 +-- 004 A/B common-bottleneck audit
 |
++-- 005 Route E: co-Poisson intertwining desk (DESK status)
+|
 +-- 099 frozen or audit-only branches
 |
 +-- final consumer: SourceRH -> Mathlib RiemannHypothesis
 ```
+
+Route D (theta-shadow supersymmetric defect domination, map 108) has no
+directory: it is CLOSED by record 2039 (law F82 — sign conservation under
+identity splitting), not merely frozen.
 
 The parent goal is:
 
