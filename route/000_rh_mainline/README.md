@@ -172,7 +172,17 @@ term) = `1.685212e+12` = `0.4948x` the re-based budget and `4.948x` the
 10% bar -- inside the budget, not certified at the bar; the L4 kill is
 evaluator-independent and stands; the tier-B diagnostic prices the
 eigh/min-h1 component of L5 at `~3.5e+04` absolute, four orders below the
-bar.  Details and numbers are in `docs/map/README.md`.
+bar.  Record 2055 then reads the two method levers 2054 registered and lands
+**REDUCED-L2-VIABLE**: the sigma channel moves from the 2048 A1 zeroth-order
+interval projection to a third-order Taylor model (`9.287269e+11` ->
+`6.072137e+08`, a 1529.5x reduction at unchanged scope, enclosures from the
+termwise-differentiated Bernoulli ladder with SAFE = 8 tail charges), and the
+aggregate ladder extends to `h = 0.00025` (`7.564715e+11` -> `4.339137e+10`,
+on the measured `h^2` law of the hump panels, step ratios `11.56` -> `4.11`);
+the window total `4.401166e+10` is `0.1292x` the 10% bar (`0.0129x` the
+budget) with 7.74x margin, and each lever alone is insufficient (the
+old-convention total would read `2.854x` the bar).  Details and numbers are
+in `docs/map/README.md`.
 
 Authority remains in `docs/map/`; this directory is the navigational topology.
 

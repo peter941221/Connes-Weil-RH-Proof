@@ -469,6 +469,60 @@ Route A link L2, reduced evaluator (REDUCED-L2-GRAY, 2054): the registered
          attacked.  Not a producer theorem; not RH.
 ```
 
+### Route state after the 2026-09-28 second-method batch (record 2055)
+
+```text
+Route A link L2, reduced evaluator (REDUCED-L2-VIABLE, 2055): both levers
+         registered by 2054 are moved WITH METHODS, and the window node is
+         now priced UNDER the 10% bar.  Object and scope as 2054 (the
+         committed 2037-class pipeline at m = 1600, stored floats exact,
+         L5 untouched; L4 standing, evaluator-independent).  Budget3 =
+         3.4060498718812666e+12 (2053 frozen), bar10 = 3.4060498718812666e+11.
+         (A) SIGMA CHANNEL: the 2048 A1 zeroth-order interval projection is
+         replaced by a per-panel THIRD-ORDER Taylor model of int sigma*g
+         (moments by trapezoid on the fine grid with (dxi^2/12) int |g^(j)|
+         charges from the model's own sup enclosures; sigma^(k) enclosures
+         from the termwise-differentiated Bernoulli ladder + exact shift
+         sums + elementary/Cauchy tail charges from the Gauss representation,
+         SAFE = 8).  Reading: arch3 = 6.072137e+08 one-sided around the
+         cancelling centre -2.347126e+14 (relative 2.6e-06), vs the A1
+         projection 9.287269e+11 -- a 1529.5x reduction at unchanged scope;
+         the mp reference at dps 45 lands 3.87e-11 of W from the centre.
+         Bins: the mass hump [-8,-5] carries 99.99966% of W; the
+         sigma'''-large zone at xi ~ 0 (max S3 1.2e+05) is mass-free
+         (bin W 8.8e-08) -- R3 is NOT the binding channel.
+         (B) LADDER: two new rungs h = 0.0005 / 0.00025 (six total), the
+         run_rung machinery verbatim with a two-copy gpp trailing edge pad
+         (slices reach one past the fine stencil's copy at the new rungs;
+         old-rung bitwise identity gated by P2).  charge_agg:
+         3.837446e+14 / 3.318516e+13 / 3.418537e+12 / 7.564715e+11 /
+         1.784765e+11 / 4.339137e+10 (step ratios 11.564 / 9.707 / 4.519 /
+         4.238 / 4.113 -- onto the h^2 law of the hump panels' trap
+         charge); best rung h = 0.00025, min = 4.339137e+10 (agg < L3 at
+         every rung, 0.794 -> 0.440).  L1 nodal at h* = 1.308048e+07
+         (0.019% above the 2054 h = 0.001 reading; near-free rigor).
+         TOTAL = 4.339137e+10 + 1.308048e+07 + 6.072137e+08 = 4.401166e+10
+         = 0.0129x budget3 = 0.1292x bar10 -> VIABLE with 7.74x margin.
+         Rank stable the other way now: aggregate 98.6% of total (0.1274x
+         bar10 alone), sigma 1.4%, nodal 0.03%.  Each lever ALONE leaves
+         the total above the bar: old-convention total (A1 arch kept)
+         = 9.721314e+11 = 2.854x bar10.  Controls: P1/P2/P3 and C5 all
+         BITWISE (rel 0.0; rungs 0.01/0.005/0.002/0.001 reproduce all five
+         frozen 2054 fields; m = 400 row reproduces both 2051 charges),
+         C1/C2 rel 6.661e-16 / 2.442e-15, C4 0.0/0.0, width_mean 569.08678
+         bitwise vs 2054, B3 0.0 at both new rungs, B1 7/7 (worst 2.274e-05
+         at xi = -6.68, diff 0.0 at xi = -7.03).  A7 sigma-derivative
+         containment worst ratios sig 0.104 / s1 6.8e-05 / s2 3.0e-04 /
+         s3 1.2e-04; A8 committed sigma_iv 0.9375 of span at u = 0 (its REM
+         constant is the u = 0 tail bound; the code's stale comment says
+         3.97e-15, the value is 1.23e-14).  Incident (instrument): the
+         first smoke failed A7 on EXACTLY the odd channels (s1, s3) at
+         ratio ~1e20 -- the parity signature of a conjugated ladder
+         1/w_bar, w_bar^2 (Re-parts are conjugation-blind); fixed to
+         w = x - iy and the four ratios collapsed to <= 0.104.  Not a
+         producer theorem; not RH.
+```
+
 Live screen state of the same-span four-point subcampaign after the 2026-09-27
 batch (records 2028 - 2035): R-B1 is priced AND mass-certified (a genuine
 interval bracket for the `k = 3` weighted seed mass puts the strip bound at
