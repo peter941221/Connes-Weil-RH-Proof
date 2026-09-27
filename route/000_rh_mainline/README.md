@@ -90,7 +90,15 @@ hold the `h = 0.002` suppression below -3 sigma; ext `gamma_7` misses at -2.12
 sigma and committed `gamma_6` has no band in this window) and
 **L-DELTA-STABLE** (`L` identical at `delta = 0.02, 0.05, 0.10`, ratio 1.0000
 against the registered bar 1.25), so `L_slot` is a slot property and not a
-delta-dependent one.  The COVER layer's analytic currency is therefore an open
+delta-dependent one.  The record-2026 refinement then closed the sub-0.005
+caveat at the three EXT slots (**U-CONVERGED**: the C flip count is identical
+on the 0.001 and the 0.002 grid, so `L_001 = L_002` exactly, and the
+0.005-grid understatement is quantified from the fine side) and registered
+the five-point delta invariance of the sign string (**STRING-CENSUS-BREAKS**:
+seven of the nine slots hold it, committed `gamma_2` breaking from
+`delta = 0.20` and the ext `gamma_5` control from `delta = 0.30`); the
+fine-string form of that invariance was registered as well and is stopped
+unread.  The COVER layer's analytic currency is therefore an open
 question with directions A and D excluded by measurement and C/E unselected -
 see `docs/map/107_cover_layer_measured_state.md`.
 

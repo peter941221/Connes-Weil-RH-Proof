@@ -169,6 +169,39 @@ decreases with height from 0.025 at `gamma_1` to 0.008 at `gamma_8`, with the
 layer as the one measured counterexample at a fixed height (`gamma_5`:
 committed 0.0125 against ext 0.0091).
 
+Record 2026 then registered three refinements, and two of them are read
+(record 2027) while the third is registered and unread:
+
+```text
+resolution    U-CONVERGED: the stride-1 C flip count at delta = 0.10 is
+(2027)        identical on the 0.001 grid and the 0.002 grid at all three EXT
+              slots (10 / 10, 12 / 12, 11 / 11), so L_001 = L_002 exactly and
+              the registered L_002 estimator is resolved rather than merely
+              conservative; ext gamma_7 separates with zero margin (minimum
+              flip gap 0.0020).  The 0.005 grid does merge those doublets:
+              count_gain_001_005 = 4 / 2 / 0, so the registered L_005 was high
+              by 1.6667 / 1.2000 / 1.0000.  The 0.001 grid adds no structure,
+              so count-based L at these three slots cannot be lowered by
+              refining this window further.
+delta string  STRING-CENSUS-BREAKS: on the five-point scale set {0.86..0.94}
+(2027)        seven of the nine registered slots carry one and the same C sign
+              string at all six registered deltas; committed gamma_2 breaks
+              from delta = 0.20 and the ext gamma_5 control from delta = 0.30,
+              over 54/54 comparisons at full five-position coverage.  This is
+              the five-point form only.
+delta string  NOT READ: the 51-position fine-string comparison at the six P1
+(2027, D)     slots was registered, launched on the heavy lock, and stopped
+              unread after 81 of its 552 registered cells.  No verdict is
+              claimed and the item stays open.
+```
+
+So U fixes the certified spacing at the three EXT slots at 0.002-grid
+granularity, S registers the five-point delta invariance of the sign string,
+and D - which was to register the fine-string form - is unread.  The
+fine-string invariance of record 2025 section 4 therefore remains a labeled
+post-hoc by-product rather than a registered finding, and the layer axis of
+`L` (record 2025 section 7 item iii) is untouched.
+
 ## 3. Routing rulings
 
 Only the registered precedence rules were applied, and they give:
@@ -306,6 +339,38 @@ independent recomputation checker; the first-pass artifact is archived
 registered cells.  The two pre-registration errata (a 7.04e-7 transcription of
 `gamma_3` and a field name) are in record 2025 section 7 and change no
 reading.
+
+Record 2026 then registered the record-2025 section 7 items (i) and (ii)
+plus a census, and two of the three are read (record 2027):
+
+```text
+U   the sub-0.005 refinement at the three EXT slots (registered in 2026
+    section 2)
+    read 2026-09-27: U-CONVERGED - the stride-1 C flip count at delta = 0.10
+    is identical on the 0.001 and the 0.002 grid at all three slots, so
+    L_001 = L_002 exactly and the 0.002 estimator is resolved; the 0.001 grid
+    adds no structure, so the count-based L there is final at 0.002-grid
+    granularity.  The 0.005-grid understatement is quantified from the fine
+    side: count_gain_001_005 = 4 / 2 / 0, i.e. L_005 was high by 1.6667 /
+    1.2000 / 1.0000.
+S   the five-point string census over the six registered deltas (registered
+    in 2026 section 2; zero measured cells)
+    read 2026-09-27: STRING-CENSUS-BREAKS - seven of the nine slots carry the
+    same five-position C sign string at every registered delta; committed
+    gamma_2 breaks from delta = 0.20 and the ext gamma_5 control from
+    delta = 0.30, with full five-position coverage on 54/54 comparisons.
+    The registered object is the five-point string, which is strictly weaker
+    than the fine-string claim of record 2025 section 4.
+D   the 51-position fine-string delta comparison at the six P1 slots
+    (registered in 2026 section 2)
+    NOT READ: launched on the heavy lock and stopped after 81 of its 552
+    registered cells.  No verdict; item (i) stays open.
+```
+
+U closes the 0.002 estimator at the three EXT slots; S registers the
+five-point delta invariance and cannot substitute for D in either direction
+(a coarse string can agree while the fine string differs).  Neither promotes a
+mechanism.
 
 ## 6. Boundaries
 

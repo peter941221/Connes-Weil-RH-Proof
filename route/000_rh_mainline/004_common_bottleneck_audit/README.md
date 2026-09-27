@@ -120,7 +120,20 @@ COVER. MEASURED for the width track (record 2016, KNOT_COMPLEX): over the
    certification spacing does not depend on delta - with one sampling
    caveat on the two EXT slots: their sub-0.005 flip doublets (min gap
    0.002 / 0.004) merge inside the 0.005 step, so L_005 over-states the
-   band scale and only the 0.002-grid L is registered. The COVER currency
+   band scale and only the 0.002-grid L is registered. The sub-0.005 caveat
+   was then closed at the three EXT slots (record 2027, U-CONVERGED): the
+   stride-1 C flip count is identical on the 0.001 and the 0.002 grid, so
+   L_001 = L_002 exactly - the 0.002 estimator is resolved rather than merely
+   conservative (ext gamma_7 separates with zero margin at a 0.0020 gap) -
+   and count_gain_001_005 = 4 / 2 / 0 quantifies the 0.005 understatement
+   from the fine side. The registered five-point string census (record 2027,
+   STRING-CENSUS-BREAKS) finds the C sign string delta-invariant on seven of
+   the nine slots at all six registered deltas, breaking at committed
+   gamma_2 from delta = 0.20 and at the ext gamma_5 control from delta = 0.30;
+   the 51-position fine-string comparison that would strengthen this was
+   registered as the same record's D phase and is stopped unread, so the
+   fine-string invariance of record 2025 section 4 remains a labeled
+   post-hoc by-product. The COVER currency
    question is mapped in
    docs/map/107_cover_layer_measured_state.md.
 ```
@@ -131,4 +144,5 @@ and `docs/map/README.md`. Executed-audit records:
 `docs/proofs/1995_route_c_velez_stabilization_audit.md`,
 `docs/proofs/2016_cover_window_law_outcome.md`,
 `docs/proofs/2017_cover_delta_floor_outcome.md`,
-`docs/proofs/2025_l_ladder_outcome.md`.
+`docs/proofs/2025_l_ladder_outcome.md`,
+`docs/proofs/2027_ladder_refinement_outcome.md`.
