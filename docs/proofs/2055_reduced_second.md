@@ -36,7 +36,7 @@ on its own -- each lever alone leaves the total above the bar (the 2054
 record's reading), and only the pair crosses it.
 
 Probe: `scripts/routea_reduced_second_2055.py` (md5
-`55b29b50f0007abe31565aa9d33bcde0`, WSL ext4 mirror run, 1226.0 s),
+`091b8dc45517c96c70c615743a33a486`, WSL ext4 mirror run, 1226.0 s),
 artifact `results/2055_reduced_second.json` (md5
 `b5c1a9c914d7499e1a06780b4797eeed`).  L4 (record 2053) is NOT re-run and
 is NOT affected (evaluator-independent).  L5 is not touched.  This record
