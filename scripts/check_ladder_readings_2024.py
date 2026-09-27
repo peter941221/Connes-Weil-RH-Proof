@@ -29,11 +29,20 @@ L_AGREE_BAR = 0.25
 TOL = 1e-12           # relative tolerance on floats (same inputs, own path)
 EPS = 1e-9
 
-P1_SLOTS = [("committed", 21.022039638771556), ("committed", 25.010858284450420),
-            ("committed", 30.424876125859512), ("committed", 32.935061587739189),
-            ("ext", 37.586178158825671), ("ext", 40.918719012147495)]
-P2_SLOTS = [("committed", 14.134725141734695), ("committed", 27.67032193035704),
-            ("ext", 30.424876125859512)]
+def census_slots(phase):
+    """The slot table read from the generated census artifact (the anchor
+    rule: generated from artifacts, never typed - the first version of this
+    checker typed gamma_3 and its slice silently came back empty)."""
+    path = os.path.join(REPO, "results", "2024_registered_cells.json")
+    with open(path, encoding="utf-8") as stream:
+        census = json.load(stream)
+    block = census["p1"] if phase == "ladder9" else census["p2"]
+    out = []
+    for entry in block["slots"].values():
+        out.append((entry["layer"], entry["gamma"]))
+    return out
+
+
 SMOKE_LIMIT = 3
 
 
@@ -104,7 +113,7 @@ def check_ladder9(smoke):
     reading = load(os.path.join(REPO, "results",
                                 "2024_ladder9%s.json" % suffix))
     failures = []
-    for layer, gk in P1_SLOTS[:1] if smoke else P1_SLOTS:
+    for layer, gk in census_slots("ladder9")[:1] if smoke else census_slots("ladder9"):
         key = "%s:%.6f" % (layer, gk)
         slots = reading["slots"].get(key)
         if slots is None:
@@ -181,7 +190,7 @@ def check_delta(smoke):
                                 "2024_delta_ladder%s.json" % suffix))
     failures = []
     ratios = []
-    for layer, gk in P2_SLOTS[:1] if smoke else P2_SLOTS:
+    for layer, gk in census_slots("deltaladder")[:1] if smoke else census_slots("deltaladder"):
         key = "%s:%.6f" % (layer, gk)
         slots = reading["slots"].get(key)
         if slots is None:

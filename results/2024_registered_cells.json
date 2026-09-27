@@ -96,7 +96,7 @@
     "slots": {
       "committed:21.022040": {
         "layer": "committed",
-        "gamma": 21.02204,
+        "gamma": 21.022039638771556,
         "preloaded_sublattice": [
           0.86,
           0.87,
@@ -120,7 +120,7 @@
       },
       "committed:25.010858": {
         "layer": "committed",
-        "gamma": 25.010858,
+        "gamma": 25.01085758014569,
         "preloaded_sublattice": [
           0.86,
           0.87,
@@ -144,7 +144,7 @@
       },
       "committed:30.424876": {
         "layer": "committed",
-        "gamma": 30.424876,
+        "gamma": 30.424876125859512,
         "preloaded_sublattice": [
           0.86,
           0.87,
@@ -168,7 +168,7 @@
       },
       "committed:32.935062": {
         "layer": "committed",
-        "gamma": 32.935062,
+        "gamma": 32.93506158773919,
         "preloaded_sublattice": [
           0.86,
           0.87,
@@ -192,7 +192,7 @@
       },
       "ext:37.586178": {
         "layer": "ext",
-        "gamma": 37.586178,
+        "gamma": 37.58617815882567,
         "preloaded_sublattice": [
           0.86,
           0.87,
@@ -216,7 +216,7 @@
       },
       "ext:40.918719": {
         "layer": "ext",
-        "gamma": 40.918719,
+        "gamma": 40.9187190121475,
         "preloaded_sublattice": [
           0.86,
           0.87,

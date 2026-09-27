@@ -118,17 +118,26 @@ def main():
         raise SystemExit("EXT layer is not control + gamma_7/gamma_8: %s"
                          % ext_all)
     by_tag = {}
+    # the census must carry the FULL-PRECISION gamma (the anchor law): the
+    # first revision emitted the 6-decimal lookup keys as gamma values, so a
+    # consumer comparing at 1e-9 (the checker) saw empty slices
+    w_full = {}
+    for r in wrows:
+        w_full.setdefault((r["layer"], round(r["gamma"], 6)), r["gamma"])
+    comm = [(layer, round(gk, 6)) for layer, gk in comm]
+    ext_heights = [round(gk, 6) for gk in ext_heights]
+    ext_control = [round(gk, 6) for gk in ext_control]
     for i, (layer, gk) in enumerate(comm, start=1):
-        by_tag["committed:gamma_%d" % i] = (layer, gk)
-    by_tag["ext:gamma_7"] = ("ext", ext_heights[0])
-    by_tag["ext:gamma_8"] = ("ext", ext_heights[1])
-    by_tag["ext:gamma_5_control"] = ("ext", ext_control[0])
+        by_tag["committed:gamma_%d" % i] = (layer, w_full[(layer, gk)])
+    by_tag["ext:gamma_7"] = ("ext", w_full[("ext", ext_heights[0])])
+    by_tag["ext:gamma_8"] = ("ext", w_full[("ext", ext_heights[1])])
+    by_tag["ext:gamma_5_control"] = ("ext", w_full[("ext", ext_control[0])])
     for layer, tag in P1_SLOTS:
         key = "%s:%s" % (layer, tag)
         if key not in by_tag:
             raise SystemExit("P1 slot %s did not resolve" % key)
         slot = by_tag[key]
-        scales_present = committed_by_key.get(slot, {})
+        scales_present = committed_by_key.get((slot[0], round(slot[1], 6)), {})
         sub_ok = all(any(abs(s - p) < EPS for s in scales_present)
                      for p in SUBLATTICE)
         if not sub_ok:
