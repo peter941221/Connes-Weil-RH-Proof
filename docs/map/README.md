@@ -247,6 +247,61 @@ CCM/Sonin (tracked, 2047): record 112's source gap stands.  Connes
          screen) before any pricing.
 ```
 
+### Route state after the 2026-09-28 L3/aggregate batch (record 2051)
+
+```text
+Route A link L2 (ENCLOSED-L2-VIABLE, 2051): the record-2048 panel-local
+         model architecture now has its LAST external input enclosed and
+         its aggregate remainder priced.  L3 = an ENCLOSED panel sup|g''|
+         for the committed pipeline function with stored floats taken as
+         exact: jets (b0..b3, K4) closed under +, x, scalar with the
+         five-term product rule for K4, Taylor bound
+         sup|f^(k)| <= |b_k|+e_k + sum rho^m/m! (...) + rho^(4-k) K4/(4-k)!;
+         every step inflated 8u + insurance; the exponent-argument
+         amplification AMP = 8u a^2 (0.5 + 2 pi XI_MAX + |theta|) (~3e-12
+         near the window edge) is what makes the mpmath.iv containment
+         (A3, 18/18, dps 30) hold.  Ladder at the operating end:
+         h = 0.002 L3 5.657707e+18 (1.110x the 2048 float stencil charge),
+         h = 0.001 L3 1.294563e+18 (1.038x) -- rigor costs 3.8% there.
+         AGGREGATE family: the remainder is booked through the exact
+         trapezoid functional and the per-k cosine envelope,
+         charge_agg = sum_i [A_i Cc_i + (h^4/8) C1_book U_i
+                             + (h h_sub^2/12) U_i Cc_i],
+         A_i <= |trap_f(g) - trap_h(g)| + (h_sub^2/12) h U_i, C1_book =
+         21898.86; at h = 0.001 charge_agg 5.938659e+17 = 0.4763x the
+         stencil charge.  VERDICT (frozen rules): best 5.938659e+17 +
+         slack 5.536e+10 + arch 3.917065e+16 = 6.330366e+17 = 0.0633x
+         budget (2048 was 0.129x; factor 2.03), six anchors pass.
+         INCIDENTS (both adjudicated against evidence, no tolerance
+         loosening): (i) j_supk's tail loop indexed the K4 array as a
+         bundle (node-order dependent understatement; single-node crash);
+         T3 supk 0.09931875 -> 0.09150625 = 0.55^4 exactly; (ii) the first
+         frozen A2 compared U against the COMMITTED grid's second
+         differences and failed 3/14/38/75 panels (worst 1.585, bitwise
+         stable across builds) -- the localizer at panel 40493
+         (xi = 0.493, g ~ 1e-23 gmax, inside cancelling cores) shows
+         st_commit 0.678 vs st_model 0.0124 vs U 0.428: the committed
+         evaluation's own rounding noise dominates C's stencil at
+         cancellation panels.  A2 restructured: A2a (gate) = model fd
+         stencil vs U + (h_sub^2/12) K4, 0 violations (worst 0.99968);
+         A2b (booked) = the commit-vs-model gap charge <= 5.096e+06 =
+         9.2e-05 of slack_2048 (same model-float-slack class).
+         (iii) A4's 0.75 ratio bound tripped at 0.789 (h = 0.01); the
+         structural ceiling is theta/L3 = h C1_book/C_book (0.478 at
+         h = 0.01) plus main/L3 ~ 0.3, ~0.85, so the bound sat under the
+         method's own ceiling and moved to 1.0 with the ratios on record.
+         A7 MEASUREMENT (cancellation-blindness law): record 2048's
+         headline aggregate loss 57.47x is a tail-panel cancellation
+         artifact; on the 8 mass-carrying panels of 48 the crude was
+         2.554x the measured remainder and the rigorous aggregate charge
+         is 1.317x it (max 1.389), recovering 1.933x over crude.  The
+         enclosure holds O(1) absolute floors in collapsing panels
+         (node-independent M_k constants) -- structural, not slack.
+         Remaining L2: L1 enclosures (headroom ~ +4.0e+14 at h = 0.001),
+         L4 tail, L5 ideal-vs-stored beyond the A2b slot.  Not a
+         producer theorem; not RH.
+```
+
 Live screen state of the same-span four-point subcampaign after the 2026-09-27
 batch (records 2028 - 2035): R-B1 is priced AND mass-certified (a genuine
 interval bracket for the `k = 3` weighted seed mass puts the strip bound at

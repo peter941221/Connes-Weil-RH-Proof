@@ -124,8 +124,22 @@ remaining L2 cost is the unimplemented L3 enclosure of sup|g''|), corrected the
 record-2045 ledger claim (the neighbor paper was already read in
 1344/1347/1348/1349 since 2026-09-12) and retired IC unpriced (record 2049),
 and registered the instrument layer (record 2050: executable antibody screen
-and mathlib brick checker).  Details and numbers are in
-`docs/map/README.md`.
+and mathlib brick checker).  Record 2051 then closes the L2 link's last
+external input: the L3 panel sup|g''| is now an ENCLOSURE (jet/bundle
+machinery, stored floats taken as exact; the exponent-argument amplification
+term is what makes the independent mpmath.iv containment hold) and the
+aggregate remainder is priced by the trapezoid-functional/cosine-envelope
+split, giving ENCLOSED-L2-VIABLE at `6.330366e+17 = 0.0633x` budget (record
+2048: 0.129x; rigor costs 3.8% over the 2048 float stencil charge at
+h = 0.001, the aggregate split recovers 2.10x over it).  Two probe defects
+were adjudicated against evidence (a K4-slot indexing bug in the Taylor tail,
+and a reference-object error: the first A2 compared the enclosure to the
+committed grid's own rounding noise at cancellation panels - the restructured
+A2 splits into a gate on the model's fd stencil with the provable fd excess
+and a booked commit-vs-model gap at 9.2e-05 of slack_2048).  Record 2048's
+headline aggregate loss 57.47x is a tail-panel cancellation artifact; on
+mass-carrying panels the rigorous aggregate charge is 1.317x the measured
+remainder.  Details and numbers are in `docs/map/README.md`.
 
 Authority remains in `docs/map/`; this directory is the navigational topology.
 
