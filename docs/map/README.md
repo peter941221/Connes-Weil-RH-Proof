@@ -407,6 +407,68 @@ Route A link L2 (L4-PRICE-FAIL + PHI-HORIZON-DOMINANT, 2053): both frozen
          theorem; not RH.
 ```
 
+### Route state after the 2026-09-28 reduced-evaluator re-price (record 2054)
+
+```text
+Route A link L2, reduced evaluator (REDUCED-L2-GRAY, 2054): the registered
+         2053 follow-up is read and closed.  Object: the committed
+         2037-class pipeline with the phi-quadrature rule at m = 1600
+         (xw1600 = phi_weights(a, panels = 6, m = 1600), 9600 nodes/fam),
+         committed base/corr and kernel, window [-40,40]; scope as
+         2051/2052 (stored floats exact, L5 untouched); L4's kill bounds
+         the IDEAL object's tail and is evaluator-independent -- not
+         re-run, standing.  Budget = |Q_1600| = 3.4060498718812666e+12
+         (the 2053 frozen value), bar = 10% of it.  Window price:
+         charges at rungs h = 0.01/0.005/0.002/0.001 give agg
+         3.837446e+14 / 3.318516e+13 / 3.418537e+12 / 7.564715e+11
+         (agg/L3 0.79 -> 0.46; best rung h = 0.001, min = 7.564715e+11 =
+         0.2221 budget); L1 nodal at h* (2052 calculus at m = 1600) =
+         1.307804e+07 (Coef1 23323.213147, e_g max 71791.79, median
+         3.937e-19; 1.9e-06 of the 2051 L1 charge -- rigor on this addend
+         is free at the reduced evaluator); archimedean projection rebuilt
+         at m = 1600 (0.05 panels, 2048 A1 convention; width_mean
+         569.0867771360982) = 9.287269e+11.  TOTAL = 7.564715e+11 +
+         1.307804e+07 + 9.287269e+11 = 1.685212e+12 = 0.4948x budget3 =
+         4.948x bar10 -> GRAY: inside the budget, not certified at the
+         10% bar.  THE RANKING TURNED OVER: arch is now the leading term
+         (55.1% of total, 2.73x bar alone), remainder second (2.22x bar),
+         L1 negligible.  Structural reading: budget collapsed 3.26e+07
+         (1.1112e+20 -> 3.4060e+12) while charge collapsed 7.85e+05
+         (5.939e+17 -> 7.565e+11) -- relative standing degrades 0.0633x
+         (2051/2052, m = 400 DAG) -> 0.4948x on the object a certificate
+         needs; arch scaled worst of all (4.22e+04 vs the budget's
+         3.26e+07) and cannot be moved by panel refinement (width ~
+         |sigma'| dxi -- a fixed functional up to method constants).
+         Near-free rigor readings at m = 1600: A2a 0 violations with the
+         bound at its own ceiling (worst 0.9997), A2b booked gaps
+         5.10e+06 / 5.84e+05 (4 and 10 fd-excess panels), U/stencil
+         converges to 1.025 at h = 0.001, A7 cancellation blindness GONE
+         (worst_k measured/bound 0.645; rigorous/measured on mass panels
+         1.340, close to 2051's 1.317), B1 7/7 with bitwise agreement at
+         the mass-hump node xi = -7.03 (C = g_exact
+         2.3619265336460666e+14) and worst ratio 2.274e-05 at xi = -6.68,
+         B3 0.0 (ladder nodes are fine-grid nodes at h = 0.001).  Tier-B
+         diagnostic (base/corr on a_mat1600): d_base 2.151e-09, d_corr
+         2.481e-09, Q shift 1.017e-08 rel = ~3.5e+04 absolute, four
+         orders below the bar -- the eigh/min-h1 component of L5 is cheap
+         at this owner (diagnostic, not an enclosure).  Controls: C1/C2
+         reproduce 2053's window values at 1e-15 (rel 6.661e-16 /
+         2.442e-15); C5 is BITWISE against the 2051 artifact -- the
+         m = 400 control row matches every field (charges rel 0.000e+00,
+         a1 143360.0, A2b 38/5.096e+06, sum_U 1.235178868676494e+25,
+         tight median 12874481.75895616); C4 worker-vs-parent and
+         ParModel-vs-Model both 0.0 bitwise (span-batching at the jet
+         chunk is a measured no-op); C3/C6 exact.  Incidents (instrument
+         only): jet-container assumption ((real,imag) pair vs the real
+         jet [c0..c3,K4] with a bare K4 slot), an uncalled C4 control,
+         pmap missing its pooled branch, a smoke ladder/dxi mismatch --
+         all caught pre-verdict by smoke runs; smoke and full runs agree
+         on every shared section.  To reach bar10: total must fall 4.948x
+         -- the arch pricing needs a method change, the remainder needs
+         the mass-free-panel overhead (U/stencil ~ 2.6e+06 at h = 0.01)
+         attacked.  Not a producer theorem; not RH.
+```
+
 Live screen state of the same-span four-point subcampaign after the 2026-09-27
 batch (records 2028 - 2035): R-B1 is priced AND mass-certified (a genuine
 interval bracket for the `k = 3` weighted seed mass puts the strip bound at

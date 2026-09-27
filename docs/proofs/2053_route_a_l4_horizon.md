@@ -349,3 +349,19 @@ patch, would be needed to price this tail).
   exists.
 - The reduced evaluator is registered, NOT executed; its costs are a
   direction, not a measurement.
+
+## 9. Outcome — the registered reduced evaluator, read (record 2054)
+
+The registration of section 6 is closed by record 2054
+(`docs/proofs/2054_reduced_evaluator.md`): the same chain re-run at
+m = 1600 gives **REDUCED-L2-GRAY** — aggregate remainder 7.564715e+11
+(h = 0.001) + L1 nodal 1.307804e+07 + arch 9.287269e+11 = 1.685212e+12 =
+0.4948x the re-based budget = 4.948x the 10% bar.  The C2 window value
+frozen here (`-3.4060498718812666e+12`) is reproduced by 2054's own
+pipeline at rel 2.442e-15, and the m = 400 control row reproduces the
+2051 artifact bitwise.  This record's L4 kill is NOT re-run and NOT
+relieved: it bounds the ideal object's own tail and stands.  The
+registration's DIRECTION reading (`|C|_max` 6.153e+09 -> 1.599e+07, outer
+g mass /3e7) is superseded by the measured verdict surface; the measured
+addend ranking turned over (arch leading) and the tier-B diagnostic prices
+the eigh/min-h1 component of L5 at ~3.5e+04 absolute.

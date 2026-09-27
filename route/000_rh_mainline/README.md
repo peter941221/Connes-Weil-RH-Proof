@@ -163,8 +163,16 @@ claim (the `6.330553e+17 = 0.0633x` forward bound on the committed m = 400 DAG)
 stands, but that object differs from the ideal functional by `1.1111757e+20`
 at this owner, so a certificate targeting the ideal needs the registered
 reduced-evaluator re-price (same chain at m = 1600; the ideal budget is
-`3.4e+12`, six orders tighter than 1e19).  Details and numbers are in
-`docs/map/README.md`.
+`3.4e+12`, six orders tighter than 1e19).  Record 2054 reads that
+registered follow-up (**REDUCED-L2-GRAY**): the window node of the same
+architecture at the m = 1600 object prices at `7.564715e+11` (aggregate
+remainder, best rung `h = 0.001`) + `1.307804e+07` (L1 nodal, now
+negligible) + `9.287269e+11` (archimedean projection, now the LEADING
+term) = `1.685212e+12` = `0.4948x` the re-based budget and `4.948x` the
+10% bar -- inside the budget, not certified at the bar; the L4 kill is
+evaluator-independent and stands; the tier-B diagnostic prices the
+eigh/min-h1 component of L5 at `~3.5e+04` absolute, four orders below the
+bar.  Details and numbers are in `docs/map/README.md`.
 
 Authority remains in `docs/map/`; this directory is the navigational topology.
 
