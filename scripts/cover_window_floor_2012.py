@@ -118,6 +118,28 @@ L_AGREE_BAR = 0.25             # registered relative L-agreement bar
 CELLS_ARTIFACT_2024 = "results/2024_registered_cells.json"
 C1_ROWS_ARTIFACT = "results/2021_scale_ladder_rows.json"
 CELLS_ARTIFACT = "results/2019_registered_cells.json"
+# record-2026 refinement wave (pre-registered in
+# docs/proofs/2026_ladder_refinement_preregistration.md, read in record 2027):
+# U refines the three EXT slots to the 0.001 grid at delta = 0.10 (the record-
+# 2025 section 3 reading-3 question: how much sign structure sits below 0.005,
+# and is L_002 the converged band scale there); D reads the C sign STRING on
+# the six record-2024 slots at delta = 0.02/0.05 against their committed
+# delta = 0.10 string; S is the zero-measurement five-point string census over
+# the six registered deltas on all nine slots.  The registered census is
+# generated from the committed artifacts by scripts/cover_cells_2026.py and
+# re-checked by A0.
+ULTRAFINE_SLOTS = [("ext", r94.G7), ("ext", r94.G8), ("ext", LAYER_CONTROL)]
+ULTRAFINE_DELTA = 0.10
+ULTRAFINE_STEPS = (0.005, 0.002, 0.001)
+STRDELTA_SLOTS = list(LADDER9_SLOTS)
+STRDELTA_DELTAS = (0.02, 0.05)
+STRDELTA_REFERENCE = LADDER_DELTA
+STRDELTA_STEP = 0.002
+STRING_DELTAS = FLOOR_DELTAS
+STRING_SCALES = ANCHOR_SCALES
+CELLS_ARTIFACT_2026 = "results/2026_registered_cells.json"
+FLOOR_ROWS_ARTIFACT = "results/2012_cover_scan_rows_floor.json"
+P1_ROWS_ARTIFACT = "results/2024_ladder9_rows.json"
 CHECKPOINT_EVERY = 25
 SMOKE_SUFFIX = ""              # set to "_smoke" by a --smoke run
 K = 30.0
@@ -157,6 +179,7 @@ ANCHOR_BAR = 1.0e-6
 HEIGHTS = [("committed", g) for g in COMMITTED_HEIGHTS] + \
     [("ext", g) for g in EXT_HEIGHTS]
 CONTROL = ("ext", LAYER_CONTROL)
+STRING_SLOTS = HEIGHTS + [CONTROL]       # the nine registered slots
 
 
 def log(message):
@@ -345,9 +368,15 @@ def anchor_block(cache, force=False):
     """
     anchors = []
     for spec in ANCHORS:
-        if not force and not any(k[0] == spec["layer"]
-                                 and abs(k[1] - spec["gamma"]) < 1e-9
-                                 for k in cache.rows):
+        # The cached-path guard must use the cache's OWN key resolution: the
+        # key rounds the ordinate to 6 decimals, so testing a rounded key
+        # against the full-precision spec gamma at 1e-9 silently skips every
+        # anchor whose 6th decimal is inexact (gamma_5: 30.424876 vs
+        # 30.424876125859512 is 1.26e-7 - the "round only for lookup keys"
+        # rule, met from the other side).
+        if not force and cache.key(spec["layer"], spec["gamma"],
+                                   spec["delta"], spec["scale"],
+                                   DXI) not in cache.rows:
             continue
         row = cache.get(spec["layer"], spec["gamma"], spec["delta"],
                         spec["scale"], force=force)
@@ -965,11 +994,16 @@ def ladder_census_ok(phase):
     """A0 of record 2024: the rig's registered slot sets must match the
     generated census artifact slot-for-slot, and the artifact's own new-cell
     arithmetic must reproduce from its recorded preload lists.  The census is
-    generated from committed artifacts by scripts/cover_ladder_cells_2024.py,
-    never typed."""
-    path = os.path.join(REPO, CELLS_ARTIFACT_2024)
+    generated from committed artifacts (scripts/cover_ladder_cells_2024.py for
+    the record-2024 phases, scripts/cover_cells_2026.py for the record-2026
+    phases), never typed."""
+    if phase in ("ultrafine", "stringdelta", "stringcensus"):
+        relative = CELLS_ARTIFACT_2026
+    else:
+        relative = CELLS_ARTIFACT_2024
+    path = os.path.join(REPO, relative)
     if not os.path.exists(path):
-        log("  census A0: %s missing" % CELLS_ARTIFACT_2024)
+        log("  census A0: %s missing" % relative)
         return False
     with open(path, encoding="utf-8") as stream:
         census = json.load(stream)
@@ -977,6 +1011,10 @@ def ladder_census_ok(phase):
 
     def count_new(preload):
         return len([sc for sc in union
+                    if not any(abs(sc - p) < 1e-9 for p in preload)])
+
+    def count_new_over(lattice, preload):
+        return len([sc for sc in lattice
                     if not any(abs(sc - p) < 1e-9 for p in preload)])
 
     if phase == "ladder9":
@@ -1016,6 +1054,84 @@ def ladder_census_ok(phase):
         refs = block.get("reference_check", {})
         ref_ok = bool(refs) and all(v.get("complete") for v in refs.values())
         return total == block.get("new_cells") and ref_ok
+    if phase == "ultrafine":
+        block = census.get("u", {})
+        want = sorted("%s:%.6f" % (l, g) for l, g in ULTRAFINE_SLOTS)
+        have = sorted(block.get("slots", {}))
+        if want != have or block.get("missing_preload"):
+            log("  census A0: ultrafine slots %s vs registered %s"
+                % (have, want))
+            return False
+        if (abs(block.get("delta", -1) - ULTRAFINE_DELTA) > 1e-12
+                or abs(block.get("step", -1) - ULTRAFINE_STEPS[-1]) > 1e-12):
+            log("  census A0: ultrafine geometry %s/%s vs registered %s/%s"
+                % (block.get("delta"), block.get("step"), ULTRAFINE_DELTA,
+                   ULTRAFINE_STEPS[-1]))
+            return False
+        total = 0
+        for entry in block["slots"].values():
+            want_new = count_new_over(ladder_grid(ULTRAFINE_STEPS[-1]),
+                                      entry["preloaded"])
+            if entry["new_cells"] != want_new:
+                log("  census A0: %s new_cells %s != %s"
+                    % (entry["gamma"], entry["new_cells"], want_new))
+                return False
+            total += want_new
+        return total == block.get("new_cells") and block.get("new_cells") > 0
+    if phase == "stringdelta":
+        block = census.get("d", {})
+        want = sorted("%s:%.6f" % (l, g) for l, g in STRDELTA_SLOTS)
+        have = sorted(block.get("slots", {}))
+        if want != have or block.get("missing_preload"):
+            log("  census A0: stringdelta slots %s vs registered %s"
+                % (have, want))
+            return False
+        if (abs(block.get("step", -1) - STRDELTA_STEP) > 1e-12
+                or [round(float(d), 6) for d in block.get("deltas", [])]
+                != [round(float(d), 6) for d in STRDELTA_DELTAS]):
+            log("  census A0: stringdelta geometry %s/%s vs registered %s/%s"
+                % (block.get("step"), block.get("deltas"), STRDELTA_STEP,
+                   list(STRDELTA_DELTAS)))
+            return False
+        total = 0
+        for entry in block["slots"].values():
+            if not entry.get("reference_present"):
+                log("  census A0: %s reference incomplete" % entry["gamma"])
+                return False
+            for dkey, dblob in sorted(entry["deltas"].items()):
+                want_new = count_new_over(ladder_grid(STRDELTA_STEP),
+                                          dblob["preloaded"])
+                if dblob["new_cells"] != want_new:
+                    log("  census A0: %s d=%s new_cells %s != %s"
+                        % (entry["gamma"], dkey, dblob["new_cells"],
+                           want_new))
+                    return False
+                total += want_new
+        return total == block.get("new_cells") and block.get("new_cells") > 0
+    if phase == "stringcensus":
+        block = census.get("s", {})
+        want = sorted("%s:%.6f" % (l, g) for l, g in STRING_SLOTS)
+        have = sorted(block.get("slots", {}))
+        if want != have or block.get("missing"):
+            log("  census A0: stringcensus slots %s vs registered %s"
+                % (have, want))
+            return False
+        if ([round(float(d), 6) for d in block.get("deltas", [])]
+                != [round(float(d), 6) for d in STRING_DELTAS]
+                or [round(float(sc), 6) for sc in block.get("scales", [])]
+                != [round(float(sc), 6) for sc in STRING_SCALES]):
+            log("  census A0: stringcensus geometry %s/%s vs registered %s/%s"
+                % (block.get("deltas"), block.get("scales"),
+                   list(STRING_DELTAS), list(STRING_SCALES)))
+            return False
+        for entry in block["slots"].values():
+            for dkey, preload in sorted(entry["deltas"].items()):
+                if len(preload) != len(STRING_SCALES):
+                    log("  census A0: %s d=%s preload %d != %d"
+                        % (entry["gamma"], dkey, len(preload),
+                           len(STRING_SCALES)))
+                    return False
+        return True
     return False
 
 
@@ -1263,6 +1379,425 @@ def delta_ladder_reading(cache, anchors, det_cells):
     log("results -> %s" % out)
 
 
+def l_ratio(a, b):
+    """max / min of two positive L values; None if either is absent or
+    non-positive (a ratio is only defined between two finite readings)."""
+    if a is None or b is None or a <= 0.0 or b <= 0.0:
+        return None
+    return max(a, b) / min(a, b)
+
+
+def sign_string(rows):
+    """The C sign string of a row set: scale -> '+'/'-' over the rows with a
+    readable C.  An INSTRUMENT-limited row has no readable C sign and is
+    ABSENT (a gap), never guessed; a non-finite C is likewise absent.  The
+    filter is the rig's own certified convention (face != INSTRUMENT), so the
+    string matches the grid_stats row sets exactly."""
+    out = {}
+    for row in rows:
+        if row is None or row.get("face") == "INSTRUMENT":
+            continue
+        c = row.get("C")
+        if c is None or not math.isfinite(c):
+            continue
+        out[round(row["scale"], 6)] = "+" if c > 0.0 else "-"
+    return out
+
+
+def string_compare(reference, other):
+    """Position-wise comparison of two sign strings over their common scales.
+    Returns (k, n, only_reference, only_other): k disagreements over n shared
+    positions, plus the one-sided scales, which are reported rather than
+    silently dropped (a coverage loss is not a sign change)."""
+    common = sorted(set(reference) & set(other))
+    k = sum(1 for sc in common if reference[sc] != other[sc])
+    return (k, len(common), sorted(set(reference) - set(other)),
+            sorted(set(other) - set(reference)))
+
+
+def string_flips(seq, scales):
+    """Consecutive sign changes of a string restricted to `scales` (sorted).
+    A scale absent from the string breaks adjacency instead of being skipped
+    over, so a gap can never manufacture a flip."""
+    k = n = 0
+    prev = None
+    for sc in sorted(scales):
+        sign = seq.get(round(sc, 6))
+        if sign is None:
+            prev = None
+            continue
+        if prev is not None:
+            n += 1
+            if sign != prev:
+                k += 1
+        prev = sign
+    return k, n
+
+
+def certified_rows(cache, layer, gk, delta, step, smoke):
+    """The certified rows of one grid, selected exactly as slot_delta_entry
+    selects them (INSTRUMENT rows dropped), for readings that need the C-sign
+    POSITIONS rather than the aggregate counts.  Cache.peek only."""
+    scales = ladder_grid(step)
+    if smoke:
+        scales = scales[:3]
+    out = []
+    for sc in scales:
+        row = cache.peek(layer, gk, delta, sc)
+        if row is None or row.get("face") == "INSTRUMENT":
+            continue
+        out.append(row)
+    return out
+
+
+def flip_positions(rows, stride, step):
+    """The (left, right) scale pairs whose C signs differ at the given lag -
+    the positions behind flip_rate's counts, on the same adjacency rule."""
+    out = []
+    for i in range(len(rows) - stride):
+        a, b = rows[i], rows[i + stride]
+        if abs((b["scale"] - a["scale"]) - stride * step) > 1e-6:
+            continue
+        if (a["C"] > 0) != (b["C"] > 0):
+            out.append((a["scale"], b["scale"]))
+    return out
+
+
+def min_flip_gap(positions):
+    """The smallest scale gap between consecutive C flips (the record-2025
+    section 3 discriminator: the count survives a coarse grid iff every
+    individual excursion is wider than the coarse step)."""
+    lefts = [p[0] for p in positions]
+    if len(lefts) < 2:
+        return None
+    return min(b - a for a, b in zip(lefts, lefts[1:]))
+
+
+def ultrafine_reading(cache, anchors, det_cells):
+    """record-2026 U: the sub-0.005 resolution at the three EXT slots.
+
+    Record 2025 section 3 measured C-flip doublets with 0.002 / 0.004 gaps at
+    ext gamma_7 / ext gamma_8, so the 0.002 grid may itself be merging
+    excursions; section 7 item (ii) left the 0.001 refinement open.  This
+    reading refines the same registered window to 0.001 and asks whether
+    L_002 is the converged band scale there.  Verdict clauses fixed in record
+    2026 section 5."""
+    steps = ULTRAFINE_STEPS
+    smoke = bool(SMOKE_SUFFIX)
+    slots = ULTRAFINE_SLOTS[:1] if smoke else ULTRAFINE_SLOTS
+    missing, np_bad, np_cells = [], 0, 0
+    slot_rows = {}
+    for layer, gk in slots:
+        entry, n_c, n_b = slot_delta_entry(cache, layer, gk, ULTRAFINE_DELTA,
+                                           steps, smoke, missing)
+        np_cells += n_c
+        np_bad += n_b
+        slot_rows["%s:%.6f" % (layer, gk)] = entry
+    per_slot = {}
+    for key, entry in slot_rows.items():
+        r = {"layer": entry["layer"], "gamma": entry["gamma"], "grids": {}}
+        for step in steps:
+            grid = entry["grids"]["step_%g" % step]
+            blob = grid["by_stride"].get("stride_1")
+            rate = blob["c_rate"] if blob and blob["n_pairs"] else None
+            value, no_flips = fine_L(rate, step)
+            r["grids"]["%g" % step] = {
+                "step": step, "n_certified": grid["n_certified"],
+                "n_pairs": blob["n_pairs"] if blob else 0,
+                "c_flip": blob["c_flip"] if blob else 0,
+                "h_flip": blob["h_flip"] if blob else 0,
+                "c_rate": rate,
+                "h_rate": blob["h_rate"] if blob else None,
+                "mu_healthy": grid["mu_healthy"],
+                "mu_c_pos": grid["mu_c_pos"],
+                "L": value, "no_flips": no_flips,
+                "by_stride": grid["by_stride"]}
+            positions = flip_positions(certified_rows(
+                cache, entry["layer"], entry["gamma"], ULTRAFINE_DELTA, step,
+                smoke), 1, step)
+            r["grids"]["%g" % step]["flip_lefts"] = [p[0] for p in positions]
+            r["grids"]["%g" % step]["min_flip_gap"] = min_flip_gap(positions)
+        r["ratio_001_002"] = l_ratio(r["grids"]["0.001"]["L"],
+                                     r["grids"]["0.002"]["L"])
+        r["ratio_001_005"] = l_ratio(r["grids"]["0.001"]["L"],
+                                     r["grids"]["0.005"]["L"])
+        r["count_gain_001_002"] = (r["grids"]["0.001"]["c_flip"]
+                                   - r["grids"]["0.002"]["c_flip"])
+        r["count_gain_001_005"] = (r["grids"]["0.001"]["c_flip"]
+                                   - r["grids"]["0.005"]["c_flip"])
+        per_slot[key] = r
+    anchors_ok = all(a.get("pass") for a in anchors)
+    det_ok = all(d["dev_C"] == 0.0 and d["dev_D"] == 0.0
+                 for d in det_cells) if det_cells else False
+    census_ok = ladder_census_ok("ultrafine")
+    instrument_fail = bool(missing) or np_bad > 0 or not anchors_ok \
+        or not det_ok or not census_ok
+    verdict = "U-INSTRUMENT-FAIL" if instrument_fail else None
+    if not instrument_fail:
+        gain = [key for key, r in per_slot.items()
+                if r["count_gain_001_002"] > 0]
+        vacuous = [key for key, r in per_slot.items()
+                   if r["grids"]["0.001"]["c_flip"] == 0
+                   and r["grids"]["0.002"]["c_flip"] == 0]
+        if gain:
+            verdict = "U-UNRESOLVED"
+        elif vacuous:
+            verdict = "U-DEGENERATE"
+        else:
+            verdict = "U-CONVERGED"
+    out = os.path.join(REPO, "results",
+                       "2026_ultrafine%s.json" % SMOKE_SUFFIX)
+    with open(out, "w", encoding="utf-8") as stream:
+        json.dump({
+            "record": "2026", "scan": "ultrafine", "dxi": DXI,
+            "delta": ULTRAFINE_DELTA, "range": list(LADDER_RANGE),
+            "steps": list(steps), "verdict": verdict,
+            "instrument_fail": instrument_fail, "census_ok": census_ok,
+            "l_agree_bar": L_AGREE_BAR, "slots": per_slot,
+            "slot_grids": slot_rows, "missing": missing,
+            "np_check": {"cells": np_cells, "mismatches": np_bad},
+            "determinism": det_cells, "anchors": anchors}, stream, indent=2)
+        stream.write("\n")
+    log("=" * 96)
+    for key in sorted(per_slot):
+        entry = per_slot[key]
+        log("  ultrafine %-24s C flips %s  H flips %s  L %s"
+            % (key,
+               {s: b["c_flip"] for s, b in sorted(entry["grids"].items())},
+               {s: b["h_flip"] for s, b in sorted(entry["grids"].items())},
+               {s: fmt_L(b["L"], b["no_flips"])
+                for s, b in sorted(entry["grids"].items())}))
+        log("  ultrafine %-24s mu_C %s  ratio 001/002 %s  ratio 001/005 %s"
+            % (key,
+               {s: ("%.4f" % b["mu_c_pos"]
+                    if b["mu_c_pos"] is not None else "n/a")
+                for s, b in sorted(entry["grids"].items())},
+               ("%.4f" % entry["ratio_001_002"])
+               if entry["ratio_001_002"] is not None else "n/a",
+               ("%.4f" % entry["ratio_001_005"])
+               if entry["ratio_001_005"] is not None else "n/a"))
+        log("  ultrafine %-24s min flip gap %s  count gain 001-002 %s "
+            "001-005 %s"
+            % (key,
+               {s: ("%.4f" % b["min_flip_gap"]
+                    if b["min_flip_gap"] is not None else "n/a")
+                for s, b in sorted(entry["grids"].items())},
+               entry["count_gain_001_002"], entry["count_gain_001_005"]))
+    log("  ultrafine np %d cells, %d mismatches; determinism %d cells, %s; "
+        "census A0 %s" % (np_cells, np_bad, len(det_cells),
+                          "bit-identical" if det_ok else "FAILED", census_ok))
+    log("VERDICT: %s" % verdict)
+    log("results -> %s" % out)
+
+
+def string_delta_reading(cache, anchors, det_cells):
+    """record-2026 D: the C sign STRING as a function of delta on the six
+    record-2024 P1 slots.  The delta = 0.10 string is the committed P1 rows
+    (results/2024_ladder9_rows.json), preloaded through --resume-from and
+    never re-measured; the question of record 2025 section 7 item (i).
+    Verdict clauses fixed in record 2026 section 5."""
+    step = STRDELTA_STEP
+    smoke = bool(SMOKE_SUFFIX)
+    slots = STRDELTA_SLOTS[:1] if smoke else STRDELTA_SLOTS
+    deltas = STRDELTA_DELTAS[:1] if smoke else STRDELTA_DELTAS
+    scales = ladder_grid(step)
+    if smoke:
+        scales = scales[:3]
+    missing, np_bad, np_cells, ref_incomplete = [], 0, 0, []
+    slot_rows = {}
+    for layer, gk in slots:
+        ref_rows = []
+        for sc in scales:
+            row = cache.peek(layer, gk, STRDELTA_REFERENCE, sc)
+            if row is None:
+                ref_incomplete.append([layer, gk, sc])
+                continue
+            ref_rows.append(row)
+        ref_str = sign_string(ref_rows)
+        entry = {"layer": layer, "gamma": gk,
+                 "reference": {"delta": STRDELTA_REFERENCE,
+                               "source": P1_ROWS_ARTIFACT,
+                               "string": ref_str, "n": len(ref_str),
+                               "flips": string_flips(ref_str, scales)},
+                 "deltas": {}}
+        for delta in deltas:
+            blk, n_c, n_b = slot_delta_entry(cache, layer, gk, delta,
+                                             (step,), smoke, missing)
+            np_cells += n_c
+            np_bad += n_b
+            rows = [cache.peek(layer, gk, delta, sc) for sc in scales]
+            seq = sign_string(rows)
+            k, n, only_ref, only_new = string_compare(ref_str, seq)
+            blk["string"] = seq
+            blk["string_compare"] = {
+                "disagreements": k, "n_common": n,
+                "n_reference": len(ref_str), "only_reference": only_ref,
+                "only_new": only_new, "flips": string_flips(seq, scales)}
+            entry["deltas"]["%.3f" % delta] = blk
+        slot_rows["%s:%.6f" % (layer, gk)] = entry
+    per_slot = {}
+    for key, entry in slot_rows.items():
+        r = {"layer": entry["layer"], "gamma": entry["gamma"],
+             "reference": entry["reference"], "deltas": {}}
+        for dkey, blk in sorted(entry["deltas"].items()):
+            cmp = blk["string_compare"]
+            grid = blk["grids"]["step_%g" % step]
+            r["deltas"][dkey] = {
+                "n_certified": grid["n_certified"],
+                "disagreements": cmp["disagreements"],
+                "n_common": cmp["n_common"],
+                "n_reference": cmp["n_reference"],
+                "only_reference": cmp["only_reference"],
+                "only_new": cmp["only_new"], "flips": cmp["flips"],
+                "mu_healthy": grid["mu_healthy"],
+                "mu_c_pos": grid["mu_c_pos"]}
+        per_slot[key] = r
+    anchors_ok = all(a.get("pass") for a in anchors)
+    det_ok = all(d["dev_C"] == 0.0 and d["dev_D"] == 0.0
+                 for d in det_cells) if det_cells else False
+    census_ok = ladder_census_ok("stringdelta")
+    instrument_fail = bool(missing) or np_bad > 0 or bool(ref_incomplete) \
+        or not anchors_ok or not det_ok or not census_ok
+    verdict = "STRING-DELTA-INSTRUMENT-FAIL" if instrument_fail else None
+    if not instrument_fail:
+        breaks = [(key, dkey, blob["disagreements"])
+                  for key, r in per_slot.items()
+                  for dkey, blob in sorted(r["deltas"].items())
+                  if blob["disagreements"] > 0]
+        complete = all(blob["n_common"] == blob["n_reference"]
+                       for r in per_slot.values()
+                       for blob in r["deltas"].values())
+        if breaks:
+            verdict = "STRING-DELTA-BREAKS"
+        elif complete:
+            verdict = "STRING-DELTA-STABLE"
+        else:
+            verdict = "STRING-DELTA-INCOMPLETE"
+    out = os.path.join(REPO, "results",
+                       "2026_string_delta%s.json" % SMOKE_SUFFIX)
+    with open(out, "w", encoding="utf-8") as stream:
+        json.dump({
+            "record": "2026", "scan": "string-delta", "dxi": DXI,
+            "step": step, "deltas": list(deltas),
+            "reference_delta": STRDELTA_REFERENCE,
+            "reference_source": P1_ROWS_ARTIFACT,
+            "range": list(LADDER_RANGE), "verdict": verdict,
+            "instrument_fail": instrument_fail, "census_ok": census_ok,
+            "slots": per_slot, "slot_grids": slot_rows, "missing": missing,
+            "ref_incomplete": ref_incomplete,
+            "np_check": {"cells": np_cells, "mismatches": np_bad},
+            "determinism": det_cells, "anchors": anchors}, stream, indent=2)
+        stream.write("\n")
+    log("=" * 96)
+    for key in sorted(per_slot):
+        entry = per_slot[key]
+        log("  string-delta %-24s ref flips %s/%s  vs ref %s"
+            % (key, entry["reference"]["flips"][0],
+               entry["reference"]["flips"][1],
+               {d: "%d/%d" % (b["disagreements"], b["n_common"])
+                for d, b in sorted(entry["deltas"].items())}))
+    log("  string-delta np %d cells, %d mismatches; determinism %d cells, "
+        "%s; census A0 %s; ref_incomplete %s"
+        % (np_cells, np_bad, len(det_cells),
+           "bit-identical" if det_ok else "FAILED", census_ok,
+           ref_incomplete))
+    log("VERDICT: %s" % verdict)
+    log("results -> %s" % out)
+
+
+def string_census_reading(cache, anchors, det_cells):
+    """record-2026 S: the zero-measurement five-point string census over the
+    six registered deltas on the nine registered slots.
+
+    This reads preloaded cells only (Cache.peek); the phase measures nothing,
+    so its clause is a census of the committed artifacts, not a measurement
+    finding (its A1 anchor check is an artifact-vs-reference check, not a
+    rig-identity check).  It is the registered form of the record-2025
+    section 7 item (i) by-product.  Registered in record 2026 section 5."""
+    deltas = STRING_DELTAS
+    scales = list(STRING_SCALES)
+    slots = STRING_SLOTS[:1] if SMOKE_SUFFIX else STRING_SLOTS
+    missing = []
+    per_slot = {}
+    breaking_by_delta = {"%.3f" % d: [] for d in deltas}
+    for layer, gk in slots:
+        strings = {}
+        for delta in deltas:
+            rows = []
+            for sc in scales:
+                row = cache.peek(layer, gk, delta, sc)
+                if row is None:
+                    missing.append([layer, gk, delta, sc])
+                    continue
+                rows.append(row)
+            strings["%.3f" % delta] = sign_string(rows)
+        first = "%.3f" % deltas[0]
+        vs_first, first_break = {}, None
+        for delta in deltas:
+            dkey = "%.3f" % delta
+            k, n, only_ref, only_new = string_compare(strings[first],
+                                                      strings[dkey])
+            vs_first[dkey] = {"disagreements": k, "n_common": n,
+                              "only_reference": only_ref,
+                              "only_new": only_new}
+            if k > 0:
+                breaking_by_delta[dkey].append("%s:%.6f" % (layer, gk))
+                if first_break is None:
+                    first_break = delta
+        per_slot["%s:%.6f" % (layer, gk)] = {
+            "layer": layer, "gamma": gk, "strings": strings,
+            "vs_first_delta": first, "vs_first": vs_first,
+            "first_break_delta": first_break}
+    census_ok = ladder_census_ok("stringcensus")
+    anchored = bool(anchors) and all(a.get("pass") for a in anchors)
+    instrument_fail = bool(missing) or not census_ok or not anchored
+    verdict = "STRING-CENSUS-INSTRUMENT-FAIL" if instrument_fail else None
+    if not instrument_fail:
+        incomplete = [key for key, r in per_slot.items()
+                      for blob in r["vs_first"].values()
+                      if blob["n_common"] != len(scales)]
+        breaking = [key for key, r in per_slot.items()
+                    if r["first_break_delta"] is not None]
+        if incomplete:
+            verdict = "STRING-CENSUS-INCOMPLETE"
+        elif breaking:
+            verdict = "STRING-CENSUS-BREAKS"
+        else:
+            verdict = "STRING-CENSUS-UNIFORM"
+    out = os.path.join(REPO, "results",
+                       "2026_string_census%s.json" % SMOKE_SUFFIX)
+    with open(out, "w", encoding="utf-8") as stream:
+        json.dump({
+            "record": "2026", "scan": "string-census", "dxi": DXI,
+            "deltas": list(deltas), "scales": scales,
+            "range": list(LADDER_RANGE), "verdict": verdict,
+            "instrument_fail": instrument_fail, "census_ok": census_ok,
+            "measured_cells": 0, "slots": per_slot, "missing": missing,
+            "breaking_by_delta": breaking_by_delta,
+            "determinism": det_cells, "anchors": anchors}, stream, indent=2)
+        stream.write("\n")
+    log("=" * 96)
+    for key in sorted(per_slot):
+        entry = per_slot[key]
+        ordered = sorted(scales)
+        log("  string-census %-24s strings %s"
+            % (key,
+               {d: "".join(entry["strings"][d].get(round(sc, 6), "u")
+                           for sc in ordered)
+                for d in sorted(entry["strings"])}))
+        log("  string-census %-24s vs delta=%s %s  first break %s"
+            % (key, entry["vs_first_delta"],
+               {d: "%d/%d" % (b["disagreements"], b["n_common"])
+                for d, b in sorted(entry["vs_first"].items())},
+               entry["first_break_delta"]))
+    log("  string-census measured 0 cells; census A0 %s; anchors %s"
+        % (census_ok, "5/5" if anchored else "FAILED"))
+    log("  string-census slots breaking by delta: %s"
+        % json.dumps(breaking_by_delta))
+    log("VERDICT: %s" % verdict)
+    log("results -> %s" % out)
+
+
 def verdict_only(rows_path=None):
     """Recompute the width verdict from the rows artifact.
 
@@ -1386,6 +1921,7 @@ def main():
     width_map, floor_map, anchors = {}, {}, []
     layer_control = None
     ladder_det = []
+    stringcensus_det = []
 
     # ------------------------------------------------ stage 1: width law
     if phase in ("all", "width"):
@@ -1633,10 +2169,93 @@ def main():
                                 "2024_delta_ladder_partial%s.json"
                                 % SMOKE_SUFFIX))
 
+    # --------------------- record-2026 U: the 0.001 EXT refinement
+    ultrafine_det = []
+    if phase == "ultrafine":
+        slots = ULTRAFINE_SLOTS[:1] if smoke else ULTRAFINE_SLOTS
+        for layer, gk in slots:
+            for step in ULTRAFINE_STEPS:
+                scales = ladder_grid(step)
+                if smoke:
+                    scales = scales[:3]
+                for sc in scales:
+                    cache.get(layer, gk, ULTRAFINE_DELTA, sc)
+                    if len(cache.rows) % CHECKPOINT_EVERY == 0:
+                        cache.dump(os.path.join(
+                            REPO, "results",
+                            "2026_ultrafine_partial%s.json" % SMOKE_SUFFIX))
+        # cross-run determinism on cells preloaded at the committed grids
+        for layer, gk in slots:
+            for sc in LADDER_DETERMINISM_SCALES:
+                prev = cache.peek(layer, gk, ULTRAFINE_DELTA, sc)
+                if prev is None:
+                    log("  ultrafine determinism %s g=%.4f sc=%.2f: NO "
+                        "preloaded counterpart - check skipped (register "
+                        "expects one)" % (layer, gk, sc))
+                    continue
+                row = cache.get(layer, gk, ULTRAFINE_DELTA, sc, force=True)
+                det = {"layer": layer, "gamma": gk, "scale": sc,
+                       "dev_C": abs(row["C"] - prev["C"]) / abs(prev["C"])
+                       if prev["C"] else float("inf"),
+                       "dev_D": abs(row["D"] - prev["D"]) / abs(prev["D"])
+                       if prev["D"] else float("inf")}
+                ultrafine_det.append(det)
+                log("  ultrafine determinism %s g=%.4f sc=%.2f: dev_C=%.1e "
+                    "dev_D=%.1e" % (layer, gk, sc, det["dev_C"],
+                                    det["dev_D"]))
+        cache.dump(os.path.join(REPO, "results",
+                                "2026_ultrafine_partial%s.json"
+                                % SMOKE_SUFFIX))
+
+    # ----------------- record-2026 D: the delta axis of the C sign string
+    stringdelta_det = []
+    if phase == "stringdelta":
+        slots = STRDELTA_SLOTS[:1] if smoke else STRDELTA_SLOTS
+        deltas = STRDELTA_DELTAS[:1] if smoke else STRDELTA_DELTAS
+        for layer, gk in slots:
+            for delta in deltas:
+                scales = ladder_grid(STRDELTA_STEP)
+                if smoke:
+                    scales = scales[:3]
+                for sc in scales:
+                    cache.get(layer, gk, delta, sc)
+                    if len(cache.rows) % CHECKPOINT_EVERY == 0:
+                        cache.dump(os.path.join(
+                            REPO, "results",
+                            "2026_string_delta_partial%s.json"
+                            % SMOKE_SUFFIX))
+        # cross-run determinism on the preloaded five-point cells
+        for layer, gk in slots:
+            for delta in deltas:
+                for sc in LADDER_DETERMINISM_SCALES:
+                    prev = cache.peek(layer, gk, delta, sc)
+                    if prev is None:
+                        log("  string-delta determinism %s g=%.4f d=%.2f "
+                            "sc=%.2f: NO preloaded counterpart - check "
+                            "skipped (register expects one)"
+                            % (layer, gk, delta, sc))
+                        continue
+                    row = cache.get(layer, gk, delta, sc, force=True)
+                    det = {"layer": layer, "gamma": gk, "delta": delta,
+                           "scale": sc,
+                           "dev_C": abs(row["C"] - prev["C"])
+                           / abs(prev["C"]) if prev["C"] else float("inf"),
+                           "dev_D": abs(row["D"] - prev["D"])
+                           / abs(prev["D"]) if prev["D"] else float("inf")}
+                    stringdelta_det.append(det)
+                    log("  string-delta determinism %s g=%.4f d=%.2f "
+                        "sc=%.2f: dev_C=%.1e dev_D=%.1e"
+                        % (layer, gk, delta, sc, det["dev_C"],
+                           det["dev_D"]))
+        cache.dump(os.path.join(REPO, "results",
+                                "2026_string_delta_partial%s.json"
+                                % SMOKE_SUFFIX))
+
     # --------------------------------------------------------- anchors (K1)
     anchors = anchor_block(cache,
                            force=(phase in ("edges", "floor2", "ladder",
-                                            "ladder9", "deltaladder")))
+                                            "ladder9", "deltaladder",
+                                            "ultrafine", "stringdelta")))
 
     if phase == "edges":
         cache.dump(os.path.join(REPO, "results",
@@ -1667,6 +2286,26 @@ def main():
                                 "2024_delta_ladder_rows%s.json"
                                 % SMOKE_SUFFIX), status="FULL")
         delta_ladder_reading(cache, anchors, delta_det)
+        return
+    if phase == "ultrafine":
+        cache.dump(os.path.join(REPO, "results",
+                                "2026_ultrafine_rows%s.json" % SMOKE_SUFFIX),
+                   status="FULL")
+        ultrafine_reading(cache, anchors, ultrafine_det)
+        return
+    if phase == "stringdelta":
+        cache.dump(os.path.join(REPO, "results",
+                                "2026_string_delta_rows%s.json"
+                                % SMOKE_SUFFIX), status="FULL")
+        string_delta_reading(cache, anchors, stringdelta_det)
+        return
+    if phase == "stringcensus":
+        # the zero-measurement phase: the rows dumped here are the preloaded
+        # committed cells, and the reading measures nothing.
+        cache.dump(os.path.join(REPO, "results",
+                                "2026_string_census_rows%s.json"
+                                % SMOKE_SUFFIX), status="FULL")
+        string_census_reading(cache, anchors, stringcensus_det)
         return
 
     # ----------------------------------------------------------- verdicts

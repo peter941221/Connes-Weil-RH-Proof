@@ -308,10 +308,13 @@ Does not settle:
   (gamma_5 committed vs EXT at the same height) is a two-point contrast,
   not a law.
 
-## 7. Follow-up candidates (none registered or opened)
+## 7. Follow-up candidates
 
-Three candidates follow from this record's readings; none is a registered
-follow-up and none was run:
+Three candidates follow from this record's readings.  None was a registered
+follow-up at the time this record was written and none was run as part of
+it; items (i) and (ii) were registered afterwards as record 2026
+(`docs/proofs/2026_ladder_refinement_preregistration.md`, phases
+`stringdelta` / `stringcensus` and `ultrafine`), item (iii) is still open:
 
 ```text
 (i)   the C sign string as a function of delta at fixed (layer, height,
@@ -327,6 +330,10 @@ follow-up and none was run:
       height) blocks a pure gamma law; a registration would sweep L over
       more (layer, height) pairs
 ```
+
+Item (iii) is not covered by record 2026 either: no wave sweeps L over
+further (layer, height) pairs, so the layer axis of the band scale remains
+the two-point gamma_5 contrast reported in section 3.
 
 ## 8. Artifacts
 
