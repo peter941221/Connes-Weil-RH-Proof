@@ -47,3 +47,6 @@ _precompress_backup_*/
 /probe*.lean
 /p3_probe_*.py
 /pyIH.py
+
+# local scratch probes and one-off diagnostics
+/tmp/

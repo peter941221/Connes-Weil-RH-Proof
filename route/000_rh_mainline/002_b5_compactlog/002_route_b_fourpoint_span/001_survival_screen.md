@@ -1,5 +1,11 @@
 # 001 — Route B survival screen
 
+Status 2026-09-27: the fixed first probe below was run. Its `n = 4` row was
+a `dxi = 0.05` resolution artifact and is withdrawn; the screen now returns
+`DEAD` on the strict reading (no certified `n >= 1` row carries the
+registered signs) and `SURVIVES_SCREEN` on the `q` margin alone. See
+records 2028/2029/2030/2031.
+
 Purpose: decide whether the current Route B branch deserves full interval
 certification and Lean investment. This is a triage screen, not a theorem.
 

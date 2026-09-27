@@ -160,6 +160,25 @@ acceptance reduces to an `n`-selection with every factor explicit on that
 family. This is probe evidence on a committed-class family, not a statement
 about the selected owner.
 
+### Cut-1 currency check on the seeded owner (2026-09-27)
+
+Record [2028](../proofs/2028_coupling_scan_preregistration.md) /
+[2029](../proofs/2029_coupling_scan_outcome.md) close the "quantifier
+coupling" question negatively for the seeded owner of records 1980/1981
+(`rho = 0.55 + 14.134725141734693i`, `N = 4`, `L_p(s) = L_smoothSeed(s/2)^10`):
+the registered gate pattern `C_n > 0, b_n > 0, det_n < 0` survives on certified
+routes at `n = 0` only, the certified route set empties at `n = 5`
+(`P_5 = 93371 > 60000` visible prime powers), and a `(1/2)`-closure would need
+`n ~ 31`. `n` is therefore not a usable currency on that owner, and Cut 1 must
+be paid with the interpolation contraction `q`. Record
+[2031](../proofs/2031_sharp_q_ladder_outcome.md) prices that side as viable: a
+three-fold integration by parts with the located mass
+`W_k(a) = integral e^{a x} |f^(k)|` bounds the strip by `3.0e-07` against
+`q = 2^-14`, a 203x margin, with `k = 3` forced because the node product has
+degree 26. This is scoped evidence on one owner, not a change to the cut
+structure or the route ruling; the `n`-selection of this section remains
+formally available wherever a gate row with the registered signs exists.
+
 ## Current priority
 
 The revised coarse-moment candidate is specified in

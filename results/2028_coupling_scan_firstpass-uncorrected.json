@@ -1,0 +1,667 @@
+{
+  "record": 2028,
+  "status": "COUPLING-COLLAPSES / CONDITIONING-BLOCKS at n=5",
+  "preregistration": "docs/proofs/2028_coupling_scan_preregistration.md",
+  "rho": [
+    0.55,
+    14.134725141734693
+  ],
+  "N": 4,
+  "owner_model": "known zeta zeros in formal closed ball + hypothetical orbit + healthy targets (UNDERAPPROXIMATION)",
+  "route_caps": {
+    "Ap": 4000,
+    "B": 60000,
+    "A": 3000000
+  },
+  "certified_routes": [
+    "Ap",
+    "B"
+  ],
+  "prime_power_generator_validation": [
+    {
+      "xmax": 50.0,
+      "reference_count": 23,
+      "candidate_count": 23,
+      "identical": true
+    },
+    {
+      "xmax": 1000.0,
+      "reference_count": 193,
+      "candidate_count": 193,
+      "identical": true
+    },
+    {
+      "xmax": 5000.0,
+      "reference_count": 711,
+      "candidate_count": 711,
+      "identical": true
+    }
+  ],
+  "all_identical": true,
+  "owner_cardinality": 27,
+  "known_zero_count": 19,
+  "target_cardinality": 8,
+  "min_separation": 0.050000000000000044,
+  "radius": 48.208904068660146,
+  "structural": [
+    {
+      "n": 0,
+      "support_radius": 4.0,
+      "prime_power_count": 24,
+      "max_log_k": 3.970291913552122,
+      "routes_available": [
+        "Ap",
+        "B",
+        "A"
+      ],
+      "certified_route_available": true,
+      "measurement": "exact"
+    },
+    {
+      "n": 1,
+      "support_radius": 6.0,
+      "prime_power_count": 98,
+      "max_log_k": 5.993961427306569,
+      "routes_available": [
+        "Ap",
+        "B",
+        "A"
+      ],
+      "certified_route_available": true,
+      "measurement": "exact"
+    },
+    {
+      "n": 2,
+      "support_radius": 8.0,
+      "prime_power_count": 465,
+      "max_log_k": 7.9966538754626075,
+      "routes_available": [
+        "Ap",
+        "B",
+        "A"
+      ],
+      "certified_route_available": true,
+      "measurement": "exact"
+    },
+    {
+      "n": 3,
+      "support_radius": 10.0,
+      "prime_power_count": 2532,
+      "max_log_k": 9.99938846691333,
+      "routes_available": [
+        "Ap",
+        "B",
+        "A"
+      ],
+      "certified_route_available": true,
+      "measurement": "exact"
+    },
+    {
+      "n": 4,
+      "support_radius": 12.0,
+      "prime_power_count": 15040,
+      "max_log_k": 11.99997670444518,
+      "routes_available": [
+        "B",
+        "A"
+      ],
+      "certified_route_available": true,
+      "measurement": "exact"
+    },
+    {
+      "n": 5,
+      "support_radius": 14.0,
+      "prime_power_count": 93371,
+      "max_log_k": 13.999998932179539,
+      "routes_available": [
+        "A"
+      ],
+      "certified_route_available": false,
+      "measurement": "exact"
+    },
+    {
+      "n": 6,
+      "support_radius": 16.0,
+      "prime_power_count": 595877,
+      "max_log_k": 15.999999828889367,
+      "routes_available": [
+        "A"
+      ],
+      "certified_route_available": false,
+      "measurement": "exact"
+    },
+    {
+      "n": 7,
+      "support_radius": 18.0,
+      "prime_power_count": 3878366,
+      "max_log_k": 17.99999999790846,
+      "routes_available": [],
+      "certified_route_available": false,
+      "measurement": "exact"
+    },
+    {
+      "n": 8,
+      "support_radius": 20.0,
+      "prime_power_count": null,
+      "prime_power_count_predicted": 24258259.770489514,
+      "routes_available": [],
+      "certified_route_available": false,
+      "measurement": "PREDICTED (PNT envelope, not sieved)"
+    },
+    {
+      "n": 10,
+      "support_radius": 24.0,
+      "prime_power_count": null,
+      "prime_power_count_predicted": 1103713422.0768113,
+      "routes_available": [],
+      "certified_route_available": false,
+      "measurement": "PREDICTED (PNT envelope, not sieved)"
+    },
+    {
+      "n": 12,
+      "support_radius": 28.0,
+      "prime_power_count": null,
+      "prime_power_count_predicted": 51652038010.40983,
+      "routes_available": [],
+      "certified_route_available": false,
+      "measurement": "PREDICTED (PNT envelope, not sieved)"
+    },
+    {
+      "n": 20,
+      "support_radius": 44.0,
+      "prime_power_count": null,
+      "prime_power_count_predicted": 2.920818207808934e+17,
+      "routes_available": [],
+      "certified_route_available": false,
+      "measurement": "PREDICTED (PNT envelope, not sieved)"
+    },
+    {
+      "n": 47,
+      "support_radius": 98.0,
+      "prime_power_count": null,
+      "prime_power_count_predicted": 3.7122152526620455e+40,
+      "routes_available": [],
+      "certified_route_available": false,
+      "measurement": "PREDICTED (PNT envelope, not sieved)"
+    }
+  ],
+  "decay_constants": {
+    "base_C4": 152.96406643093619,
+    "base_C2": 25.135397681669804,
+    "correction_C2": 683.8644420520491,
+    "source": "record 1981 grid values"
+  },
+  "trend": [
+    {
+      "n": 0,
+      "support_radius": 4.0,
+      "prime_power_count": 24,
+      "routes_available": [
+        "Ap",
+        "B",
+        "A"
+      ],
+      "arch": [
+        -1893.5720287730555,
+        -2425725.4953224836,
+        -3765466605.113125
+      ],
+      "route_A_coverage": {
+        "nyquist": 24.990003998401175,
+        "n_covered": 24,
+        "max_log_k": 3.970291913552122
+      },
+      "prime_by_route": {
+        "B": [
+          2805.071537902382,
+          5045820.5622984925,
+          8778207241.490183
+        ],
+        "A": [
+          2805.0414917665544,
+          5045761.766821668,
+          8778097107.179897
+        ]
+      },
+      "route_key": "B",
+      "C": 911.4995091293263,
+      "b": 2620095.066976009,
+      "D": 5012740636.377058,
+      "det": -2295787530541.701,
+      "lambda": 2874.488730639856,
+      "cancellation_depth": 0.5024582936872104,
+      "gate_signs": true,
+      "tail_proxy_L_over_lambda_sq": 3.4542702664314357e+27
+    },
+    {
+      "n": 1,
+      "support_radius": 6.0,
+      "prime_power_count": 98,
+      "routes_available": [
+        "Ap",
+        "B",
+        "A"
+      ],
+      "arch": [
+        -4835.7350336116415,
+        -6501510.9598325435,
+        -10189779789.779474
+      ],
+      "route_A_coverage": {
+        "nyquist": 24.990003998401175,
+        "n_covered": 98,
+        "max_log_k": 5.993961427306569
+      },
+      "prime_by_route": {
+        "B": [
+          -530.2949034664191,
+          1922903.28424705,
+          8151415380.970715
+        ],
+        "A": [
+          -530.2428709500449,
+          1922942.8924518195,
+          8151380290.008957
+        ]
+      },
+      "route_key": "B",
+      "C": -5366.02993707806,
+      "b": -4578607.675585493,
+      "D": -2038364408.8087597,
+      "det": -10025723806588.168,
+      "lambda": 853.2579447513597,
+      "cancellation_depth": 0.9166020355388816,
+      "gate_signs": false,
+      "tail_proxy_L_over_lambda_sq": 9.362007015207979e+27
+    },
+    {
+      "n": 2,
+      "support_radius": 8.0,
+      "prime_power_count": 465,
+      "routes_available": [
+        "Ap",
+        "B",
+        "A"
+      ],
+      "arch": [
+        -14300.678975434139,
+        -20345815.80316866,
+        -32618649050.917847
+      ],
+      "route_A_coverage": {
+        "nyquist": 24.990003998401175,
+        "n_covered": 465,
+        "max_log_k": 7.9966538754626075
+      },
+      "prime_by_route": {
+        "B": [
+          -4501.236233984426,
+          2064358.5914766174,
+          17196654059.375195
+        ],
+        "A": [
+          -4501.264815232773,
+          2064219.6237173043,
+          17196266091.095245
+        ]
+      },
+      "route_key": "B",
+      "C": -18801.915209418563,
+      "b": -18281457.211692043,
+      "D": -15421994991.542652,
+      "det": -44248635591864.31,
+      "lambda": 972.3188839046671,
+      "cancellation_depth": 0.15260094961587542,
+      "gate_signs": false,
+      "tail_proxy_L_over_lambda_sq": 1.807325676298537e+27
+    },
+    {
+      "n": 3,
+      "support_radius": 10.0,
+      "prime_power_count": 2532,
+      "routes_available": [
+        "Ap",
+        "B",
+        "A"
+      ],
+      "arch": [
+        -46832.315068260745,
+        -69629046.37509285,
+        -113545831291.04236
+      ],
+      "route_A_coverage": {
+        "nyquist": 24.990003998401175,
+        "n_covered": 2532,
+        "max_log_k": 9.99938846691333
+      },
+      "prime_by_route": {
+        "B": [
+          -68248.70168977568,
+          -185862913.8823813,
+          -370664158447.0232
+        ],
+        "A": [
+          -68248.39795175771,
+          -185861707.2959237,
+          -370661722149.92883
+        ]
+      },
+      "route_key": "B",
+      "C": -115081.01675803642,
+      "b": -255491960.25747412,
+      "D": -484209989738.06555,
+      "det": -9552763812751768.0,
+      "lambda": 2220.1051698618435,
+      "cancellation_depth": 0.17143188667502157,
+      "gate_signs": false,
+      "tail_proxy_L_over_lambda_sq": 8.915821636509798e+25
+    },
+    {
+      "n": 4,
+      "support_radius": 12.0,
+      "prime_power_count": 15040,
+      "routes_available": [
+        "B",
+        "A"
+      ],
+      "arch": [
+        -164006.77393042916,
+        -251168318.6058124,
+        -413708321112.75885
+      ],
+      "route_A_coverage": {
+        "nyquist": 24.990003998401175,
+        "n_covered": 15040,
+        "max_log_k": 11.99997670444518
+      },
+      "prime_by_route": {
+        "B": [
+          -236651.973441283,
+          -1268244917.1064377,
+          -3169681944926.7114
+        ],
+        "A": [
+          -236650.68672034447,
+          -1268233602.6971037,
+          -3169652429943.66
+        ]
+      },
+      "route_key": "B",
+      "C": -400658.7473717121,
+      "b": -1519413235.71225,
+      "D": -3583390266039.47,
+      "det": -8.72899925522209e+17,
+      "lambda": 3792.287690408543,
+      "cancellation_depth": 0.607988994401067,
+      "gate_signs": false,
+      "tail_proxy_L_over_lambda_sq": 7.912569257640539e+24
+    },
+    {
+      "n": 5,
+      "support_radius": 14.0,
+      "prime_power_count": 93371,
+      "routes_available": [
+        "A"
+      ],
+      "arch": [
+        -599095.2600498854,
+        -934883289.604974,
+        -1547854904190.6252
+      ],
+      "route_A_coverage": {
+        "nyquist": 24.990003998401175,
+        "n_covered": 93371,
+        "max_log_k": 13.999998932179539
+      },
+      "prime_by_route": {
+        "A": [
+          2082259.2029123995,
+          -4751049169.149563,
+          -20042125753449.133
+        ]
+      },
+      "route_key": "A",
+      "C": 1483163.9428625142,
+      "b": -5685932458.754537,
+      "D": -21589980657639.758,
+      "det": -6.435130876402881e+19,
+      "lambda": -3833.6506804370238,
+      "cancellation_depth": -2.0096293824936784,
+      "gate_signs": false,
+      "tail_proxy_L_over_lambda_sq": 1.937461995423566e+24
+    },
+    {
+      "n": 6,
+      "support_radius": 16.0,
+      "prime_power_count": 595877,
+      "routes_available": [
+        "A"
+      ],
+      "arch": [
+        -2246568.9512343463,
+        -3547431886.3458967,
+        -5887173988430.653
+      ],
+      "route_A_coverage": {
+        "nyquist": 24.990003998401175,
+        "n_covered": 595877,
+        "max_log_k": 15.999999828889367
+      },
+      "prime_by_route": {
+        "A": [
+          42225767.85819723,
+          12119907454.98352,
+          -81784798407626.19
+        ]
+      },
+      "route_key": "A",
+      "C": 39979198.90696288,
+      "b": 8572475568.637624,
+      "D": -87671972396056.84,
+      "det": -3.578542560362604e+21,
+      "lambda": 214.42339524078406,
+      "cancellation_depth": -1.0209660997330159,
+      "gate_signs": true,
+      "tail_proxy_L_over_lambda_sq": 1.4266046528881648e+26
+    },
+    {
+      "n": 7,
+      "support_radius": 18.0,
+      "prime_power_count": 3878366,
+      "routes_available": [],
+      "arch": [
+        -8565603.263414502,
+        -13628730563.70492,
+        -22636920076107.78
+      ],
+      "prime_by_route": {},
+      "route_key": null
+    }
+  ],
+  "refinement": [
+    {
+      "n": 2,
+      "dxi": 0.05,
+      "grid_points": 1001,
+      "C": -16156.47256529197,
+      "b": -10643008.514752638,
+      "D": 541135355.7573891,
+      "det": -122016468774500.9,
+      "C_dev_vs_finest_anchor": 0.0,
+      "D_dev_vs_finest_anchor": 0.0,
+      "det_dev_vs_anchor": 0.0,
+      "C_committed_1981": -21286.53324145657,
+      "C_dev_vs_committed_1981": 0.24100028961848774,
+      "D_dev_vs_committed_1981": 1.0200245973119937,
+      "det_dev_vs_committed_1981": 1.8863761280680782
+    },
+    {
+      "n": 2,
+      "dxi": 0.02,
+      "grid_points": 2501,
+      "C": -18801.915209418563,
+      "b": -18281457.211692043,
+      "D": -15421994991.542652,
+      "det": -44248635591864.31,
+      "C_dev_vs_finest_anchor": 0.16373887514342989,
+      "D_dev_vs_finest_anchor": 29.49932983949565,
+      "det_dev_vs_anchor": 0.6373552190430918,
+      "C_committed_1981": -21286.53324145657,
+      "C_dev_vs_committed_1981": 0.11672253080642991,
+      "D_dev_vs_committed_1981": 0.42931239630241547,
+      "det_dev_vs_committed_1981": 0.046729238722497124
+    },
+    {
+      "n": 2,
+      "dxi": 0.01,
+      "grid_points": 5001,
+      "C": -18801.915209418585,
+      "b": -18281457.21169088,
+      "D": -15421994991.544228,
+      "det": -44248635591791.875,
+      "C_dev_vs_finest_anchor": 0.16373887514343122,
+      "D_dev_vs_finest_anchor": 29.49932983949856,
+      "det_dev_vs_anchor": 0.6373552190436855,
+      "C_committed_1981": -21286.53324145657,
+      "C_dev_vs_committed_1981": 0.1167225308064288,
+      "D_dev_vs_committed_1981": 0.4293123963023572,
+      "det_dev_vs_committed_1981": 0.046729238720783606
+    },
+    {
+      "n": 2,
+      "dxi": 0.005,
+      "grid_points": 10001,
+      "C": -18801.91520941848,
+      "b": -18281457.211690813,
+      "D": -15421994991.544277,
+      "det": -44248635591790.125,
+      "C_dev_vs_finest_anchor": 0.16373887514342478,
+      "D_dev_vs_finest_anchor": 29.499329839498653,
+      "det_dev_vs_anchor": 0.6373552190436997,
+      "C_committed_1981": -21286.53324145657,
+      "C_dev_vs_committed_1981": 0.1167225308064338,
+      "D_dev_vs_committed_1981": 0.4293123963023553,
+      "det_dev_vs_committed_1981": 0.04672923872074208
+    },
+    {
+      "n": 2,
+      "dxi": 0.002,
+      "grid_points": 25001,
+      "C": -18801.91520941852,
+      "b": -18281457.21169103,
+      "D": -15421994991.544777,
+      "det": -44248635591787.94,
+      "C_dev_vs_finest_anchor": 0.16373887514342722,
+      "D_dev_vs_finest_anchor": 29.499329839499577,
+      "det_dev_vs_anchor": 0.6373552190437177,
+      "C_committed_1981": -21286.53324145657,
+      "C_dev_vs_committed_1981": 0.11672253080643191,
+      "D_dev_vs_committed_1981": 0.42931239630233686,
+      "det_dev_vs_committed_1981": 0.04672923872069035
+    },
+    {
+      "n": 4,
+      "dxi": 0.05,
+      "grid_points": 1001,
+      "C": 3123738.6672813925,
+      "b": 4520261625.679662,
+      "D": 6539208057350.192,
+      "det": -5988102449307648.0,
+      "C_dev_vs_finest_anchor": 0.0,
+      "D_dev_vs_finest_anchor": 0.0,
+      "det_dev_vs_anchor": 0.0,
+      "C_committed_1981": 3000119.3333906233,
+      "C_dev_vs_committed_1981": 0.04120480559386919,
+      "D_dev_vs_committed_1981": 0.05488977382183702,
+      "det_dev_vs_committed_1981": 0.5781937466183799
+    },
+    {
+      "n": 4,
+      "dxi": 0.02,
+      "grid_points": 2501,
+      "C": -400658.7473717121,
+      "b": -1519413235.71225,
+      "D": -3583390266039.47,
+      "det": -8.72899925522209e+17,
+      "C_dev_vs_finest_anchor": 1.1282625693270325,
+      "D_dev_vs_finest_anchor": 1.5479853576476548,
+      "det_dev_vs_anchor": 144.77237662711246,
+      "C_committed_1981": 3000119.3333906233,
+      "C_dev_vs_committed_1981": 1.1335476035611232,
+      "D_dev_vs_committed_1981": 1.5780641499866128,
+      "det_dev_vs_committed_1981": 60.48770003161676
+    },
+    {
+      "n": 4,
+      "dxi": 0.01,
+      "grid_points": 5001,
+      "C": -400658.8821875004,
+      "b": -1519413541.671303,
+      "D": -3583389987988.035,
+      "det": -8.729004835849659e+17,
+      "C_dev_vs_finest_anchor": 1.1282626124855049,
+      "D_dev_vs_finest_anchor": 1.5479853151269958,
+      "det_dev_vs_anchor": 144.77246982237116,
+      "C_committed_1981": 3000119.3333906233,
+      "C_dev_vs_committed_1981": 1.1335476484979319,
+      "D_dev_vs_committed_1981": 1.5780641051320048,
+      "det_dev_vs_committed_1981": 60.48773934195967
+    },
+    {
+      "n": 4,
+      "dxi": 0.005,
+      "grid_points": 10001,
+      "C": -400658.88218751526,
+      "b": -1519413541.6713977,
+      "D": -3583389987988.298,
+      "det": -8.729004835850949e+17,
+      "C_dev_vs_finest_anchor": 1.1282626124855095,
+      "D_dev_vs_finest_anchor": 1.547985315127036,
+      "det_dev_vs_anchor": 144.7724698223927,
+      "C_committed_1981": 3000119.3333906233,
+      "C_dev_vs_committed_1981": 1.1335476484979368,
+      "D_dev_vs_committed_1981": 1.578064105132047,
+      "det_dev_vs_committed_1981": 60.487739341968755
+    },
+    {
+      "n": 4,
+      "dxi": 0.002,
+      "grid_points": 25001,
+      "C": -400658.8821875788,
+      "b": -1519413541.6714606,
+      "D": -3583389987988.348,
+      "det": -8.729004835850383e+17,
+      "C_dev_vs_finest_anchor": 1.12826261248553,
+      "D_dev_vs_finest_anchor": 1.5479853151270437,
+      "det_dev_vs_anchor": 144.77246982238324,
+      "C_committed_1981": 3000119.3333906233,
+      "C_dev_vs_committed_1981": 1.1335476484979579,
+      "D_dev_vs_committed_1981": 1.5780641051320552,
+      "det_dev_vs_committed_1981": 60.48773934196477
+    }
+  ],
+  "verdicts": {
+    "readable_n_with_gate": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "lambda_min_abs": 214.42339524078406,
+    "lambda_max_abs": 3833.6506804370238,
+    "certified_route_gate_failures": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "first_n_without_certified_route": 5,
+    "labels": [
+      "COUPLING-COLLAPSES",
+      "CONDITIONING-BLOCKS at n=5"
+    ]
+  }
+}

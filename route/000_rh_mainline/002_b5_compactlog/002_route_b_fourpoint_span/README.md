@@ -38,7 +38,21 @@ Current candidate:
 ```text
 T = 28
 q = 2^(-14)
-n = 4
+n = 4        <- WITHDRAWN 2026-09-27: the n = 4 gate row was a
+                dxi = 0.05 resolution artifact (records 2028/2029)
+```
+
+Live screen state after the 2026-09-27 batch:
+
+```text
+R-B0 owner            known-zero under-approximation, complete owner OPEN
+R-B1 q (Cut 1 tail)   PRICED VIABLE: k = 3 weighted mass bounds the strip by
+                      3.0e-07 against q = 2^-14, 203x margin (record 2031)
+R-B2 determinant      CHEAP but unreachable: detUpper < 0 needs only
+                      eps < 9.0e-02, but the sign pair C > 0, b > 0 fails on
+                      every certified n >= 1 (records 2029/2030)
+R-B3 tail ratio       BLOCKED: no admissible n >= 1 gate row on this owner
+R-B4 coverage         OPEN
 ```
 
 Current evidence is only an under-approximation and grid/proxy evidence. It is
@@ -61,7 +75,10 @@ Authoritative records:
 
 - `docs/map/106_centered_signed_moments_joint_tail_execution.md`
 - `docs/map/103_four_point_same_span_three_cut_campaign.md`
-- `docs/proofs/1982_powered_contraction_candidate.md`
+- `docs/proofs/1982_powered_contraction_candidate.md` (gate row withdrawn)
+- `docs/proofs/2029_coupling_scan_outcome.md`
+- `docs/proofs/2030_determinant_certification_margin.md`
+- `docs/proofs/2031_sharp_q_ladder_outcome.md`
 - `scripts/fourpoint_powered_contraction_1982.py`
 
 See `001_survival_screen.md` for the pre-Lean triage protocol.

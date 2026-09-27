@@ -929,6 +929,9 @@ tail ratio below one are available. Evidence: [1980](../proofs/1980_actual_owner
 
 ## 30. Powered-seed same-index screen (1981)
 
+Status: PARTLY SUPERSEDED - see section 32 and record 2029. The `n = 4`
+gate row of this screen is under-resolved and withdrawn.
+
 The changed-seed candidate is now reproducible in record 1981. The seed is the
 rescaled ten-fold convolution with transform `L_smoothSeed(0.5*s)^10`; the
 owner is fixed at `N = 4` and is again a known-zero under-approximation of the
@@ -941,6 +944,10 @@ respectively. This is `SIGN_ONLY_TAIL_FAIL`, not GO. Evidence:
 `results/1981_powered_seed_underapprox.json`.
 
 ## 31. Powered-seed contraction candidate (1982)
+
+Status: SUPERSEDED - see section 32 and records 2029/2031. The `n = 4`
+gate row is withdrawn, so the candidate `n = 4` witness no longer exists; the
+`q` screen itself is repriced and survives at a different integration order.
 
 Record 1982 changes one named premise of the high-shell tail only:
 
@@ -973,3 +980,44 @@ and a complete-owner rerun. `T = 28` stays in the same dyadic prefix shell as
 [1982](../proofs/1982_powered_contraction_candidate.md),
 `scripts/fourpoint_powered_contraction_1982.py`, and
 `results/1982_powered_contraction_candidate.json`.
+
+## 32. Cut-1 coupling scan, determinant margin and sharp q ladder (2029-2031)
+
+The 2026-09-27 batch closes the three registered follow-ups of record 2028 and
+corrects two committed readings. Summary, with the owner fixed at
+`rho = 0.55 + 14.134725141734693i`, `N = 4`, `L_p(s) = L_smoothSeed(s/2)^10`:
+
+```text
+2028/2029   Cut-1 coupling scan.  dxi = 0.05 is UNDER-RESOLVED: the prime
+            kernel resolves only log k <= 1/(2*dxi) = 10 while n = 4 needs
+            log k = 12.  Converging the grid flips the n = 4 row of record
+            1981 (C: +3.000119e6 -> -5.017356e5, b and D sign-flipped too) and
+            moves n = 3 by 95% on C.  Gate signs (C > 0, b > 0, det < 0) hold
+            on certified rows at n = 0 ONLY.  The certified route set empties
+            at n = 5 (P_5 = 93371 > 60000), and a (1/2)-closure needs
+            n ~ 31.  Registered verdicts COUPLING-COLLAPSES and
+            CONDITIONING-BLOCKS both fire.  n is not a currency; R-B1 is
+            mandatory.
+2030        Determinant margin on the converged rows.  detUpper < 0 needs
+            only eps < 3.82e-3 .. 9.03e-2 relative (0.4142 if the moment is
+            centred), which is looser than Route A's health-witness price
+            1/(1+f) = 1.16e-5 .. 1.96e-2 (records 2010/2013).  The determinant
+            is the CHEAP half; the unreachable half is the sign pair, because
+            on the certified rows n = 1..4 the centres themselves have
+            C0 < 0 and b0 < 0.
+2031        Sharp weighted q ladder.  With k-fold integration by parts the
+            seed majorant is W_k(a)/|a+iy|^k with the located mass
+            W_k(a) = integral e^{a x}|f^(k)|; the node product has degree 26,
+            so only k >= 3 can give a uniform bound.  At k = 3 the majorant is
+            3.0016e-07 against q = 2^-14 = 6.10e-05, a 203x margin, with the
+            maximum at (sigma, t) = (0, 28) and monotone decay beyond.  The
+            crude e^{2|a|} D_k mass leaves only a 1.03x margin, and at k = 1
+            (record 1982's screen) it is 8.4e+07 and not even uniform.
+```
+
+Ledger consequence: R-B1 is priced as viable, R-B2 is cheap, and the binding
+obstacle moves to R-B3 - the seeded owner has no admissible `n >= 1` gate row.
+No route ruling, owner, quantifier or consumer changes; the Lean tail
+interface of record 1982 is untouched. Evidence: records 2029, 2030 and 2031,
+`results/2028_coupling_scan.json`, `results/2030_determinant_margin.json`,
+`results/2031_sharp_q_ladder.json`.
