@@ -302,6 +302,49 @@ Route A link L2 (ENCLOSED-L2-VIABLE, 2051): the record-2048 panel-local
          producer theorem; not RH.
 ```
 
+### Route state after the 2026-09-28 L1/nodal batch (record 2052)
+
+```text
+Route A link L2 (ENCLOSED-L1-L2-VIABLE, 2052): the model part's nodal
+         input -- the addend charged as zero (L1) and the last MEASURED
+         addend (the 2048 float slack 5.536e+10) -- is now a PROVEN
+         charge.  Bound: committed-DAG forward-error calculus at each
+         ladder node on g = ((p^2)|lb|^2)|cc|^2, entries v_j = a_j
+         (exp(z_j X_j) @ phi W), e_v_j = (EPS_TERM + m U + AMP_j) M_0_j
+         INS with the SAME 2051 constants, matvecs gamma_17 S + sum
+         |w_j| e_v_j, SAFE magnitudes (|value| + error) in every product
+         chain.  Charge: charge_L1 = sum_j Coef1_j e_g_j + Coef1
+         ECHO_REL max|C| INS, ECHO_REL = 1e-15 (the 2048 dg_reference
+         rate; DISCLOSED proxy).  Ladder (x slack_2048 / x budget):
+         1.84714e+13 (333.7x / 1.85e-06), 1.87520e+13 (338.7x / 1.88e),
+         1.88308e+13 (340.2x / 1.88e), 1.88422e+13 (340.4x / 1.88e);
+         e_g <= 1.357e-09 |C|_max, median 3.082e-19 (cancellation
+         floors), per-node charge 64x below the flat Coef1(h)e_g_max =
+         1.200e+15.  VERDICT (frozen rules): 5.938659e+17 + 1.884223e+13
+         + 3.917065e+16 = 6.330553e+17 = 0.0633x budget -- no
+         zero-charged and no measured addend left in the verdict line
+         (2051: 6.330366e+17; L1 moves the total 0.003%).  Six anchors
+         pass: B1 containment 6/6 (worst ratio 6.1e-05 at the mass peak,
+         9.5e-11 at the xi = 0 core, mpmath dps 40 vs the stored-floats
+         exact object), B2 Coef1 vs 2048 rel 1.6e-08, B3 ladder-vs-fine
+         nodes bitwise equal (the 2051 A1 residual was evaluation, not
+         coordinates), B5 selftest vs mpmath dps 50 worst ratio 0.952
+         with inflated input errors, B6 cross-read of the 2051 artifact
+         rel 0.0.  INCIDENTS: (i) B5 first failed 200/200 (ratios to
+         8.8e+33) -- the selftest's own exact chain had an extra square,
+         the INSTRUMENT failed, not the bound; (ii) B1 failed at the
+         xi = 0 cancellation core by 26.85x -- the calculus used the
+         FLOAT magnitude where the true |cc| is bounded by
+         |cc_float| + e_cc (5.9e-14 vs 1.04e-20 float, e_cc 5.9e-09),
+         losing the e_cc^2 floor; SAFE magnitudes fixed it (ratio
+         26.85 -> 9.5e-11).  Finding: the 2048 slack was a
+         magnitude-budgeted MEASUREMENT, not a bound; rigor on this
+         addend costs 340x yet 1.9e-06 of budget.  Remaining L2: L4
+         (separate), L5 (upstream ideal-vs-stored, registered).  The
+         probe's b3 exp-argument smear AMP is the 2051 constant.  Not a
+         producer theorem; not RH.
+```
+
 Live screen state of the same-span four-point subcampaign after the 2026-09-27
 batch (records 2028 - 2035): R-B1 is priced AND mass-certified (a genuine
 interval bracket for the `k = 3` weighted seed mass puts the strip bound at

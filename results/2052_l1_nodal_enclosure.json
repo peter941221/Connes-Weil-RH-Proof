@@ -1,0 +1,236 @@
+{
+  "record": 2052,
+  "status": "ENCLOSED-L1-L2-VIABLE",
+  "owner": "one-copy G8-H",
+  "scope": "committed float64 evaluation of g at the ladder nodes vs the stored-floats-exact object O (2051 scope)",
+  "constants": {
+    "budget": 1e+19,
+    "hard": 1.11e+20,
+    "arch_2048": 3.917065071048301e+16,
+    "slack_2048": 55360000000.0,
+    "echo_rel": 1e-15
+  },
+  "h_rows": [
+    {
+      "h": 0.01,
+      "nodes": 8001,
+      "C_max": 3.786308017067274e+19,
+      "Coef1": 22864.209046806463,
+      "Coef1_sum_nodes": 22864.209046806445,
+      "Coef1_rel": -7.771561172376096e-16,
+      "e_g_max": 51389681669.214806,
+      "e_g_median": 3.082445972741322e-19,
+      "e_g_over_C_max": 1.3572504254162406e-09,
+      "charge_nodal": 18470443880624.906,
+      "charge_echo": 908994849.187167,
+      "charge_L1": 18471352875474.094,
+      "charge_L1_over_slack_2048": 333.6588308431014,
+      "charge_L1_over_budget": 1.8471352875474093e-06,
+      "charge_agg_2051": 4.922555687808718e+20,
+      "total_proj": 4.922947579029351e+20,
+      "dg_star": -2.109387376769748e+16,
+      "seconds": 5.9
+    },
+    {
+      "h": 0.005,
+      "nodes": 16001,
+      "C_max": 3.786308017067274e+19,
+      "Coef1": 23211.183506287853,
+      "Coef1_sum_nodes": 23211.183506287773,
+      "Coef1_rel": -3.4416913763379853e-15,
+      "e_g_max": 51390449257.73915,
+      "e_g_median": 3.082445972741322e-19,
+      "e_g_over_C_max": 1.3572706981600557e-09,
+      "charge_nodal": 18751087443040.69,
+      "charge_echo": 922789247.0525125,
+      "charge_L1": 18752010232287.742,
+      "charge_L1_over_slack_2048": 338.72850853120923,
+      "charge_L1_over_budget": 1.8752010232287741e-06,
+      "charge_agg_2051": 3.1427331683600343e+19,
+      "total_proj": 3.1466521086321058e+19,
+      "dg_star": -924834458720969.8,
+      "seconds": 11.6
+    },
+    {
+      "h": 0.002,
+      "nodes": 40001,
+      "C_max": 3.790565828598613e+19,
+      "Coef1": 23309.19237243094,
+      "Coef1_sum_nodes": 23309.192372430873,
+      "Coef1_rel": -2.9976021664879227e-15,
+      "e_g_max": 51435793801.130905,
+      "e_g_median": 3.082445972741322e-19,
+      "e_g_over_C_max": 1.3569423702673678e-09,
+      "charge_nodal": 18829897513451.094,
+      "charge_echo": 927727795.0412657,
+      "charge_L1": 18830825241246.137,
+      "charge_L1_over_slack_2048": 340.1521900514114,
+      "charge_L1_over_budget": 1.8830825241246137e-06,
+      "charge_agg_2051": 2.7512365454404613e+18,
+      "total_proj": 2.7904260269761853e+18,
+      "dg_star": 309302557062261.7,
+      "seconds": 32.5
+    },
+    {
+      "h": 0.001,
+      "nodes": 80001,
+      "C_max": 3.790565828598613e+19,
+      "Coef1": 23323.213147030787,
+      "Coef1_sum_nodes": 23323.213147030765,
+      "Coef1_rel": -8.881784197001252e-16,
+      "e_g_max": 51435989632.3813,
+      "e_g_median": 3.082445972741322e-19,
+      "e_g_over_C_max": 1.3569475365475288e-09,
+      "charge_nodal": 18841230770568.03,
+      "charge_echo": 928285835.0666966,
+      "charge_L1": 18842159056403.098,
+      "charge_L1_over_slack_2048": 340.3569193714432,
+      "charge_L1_over_budget": 1.8842159056403098e-06,
+      "charge_agg_2051": 5.938658842155955e+17,
+      "total_proj": 6.330553770851348e+17,
+      "dg_star": 401615480938414.5,
+      "seconds": 65.5
+    }
+  ],
+  "anchors": {
+    "B1_containment": {
+      "pass": true,
+      "rows": [
+        {
+          "node": 40000,
+          "xi": 0.0,
+          "C": 8.575158957368432e-28,
+          "g_exact": 2.736177884554261e-14,
+          "abs_diff": 2.7361778845541752e-14,
+          "e_g": 0.00028834639634657577,
+          "ratio": 9.489204370931159e-11,
+          "ok": true
+        },
+        {
+          "node": 40493,
+          "xi": 0.4930000000000021,
+          "C": 0.0001822888064949492,
+          "g_exact": 0.0001822957026187318,
+          "abs_diff": 6.89612378258677e-09,
+          "e_g": 0.000536062998006789,
+          "ratio": 1.286439058138356e-05,
+          "ok": true
+        },
+        {
+          "node": 33320,
+          "xi": -6.68,
+          "C": 64807300746.92718,
+          "g_exact": 64807300746.92903,
+          "abs_diff": 0.00185394287109375,
+          "e_g": 30.17823950464175,
+          "ratio": 6.143310217975415e-05,
+          "ok": true
+        },
+        {
+          "node": 60000,
+          "xi": 20.0,
+          "C": 1.3979039636111454e-31,
+          "g_exact": 1.5391429156417903e-31,
+          "abs_diff": 1.4123895203064486e-32,
+          "e_g": 5.456132939452575e-21,
+          "ratio": 2.5886273959595945e-12,
+          "ok": true
+        },
+        {
+          "node": 74970,
+          "xi": 34.97,
+          "C": 5.526349207103275e+18,
+          "g_exact": 5.526349207104007e+18,
+          "abs_diff": 732160.0,
+          "e_g": 13462345647.04037,
+          "ratio": 5.438576747291893e-05,
+          "ok": true
+        },
+        {
+          "node": 79747,
+          "xi": 39.747,
+          "C": 4.17383642699359e+18,
+          "g_exact": 4.1738364269928146e+18,
+          "abs_diff": 775168.0,
+          "e_g": 14441167526.402182,
+          "ratio": 5.367765442667934e-05,
+          "ok": true
+        }
+      ]
+    },
+    "B2_coef1_vs_2048": {
+      "pass": 1.0,
+      "rel": 1.5977857259485972e-08
+    },
+    "B3_ladder_vs_fine": {
+      "pass": true,
+      "diagnostic": [
+        {
+          "xi_ladder": 0.0,
+          "xi_fine": 0.0,
+          "C_ladder": 8.580900431960231e-28,
+          "C_fine": 8.580900431960231e-28,
+          "abs_diff": 0.0
+        },
+        {
+          "xi_ladder": 0.4930000000000021,
+          "xi_fine": 0.4930000000000021,
+          "C_ladder": 0.00018228880649494932,
+          "C_fine": 0.00018228880649494932,
+          "abs_diff": 0.0
+        },
+        {
+          "xi_ladder": -6.68,
+          "xi_fine": -6.68,
+          "C_ladder": 64807300746.92689,
+          "C_fine": 64807300746.92689,
+          "abs_diff": 0.0
+        },
+        {
+          "xi_ladder": 20.0,
+          "xi_fine": 20.0,
+          "C_ladder": 1.3979039636111457e-31,
+          "C_fine": 1.3979039636111457e-31,
+          "abs_diff": 0.0
+        },
+        {
+          "xi_ladder": 34.97,
+          "xi_fine": 34.97,
+          "C_ladder": 5.526349207103275e+18,
+          "C_fine": 5.526349207103275e+18,
+          "abs_diff": 0.0
+        },
+        {
+          "xi_ladder": 39.747,
+          "xi_fine": 39.747,
+          "C_ladder": 4.1738364269935913e+18,
+          "C_fine": 4.1738364269935913e+18,
+          "abs_diff": 0.0
+        }
+      ]
+    },
+    "B4_positivity": {
+      "pass": true
+    },
+    "B5_forward_selftest": {
+      "pass": true,
+      "violations": 0,
+      "worst_ratio": 0.9521966515685616
+    },
+    "B6_artifact_crossread": {
+      "pass": true,
+      "source": "results/2051_l3_aggregate.json",
+      "worst_rel": 0.0
+    }
+  },
+  "best_h": 0.001,
+  "best_total": 6.330553770851348e+17,
+  "best_over_budget": 0.06330553770851348,
+  "nonclaims": [
+    "L5 (F construction, phi quadrature, eigh/min-h1, sigma) remains registered, not touched: the bound starts from the stored floats as exact",
+    "the echo term is a disclosed proxy at the 2048 dg_reference rate (1e-15 of the nodal max), not a proof of the BC/BL chain",
+    "L4 (full-line tail) separate; no coefficient enclosure",
+    "the charge bounds the model-part nodal input; it is not a producer theorem",
+    "not RH"
+  ]
+}
