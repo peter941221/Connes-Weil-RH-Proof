@@ -1,0 +1,26 @@
+{
+  "record": 2038,
+  "status": "A-DEAD-CURRENT-CERTIFICATE",
+  "owner": "G8-H",
+  "basis": "one-copy",
+  "source_record": 2037,
+  "certificate_target": "strict interval upper bound for the full-line grouped ICgate(g.square) quadratic form",
+  "finite_window": {
+    "xi_interval": [-40.0, 40.0],
+    "q_dxi_0_008": -1.111095866723678e20,
+    "q_dxi_0_004": -1.1111917908404727e20,
+    "relative_spread": 8.632083923682255e-05,
+    "evidence_level": "floating-point refinement only"
+  },
+  "certificate_components": {
+    "source_transform_interval": "NOT_CLOSED",
+    "signed_kernel_interval": "NOT_CLOSED",
+    "h1_coefficient_solve_interval": "NOT_CLOSED",
+    "finite_window_quadrature_error": "NOT_CLOSED",
+    "full_line_tail_bound": "MISSING",
+    "resulting_full_line_interval": "UNBOUNDED_OR_UNREGISTERED"
+  },
+  "decision": "The negative finite-window reading cannot be promoted to a strict full-line interval certificate. Stop the current Route-A selector; do not enter Lean or producer assembly.",
+  "scope": "This is a no-go for the current one-copy certificate attempt, not a global no-go for every future Route-A selector.",
+  "nonclaims": ["not a producer theorem", "not a complete-owner theorem", "not uniform in the off-line zero", "not RH"]
+}

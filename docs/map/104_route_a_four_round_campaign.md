@@ -356,3 +356,20 @@ section 2's factor `(1 + f)` to `(2 + f)` (record 2014 section 5).
 Evidence level: measurements, not progress. No producer is licensed (record
 2011 section 6 stands), stage 2 is not run, the binding obligation is
 unchanged, and no RH claim is made.
+
+## 2026-09-27 — one-copy interval certificate stop (records 2037/2038)
+
+The one-copy G8-H basis removes the two-copy affine-fibre freedom and gives a
+stable negative floating-point reading on xi in [-40, 40]. It does not close
+the required full-line interval certificate: source-transform enclosure,
+signed-kernel enclosure, finite-window quadrature error, and the |xi| > 40
+tail bound are all absent. The current selector is therefore
+`A-DEAD-CURRENT-CERTIFICATE`. This is a scoped no-go for this certificate
+attempt, not a global no-go for every future Route-A selector. Do not enter
+Lean, producer assembly, or parameter expansion from this result.
+
+Evidence: [2038](../proofs/2038_route_a_one_copy_interval_certificate_audit.md),
+with numeric input [2037](../results/2037_route_a_g8h_basis_comparison.json).
+
+Evidence level: scoped numeric/certificate no-go; no producer is licensed and
+no RH claim is made.

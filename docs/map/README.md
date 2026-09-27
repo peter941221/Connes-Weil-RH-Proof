@@ -79,7 +79,15 @@ sign do not close it.
 
 ### B. Phase-balanced two-span spectral contradiction
 
-Current execution priority is the same-span four-point subcampaign in [103](103_four_point_same_span_three_cut_campaign.md), because its parabola, prefix, and tail infrastructure are formal and its remaining gate obligation is an explicit aggregate determinant inequality. This is a priority choice, not a new binding route ruling.
+The current same-owner four-point family is frozen as
+`DEAD_ON_CURRENT_FAMILY`. Records 2032-2035 found gate rows at `n = 2, 3`,
+but the same-index tail first closes at `n = 4`; the gate and tail indices are
+disjoint. This is a scoped family no-go, not a global impossibility result for
+all future four-point constructions. Route B may reopen only after a named
+hypothesis produces a complete-owner gate at or beyond the tail-closure index,
+or proves an all-strip `q` bound that closes the actual gate row. Until then,
+do not treat this subcampaign as execution priority or spend Lean work on its
+current rows.
 
 - [090](090_finite_index_pinning_and_frozen_prime_domain.md): finite owner and
   pinned orbit.
@@ -210,6 +218,14 @@ The 2026-09-23 cleanup removed only superseded map narration:
 Mathematical and formal evidence remains in Lean, `docs/proofs/`, build logs,
 and Git history. Deleted map files are recoverable with `git log --all --
 docs/map/<file>` and `git show <commit>:docs/map/<file>`.
+
+## Screened representation-level sketch
+
+Record [108](108_route_d_theta_supersymmetric_defect_domination.md) was
+screened by proof record 113. Its first target `D <= PositiveTrace` reduces
+exactly to the existing `QW >= 0` producer premise, and the universal
+projection shortcut is already killed by proof record 112. The current sketch
+is frozen; reopen only with a genuinely new actual-owner arithmetic identity.
 
 ## Maintenance rule
 

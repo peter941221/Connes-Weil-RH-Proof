@@ -1,6 +1,21 @@
 # 002.002 — Route B: same-owner four-point SPAN
 
-Status: PROJECT CANDIDATE. RH is not claimed.
+Status: DEAD_ON_CURRENT_FAMILY. RH is not claimed.
+
+Decision (2026-09-27): freeze this Route-B family. The committed gate rows
+occur at n = 2, 3, while the same-index tail first becomes closable at n = 4;
+the two obligations have no common index. This is a scoped family no-go, not a
+global impossibility result for every future four-point construction.
+
+Reopen only after a cheap, named-hypothesis probe produces either:
+
+```text
+1. a complete-owner gate row at the tail-closure index or later; or
+2. an all-strip q bound strong enough for the actual gate row and lambda.
+```
+
+Until then, do not spend Lean or interval-certification work on the current
+n = 2, 3 rows.
 
 This route keeps one actual owner and tries to produce one detector with both
 sign conditions:

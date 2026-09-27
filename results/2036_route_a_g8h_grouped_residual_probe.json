@@ -1,0 +1,69 @@
+{
+  "record": 2036,
+  "status": "A-SMALLER-NUMERIC-CANDIDATE",
+  "owner": "G8-H",
+  "rho": [
+    0.6,
+    40.9187190121475
+  ],
+  "scale": 0.88,
+  "target": "actual grouped ICgate(g.square) quadratic form",
+  "rows": [
+    {
+      "dxi": 0.008,
+      "h1": {
+        "constraint_residual": 2.1290430153359875e-11,
+        "h1_energy": 4556645.060685939,
+        "gram_condition_raw": 222571075250.7708,
+        "gram_condition_effective": 7.104463128958123e-05,
+        "gram_min_eigenvalue": 3.191997487073972e-34,
+        "gram_max_eigenvalue": 7.104463128958124e-23
+      },
+      "rank": 17,
+      "nullity": 17,
+      "min_singular": 8.131944070789315e-16,
+      "q_h1": -4.461631857359065e+20,
+      "projected_q_min": -1.1317729976891204e-09,
+      "projected_q_max": 1.392652907308051e-17,
+      "affine_status": "INDEFINITE_FIBRE",
+      "q_data": {
+        "support_radius": 9.504000000000001,
+        "prime_power_count": 1647,
+        "base_max": 1.0057546419373276,
+        "dxi": 0.008000000000002672
+      }
+    },
+    {
+      "dxi": 0.004,
+      "h1": {
+        "constraint_residual": 2.1290430153359875e-11,
+        "h1_energy": 4556645.060685939,
+        "gram_condition_raw": 222571075250.7708,
+        "gram_condition_effective": 7.104463128958123e-05,
+        "gram_min_eigenvalue": 3.191997487073972e-34,
+        "gram_max_eigenvalue": 7.104463128958124e-23
+      },
+      "rank": 17,
+      "nullity": 17,
+      "min_singular": 8.131944070789315e-16,
+      "q_h1": -4.461814113948463e+20,
+      "projected_q_min": -1.1317843331113167e-09,
+      "projected_q_max": 1.392652907252444e-17,
+      "affine_status": "INDEFINITE_FIBRE",
+      "q_data": {
+        "support_radius": 9.504000000000001,
+        "prime_power_count": 1647,
+        "base_max": 1.0057546419373276,
+        "dxi": 0.003999999999997783
+      }
+    }
+  ],
+  "q_h1_relative_spread": 4.0848091100114546e-05,
+  "interval_certificate": false,
+  "nonclaims": [
+    "not interval-certified",
+    "not complete-owner",
+    "not uniform",
+    "not RH"
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "record": 2037,
+  "status": "BASIS_COMPARISON",
+  "rows": [
+    {
+      "basis": "one-copy",
+      "dxi": 0.008,
+      "basis_size": 17,
+      "rank": 17,
+      "nullity": 0,
+      "q_h1": -1.111095866723678e+20,
+      "constraint_resid": 6.893803254956833e-09,
+      "gram_condition_raw": 1318248.416390374,
+      "projected_q_min": null,
+      "projected_q_max": null,
+      "fibre_status": "NO_NULLSPACE",
+      "support": 9.504000000000001,
+      "prime_power_count": 1647
+    },
+    {
+      "basis": "one-copy",
+      "dxi": 0.004,
+      "basis_size": 17,
+      "rank": 17,
+      "nullity": 0,
+      "q_h1": -1.1111917908404727e+20,
+      "constraint_resid": 6.893803254956833e-09,
+      "gram_condition_raw": 1318248.416390374,
+      "projected_q_min": null,
+      "projected_q_max": null,
+      "fibre_status": "NO_NULLSPACE",
+      "support": 9.504000000000001,
+      "prime_power_count": 1647
+    },
+    {
+      "basis": "two-copy",
+      "dxi": 0.008,
+      "basis_size": 34,
+      "rank": 17,
+      "nullity": 17,
+      "q_h1": -1.2179994198047835e+21,
+      "constraint_resid": 2.1290430153359875e-11,
+      "gram_condition_raw": 222571075250.7708,
+      "projected_q_min": -1.0561293293758156e-09,
+      "projected_q_max": 1.0524017446178409e-17,
+      "fibre_status": "INDEFINITE",
+      "support": 9.504000000000001,
+      "prime_power_count": 1647
+    },
+    {
+      "basis": "two-copy",
+      "dxi": 0.004,
+      "basis_size": 34,
+      "rank": 17,
+      "nullity": 17,
+      "q_h1": -1.2180687079442083e+21,
+      "constraint_resid": 2.1290430153359875e-11,
+      "gram_condition_raw": 222571075250.7708,
+      "projected_q_min": -1.0561731868522333e-09,
+      "projected_q_max": 1.0524017445836214e-17,
+      "fibre_status": "INDEFINITE",
+      "support": 9.504000000000001,
+      "prime_power_count": 1647
+    }
+  ],
+  "nonclaims": [
+    "not interval certified",
+    "not complete owner",
+    "not uniform",
+    "not RH"
+  ]
+}
