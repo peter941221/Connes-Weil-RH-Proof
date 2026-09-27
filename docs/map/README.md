@@ -345,6 +345,68 @@ Route A link L2 (ENCLOSED-L1-L2-VIABLE, 2052): the model part's nodal
          producer theorem; not RH.
 ```
 
+### Route state after the 2026-09-28 L4/horizon batch (record 2053)
+
+```text
+Route A link L2 (L4-PRICE-FAIL + PHI-HORIZON-DOMINANT, 2053): both frozen
+         verdicts fire at the registered owner (one-copy G8-H).  L4: the
+         2041 kill fires -- the tail bound assembled from the LANDED
+         1986-1988 rungs gives T_bnd(40) = 6.515715e+41 (6.5e+22 x the
+         1e19 bar, 5.9e+21 x |Q| = 1.1111e20) and GROWS with the window
+         (4.053658e+42 at X = 200): no widening converges it.  Structural
+         reason: the sharpest landed rung over the whole practical tail is
+         the WEAKEST-decay one (rung crossovers |w| = 9201.4/a^2 for
+         r1 -> r2 and 7.44e+07 a^2 for r2 -> r3, so rung 3 engages only at
+         |w| ~ 1.7e+09 for a = 4.752), and the degree-8 weight p^2 times
+         the raw coefficient norms (sum|base| 1.36e+14, sum|corr|
+         2.52e+16, squared twice) does not decay; the constants cannot
+         price this family's tail without a re-derivation wave.  PHI:
+         the committed phi-quadrature rule's OWN error dominates the
+         committed functional's value: committed m = 400 reads
+         Q = -1.1111757839943646e+20, m = 1600/6400 (mutual rel 4.3e-12)
+         read -3.406049871881e+12 / -3.406049871896e+12; |dQ| =
+         1.1111757e+20 = 3.3e7 x the true window integral.  Rule anatomy
+         (17 families, K = 30, truth by phase-split G, 12 pins stable to
+         1.06e-28): FLAT FLOOR regime |t| < t* -- the rule's absolute
+         error is t-independent (~e^{-2K} scale: 1.2e-27..2.5e-27 for
+         a = 1.76 at t = 20..160; stored-float re-summation agrees to
+         ~1e-2, so it is the rule's own output); ALIAS regime |t| > t* =
+         4800/a^2 -- a 1.3e+11..4.7e+11 jump to ~e^{-K}-scale (fam rows:
+         4.73e+11 at a = 1.76 down to 1.28e+11 at a = 4.752; m = 6400
+         stays at floor); horizon H_j = 10 for the five largest-a
+         families, 20 mid, 40 smallest (no family OK at t = 40).  The
+         committed Q decomposes as: true -3.40605e+12 (the NEGATIVE-side
+         mass hump xi in [-8,-5], |cc| up to 230, m = 400 vs 1600 equal
+         to 5+ digits, smooth at h = 5e-4) + fam-16/17 alias -1.111e+20
+         (positive side xi in (26,40], where t* is crossed inside the
+         window; at m = 1600 all families are exact over the whole window
+         and the floors price out below any budget).  The alias is a
+         deterministic, adequately-resolved function of xi, which is why
+         the 1996 and 2037 pipelines agreed at rel 6e-5 -- grid
+         reproducibility is not signal here.  SIGN SURVIVES: the true
+         window integral is negative, so qw < 0 is not a rule artifact at
+         this owner; only the magnitude is.  Scope: records 2048-2052
+         remain valid AS CLAIMS about the committed m = 400 DAG (the
+         6.330553e+17 = 0.0633x verdict is untouched) -- but that object
+         differs from the ideal by 1.1111757e+20, so a certificate
+         targeting the ideal needs the REGISTERED reduced evaluator
+         (re-run the same chain at m = 1600; direction only: |C|_max
+         drops 6.153e+09 -> 1.599e+07 and the outer g mass by 3e7; the
+         ideal budget is |Q_ideal| = 3.4e+12, 10% bar 3.4e+11 -- six
+         orders tighter than 1e19).  Incidents: run 1 produced
+         CONTROL-FAIL (no verdict licensed) -- C0b had entered |Q|
+         unsigned and its rel formula is meaningless on a signed
+         reference; adjudicated against q_h1 = -1.11119e20 (2037,
+         cross-read -1.11126e20 at 1996/2041), the INSTRUMENT failed, not
+         the physics; fixed (magnitude + sign anchor), run 2 passes rel
+         6.821e-05 sign_ok True; determinism cross-read: 1772 fields, 8
+         differing (the C0b block + elapsed only).  The Taylor-series
+         truth route is RETIRED (wrong ODE draft summed (1-u^2)^k;
+         correct 3-term recurrence converges only like e^{-c sqrt j} and
+         the K_n recursion destroys digits for n >> |w|).  Not a producer
+         theorem; not RH.
+```
+
 Live screen state of the same-span four-point subcampaign after the 2026-09-27
 batch (records 2028 - 2035): R-B1 is priced AND mass-certified (a genuine
 interval bracket for the `k = 3` weighted seed mass puts the strip bound at

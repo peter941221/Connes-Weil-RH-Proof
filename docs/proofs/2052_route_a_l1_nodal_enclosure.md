@@ -197,3 +197,27 @@ difference, not a node-representation effect.
   charge is conservative exactly where the pipeline's own cancellation
   floors live.
 - Not a producer theorem; not RH.
+
+## 7. Outcome — the link's two registered items, read (record 2053)
+
+Both open items named above were read by record 2053
+(`docs/proofs/2053_route_a_l4_horizon.md`, verdict
+**L4-PRICE-FAIL + PHI-HORIZON-DOMINANT**):
+
+- **L4** (full-line tail): the registered 2041 kill fires.  The rung
+  assembly gives `T_bnd(40) = 6.515715e+41` — `6.5e22 x` the 1e19 bar,
+  growing with the window — so the landed 1986-1988 constants cannot price
+  this family's tail without a re-derivation wave.
+- **L5's phi-quadrature piece**: now MEASURED at the same owner, and it is
+  the dominant term of the committed functional's value: the m = 400 rule
+  reads `Q = -1.11118e+20` while m = 1600/6400 (mutual rel 4.3e-12) read
+  `-3.40605e+12`.  The committed rule has a flat `~e^{-2K}` error floor and
+  an `~e^{-K}`-scale alias cliff at `t* = 4800/a^2`; at this owner two
+  families (a = 4.4, 4.752) alias inside the window and carry the entire
+  `-1.111e+20` outer mass.  This does NOT disturb this record's claim: the
+  `6.330553e+17 = 0.0633 x budget` verdict remains the priced forward-error
+  bound on the committed m = 400 DAG evaluation against the
+  stored-floats-exact object — but that object is now known to differ from
+  the ideal functional by `1.1111757e+20` at this owner, so a certificate
+  targeting the ideal needs the registered reduced-evaluator re-price
+  (record 2053 section 6).

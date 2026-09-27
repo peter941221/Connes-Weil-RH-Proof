@@ -147,8 +147,24 @@ zero-charged and no measured addend -- `5.938659e+17 + 1.884216e+13 +
 3.917065e+16 = 6.330553e+17 = 0.0633x` budget, ENCLOSED-L1-L2-VIABLE, six
 anchors pass (containment 6/6 vs an mpmath dps-40 exact-object evaluation,
 worst ratio 6.1e-05).  The 2048 measured slack is thereby superseded: rigor on
-this addend costs 340x that slack yet 1.9e-06 of budget.  Details and numbers
-are in `docs/map/README.md`.
+this addend costs 340x that slack yet 1.9e-06 of budget.  Record 2053 then
+reads the L2 link's last two registered items in one batch
+(**L4-PRICE-FAIL + PHI-HORIZON-DOMINANT**): the full-line tail assembled from
+the landed Gevrey rungs is `6.515715e+41` -- 22.5 orders over the 1e19 bar and
+growing with the window, so the registered 2041 kill fires; and the committed
+phi-quadrature rule's own error is measured to DOMINATE the committed
+functional's value at this owner (m = 400 reads `-1.11118e+20`, m = 1600/6400
+read `-3.40605e+12`, mutual rel `4.3e-12`): the rule has a flat `~e^{-2K}`
+error floor below its cliff `t* = 4800/a^2` and an `~e^{-K}`-scale alias
+beyond it, and two families carry the whole `1.11e+20` outer mass as alias on
+the positive side while the true window integral lives in a real mass hump on
+the negative side (`xi in [-8,-5]`, `|cc|` up to 230).  The records 2048--2052
+claim (the `6.330553e+17 = 0.0633x` forward bound on the committed m = 400 DAG)
+stands, but that object differs from the ideal functional by `1.1111757e+20`
+at this owner, so a certificate targeting the ideal needs the registered
+reduced-evaluator re-price (same chain at m = 1600; the ideal budget is
+`3.4e+12`, six orders tighter than 1e19).  Details and numbers are in
+`docs/map/README.md`.
 
 Authority remains in `docs/map/`; this directory is the navigational topology.
 
