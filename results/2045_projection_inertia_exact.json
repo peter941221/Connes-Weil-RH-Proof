@@ -1,0 +1,237 @@
+{
+  "record": 2045,
+  "status": "PROJECTION-INERTIA-EXACT-PASS",
+  "note": "exact rational verification of interface lemmas L1-L5 for the corrected trace identity (record 016); toy matrices only, algebra-level, no owner measurement, no RH claim.  The check L3_uT_A_u_eq_negA_general is recorded as FALSE in general (true iff u^2 commutes with P): the engine identity is (2Q-1)A = -A(2P-1).",
+  "failed_checks": [],
+  "cases": [
+    {
+      "tag": "2x2_t=1/2",
+      "n": 2,
+      "u_orthogonal": true,
+      "P_projection": true,
+      "Phat_projection": true,
+      "Q_eq_1_minus_Phat": true,
+      "L1_T_eq_2(Q-P)": true,
+      "L3_engine_conj_identity": true,
+      "L3_classical_anti_identity": true,
+      "L3_trace_zero": true,
+      "L3_trace_A3_zero": true,
+      "L3_charpoly_symmetric": true,
+      "A_nonzero": true,
+      "L3_negative_witness": [
+        -12,
+        7
+      ],
+      "L3_negative_witness_value": "-496/25",
+      "L3_uT_A_u_eq_negA_general": false,
+      "L3_u2_P_commute": false,
+      "L3_A2_scalar": true,
+      "L3_eigen_transfer": {
+        "lambda": "4/5",
+        "Ax_eq_lam_x": true,
+        "w": [
+          "6/5",
+          "-18/5"
+        ],
+        "A_w_eq_minus_lam_w": true
+      },
+      "L4_defect_eq_Q_minus_PQP": true,
+      "L4_block_form": true,
+      "Theta_psd": true,
+      "L5_QW_plus_D_eq_PositiveTrace": true,
+      "L5_D16_eq_Dval": true,
+      "L5_W16_eq_QWval": true,
+      "QW_value": "24/25",
+      "D_value": "8/25",
+      "PositiveTrace_value": "32/25"
+    },
+    {
+      "tag": "2x2_t=1",
+      "n": 2,
+      "u_orthogonal": true,
+      "P_projection": true,
+      "Phat_projection": true,
+      "Q_eq_1_minus_Phat": true,
+      "L1_T_eq_2(Q-P)": true,
+      "L3_engine_conj_identity": true,
+      "L3_classical_anti_identity": true,
+      "L3_trace_zero": true,
+      "L3_trace_A3_zero": true,
+      "L3_charpoly_symmetric": true,
+      "A_nonzero": true,
+      "L3_negative_witness": [
+        -11,
+        -12
+      ],
+      "L3_negative_witness_value": "-23",
+      "L3_uT_A_u_eq_negA_general": true,
+      "L3_u2_P_commute": true,
+      "L3_A2_scalar": true,
+      "L4_defect_eq_Q_minus_PQP": true,
+      "L4_block_form": true,
+      "Theta_psd": true,
+      "L5_QW_plus_D_eq_PositiveTrace": true,
+      "L5_D16_eq_Dval": true,
+      "L5_W16_eq_QWval": true,
+      "QW_value": "0",
+      "D_value": "2",
+      "PositiveTrace_value": "2",
+      "A_matrix": [
+        [
+          "1",
+          "0"
+        ],
+        [
+          "0",
+          "-1"
+        ]
+      ],
+      "C4_matrix": [
+        [
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "1"
+        ]
+      ],
+      "Q_matrix": [
+        [
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "1"
+        ]
+      ]
+    },
+    {
+      "tag": "2x2_t=2",
+      "n": 2,
+      "u_orthogonal": true,
+      "P_projection": true,
+      "Phat_projection": true,
+      "Q_eq_1_minus_Phat": true,
+      "L1_T_eq_2(Q-P)": true,
+      "L3_engine_conj_identity": true,
+      "L3_classical_anti_identity": true,
+      "L3_trace_zero": true,
+      "L3_trace_A3_zero": true,
+      "L3_charpoly_symmetric": true,
+      "A_nonzero": true,
+      "L3_negative_witness": [
+        -12,
+        -12
+      ],
+      "L3_negative_witness_value": "-3456/25",
+      "L3_uT_A_u_eq_negA_general": false,
+      "L3_u2_P_commute": false,
+      "L3_A2_scalar": true,
+      "L4_defect_eq_Q_minus_PQP": true,
+      "L4_block_form": true,
+      "Theta_psd": true,
+      "L5_QW_plus_D_eq_PositiveTrace": true,
+      "L5_D16_eq_Dval": true,
+      "L5_W16_eq_QWval": true,
+      "QW_value": "-24/25",
+      "D_value": "56/25",
+      "PositiveTrace_value": "32/25"
+    },
+    {
+      "tag": "3x3_rank1",
+      "n": 3,
+      "u_orthogonal": true,
+      "P_projection": true,
+      "Phat_projection": true,
+      "Q_eq_1_minus_Phat": true,
+      "L1_T_eq_2(Q-P)": true,
+      "L3_engine_conj_identity": true,
+      "L3_classical_anti_identity": true,
+      "L3_trace_zero": true,
+      "L3_trace_A3_zero": true,
+      "L3_charpoly_symmetric": true,
+      "A_nonzero": true,
+      "L3_negative_witness": [
+        -12,
+        10,
+        -12
+      ],
+      "L3_negative_witness_value": "-14976/625",
+      "L3_uT_A_u_eq_negA_general": true,
+      "L3_u2_P_commute": true,
+      "L4_defect_eq_Q_minus_PQP": true,
+      "L4_block_form": true,
+      "Theta_psd": true,
+      "L5_QW_plus_D_eq_PositiveTrace": true,
+      "L5_D16_eq_Dval": true,
+      "L5_W16_eq_QWval": true,
+      "QW_value": "336/625",
+      "D_value": "1392/625",
+      "PositiveTrace_value": "1728/625"
+    },
+    {
+      "tag": "3x3_rank2_degenerate_A0",
+      "n": 3,
+      "u_orthogonal": true,
+      "P_projection": true,
+      "Phat_projection": true,
+      "Q_eq_1_minus_Phat": true,
+      "L1_T_eq_2(Q-P)": true,
+      "L3_engine_conj_identity": true,
+      "L3_classical_anti_identity": true,
+      "L3_trace_zero": true,
+      "L3_trace_A3_zero": true,
+      "L3_charpoly_symmetric": true,
+      "A_nonzero": false,
+      "L3_negative_witness": null,
+      "L3_negative_witness_value": null,
+      "L3_degenerate_u_commutes_P": true,
+      "L3_degenerate_QW_zero": true,
+      "L3_uT_A_u_eq_negA_general": true,
+      "L3_u2_P_commute": true,
+      "L4_defect_eq_Q_minus_PQP": true,
+      "L4_block_form": true,
+      "Theta_psd": true,
+      "L5_QW_plus_D_eq_PositiveTrace": true,
+      "L5_D16_eq_Dval": true,
+      "L5_W16_eq_QWval": true,
+      "QW_value": "0",
+      "D_value": "0",
+      "PositiveTrace_value": "0"
+    },
+    {
+      "tag": "3x3_rank2_rotated",
+      "n": 3,
+      "u_orthogonal": true,
+      "P_projection": true,
+      "Phat_projection": true,
+      "Q_eq_1_minus_Phat": true,
+      "L1_T_eq_2(Q-P)": true,
+      "L3_engine_conj_identity": true,
+      "L3_classical_anti_identity": true,
+      "L3_trace_zero": true,
+      "L3_trace_A3_zero": true,
+      "L3_charpoly_symmetric": true,
+      "A_nonzero": true,
+      "L3_negative_witness": [
+        -12,
+        -12,
+        -12
+      ],
+      "L3_negative_witness_value": "-48384/625",
+      "L3_uT_A_u_eq_negA_general": false,
+      "L3_u2_P_commute": false,
+      "L4_defect_eq_Q_minus_PQP": true,
+      "L4_block_form": true,
+      "Theta_psd": true,
+      "L5_QW_plus_D_eq_PositiveTrace": true,
+      "L5_D16_eq_Dval": true,
+      "L5_W16_eq_QWval": true,
+      "QW_value": "-336/625",
+      "D_value": "2064/625",
+      "PositiveTrace_value": "1728/625"
+    }
+  ]
+}

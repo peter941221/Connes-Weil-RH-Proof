@@ -148,8 +148,16 @@ Route A: 2038 no-go stands. The registered reopen (record 2041 uniform-panel
          31.6x abs(Q), linear in dxi with constant ~1.29e4 = the
          independent-sum oscillatory-book coefficient; S1 interval sigma
          settled positively, 4/4 anchors contained at width 2.5e-14).
-         Any reopen must change certificate type (quadrature by parts or
-         adaptive clustering); unpriced.
+         The second architecture (quadrature by parts) is MEASURED DEAD at
+         the same link by record 2046 (IBP-L2-FAIL: 2*TV2*B2 = 1.83e22 =
+         1826x budget with TV2 = 2.53e22 vs required 1.38e19; IBP is
+         DOMINATED - 5.2x tighter direct enclosure at dxi 0.01, and the
+         derivative-order trade saturated: one IBP is 1.28x better than
+         two). The REGISTERED next reopen is the panel-local MODEL
+         architecture (record 2046 section 4): charge (h^2/4)*C_book*TV2
+         with C_book = 458.05, estimated VIABLE at h ~ 0.001 (~80k panels,
+         0.29x budget; threshold h <= 1.86e-3) under the crude L1
+         remainder bound - analytic estimate only, UNPRICED.
 Route B: DEAD_ON_CURRENT_FAMILY stands (2035).
 Route C: literature-audit lane stands (1995); the Moran Ledezma
          probabilistic companion is PARKED by record 2042.
@@ -170,6 +178,36 @@ Route E: CLOSED AT THIS OWNER — [109](109_route_e_copoisson_intertwining_desk.
 Route H (Helson matrices): NOT REGISTERED — record 2042 channel-mismatch
          verdict (the prime channel is already positive-definite by
          construction; the Helson dictionary speaks to the wrong side).
+```
+
+### Route state after the 2026-09-27 inertia/antibody batch (records 2045 - 2047)
+
+```text
+Neighbor mechanism (audit, 2045): arXiv:2608.13637 (rank-trace + Sylvester
+         inertia on finite compressions of the Weil form) is ledgered as
+         PARTIAL-TRANSFER / COUNTING-ONLY: its inertia layer COUNTS
+         off-line pairs and cannot decide the sign of one owner vector's
+         pairing.  The exact interface at record 016 is derived and
+         verified in rational arithmetic (6/6, PROJECTION-INERTIA-EXACT-
+         PASS), giving NO-GO-OPERATOR-SIGN (A = P - Q is indefinite
+         whenever [P,u] != 0; engine identity (2Q-1)A = -A(2P-1) gives
+         spec(A) = -spec(A), so A >= 0 <=> A = 0) and NO-GO-CORNER
+         (defect corner Q - P Q P has block form [[0,B],[B^T,C]]).
+         Candidate mechanism IC (inertia-compression) is REGISTERED and
+         UNPRICED with four frozen kill conditions (2045 section 4).
+         The obligation is now on record as irreducibly a
+         vector-compression statement about theta_S(g).
+Antibody screen (2047): ten mechanism classes with one-line firing rules
+         and ledger exhibits; new antibodies Davenport-Heilbronn (FE-only
+         mechanisms) and Rodgers-Tao (no-margin rule).  Retrospective:
+         every retained death classifies, no misdiagnosis, no revival.
+CCM/Sonin (tracked, 2047): record 112's source gap stands.  Connes
+         arXiv:2602.04022 (2026-02 survey) names the Sonin compression as
+         the root of ARCHIMEDEAN Weil positivity (support-window-local)
+         and offers a strategy (convergence of zeros from finite to
+         infinite Euler products), not an importable theorem; the
+         prolate/Sonin revival path re-enters parked lane 1055 (TEST/CHAN
+         screen) before any pricing.
 ```
 
 Live screen state of the same-span four-point subcampaign after the 2026-09-27
@@ -257,7 +295,11 @@ docs/map/<file>` and `git show <commit>:docs/map/<file>`.
 Record [108](108_route_d_theta_supersymmetric_defect_domination.md) was
 screened by proof record 113. Its first target `D <= PositiveTrace` reduces
 exactly to the existing `QW >= 0` producer premise, and the universal
-projection shortcut is already killed by proof record 112. The current sketch
+projection shortcut is already killed by proof record 112. Record 2045 now
+closes the operator-sign and corner-sign mechanism classes unconditionally
+(NO-GO-OPERATOR-SIGN: the projection difference is indefinite whenever the
+semilocal phase does not commute with the cutoff; NO-GO-CORNER: the defect
+corner keeps its off-diagonal block). The current sketch
 is frozen; reopen only with a genuinely new actual-owner arithmetic identity.
 
 ## Maintenance rule

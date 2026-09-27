@@ -108,6 +108,18 @@ unread.  The COVER layer's analytic currency is therefore an open
 question with directions A and D excluded by measurement and C/E unselected -
 see `docs/map/107_cover_layer_measured_state.md`.
 
+The 2026-09-27 inertia/antibody batch (records 2045--2047) adds the
+mechanism-side layer: the 2026-08 neighbor mechanism (arXiv:2608.13637) is
+audited COUNTING-ONLY with the exact record-016 interface verified in rational
+arithmetic, two scoped no-gos close the operator-sign and corner-sign mechanism
+classes, a candidate IC (inertia-compression) mechanism is registered unpriced,
+and a ten-class antibody screen (with the Davenport--Heilbronn and Rodgers--Tao
+additions) gates new mechanism sketches at intake.  Route A's second L2
+architecture (quadrature by parts) is measured dead by record 2046, and the
+panel-local model architecture is registered as the next unpriced reopen; the
+CCM/Sonin lane is unchanged (record 112).  Details and numbers are in
+`docs/map/README.md`.
+
 Authority remains in `docs/map/`; this directory is the navigational topology.
 
 Read the binding parent first:

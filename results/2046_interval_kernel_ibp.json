@@ -1,0 +1,142 @@
+{
+  "record": 2046,
+  "status": "IBP-L2-FAIL",
+  "owner": "one-copy G8-H",
+  "rho": [
+    0.6,
+    40.9187190121475
+  ],
+  "scale": 0.88,
+  "support": 9.504000000000001,
+  "book_size": 1647,
+  "constants": {
+    "S1": 21898.85724574201,
+    "B1": 10.788316265459809,
+    "B2": 0.36148585572728165,
+    "required_TV2_budget": 1.3831799836097006e+19
+  },
+  "anchors": {
+    "sigma_containment": [
+      {
+        "u": 0.0,
+        "contained": true
+      },
+      {
+        "u": 6.283185307179586,
+        "contained": true
+      },
+      {
+        "u": 62.83185307179586,
+        "contained": true
+      },
+      {
+        "u": 251.32741228718345,
+        "contained": true
+      }
+    ],
+    "A1_width_mean_0.05": {
+      "value": 569.0867771360982,
+      "reference_2043": 569.087,
+      "pass": true
+    },
+    "A1b_linearity": {
+      "ratio": 0.4474854237931306,
+      "pass": true
+    },
+    "A2a_trig_formula": {
+      "closed_form_rel_max": 1.5108723228810403e-12,
+      "closed_form_float_slack": 7.554361614410907e-13,
+      "pass_closed_form": true,
+      "codepath_rel_sum": 1.0588128164126847e-07,
+      "codepath_rel_max_per_k": 4.969983178330614e-08,
+      "h": 1e-05,
+      "pass_codepath": true,
+      "pass": true
+    },
+    "A2b_discretization_scaling": {
+      "ladder": [
+        {
+          "h": 0.01,
+          "rel": 0.0001736815295924053
+        },
+        {
+          "h": 0.005,
+          "rel": 4.338597941557388e-05
+        },
+        {
+          "h": 0.0025,
+          "rel": 1.0844315584069048e-05
+        }
+      ],
+      "ratios": [
+        4.003171806467514,
+        4.000803838585305
+      ],
+      "pass": true
+    },
+    "A2_full_window_float": {
+      "direct": -1.506093390200151e+19,
+      "ibp": -1.505920419351176e+19,
+      "rel_diff": 0.00011484735946690928,
+      "note": "informational: same-grid float-vs-float carries O(h^2) stand-in error by construction",
+      "pass": null
+    }
+  },
+  "direct_rows": [
+    {
+      "dxi": 0.05,
+      "panels": 1600,
+      "width_mean": 569.0867771360982,
+      "width_arch_mean": 0.011328867278723535,
+      "proj_total": 1.5411483139235369e+22,
+      "proj_arch": 3.9170650710482104e+16,
+      "seconds": 38.3
+    },
+    {
+      "dxi": 0.02,
+      "panels": 4000,
+      "width_mean": 254.6580376418138,
+      "width_arch_mean": 0.004531546374164241,
+      "proj_total": 6.898378417622352e+21,
+      "proj_arch": 1.566643589160846e+16,
+      "seconds": 96.1
+    }
+  ],
+  "arch_proj_at_0.05": 3.9170650710482104e+16,
+  "fine_grid": {
+    "dxi": 0.01,
+    "points": 8001,
+    "int_g": 2.7090656864781648e+19
+  },
+  "tv_rows": [
+    {
+      "dxi": 0.05,
+      "TV1": 9.012788307161733e+20,
+      "TV2": 3.4532490962364753e+22,
+      "book_width_ibp": 2.4966014091850087e+22
+    },
+    {
+      "dxi": 0.02,
+      "TV1": 7.386701564881137e+20,
+      "TV2": 2.849561545028943e+22,
+      "book_width_ibp": 2.0601523871046844e+22
+    },
+    {
+      "dxi": 0.01,
+      "TV1": 6.592579621043849e+20,
+      "TV2": 2.5263722116765306e+22,
+      "book_width_ibp": 1.8264956416470316e+22
+    }
+  ],
+  "book_width_ibp": 1.8264956416470316e+22,
+  "total_width_ibp": 1.8264995587121027e+22,
+  "improvement_vs_direct_0.01": 0.19196281670455395,
+  "nonclaims": [
+    "float g, g', g'' from the committed 2037 pipeline: width BUDGET pricing only; L1/L3 (g/g' endpoint enclosure, g'' TV2 enclosure) not counted",
+    "endpoint boundary terms are pointwise; their enclosure slack is L1/L3 business and charged as zero here",
+    "no full-line tail (L4 separate)",
+    "no coefficient enclosure",
+    "not a producer theorem",
+    "not RH"
+  ]
+}
