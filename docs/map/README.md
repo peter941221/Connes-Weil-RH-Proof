@@ -523,6 +523,70 @@ Route A link L2, reduced evaluator (REDUCED-L2-VIABLE, 2055): both levers
          producer theorem; not RH.
 ```
 
+### Route state after the 2026-09-28 L5-priced batch (record 2056)
+
+```text
+Route A link L5, PRICED (IDEAL-L2-VIABLE, 2056): the pipeline's own
+         ideal-vs-stored distinction is priced at the m = 1600 reduced
+         evaluator.  Object: O = the committed pipeline with stored floats
+         exact (2048-2055); O* = its ideal-construction twin (true
+         leggauss nodes/weights and panel map, exact phi and F, the TRUE
+         Laplace integral in place of the m = 1600 composite rule, the
+         exact min-H1 solve of the STORED matrices, true sigma, exact
+         book).  Ladder value stays fixed at O; the triangle gives
+         |ladder - Q(O*)| <= TOTAL_2055 + charge_L5
+         = 4.401166e+10 + 3.478788e+10 = 7.879954e+10
+         = 0.0231x budget3 = 0.2314x bar10 -> VIABLE with 4.32x margin.
+         ANATOMY of charge_L5 = 3.478788e+10 = charge_value 3.478784e+10
+         + charge_kernel 3.607401e+04:
+         charge_value = (SIG_MAX + C_book) int e_g = 463.4198 * 7.5068e7;
+         the envelope's channel shares (dxi = 0.004): rule 7.128255e+07
+         (94.96%), solve 3.793124e+06 (5.05%), X 9.738e+04, F 5.443e+04.
+         charge_kernel = epsK (int g + int e_g), epsK = 2.920565e-10,
+         int g = 1.235172e+14.
+         THREE LEVERS, all three defects, all now instrument laws
+         (AGENTS 2g): (1) the (P) outer-panel elementary bound takes the
+         max of the PRODUCT phi(x) e^{s'x} via h_out (h(u) = -K/(1-u^2)
+         + a Re(s) u is strictly concave on (-1,1); 80 bisections of a
+         strictly decreasing h'); gain 1.49x (a = 1.76) to 43.1x
+         (a = 4.752), el_max 4.2586e-18 -> 9.8802e-20, and the S3b
+         a-side incumbent 2.73e-08 -> 3.410e-13.  (2) the S7 quadrature
+         is the EULER-MACLAURIN corrected trapezoid (int f = T_h -
+         (h^2/12)(f'(b)-f'(a)) + R, |R| <= (h^4/720) int |f''''|): the
+         drafts' (h^2/12) int sup_cell |E''| charge through the |.|-sum
+         error slots read 3e+07x the trapz term (smoke means err2 3.7e16
+         vs err0 0.73) and the price 1.336e+18; the EM endpoint form
+         reads EM 4.05e-09 + regress 3.62 against the trapz 7.5068e+07
+         (sigma_loc = min(2, 2 err0/(|g|+err0)) damps the K4 tail;
+         k4_trapz 3.25e+20, ek4_trapz 2.61e+15).  (3) P6 scales by the
+         SUM of the two evaluators' own certified allowances (EG_r52 +
+         jet err0): worst 9.906e-06 over 16 shared nodes (drafts' S6
+         safe-magnitude scale read 2.265e-07 -- S6 bounds VALUE
+         magnitudes, not accumulation rounding, whose scale is the
+         per-family absolute sum ~1.7e-12).  Controls: C1/C2 (Q400
+         frozen, Q1600 rel 2.4e-15), C4 tier-B 2.1507e-09/2.4812e-09,
+         P4 dxi_max 3.010e-16, A10 dev 2.04e-53 at dps 120 over all
+         1600 roots, P3 0 bad clear_min 0.0079, A11 worst rel 0.00e+00,
+         P5 theta 8.94e-28 floor/lmax 2.63e+04 uniform-floor, A7 worst
+         0.199, A8 <= 0.573, A9 worst ratio 2.57e-05, P2 0.0, B2
+         1.58e-14/4.65e-03/3.09e-18, B3 1.88e-08/1.34e-07/6.28e-12, B5
+         pass (T2 K4 24.000000000000007), S8 d12 1.423e-13 d13
+         2.286e-13 (registered).  MEASURED STRUCTURE of (P): the outer
+         elementary bound is |Im s'|-independent and dominates at EVERY
+         node, all inner Trefethen panels floored at 1e-300 (rho^{-2m} =
+         e^{-5575} at uc = 0.5) -> el_end == el_hump for all 17 families
+         and rule == rule_wsup (7.128255e+07 both); the node-dependent
+         machinery is kept as the honest evaluation of the same formula.
+         REGISTERED LEVER: the split-rule bridging |GL - I| <= |GL -
+         GL_split| + |GL_split - I| (outer panels subdivided at
+         |u| = 1 - delta; every piece ellipse-bounded or an edge slice
+         with e^{-K/(2 delta)} = e^{-308} against e^{-54}; the bridging
+         difference is a computable sum difference at the 2053 alias
+         scale ~1e-12 relative) -- expected >= 1e+03, which retires the
+         (P) channel's binding position.  L4 (2053) standing, evaluator-
+         independent.  Not a producer theorem; not RH.
+```
+
 Live screen state of the same-span four-point subcampaign after the 2026-09-27
 batch (records 2028 - 2035): R-B1 is priced AND mass-certified (a genuine
 interval bracket for the `k = 3` weighted seed mass puts the strip bound at

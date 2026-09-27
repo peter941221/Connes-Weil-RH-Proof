@@ -181,7 +181,17 @@ aggregate ladder extends to `h = 0.00025` (`7.564715e+11` -> `4.339137e+10`,
 on the measured `h^2` law of the hump panels, step ratios `11.56` -> `4.11`);
 the window total `4.401166e+10` is `0.1292x` the 10% bar (`0.0129x` the
 budget) with 7.74x margin, and each lever alone is insufficient (the
-old-convention total would read `2.854x` the bar).  Details and numbers are
+old-convention total would read `2.854x` the bar).  Record 2056 then prices
+the last open component, L5 -- the pipeline's own ideal-vs-stored
+distinction (`O` vs its ideal-construction twin `O*`), which 2048--2055
+deliberately left untouched -- and lands **IDEAL-L2-VIABLE**: the L5 gap
+prices at `3.478788e+10` (94.96% of it the m = 1600 rule-residual channel,
+after the outer-panel elementary bound was tightened to the exact
+maximum of the product `phi(x) e^{s'x}` and the S7 quadrature moved to the
+Euler-Maclaurin corrected trapezoid), so the ladder-to-ideal-twin triangle
+reads `4.401166e+10 + 3.478788e+10 = 7.879954e+10` = `0.2314x` the 10% bar
+with 4.32x margin; the registered next lever is the split-rule bridging of
+the (P) channel (expected >= `1e+03`).  Details and numbers are
 in `docs/map/README.md`.
 
 Authority remains in `docs/map/`; this directory is the navigational topology.
