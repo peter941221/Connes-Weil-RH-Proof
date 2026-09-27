@@ -117,9 +117,11 @@ COVER. MEASURED for the width track (record 2016, KNOT_COMPLEX): over the
    misses at -2.12 sigma, committed gamma_6 has no band in this window) and
    L-DELTA-STABLE (L identical at delta = 0.02, 0.05, 0.10; ratio 1.0000
    against the registered bar 1.25), so L_slot is a slot property and the
-   certification spacing does not depend on delta - except on the two EXT
-   slots whose sub-0.005 sign structure makes their L a resolution-limited
-   understatement. The COVER currency question is mapped in
+   certification spacing does not depend on delta - with one sampling
+   caveat on the two EXT slots: their sub-0.005 flip doublets (min gap
+   0.002 / 0.004) merge inside the 0.005 step, so L_005 over-states the
+   band scale and only the 0.002-grid L is registered. The COVER currency
+   question is mapped in
    docs/map/107_cover_layer_measured_state.md.
 ```
 

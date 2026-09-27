@@ -171,7 +171,11 @@ monotonically with height over more than a factor of 3 (0.0250 down to
 0.0083), with the committed gamma_5 (0.01250) sitting above gamma_4 (0.01111)
 and the same height gamma_5 reading 0.01250 on the committed layer vs 0.00909
 on the EXT layer.  gamma_6 is the exception in the strong sense (L = infinity
-at delta = 0.10 in this window).
+at delta = 0.10 in this window).  Incidental (post-hoc, motivating only):
+L * gamma over the seven finite slots of the registered ladder excluding the
+ext gamma_5 control reads 0.307 .. 0.420, mean 0.362, and the excluded
+control (0.277) refutes a pure L = c / gamma law - the band scale is close
+to, but is not, proportional to 1/height.
 
 ## 4. P2: the delta axis, and the delta-invariance of the sign field
 
@@ -232,6 +236,15 @@ the same commit: the independent checker initially typed its slot table
 (and its gamma_3 slice silently came back empty - the anchor law's fourth
 recurrence: tables generated, never typed); it now reads the slots from the
 census artifact.
+
+E3 (field-name divergence, frozen prereg text; correction here).  The
+record-2024 pre-registration registers the no-flips flag as the single
+field `no_flips` (section 3); the reading implements it per grid as
+`no_flips_002` and `no_flips_005` (a zero count is a per-grid fact - one
+grid can be flip-free while the other is not).  The divergence is
+annotational: every no-flips verdict in this record is read from the
+grid-suffixed fields, and no registered clause compares the flag across
+grids beyond `counts_equal` itself.
 
 B1 (reading-path defect; affects one derived field of the first P1 pass,
 hence the archived first-pass artifact).  The reading path's `fine_L`
@@ -295,7 +308,27 @@ Does not settle:
   (gamma_5 committed vs EXT at the same height) is a two-point contrast,
   not a law.
 
-## 7. Artifacts
+## 7. Follow-up candidates (none registered or opened)
+
+Three candidates follow from this record's readings; none is a registered
+follow-up and none was run:
+
+```text
+(i)   the C sign string as a function of delta at fixed (layer, height,
+      scale) - the section-4 by-product object, strictly stronger than the
+      registered L-stability clause; the natural registration is a string
+      comparison over a wider delta set (the preloaded delta columns
+      0.15 .. 0.30 exist in the rows artifacts but were never registered)
+(ii)  the sub-0.005 resolution question at ext gamma_7 / ext gamma_8 - the
+      measured doublets (0.002 / 0.004 gaps) sit at the 0.002-grid limit,
+      so a 0.001 grid would test whether L_002 itself is resolved
+(iii) L(gamma) with a layer axis - L * gamma is flat-ish (0.307 .. 0.420)
+      but the gamma_5 layer pair (committed 0.0125 vs ext 0.0091 at one
+      height) blocks a pure gamma law; a registration would sweep L over
+      more (layer, height) pairs
+```
+
+## 8. Artifacts
 
 ```text
 pre-registration   docs/proofs/2024_l_ladder_preregistration.md (977cf384)
