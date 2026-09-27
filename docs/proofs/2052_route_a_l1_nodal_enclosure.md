@@ -3,7 +3,7 @@
 Verdict: **ENCLOSED-L1-L2-VIABLE** at the registered owner (one-copy
 G8-H): the model part's nodal input — the last addend charged as zero (L1)
 and the last measured addend (the record-2048 float slack) — is now a
-PROVEN charge.  Total `5.938659e+17` (aggregate) + `1.884223e+13` (L1) +
+PROVEN charge.  Total `5.938659e+17` (aggregate) + `1.884216e+13` (L1) +
 `3.917065e+16` (arch) = **`6.330553e+17` = 0.0633 x budget**, with no
 measured addend left in the verdict line.  Probe:
 `scripts/routea_l1_nodal_enclosure_2052.py`, artifact
@@ -36,7 +36,7 @@ Cross-reads: the Coef1 column reproduces record 2048's table
 record-2051 artifact exactly (B6 `worst_rel = 0.0`).  Scale of the bound:
 `e_g <= 1.357e-09 |C|_max` at every rung, `|C|_max = 3.7906e+19`.
 
-Verdict line: `5.938659e+17 + 1.884223e+13 + 3.917065e+16 =
+Verdict line: `5.938659e+17 + 1.884216e+13 + 3.917065e+16 =
 6.330553e+17 = 0.0633 x budget` (record 2051: `6.330366e+17`; the L1
 charge moves the total by 0.003%).
 

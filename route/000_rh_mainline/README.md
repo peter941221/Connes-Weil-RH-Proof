@@ -143,7 +143,7 @@ remainder.  Record 2052 then encloses the L2 link's last unpriced addend: the
 model part's NODAL input is bounded by a committed-DAG forward-error calculus
 at each ladder node (safe magnitudes throughout; the exponent-argument
 amplification constant reused from 2051), so the verdict line keeps no
-zero-charged and no measured addend -- `5.938659e+17 + 1.884223e+13 +
+zero-charged and no measured addend -- `5.938659e+17 + 1.884216e+13 +
 3.917065e+16 = 6.330553e+17 = 0.0633x` budget, ENCLOSED-L1-L2-VIABLE, six
 anchors pass (containment 6/6 vs an mpmath dps-40 exact-object evaluation,
 worst ratio 6.1e-05).  The 2048 measured slack is thereby superseded: rigor on

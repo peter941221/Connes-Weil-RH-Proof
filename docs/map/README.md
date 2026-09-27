@@ -320,7 +320,7 @@ Route A link L2 (ENCLOSED-L1-L2-VIABLE, 2052): the model part's nodal
          1.88308e+13 (340.2x / 1.88e), 1.88422e+13 (340.4x / 1.88e);
          e_g <= 1.357e-09 |C|_max, median 3.082e-19 (cancellation
          floors), per-node charge 64x below the flat Coef1(h)e_g_max =
-         1.200e+15.  VERDICT (frozen rules): 5.938659e+17 + 1.884223e+13
+         1.200e+15.  VERDICT (frozen rules): 5.938659e+17 + 1.884216e+13
          + 3.917065e+16 = 6.330553e+17 = 0.0633x budget -- no
          zero-charged and no measured addend left in the verdict line
          (2051: 6.330366e+17; L1 moves the total 0.003%).  Six anchors
