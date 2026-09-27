@@ -1,0 +1,893 @@
+{
+  "record": 2034,
+  "status": "RADIUS-FRAGILE",
+  "preregistration": "docs/proofs/2034_support_radius_robustness_preregistration.md",
+  "deltas": [
+    -1,
+    1,
+    2
+  ],
+  "dxi": 0.02,
+  "rows_registered": [
+    {
+      "gamma": 21.022039638771556,
+      "N": 3,
+      "n": 0
+    },
+    {
+      "gamma": 21.022039638771556,
+      "N": 3,
+      "n": 2
+    },
+    {
+      "gamma": 21.022039638771556,
+      "N": 3,
+      "n": 3
+    },
+    {
+      "gamma": 21.022039638771556,
+      "N": 4,
+      "n": 0
+    },
+    {
+      "gamma": 21.022039638771556,
+      "N": 4,
+      "n": 2
+    },
+    {
+      "gamma": 21.022039638771556,
+      "N": 4,
+      "n": 3
+    },
+    {
+      "gamma": 21.022039638771556,
+      "N": 5,
+      "n": 0
+    },
+    {
+      "gamma": 21.022039638771556,
+      "N": 5,
+      "n": 2
+    },
+    {
+      "gamma": 21.022039638771556,
+      "N": 5,
+      "n": 3
+    },
+    {
+      "gamma": 30.424876125859512,
+      "N": 3,
+      "n": 0
+    },
+    {
+      "gamma": 30.424876125859512,
+      "N": 3,
+      "n": 2
+    },
+    {
+      "gamma": 30.424876125859512,
+      "N": 4,
+      "n": 0
+    },
+    {
+      "gamma": 30.424876125859512,
+      "N": 4,
+      "n": 2
+    },
+    {
+      "gamma": 30.424876125859512,
+      "N": 5,
+      "n": 0
+    },
+    {
+      "gamma": 30.424876125859512,
+      "N": 5,
+      "n": 2
+    }
+  ],
+  "rows": [
+    {
+      "gamma": 21.022039638771556,
+      "N": 3,
+      "n": 0,
+      "owner_cardinality": 22,
+      "delta+0": {
+        "prime_power_count": 24,
+        "route": "B",
+        "C": 1811.6842835743437,
+        "b": 4962986.91449314,
+        "det": -1145914332081.8828,
+        "gate_signs": true,
+        "route_coverage": null
+      },
+      "delta-1": {
+        "prime_power_count": 12,
+        "route": "B",
+        "C": 774.3439302784896,
+        "b": 5161841.60916915,
+        "det": -9668381212420.768,
+        "gate_signs": true,
+        "route_coverage": null
+      },
+      "delta+1": {
+        "prime_power_count": 47,
+        "route": "B",
+        "C": -796.1512810152713,
+        "b": -4290827.840700352,
+        "det": -5819913410188.779,
+        "gate_signs": false,
+        "route_coverage": null
+      },
+      "delta+2": {
+        "prime_power_count": 98,
+        "route": "B",
+        "C": -1116.3904992345758,
+        "b": -6172947.564844266,
+        "det": -12993057878441.305,
+        "gate_signs": false,
+        "route_coverage": null
+      },
+      "pattern_stable": false,
+      "moved_at": [
+        1,
+        2
+      ]
+    },
+    {
+      "gamma": 21.022039638771556,
+      "N": 3,
+      "n": 2,
+      "owner_cardinality": 22,
+      "delta+0": {
+        "prime_power_count": 465,
+        "route": "B",
+        "C": 16547.818113469264,
+        "b": 40574017.69444044,
+        "det": -468142549114986.25,
+        "gate_signs": true,
+        "route_coverage": null
+      },
+      "delta-1": {
+        "prime_power_count": 209,
+        "route": "B",
+        "C": -6583.094074792329,
+        "b": -17980427.88476547,
+        "det": -101792387572177.78,
+        "gate_signs": false,
+        "route_coverage": null
+      },
+      "delta+1": {
+        "prime_power_count": 1068,
+        "route": "B",
+        "C": 8315.116461985652,
+        "b": 50146435.32839309,
+        "det": -839975863041597.2,
+        "gate_signs": true,
+        "route_coverage": null
+      },
+      "delta+2": {
+        "prime_power_count": 2532,
+        "route": "B",
+        "C": -935.4902150425605,
+        "b": -1123478.2778942883,
+        "det": 20597107754411.99,
+        "gate_signs": false,
+        "route_coverage": null
+      },
+      "pattern_stable": false,
+      "moved_at": [
+        -1,
+        2
+      ]
+    },
+    {
+      "gamma": 21.022039638771556,
+      "N": 3,
+      "n": 3,
+      "owner_cardinality": 22,
+      "delta+0": {
+        "prime_power_count": 2532,
+        "route": "B",
+        "C": -11336.38584021348,
+        "b": -58779784.790135086,
+        "det": 154879965180377.5,
+        "gate_signs": false,
+        "route_coverage": null
+      },
+      "delta-1": {
+        "prime_power_count": 1068,
+        "route": "B",
+        "C": 20457.802176793353,
+        "b": 140097471.50487578,
+        "det": -7104248522381170.0,
+        "gate_signs": true,
+        "route_coverage": null
+      },
+      "delta+1": {
+        "prime_power_count": 6139,
+        "route": "B",
+        "C": -40625.58697603576,
+        "b": 15409270.024460688,
+        "det": -1.991938989067195e+16,
+        "gate_signs": false,
+        "route_coverage": null
+      },
+      "delta+2": {
+        "prime_power_count": 15040,
+        "route": "B",
+        "C": -86909.29420962758,
+        "b": -385391557.77406114,
+        "det": -3.633757489010526e+16,
+        "gate_signs": false,
+        "route_coverage": null
+      },
+      "pattern_stable": false,
+      "moved_at": [
+        -1
+      ]
+    },
+    {
+      "gamma": 21.022039638771556,
+      "N": 4,
+      "n": 0,
+      "owner_cardinality": 32,
+      "delta+0": {
+        "prime_power_count": 24,
+        "route": "B",
+        "C": 1803.5320654042193,
+        "b": 4930477.2352526635,
+        "det": -1060860177064.1523,
+        "gate_signs": true,
+        "route_coverage": null
+      },
+      "delta-1": {
+        "prime_power_count": 12,
+        "route": "B",
+        "C": 932.4348803387679,
+        "b": 5765219.864493635,
+        "det": -10684177370288.527,
+        "gate_signs": true,
+        "route_coverage": null
+      },
+      "delta+1": {
+        "prime_power_count": 47,
+        "route": "B",
+        "C": -860.2254234370071,
+        "b": -4448711.183545021,
+        "det": -5963141389706.625,
+        "gate_signs": false,
+        "route_coverage": null
+      },
+      "delta+2": {
+        "prime_power_count": 98,
+        "route": "B",
+        "C": -1326.9299083106432,
+        "b": -6837796.181002036,
+        "det": -14697982058768.469,
+        "gate_signs": false,
+        "route_coverage": null
+      },
+      "pattern_stable": false,
+      "moved_at": [
+        1,
+        2
+      ]
+    },
+    {
+      "gamma": 21.022039638771556,
+      "N": 4,
+      "n": 2,
+      "owner_cardinality": 32,
+      "delta+0": {
+        "prime_power_count": 465,
+        "route": "B",
+        "C": 17217.295727356413,
+        "b": 43009675.68485406,
+        "det": -471851195288644.75,
+        "gate_signs": true,
+        "route_coverage": null
+      },
+      "delta-1": {
+        "prime_power_count": 209,
+        "route": "B",
+        "C": -6022.840531016103,
+        "b": -17996147.553107012,
+        "det": -86441357948811.5,
+        "gate_signs": false,
+        "route_coverage": null
+      },
+      "delta+1": {
+        "prime_power_count": 1068,
+        "route": "B",
+        "C": 9437.278192599082,
+        "b": 52393427.71044274,
+        "det": -836100299574690.5,
+        "gate_signs": true,
+        "route_coverage": null
+      },
+      "delta+2": {
+        "prime_power_count": 2532,
+        "route": "B",
+        "C": -435.5869730165541,
+        "b": 4503727.368770905,
+        "det": -22005359872684.336,
+        "gate_signs": false,
+        "route_coverage": null
+      },
+      "pattern_stable": false,
+      "moved_at": [
+        -1,
+        2
+      ]
+    },
+    {
+      "gamma": 21.022039638771556,
+      "N": 4,
+      "n": 3,
+      "owner_cardinality": 32,
+      "delta+0": {
+        "prime_power_count": 2532,
+        "route": "B",
+        "C": -9979.362986057014,
+        "b": -41268357.55635741,
+        "det": 576548077231687.0,
+        "gate_signs": false,
+        "route_coverage": null
+      },
+      "delta-1": {
+        "prime_power_count": 1068,
+        "route": "B",
+        "C": 22782.98314376948,
+        "b": 142918505.09658876,
+        "det": -6706498931741302.0,
+        "gate_signs": true,
+        "route_coverage": null
+      },
+      "delta+1": {
+        "prime_power_count": 6139,
+        "route": "B",
+        "C": -48161.88565886597,
+        "b": -10284762.019293204,
+        "det": -1.9509625936870508e+16,
+        "gate_signs": false,
+        "route_coverage": null
+      },
+      "delta+2": {
+        "prime_power_count": 15040,
+        "route": "B",
+        "C": -86541.55124603734,
+        "b": -376449991.30184186,
+        "det": -3.417002271851341e+16,
+        "gate_signs": false,
+        "route_coverage": null
+      },
+      "pattern_stable": false,
+      "moved_at": [
+        -1
+      ]
+    },
+    {
+      "gamma": 21.022039638771556,
+      "N": 5,
+      "n": 0,
+      "owner_cardinality": 56,
+      "delta+0": {
+        "prime_power_count": 24,
+        "route": "B",
+        "C": 1818.5569749666893,
+        "b": 4954805.851869291,
+        "det": -982737284231.7578,
+        "gate_signs": true,
+        "route_coverage": null
+      },
+      "delta-1": {
+        "prime_power_count": 12,
+        "route": "B",
+        "C": 1171.758417024791,
+        "b": 6687655.665120242,
+        "det": -12276209709762.965,
+        "gate_signs": true,
+        "route_coverage": null
+      },
+      "delta+1": {
+        "prime_power_count": 47,
+        "route": "B",
+        "C": -969.2969705665664,
+        "b": -4743088.158482329,
+        "det": -6323878665766.609,
+        "gate_signs": false,
+        "route_coverage": null
+      },
+      "delta+2": {
+        "prime_power_count": 98,
+        "route": "B",
+        "C": -1639.893404480684,
+        "b": -7834835.961873121,
+        "det": -17580548934516.617,
+        "gate_signs": false,
+        "route_coverage": null
+      },
+      "pattern_stable": false,
+      "moved_at": [
+        1,
+        2
+      ]
+    },
+    {
+      "gamma": 21.022039638771556,
+      "N": 5,
+      "n": 2,
+      "owner_cardinality": 56,
+      "delta+0": {
+        "prime_power_count": 465,
+        "route": "B",
+        "C": 18300.887582350304,
+        "b": 46526181.116682984,
+        "det": -492002511725700.75,
+        "gate_signs": true,
+        "route_coverage": null
+      },
+      "delta-1": {
+        "prime_power_count": 209,
+        "route": "B",
+        "C": -5385.354915832893,
+        "b": -18191369.912775278,
+        "det": -78319838487059.1,
+        "gate_signs": false,
+        "route_coverage": null
+      },
+      "delta+1": {
+        "prime_power_count": 1068,
+        "route": "B",
+        "C": 11204.786763889977,
+        "b": 56458336.29528446,
+        "det": -865298831766495.0,
+        "gate_signs": true,
+        "route_coverage": null
+      },
+      "delta+2": {
+        "prime_power_count": 2532,
+        "route": "B",
+        "C": 233.04548522760888,
+        "b": 11791809.824225001,
+        "det": -129997233495479.95,
+        "gate_signs": true,
+        "route_coverage": null
+      },
+      "pattern_stable": false,
+      "moved_at": [
+        -1
+      ]
+    },
+    {
+      "gamma": 21.022039638771556,
+      "N": 5,
+      "n": 3,
+      "owner_cardinality": 56,
+      "delta+0": {
+        "prime_power_count": 2532,
+        "route": "B",
+        "C": -8491.122976739127,
+        "b": -19981166.22162229,
+        "det": 608449311592640.2,
+        "gate_signs": false,
+        "route_coverage": null
+      },
+      "delta-1": {
+        "prime_power_count": 1068,
+        "route": "B",
+        "C": 26665.98339397338,
+        "b": 150063030.8550957,
+        "det": -6462046746477284.0,
+        "gate_signs": true,
+        "route_coverage": null
+      },
+      "delta+1": {
+        "prime_power_count": 6139,
+        "route": "B",
+        "C": -57812.704356424125,
+        "b": -40923755.912267745,
+        "det": -1.9677785324003364e+16,
+        "gate_signs": false,
+        "route_coverage": null
+      },
+      "delta+2": {
+        "prime_power_count": 15040,
+        "route": "B",
+        "C": -88211.81880575573,
+        "b": -371573633.3746437,
+        "det": -3.245149416635659e+16,
+        "gate_signs": false,
+        "route_coverage": null
+      },
+      "pattern_stable": false,
+      "moved_at": [
+        -1
+      ]
+    },
+    {
+      "gamma": 30.424876125859512,
+      "N": 3,
+      "n": 0,
+      "owner_cardinality": 29,
+      "delta+0": {
+        "prime_power_count": 24,
+        "route": "B",
+        "C": 1626.4427253873246,
+        "b": 9642808.308556449,
+        "det": -3743446723386.9844,
+        "gate_signs": true,
+        "route_coverage": null
+      },
+      "delta-1": {
+        "prime_power_count": 12,
+        "route": "B",
+        "C": 3108.770299312514,
+        "b": 23673419.505415756,
+        "det": -17570907083379.562,
+        "gate_signs": true,
+        "route_coverage": null
+      },
+      "delta+1": {
+        "prime_power_count": 47,
+        "route": "B",
+        "C": 279.5591499913962,
+        "b": -9481256.375625618,
+        "det": -123721526513983.33,
+        "gate_signs": false,
+        "route_coverage": null
+      },
+      "delta+2": {
+        "prime_power_count": 98,
+        "route": "B",
+        "C": -1409.5233315126497,
+        "b": -10815347.268722545,
+        "det": -29771141266299.75,
+        "gate_signs": false,
+        "route_coverage": null
+      },
+      "pattern_stable": false,
+      "moved_at": [
+        1,
+        2
+      ]
+    },
+    {
+      "gamma": 30.424876125859512,
+      "N": 3,
+      "n": 2,
+      "owner_cardinality": 29,
+      "delta+0": {
+        "prime_power_count": 465,
+        "route": "B",
+        "C": 14920.87087816426,
+        "b": 76293733.42856413,
+        "det": -1241838841229556.0,
+        "gate_signs": true,
+        "route_coverage": null
+      },
+      "delta-1": {
+        "prime_power_count": 209,
+        "route": "B",
+        "C": -9314.790277407006,
+        "b": -21246193.44852005,
+        "det": -1113928495100697.5,
+        "gate_signs": false,
+        "route_coverage": null
+      },
+      "delta+1": {
+        "prime_power_count": 1068,
+        "route": "B",
+        "C": -6922.042756429817,
+        "b": -52461304.50102615,
+        "det": -483430097830822.5,
+        "gate_signs": false,
+        "route_coverage": null
+      },
+      "delta+2": {
+        "prime_power_count": 2532,
+        "route": "B",
+        "C": 10046.104139235747,
+        "b": 95812040.66607171,
+        "det": -2577422526882009.0,
+        "gate_signs": true,
+        "route_coverage": null
+      },
+      "pattern_stable": false,
+      "moved_at": [
+        -1,
+        1
+      ]
+    },
+    {
+      "gamma": 30.424876125859512,
+      "N": 4,
+      "n": 0,
+      "owner_cardinality": 40,
+      "delta+0": {
+        "prime_power_count": 24,
+        "route": "B",
+        "C": 1692.413378104562,
+        "b": 9981610.152476951,
+        "det": -3889524566485.6406,
+        "gate_signs": true,
+        "route_coverage": null
+      },
+      "delta-1": {
+        "prime_power_count": 12,
+        "route": "B",
+        "C": 3483.377084484441,
+        "b": 26488577.621956207,
+        "det": -17371559260316.75,
+        "gate_signs": true,
+        "route_coverage": null
+      },
+      "delta+1": {
+        "prime_power_count": 47,
+        "route": "B",
+        "C": 141.55894422387973,
+        "b": -11617343.66485715,
+        "det": -155117282606197.1,
+        "gate_signs": false,
+        "route_coverage": null
+      },
+      "delta+2": {
+        "prime_power_count": 98,
+        "route": "B",
+        "C": -1598.8114845252212,
+        "b": -11943157.167384185,
+        "det": -35563555088874.266,
+        "gate_signs": false,
+        "route_coverage": null
+      },
+      "pattern_stable": false,
+      "moved_at": [
+        1,
+        2
+      ]
+    },
+    {
+      "gamma": 30.424876125859512,
+      "N": 4,
+      "n": 2,
+      "owner_cardinality": 40,
+      "delta+0": {
+        "prime_power_count": 465,
+        "route": "B",
+        "C": 15919.089404791936,
+        "b": 80161880.45262465,
+        "det": -1433424179766153.0,
+        "gate_signs": true,
+        "route_coverage": null
+      },
+      "delta-1": {
+        "prime_power_count": 209,
+        "route": "B",
+        "C": -9852.01797499023,
+        "b": -20286657.603328273,
+        "det": -1416148868867392.8,
+        "gate_signs": false,
+        "route_coverage": null
+      },
+      "delta+1": {
+        "prime_power_count": 1068,
+        "route": "B",
+        "C": -8664.905600673992,
+        "b": -62216726.78904164,
+        "det": -656275021315461.5,
+        "gate_signs": false,
+        "route_coverage": null
+      },
+      "delta+2": {
+        "prime_power_count": 2532,
+        "route": "B",
+        "C": 11241.43370034243,
+        "b": 107570672.13386998,
+        "det": -3205423073687510.0,
+        "gate_signs": true,
+        "route_coverage": null
+      },
+      "pattern_stable": false,
+      "moved_at": [
+        -1,
+        1
+      ]
+    },
+    {
+      "gamma": 30.424876125859512,
+      "N": 5,
+      "n": 0,
+      "owner_cardinality": 64,
+      "delta+0": {
+        "prime_power_count": 24,
+        "route": "B",
+        "C": 1774.4444368916265,
+        "b": 10412982.837803982,
+        "det": -4084052675012.5625,
+        "gate_signs": true,
+        "route_coverage": null
+      },
+      "delta-1": {
+        "prime_power_count": 12,
+        "route": "B",
+        "C": 3894.071707566556,
+        "b": 29571015.511374146,
+        "det": -16422011185368.5,
+        "gate_signs": true,
+        "route_coverage": null
+      },
+      "delta+1": {
+        "prime_power_count": 47,
+        "route": "B",
+        "C": -18.32578607193136,
+        "b": -13963969.563500412,
+        "det": -191957539380376.2,
+        "gate_signs": false,
+        "route_coverage": null
+      },
+      "delta+2": {
+        "prime_power_count": 98,
+        "route": "B",
+        "C": -1802.7213225397509,
+        "b": -13140821.061118431,
+        "det": -42494570202922.92,
+        "gate_signs": false,
+        "route_coverage": null
+      },
+      "pattern_stable": false,
+      "moved_at": [
+        1,
+        2
+      ]
+    },
+    {
+      "gamma": 30.424876125859512,
+      "N": 5,
+      "n": 2,
+      "owner_cardinality": 64,
+      "delta+0": {
+        "prime_power_count": 465,
+        "route": "B",
+        "C": 17014.399465714454,
+        "b": 84352193.33416682,
+        "det": -1669344047516500.0,
+        "gate_signs": true,
+        "route_coverage": null
+      },
+      "delta-1": {
+        "prime_power_count": 209,
+        "route": "B",
+        "C": -10383.682225708537,
+        "b": -19064747.760967925,
+        "det": -1774253846882801.0,
+        "gate_signs": false,
+        "route_coverage": null
+      },
+      "delta+1": {
+        "prime_power_count": 1068,
+        "route": "B",
+        "C": -10447.059059755353,
+        "b": -72212684.03678289,
+        "det": -873478214683977.5,
+        "gate_signs": false,
+        "route_coverage": null
+      },
+      "delta+2": {
+        "prime_power_count": 2532,
+        "route": "B",
+        "C": 12602.16567665499,
+        "b": 120214413.51966438,
+        "det": -3932870736100734.0,
+        "gate_signs": true,
+        "route_coverage": null
+      },
+      "pattern_stable": false,
+      "moved_at": [
+        -1,
+        1
+      ]
+    }
+  ],
+  "fragile_rows": [
+    {
+      "gamma": 21.022039638771556,
+      "N": 3,
+      "n": 0,
+      "moved_at": [
+        1,
+        2
+      ]
+    },
+    {
+      "gamma": 21.022039638771556,
+      "N": 3,
+      "n": 2,
+      "moved_at": [
+        2
+      ]
+    },
+    {
+      "gamma": 21.022039638771556,
+      "N": 4,
+      "n": 0,
+      "moved_at": [
+        1,
+        2
+      ]
+    },
+    {
+      "gamma": 21.022039638771556,
+      "N": 4,
+      "n": 2,
+      "moved_at": [
+        2
+      ]
+    },
+    {
+      "gamma": 21.022039638771556,
+      "N": 5,
+      "n": 0,
+      "moved_at": [
+        1,
+        2
+      ]
+    },
+    {
+      "gamma": 21.022039638771556,
+      "N": 5,
+      "n": 2,
+      "moved_at": []
+    },
+    {
+      "gamma": 30.424876125859512,
+      "N": 3,
+      "n": 0,
+      "moved_at": [
+        1,
+        2
+      ]
+    },
+    {
+      "gamma": 30.424876125859512,
+      "N": 3,
+      "n": 2,
+      "moved_at": [
+        1
+      ]
+    },
+    {
+      "gamma": 30.424876125859512,
+      "N": 4,
+      "n": 0,
+      "moved_at": [
+        1,
+        2
+      ]
+    },
+    {
+      "gamma": 30.424876125859512,
+      "N": 4,
+      "n": 2,
+      "moved_at": [
+        1
+      ]
+    },
+    {
+      "gamma": 30.424876125859512,
+      "N": 5,
+      "n": 0,
+      "moved_at": [
+        1,
+        2
+      ]
+    },
+    {
+      "gamma": 30.424876125859512,
+      "N": 5,
+      "n": 2,
+      "moved_at": [
+        1
+      ]
+    }
+  ]
+}

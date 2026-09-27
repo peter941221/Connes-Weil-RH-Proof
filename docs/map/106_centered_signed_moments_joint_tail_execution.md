@@ -1021,3 +1021,78 @@ No route ruling, owner, quantifier or consumer changes; the Lean tail
 interface of record 1982 is untouched. Evidence: records 2029, 2030 and 2031,
 `results/2028_coupling_scan.json`, `results/2030_determinant_margin.json`,
 `results/2031_sharp_q_ladder.json`.
+
+## 33. Full block assault: the gate index and the tail index are disjoint (2032-2035)
+
+```text
+2032        P4 gate-row search, changed named hypotheses (height gamma, owner
+            cardinality N).  45 rows over 9 (gamma, N) pairs and n = 0..4.
+            9 admissible n >= 1 rows with `C > 0, b > 0, det < 0`: gamma_2 at
+            n = 2; gamma_3 at n = 2 and n = 3; N = 3, 4, 5 each.  No row at
+            n = 1 and none at n >= 4.  n = 0 is the control at all nine pairs.
+            Sign-stable at dxi = 0.01 (|dC| <= 3.4e-10 on C of order 1e4) and
+            bit-exact on the record-2028 anchor at dxi = 0.02.  The registered
+            cutoff block is CUTOFF-SENSITIVE; its registered reading ("erratum
+            against the prime book") is corrected here, because the prime book
+            is a CONSTRUCTION input fixed by the support radius s_n = 2(n+2),
+            so the block measures sensitivity to that input, and the real
+            consequence is that R-B0/R-B4 must pin the source.
+2034        P4c the same rows re-read at support radius 2(n+2) + delta,
+            delta in {-1, +1, +2}.  RADIUS-FRAGILE: exactly ONE row,
+            (gamma_2, N = 5, n = 2), keeps the pattern at delta = +1 and +2;
+            the other eight lose it at one of them.  ROW-FOUND is therefore
+            conditional on the exact visible-prime set.
+2033        P4b same-index pairing, tau = A0 q^(2n) (1 + H^4/|lambda_n|)^2 with
+            A0 = H^4 (2 pi)^12 (C4 C2)^2 from the record-2028 decay block
+            (heights 0..200, 401 points, sigma in {0, 1/2, 1}).  Anchor: the
+            q = 1/2 control reproduces record 2028 to 2.22e-16; record 1981's
+            withdrawn dxi = 0.05 lambda values are NOT read.  Verdict
+            PAIR-MISMATCH, paired_rows = []: on EVERY gate row
+            tau_inf = A0 q^(2n) is 2.115e10 (gamma_2, n = 2), 7.4e12 .. 9.7e12
+            (gamma_3, n = 2) and 2.8e4 .. 3.6e4 (gamma_3, n = 3) - already
+            above 1 at the lambda -> infinity limit, so the vertex factor
+            (1 + H^4/lambda)^2 cannot rescue it and NO span coefficient closes
+            the tail half there.  The tail does close at n = 4 (tau_inf
+            2.9e-7 .. 1.3e-4, tau < 1 at the measured vertex lambda for gamma_1
+            and gamma_2) where the gate pattern is gone.  Forcing the pair at
+            the n = 2 gate rows would need q smaller by 381x (gamma_2) to
+            1763x (gamma_3) than the priced 2^-14, and at the gamma_3 n = 3
+            rows by 5.5x .. 5.7x.  Derived closure index
+            n_min = ceil(log A0 / (2 log(1/q))) = 3 at gamma_1, 4 at gamma_2
+            and gamma_3; prime books 2532 and 15040, both inside the rig cap
+            60000, so the index is not the obstacle and the old n ~ 31 wall
+            does not reappear.
+2033 P5     Lambda screen on the vertex-annotated parabola
+            `D - lam*B + lam^2*C` (rig JSON b = B/2; the conventions agree
+            exactly, no mismatch exists).  LAMBDA-PAYS on the C < 0 rows only
+            (8 rows, log10 lambda windows [0.5, 30] and [5.0, 30]); the Lean
+            consumer exists_pos_lambda_quadratic_neg_of_det_neg takes
+            hC : 0 < C and hB : 0 < B, so a C < 0 row yields no lambda witness,
+            and on every C > 0 gate row the joint set is empty because
+            tau_inf >= 1.  Record 2029 reopen condition 2 closes negatively.
+2033 P6     Interval bracket for W_3(a) = e^(-2a) A_3(a) + e^(2a) A_3(-a),
+            A_3(a) = integral_0^1 e^(a u) |T'''| du.  20000 equal panels, each
+            verified by the mean-value enclosure of T'''; on a sign-certified
+            panel the exact FTC mass |T''(q) - T''(p)| is charged, otherwise
+            the rigorous envelope (q - p) sup|T'''|.  19728 sign panels and 272
+            envelope panels, the latter at the 1e-7 relative level.  All four
+            record-2031 binding values are inside the bracket at relative width
+            <= 5.0e-03; the strip bound recomputed with the bracket UPPER end on
+            the full 101 x 345 grid is 3.001847221e-07 against q = 2^-14,
+            margin 203.33x, MASS-BRACKETED.
+```
+
+Ledger consequence: R-B3 is now the named binding wall, and its obstruction has
+CHANGED SHAPE - record 2029's "no admissible `n >= 1` gate row" is retired by
+P4, and what remains is an index-scale mismatch: the tail budget falls by
+`q^2 = 2^-28` per unit `n` and crosses 1 one step AFTER the gate pattern dies.
+That is a quantitative family obstruction, not an accuracy barrier, and it is
+scoped to the record-1980 under-approximate owner, the three measured heights
+and the three measured owner cardinalities. R-B1 is now priced AND
+mass-certified; R-B0/R-B4 are the remaining prerequisites. No route ruling,
+owner, quantifier or consumer changes; the Lean tail interface of record 1982
+is untouched. Evidence: record
+[2035](../proofs/2035_route_b_full_block_outcome.md) and the artifacts
+`results/2032_gate_row_search.json`, `results/2033_gate_tail_pairing.json`,
+`results/2033_interval_mass_w3.json`,
+`results/2034_support_radius_robustness.json`. No RH claim.

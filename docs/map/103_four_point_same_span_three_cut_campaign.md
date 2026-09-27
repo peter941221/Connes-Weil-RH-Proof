@@ -621,3 +621,51 @@ the deterministic path: T1 analyticity, T2 box certification avoiding the
 delta* hypersurface (primary works from gamma = 50 up; the sc = 0.90 band
 covers the rest), T3 re-scoped from full-plane to the bounded patch with
 {primary, sc = 0.90, WIRE2} carriers. No RH claim.
+
+Record [2028](../proofs/2028_coupling_scan_preregistration.md) through
+[2035](../proofs/2035_route_b_full_block_outcome.md) is the 2026-09-27 Route-B
+batch; four probes were registered and all four ran, and together they MOVE this
+block's wall. P4 (2032) re-opens record 2029's condition 1 with changed named
+hypotheses (the height `gamma` and the owner cardinality `N`) and FINDS 9
+admissible rows with `C > 0, b > 0, det < 0` at `n >= 1`: gamma_2 at `n = 2`,
+gamma_3 at `n = 2` and `n = 3`, each at `N = 3, 4, 5`, plus the `n = 0` control
+at all nine `(gamma, N)` pairs; no row at `n = 1` and none at `n >= 4`. The
+premise "no admissible `n >= 1` gate row" is therefore FALSE on the enlarged
+family, and R-B3's original obstruction is retired. P4c (2034) then shows the
+found rows are conditional on the exact support radius: only 1 of 15 rows keeps
+the pattern at `delta = +1` and `+2` (RADIUS-FRAGILE), so R-B0/R-B4 must pin the
+visible-prime source before ROW-FOUND is used for routing. P4b (2033) pairs each
+found row with the same-index tail budget
+`tau = A0 q^(2n) (1 + H^4/|lambda_n|)^2`, `A0 = H^4 (2 pi)^12 (C4 C2)^2`, and
+returns PAIR-MISMATCH with `paired_rows` empty: on every gate row
+`tau_inf = A0 q^(2n)` is `2.115e10` (gamma_2, n = 2), `7.4e12 .. 9.7e12`
+(gamma_3, n = 2) and `2.8e4 .. 3.6e4` (gamma_3, n = 3), i.e. already above 1 at
+the `lambda -> infinity` limit, so NO span coefficient closes the tail half
+there; the tail first closes at `n = 4` (`tau_inf` `2.9e-7 .. 1.3e-4`, and
+`tau < 1` at the measured vertex `lambda` for gamma_1 and gamma_2), where the
+gate pattern is gone. The derived closure index is `n_min = 3` at gamma_1 and
+`4` at gamma_2/gamma_3, with prime books 2532 and 15040, both inside the rig cap
+60000, so the index itself is not the obstacle and the old `n ~ 31` wall does
+not reappear under the `q = 2^-14` pricing. P5 reads the vertex-annotated
+parabola `D - lam*B + lam^2*C` (rig JSON `b = B/2`; the two conventions agree
+exactly): LAMBDA-PAYS holds on the `C < 0` rows only, where the gate opens
+downward and the consumer `exists_pos_lambda_quadratic_neg_of_det_neg`
+(`hC : 0 < C`, `hB : 0 < B`) cannot be satisfied, so the non-vertex `lambda`
+branch closes record 2029 reopen condition 2 in the negative direction. P6
+(2033) closes R-B1's accuracy question with a genuine interval bracket: on 20000
+equal panels of `T'''`, 19728 sign-certified by the mean-value enclosure and 272
+charged the rigorous envelope, the bracket contains all four record-2031
+binding values at relative width `<= 5.0e-03` and the strip bound recomputed
+with the bracket UPPER end is `3.001847e-07` against `q = 2^-14`, margin
+`203.33x`, MASS-BRACKETED. Ledger effect: R-B1 is priced AND mass-certified,
+R-B2 stays cheap, and the binding wall is now R-B3 with the obstruction changed
+from "no admissible row" to "the gate index and the tail index are disjoint on
+this family" - a quantitative index-scale mismatch (the budget falls by
+`q^2 = 2^-28` per unit `n` and crosses 1 one step after the gate dies), not an
+accuracy barrier. No route ruling, owner, quantifier or consumer changes; the
+Lean tail interface of record 1982 is untouched. Evidence: records 2029-2035 and
+the artifacts `results/2028_coupling_scan.json`,
+`results/2030_determinant_margin.json`, `results/2031_sharp_q_ladder.json`,
+`results/2032_gate_row_search.json`, `results/2033_gate_tail_pairing.json`,
+`results/2033_interval_mass_w3.json`,
+`results/2034_support_radius_robustness.json`. No RH claim.

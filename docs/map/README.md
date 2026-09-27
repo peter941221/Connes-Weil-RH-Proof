@@ -131,6 +131,19 @@ vertex coefficient tracks `~0.5 * K^4` with the window factor `~7-10`, and the
 relative determinant margin is thin (`5e-5 .. 0.116`), so any estimate route
 to the determinant must be sharp (numeric branch discipline: law F79).
 
+Live screen state of the same-span four-point subcampaign after the 2026-09-27
+batch (records 2028 - 2035): R-B1 is priced AND mass-certified (a genuine
+interval bracket for the `k = 3` weighted seed mass puts the strip bound at
+`3.0018e-07` against `q = 2^-14`, a 203x margin); R-B2 is cheap and no longer
+the binding half; the binding wall is R-B3, and its obstruction has CHANGED
+SHAPE - admissible `n >= 1` gate rows exist, but on every one of them the
+same-index tail budget is already above 1 at the `lambda -> infinity` limit, and
+the tail first closes one step later at `n = 4`, where the gate pattern is gone.
+R-B0/R-B4 remain prerequisites: only 1 of the 15 found rows survives a `+-1`
+and `+-2` support-radius change. Numbers, mechanism and the closing index are in
+`docs/proofs/2035_route_b_full_block_outcome.md` and map 103 section 2; this
+paragraph records current status only and changes no route ruling.
+
 ## Binding no-go results
 
 - [002](002_one_shot_rh_route_verdict.md): ROOT endpoint positivity is not a

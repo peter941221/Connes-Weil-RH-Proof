@@ -38,21 +38,36 @@ Current candidate:
 ```text
 T = 28
 q = 2^(-14)
-n = 4        <- WITHDRAWN 2026-09-27: the n = 4 gate row was a
-                dxi = 0.05 resolution artifact (records 2028/2029)
+n = 2, 3     <- the admissible gate rows found by record 2032, on the changed
+                named hypotheses (height gamma and owner cardinality N).
+                The old n = 4 candidate is WITHDRAWN (2026-09-27): that gate
+                row was a dxi = 0.05 resolution artifact (records 2028/2029).
+                n = 1 and n >= 4 carry no gate row on this family.
 ```
 
 Live screen state after the 2026-09-27 batch:
 
 ```text
 R-B0 owner            known-zero under-approximation, complete owner OPEN
-R-B1 q (Cut 1 tail)   PRICED VIABLE: k = 3 weighted mass bounds the strip by
-                      3.0e-07 against q = 2^-14, 203x margin (record 2031)
-R-B2 determinant      CHEAP but unreachable: detUpper < 0 needs only
-                      eps < 9.0e-02, but the sign pair C > 0, b > 0 fails on
-                      every certified n >= 1 (records 2029/2030)
-R-B3 tail ratio       BLOCKED: no admissible n >= 1 gate row on this owner
-R-B4 coverage         OPEN
+R-B1 q (Cut 1 tail)   PRICED VIABLE AND MASS-CERTIFIED: the k = 3 weighted
+                      mass has a genuine interval bracket (20000 panels,
+                      19728 sign-certified, 272 enveloped) and the strip bound
+                      recomputed with the bracket UPPER end is 3.001847e-07
+                      against q = 2^-14, margin 203.33x (records 2031/2033 P6)
+R-B2 determinant      CHEAP: detUpper < 0 needs only eps < 3.8e-3 .. 9.0e-2
+                      (0.4142 vertex-centred), and the sign pair C > 0, b > 0
+                      now EXISTS on 9 admissible n >= 1 rows (record 2032)
+R-B3 tail ratio       THE BINDING WALL, obstruction changed shape:
+                      PAIR-MISMATCH. On every gate row (n = 2, 3) the
+                      same-index tail budget is already above 1 at the
+                      lambda -> infinity limit (tau_inf = 2.1e10 .. 9.7e12);
+                      the tail first closes one step later at n = 4, where the
+                      gate pattern is gone. The gate index and the tail index
+                      are DISJOINT on this family. Record 2029's "no
+                      admissible n >= 1 gate row" is retired (record 2033)
+R-B4 coverage         OPEN, and now doubly gated: RADIUS-FRAGILE (only 1 of 15
+                      rows keeps the pattern at delta = +1 and +2, record
+                      2034) plus the R-B0 prerequisite
 ```
 
 Current evidence is only an under-approximation and grid/proxy evidence. It is
@@ -79,6 +94,8 @@ Authoritative records:
 - `docs/proofs/2029_coupling_scan_outcome.md`
 - `docs/proofs/2030_determinant_certification_margin.md`
 - `docs/proofs/2031_sharp_q_ladder_outcome.md`
+- `docs/proofs/2035_route_b_full_block_outcome.md` (the 2032-2034 batch outcome:
+  gate rows, radius robustness, gate/tail pairing, interval mass)
 - `scripts/fourpoint_powered_contraction_1982.py`
 
 See `001_survival_screen.md` for the pre-Lean triage protocol.

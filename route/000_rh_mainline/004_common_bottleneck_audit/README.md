@@ -82,7 +82,20 @@ Execution status:
    the sweep-don't-sample rule are binding for any future extension.
 3. EXECUTED (record 1995): Route C / Velez stabilization claim FAILS
    the five-question promotion audit. Route C remains audit-only.
-1, 4. OPEN. (F2 remains gated by the owner-transport bridge — desk
+1. EXECUTED (records 2028 - 2035): the Route B survival screen on the
+   record-1980 under-approximate owner.  Gate half: 9 admissible n >= 1 rows
+   with C > 0, b > 0, det < 0 (gamma_2 at n = 2; gamma_3 at n = 2 and 3;
+   N = 3, 4, 5 each; record 2032).  Tail half: PAIR-MISMATCH - on EVERY gate
+   row the same-index budget tau_inf = A0 q^(2n) is already above 1
+   (2.115e10 .. 9.668e12), so no span coefficient closes it, and the tail
+   first closes one step later at n = 4 where the gate pattern is gone.  The
+   gate index and the tail index are DISJOINT on this family.  R-B1 is priced
+   and now mass-certified (interval bracket, 3.001847e-07 against q = 2^-14,
+   margin 203.33x, record 2033 P6); R-B2 is cheap; only 1 of the 15 found rows
+   survives a +-1/+2 support-radius change (record 2034), so R-B0/R-B4 remain
+   prerequisites.  Obstruction shape: quantitative index scale, not accuracy.
+   Detail and evidence: docs/proofs/2035_route_b_full_block_outcome.md.
+4. OPEN. (F2 remains gated by the owner-transport bridge — desk
    record 1997 prices the un-gating path: resolution certificate ->
    owner-window ladder + domination measurement -> F2.)
 
