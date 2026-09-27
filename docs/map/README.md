@@ -153,11 +153,20 @@ Route A: 2038 no-go stands. The registered reopen (record 2041 uniform-panel
          1826x budget with TV2 = 2.53e22 vs required 1.38e19; IBP is
          DOMINATED - 5.2x tighter direct enclosure at dxi 0.01, and the
          derivative-order trade saturated: one IBP is 1.28x better than
-         two). The REGISTERED next reopen is the panel-local MODEL
-         architecture (record 2046 section 4): charge (h^2/4)*C_book*TV2
-         with C_book = 458.05, estimated VIABLE at h ~ 0.001 (~80k panels,
-         0.29x budget; threshold h <= 1.86e-3) under the crude L1
-         remainder bound - analytic estimate only, UNPRICED.
+         two). The panel-local MODEL architecture was then PRICED by
+         record 2048: MODEL-L2-VIABLE.  The measured charge law is
+         (h^2/8)*C_book*TV_sup2(h) - the registered (h^2/4) was 2x
+         conservative - giving 5.0986e18 at h = 0.002 (0.51x budget) and
+         1.2469e18 at h = 0.001 (0.125x, 80k panels); threshold
+         h* = 2.8e-3.  The crude L1 bound is VALID on the real g (0
+         violations over 48 panels x 1647 terms; worst measured/bound
+         0.66; aggregate overhead 57x), the L1 headroom is
+         dg* = 2.1e14 (5.5e-6 of gmax), and the archimedean term stays
+         charged by the committed direct method (3.9e16).  L2 as a
+         CERTIFICATE therefore stays open on L1/L3 (enclosed nodal
+         values, enclosed sup|g''| per panel - the L3 half is the new
+         binding input and is NOT implemented), not on an architecture
+         choice.
 Route B: DEAD_ON_CURRENT_FAMILY stands (2035).
 Route C: literature-audit lane stands (1995); the Moran Ledezma
          probabilistic companion is PARKED by record 2042.
@@ -180,14 +189,21 @@ Route H (Helson matrices): NOT REGISTERED — record 2042 channel-mismatch
          construction; the Helson dictionary speaks to the wrong side).
 ```
 
-### Route state after the 2026-09-27 inertia/antibody batch (records 2045 - 2047)
+### Route state after the 2026-09-27 inertia/antibody/model batch (records 2045 - 2050)
 
 ```text
 Neighbor mechanism (audit, 2045): arXiv:2608.13637 (rank-trace + Sylvester
          inertia on finite compressions of the Weil form) is ledgered as
          PARTIAL-TRANSFER / COUNTING-ONLY: its inertia layer COUNTS
          off-line pairs and cannot decide the sign of one owner vector's
-         pairing.  The exact interface at record 016 is derived and
+         pairing.  CORRECTION (2049): the paper was ALREADY in the
+         ledger since 2026-09-12 - records 1344 (s3b method-ceiling
+         branch), 1347 (A1 capacity exponent fused with the paper),
+         1348 (deep-ladder prereg + the method-ceiling notes: ceiling =
+         "3 - R(psi)", only tr and the HS second moment enter, the
+         main-block floor is never required), 1349, 1354, 1405, plus map
+         and route-000 text - and 2045's ledger-novelty claim is
+         WITHDRAWN IN PLACE.  The exact interface at record 016 is derived and
          verified in rational arithmetic (6/6, PROJECTION-INERTIA-EXACT-
          PASS), giving NO-GO-OPERATOR-SIGN (A = P - Q is indefinite
          whenever [P,u] != 0; engine identity (2Q-1)A = -A(2P-1) gives
@@ -201,6 +217,27 @@ Antibody screen (2047): ten mechanism classes with one-line firing rules
          and ledger exhibits; new antibodies Davenport-Heilbronn (FE-only
          mechanisms) and Rodgers-Tao (no-margin rule).  Retrospective:
          every retained death classifies, no misdiagnosis, no revival.
+IC mechanism (2045 s4): RETIRED UNPRICED by record 2049 - kill
+         condition 3 fires (no unconditional second-moment input for
+         theta_S(g) on the owner class; the question is the already-open
+         1344 s3b / 1348 moment-floor gap, gamma ~ 0.3355).  Toolchain
+         condition 4 resolves cheaply: pinned mathlib v4.30 (rev c5ea0035)
+         has Sylvester inertia in both halves, Birkhoff-von Neumann (the
+         rearrangement engine), the Hardy-Littlewood-Polya rearrangement
+         inequality and the Hermitian spectral trace identity; the NAMED
+         von Neumann trace inequality is ABSENT but is a four-step
+         assembly of those three present bricks (2049 s3).
+Instrument layer (2050): the 2047 antibody table is now executable
+         (scripts/mechanism_intake_screen.py; demo - FE-only stowaway
+         fires PRE/VAC/DH, compression-sign fires TRUNC/INDEF with the
+         documented vocabulary false-positive, the live model candidate
+         fires nothing) and mathlib availability is a one-command
+         evidence producer (scripts/mathlib_brick_check_2049.py).  Laws
+         recorded: whole-repo `git grep` before ANY ledger-novelty claim;
+         word-boundary anchoring for lemma-name greps
+         (ext_iff_trace_mul_left false positive); gates at the design's
+         own floor (third instance); wsl.exe output to a log file, never
+         through a pipe (UTF-16/null bytes swallow digits).
 CCM/Sonin (tracked, 2047): record 112's source gap stands.  Connes
          arXiv:2602.04022 (2026-02 survey) names the Sonin compression as
          the root of ARCHIMEDEAN Weil positivity (support-window-local)
@@ -301,6 +338,9 @@ closes the operator-sign and corner-sign mechanism classes unconditionally
 semilocal phase does not commute with the cutoff; NO-GO-CORNER: the defect
 corner keeps its off-diagonal block). The current sketch
 is frozen; reopen only with a genuinely new actual-owner arithmetic identity.
+(Record 2045's OTHER registration, the IC mechanism, is retired unpriced by
+record 2049 - it duplicates the already-open 1344 s3b / 1348 moment-floor
+question and has no input source on record.  The no-gos above are unaffected.)
 
 ## Maintenance rule
 

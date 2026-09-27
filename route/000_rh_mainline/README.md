@@ -117,7 +117,14 @@ and a ten-class antibody screen (with the Davenport--Heilbronn and Rodgers--Tao
 additions) gates new mechanism sketches at intake.  Route A's second L2
 architecture (quadrature by parts) is measured dead by record 2046, and the
 panel-local model architecture is registered as the next unpriced reopen; the
-CCM/Sonin lane is unchanged (record 112).  Details and numbers are in
+CCM/Sonin lane is unchanged (record 112).  The follow-up batch (records
+2048--2050) then priced that third architecture VIABLE (record 2048: charge
+0.51x budget at h = 0.002, 0.125x at h = 0.001, L1 headroom 2.1e14; the
+remaining L2 cost is the unimplemented L3 enclosure of sup|g''|), corrected the
+record-2045 ledger claim (the neighbor paper was already read in
+1344/1347/1348/1349 since 2026-09-12) and retired IC unpriced (record 2049),
+and registered the instrument layer (record 2050: executable antibody screen
+and mathlib brick checker).  Details and numbers are in
 `docs/map/README.md`.
 
 Authority remains in `docs/map/`; this directory is the navigational topology.

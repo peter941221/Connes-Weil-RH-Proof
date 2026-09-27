@@ -1,0 +1,249 @@
+{
+  "record": 2048,
+  "status": "MODEL-L2-VIABLE",
+  "owner": "one-copy G8-H",
+  "rho": [
+    0.6,
+    40.9187190121475
+  ],
+  "scale": 0.88,
+  "support": 9.504000000000001,
+  "book_size": 1647,
+  "constants": {
+    "C_book": 458.0475860314685,
+    "B2": 0.36148585572728165,
+    "budget": 1e+19,
+    "arch_proj_at_0.05": 3.917065071048301e+16
+  },
+  "anchors": {
+    "A1_direct_0.05": {
+      "width_mean": 569.0867771360982,
+      "reference_2043": 569.087,
+      "pass": true
+    },
+    "A2_sigma_containment": {
+      "rows": [
+        {
+          "u": 0.0,
+          "contained": true
+        },
+        {
+          "u": 6.283185307179586,
+          "contained": true
+        },
+        {
+          "u": 62.83185307179586,
+          "contained": true
+        },
+        {
+          "u": 251.32741228718345,
+          "contained": true
+        }
+      ],
+      "pass": true
+    },
+    "A3_closed_form_blocks": {
+      "mp_rows": [
+        {
+          "om": 4.355172180607204,
+          "a": -40.0,
+          "h": 0.002,
+          "rel": 1.6902969292800857e-27,
+          "rel_independent": 4.047594373047303e-27,
+          "t1_ceiling": true
+        },
+        {
+          "om": 43.02061253373692,
+          "a": -9.411764705882351,
+          "h": 0.002,
+          "rel": 9.719933791015203e-29,
+          "rel_independent": 3.6641029267329075e-30,
+          "t1_ceiling": true
+        },
+        {
+          "om": 48.46713816576121,
+          "a": -18.823529411764707,
+          "h": 0.002,
+          "rel": 1.1571629517989306e-28,
+          "rel_independent": 3.8778401424559103e-29,
+          "t1_ceiling": true
+        },
+        {
+          "om": 51.57376342849399,
+          "a": -28.235294117647058,
+          "h": 0.002,
+          "rel": 2.420868193623804e-27,
+          "rel_independent": 1.183317085288984e-27,
+          "t1_ceiling": true
+        },
+        {
+          "om": 53.73610834999823,
+          "a": -37.64705882352941,
+          "h": 0.002,
+          "rel": 7.517438454092593e-28,
+          "rel_independent": 6.368088258414513e-30,
+          "t1_ceiling": true
+        },
+        {
+          "om": 55.410946815510904,
+          "a": -7.058823529411768,
+          "h": 0.002,
+          "rel": 1.4780944503562855e-28,
+          "rel_independent": 4.916781768908766e-29,
+          "t1_ceiling": true
+        },
+        {
+          "om": 56.757553103066705,
+          "a": -16.470588235294116,
+          "h": 0.002,
+          "rel": 2.931030611280655e-28,
+          "rel_independent": 5.701565470306859e-29,
+          "t1_ceiling": true
+        },
+        {
+          "om": 57.87592762293591,
+          "a": -25.88235294117647,
+          "h": 0.002,
+          "rel": 3.392365500664999e-28,
+          "rel_independent": 9.408980292818787e-30,
+          "t1_ceiling": true
+        },
+        {
+          "om": 58.89904128548641,
+          "a": -35.294117647058826,
+          "h": 0.002,
+          "rel": 1.679518969498182e-27,
+          "rel_independent": 7.051406698054662e-29,
+          "t1_ceiling": true
+        }
+      ],
+      "mp_pass": true,
+      "float_rel_max": 3.919404440052049e-12,
+      "float_abs_max": 4.209493138610641e-15,
+      "float_gate": 1e-13,
+      "float_pass": true
+    },
+    "A4_tent_partition": {
+      "worst_rel": 2.6996292547501518e-14,
+      "pass": true
+    },
+    "A5_remainder_validity": {
+      "sampled_panels": 48,
+      "violations": 0,
+      "worst_measured_over_bound": 0.6552381577140238,
+      "worst_measured_over_int_abs_r": 0.9999803943000274,
+      "aggregate_loss_median": 57.47167586750569,
+      "pass": true
+    },
+    "A6_grid_stability": {
+      "rows": [
+        {
+          "h": 0.002,
+          "TV_sup2_coarse_grid": 2.2262226555008167e+22,
+          "rel": 1.0155091718927026e-06
+        },
+        {
+          "h": 0.001,
+          "TV_sup2_coarse_grid": 2.177822758089096e+22,
+          "rel": 5.191254483397169e-07
+        }
+      ],
+      "monotone_in_h": true,
+      "pass": true
+    },
+    "A7_cross_read_2046": {
+      "rel": 0.020641222654741748,
+      "reference": 2.5263722116765306e+22,
+      "pass": true
+    }
+  },
+  "h_rows": [
+    {
+      "h": 0.05,
+      "panels": 1600,
+      "TV_sup2": 3.5423336991866604e+22,
+      "charge_remainder": 5.070491874469914e+21,
+      "factorization_rel": 0.0,
+      "over_budget": 507.04918744699137
+    },
+    {
+      "h": 0.02,
+      "panels": 4000,
+      "TV_sup2": 2.9129432406143357e+22,
+      "charge_remainder": 6.6713330980504e+20,
+      "factorization_rel": 1.9647047759960284e-16,
+      "over_budget": 66.713330980504
+    },
+    {
+      "h": 0.01,
+      "panels": 8000,
+      "TV_sup2": 2.578519623006498e+22,
+      "charge_remainder": 1.4763558610661235e+20,
+      "factorization_rel": 0.0,
+      "over_budget": 14.763558610661235
+    },
+    {
+      "h": 0.005,
+      "panels": 16000,
+      "TV_sup2": 2.365776631525813e+22,
+      "charge_remainder": 3.3863696098751803e+19,
+      "factorization_rel": 1.209554913337111e-16,
+      "over_budget": 3.3863696098751803
+    },
+    {
+      "h": 0.002,
+      "panels": 40000,
+      "TV_sup2": 2.226224916252638e+22,
+      "charge_remainder": 5.098584744263144e+18,
+      "factorization_rel": 0.0,
+      "over_budget": 0.5098584744263145
+    },
+    {
+      "h": 0.001,
+      "panels": 80000,
+      "TV_sup2": 2.1778238886528984e+22,
+      "charge_remainder": 1.246933718748907e+18,
+      "factorization_rel": 0.0,
+      "over_budget": 0.1246933718748907
+    }
+  ],
+  "coef1_rows": [
+    {
+      "h": 0.01,
+      "Coef1": 22864.209046806463,
+      "dg_headroom": -6019695928464076.0
+    },
+    {
+      "h": 0.005,
+      "Coef1": 23211.183506287853,
+      "dg_headroom": -1028111991458220.4
+    },
+    {
+      "h": 0.002,
+      "Coef1": 23309.19237243094,
+      "dg_headroom": 210278210305305.47
+    }
+  ],
+  "model_float_slack": 55363522727.6018,
+  "best_total": 1.2861044248229128e+18,
+  "dg_reference": {
+    "rel_assumed": 1e-15,
+    "abs": 37906.09580492212,
+    "charge_at_h_0.002": 883560479.2047273
+  },
+  "fine_grid": {
+    "dxi": 0.00025,
+    "points": 320001,
+    "int_g": 2.7090445469307654e+19,
+    "gmax": 3.790609580492212e+19
+  },
+  "nonclaims": [
+    "float g, g' from the committed 2037 pipeline; sup|g''| is a float stencil estimate - link L3 (enclosed sup) NOT implemented",
+    "nodal enclosures (L1) charged as zero; the coefficient Coef1 and the headroom dg* are reported instead",
+    "the archimedean term uses the committed direct interval method at dxi = 0.05 only (smooth; small)",
+    "no full-line tail (L4 separate)",
+    "no coefficient enclosure",
+    "not a producer theorem",
+    "not RH"
+  ]
+}

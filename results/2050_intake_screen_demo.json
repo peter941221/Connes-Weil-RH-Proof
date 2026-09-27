@@ -1,0 +1,143 @@
+{
+  "record": 2050,
+  "screen": [
+    {
+      "class": "SPLIT",
+      "rule": "rewrites the target as an identity split A = A1 + A2 whose remainder is forced by the same sign",
+      "exhibits": "F82 / record 2039 (sign conservation under identity splitting); record 1341 (family choice adds no strength)",
+      "action": "check whether the split is F82-style (sign-preserving) before pricing"
+    },
+    {
+      "class": "PRE",
+      "rule": "the hypothesis imports the conclusion or an RH-equivalent premise",
+      "exhibits": "record 1995 (Velez stabilization audit); map 095-102 (generic conditional exits FROZEN)",
+      "action": "factor the imported premise out; if the theorem is conditional, it cannot move the mainline"
+    },
+    {
+      "class": "CHAN",
+      "rule": "the imported dictionary speaks about the wrong side / channel",
+      "exhibits": "record 2042 (Helson: the prime channel is already positive-definite by construction); record 1055 (prolate: amplifier output)",
+      "action": "name the side/channel the import speaks about and verify it is the owner's"
+    },
+    {
+      "class": "IND",
+      "rule": "gate index and tail-closure index are disjoint / shifted",
+      "exhibits": "record 2035 (Route B: admissible gate rows exist, the same-index tail closes one step later where the gate is gone)",
+      "action": "compute both indices on the actual family before any pricing"
+    },
+    {
+      "class": "TRUNC",
+      "rule": "a structure verdict is read on a truncated book / lattice",
+      "exhibits": "record 2044 (truncated-lattice smoke manufactured normality 2.45e-4; complete book r-GENERIC 0.7215)",
+      "action": "re-read the structure verdict on the COMPLETE book"
+    },
+    {
+      "class": "STAB",
+      "rule": "the 'pinned' quantity is not stable in the family parameter it is claimed in",
+      "exhibits": "record 1063 (raw F1: the nonmeet sum grows with K; only the D-weighted F1' survives)",
+      "action": "vary the family parameter; keep only functionals stable under it"
+    },
+    {
+      "class": "TEST",
+      "rule": "no certificate can even falsify the claim",
+      "exhibits": "record 1055 (semilocal P2b probe)",
+      "action": "design a falsification window first; an unfalsifiable claim is not a mechanism"
+    },
+    {
+      "class": "VAC",
+      "rule": "the hypothesis holds where the conclusion is known/trivial, or would prove a false analogue",
+      "exhibits": "record 1411 (radius shrink: positivity holds in small windows - target vacuous there); DH and RT below",
+      "action": "check the mechanism on a Riemann-type function with off-line zeros (DH) and check whether it needs slack (RT)"
+    },
+    {
+      "class": "GAP",
+      "rule": "the imported theorem's error term provably exceeds the margin",
+      "exhibits": "records 1590-1634 (carrier/Toeplitz/Makarov-Poltoratski lane: eps-gap closure, laws F48-F58)",
+      "action": "compare the error exponent with the margin exponent explicitly"
+    },
+    {
+      "class": "INDEF",
+      "rule": "the mechanism needs a sign from an operator that is provably indefinite",
+      "exhibits": "record 2045 NO-GO-OPERATOR-SIGN (A = P-Q indefinite whenever [P,u] != 0); NO-GO-CORNER (defect block [[0,B],[B^T,C]], B != 0)",
+      "action": "abandon operator-level sign mechanisms; the sign must come from the VECTOR"
+    },
+    {
+      "class": "DH",
+      "rule": "the hypotheses are met by Riemann-type functions with a functional equation but off-line zeros (FE-alone stowaway)",
+      "exhibits": "record 2047 section 3 (Davenport-Heilbronn 1936)",
+      "action": "identify the extra input beyond the functional equation, or drop the mechanism"
+    },
+    {
+      "class": "RT",
+      "rule": "the mechanism needs a positive margin / slack that a Lambda >= 0 theorem forbids",
+      "exhibits": "record 2047 section 3 (Rodgers-Tao, arXiv 1801.05914)",
+      "action": "at the correct time parameter the inequality must be tight/exact: either identity-exact or dead"
+    }
+  ],
+  "results": [
+    {
+      "input": "demo: FE-only stowaway",
+      "fired": [
+        {
+          "class": "PRE",
+          "rule": "the hypothesis imports the conclusion or an RH-equivalent premise",
+          "exhibits": "record 1995 (Velez stabilization audit); map 095-102 (generic conditional exits FROZEN)",
+          "action": "factor the imported premise out; if the theorem is conditional, it cannot move the mainline",
+          "snippets": [
+            "y of the explicit form to conclude.  We assume the Riemann hypothesis on a small window and note the positivi"
+          ]
+        },
+        {
+          "class": "VAC",
+          "rule": "the hypothesis holds where the conclusion is known/trivial, or would prove a false analogue",
+          "exhibits": "record 1411 (radius shrink: positivity holds in small windows - target vacuous there); DH and RT below",
+          "action": "check the mechanism on a Riemann-type function with off-line zeros (DH) and check whether it needs slack (RT)",
+          "snippets": [
+            "olds in small windows, so the target is vacuous there; the mechanism should work for an",
+            "  We assume the Riemann hypothesis on a small window and note the positivity holds in small ",
+            "window and note the positivity holds in small windows, so the target is vacuous there; the m"
+          ]
+        },
+        {
+          "class": "DH",
+          "rule": "the hypotheses are met by Riemann-type functions with a functional equation but off-line zeros (FE-alone stowaway)",
+          "exhibits": "record 2047 section 3 (Davenport-Heilbronn 1936)",
+          "action": "identify the extra input beyond the functional equation, or drop the mechanism",
+          "snippets": [
+            "m should work for any function with the same functional equation.",
+            "us there; the mechanism should work for any function with the same functional equation."
+          ]
+        }
+      ]
+    },
+    {
+      "input": "demo: compression-sign",
+      "fired": [
+        {
+          "class": "TRUNC",
+          "rule": "a structure verdict is read on a truncated book / lattice",
+          "exhibits": "record 2044 (truncated-lattice smoke manufactured normality 2.45e-4; complete book r-GENERIC 0.7215)",
+          "action": "re-read the structure verdict on the COMPLETE book",
+          "snippets": [
+            "he Weil form; the negative index of the truncated operator is nonzero, so the operator "
+          ]
+        },
+        {
+          "class": "INDEF",
+          "rule": "the mechanism needs a sign from an operator that is provably indefinite",
+          "exhibits": "record 2045 NO-GO-OPERATOR-SIGN (A = P-Q indefinite whenever [P,u] != 0); NO-GO-CORNER (defect block [[0,B],[B^T,C]], B != 0)",
+          "action": "abandon operator-level sign mechanisms; the sign must come from the VECTOR",
+          "snippets": [
+            "operator is nonzero, so the operator is indefinite and some direction is negative.",
+            "Candidate: read the sign of the kernel from the compression of the Weil form; the negative index of",
+            "m the compression of the Weil form; the negative index of the truncated operator is nonzero, s"
+          ]
+        }
+      ]
+    },
+    {
+      "input": "demo: panel-local model (record 2046 section 4)",
+      "fired": []
+    }
+  ]
+}

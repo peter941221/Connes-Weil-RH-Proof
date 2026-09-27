@@ -41,6 +41,15 @@ Goldston-Suriajaya 2025/26 -> Theorem A (inertia bound (Z)+(L)
 replaces positivity).  Its own ceiling statement, verbatim:
 *"Nothing in the method distinguishes between 'two thirds' and 'all'."*
 
+Ledger note (added 2026-09-27 with the section-5 correction): the paper
+was ALREADY in the project ledger with a deeper mechanism reading than
+this section's - see records 1347 (authors: Alpoege--Furman; the A1
+capacity exponent fused with the paper) and 1348 (the appendix
+method-ceiling notes read the constants chain term by term: the ceiling
+is exactly "3 - R(psi)", only tr and the HS second moment enter, "the
+floor of the main block is never required", "the method cannot SEE
+near-zero directions - it averages over them").
+
 Structural read in mainline language:
 
 ```
@@ -162,7 +171,9 @@ IC: prove  neg-index( A restricted to V ) = 0  where
     compression.
 ```
 
-Status: PROJECT CANDIDATE, no measurements, no pricing.  Note A|_V is
+Status: PROJECT CANDIDATE, no measurements, no pricing.  RETIRED
+UNPRICED by record 2049 (kill condition 3 fires on the record-1348
+evidence; see also the section-5 correction).  Note A|_V is
 the compression of an indefinite operator (no-go 2 of section 2), so
 any IC proof must use V-specific structure; A's global negative inertia
 is exactly half its rank (spectrum symmetry, item 1 above), which is
@@ -179,7 +190,11 @@ Kill conditions, frozen:
 3. IC needs an input of second-moment type (the neighbor's (P));
    the owner class has no unconditional mean-value theorem for
    theta_S(g) on record.  If no input source exists, IC is an empty
-   shell and dies unpriced.
+   shell and dies unpriced.  (The neighbor's input structure is read
+   exactly in record 1348 section 1: Lemma 3.2 consumes tr and the
+   Hilbert-Schmidt second moment only; that is the moment shape IC
+   would need on the owner space, and the project's own moment-floor
+   lane 1347/1348/1349 measures the corresponding gap.)
 4. Toolkit availability (to check, not checked here): von Neumann
    trace inequality and Sylvester inertia directions are mathlib
    bricks per the neighbor's appendix; verify presence in the
@@ -187,9 +202,27 @@ Kill conditions, frozen:
 
 ## 5. Ledger changes made by this record
 
-- The neighbor mechanism is now IN the project ledger (it was absent;
-  grep of 2608.13637 / Sylvester / rank-trace over `docs/` returned
-  nothing before this record).
+- CORRECTION (2026-09-27, same day, after a full-repo `git grep`): the
+  earlier claim that the neighbor paper was absent from the ledger is
+  **FALSE and withdrawn**.  `git grep -l '2608\.13637'` returns nine
+  pre-existing ledger files, earliest 2026-09-12: `1344` (the s3b
+  method-ceiling branch), `1347` (A1 capacity exponent, fused with the
+  paper), `1348` (deep-ladder prereg AND the appendix method-ceiling
+  notes), `1349` (A1b verdict), `1354`, `1405`, plus `docs/map/README.md`
+  and `route/000_rh_mainline/README.md`.  Record `1348` section 1 had
+  already read the mechanism exactly (ceiling = "3 - R(psi)"; only tr
+  and the HS second moment enter; the main-block floor is never
+  required) and section 2 had measured the project's own moment-floor
+  gap (gamma = 0.3355).  What in THIS record is new and stands: the
+  exact record-016 interface lemmas, the engine identity, the two
+  no-gos, the recorded false identity, and the exact rig.  What does
+  NOT stand: this record's literature-novelty framing and the IC
+  registration as a fresh mechanism - IC is the already-open question
+  `1344` s3b / `1348`, and its kill condition 3 fires on the `1348`
+  evidence.  Adjudicated in record 2049.
+- (Withdrawn bullet, kept for the audit trail: "the neighbor mechanism
+  is now IN the project ledger (it was absent; grep ... returned
+  nothing before this record)".)
 - Bombieri's negative-index fact (negative index of truncations of W
   counts off-line pairs) is recorded as the counting-layer partner of
   the project's own sign obligation - the same pyramid, different
