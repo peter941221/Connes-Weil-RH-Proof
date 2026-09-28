@@ -1,0 +1,24 @@
+{
+  "record": 2150,
+  "status": "CLOSEDBALL-LOG-RESIDUAL-SCREEN",
+  "radius": 43.2666238038906,
+  "sample_count": 5000,
+  "finite_count": 5000,
+  "max_log_product": 3714.280819575544,
+  "max_product_log10": 1613.0916641807462,
+  "p99_log_product": 3496.0797322118706,
+  "mean_log_product": 1328.7195331068683,
+  "max_location": [
+    44.1627344567378,
+    37.378405776315894
+  ],
+  "anchor_model": 1.0,
+  "nonclaims": [
+    "random samples are not a supremum or interval bound",
+    "formal owner cardinality and complete zero set remain open",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "script": "scripts\\routea_closedball_log_residual_screen_2150.py"
+  }
+}

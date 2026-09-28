@@ -1,0 +1,72 @@
+{
+  "record": 2147,
+  "status": "WIDER-BASIS-KNOWNZERO-SCREEN",
+  "known_zero_count": 21,
+  "schemes": {
+    "40_wide_a": {
+      "profile_count": 40,
+      "factors": [
+        0.2,
+        0.5,
+        1.0,
+        1.5,
+        2.0
+      ],
+      "min_singular": 7.664566662997717e-28,
+      "max_singular": 337809.6895911761,
+      "condition": 4.407420594591764e+32,
+      "constraint_residual_base": 827720.1633055172,
+      "constraint_residual_corr": 311807239.9261694,
+      "C": 0.33388619847923134,
+      "B01": -412538871.79186875,
+      "D": -9.047136521968822e+17,
+      "det": -4.7225972278358637e+17,
+      "healthy": true
+    },
+    "40_wide_b": {
+      "profile_count": 40,
+      "factors": [
+        0.3,
+        0.8,
+        1.3,
+        1.8,
+        2.3
+      ],
+      "min_singular": 1.8512252681291504e-26,
+      "max_singular": 153937526121436.2,
+      "condition": 8.315439983001397e+39,
+      "constraint_residual_base": 1.7888123219265516e+16,
+      "constraint_residual_corr": 8.079645321851118e+16,
+      "C": -3106767.32673348,
+      "B01": -391173432971333.25,
+      "D": -8.276308362966054e+23,
+      "det": 2.4182397861408208e+30,
+      "healthy": false
+    },
+    "40_wide_c": {
+      "profile_count": 40,
+      "factors": [
+        0.5,
+        1.0,
+        1.5,
+        2.0,
+        2.5
+      ],
+      "min_singular": 1.0080128653987203e-26,
+      "max_singular": 9.5552034755027e+20,
+      "condition": 9.479247540876507e+46,
+      "constraint_residual_base": 4.926230092703509e+22,
+      "constraint_residual_corr": 4.38696384689674e+22,
+      "C": 54442225005.89501,
+      "B01": -4.600459829368972e+16,
+      "D": -9.847245334650347e+25,
+      "det": -5.363175885037005e+36,
+      "healthy": true
+    }
+  },
+  "nonclaims": [
+    "known zeros are not complete formal owner",
+    "direct grid is not an integral certificate",
+    "no producer theorem or RH claim"
+  ]
+}

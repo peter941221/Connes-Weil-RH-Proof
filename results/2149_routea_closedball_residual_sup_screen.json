@@ -1,0 +1,45 @@
+{
+  "record": 2149,
+  "status": "CLOSEDBALL-RESIDUAL-SUP-SCREEN",
+  "radius": 43.2666238038906,
+  "sample_count": 20000,
+  "max_product": NaN,
+  "p99_product": NaN,
+  "p999_product": NaN,
+  "mean_product": NaN,
+  "max_radius_location": [
+    -33.42667076054673,
+    34.01302415845269
+  ],
+  "top_products": [
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN
+  ],
+  "anchor_model": 1.0,
+  "nonclaims": [
+    "random samples are not a supremum or interval bound",
+    "formal owner cardinality and complete zero set remain open",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "script": "scripts\\routea_closedball_residual_sup_screen_2149.py"
+  }
+}
