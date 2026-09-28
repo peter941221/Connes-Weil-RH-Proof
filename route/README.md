@@ -35,6 +35,7 @@ Current topology:
                 003_panel_local_l2_model/    ACTIVE infrastructure only
                 004_selector_family/         CLOSED / PARKED by selector
                 005_c3p_selected_owner/      ACTIVE core producer target
+                006_analytic_vertical_tail/  ACTIVE tail-bound infrastructure
                 099_frozen_or_audit_only/    Frozen evidence
         002_route_b_fourpoint_span/
             Same-owner four-point SPAN / determinant + joint-tail campaign
@@ -62,6 +63,7 @@ Route A execution rule:
 dead architecture -> keep its no-go and reopen only after a named hypothesis changes
 viable L2 model  -> use as infrastructure, not as a producer theorem
 next core strike  -> price the signed C3' margin on the actual selected owner
+tail dependency   -> use analytic vertical decay; do not extrapolate m=6400 samples
 ```
 
 Read next:

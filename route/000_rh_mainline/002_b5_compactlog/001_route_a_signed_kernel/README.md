@@ -11,6 +11,7 @@ Route A topology:
 003_panel_local_l2_model/     ACTIVE INFRASTRUCTURE - viable, not producer
 004_selector_family/          CLOSED / PARKED - selector-specific no-goes
 005_c3p_selected_owner/       ACTIVE CORE TARGET - next producer attack
+006_analytic_vertical_tail/   ACTIVE INFRASTRUCTURE - required tail mechanism
 099_frozen_or_audit_only/     FROZEN - reusable evidence only
 ```
 
@@ -27,6 +28,20 @@ real selected owner
     -> signed C3' physical-kernel margin
     -> explicit COVER / quantifier closure
 ```
+
+Tail rule after record 2134:
+
+```text
+m=6400 sampled tail -> CLOSED for full-line extrapolation
+analytic decay      -> admissible next tail mechanism
+certified quadrature -> admissible only with a proved horizon
+```
+
+The evaluator-horizon no-go is scoped to the sampled-tail mechanism. It does
+not reopen the dead L2 architectures and does not license a producer by
+itself. The next implementation work belongs in
+`006_analytic_vertical_tail/` and must end in either a proved shell bound or
+a named no-go with an explicit owner and margin.
 
 The L2 model is a supporting certificate only. Stop numerical L5 refinement
 unless it removes a named premise of the C3' producer obligation.
