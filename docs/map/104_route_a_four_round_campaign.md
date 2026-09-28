@@ -484,3 +484,5 @@ The 2139 cardinal-prefix no-go remains scoped and binding. Record 2140 changes t
 Evidence: `docs/proofs/2140_routea_overcomplete_h1_residual_screen.md` and `docs/proofs/2141_routea_overcomplete_h1_fibre_screen.md`.
 
 Record 2142 audits trial 162 with 80-digit arithmetic. The 160-point Gauss-Legendre reading had a `6.56e-2` pin error, but 320 points per panel reduced the maximum base/correction errors to `2.43e-10` / `1.21e-10`. Treat the first reading as quadrature non-convergence, not a coefficient no-go. The candidate remains numerical only because the double H1 solve is ill-conditioned and no interval gate or complete-owner transfer exists.
+
+Record 2143 reconstructs the trial-162 coefficients against a 320-point high-precision target matrix. Minimum-norm corrections reduce both pin residuals below `1.5e-14`; the signed gate is unchanged at 20001 nodes. The remaining proof gap is complete-owner transfer plus interval full-line gate/tail, not the small target residual.

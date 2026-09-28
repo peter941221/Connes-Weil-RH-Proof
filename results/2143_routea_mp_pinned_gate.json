@@ -1,0 +1,175 @@
+{
+  "record": 2143,
+  "status": "MP-PIN-CORRECTED-GATE-REPLAY",
+  "candidate": {
+    "trial": 162,
+    "scale_base": -2.7660862136111555,
+    "scale_corr": -7.593725512173001
+  },
+  "mp_quadrature_points_per_panel": 320,
+  "high_matrix_singular_values": [
+    1.9844836956554196e-08,
+    1.0595553349986595e-08,
+    9.550788021765708e-12,
+    7.987307748268407e-12,
+    6.125271581235616e-12,
+    6.329950712787049e-13,
+    5.721231675093783e-13,
+    5.571434198057359e-13
+  ],
+  "pin_correction": [
+    {
+      "label": "base",
+      "before_max_residual": 2.4278075449949717e-10,
+      "correction_l2": 0.4330672609730417,
+      "correction_max": 0.2262741036585211,
+      "after_max_residual": 1.4210854715202004e-14
+    },
+    {
+      "label": "corr",
+      "before_max_residual": 1.2136665563718677e-10,
+      "correction_l2": 0.1911393284799374,
+      "correction_max": 0.14238919032295555,
+      "after_max_residual": 1.4217791915866692e-14
+    }
+  ],
+  "gate_before": [
+    {
+      "xi_points": 4001,
+      "C": 0.08769459981376437,
+      "B01": -39343202.350740515,
+      "D": -8.277121944337547e+16,
+      "det": -8806476536395399.0,
+      "healthy": true,
+      "route_key": "Ap",
+      "routes": [
+        "A",
+        "Ap",
+        "B"
+      ],
+      "route_spread": [
+        0.009304802357605014,
+        0.0001207759489267487,
+        0.00010251466168678165
+      ],
+      "max_cancellation_ratio": 23.84697672985212,
+      "n_primes": 3601
+    },
+    {
+      "xi_points": 10001,
+      "C": 0.0885010419940131,
+      "B01": -39340493.85734655,
+      "D": -8.277029668118722e+16,
+      "det": -8872931959378594.0,
+      "healthy": true,
+      "route_key": "Ap",
+      "routes": [
+        "A",
+        "Ap",
+        "B"
+      ],
+      "route_spread": [
+        0.00018928102835555748,
+        8.68843235934894e-06,
+        1.3274607547199143e-05
+      ],
+      "max_cancellation_ratio": 23.84697672985212,
+      "n_primes": 3601
+    },
+    {
+      "xi_points": 20001,
+      "C": 0.08851670739923256,
+      "B01": -39340469.43775835,
+      "D": -8.277039162362837e+16,
+      "det": -8874235072251801.0,
+      "healthy": true,
+      "route_key": "Ap",
+      "routes": [
+        "A",
+        "Ap",
+        "B"
+      ],
+      "route_spread": [
+        1.1580327702409905e-05,
+        1.862240782138882e-06,
+        3.218370303179225e-06
+      ],
+      "max_cancellation_ratio": 23.84697672985212,
+      "n_primes": 3601
+    }
+  ],
+  "gate_after": [
+    {
+      "xi_points": 4001,
+      "C": 0.08769459981363537,
+      "B01": -39343202.350720234,
+      "D": -8.27712194433319e+16,
+      "det": -8806476536379304.0,
+      "healthy": true,
+      "route_key": "Ap",
+      "routes": [
+        "A",
+        "Ap",
+        "B"
+      ],
+      "route_spread": [
+        0.009304802357556447,
+        0.00012077594892681096,
+        0.0001025146616866423
+      ],
+      "max_cancellation_ratio": 23.84697672988846,
+      "n_primes": 3601
+    },
+    {
+      "xi_points": 10001,
+      "C": 0.08850104199387787,
+      "B01": -39340493.85732627,
+      "D": -8.277029668114365e+16,
+      "det": -8872931959361950.0,
+      "healthy": true,
+      "route_key": "Ap",
+      "routes": [
+        "A",
+        "Ap",
+        "B"
+      ],
+      "route_spread": [
+        0.00018928102835584663,
+        8.688432359353418e-06,
+        1.3274607547012824e-05
+      ],
+      "max_cancellation_ratio": 23.84697672988846,
+      "n_primes": 3601
+    },
+    {
+      "xi_points": 20001,
+      "C": 0.08851670739909889,
+      "B01": -39340469.43773798,
+      "D": -8.277039162358483e+16,
+      "det": -8874235072235281.0,
+      "healthy": true,
+      "route_key": "Ap",
+      "routes": [
+        "A",
+        "Ap",
+        "B"
+      ],
+      "route_spread": [
+        1.1580327679851371e-05,
+        1.8622407802459744e-06,
+        3.2183703035675294e-06
+      ],
+      "max_cancellation_ratio": 23.84697672988846,
+      "n_primes": 3601
+    }
+  ],
+  "nonclaims": [
+    "high matrix is quadrature-based, not interval enclosed",
+    "the owner is still a finite known-zero screen",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "script": "scripts\\routea_mp_pinned_gate_replay_2143.py",
+    "source": "results/2141_routea_overcomplete_h1_fibre_verify.json"
+  }
+}
