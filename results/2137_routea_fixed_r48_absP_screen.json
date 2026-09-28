@@ -1,0 +1,71 @@
+{
+  "record": 2137,
+  "status": "ABS-P-TAIL-SCREEN-CANDIDATE",
+  "owner": "one-copy G8-H",
+  "change_from_2136": "replace abs(Re(P_from_nodes)) by exact product formula for abs(P_from_nodes), and evaluate both tail signs",
+  "rung": 48,
+  "N48_interval_upper_source": "results/2135_routea_root_partition_lipschitz.json",
+  "x0": 160.0,
+  "xmax_numeric": 1000000.0,
+  "q1600_abs": 3406049871881.275,
+  "l2_charge": 44122155666.37855,
+  "grid_readings": {
+    "5000": {
+      "positive": {
+        "tail_to_1e6": 8.09684361686766e-291,
+        "endpoint_remainder_model": 0.0,
+        "total_candidate": 8.09684361686766e-291
+      },
+      "negative": {
+        "tail_to_1e6": 4.0432520934276974e-284,
+        "endpoint_remainder_model": 0.0,
+        "total_candidate": 4.0432520934276974e-284
+      }
+    },
+    "10000": {
+      "positive": {
+        "tail_to_1e6": 8.048720953828912e-291,
+        "endpoint_remainder_model": 0.0,
+        "total_candidate": 8.048720953828912e-291
+      },
+      "negative": {
+        "tail_to_1e6": 4.014925652512759e-284,
+        "endpoint_remainder_model": 0.0,
+        "total_candidate": 4.014925652512759e-284
+      }
+    },
+    "20000": {
+      "positive": {
+        "tail_to_1e6": 8.036675688231768e-291,
+        "endpoint_remainder_model": 0.0,
+        "total_candidate": 8.036675688231768e-291
+      },
+      "negative": {
+        "tail_to_1e6": 4.007833542113984e-284,
+        "endpoint_remainder_model": 0.0,
+        "total_candidate": 4.007833542113984e-284
+      }
+    }
+  },
+  "two_sided_tail_over_q1600_5000": 1.1870797713478093e-296,
+  "two_sided_tail_over_l2_5000": 9.163770087944846e-295,
+  "solve": {
+    "resid": 5.796012448967837e-09,
+    "cond_raw": 1318248.416390374,
+    "min_eig": 2.887872343366788e-29,
+    "max_eig": 3.806933143380827e-23
+  },
+  "nonclaims": [
+    "the N48 variation bound still needs an independent interval audit",
+    "the infinity remainder is still an asymptotic model",
+    "the quadrature is a numerical screen, not a certified integral bound",
+    "the owner is the one-copy numerical G8-H candidate",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "prior_screen": "scripts/routea_fixed_r48_tail_price_2136.py",
+    "variation_source": "results/2135_routea_root_partition_lipschitz.json",
+    "owner_source": "results/2058_l5_solve.json",
+    "script": "scripts\\routea_fixed_r48_tail_absP_screen_2137.py"
+  }
+}

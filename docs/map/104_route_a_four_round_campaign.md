@@ -450,9 +450,10 @@ one-copy numerical G8-H candidate to the complete closed-ball owner.
 
 Record 2136 re-runs the fixed `r = 48` tail price with the record-2135
 variation bound, preserving the same one-copy G8-H owner and coefficient path.
-The `160..1e6` tail is `8.096843616867657e-291`, or
-`2.3771946746027827e-303` of `|Q1600|` and
-`1.8350970152252827e-301` of the L2 charge. This removes the tail as the
-quantity-scale bottleneck for that candidate. It does not close the
-finite-window signed C3' margin or transfer the result to the complete
-closed-ball owner.
+The reported `8.096843616867657e-291` is a positive-half-axis numerical
+trapezoid only, not a full-line bound. Record 2137 reads the missing negative
+side at `4.0432520934276974e-284` on the same grid after replacing
+`abs(real(P))` by the exact `abs(P)` product. The two-sided numerical scale
+remains small, but the 2136 full-line interpretation is withdrawn. Both the
+integral enclosure and the infinity remainder remain open; neither the
+finite-window signed C3' margin nor the complete closed-ball owner is proved.
