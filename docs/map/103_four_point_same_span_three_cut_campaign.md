@@ -709,3 +709,22 @@ capacity-only wall with a concrete Route-A interval target. Evidence:
 [2125](../proofs/2125_routea_n6_spline_error_budget.md), and the artifacts
 `results/2124_route_b_n6_routea_crossread.json` and
 `results/2125_routea_n6_spline_budget.json`.
+
+## 2127 analytic Route-A sampling chain
+
+Record 2127 replaces the 2126 finite-difference eighth-derivative pilot with
+an analytic Taylor-jet propagation through the stored seed quadrature,
+node-shifted cardinal interpolation, `P`, modulus squares, and the three gate
+integrands. At `dxi = 0.01`, the sampling-only determinant charge is
+`6.577554167160422e18` against `|det| = 5.095155122372849e19`, a `7.746x`
+margin. The value-channel control against the original cardinal evaluator is
+`9.94e-10` relative and prime coverage is 100 percent.
+
+This is still a Route-A sampling candidate, not a certificate: seed
+quadrature enclosure, DFT forward rounding, finite-window tail, and formal
+owner promotion remain open. The same analytic chain at `dxi = 0.02` has only
+`0.0116x` determinant margin, so the certificate target is pinned to the
+`dxi = 0.01` budget.
+
+Evidence: [2127](../proofs/2127_routea_n6_analytic_sampling.md) and
+`results/2127_routea_n6_analytic_sampling.json`.
