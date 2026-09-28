@@ -1,0 +1,84 @@
+{
+  "record": 2134,
+  "status": "TAIL-HORIZON-STRESS-M6400-600",
+  "phi_rule_m": 6400,
+  "owner": "one-copy G8-H",
+  "rho": [
+    0.6,
+    40.9187190121475
+  ],
+  "scale": 0.88,
+  "support": 9.504000000000001,
+  "book_size": 1647,
+  "solve": {
+    "resid": 5.796012448967837e-09,
+    "cond_raw": 1318248.416390374,
+    "min_eig": 2.887872343366788e-29,
+    "max_eig": 3.806933143380827e-23
+  },
+  "bands": [
+    {
+      "lo": 400.0,
+      "hi": 450.0,
+      "step": 0.01,
+      "signed": -15060964465.03925,
+      "absolute": 21239594820.45885,
+      "max_abs_integrand": 6190186654.902076,
+      "endpoint_abs": [
+        224036378.57703164,
+        61216982.49486651
+      ],
+      "nodes": 5001
+    },
+    {
+      "lo": 450.0,
+      "hi": 500.0,
+      "step": 0.01,
+      "signed": -41552326641.727806,
+      "absolute": 56725173357.50256,
+      "max_abs_integrand": 10831107559.370066,
+      "endpoint_abs": [
+        61216982.49486651,
+        510445183.3389462
+      ],
+      "nodes": 5001
+    },
+    {
+      "lo": 500.0,
+      "hi": 550.0,
+      "step": 0.01,
+      "signed": -1.662711212595699e+30,
+      "absolute": 2.2280960477922288e+30,
+      "max_abs_integrand": 1.4274184757629323e+30,
+      "endpoint_abs": [
+        510445183.3389462,
+        8.67138936258551e+26
+      ],
+      "nodes": 5001
+    },
+    {
+      "lo": 550.0,
+      "hi": 600.0,
+      "step": 0.01,
+      "signed": -1.8991705810159642e+30,
+      "absolute": 2.6046937421094254e+30,
+      "max_abs_integrand": 3.37465949784661e+29,
+      "endpoint_abs": [
+        8.67138936258551e+26,
+        8.399369448010363e+28
+      ],
+      "nodes": 5001
+    }
+  ],
+  "tail_400_to_600_absolute": 4.832789789901654e+30,
+  "tail_400_to_600_over_q1600": 1.4188840362552717e+18,
+  "nonclaims": [
+    "measured tail only; not an interval enclosure",
+    "no extrapolation beyond |xi| = 600",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "source_tail_probe": "scripts/routea_c3p_tail_probe_2062.py",
+    "script": "scripts\\routea_tail_horizon_600_2134.py"
+  }
+}

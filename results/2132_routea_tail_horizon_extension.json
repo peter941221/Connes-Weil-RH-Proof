@@ -1,0 +1,84 @@
+{
+  "record": 2132,
+  "status": "TAIL-HORIZON-EXTENSION-M6400",
+  "phi_rule_m": 6400,
+  "owner": "one-copy G8-H",
+  "rho": [
+    0.6,
+    40.9187190121475
+  ],
+  "scale": 0.88,
+  "support": 9.504000000000001,
+  "book_size": 1647,
+  "solve": {
+    "resid": 5.796012448967837e-09,
+    "cond_raw": 1318248.416390374,
+    "min_eig": 2.887872343366788e-29,
+    "max_eig": 3.806933143380827e-23
+  },
+  "bands": [
+    {
+      "lo": 160.0,
+      "hi": 180.0,
+      "step": 0.01,
+      "signed": -4225604.932654878,
+      "absolute": 5832506.667063458,
+      "max_abs_integrand": 2801548.635545169,
+      "endpoint_abs": [
+        67961.52864938627,
+        739344.4946105565
+      ],
+      "nodes": 2001
+    },
+    {
+      "lo": 180.0,
+      "hi": 200.0,
+      "step": 0.01,
+      "signed": -7020116.495001155,
+      "absolute": 10533322.81588726,
+      "max_abs_integrand": 4827845.159771777,
+      "endpoint_abs": [
+        739344.4946105572,
+        551785.7163096091
+      ],
+      "nodes": 2001
+    },
+    {
+      "lo": 200.0,
+      "hi": 220.0,
+      "step": 0.01,
+      "signed": -14222280.513717785,
+      "absolute": 19599557.82993558,
+      "max_abs_integrand": 9926745.480027298,
+      "endpoint_abs": [
+        551785.7163096095,
+        3022961.904099028
+      ],
+      "nodes": 2001
+    },
+    {
+      "lo": 220.0,
+      "hi": 240.0,
+      "step": 0.01,
+      "signed": -34249384.18989111,
+      "absolute": 49290088.654775575,
+      "max_abs_integrand": 27598273.99163804,
+      "endpoint_abs": [
+        3022961.904099029,
+        226708.52413738868
+      ],
+      "nodes": 2001
+    }
+  ],
+  "tail_160_to_240_absolute": 85255475.96766187,
+  "tail_160_to_240_over_q1600": 2.503060118746072e-05,
+  "nonclaims": [
+    "measured tail only; not an interval enclosure",
+    "no extrapolation beyond |xi| = 240",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "source_tail_probe": "scripts/routea_c3p_tail_probe_2062.py",
+    "script": "scripts\\routea_tail_horizon_extension_2132.py"
+  }
+}

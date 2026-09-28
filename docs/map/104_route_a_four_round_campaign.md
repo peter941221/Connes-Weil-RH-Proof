@@ -420,3 +420,13 @@ whose cost does not scale one-for-one with all abstract owner zeros.
 
 Evidence: `docs/proofs/2119_routea_formal_owner_cardinality_bound.md` and
 `results/2119_routea_formal_owner_cardinality_bound.json`.
+
+## 2134 evaluator-horizon boundary
+
+Record 2134 closes the current sampled-tail extrapolation. On the owner used
+by records 2059-2062, the m=6400 tail ratio is `1.20e-6` on `40..160`,
+`2.50e-5` on `160..240`, and `3.76e-3` on `240..400`, but the evaluator
+enters an alias cliff in `500..550`: the measured tail ratio reaches
+`1.418884e18`. Therefore no m=6400 sampled value may be extrapolated to the
+full line. Route A remains open only through an analytic vertical-decay tail
+bound or an independently certified quadrature rule with a proved horizon.
