@@ -728,3 +728,14 @@ owner promotion remain open. The same analytic chain at `dxi = 0.02` has only
 
 Evidence: [2127](../proofs/2127_routea_n6_analytic_sampling.md) and
 `results/2127_routea_n6_analytic_sampling.json`.
+## 2128 fixed-n full-product owner stress
+
+Record 2128 is a scoped no-go for the unchanged `n = 6` full-product
+mechanism. Adding synthetic zero-valued critical-line owner nodes inside the
+same radius flips the gate at 80 total nodes and produces non-finite values by
+200 nodes. This is not a statement about the actual abstract source-zero set,
+but it kills the proposed fixed-n cardinality-agnostic promotion. Do not add
+more owner nodes to this route without changing the support/index mechanism.
+
+Evidence: [2128](../proofs/2128_routeb_product_owner_stress.md) and
+`results/2128_routeb_product_owner_stress.json`.

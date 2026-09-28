@@ -1,0 +1,78 @@
+{
+  "record": 2128,
+  "status": "FULL-PRODUCT-OWNER-STRESS-SCREEN",
+  "rho": [
+    0.55,
+    30.424876125859512
+  ],
+  "n": 6,
+  "dxi": 0.05,
+  "prime_book": 595877,
+  "rows": [
+    {
+      "extra_zero_nodes": 0,
+      "owner_cardinality": 40,
+      "correction_max": 107.33063015907878,
+      "correction_finite": true,
+      "C": 18222893.37799067,
+      "b": 30367272739.30357,
+      "D": -222713454750610.3,
+      "det": -4.980654793387571e+21,
+      "gate_signs": true
+    },
+    {
+      "extra_zero_nodes": 40,
+      "owner_cardinality": 80,
+      "correction_max": 50079766622995.68,
+      "correction_finite": true,
+      "C": -5585858248.889659,
+      "b": -38431921618906.766,
+      "D": -2.697098134897514e+17,
+      "det": 2.9548187166425967e+25,
+      "gate_signs": false
+    },
+    {
+      "extra_zero_nodes": 80,
+      "owner_cardinality": 120,
+      "correction_max": 6.766633786756042e+54,
+      "correction_finite": true,
+      "C": 1.4201839274607166e+21,
+      "b": 4.0703129170601596e+24,
+      "D": 1.1708402954400469e+28,
+      "det": 6.063844928632753e+46,
+      "gate_signs": false
+    },
+    {
+      "extra_zero_nodes": 160,
+      "owner_cardinality": 200,
+      "correction_max": NaN,
+      "correction_finite": false,
+      "C": NaN,
+      "b": NaN,
+      "D": NaN,
+      "det": NaN,
+      "gate_signs": false
+    },
+    {
+      "extra_zero_nodes": 320,
+      "owner_cardinality": 360,
+      "correction_max": NaN,
+      "correction_finite": false,
+      "C": NaN,
+      "b": NaN,
+      "D": NaN,
+      "det": NaN,
+      "gate_signs": false
+    }
+  ],
+  "owner_model": "known owner plus synthetic critical-line zero nodes with zero values",
+  "nonclaims": [
+    "synthetic nodes are not claimed zeta zeros",
+    "finite grid and direct prime channel are not interval-certified",
+    "no formal-owner promotion, producer theorem, or RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/routeb_product_owner_stress_2128.py",
+    "source": "formal fullProductBaseFactor interface"
+  }
+}
