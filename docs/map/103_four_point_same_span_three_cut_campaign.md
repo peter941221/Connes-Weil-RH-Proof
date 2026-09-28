@@ -739,3 +739,14 @@ more owner nodes to this route without changing the support/index mechanism.
 
 Evidence: [2128](../proofs/2128_routeb_product_owner_stress.md) and
 `results/2128_routeb_product_owner_stress.json`.
+## 2130 fixed-n height scan
+
+Record 2130 samples the n=6 Route-B reopening at five heights. The prime book
+is covered at every row, but the gate sign pair flips at `gamma=37.586178` and
+`43.327073`. Together with 2128, this is a scoped no-go for treating the fixed
+n=6 candidate as a continuous height band. The Route-B reopening is therefore
+not the current execution priority; the active Route-A C3' signed margin
+remains the main line.
+
+Evidence: [2130](../proofs/2130_routeb_n6_height_scan.md) and
+`results/2130_routeb_n6_height_scan.json`.

@@ -1,0 +1,104 @@
+{
+  "record": 2130,
+  "status": "N6-HEIGHT-SCAN-CANDIDATE",
+  "n": 6,
+  "dxi": 0.02,
+  "prime_book": 595877,
+  "rows": [
+    {
+      "gamma": 30.424876125859512,
+      "owner_cardinality": 40,
+      "known_zero_count": 32,
+      "radius": 64.45940884642866,
+      "C": 1170090.689922725,
+      "b": 12166084243.568697,
+      "D": 82866729068109.47,
+      "det": -5.1052017634666775e+19,
+      "gate_signs": true,
+      "coverage": {
+        "nyquist": 24.990003998401175,
+        "n_covered": 595877,
+        "max_log_k": 15.999999828889367,
+        "capture_fraction": 1.0
+      }
+    },
+    {
+      "gamma": 35.0,
+      "owner_cardinality": 44,
+      "known_zero_count": 36,
+      "radius": 69.03002283756035,
+      "C": 179779.40754801763,
+      "b": 1403786878.596713,
+      "D": 8800577753094.234,
+      "det": -3.8845494598875725e+17,
+      "gate_signs": true,
+      "coverage": {
+        "nyquist": 24.990003998401175,
+        "n_covered": 595877,
+        "max_log_k": 15.999999828889367,
+        "capture_fraction": 1.0
+      }
+    },
+    {
+      "gamma": 37.586178,
+      "owner_cardinality": 46,
+      "known_zero_count": 38,
+      "radius": 71.61413665960822,
+      "C": -4443459.880291078,
+      "b": -13862733730.668537,
+      "D": 153469913392989.25,
+      "det": -8.741127894809094e+20,
+      "gate_signs": false,
+      "coverage": {
+        "nyquist": 24.990003998401175,
+        "n_covered": 595877,
+        "max_log_k": 15.999999828889367,
+        "capture_fraction": 1.0
+      }
+    },
+    {
+      "gamma": 40.9187190121475,
+      "owner_cardinality": 49,
+      "known_zero_count": 41,
+      "radius": 74.94440212770338,
+      "C": 3667235.3064625454,
+      "b": 15524244918.520718,
+      "D": -126338826229810.48,
+      "det": -7.043163844172136e+20,
+      "gate_signs": true,
+      "coverage": {
+        "nyquist": 24.990003998401175,
+        "n_covered": 595877,
+        "max_log_k": 15.999999828889367,
+        "capture_fraction": 1.0
+      }
+    },
+    {
+      "gamma": 43.327073,
+      "owner_cardinality": 51,
+      "known_zero_count": 43,
+      "radius": 77.35132933079825,
+      "C": 271053.63453952735,
+      "b": -21312792864.972263,
+      "D": -562896947641086.8,
+      "det": -6.068104032345352e+20,
+      "gate_signs": false,
+      "coverage": {
+        "nyquist": 24.990003998401175,
+        "n_covered": 595877,
+        "max_log_k": 15.999999828889367,
+        "capture_fraction": 1.0
+      }
+    }
+  ],
+  "nonclaims": [
+    "finite height scan only",
+    "Route-A spline/DFT not interval-certified",
+    "owner is a known-zero under-approximation",
+    "no continuous band, producer theorem, or RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/routeb_n6_height_scan_2130.py",
+    "source": "results/2123_route_b_n6_reopen.json"
+  }
+}
