@@ -14,3 +14,5 @@ interval gate + complete owner + uniform transfer    OPEN
 ```
 
 The 2139 no-go remains binding on its own interpolation hypothesis. The 2141 candidate changes the basis and moves in its null fibre; it does not reverse the old verdict. See the 2139, 2140, and 2141 proof records for assumptions, numerical margins, and certification gates.
+
+2142 high-precision pin audit: the 160-point apparent failure was quadrature resolution. At 320 points per panel, the committed trial-162 double coefficients read max base pin error 2.43e-10 and correction pin error 1.21e-10 under 80-digit arithmetic. Candidate remains numerical only; interval coefficient pricing, full-line signed gate, and complete-owner transfer are open.

@@ -1,0 +1,71 @@
+{
+  "record": 2142,
+  "status": "HIGH-PRECISION-PIN-AUDIT",
+  "candidate": {
+    "trial": 162,
+    "scale_base": -2.7660862136111555,
+    "scale_corr": -7.593725512173001
+  },
+  "family_count": 40,
+  "readings": [
+    {
+      "quadrature_points_per_panel": 160,
+      "max_base_pin_error": 0.06563512507437749,
+      "max_corr_pin_error": 0.09249380016021785,
+      "base_pin_errors": [
+        1.1006901517152112e-09,
+        2.0634377732062665e-11,
+        0.06563512507437749,
+        0.0006838534135855059,
+        3.4861659969157746e-08,
+        7.428087843882071e-14,
+        3.7103756684304447e-13,
+        2.4278060101366543e-10
+      ],
+      "corr_pin_errors": [
+        2.684437103936603e-10,
+        5.017753540659697e-12,
+        0.09249380016021785,
+        0.0009636943771586013,
+        8.600687671223512e-09,
+        3.103496179634651e-14,
+        2.594189088930806e-13,
+        2.3631714510178275e-12
+      ]
+    },
+    {
+      "quadrature_points_per_panel": 320,
+      "max_base_pin_error": 2.4278060101366543e-10,
+      "max_corr_pin_error": 1.2136153436694782e-10,
+      "base_pin_errors": [
+        7.96841387455878e-13,
+        3.4985867276129366e-14,
+        1.500565886005341e-13,
+        5.0185545955740264e-14,
+        3.830475520796891e-11,
+        7.428087843882071e-14,
+        3.7103756684304447e-13,
+        2.4278060101366543e-10
+      ],
+      "corr_pin_errors": [
+        1.4307555792217793e-12,
+        1.5373667468204334e-14,
+        1.2748219816907286e-13,
+        2.043988952960309e-14,
+        1.2136153436694782e-10,
+        3.103496179634651e-14,
+        2.594189088930806e-13,
+        2.3631714510178275e-12
+      ]
+    }
+  ],
+  "nonclaims": [
+    "coefficients are still double-precision null-fibre coefficients",
+    "this does not certify the Gram solve or the signed integral",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "script": "scripts\\routea_overcomplete_h1_fibre_mp_pin_audit_2142.py",
+    "source": "results/2141_routea_overcomplete_h1_fibre_verify.json"
+  }
+}
