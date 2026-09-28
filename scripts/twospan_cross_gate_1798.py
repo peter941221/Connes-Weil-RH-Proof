@@ -391,6 +391,9 @@ def main():
                 "G_AB_sigma_engine": G_AB_sig,
                 "engine_split": G_AB - G_AB_sig,
                 "det": det,
+                "arch_AA": gA["arch"], "prime_AA": gA["prime_sum"],
+                "arch_BB": gB["arch"], "prime_BB": gB["prime_sum"],
+                "arch_AB": gAB["arch"], "prime_AB": gAB["prime_sum"],
                 "prime_terms_AB": gAB["prime_terms"],
                 "prime_terms_AA": gA["prime_terms"],
             }

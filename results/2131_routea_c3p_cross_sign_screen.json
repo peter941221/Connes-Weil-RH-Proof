@@ -1,0 +1,101 @@
+{
+ "record": 2131,
+ "status": "SCOPED-NO-GO-FOR-DIAGONAL-SIGNS-IMPLYING-CROSS-SIGN",
+ "source_artifact": "results/1798_twospan_cross_gate.json",
+ "rows": [
+  {
+   "pair": "head_bump0.9 x ref_D3_root",
+   "opposite_diagonal_signs": true,
+   "orientation": "v,u",
+   "arch_cross": 0.0011581992228480234,
+   "prime_cross": -0.0011600886349994776,
+   "cross_product": -1.3436137554912191e-06,
+   "directed_cross_nonneg": false
+  },
+  {
+   "pair": "head_bump0.9 x ref_winbump0.3",
+   "opposite_diagonal_signs": false,
+   "orientation": null,
+   "arch_cross": 1.3861022556482583,
+   "prime_cross": 0.18183203379138013,
+   "cross_product": 0.25203779218734235,
+   "directed_cross_nonneg": true
+  },
+  {
+   "pair": "head_bump1.8 x ref_D3_root",
+   "opposite_diagonal_signs": true,
+   "orientation": "v,u",
+   "arch_cross": 0.0003269252581004585,
+   "prime_cross": -0.0005677579789756577,
+   "cross_product": -1.8561442381521157e-07,
+   "directed_cross_nonneg": false
+  },
+  {
+   "pair": "head_bump1.8 x ref_winbump0.3",
+   "opposite_diagonal_signs": false,
+   "orientation": null,
+   "arch_cross": 1.4482905083695645,
+   "prime_cross": 0.8746893257376112,
+   "cross_product": 1.2668042482379565,
+   "directed_cross_nonneg": true
+  },
+  {
+   "pair": "head_bump1.8_mz x ref_D3_root",
+   "opposite_diagonal_signs": false,
+   "orientation": null,
+   "arch_cross": 0.0006114781300152078,
+   "prime_cross": -0.00038856570920719927,
+   "cross_product": -2.3759943325405124e-07,
+   "directed_cross_nonneg": false
+  },
+  {
+   "pair": "head_bump1.8_mz x ref_winbump0.3",
+   "opposite_diagonal_signs": false,
+   "orientation": null,
+   "arch_cross": 0.6330438865133632,
+   "prime_cross": -0.919037158899799,
+   "cross_product": -0.581790854920128,
+   "directed_cross_nonneg": false
+  },
+  {
+   "pair": "head_D3_0.9 x ref_D3_root",
+   "opposite_diagonal_signs": false,
+   "orientation": null,
+   "arch_cross": -0.0010766743482271228,
+   "prime_cross": 0.2719775193074102,
+   "cross_product": -0.0002928312183327356,
+   "directed_cross_nonneg": false
+  },
+  {
+   "pair": "head_D3_0.9 x ref_winbump0.3",
+   "opposite_diagonal_signs": false,
+   "orientation": null,
+   "arch_cross": 0.018967319714507096,
+   "prime_cross": -0.01939436803913989,
+   "cross_product": -0.0003678591792591844,
+   "directed_cross_nonneg": false
+  }
+ ],
+ "counterexample_count": 2,
+ "counterexamples": [
+  {
+   "pair": "head_bump0.9 x ref_D3_root",
+   "opposite_diagonal_signs": true,
+   "orientation": "v,u",
+   "arch_cross": 0.0011581992228480234,
+   "prime_cross": -0.0011600886349994776,
+   "cross_product": -1.3436137554912191e-06,
+   "directed_cross_nonneg": false
+  },
+  {
+   "pair": "head_bump1.8 x ref_D3_root",
+   "opposite_diagonal_signs": true,
+   "orientation": "v,u",
+   "arch_cross": 0.0003269252581004585,
+   "prime_cross": -0.0005677579789756577,
+   "cross_product": -1.8561442381521157e-07,
+   "directed_cross_nonneg": false
+  }
+ ],
+ "interpretation": "Opposite diagonal signs do not imply the directed cross-product condition. This screens an algebraic shortcut only; it is not a no-go for the actual zeta owner or for a separately proved cross certificate."
+}

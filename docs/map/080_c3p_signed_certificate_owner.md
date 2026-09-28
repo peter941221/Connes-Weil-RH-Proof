@@ -81,3 +81,14 @@ chronology and build evidence.
 
 Classification: owner/readbacks/component theorems are `FORMAL`; the aggregate
 selected-detector sign and full spectral-tail compatibility are `OPEN`.
+
+## 2131 cross-sign boundary
+
+Record 2131 closes one proposed shortcut: the opposite diagonal signs in
+`CarrierTwoSpanSignCertificate.diagonal_signs` do not imply
+`directed_cross_nonneg`. Two rows from the registered 1798 two-span family
+satisfy the diagonal sign predicate while their Archimedean/prime cross
+products are `-1.343614e-6` and `-1.856144e-7`. The condition must therefore
+be proved separately on the actual owner, or replaced by a genuinely
+aggregate signed inequality. This is a scoped family no-go, not a no-go for
+the formal zeta owner or Route A.
