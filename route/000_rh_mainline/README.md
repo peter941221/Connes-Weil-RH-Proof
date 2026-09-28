@@ -205,8 +205,26 @@ evaluator); the ladder-to-ideal-twin triangle reads `4.401166e+10 +
 1.842946e+09 = 4.585461e+10` = `0.0135x` the budget = `0.1346x` the 10%
 bar with 7.43x margin.  The KKT-floor solve channel (`3.793124e+06`,
 unchanged by the bridge) is now the binding term of the gap and is the
-registered next lever -- a min-H1 / floor-side tightening.  Details and
-numbers are in `docs/map/README.md`.
+registered next lever -- a min-H1 / floor-side tightening.  Record 2058
+executes that lever and lands **IDEAL-L2-VIABLE** at the same owner, by a
+different charge rather than a tighter bound: `Q` is quadratic in the
+coefficients, so the solve channel is priced by the DIRECT same-grid
+difference `Q(c_mn) - Q(c_stored)` with `c_mn` the exact min-norm
+interpolant of the stored matrices (`2.595018e+04`), the derivative split
+being rejected as aliased (its terms scale as `1/h` exactly; the bare
+pointwise envelope reads 405x the difference), and a float solve of the
+same equations rejected as a different object (it deviates from the
+mp-exact interpolant by `1.9e-10` relative -- the d-sum scale -- moving
+`dQ` by 12%).  `charge_solve = 1.402572e+05` (5.405x `|dQ|`, dominated by
+the two chains' own arithmetic envelopes), so the L5 gap falls to
+`1.104942e+08` -- `16.679x` -- and the ladder-to-ideal-twin triangle reads
+`4.401166e+10 + 1.104942e+08 = 4.412216e+10` = `0.01295x` the budget =
+`0.1295x` the 10% bar with 7.72x margin; the R57 control reproduces the
+2057 price bitwise in the same run.  The binding position returns to the
+F/X/(P) envelope (the bridged rule channel, `1.950806e+05` of the
+`2.380518e+05` envelope) and the registered next lever is its
+computed-difference accumulation allowance.  Details and numbers are in
+`docs/map/README.md`.
 
 Authority remains in `docs/map/`; this directory is the navigational topology.
 

@@ -652,6 +652,75 @@ Route A link L5, BRIDGED (IDEAL-L2-VIABLE, 2057): the (P) rule-residual
          not RH.
 ```
 
+### Route state after the 2026-09-28 L5-solve batch (record 2058)
+
+```text
+Route A link L5, SOLVE CHANNEL REPRICED (IDEAL-L2-VIABLE, 2058): 2057's
+         registered lever (the KKT-floor solve channel, 95.38% of int e_g)
+         is executed not by a tighter bound but by a different charge: Q =
+         int K p^2 |lb|^2 |cc|^2 is QUADRATIC in the coefficients, so the
+         channel is priced by the DIRECT same-grid difference dQ =
+         Q(c_mn) - Q(c_stored) = trapz(W (g1 - g0)), W = ker p^2, with
+         c_mn the exact (mp, 50-digit) min-norm interpolant of the stored
+         matrices -- the uniform-floor clamped-rule twin -- cast to float
+         with the cast charged (cast_max_b 3.362e-03, cast_max_c 1.522).
+         The deviation envelope with its derivative slots and K4 tail is
+         not needed for the channel; only the two chains' OWN arithmetic
+         envelopes enter.
+         THE SPLIT ROUTE IS REJECTED (diagnostic): the linear term and the
+         second-order residual both scale as 1/h EXACTLY (lin 2.861744e+06
+         at h = 0.008 = dQ/h, 5.723488e+06 at 0.004, 1.144698e+07 at
+         0.002) -- the Ab_j integrals alias (family xi-oscillation up to
+         2 pi a X ~ 283 rad/unit), the pointwise difference does not
+         (dQ stable to 6 digits); the bare pointwise-envelope analog
+         reads 9.28e+06 = 405x dQ, the 2057 charge (RT + K4) 3.79e+06 at
+         0.004 = 146x the direct price.
+         THE CONSTRUCTION IS PRICED: a float solve of the same equations
+         (cond(S) 3.766e+08) deviates from the mp-exact interpolant by
+         1.9e-10 / 2.3e-10 relative (5.511e+03 / 3.040e+06 -- the d-sum
+         scale itself), moving dQ by 12% (2.289397e+04 vs the probe's
+         2.595018e+04), because dQ/Q0 = 7.6e-09; so the priced object is
+         the mp-exact interpolant cast to float, never a float solve.
+         PRICE: charge_solve = |dQ| 2.595018e+04 + qe_grid 1.240688e-01
+         (grid controls rel 1.195e-06 / 6.388e-07 phi-shift; a CONTROL,
+         not an enclosure) + qe_arith 1.143069e+05 (INS (int_e0 + int_ecm)
+         + 32U trapz|W dg|; int_e0 5.443122e+04, int_ecm 5.443251e+04 --
+         the routing, not the cast, carries it; 32U replaces the tight
+         20U) = 1.402572e+05 = 5.405x |dQ| = 1.032x the KKT dc_base
+         1.359110e+05.  charge_L5 = 1.842946e+09 -> 1.104942e+08
+         (16.679x): the 0.001-grid split of int e_g (3.738711e+06 solve +
+         2.380518e+05 ns, D4) was priced 463.4198 x 3.738711e+06 =
+         1.732593e+09 before and 1.402572e+05 now (12353x, the kernel
+         multiplication no longer applies to it), the F/X/(P) part
+         unchanged at 1.103179e+08.  Triangle: 4.401166e+10 +
+         1.104942e+08 = 4.412216e+10 = 0.01295x budget3 = 0.1295x bar10
+         -> VIABLE with 7.72x margin (2057: 7.43x).
+         CHANNELS NOW: the F/X/(P) envelope is back in the binding
+         position (99.87% of charge_L5; rule_bridge 1.950806e+05 = 81.9%
+         indicative, X 9.738743e+04, F 5.442840e+04 at the 0.004 decomp);
+         the solve channel reads 0.127% of charge_L5, itself dominated by
+         its arithmetic envelope (qe_arith 81.5% of charge_solve).  S7 ns:
+         int e_g 2.380518e+05 (trapz-dominated; EM 3.741e-20, regress
+         1.189e-02), err0_max 3.680363e+05 (2057: 7.884e+06), err0_med
+         2.787e-16, int_g 1.235172e+14 unchanged, ek4_trapz 8.561e+12
+         (2057: 1.208e+14).
+         CONTROLS: R57 reproduces the 2057 price IN THE SAME RUN, bitwise
+         (rel 0.0 on int e_g, charge_value, charge_L5); B7 zeroing of
+         dbase/dcorr bitwise on the value slots (k4/ek4 and the int_g
+         regress term move BY DESIGN -- the solve channel's own K4 entry);
+         D1 float-vs-mp pointwise difference, 3 nodes, worst ratio
+         4.955e-06; D3 envelope monotonicity; D4 same-grid marginal
+         reading 0.98565x the 2057 decomp; B6/A12a/A12b/A13/P2 0.0/P6
+         9.906e-06/P3/P4/A10/A11/P5 floor/lmax 2.63e+04/A7-A9/B3/B5/S8 --
+         29/29 gates green.
+         REGISTERED LEVER: the rule_bridge channel's computed-difference
+         accumulation allowance (allow0_max 1.214e-23, 2057 section 3);
+         then the solve-side arithmetic channel (a shared/cancellation-
+         aware chain, gain bounded by the 0.127% share); then the kernel
+         constant 463.4198 itself.  L4 (2053) standing, evaluator-
+         independent.  Not a producer theorem; not RH.
+```
+
 Live screen state of the same-span four-point subcampaign after the 2026-09-27
 batch (records 2028 - 2035): R-B1 is priced AND mass-certified (a genuine
 interval bracket for the `k = 3` weighted seed mass puts the strip bound at
