@@ -1,0 +1,85 @@
+{
+  "record": 2061,
+  "status": "TAIL-SURVIVAL-PROBE-M1600",
+  "phi_rule_m": 1600,
+  "owner": "one-copy G8-H",
+  "rho": [
+    0.6,
+    40.9187190121475
+  ],
+  "scale": 0.88,
+  "support": 9.504000000000001,
+  "book_size": 1647,
+  "solve": {
+    "resid": 1.4721618859301727e-09,
+    "cond_raw": 1318248.416390374,
+    "min_eig": 2.887872343366788e-29,
+    "max_eig": 3.806933143380827e-23
+  },
+  "bands": [
+    {
+      "lo": 40.0,
+      "hi": 60.0,
+      "step": 0.01,
+      "signed": -7.3413951458432924,
+      "absolute": 12.023836822661146,
+      "max_abs_integrand": 7.791904843628677,
+      "endpoint_abs": [
+        0.0005136194344243486,
+        0.7093752702781135
+      ],
+      "nodes": 2001
+    },
+    {
+      "lo": 60.0,
+      "hi": 80.0,
+      "step": 0.01,
+      "signed": -90.72699395722647,
+      "absolute": 136.9431093390146,
+      "max_abs_integrand": 124.7854685918114,
+      "endpoint_abs": [
+        0.7093752702781132,
+        18.968639040223373
+      ],
+      "nodes": 2001
+    },
+    {
+      "lo": 80.0,
+      "hi": 120.0,
+      "step": 0.01,
+      "signed": -3980.4000986371734,
+      "absolute": 6051.6060207891005,
+      "max_abs_integrand": 3281.1050534166984,
+      "endpoint_abs": [
+        18.96863904022336,
+        87.59229208336951
+      ],
+      "nodes": 4001
+    },
+    {
+      "lo": 120.0,
+      "hi": 160.0,
+      "step": 0.01,
+      "signed": -6.487979538218254e+27,
+      "absolute": 9.656389353034216e+27,
+      "max_abs_integrand": 1.089574659523538e+28,
+      "endpoint_abs": [
+        87.59229208336957,
+        3.9149671831520883e+24
+      ],
+      "nodes": 4001
+    }
+  ],
+  "tail_40_to_160_absolute": 9.656389353034216e+27,
+  "tail_40_to_160_over_q1600": 2835069865756449.0,
+  "nonclaims": [
+    "measured tail only; not an interval enclosure",
+    "no extrapolation beyond |xi| = 160",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "owner_source": "results/2037_route_a_g8h_basis_comparison.json",
+    "l2_source": "results/2058_l5_solve.json",
+    "script": "scripts\\routea_c3p_tail_probe_2061.py"
+  }
+}

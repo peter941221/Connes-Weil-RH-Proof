@@ -1,0 +1,97 @@
+{
+  "record": 2079,
+  "status": "COVER-OWNER-MARGIN-M6400-SCREEN",
+  "window": [
+    -40.0,
+    40.0
+  ],
+  "step": 0.02,
+  "rows": [
+    {
+      "gamma": 37.58617815882567,
+      "delta": 0.1,
+      "scale": 0.88,
+      "nodes": 17,
+      "families": 17,
+      "support": 9.504000000000001,
+      "book": 1647,
+      "q_step_002": -21483449330476.473,
+      "q_sign": "negative",
+      "base_resid": 4.441013877396461e-12,
+      "corr_resid": 3.5786719064722493e-09
+    },
+    {
+      "gamma": 40.9187190121475,
+      "delta": 0.1,
+      "scale": 0.88,
+      "nodes": 17,
+      "families": 17,
+      "support": 9.504000000000001,
+      "book": 1647,
+      "q_step_002": -3406049851783.4985,
+      "q_sign": "negative",
+      "base_resid": 1.007124646254863e-11,
+      "corr_resid": 5.796012448967837e-09
+    },
+    {
+      "gamma": 40.9187190121475,
+      "delta": 0.1,
+      "scale": 0.9,
+      "nodes": 17,
+      "families": 17,
+      "support": 9.72,
+      "book": 1985,
+      "q_step_002": -4858771061468.819,
+      "q_sign": "negative",
+      "base_resid": 6.279331709054817e-12,
+      "corr_resid": 3.028734327182078e-09
+    },
+    {
+      "gamma": 43.327073280915,
+      "delta": 0.1,
+      "scale": 0.88,
+      "nodes": 17,
+      "families": 17,
+      "support": 9.504000000000001,
+      "book": 1647,
+      "q_step_002": -75016083214165.52,
+      "q_sign": "negative",
+      "base_resid": 4.6529371471673965e-12,
+      "corr_resid": 2.0158438315108506e-09
+    },
+    {
+      "gamma": 43.327073280915,
+      "delta": 0.1,
+      "scale": 0.9,
+      "nodes": 17,
+      "families": 17,
+      "support": 9.72,
+      "book": 1985,
+      "q_step_002": -155082197864767.56,
+      "q_sign": "negative",
+      "base_resid": 4.065903393617624e-12,
+      "corr_resid": 1.6722472296606702e-09
+    },
+    {
+      "gamma": 48.00515088116716,
+      "delta": 0.1,
+      "scale": 0.88,
+      "nodes": 17,
+      "families": 17,
+      "support": 9.504000000000001,
+      "book": 1647,
+      "q_step_002": -312026243506332.4,
+      "q_sign": "negative",
+      "base_resid": 3.6328717975913905e-12,
+      "corr_resid": 2.506809759772466e-09
+    }
+  ],
+  "nonclaims": [
+    "m=6400 and finite grid are still screening only",
+    "no uniform COVER statement",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "script": "scripts\\routea_cover_owner_margin_m6400_2079.py"
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "record": 2078,
+  "status": "COVER-OWNER-MARGIN-SCREEN",
+  "window": [
+    -40.0,
+    40.0
+  ],
+  "step": 0.04,
+  "rows": [
+    {
+      "gamma": 37.58617815882567,
+      "delta": 0.1,
+      "scale": 0.88,
+      "nodes": 17,
+      "families": 17,
+      "support": 9.504000000000001,
+      "book": 1647,
+      "q_step_004": -1.948589076784719e+20,
+      "q_sign": "negative",
+      "base_resid": 3.5418335882827137e-12,
+      "corr_resid": 6.554844044940825e-09
+    },
+    {
+      "gamma": 40.9187190121475,
+      "delta": 0.1,
+      "scale": 0.88,
+      "nodes": 17,
+      "families": 17,
+      "support": 9.504000000000001,
+      "book": 1647,
+      "q_step_004": -1.1106329289664309e+20,
+      "q_sign": "negative",
+      "base_resid": 1.2776493720595712e-11,
+      "corr_resid": 6.893803254956833e-09
+    },
+    {
+      "gamma": 40.9187190121475,
+      "delta": 0.1,
+      "scale": 0.9,
+      "nodes": 17,
+      "families": 17,
+      "support": 9.72,
+      "book": 1985,
+      "q_step_004": -7.085954998963287e+20,
+      "q_sign": "negative",
+      "base_resid": 4.653631485828718e-12,
+      "corr_resid": 2.550375466826453e-09
+    },
+    {
+      "gamma": 43.327073280915,
+      "delta": 0.1,
+      "scale": 0.88,
+      "nodes": 17,
+      "families": 17,
+      "support": 9.504000000000001,
+      "book": 1647,
+      "q_step_004": -9.755319129029981e+19,
+      "q_sign": "negative",
+      "base_resid": 7.571269912280019e-12,
+      "corr_resid": 2.5822788335999445e-09
+    },
+    {
+      "gamma": 43.327073280915,
+      "delta": 0.1,
+      "scale": 0.9,
+      "nodes": 17,
+      "families": 17,
+      "support": 9.72,
+      "book": 1985,
+      "q_step_004": -5.942577342671437e+20,
+      "q_sign": "negative",
+      "base_resid": 3.754453727946338e-12,
+      "corr_resid": 1.1849403596848694e-09
+    },
+    {
+      "gamma": 48.00515088116716,
+      "delta": 0.1,
+      "scale": 0.88,
+      "nodes": 17,
+      "families": 17,
+      "support": 9.504000000000001,
+      "book": 1647,
+      "q_step_004": -2.0379797330100457e+20,
+      "q_sign": "negative",
+      "base_resid": 3.868683151608853e-12,
+      "corr_resid": 4.83033923970311e-09
+    }
+  ],
+  "nonclaims": [
+    "m=400 and coarse xi grid are screening only",
+    "no uniform COVER statement",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "script": "scripts\\routea_cover_owner_margin_screen_2078.py"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "record": 2114,
+  "status": "OWNER-CARDINALITY-TWO-ORBIT-M6400-SCREEN",
+  "gamma": 39.25244858548658,
+  "delta": 0.445,
+  "scale": 0.8,
+  "m": 6400,
+  "selected_orbits": [
+    0,
+    1,
+    2
+  ],
+  "rows": [
+    {
+      "orbit_count": 0,
+      "nodes": 30,
+      "support": 4.64,
+      "book": 37,
+      "matrix_condition": 708664.1927654018,
+      "matrix_status": "nonsingular",
+      "base_resid": 9.554306723477597e-15,
+      "corr_resid": 3.349113369550514e-11,
+      "q_step_002": -61462592817235.04,
+      "q_sign": "negative"
+    },
+    {
+      "orbit_count": 1,
+      "nodes": 34,
+      "support": 6.08,
+      "book": 103,
+      "matrix_condition": 883435.7170631646,
+      "matrix_status": "nonsingular",
+      "base_resid": 1.1561344965051396e-14,
+      "corr_resid": 5.124852127014793e-11,
+      "q_step_002": -61752808071910.16,
+      "q_sign": "negative"
+    },
+    {
+      "orbit_count": 2,
+      "nodes": 38,
+      "support": 8.64,
+      "book": 788,
+      "matrix_condition": 3153294.0817380776,
+      "matrix_status": "nonsingular",
+      "base_resid": 1.3995321811515714e-14,
+      "corr_resid": 4.33026155451581e-11,
+      "q_step_002": -65361542777091.17,
+      "q_sign": "negative"
+    }
+  ],
+  "nonclaims": [
+    "m=400 is screening only",
+    "extra points are stress inputs, not claimed zeros",
+    "no complete owner theorem or producer/RH claim"
+  ],
+  "provenance": {
+    "script": "scripts\\routea_owner_cardinality_two_orbit_m6400_2114.py",
+    "family": "unique widths for added off-line orbit nodes"
+  }
+}

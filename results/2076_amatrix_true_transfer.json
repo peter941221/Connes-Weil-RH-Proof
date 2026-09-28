@@ -1,0 +1,42 @@
+{
+  "record": 2076,
+  "status": "AMATRIX-TRUE-TRANSFER-MEASUREMENT",
+  "owner": "one-copy G8-H",
+  "matrix_shape": [
+    17,
+    17
+  ],
+  "mp_dps": 50,
+  "max_abs_entry_gap": 3.335450987703283e-23,
+  "frobenius_entry_gap": 3.3844191356463986e-23,
+  "stored_solve_residuals": {
+    "base": 1.2776493720595712e-11,
+    "corr": 6.893803254956833e-09
+  },
+  "true_solve_residuals": {
+    "base": 5.411236826394266e-12,
+    "corr": 2.620031577829384e-09
+  },
+  "stored_coeff_norms": {
+    "base": 48426836274927.945,
+    "corr": 1.7101070082407214e+16
+  },
+  "true_coeff_norms": {
+    "base": 48426836218074.17,
+    "corr": 1.7101070029150846e+16
+  },
+  "q_stored_step_002": -3406049884767.3594,
+  "q_true_step_002": -3406049842817.4253,
+  "q_true_step_001": -3406049842817.794,
+  "q_transfer_abs": 41949.93408203125,
+  "q_transfer_over_margin": 1.2316300553800175e-08,
+  "nonclaims": [
+    "mpmath quadrature is not a formal interval enclosure",
+    "Gram rule and coefficient/model-to-real gaps remain open",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "stored_source": "results/2058_l5_solve.json",
+    "script": "scripts\\routea_amatrix_true_transfer_2076.py"
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "record": 2070,
+  "status": "INFINITY-TAIL-BOUND-CANDIDATE",
+  "owner": "one-copy G8-H",
+  "rung": 48,
+  "start": 1000000.0,
+  "bands": [
+    {
+      "lo": 1000000.0,
+      "hi": 2000000.0,
+      "log_bound": -2177.9202904243193,
+      "sigma_upper": 14.508657738524263,
+      "env": 474.55624376999276
+    },
+    {
+      "lo": 2000000.0,
+      "hi": 4000000.0,
+      "log_bound": -2304.765511404411,
+      "sigma_upper": 15.201804919084184,
+      "env": 475.24939095055265
+    },
+    {
+      "lo": 4000000.0,
+      "hi": 8000000.0,
+      "log_bound": -2431.6103612637985,
+      "sigma_upper": 15.894952099644124,
+      "env": 475.9425381311126
+    },
+    {
+      "lo": 8000000.0,
+      "hi": 16000000.0,
+      "log_bound": -2558.4550266210244,
+      "sigma_upper": 16.58809928020407,
+      "env": 476.63568531167255
+    },
+    {
+      "lo": 16000000.0,
+      "hi": 32000000.0,
+      "log_bound": -2685.2996007817064,
+      "sigma_upper": 17.281246460764013,
+      "env": 477.3288324922325
+    },
+    {
+      "lo": 32000000.0,
+      "hi": 64000000.0,
+      "log_bound": -2812.1441303954475,
+      "sigma_upper": 17.974393641323957,
+      "env": 478.02197967279244
+    },
+    {
+      "lo": 64000000.0,
+      "hi": 128000000.0,
+      "log_bound": -2938.9886387839733,
+      "sigma_upper": 18.667540821883904,
+      "env": 478.7151268533524
+    },
+    {
+      "lo": 128000000.0,
+      "hi": 256000000.0,
+      "log_bound": -3065.8331376051074,
+      "sigma_upper": 19.360688002443847,
+      "env": 479.40827403391233
+    },
+    {
+      "lo": 256000000.0,
+      "hi": 512000000.0,
+      "log_bound": -3192.677632684744,
+      "sigma_upper": 20.053835183003795,
+      "env": 480.1014212144723
+    },
+    {
+      "lo": 512000000.0,
+      "hi": 1024000000.0,
+      "log_bound": -3319.522126932826,
+      "sigma_upper": 20.74698236356374,
+      "env": 480.79456839503223
+    },
+    {
+      "lo": 1024000000.0,
+      "hi": 2048000000.0,
+      "log_bound": -3446.366621801336,
+      "sigma_upper": 21.440129544123685,
+      "env": 481.4877155755922
+    },
+    {
+      "lo": 2048000000.0,
+      "hi": 4096000000.0,
+      "log_bound": -3573.211118013288,
+      "sigma_upper": 22.13327672468363,
+      "env": 482.1808627561521
+    }
+  ],
+  "max_observed_band_ratio": 8.168382914378888e-56,
+  "geometric_remainder_after_12_bands": 0.0,
+  "tail_bound_candidate": 0.0,
+  "q1600_abs": 3406049871881.275,
+  "l2_charge": 44122155666.37855,
+  "tail_over_q1600": 0.0,
+  "tail_over_l2": 0.0,
+  "solve": {
+    "resid": 5.796012448967837e-09,
+    "cond_raw": 1318248.416390374,
+    "min_eig": 2.887872343366788e-29,
+    "max_eig": 3.806933143380827e-23
+  },
+  "nonclaims": [
+    "the dyadic ratio-to-infinity step still needs a symbolic monotonicity proof",
+    "sigma interval uses the committed shifted Stirling enclosure and must be audited at unbounded bands",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "interval_kernel": "scripts/routea_interval_kernel_2043.py",
+    "variation_upper": "results/2068_interval_variation_bound.json",
+    "owner_source": "results/2058_l5_solve.json",
+    "script": "scripts\\routea_infinity_tail_bound_2070.py"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "record": 2093,
+  "status": "COVER-SCALE086-LEGAL-DELTA-SCREEN",
+  "window": [
+    -40.0,
+    40.0
+  ],
+  "step": 0.02,
+  "rows": [
+    {
+      "gamma": 40.9187190121475,
+      "delta": 0.1,
+      "scale": 0.86,
+      "nodes": 17,
+      "families": 17,
+      "support": 9.288,
+      "book": 1368,
+      "q_step_002": -16038316410840.713,
+      "q_sign": "negative",
+      "base_resid": 9.821533742619222e-12,
+      "corr_resid": 3.6057683493601824e-09
+    },
+    {
+      "gamma": 40.9187190121475,
+      "delta": 0.3,
+      "scale": 0.86,
+      "nodes": 17,
+      "families": 17,
+      "support": 9.288,
+      "book": 1368,
+      "q_step_002": -1291079602202.9832,
+      "q_sign": "negative",
+      "base_resid": 1.4223944478546918e-12,
+      "corr_resid": 1.0743627966894539e-09
+    }
+  ],
+  "nonclaims": [
+    "m=6400 finite grid is screening only",
+    "no uniform COVER statement",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "script": "scripts\\routea_cover_scale086_legal_delta_2093.py"
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "record": 2102,
+  "status": "FULL-KNOWN-PREFIX-DIRECT-OWNER-M6400-SCREEN",
+  "rows": [
+    {
+      "gamma": 39.25244858548658,
+      "delta": 0.15,
+      "scale": 0.8,
+      "nodes": 30,
+      "families": 30,
+      "support": 5.120000000000001,
+      "book": 52,
+      "matrix_condition": 865791.5392321015,
+      "base_resid": 3.270534785388272e-15,
+      "corr_resid": 2.5406009300557658e-11,
+      "q_step_002": -22109712264208.293,
+      "q_sign": "negative"
+    },
+    {
+      "gamma": 39.25244858548658,
+      "delta": 0.25,
+      "scale": 0.8,
+      "nodes": 30,
+      "families": 30,
+      "support": 5.120000000000001,
+      "book": 52,
+      "matrix_condition": 498102.90354655497,
+      "base_resid": 2.886755690652903e-15,
+      "corr_resid": 2.3647323354373887e-11,
+      "q_step_002": -7041592866535.75,
+      "q_sign": "negative"
+    },
+    {
+      "gamma": 39.25244858548658,
+      "delta": 0.35,
+      "scale": 0.8,
+      "nodes": 30,
+      "families": 30,
+      "support": 5.120000000000001,
+      "book": 52,
+      "matrix_condition": 345190.1252048825,
+      "base_resid": 1.1683005958927202e-14,
+      "corr_resid": 1.3129074142413204e-11,
+      "q_step_002": -3129640515921.934,
+      "q_sign": "negative"
+    },
+    {
+      "gamma": 39.25244858548658,
+      "delta": 0.445,
+      "scale": 0.8,
+      "nodes": 30,
+      "families": 30,
+      "support": 5.120000000000001,
+      "book": 52,
+      "matrix_condition": 265373.1999601135,
+      "base_resid": 3.7757341333963866e-15,
+      "corr_resid": 1.2954619645982858e-11,
+      "q_step_002": -1675397327895.099,
+      "q_sign": "negative"
+    }
+  ],
+  "window": [
+    -40.0,
+    40.0
+  ],
+  "step": 0.02,
+  "owner": "first 30 numerical critical-line zeros inside the healthy closed ball",
+  "family": "distinct orbit/real widths; shared width 2.2 for added kill zeros",
+  "nonclaims": [
+    "numerical zero list is not a Lean-certified complete owner",
+    "finite grid and m=6400 remain screening until outward promotion",
+    "no uniform COVER, producer theorem, or RH claim"
+  ],
+  "provenance": {
+    "script": "scripts\\routea_full_known_prefix_direct_owner_m6400_2102.py",
+    "solver": "direct numpy.linalg.solve, not H1 pseudoinverse",
+    "previous": "results/2101_known_prefix_shared_width_kill_test.json"
+  }
+}

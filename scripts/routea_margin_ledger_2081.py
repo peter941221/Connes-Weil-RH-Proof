@@ -1,0 +1,49 @@
+import json
+import os
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+OUTPUT = ROOT / "results" / "2081_routea_margin_ledger.json"
+q_margin = 3406049851783.499
+terms = {
+    "l2_model_charge": 44122155666.378555,
+    "finite_window_em_jet_forward": 1684037479.4504895,
+    "amatrix_transfer": 41949.93408203125,
+    "gram_transfer": 23908.83203125,
+    "tail_40_to_160_measured": 4091205.950971527,
+    "tail_160_to_infinity": 7.068567822135646e-260,
+}
+known = sum(terms.values())
+result = {
+    "record": 2081,
+    "status": "NUMERICAL-MARGIN-LEDGER-CANDIDATE",
+    "owner": "one-copy G8-H",
+    "sampled_negative_q": -q_margin,
+    "known_error_sum": known,
+    "known_error_over_margin": known / q_margin,
+    "remaining_margin_after_known_errors": q_margin - known,
+    "terms": terms,
+    "unknown_or_not_promoted": [
+        "uniform COVER over hypothetical zero parameters",
+        "formal outward promotion of finite-window jet and matrix bounds",
+        "physical-owner/model-to-real transfer beyond the priced matrix gaps",
+        "infinity-tail symbolic monotonicity and root-variation proof",
+    ],
+    "nonclaims": [
+        "this ledger combines candidates and measurements",
+        "not a producer theorem or RH claim",
+    ],
+    "provenance": {
+        "q": "results/2079_cover_owner_margin_m6400.json",
+        "l2": "results/2058_l5_solve.json",
+        "finite_window": "results/2075_finite_window_em_forward_bound.json",
+        "amatrix": "results/2076_amatrix_true_transfer.json",
+        "gram": "results/2077_gram_true_transfer.json",
+        "tail": "results/2069_fixed_r48_tail_price.json",
+        "script": os.fspath(Path(__file__).relative_to(ROOT)),
+    },
+}
+with OUTPUT.open("w", encoding="utf-8", newline="\n") as handle:
+    json.dump(result, handle, indent=2)
+    handle.write("\n")
+print(json.dumps(result, indent=2))

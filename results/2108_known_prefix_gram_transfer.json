@@ -1,0 +1,30 @@
+{
+  "record": 2108,
+  "status": "KNOWN-PREFIX-GRAM-TRANSFER-CANDIDATE",
+  "owner": {
+    "gamma": 39.25244858548658,
+    "delta": 0.445,
+    "scale": 0.8,
+    "nodes": 30,
+    "support": 5.120000000000001,
+    "book": 52
+  },
+  "mp_dps": 45,
+  "max_abs_gram_entry_gap": 5.025238349765279e-36,
+  "frobenius_gram_gap": 2.6557834488700224e-35,
+  "h1_q_stored": -1675412915131.1082,
+  "h1_q_true": -1675395577072.2212,
+  "h1_gram_transfer_abs": 17338058.88696289,
+  "sampled_margin": 1675397327895.099,
+  "h1_gram_transfer_over_margin": 1.0348625128073782e-05,
+  "nonclaims": [
+    "mpmath Gram is not an outward interval certificate",
+    "known-prefix owner is not the complete abstract owner",
+    "direct-solve model is separate from H1 diagnostic",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "script": "scripts\\routea_known_prefix_gram_transfer_2108.py",
+    "owner_source": "results/2103_full_known_prefix_direct_owner_grid_m6400.json"
+  }
+}

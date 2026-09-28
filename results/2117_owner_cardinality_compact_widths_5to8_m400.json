@@ -1,0 +1,67 @@
+{
+  "record": 2117,
+  "status": "OWNER-CARDINALITY-COMPACT-WIDTHS-5TO8-M400-SCREEN",
+  "gamma": 39.25244858548658,
+  "delta": 0.445,
+  "scale": 0.8,
+  "m": 400,
+  "rows": [
+    {
+      "orbit_count": 5,
+      "nodes": 50,
+      "support": 5.056000000000001,
+      "book": 49,
+      "matrix_condition": 101892035.52792394,
+      "matrix_status": "nonsingular",
+      "base_resid": 1.1486590430406024e-14,
+      "corr_resid": 2.245454594776403e-09,
+      "q_step_002": -3.804288553453631e+16,
+      "q_sign": "negative"
+    },
+    {
+      "orbit_count": 6,
+      "nodes": 54,
+      "support": 5.376000000000001,
+      "book": 61,
+      "matrix_condition": 71942227.83509815,
+      "matrix_status": "nonsingular",
+      "base_resid": 8.94940032386784e-15,
+      "corr_resid": 1.349351407270324e-09,
+      "q_step_002": -2.2677217981427104e+16,
+      "q_sign": "negative"
+    },
+    {
+      "orbit_count": 7,
+      "nodes": 58,
+      "support": 5.696000000000001,
+      "book": 79,
+      "matrix_condition": 500375340.61451024,
+      "matrix_status": "nonsingular",
+      "base_resid": 9.772571681235678e-15,
+      "corr_resid": 8.571708963780707e-10,
+      "q_step_002": -2.0121710911464812e+16,
+      "q_sign": "negative"
+    },
+    {
+      "orbit_count": 8,
+      "nodes": 62,
+      "support": 6.016,
+      "book": 99,
+      "matrix_condition": 3416857159.3827877,
+      "matrix_status": "nonsingular",
+      "base_resid": 1.326348182926686e-14,
+      "corr_resid": 1.7489561896244165e-09,
+      "q_step_002": -4.150344407545022e+16,
+      "q_sign": "negative"
+    }
+  ],
+  "nonclaims": [
+    "m=400 is screening only",
+    "extra points are stress inputs, not claimed zeros",
+    "no complete owner theorem or producer/RH claim"
+  ],
+  "provenance": {
+    "script": "scripts\\routea_owner_cardinality_compact_widths_5to8_m400_2117.py",
+    "family": "compact ladder widths for 5--8 added off-line orbit nodes"
+  }
+}

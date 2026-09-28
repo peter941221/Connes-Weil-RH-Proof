@@ -1,0 +1,15 @@
+{
+  "record": 2068,
+  "status": "INTERVAL-VARIATION-SKELETON",
+  "order": 48,
+  "root_count": 64,
+  "variation_lower_proxy": 0.0,
+  "variation_upper_proxy": 1.2466403887652727e+81,
+  "measured_N48": 2.29343747171e+73,
+  "upper_over_measured": 54356850.97774959,
+  "nonclaims": [
+    "interval dependency remains in the displayed proxy assembly",
+    "endpoint zero terms and monotonicity certification are not yet separately discharged",
+    "no producer theorem or RH claim"
+  ]
+}

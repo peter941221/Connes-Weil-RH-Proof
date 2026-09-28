@@ -1,0 +1,55 @@
+{
+  "record": 2125,
+  "status": "SPLINE-ONLY-ERROR-BUDGET-CANDIDATE",
+  "owner": {
+    "rho": [
+      0.55,
+      30.424876125859512
+    ],
+    "N": 4,
+    "owner_cardinality": 40
+  },
+  "n": 6,
+  "xi": {
+    "min": -75.0,
+    "max": 75.0,
+    "dxi": 0.02,
+    "omega_step": 0.006666666666667993
+  },
+  "prime_book": 595877,
+  "coverage": {
+    "nyquist": 24.996667111056833,
+    "n_covered": 595877,
+    "max_log_k": 15.999999828889367,
+    "capture_fraction": 1.0
+  },
+  "prime_weight_sum": 11918.679927555173,
+  "full_route_a": {
+    "C": 1170475.2817252602,
+    "b": 12168693836.911371,
+    "D": 82883230494178.73,
+    "det": -5.106433713351128e+19
+  },
+  "moment4": [
+    291985902.0367035,
+    1602060046476.6812,
+    9331484748483896.0
+  ],
+  "moment_error_bound": {
+    "C": 27900.58136898336,
+    "b": 153084126.22983825,
+    "D": 891665822570.3475
+  },
+  "determinant_error_bound": 7.130143592708958e+18,
+  "spline_margin_ratio": 7.161754383982943,
+  "nonclaims": [
+    "DFT/trapezoid error not charged",
+    "window tail outside |xi| <= 75 not charged",
+    "owner is a known-zero under-approximation",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/fourpoint_n6_routea_spline_budget_2125.py",
+    "source": "results/2124_route_b_n6_routea_crossread.json"
+  }
+}

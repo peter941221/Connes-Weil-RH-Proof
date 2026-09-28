@@ -1,0 +1,79 @@
+{
+  "record": 2113,
+  "status": "OWNER-CARDINALITY-SCALING-M400-SCREEN",
+  "gamma": 39.25244858548658,
+  "delta": 0.445,
+  "scale": 0.8,
+  "m": 400,
+  "rows": [
+    {
+      "orbit_count": 0,
+      "nodes": 30,
+      "support": 4.64,
+      "book": 37,
+      "matrix_condition": 708664.1927999073,
+      "matrix_status": "nonsingular",
+      "base_resid": 2.562940809375039e-15,
+      "corr_resid": 1.9629515717814232e-11,
+      "q_step_002": -61462594705705.72,
+      "q_sign": "negative"
+    },
+    {
+      "orbit_count": 1,
+      "nodes": 34,
+      "support": 6.08,
+      "book": 103,
+      "matrix_condition": 883435.7171288492,
+      "matrix_status": "nonsingular",
+      "base_resid": 8.216359571867052e-15,
+      "corr_resid": 2.33818542897206e-11,
+      "q_step_002": -61752809970807.02,
+      "q_sign": "negative"
+    },
+    {
+      "orbit_count": 2,
+      "nodes": 38,
+      "support": 8.64,
+      "book": 788,
+      "matrix_condition": 3153294.082437994,
+      "matrix_status": "nonsingular",
+      "base_resid": 7.14931767298922e-15,
+      "corr_resid": 4.4696719902206893e-11,
+      "q_step_002": -65361544671417.08,
+      "q_sign": "negative"
+    },
+    {
+      "orbit_count": 3,
+      "nodes": 42,
+      "support": 11.200000000000001,
+      "book": 7327,
+      "matrix_condition": 38507544.78343916,
+      "matrix_status": "nonsingular",
+      "base_resid": 1.0436641585643648e-14,
+      "corr_resid": 3.00983562751472e-11,
+      "q_step_002": -1.851604752462459e+21,
+      "q_sign": "negative"
+    },
+    {
+      "orbit_count": 4,
+      "nodes": 46,
+      "support": 13.76,
+      "book": 74859,
+      "matrix_condition": 2765302702.5507865,
+      "matrix_status": "nonsingular",
+      "base_resid": 3.966120362610055e-14,
+      "corr_resid": 5.743426494985612e-11,
+      "q_step_002": -2.75422751819091e+23,
+      "q_sign": "negative"
+    }
+  ],
+  "nonclaims": [
+    "m=400 is screening only",
+    "extra points are stress inputs, not claimed zeros",
+    "no complete owner theorem or producer/RH claim"
+  ],
+  "provenance": {
+    "script": "scripts\\routea_owner_cardinality_scaling_2113.py",
+    "family": "unique widths for added off-line orbit nodes"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "record": 2073,
+  "status": "EM-FOURTH-ORDER-MEASUREMENT",
+  "owner": "one-copy G8-H",
+  "window": [
+    -40.0,
+    40.0
+  ],
+  "step": 0.005,
+  "visible_prime_count": 1647,
+  "aggregate_trapezoid": -3406049851781.223,
+  "endpoint_derivatives": {
+    "left": -3.3606755971741277e-21,
+    "right": 4.568181373412018e-22
+  },
+  "em_endpoint_correction": -7.953111946906937e-27,
+  "em_corrected_value": -3406049851781.223,
+  "finite_difference_f4_l1": 1.076581872556369e+22,
+  "em_remainder_proxy": 9345328754.829594,
+  "remainder_over_negative_margin": 0.002743743973665674,
+  "solve_resid": 5.796012448967837e-09,
+  "nonclaims": [
+    "finite differences are diagnostic, not an outward enclosure",
+    "sigma and family arithmetic errors are not included",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "owner_source": "results/2058_l5_solve.json",
+    "script": "scripts\\routea_finite_window_em_fourth_probe_2073.py"
+  }
+}

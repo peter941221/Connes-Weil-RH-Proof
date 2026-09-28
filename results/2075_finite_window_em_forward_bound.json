@@ -1,0 +1,53 @@
+{
+  "record": 2075,
+  "status": "EM-JET-FORWARD-BOUND-CANDIDATE",
+  "owner": "one-copy G8-H",
+  "window": [
+    -40.0,
+    40.0
+  ],
+  "panel_width": 0.002,
+  "panel_count": 40000,
+  "fourth_derivative_l1_forward_bound": 7.578168657527202e+22,
+  "em_remainder_forward_bound": 1684037479.4504895,
+  "remainder_over_L2_charge": 0.03816761565740407,
+  "remainder_over_sampled_margin": 0.000494425376237464,
+  "kernel_center_allowances": [
+    2.6821688755518313e-09,
+    1.2821507389418347e-07,
+    6.4537523024375145e-06,
+    0.0003345849194308912,
+    0.017693258277074814
+  ],
+  "kernel_prime_abs_majorants": [
+    458.0475860314685,
+    21898.85724574201,
+    1102287.4081898476,
+    57146408.29171568,
+    3021971745.685054,
+    162139829649.05615,
+    8797240455198.844
+  ],
+  "kernel_sigma_analytic_majorants": [
+    100.0,
+    17.19733089925582,
+    129.32774099514353,
+    1538.782144778557,
+    24584.375389290974,
+    491552.5137683149,
+    11796633.687744383
+  ],
+  "summation_gamma": 1.8285373215579673e-13,
+  "solve_resid": 5.796012448967837e-09,
+  "nonclaims": [
+    "the IEEE allowance is a forward-error model, not yet a Lean certificate",
+    "the stored owner coefficients and model-to-real gap remain open",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "owner_source": "results/2058_l5_solve.json",
+    "jet_source": "scripts/routea_l3_aggregate_2051.py",
+    "previous_probe": "results/2074_finite_window_em_jet_bound.json",
+    "script": "scripts\\routea_finite_window_em_forward_bound_2075.py"
+  }
+}

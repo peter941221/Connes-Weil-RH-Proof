@@ -1,0 +1,74 @@
+{
+  "record": 2120,
+  "status": "NEARBY_ZERO_FREE_ANCHOR-IMPROVES-BUT-NOT-GO",
+  "rho": [
+    0.9450000000000001,
+    39.25244858548658
+  ],
+  "closed_ball_radius": 43.2666238038906,
+  "rows": [
+    {
+      "center_re": 1.0,
+      "distance_center_rho": 0.05499999999999994,
+      "radius_for_jensen": 43.3216238038906,
+      "dyadic_rung_n": 3,
+      "xi_abs_numeric": 5.669650932185711e-11,
+      "source_owner_bound_numeric": 1370.7898520529006
+    },
+    {
+      "center_re": 1.1,
+      "distance_center_rho": 0.15500000000000003,
+      "radius_for_jensen": 43.421623803890604,
+      "dyadic_rung_n": 3,
+      "xi_abs_numeric": 5.930543412530742e-11,
+      "source_owner_bound_numeric": 1370.724947663068
+    },
+    {
+      "center_re": 1.2,
+      "distance_center_rho": 0.2549999999999999,
+      "radius_for_jensen": 43.521623803890606,
+      "dyadic_rung_n": 3,
+      "xi_abs_numeric": 6.244291841650888e-11,
+      "source_owner_bound_numeric": 1370.6505740006392
+    },
+    {
+      "center_re": 1.3,
+      "distance_center_rho": 0.355,
+      "radius_for_jensen": 43.6216238038906,
+      "dyadic_rung_n": 3,
+      "xi_abs_numeric": 6.613685439919484e-11,
+      "source_owner_bound_numeric": 1370.5676575375683
+    },
+    {
+      "center_re": 1.4,
+      "distance_center_rho": 0.45499999999999985,
+      "radius_for_jensen": 43.7216238038906,
+      "dyadic_rung_n": 3,
+      "xi_abs_numeric": 7.042004189160982e-11,
+      "source_owner_bound_numeric": 1370.4771258818387
+    },
+    {
+      "center_re": 1.5,
+      "distance_center_rho": 0.5549999999999999,
+      "radius_for_jensen": 43.8216238038906,
+      "dyadic_rung_n": 3,
+      "xi_abs_numeric": 7.533046342433295e-11,
+      "source_owner_bound_numeric": 1370.3798785626218
+    }
+  ],
+  "best_screened_row": {
+    "center_re": 1.5,
+    "distance_center_rho": 0.5549999999999999,
+    "radius_for_jensen": 43.8216238038906,
+    "dyadic_rung_n": 3,
+    "xi_abs_numeric": 7.533046342433295e-11,
+    "source_owner_bound_numeric": 1370.3798785626218
+  },
+  "compact_family_max_nodes_screened": 62,
+  "formal_theorem": "sourceNontrivialZerosInClosedBall_ncard_le_dyadic_xi_growth_at_center",
+  "nonclaims": [
+    "xi values are numerical translations, not Lean numeral certificates",
+    "no measured zero count claim",
+    "no producer/RH claim"
+  ]
+}

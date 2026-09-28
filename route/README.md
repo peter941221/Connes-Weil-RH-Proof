@@ -30,6 +30,12 @@ Current topology:
         Healthy CompactLog B5-shaped producer mainline
         001_route_a_signed_kernel/
             Same-owner signed physical-kernel / C3' campaign
+                001_uniform_panel_interval/  CLOSED - L2 width no-go
+                002_ibp_quadrature/          CLOSED - IBP L2 no-go
+                003_panel_local_l2_model/    ACTIVE infrastructure only
+                004_selector_family/         CLOSED / PARKED by selector
+                005_c3p_selected_owner/      ACTIVE core producer target
+                099_frozen_or_audit_only/    Frozen evidence
         002_route_b_fourpoint_span/
             Same-owner four-point SPAN / determinant + joint-tail campaign
         099_frozen_or_audit_only/
@@ -49,6 +55,14 @@ hypothetical off-line zero
 A route is not considered alive merely because it has Lean interfaces or a
 numerical candidate. It must preserve the same owner, support, visible-prime
 set, detector, and quantifiers through the final consumer.
+
+Route A execution rule:
+
+```text
+dead architecture -> keep its no-go and reopen only after a named hypothesis changes
+viable L2 model  -> use as infrastructure, not as a producer theorem
+next core strike  -> price the signed C3' margin on the actual selected owner
+```
 
 Read next:
 

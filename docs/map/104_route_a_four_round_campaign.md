@@ -373,3 +373,50 @@ with numeric input [2037](../results/2037_route_a_g8h_basis_comparison.json).
 
 Evidence level: scoped numeric/certificate no-go; no producer is licensed and
 no RH claim is made.
+
+## 2026-09-28 - Route A truncated-owner correction (2104)
+
+The 2095-2099 gamma/delta screens are scoped to a ten-height numerical
+under-approximation of `healthyCorrectionNodes rho 0 empty`. At an interior
+gamma, the healthy ball includes at least 12 additional numerical known-zero
+positions from the first 30, so the sampled 17/18-node family cannot close
+actual-owner COVER. The scale-0.86 18-node family additionally has a positive
+finite-window reading on four interior delta cells. These are scoped no-go
+rulings for the inference and family, not a closure of Route A.
+
+A shared-kill-width, direct-solve family keeps support 5.12 and the visible
+prime book at 52 on the tested known prefixes; 30/33/36-node numerical
+owners have 12/12 negative m=6400 finite-window readings. Its complete
+source-zero owner, parameter-uniform conditioning, outward full-line sign,
+and model-to-real transfer remain open. Record 2058's L2 charge does not
+transfer to this different owner without re-pricing.
+
+Evidence: [2104](../proofs/2104_route_a_continuous_owner_correction.md).
+
+## 2026-09-28 - Owner-matched budget (2105-2109)
+
+The compact shared-kill-width family survives an owner-matched numerical
+budget on the weakest tested known-prefix cell. EM forward, a_mat transfer,
+Gram diagnostic, and tail total `7.460153030234718e7` consume only
+`4.4528e-5` of sampled margin `1.675397327895099e12`. The result is not yet
+producer progress because the finite owner is still a numerical prefix and
+formal outward promotion plus parameter-uniform owner control are missing.
+
+Evidence: [2104](../proofs/2104_route_a_continuous_owner_correction.md).
+
+## 2119 formal owner-cardinality bridge
+
+The actual closed-ball owner now has a formal unconditional cardinality bridge:
+`ConnesWeilRH/Dev/C1RouteAOwnerCardinality.lean` maps it into a symmetric-height
+window and applies the existing dyadic xi-growth/Jensen bound. The paired audit
+passes with standard axioms only.
+
+At the current `N=0`, `rho=0.945+39.25244858548658i` point, the numerical
+translation is about `3002.56` source-owner nodes versus 62 in the compact
+stress family. Therefore the present Jensen/growth interface is too loose for
+that family by a factor about 48.43. This is a quantitative gap, not a global
+no-go; the next core target is a sharper count/anchor estimate or a construction
+whose cost does not scale one-for-one with all abstract owner zeros.
+
+Evidence: `docs/proofs/2119_routea_formal_owner_cardinality_bound.md` and
+`results/2119_routea_formal_owner_cardinality_bound.json`.

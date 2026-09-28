@@ -1,0 +1,22 @@
+{
+  "record": 2064,
+  "status": "TERMWISE-HIGH-ORDER-BOUND-NO-GO",
+  "k": 30,
+  "rows": [
+    {"order": 12, "termwise_bound": 850587286.68, "measured_N": 8.35753699335, "ratio": 101774880.0},
+    {"order": 24, "termwise_bound": 2.62503220456e35, "measured_N": 1.98618849664e20, "ratio": 1.321643e15},
+    {"order": 36, "termwise_bound": 4.54126432645e65, "measured_N": 1.1211690392e45, "ratio": 4.0504725e20},
+    {"order": 48, "termwise_bound": 2.90576773393e99, "measured_N": 2.29343747171e73, "ratio": 1.2669924e26}
+  ],
+  "decision": "TERMWISE_ABSOLUTE_MAJORANT_DEAD",
+  "nonclaims": [
+    "this closes only the termwise absolute-majorant construction",
+    "it does not close all high-order tail mechanisms",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/diag_high_order_bound_2064.py",
+    "candidate": "results/2063_route_a_high_order_tail_price.json",
+    "prior_tail_law": "docs/proofs/2053_route_a_l4_horizon.md"
+  }
+}

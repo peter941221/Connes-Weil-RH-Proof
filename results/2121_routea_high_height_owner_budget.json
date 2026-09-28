@@ -1,0 +1,23 @@
+{
+  "record": 2121,
+  "status": "HIGH-HEIGHT-OWNER-BUDGET-CRUSHES-COMPACT-LADDER",
+  "gamma_floor": 3000000000000.0,
+  "delta": 0.445,
+  "N": 0,
+  "closed_ball_radius": 3000000000004.0,
+  "nearby_anchor_re": 1.5,
+  "jensen_radius": 3000000000004.555,
+  "hscale_left": 9000000000010.11,
+  "dyadic_rung_n": 40,
+  "dyadic_radius": 17592186044416.0,
+  "xi_growth_exponent": 774056185954408.6,
+  "translation_count_bound_with_xi_norm_1e-10": 1116727020845883.9,
+  "compact_family_max_nodes_screened": 62,
+  "bound_over_62": 18011726142675.547,
+  "source_basis": "docs/proofs/1114_IC_problem_statement.md:131-137",
+  "nonclaims": [
+    "this is a parameterized upper-bound translation, not a measured zero count",
+    "xi center magnitude is not a Lean numeral certificate",
+    "no producer/RH claim"
+  ]
+}

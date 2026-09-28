@@ -1,0 +1,31 @@
+{
+  "record": 2106,
+  "status": "KNOWN-PREFIX-TAIL-PRICE-CANDIDATE",
+  "owner": {
+    "gamma": 39.25244858548658,
+    "delta": 0.445,
+    "scale": 0.8,
+    "nodes": 30,
+    "support": 5.120000000000001,
+    "book": 52
+  },
+  "rung": 48,
+  "x0": 40.0,
+  "xmax_numeric": 1000000.0,
+  "tail_40_to_1e6": 2.2087121764650203e-138,
+  "remainder_model": 0.0,
+  "tail_total": 2.2087121764650203e-138,
+  "sampled_negative_margin": 1675397327895.099,
+  "tail_over_sampled_margin": 1.31832141527882e-150,
+  "env": 54.57661740906325,
+  "nonclaims": [
+    "N48 upper and infinity remainder are inherited candidate bounds, not yet formal for this owner",
+    "numerical zero list is not a complete abstract owner",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "script": "scripts\\routea_known_prefix_tail_price_2106.py",
+    "owner_source": "results/2103_full_known_prefix_direct_owner_grid_m6400.json",
+    "tail_method": "record 2069 R=48 envelope"
+  }
+}

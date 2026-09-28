@@ -1,0 +1,39 @@
+{
+  "record": 2059,
+  "status": "OWNER-ALIGNED-L2-MARGIN-AUDIT",
+  "consumer": "C1P2DirectSemiLocalGate -> orbitWindowSemiLocalGate -> SourceRH",
+  "owner": "one-copy G8-H",
+  "rho": [
+    0.6,
+    40.9187190121475
+  ],
+  "scale": 0.88,
+  "support": 9.504000000000001,
+  "book_size": 1647,
+  "owner_matches": {
+    "owner": true,
+    "support": true,
+    "book_size": true,
+    "basis_size": true,
+    "no_nullspace": true
+  },
+  "owner_match_all": true,
+  "q400": -1.1111757839943652e+20,
+  "q1600": -3406049871881.275,
+  "l2_charge": 44122155666.378555,
+  "sampled_margin_1600": 3361927716214.8965,
+  "sampled_margin_ratio_1600": 0.01295405449891678,
+  "sampled_margin_ratio_400": 3.970762889357774e-10,
+  "decision": "L2-BUDGET-BELOW-SAMPLED-NEGATIVE-MARGIN",
+  "nonclaims": [
+    "q400 and q1600 are inherited sampled/refinement readings, not full-line interval enclosures",
+    "the L2 charge is not yet a model-to-real enclosure for the selected detector",
+    "Gram, a_mat idealisation, and COVER obligations remain open",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "source_2037": "results\\2037_route_a_g8h_basis_comparison.json",
+    "source_2058": "results\\2058_l5_solve.json",
+    "script": "scripts\\routea_c3p_owner_margin_2059.py"
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "record": 2124,
+  "status": "ROUTE-A-COVERAGE-PASS-CROSSREAD",
+  "owner": {
+    "rho": [
+      0.55,
+      30.424876125859512
+    ],
+    "N": 4,
+    "owner_cardinality": 40
+  },
+  "n": 6,
+  "rows": [
+    {
+      "dxi": 0.02,
+      "prime_book": 595877,
+      "coverage": {
+        "nyquist": 24.990003998401175,
+        "n_covered": 595877,
+        "max_log_k": 15.999999828889367,
+        "capture_fraction": 1.0
+      },
+      "arch": [
+        -872653.7653067552,
+        -4748291827.7047825,
+        -27404180615906.434
+      ],
+      "prime_direct": [
+        2043126.4185029115,
+        16916977435.268946,
+        110287375816667.66
+      ],
+      "prime_route_a": [
+        2042744.4552294803,
+        16914376071.27348,
+        110270909684015.9
+      ],
+      "prime_relative_drift": [
+        0.00018695038641369788,
+        0.00015377238667013682,
+        0.00014930206226981824
+      ],
+      "full_direct": [
+        1170472.6531961563,
+        12168685607.564163,
+        82883195200761.22
+      ],
+      "full_route_a": [
+        1170090.689922725,
+        12166084243.568697,
+        82866729068109.47
+      ],
+      "det_direct": -5.106439602372929e+19,
+      "det_route_a": -5.1052017634666775e+19,
+      "det_relative_drift": 0.0002424074311339064,
+      "direct_gate": true,
+      "route_a_gate": true
+    },
+    {
+      "dxi": 0.01,
+      "prime_book": 595877,
+      "coverage": {
+        "nyquist": 49.99000199959226,
+        "n_covered": 595877,
+        "max_log_k": 15.999999828889367,
+        "capture_fraction": 1.0
+      },
+      "arch": [
+        -872653.7653260943,
+        -4748291827.879538,
+        -27404180615685.54
+      ],
+      "prime_direct": [
+        2043070.5233712392,
+        16908424102.845093,
+        110209905005878.06
+      ],
+      "prime_route_a": [
+        2042424.708129994,
+        16904523803.88771,
+        110187557755900.16
+      ],
+      "prime_relative_drift": [
+        0.00031610031756490464,
+        0.0002306719380622546,
+        0.00020276988694178932
+      ],
+      "full_direct": [
+        1170416.7580451448,
+        12160132274.965555,
+        82805724390192.53
+      ],
+      "full_route_a": [
+        1169770.9428038998,
+        12156231976.008173,
+        82783377140214.62
+      ],
+      "det_direct": -5.095160945631006e+19,
+      "det_route_a": -5.093638672872392e+19,
+      "det_relative_drift": 0.0002987683362424276,
+      "direct_gate": true,
+      "route_a_gate": true
+    }
+  ],
+  "nonclaims": [
+    "FFT/spline error is not interval-certified",
+    "owner is a known-zero under-approximation",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/fourpoint_n6_routea_crossread_2124.py",
+    "source": "results/2123_route_b_n6_reopen.json"
+  }
+}

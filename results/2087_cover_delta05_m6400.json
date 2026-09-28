@@ -1,0 +1,32 @@
+{
+  "record": 2087,
+  "status": "COVER-DELTA05-M6400-SCREEN",
+  "window": [
+    -40.0,
+    40.0
+  ],
+  "step": 0.02,
+  "rows": [
+    {
+      "gamma": 40.9187190121475,
+      "delta": 0.5,
+      "scale": 0.88,
+      "nodes": 17,
+      "families": 17,
+      "support": 9.504000000000001,
+      "book": 1647,
+      "q_step_002": -61005103943.6924,
+      "q_sign": "negative",
+      "base_resid": 2.7495616190050533e-12,
+      "corr_resid": 4.0088821500622656e-10
+    }
+  ],
+  "nonclaims": [
+    "m=6400 finite grid is screening only",
+    "no uniform COVER statement",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "script": "scripts\\routea_cover_delta05_single_2087.py"
+  }
+}

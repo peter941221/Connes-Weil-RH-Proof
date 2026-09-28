@@ -1,6 +1,35 @@
 # 002.001 — Route A: same-owner signed physical kernel
 
-Status: ACTIVE CAMPAIGN. RH is not claimed.
+Status: ACTIVE CORE CAMPAIGN, with scoped dead subroutes recorded below.
+RH is not claimed.
+
+Route A topology:
+
+```text
+001_uniform_panel_interval/   CLOSED - L2 width no-go (2043)
+002_ibp_quadrature/           CLOSED - L2 IBP no-go (2046)
+003_panel_local_l2_model/     ACTIVE INFRASTRUCTURE - viable, not producer
+004_selector_family/          CLOSED / PARKED - selector-specific no-goes
+005_c3p_selected_owner/       ACTIVE CORE TARGET - next producer attack
+099_frozen_or_audit_only/     FROZEN - reusable evidence only
+```
+
+The directory names describe distinct hypotheses, not stages of one proof.
+A result in `003_panel_local_l2_model/` does not reopen `001` or `002`, and
+does not by itself prove the selected detector's signed Weil inequality.
+
+Immediate execution target:
+
+```text
+real selected owner
+    -> same finite visible-prime set
+    -> same detector and support
+    -> signed C3' physical-kernel margin
+    -> explicit COVER / quantifier closure
+```
+
+The L2 model is a supporting certificate only. Stop numerical L5 refinement
+unless it removes a named premise of the C3' producer obligation.
 
 Target:
 

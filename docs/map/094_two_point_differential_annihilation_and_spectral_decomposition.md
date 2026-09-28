@@ -57,6 +57,14 @@ The next campaign is specified in [103](103_four_point_same_span_three_cut_campa
 In particular, [091]'s nonnegative narrow-root span is not this four-point
 span; a same-span gate estimate is an independent open cut.
 
+Record [2122](../proofs/2122_phase_balanced_same_span_gate_owner_audit.md)
+freezes attempted reuse of the [091] gate as a scoped no-go. The gate object
+is `spanObj ![narrowArchRoot, g]`, while the spectral contradiction object is
+`h(lambda) = annihilatorDetectorSpanVector
+(fullFunctionalEquationOrbitAnnihilator g rho) g lambda`. The next attack
+must certify both the exact parabola gate and the weighted high-shell tail for
+this same `h(lambda)`, with one common convolution index.
+
 The exact transform identity is also formal:
 `laplaceAt_fullFunctionalEquationOrbitAnnihilator` is the product of the four
 orbit-centered linear factors times `laplaceAt g`, and

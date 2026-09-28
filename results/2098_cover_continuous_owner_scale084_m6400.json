@@ -1,0 +1,200 @@
+{
+  "record": 2098,
+  "status": "COVER-CONTINUOUS-OWNER-SCALE084-M6400-SCREEN",
+  "window": [
+    -40.0,
+    40.0
+  ],
+  "step": 0.02,
+  "rows": [
+    {
+      "gamma": 39.25244858548658,
+      "delta": 0.15,
+      "scale": 0.84,
+      "nodes": 18,
+      "families": 18,
+      "support": 9.744,
+      "book": 2029,
+      "q_step_002": -6969235317433.141,
+      "q_sign": "negative",
+      "base_resid": 2.68646977877664e-12,
+      "corr_resid": 4.199873028025508e-10
+    },
+    {
+      "gamma": 39.25244858548658,
+      "delta": 0.25,
+      "scale": 0.84,
+      "nodes": 18,
+      "families": 18,
+      "support": 9.744,
+      "book": 2029,
+      "q_step_002": -1215129873807.9414,
+      "q_sign": "negative",
+      "base_resid": 1.9608101439117185e-12,
+      "corr_resid": 1.193328543962015e-10
+    },
+    {
+      "gamma": 39.25244858548658,
+      "delta": 0.35,
+      "scale": 0.84,
+      "nodes": 18,
+      "families": 18,
+      "support": 9.744,
+      "book": 2029,
+      "q_step_002": -410274592317.8428,
+      "q_sign": "negative",
+      "base_resid": 1.9414935921493077e-12,
+      "corr_resid": 1.1751986084515204e-10
+    },
+    {
+      "gamma": 39.25244858548658,
+      "delta": 0.445,
+      "scale": 0.84,
+      "nodes": 18,
+      "families": 18,
+      "support": 9.744,
+      "book": 2029,
+      "q_step_002": -298107701196.854,
+      "q_sign": "negative",
+      "base_resid": 4.858521495452226e-12,
+      "corr_resid": 1.77378856363841e-10
+    },
+    {
+      "gamma": 42.12289614653125,
+      "delta": 0.15,
+      "scale": 0.84,
+      "nodes": 18,
+      "families": 18,
+      "support": 9.744,
+      "book": 2029,
+      "q_step_002": -5645829048796.497,
+      "q_sign": "negative",
+      "base_resid": 9.787556855297382e-12,
+      "corr_resid": 1.2107118535040262e-09
+    },
+    {
+      "gamma": 42.12289614653125,
+      "delta": 0.25,
+      "scale": 0.84,
+      "nodes": 18,
+      "families": 18,
+      "support": 9.744,
+      "book": 2029,
+      "q_step_002": -13498101881.665186,
+      "q_sign": "negative",
+      "base_resid": 3.112648661501338e-11,
+      "corr_resid": 4.152976373846777e-11
+    },
+    {
+      "gamma": 42.12289614653125,
+      "delta": 0.35,
+      "scale": 0.84,
+      "nodes": 18,
+      "families": 18,
+      "support": 9.744,
+      "book": 2029,
+      "q_step_002": -521251287126.22784,
+      "q_sign": "negative",
+      "base_resid": 8.780045312245728e-11,
+      "corr_resid": 1.0744386316578697e-09
+    },
+    {
+      "gamma": 42.12289614653125,
+      "delta": 0.445,
+      "scale": 0.84,
+      "nodes": 18,
+      "families": 18,
+      "support": 9.744,
+      "book": 2029,
+      "q_step_002": -769421855489.9579,
+      "q_sign": "negative",
+      "base_resid": 8.372873530843304e-11,
+      "corr_resid": 3.6339182187406946e-09
+    },
+    {
+      "gamma": 45.66611208104108,
+      "delta": 0.15,
+      "scale": 0.84,
+      "nodes": 18,
+      "families": 18,
+      "support": 9.744,
+      "book": 2029,
+      "q_step_002": -548858235354958.8,
+      "q_sign": "negative",
+      "base_resid": 6.561889367777285e-12,
+      "corr_resid": 6.254275532566758e-09
+    },
+    {
+      "gamma": 45.66611208104108,
+      "delta": 0.25,
+      "scale": 0.84,
+      "nodes": 18,
+      "families": 18,
+      "support": 9.744,
+      "book": 2029,
+      "q_step_002": -196925729313440.84,
+      "q_sign": "negative",
+      "base_resid": 4.0945611797175445e-12,
+      "corr_resid": 6.597328086667668e-10
+    },
+    {
+      "gamma": 45.66611208104108,
+      "delta": 0.35,
+      "scale": 0.84,
+      "nodes": 18,
+      "families": 18,
+      "support": 9.744,
+      "book": 2029,
+      "q_step_002": -125328537502163.58,
+      "q_sign": "negative",
+      "base_resid": 3.5893483258774687e-12,
+      "corr_resid": 9.762428042599632e-10
+    },
+    {
+      "gamma": 45.66611208104108,
+      "delta": 0.445,
+      "scale": 0.84,
+      "nodes": 18,
+      "families": 18,
+      "support": 9.744,
+      "book": 2029,
+      "q_step_002": -67507217430562.52,
+      "q_sign": "negative",
+      "base_resid": 6.855947798699763e-12,
+      "corr_resid": 6.972946929792279e-10
+    }
+  ],
+  "cache": {
+    "weight_keys": [
+      1.68,
+      1.764,
+      1.848,
+      1.9319999999999997,
+      2.1,
+      2.184,
+      2.436,
+      2.52,
+      2.688,
+      2.856,
+      3.1919999999999997,
+      3.528,
+      3.8639999999999994,
+      4.2,
+      4.5360000000000005,
+      4.872
+    ],
+    "prime_keys": [
+      9.744
+    ]
+  },
+  "nonclaims": [
+    "interior points are screening only",
+    "continuous 18-node owner extension is fixed",
+    "m=6400 finite grid is not an outward certificate",
+    "no uniform COVER statement",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "script": "scripts\\routea_cover_continuous_owner_scale084_2098.py"
+  }
+}

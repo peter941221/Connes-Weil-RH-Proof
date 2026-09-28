@@ -1,0 +1,48 @@
+{
+  "record": 2101,
+  "status": "KNOWN-PREFIX-SHARED-WIDTH-KILL-TEST",
+  "gamma": 39.25244858548658,
+  "delta": 0.15,
+  "scale": 0.8,
+  "additional_zero_indices": [
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21
+  ],
+  "nodes": 30,
+  "families": 30,
+  "support": 5.120000000000001,
+  "book": 52,
+  "matrix_condition": 865791.5392310336,
+  "h1_base_resid": 1.9683464278878773e-08,
+  "h1_corr_resid": 0.0001359049258061228,
+  "direct_base_resid": 5.1415410579949894e-15,
+  "direct_corr_resid": 7.745818620035488e-11,
+  "h1_vs_direct_base_relative": 6.466280053472969e-05,
+  "h1_vs_direct_corr_relative": 6.557108243284035e-05,
+  "q_step_002_direct": -22109713101324.633,
+  "kill_test": {
+    "pin_residual_ceiling": 1e-05,
+    "negative_margin_required": 100000000000.0,
+    "passes": true
+  },
+  "nonclaims": [
+    "m=400 is below the known evaluator trust horizon and is selection only",
+    "computed first-30 zeros are not a complete certified owner",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "script": "scripts\\routea_known_prefix_shared_width_kill_test_2101.py",
+    "zero_source": "mpmath.zetazero(1..30)",
+    "previous": "results/2100_truncated_zero_owner_audit.json"
+  }
+}

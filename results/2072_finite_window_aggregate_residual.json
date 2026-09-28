@@ -1,0 +1,49 @@
+{
+  "record": 2072,
+  "status": "AGGREGATE-RESIDUAL-MEASUREMENT",
+  "owner": "one-copy G8-H",
+  "window": [
+    -40.0,
+    40.0
+  ],
+  "rows": [
+    {
+      "step": 0.02,
+      "nodes": 4001,
+      "aggregate_value": -3406049851783.479,
+      "aggregate_abs_integral": 491428060560199.7,
+      "aggregate_fd_l1_derivative": 2.8442841034611896e+16,
+      "max_abs_integrand": 1479686398393962.0,
+      "solve_resid": 5.796012448967837e-09
+    },
+    {
+      "step": 0.01,
+      "nodes": 8001,
+      "aggregate_value": -3406049851783.849,
+      "aggregate_abs_integral": 491561174911936.8,
+      "aggregate_fd_l1_derivative": 3.0469294592388532e+16,
+      "max_abs_integrand": 1520890684535157.2,
+      "solve_resid": 5.796012448967837e-09
+    },
+    {
+      "step": 0.005,
+      "nodes": 16001,
+      "aggregate_value": -3406049851781.223,
+      "aggregate_abs_integral": 490784193261719.8,
+      "aggregate_fd_l1_derivative": 3.076657019744497e+16,
+      "max_abs_integrand": 1520890684781804.5,
+      "solve_resid": 5.796012448967837e-09
+    }
+  ],
+  "visible_prime_count": 1647,
+  "interpretation": "The derivative and absolute-integral readings are diagnostics for an aggregate signed quadrature enclosure; they are not certified bounds.",
+  "nonclaims": [
+    "no interval enclosure",
+    "no source-transform or coefficient enclosure",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "owner_source": "results/2058_l5_solve.json",
+    "script": "scripts\\routea_finite_window_aggregate_residual_2072.py"
+  }
+}

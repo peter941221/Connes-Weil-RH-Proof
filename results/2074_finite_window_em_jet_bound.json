@@ -1,0 +1,44 @@
+{
+  "record": 2074,
+  "status": "EM-JET-BOUND-MEASUREMENT",
+  "owner": "one-copy G8-H",
+  "window": [
+    -40.0,
+    40.0
+  ],
+  "panel_width": 0.002,
+  "panel_count": 40000,
+  "fourth_derivative_l1_upper_proxy": 7.578201726603793e+22,
+  "em_remainder_upper_proxy": 1684044828.1341767,
+  "remainder_over_L2_charge": 0.03816778221054673,
+  "remainder_over_sampled_margin": 0.0004944275337759636,
+  "kernel_prime_abs_majorants": [
+    458.0475860314685,
+    21898.85724574201,
+    1102287.4081898476,
+    57146408.29171568,
+    3021971745.685054,
+    162139829649.05615,
+    8797240455198.844
+  ],
+  "kernel_sigma_global_majorants": [
+    6.372183419225654,
+    18.197329154507095,
+    130.32773993753688,
+    1539.7821440091884,
+    24585.375388637935,
+    491553.51376768126,
+    11796634.687743692
+  ],
+  "solve_resid": 5.796012448967837e-09,
+  "nonclaims": [
+    "kernel center derivatives are floating point",
+    "sigma global scan is not an outward enclosure",
+    "this is a sizing proxy, not a producer theorem or RH claim"
+  ],
+  "provenance": {
+    "owner_source": "results/2058_l5_solve.json",
+    "jet_source": "scripts/routea_l3_aggregate_2051.py",
+    "script": "scripts\\routea_finite_window_em_jet_bound_2074.py"
+  }
+}

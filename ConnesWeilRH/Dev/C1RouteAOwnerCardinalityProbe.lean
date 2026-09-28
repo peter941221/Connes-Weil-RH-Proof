@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1RouteAOwnerCardinality
+
+namespace ConnesWeilRH.Source.C1RouteAOwnerCardinality
+
+#print axioms sourceNontrivialZero_mem_symmetricHeight_of_mem_closedBall
+#print axioms sourceNontrivialZerosInClosedBall_ncard_le_dyadic_xi_growth
+
+#print axioms sourceNontrivialZerosInClosedBall_ncard_le_dyadic_xi_growth_at_center
+
+end ConnesWeilRH.Source.C1RouteAOwnerCardinality

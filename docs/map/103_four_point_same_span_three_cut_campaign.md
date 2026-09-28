@@ -43,6 +43,12 @@ must be proved for this exact
 in [091] currently applies to `spanObj ![narrowArchRoot, g]`, which is a
 different test. It supplies no gate sign for `h(lambda)`.
 
+Record [2122](../proofs/2122_phase_balanced_same_span_gate_owner_audit.md)
+closes attempted gate reuse as a scoped no-go. The live Cut 2 target is the
+owner-matched parabola for `h(lambda)` itself, paired with the same-index Cut 1
+tail budget; no support or triple-vanishing fact may be treated as an identity
+between these two tests.
+
 This route would prove RH by a contradiction for `h(lambda)` if completed.
 It does not, by itself, prove `qw(g) >= 0` for the original selected `g`.
 That distinction is part of the owner ledger, not a change to the binding
@@ -669,3 +675,37 @@ the artifacts `results/2028_coupling_scan.json`,
 `results/2032_gate_row_search.json`, `results/2033_gate_tail_pairing.json`,
 `results/2033_interval_mass_w3.json`,
 `results/2034_support_radius_robustness.json`. No RH claim.
+
+### 2026-09-28 — n=6 reopening (record 2123)
+
+The 2035 wording "none at n >= 4" was scoped to the registered search range
+`n = 0..4`; it was not a theorem about all later indices. Record 2123 extends
+the same owner, seed, support convention, and `q = 2^-14` tail formula to
+`n = 5..7`. At `n = 6`, both `dxi = 0.02` and `dxi = 0.01` give
+`C > 0`, `b > 0`, `det < 0`, and a same-index tail proxy about `2.4e-17`.
+The old index-mismatch no-go is therefore retired under this changed named
+hypothesis.
+
+The new wall is the visible-prime book: `595877` at support `16`, beyond the
+`Ap` (`4000`) and `B` (`60000`) certified capacities but inside the registered
+Route-A numeric cap (`3000000`). The live target is now a Route-A
+prime-channel enclosure plus formal-owner promotion, not another n-scan.
+Evidence: [2123](../proofs/2123_route_b_n6_reopen_outcome.md) and
+`results/2123_route_b_n6_reopen.json`.
+
+### 2026-09-28 — Route-A n=6 prime cross-read and error budget (2124-2125)
+
+The full `595877`-entry prime book is covered by the phased FFT at both
+registered grids; no high-log prime is truncated. Direct-versus-FFT full-gate
+determinants differ by `2.42e-4` and `2.99e-4` on the two grids, while both
+remain strictly negative. Expanding the Fourier window to `[-75,75]` makes the
+fourth-order spline-only prime moment budget propagate to determinant error
+`7.1301e18` against `|det| = 5.1064e19`, a `7.16x` margin.
+
+This is not yet a certificate: DFT/trapezoid, finite-window, forward-rounding,
+and formal-owner errors remain open. It does, however, replace the former
+capacity-only wall with a concrete Route-A interval target. Evidence:
+[2124](../proofs/2124_route_b_n6_routea_crossread.md),
+[2125](../proofs/2125_routea_n6_spline_error_budget.md), and the artifacts
+`results/2124_route_b_n6_routea_crossread.json` and
+`results/2125_routea_n6_spline_budget.json`.

@@ -1,0 +1,138 @@
+{
+  "record": 2097,
+  "status": "CONTINUOUS-OWNER-SCALE-M6400-SCREEN",
+  "window": [
+    -40.0,
+    40.0
+  ],
+  "step": 0.02,
+  "rows": [
+    {
+      "gamma": 39.25244858548658,
+      "delta": 0.15,
+      "scale": 0.76,
+      "nodes": 18,
+      "families": 18,
+      "support": 8.815999999999999,
+      "book": 915,
+      "q_step_002": -335452856157373.75,
+      "q_sign": "negative",
+      "base_resid": 1.2001975214132155e-11,
+      "corr_resid": 9.094503363500199e-09
+    },
+    {
+      "gamma": 39.25244858548658,
+      "delta": 0.15,
+      "scale": 0.78,
+      "nodes": 18,
+      "families": 18,
+      "support": 9.048,
+      "book": 1110,
+      "q_step_002": -1187762523051330.2,
+      "q_sign": "negative",
+      "base_resid": 1.2087560304812708e-10,
+      "corr_resid": 4.200783470231481e-07
+    },
+    {
+      "gamma": 39.25244858548658,
+      "delta": 0.15,
+      "scale": 0.8,
+      "nodes": 18,
+      "families": 18,
+      "support": 9.28,
+      "book": 1359,
+      "q_step_002": -48184649130429.46,
+      "q_sign": "negative",
+      "base_resid": 1.029033519559014e-11,
+      "corr_resid": 9.344990278338817e-09
+    },
+    {
+      "gamma": 39.25244858548658,
+      "delta": 0.15,
+      "scale": 0.82,
+      "nodes": 18,
+      "families": 18,
+      "support": 9.511999999999999,
+      "book": 1658,
+      "q_step_002": 599293593921.0046,
+      "q_sign": "nonnegative",
+      "base_resid": 1.0414680893610558e-11,
+      "corr_resid": 2.368195316519602e-09
+    },
+    {
+      "gamma": 39.25244858548658,
+      "delta": 0.15,
+      "scale": 0.84,
+      "nodes": 18,
+      "families": 18,
+      "support": 9.744,
+      "book": 2029,
+      "q_step_002": -6969235317433.141,
+      "q_sign": "negative",
+      "base_resid": 2.68646977877664e-12,
+      "corr_resid": 4.199873028025508e-10
+    },
+    {
+      "gamma": 39.25244858548658,
+      "delta": 0.15,
+      "scale": 0.86,
+      "nodes": 18,
+      "families": 18,
+      "support": 9.975999999999999,
+      "book": 2479,
+      "q_step_002": 1145820013707.6492,
+      "q_sign": "nonnegative",
+      "base_resid": 5.484054254122424e-12,
+      "corr_resid": 1.0191120030306725e-09
+    },
+    {
+      "gamma": 39.25244858548658,
+      "delta": 0.15,
+      "scale": 0.88,
+      "nodes": 18,
+      "families": 18,
+      "support": 10.208,
+      "book": 3045,
+      "q_step_002": -8181528940492.777,
+      "q_sign": "negative",
+      "base_resid": 2.889910533099335e-12,
+      "corr_resid": 6.234534255422548e-10
+    },
+    {
+      "gamma": 39.25244858548658,
+      "delta": 0.15,
+      "scale": 0.9,
+      "nodes": 18,
+      "families": 18,
+      "support": 10.44,
+      "book": 3731,
+      "q_step_002": -19931118781562.953,
+      "q_sign": "negative",
+      "base_resid": 5.138534286739528e-12,
+      "corr_resid": 1.959611095129969e-09
+    },
+    {
+      "gamma": 39.25244858548658,
+      "delta": 0.15,
+      "scale": 0.92,
+      "nodes": 18,
+      "families": 18,
+      "support": 10.672,
+      "book": 4587,
+      "q_step_002": 913581328818.1395,
+      "q_sign": "nonnegative",
+      "base_resid": 2.7168849241747206e-12,
+      "corr_resid": 4.592758187625068e-10
+    }
+  ],
+  "nonclaims": [
+    "single interior owner only",
+    "m=6400 finite grid is screening only",
+    "no uniform COVER statement",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "script": "scripts\\routea_continuous_owner_scale_probe_2097.py",
+    "failure_source": "results/2096_cover_cell_interior_m6400.json"
+  }
+}

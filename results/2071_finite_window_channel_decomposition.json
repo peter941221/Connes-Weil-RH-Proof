@@ -1,0 +1,51 @@
+{
+  "record": 2071,
+  "status": "DIRECT-CHANNEL-DECOMPOSITION",
+  "owner": "one-copy G8-H",
+  "window": [
+    -40.0,
+    40.0
+  ],
+  "rows": [
+    {
+      "step": 0.02,
+      "nodes": 4001,
+      "sigma": -234712632646664.84,
+      "prime_total": 231306582794881.2,
+      "total": -3406049851783.6562,
+      "absolute_prime_sum": 1229773810811472.2,
+      "max_prime_component": 94413433998475.48,
+      "solve_resid": 5.796012448967837e-09
+    },
+    {
+      "step": 0.01,
+      "nodes": 8001,
+      "sigma": -234712632646665.2,
+      "prime_total": 231306582794881.5,
+      "total": -3406049851783.6875,
+      "absolute_prime_sum": 1229773810811476.5,
+      "max_prime_component": 94413433998475.64,
+      "solve_resid": 5.796012448967837e-09
+    },
+    {
+      "step": 0.005,
+      "nodes": 16001,
+      "sigma": -234712632646665.16,
+      "prime_total": 231306582794884.0,
+      "total": -3406049851781.1562,
+      "absolute_prime_sum": 1229773810811516.8,
+      "max_prime_component": 94413433998475.62,
+      "solve_resid": 5.796012448967837e-09
+    }
+  ],
+  "visible_prime_count": 1647,
+  "nonclaims": [
+    "channel integrals are measured trapezoid values, not enclosures",
+    "source-transform and coefficient errors are not included",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "owner_source": "results/2058_l5_solve.json",
+    "script": "scripts\\routea_finite_window_channels_2071.py"
+  }
+}

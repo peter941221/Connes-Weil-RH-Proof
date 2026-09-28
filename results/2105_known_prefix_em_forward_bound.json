@@ -1,0 +1,51 @@
+{
+  "record": 2105,
+  "status": "KNOWN-PREFIX-EM-FORWARD-BOUND-CANDIDATE",
+  "owner": {
+    "gamma": 39.25244858548658,
+    "delta": 0.445,
+    "scale": 0.8,
+    "nodes": 30,
+    "support": 5.120000000000001,
+    "book": 52
+  },
+  "panel_width": 0.002,
+  "panel_count": 40000,
+  "fourth_derivative_l1_forward_bound": 2.5741891386300364e+21,
+  "em_remainder_forward_bound": 57204203.08066749,
+  "sampled_negative_margin": 1675397327895.099,
+  "remainder_over_sampled_margin": 3.4143663791404345e-05,
+  "base_resid": 3.7757341333963866e-15,
+  "corr_resid": 1.2954619645982858e-11,
+  "kernel_prime_abs_majorants": [
+    46.5851528685517,
+    1068.4545180617592,
+    27009.482997178075,
+    720072.1502879777,
+    19844205.420223884,
+    559493178.1118734,
+    16041237893.880795
+  ],
+  "kernel_sigma_analytic_majorants": [
+    100.0,
+    17.19733089925582,
+    129.32774099514353,
+    1538.782144778557,
+    24584.375389290974,
+    491552.5137683149,
+    11796633.687744383
+  ],
+  "summation_gamma": 5.773159728050847e-15,
+  "nonclaims": [
+    "the direct coefficients and IEEE allowance are not yet Lean outward certificates",
+    "known-prefix numerical zeros are not a complete abstract owner",
+    "this is a finite-window quadrature bound only, not full-line closure",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "script": "scripts\\routea_known_prefix_em_forward_bound_2105.py",
+    "jet_source": "scripts/routea_l3_aggregate_2051.py",
+    "kernel_source": "scripts/routea_finite_window_em_forward_bound_2075.py",
+    "owner_source": "results/2103_full_known_prefix_direct_owner_grid_m6400.json"
+  }
+}

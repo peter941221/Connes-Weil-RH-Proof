@@ -1,0 +1,16 @@
+{
+  "record": 2065,
+  "status": "ROOT-PARTITION-DIAGNOSTIC",
+  "order": 48,
+  "critical_derivative_order": 48,
+  "root_count": 12,
+  "variation_root_partition": 1.003112901307117e+62,
+  "measured_N48": 2.29343747171e+73,
+  "ratio_to_measured": 4.373840201360233e-12,
+  "root_imag_max": 0.0,
+  "nonclaims": [
+    "numpy roots are not validated intervals",
+    "this is a diagnostic for the sign-partition mechanism",
+    "no producer theorem or RH claim"
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "record": 2077,
+  "status": "GRAM-AMATRIX-TRUE-TRANSFER-MEASUREMENT",
+  "owner": "one-copy G8-H",
+  "matrix_shape": [
+    17,
+    17
+  ],
+  "mp_dps": 45,
+  "max_abs_gram_entry_gap": 4.966463632224165e-36,
+  "frobenius_gram_gap": 1.1534324547973774e-35,
+  "rows": {
+    "stored_stored": {
+      "q": -3406049884767.3594,
+      "base_norm": 48426836274927.945,
+      "corr_norm": 1.7101070082407214e+16,
+      "solve_residuals": {
+        "base": 1.2776493720595712e-11,
+        "corr": 6.893803254956833e-09
+      }
+    },
+    "truegram_stored_a": {
+      "q": -3406049860858.5273,
+      "base_norm": 48426836239558.16,
+      "corr_norm": 1.7101070052202752e+16,
+      "solve_residuals": {
+        "base": 1.7853439564246485e-11,
+        "corr": 1.087118975579843e-08
+      }
+    },
+    "storedgram_true_a": {
+      "q": -3406049842817.4253,
+      "base_norm": 48426836218074.17,
+      "corr_norm": 1.7101070029150846e+16,
+      "solve_residuals": {
+        "base": 5.411236826394266e-12,
+        "corr": 2.620031577829384e-09
+      }
+    },
+    "true_true": {
+      "q": -3406049857456.201,
+      "base_norm": 48426836239059.91,
+      "corr_norm": 1.7101070047640168e+16,
+      "solve_residuals": {
+        "base": 9.972808474077505e-12,
+        "corr": 3.702573755251851e-09
+      }
+    }
+  },
+  "transfers": {
+    "gram_only": 23908.83203125,
+    "amatrix_only": 41949.93408203125,
+    "both": 27311.158203125
+  },
+  "nonclaims": [
+    "mpmath quadrature is not a formal interval enclosure",
+    "COVER and remaining model-to-real transfer remain open",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "stored_source": "results/2058_l5_solve.json",
+    "script": "scripts\\routea_gram_true_transfer_2077.py"
+  }
+}

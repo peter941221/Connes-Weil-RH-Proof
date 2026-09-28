@@ -1,0 +1,79 @@
+{
+  "record": 2115,
+  "status": "OWNER-CARDINALITY-COMPACT-WIDTHS-M400-SCREEN",
+  "gamma": 39.25244858548658,
+  "delta": 0.445,
+  "scale": 0.8,
+  "m": 400,
+  "rows": [
+    {
+      "orbit_count": 0,
+      "nodes": 30,
+      "support": 4.64,
+      "book": 37,
+      "matrix_condition": 708664.1927999073,
+      "matrix_status": "nonsingular",
+      "base_resid": 2.562940809375039e-15,
+      "corr_resid": 1.9629515717814232e-11,
+      "q_step_002": -61462594705705.72,
+      "q_sign": "negative"
+    },
+    {
+      "orbit_count": 1,
+      "nodes": 34,
+      "support": 4.64,
+      "book": 37,
+      "matrix_condition": 715572.7923058226,
+      "matrix_status": "nonsingular",
+      "base_resid": 4.0615745193273835e-15,
+      "corr_resid": 3.6039011245711484e-11,
+      "q_step_002": -61338753176875.41,
+      "q_sign": "negative"
+    },
+    {
+      "orbit_count": 2,
+      "nodes": 38,
+      "support": 4.64,
+      "book": 37,
+      "matrix_condition": 4348736.279461207,
+      "matrix_status": "nonsingular",
+      "base_resid": 1.4890820004253425e-14,
+      "corr_resid": 3.506296074784987e-11,
+      "q_step_002": -81899764575032.19,
+      "q_sign": "negative"
+    },
+    {
+      "orbit_count": 3,
+      "nodes": 42,
+      "support": 4.64,
+      "book": 37,
+      "matrix_condition": 14420557.303892227,
+      "matrix_status": "nonsingular",
+      "base_resid": 1.1011175128711595e-14,
+      "corr_resid": 3.791988175336991e-11,
+      "q_step_002": -213867825256966.44,
+      "q_sign": "negative"
+    },
+    {
+      "orbit_count": 4,
+      "nodes": 46,
+      "support": 4.736,
+      "book": 40,
+      "matrix_condition": 75746560.01752761,
+      "matrix_status": "nonsingular",
+      "base_resid": 1.6030637309292767e-14,
+      "corr_resid": 1.664913882442179e-10,
+      "q_step_002": -732856099484661.8,
+      "q_sign": "negative"
+    }
+  ],
+  "nonclaims": [
+    "m=400 is screening only",
+    "extra points are stress inputs, not claimed zeros",
+    "no complete owner theorem or producer/RH claim"
+  ],
+  "provenance": {
+    "script": "scripts\\routea_owner_cardinality_compact_widths_2115.py",
+    "family": "unique widths for added off-line orbit nodes"
+  }
+}

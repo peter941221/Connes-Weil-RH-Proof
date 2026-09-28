@@ -1,0 +1,297 @@
+{
+  "record": 2100,
+  "status": "TRUNCATED-ZERO-OWNER-NO-GO-FOR-COVER-INFERENCE",
+  "owner_formula": "healthyCorrectionNodes rho 0 empty: closed-ball zeros union orbit/real target nodes",
+  "source_zero_sample": "mpmath.zetazero(1..30), 50-digit computation cast to float",
+  "registered_list": "routea_opposite_gates_height_1994.GAMMAS_EXT",
+  "rows": [
+    {
+      "gamma": 37.58617815882567,
+      "delta": 0.15,
+      "radius": 41.6104146292883,
+      "upper_ordinate": 79.19659278811397,
+      "listed_ball_zeros": 9,
+      "computed_ball_zeros_first_30": 20,
+      "omitted_distinct_from_gamma": [
+        {
+          "index": 10,
+          "height": 49.7738324776723
+        },
+        {
+          "index": 11,
+          "height": 52.970321477714464
+        },
+        {
+          "index": 12,
+          "height": 56.44624769706339
+        },
+        {
+          "index": 13,
+          "height": 59.34704400260235
+        },
+        {
+          "index": 14,
+          "height": 60.83177852460981
+        },
+        {
+          "index": 15,
+          "height": 65.1125440480816
+        },
+        {
+          "index": 16,
+          "height": 67.07981052949417
+        },
+        {
+          "index": 17,
+          "height": 69.54640171117398
+        },
+        {
+          "index": 18,
+          "height": 72.0671576744819
+        },
+        {
+          "index": 19,
+          "height": 75.70469069908393
+        },
+        {
+          "index": 20,
+          "height": 77.1448400688748
+        }
+      ],
+      "surrogate_nodes": 17,
+      "minimum_nodes_if_omitted_zeros_added": 28
+    },
+    {
+      "gamma": 39.25244858548658,
+      "delta": 0.15,
+      "radius": 43.27565683672608,
+      "upper_ordinate": 82.52810542221266,
+      "listed_ball_zeros": 10,
+      "computed_ball_zeros_first_30": 21,
+      "omitted_distinct_from_gamma": [
+        {
+          "index": 10,
+          "height": 49.7738324776723
+        },
+        {
+          "index": 11,
+          "height": 52.970321477714464
+        },
+        {
+          "index": 12,
+          "height": 56.44624769706339
+        },
+        {
+          "index": 13,
+          "height": 59.34704400260235
+        },
+        {
+          "index": 14,
+          "height": 60.83177852460981
+        },
+        {
+          "index": 15,
+          "height": 65.1125440480816
+        },
+        {
+          "index": 16,
+          "height": 67.07981052949417
+        },
+        {
+          "index": 17,
+          "height": 69.54640171117398
+        },
+        {
+          "index": 18,
+          "height": 72.0671576744819
+        },
+        {
+          "index": 19,
+          "height": 75.70469069908393
+        },
+        {
+          "index": 20,
+          "height": 77.1448400688748
+        },
+        {
+          "index": 21,
+          "height": 79.33737502024937
+        }
+      ],
+      "surrogate_nodes": 18,
+      "minimum_nodes_if_omitted_zeros_added": 30
+    },
+    {
+      "gamma": 40.9187190121475,
+      "delta": 0.15,
+      "radius": 44.94098271408591,
+      "upper_ordinate": 85.85970172623341,
+      "listed_ball_zeros": 9,
+      "computed_ball_zeros_first_30": 23,
+      "omitted_distinct_from_gamma": [
+        {
+          "index": 10,
+          "height": 49.7738324776723
+        },
+        {
+          "index": 11,
+          "height": 52.970321477714464
+        },
+        {
+          "index": 12,
+          "height": 56.44624769706339
+        },
+        {
+          "index": 13,
+          "height": 59.34704400260235
+        },
+        {
+          "index": 14,
+          "height": 60.83177852460981
+        },
+        {
+          "index": 15,
+          "height": 65.1125440480816
+        },
+        {
+          "index": 16,
+          "height": 67.07981052949417
+        },
+        {
+          "index": 17,
+          "height": 69.54640171117398
+        },
+        {
+          "index": 18,
+          "height": 72.0671576744819
+        },
+        {
+          "index": 19,
+          "height": 75.70469069908393
+        },
+        {
+          "index": 20,
+          "height": 77.1448400688748
+        },
+        {
+          "index": 21,
+          "height": 79.33737502024937
+        },
+        {
+          "index": 22,
+          "height": 82.91038085408603
+        },
+        {
+          "index": 23,
+          "height": 84.73549298051705
+        }
+      ],
+      "surrogate_nodes": 17,
+      "minimum_nodes_if_omitted_zeros_added": 31
+    },
+    {
+      "gamma": 48.00515088116716,
+      "delta": 0.15,
+      "radius": 52.024129467629336,
+      "upper_ordinate": 100.0292803487965,
+      "listed_ball_zeros": 9,
+      "computed_ball_zeros_first_30": 29,
+      "omitted_distinct_from_gamma": [
+        {
+          "index": 10,
+          "height": 49.7738324776723
+        },
+        {
+          "index": 11,
+          "height": 52.970321477714464
+        },
+        {
+          "index": 12,
+          "height": 56.44624769706339
+        },
+        {
+          "index": 13,
+          "height": 59.34704400260235
+        },
+        {
+          "index": 14,
+          "height": 60.83177852460981
+        },
+        {
+          "index": 15,
+          "height": 65.1125440480816
+        },
+        {
+          "index": 16,
+          "height": 67.07981052949417
+        },
+        {
+          "index": 17,
+          "height": 69.54640171117398
+        },
+        {
+          "index": 18,
+          "height": 72.0671576744819
+        },
+        {
+          "index": 19,
+          "height": 75.70469069908393
+        },
+        {
+          "index": 20,
+          "height": 77.1448400688748
+        },
+        {
+          "index": 21,
+          "height": 79.33737502024937
+        },
+        {
+          "index": 22,
+          "height": 82.91038085408603
+        },
+        {
+          "index": 23,
+          "height": 84.73549298051705
+        },
+        {
+          "index": 24,
+          "height": 87.42527461312523
+        },
+        {
+          "index": 25,
+          "height": 88.80911120763446
+        },
+        {
+          "index": 26,
+          "height": 92.49189927055849
+        },
+        {
+          "index": 27,
+          "height": 94.65134404051989
+        },
+        {
+          "index": 28,
+          "height": 95.87063422824531
+        },
+        {
+          "index": 29,
+          "height": 98.83119421819369
+        }
+      ],
+      "surrogate_nodes": 17,
+      "minimum_nodes_if_omitted_zeros_added": 37
+    }
+  ],
+  "nonclaims": [
+    "mpmath zeros are numerical diagnostics, not Lean-certified zeros",
+    "the first-30 list is a lower bound on missing nodes, not a complete actual owner",
+    "no cellwise COVER or producer theorem is established",
+    "the no-go is only for inference from the truncated list, not Route A globally"
+  ],
+  "provenance": {
+    "script": "scripts\\routea_truncated_zero_owner_audit_2100.py",
+    "owner_source": "ConnesWeilRH/Dev/C1ExplicitHealthyCorrectionBudget.lean",
+    "truncated_list_source": "scripts/routea_opposite_gates_height_1994.py",
+    "numerical_library": "mpmath 1.3.0"
+  }
+}
