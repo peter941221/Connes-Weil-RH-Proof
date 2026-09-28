@@ -1,0 +1,325 @@
+{
+  "record": 2141,
+  "status": "OVERCOMPLETE-H1-FIBRE-VERIFICATION",
+  "owner_model": "exact orbit/healthy target constraints; known zeta zeros omitted",
+  "rho": [
+    0.945,
+    39.25244858548658
+  ],
+  "N": 0,
+  "known_omitted_zero_count": 21,
+  "construction": {
+    "target_constraint_residual": 2.473825588822365e-10,
+    "gram_condition": 9.623733249056856e+16,
+    "nullity": 32
+  },
+  "candidates": [
+    {
+      "candidate": {
+        "trial": 162,
+        "scale_base": -2.7660862136111555,
+        "scale_corr": -7.593725512173001,
+        "C": 0.08851824458466705,
+        "B01": -39338450.63814276,
+        "D": -8.27627341798168e+16,
+        "det": -8873525645234401.0,
+        "residual": 0.011071471065373656,
+        "healthy": true
+      },
+      "refinement": [
+        {
+          "trial": 162,
+          "scale_base": -2.7660862136111555,
+          "scale_corr": -7.593725512173001,
+          "xi_points": 4001,
+          "constraint_residual": 2.460272260028169e-10,
+          "max_cancellation_ratio": 23.84697672985212,
+          "residual": 0.011071471065373656,
+          "gate": {
+            "C": 0.08769459981376437,
+            "B01": -39343202.350740515,
+            "D": -8.277121944337547e+16,
+            "det": -8806476536395399.0,
+            "healthy_signs": true,
+            "route_key": "Ap",
+            "routes": [
+              "A",
+              "Ap",
+              "B"
+            ],
+            "route_spread": [
+              0.009304802357605014,
+              0.0001207759489267487,
+              0.00010251466168678165
+            ],
+            "n_primes": 3601
+          }
+        },
+        {
+          "trial": 162,
+          "scale_base": -2.7660862136111555,
+          "scale_corr": -7.593725512173001,
+          "xi_points": 10001,
+          "constraint_residual": 2.460272260028169e-10,
+          "max_cancellation_ratio": 23.84697672985212,
+          "residual": 0.011071471065373656,
+          "gate": {
+            "C": 0.0885010419940131,
+            "B01": -39340493.85734655,
+            "D": -8.277029668118722e+16,
+            "det": -8872931959378594.0,
+            "healthy_signs": true,
+            "route_key": "Ap",
+            "routes": [
+              "A",
+              "Ap",
+              "B"
+            ],
+            "route_spread": [
+              0.00018928102835555748,
+              8.68843235934894e-06,
+              1.3274607547199143e-05
+            ],
+            "n_primes": 3601
+          }
+        },
+        {
+          "trial": 162,
+          "scale_base": -2.7660862136111555,
+          "scale_corr": -7.593725512173001,
+          "xi_points": 20001,
+          "constraint_residual": 2.460272260028169e-10,
+          "max_cancellation_ratio": 23.84697672985212,
+          "residual": 0.011071471065373656,
+          "gate": {
+            "C": 0.08851670739923256,
+            "B01": -39340469.43775835,
+            "D": -8.277039162362837e+16,
+            "det": -8874235072251801.0,
+            "healthy_signs": true,
+            "route_key": "Ap",
+            "routes": [
+              "A",
+              "Ap",
+              "B"
+            ],
+            "route_spread": [
+              1.1580327702409905e-05,
+              1.862240782138882e-06,
+              3.218370303179225e-06
+            ],
+            "n_primes": 3601
+          }
+        }
+      ]
+    },
+    {
+      "candidate": {
+        "trial": 136,
+        "scale_base": -5.983018833749524,
+        "scale_corr": -6.5867428117351325,
+        "C": 0.5788099096307447,
+        "B01": -47153113.74801116,
+        "D": -1.0253803306621011e+17,
+        "det": -6.157344578890027e+16,
+        "residual": 0.012527832258114777,
+        "healthy": true
+      },
+      "refinement": [
+        {
+          "trial": 136,
+          "scale_base": -5.983018833749524,
+          "scale_corr": -6.5867428117351325,
+          "xi_points": 4001,
+          "constraint_residual": 2.4142566788627504e-10,
+          "max_cancellation_ratio": 22.80304574530943,
+          "residual": 0.012527832258114777,
+          "gate": {
+            "C": 0.5760528740439341,
+            "B01": -47165291.00595593,
+            "D": -1.0255731459163424e+17,
+            "det": -6.130300050041531e+16,
+            "healthy_signs": true,
+            "route_key": "Ap",
+            "routes": [
+              "A",
+              "Ap",
+              "B"
+            ],
+            "route_spread": [
+              0.004763283317973714,
+              0.00025818261024261336,
+              0.00018800731572233293
+            ],
+            "n_primes": 3601
+          }
+        },
+        {
+          "trial": 136,
+          "scale_base": -5.983018833749524,
+          "scale_corr": -6.5867428117351325,
+          "xi_points": 10001,
+          "constraint_residual": 2.4142566788627504e-10,
+          "max_cancellation_ratio": 35.513451925143634,
+          "residual": 0.012527832258114777,
+          "gate": {
+            "C": 0.5787487012953447,
+            "B01": -47157533.141422324,
+            "D": -1.0255422948903077e+17,
+            "det": -6.157696006110565e+16,
+            "healthy_signs": true,
+            "route_key": "Ap",
+            "routes": [
+              "A",
+              "Ap",
+              "B"
+            ],
+            "route_spread": [
+              0.00010410407348679177,
+              1.7027737220371367e-05,
+              2.3968883372234982e-05
+            ],
+            "n_primes": 3601
+          }
+        },
+        {
+          "trial": 136,
+          "scale_base": -5.983018833749524,
+          "scale_corr": -6.5867428117351325,
+          "xi_points": 20001,
+          "constraint_residual": 2.4142566788627504e-10,
+          "max_cancellation_ratio": 35.513451925143634,
+          "residual": 0.012527832258114777,
+          "gate": {
+            "C": 0.5788051122336354,
+            "B01": -47157418.267557226,
+            "D": -1.0255434940254864e+17,
+            "det": -6.158280381365096e+16,
+            "healthy_signs": true,
+            "route_key": "Ap",
+            "routes": [
+              "A",
+              "Ap",
+              "B"
+            ],
+            "route_spread": [
+              6.406405520183876e-06,
+              3.5287482873495257e-06,
+              5.815119252437862e-06
+            ],
+            "n_primes": 3601
+          }
+        }
+      ]
+    },
+    {
+      "candidate": {
+        "trial": 234,
+        "scale_base": -0.40002993088040484,
+        "scale_corr": -5.426456462149488,
+        "C": 0.027247487834127695,
+        "B01": -46891651.59969204,
+        "D": -9.819466719615574e+16,
+        "det": -4874384989550372.0,
+        "residual": 0.01426885722459266,
+        "healthy": true
+      },
+      "refinement": [
+        {
+          "trial": 234,
+          "scale_base": -0.40002993088040484,
+          "scale_corr": -5.426456462149488,
+          "xi_points": 4001,
+          "constraint_residual": 2.4719097213520166e-10,
+          "max_cancellation_ratio": 5.869173168804169,
+          "residual": 0.01426885722459266,
+          "gate": {
+            "C": 0.0267184754447769,
+            "B01": -46896008.469028495,
+            "D": -9.820378938506661e+16,
+            "det": -4823091145596137.0,
+            "healthy_signs": true,
+            "route_key": "Ap",
+            "routes": [
+              "A",
+              "Ap",
+              "B"
+            ],
+            "route_spread": [
+              0.019415088560433332,
+              9.290490765991552e-05,
+              9.289039626630914e-05
+            ],
+            "n_primes": 3601
+          }
+        },
+        {
+          "trial": 234,
+          "scale_base": -0.40002993088040484,
+          "scale_corr": -5.426456462149488,
+          "xi_points": 10001,
+          "constraint_residual": 2.4719097213520166e-10,
+          "max_cancellation_ratio": 6.466033183787651,
+          "residual": 0.01426885722459266,
+          "gate": {
+            "C": 0.027236367729991384,
+            "B01": -46893902.138220884,
+            "D": -9.820306117595965e+16,
+            "det": -4873732744148314.0,
+            "healthy_signs": true,
+            "route_key": "Ap",
+            "routes": [
+              "A",
+              "Ap",
+              "B"
+            ],
+            "route_spread": [
+              0.0003899509154060893,
+              7.881489799380412e-06,
+              1.271096557060867e-05
+            ],
+            "n_primes": 3601
+          }
+        },
+        {
+          "trial": 234,
+          "scale_base": -0.40002993088040484,
+          "scale_corr": -5.426456462149488,
+          "xi_points": 20001,
+          "constraint_residual": 2.4719097213520166e-10,
+          "max_cancellation_ratio": 6.466033183787651,
+          "residual": 0.01426885722459266,
+          "gate": {
+            "C": 0.02724626622777082,
+            "B01": -46893884.83890508,
+            "D": -9.82031418720661e+16,
+            "det": -4874705383134353.0,
+            "healthy_signs": true,
+            "route_key": "Ap",
+            "routes": [
+              "A",
+              "Ap",
+              "B"
+            ],
+            "route_spread": [
+              2.405768537921679e-05,
+              1.76202824973008e-06,
+              3.1021829047065965e-06
+            ],
+            "n_primes": 3601
+          }
+        }
+      ]
+    }
+  ],
+  "decision_rule": "healthy requires C > 0, D < 0, det < 0; route spread is reported, not silently discarded",
+  "nonclaims": [
+    "finite known-zero set is not the formal closed-ball owner",
+    "H1 Gram and quadrature remain floating-point screens",
+    "no producer theorem, actual-owner transfer, or RH claim"
+  ],
+  "provenance": {
+    "script": "scripts\\routea_overcomplete_h1_fibre_verify_2141.py",
+    "input": "results\\2141_routea_overcomplete_h1_fibre_search.json"
+  }
+}

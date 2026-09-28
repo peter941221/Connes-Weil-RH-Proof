@@ -476,3 +476,9 @@ Decision: `SCOPED-NO-GO-FOR-NAIVE-OWNER-LOCAL-CARDINAL-PREFIX`. Reopening
 requires a changed basis or regularization, a proved signed residual identity,
 or a different owner construction. The abstract closed-ball owner and the
 Route-A signed C3' producer remain open.
+
+## 2140-2141 changed-basis owner-local screen
+
+The 2139 cardinal-prefix no-go remains scoped and binding. Record 2140 changes to an overcomplete H1 basis: the minimum-norm 40-profile family lowers the 21-known-zero residual to `0.0435199584` against anchor model `1`, but has `C < 0`, `D < 0`, `det > 0`. Record 2141 moves in its 32-dimensional null fibre. Three seeded candidates retain `C > 0`, `D < 0`, `det < 0` at 4001, 10001, and 20001 nodes and residual below `0.015`; the smallest reads `0.0110714711`. This is SCREEN-GO-TO-CERTIFICATION only: the Gram condition is about `9.62e16`, target pins miss by about `2.5e-10`, the integral is sampled, and the 21 known zeros do not constitute the formal owner. Exact coefficient/interval pricing and complete-owner transfer remain open.
+
+Evidence: `docs/proofs/2140_routea_overcomplete_h1_residual_screen.md` and `docs/proofs/2141_routea_overcomplete_h1_fibre_screen.md`.

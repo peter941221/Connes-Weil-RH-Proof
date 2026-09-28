@@ -266,3 +266,5 @@ its gate must be set on the amended verdict shape before its run - a window
 scan at the G8-H rule's maximisers (does the window move with the selector, or
 is it an owner property?). The definability clause of record 2011 section 6
 stands: no producer is licensed until a canonical rule exists.
+
+Subroute 007 is the changed-basis owner-local residual candidate. It is active only for certification work; it does not reopen 2139, the closed L2 subroutes, or the frozen Route B family.
