@@ -348,6 +348,43 @@ theorem spectralWeilValue_neg_of_spectralHeightShellPrefix_and_tail
   rw [spectralHeightShellSum_split F N, Complex.add_re]
   linarith
 
+/- A finite prefix need not contain every low-shell source zero: an explicit
+residual budget for the omitted low-shell nodes is sufficient.  This is the
+consumer-side contract for an owner-local construction. -/
+theorem spectralWeilValue_neg_of_finite_prefix_residual_and_tail
+    (F : CompactLogTest) (rho : sourceNontrivialZeroSet) (N : Nat)
+    (S : Finset sourceNontrivialZeroSet) (delta : Real)
+    (hS : S ⊆ spectralHeightShellPrefix N)
+    (hprefix :
+      (∑ z ∈ S, spectralTerm F z).re ≤ -(xiMultiplicity rho : Real))
+    (hresidual :
+      (∑ z ∈ spectralHeightShellPrefix N \ S,
+        spectralTerm F z).re ≤ delta)
+    (htail :
+      (∑' m : Nat, ∑' z : spectralHeightShell (m + N),
+        ‖spectralTerm F z.1‖) < (xiMultiplicity rho : Real) - delta) :
+    spectralWeilValue F < 0 := by
+  have hsplit :
+      (∑ z ∈ spectralHeightShellPrefix N, spectralTerm F z) =
+        (∑ z ∈ S, spectralTerm F z) +
+          (∑ z ∈ spectralHeightShellPrefix N \ S, spectralTerm F z) := by
+    rw [Finset.sum_sdiff hS]
+    ring
+  have hprefixShell :
+      (∑ m ∈ Finset.range N, ∑' z : spectralHeightShell m,
+        spectralTerm F z.1).re ≤
+        -(xiMultiplicity rho : Real) + delta := by
+    rw [← sum_spectralHeightShellPrefix_eq_shell_prefix F N, hsplit,
+      Complex.add_re]
+    linarith
+  have htailRe :
+      (∑' m : Nat, ∑' z : spectralHeightShell (m + N),
+        spectralTerm F z.1).re <
+        (xiMultiplicity rho : Real) - delta := by
+    exact (spectralHeightShellTail_re_le_normTail F N).trans_lt htail
+  rw [spectralHeightShellSum_split F N, Complex.add_re]
+  linarith
+
 /-- The fourth-order selected-square tail is the quantitative producer for
 the strict tail premise in the preceding shell-prefix theorem. -/
 theorem spectralWeilValue_neg_of_spectralHeightShellPrefix_and_fourthOrderTail
