@@ -1,6 +1,7 @@
 # Route A.007 - Owner-local residual budget
 
-Status: NUMERICAL CANDIDATE; producer premise OPEN. RH is not claimed.
+Status: CLOSED SCOPED NO-GO for the current owner-local residual mechanism.
+RH is not claimed.
 
 The healthy-detector consumer is the record-2138 finite-prefix residual contract, followed by the same selected detector's signed C3' gate and `SourceRH`. The actual owner is the complete closed-ball zero set with its support-derived visible-prime set; current screens use eight orbit/healthy targets and 21 known omitted zeros.
 

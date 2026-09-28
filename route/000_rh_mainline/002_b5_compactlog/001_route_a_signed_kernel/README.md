@@ -12,6 +12,7 @@ Route A topology:
 004_selector_family/          CLOSED / PARKED - selector-specific no-goes
 005_c3p_selected_owner/       ACTIVE CORE TARGET - next producer attack
 006_analytic_vertical_tail/   ACTIVE INFRASTRUCTURE - required tail mechanism
+007_owner_local_residual/     CLOSED - complete-owner residual no-go (2150)
 099_frozen_or_audit_only/     FROZEN - reusable evidence only
 ```
 
