@@ -13,13 +13,17 @@ the `m = 6400` coefficient path, or the support/prime book.
 
 ```text
 N48 upper             2.2934394233524673e73
-160..1e6 tail         8.096843616867657e-291
-tail / |Q1600|       2.3771946746027827e-303
-tail / L2 charge      1.8350970152252827e-301
+positive 160..1e6 sampled integral  8.096843616867657e-291
+positive / |Q1600|                  2.3771946746027827e-303
+positive / L2 charge                1.8350970152252827e-301
 ```
 
-The tail is therefore many orders below the existing finite-window L2 charge
-on this numerical candidate. This does not certify the finite-window sign.
+These are positive-half-axis readings only, not a two-sided tail. The
+`P_from_nodes` factor was evaluated as `abs(real(P))`, not its complex norm.
+The geometric-grid trapezoid has no integral enclosure, its `1e6..infinity`
+remainder is an unproved asymptotic model and underflows to zero in float.
+Record 2137 audits both signs and the exact complex norm; cite its two-sided
+reading instead. Neither record certifies the finite-window sign.
 
 ## Remaining boundary
 
