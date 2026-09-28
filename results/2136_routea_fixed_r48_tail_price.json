@@ -1,0 +1,34 @@
+{
+  "record": 2136,
+  "status": "FIXED-R48-TAIL-REPRICED-CANDIDATE",
+  "owner": "one-copy G8-H",
+  "rule_m_for_coefficients": 6400,
+  "rung": 48,
+  "N48_interval_upper": 2.2934394233524673e+73,
+  "x0": 160.0,
+  "xmax_numeric": 1000000.0,
+  "tail_160_to_1e6": 8.096843616867657e-291,
+  "remainder_model": 0.0,
+  "tail_total": 8.096843616867657e-291,
+  "q1600_abs": 3406049871881.275,
+  "l2_charge": 44122155666.37855,
+  "tail_over_q1600": 2.3771946746027827e-303,
+  "tail_over_l2": 1.8350970152252827e-301,
+  "solve": {
+    "resid": 5.796012448967837e-09,
+    "cond_raw": 1318248.416390374,
+    "min_eig": 2.887872343366788e-29,
+    "max_eig": 3.806933143380827e-23
+  },
+  "nonclaims": [
+    "the N48 candidate still needs an independent interval audit",
+    "the infinity remainder is still an asymptotic model",
+    "the owner is the one-copy numerical G8-H candidate",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "variation_source": "results/2135_routea_root_partition_lipschitz.json",
+    "owner_source": "results/2058_l5_solve.json",
+    "script": "scripts\\routea_fixed_r48_tail_price_2136.py"
+  }
+}

@@ -430,3 +430,29 @@ enters an alias cliff in `500..550`: the measured tail ratio reaches
 `1.418884e18`. Therefore no m=6400 sampled value may be extrapolated to the
 full line. Route A remains open only through an analytic vertical-decay tail
 bound or an independently certified quadrature rule with a proved horizon.
+
+## 2135 root-partition Lipschitz tightening
+
+Record 2135 removes the dominant interval-dependency inflation in the fixed
+order-48 tail variation skeleton. Using the 64 exact rational root intervals
+from record 2066, the value of the order-47 derivative is evaluated at each
+midpoint and enlarged by an interval Lipschitz error from the order-48
+derivative. The resulting variation upper bound is `2.2934394233524675e73`,
+only `1.0000008509682481x` the measured `N48`, versus the record-2068 skeleton
+at `1.2466403887652727e81`.
+
+This is a strictly smaller tail obligation, not a producer result. The
+independent Arb/Lean rounding audit, endpoint/monotonicity bridge, and
+actual-owner transfer remain open. Do not use the record to promote the
+one-copy numerical G8-H candidate to the complete closed-ball owner.
+
+## 2136 fixed-r48 tail reprice
+
+Record 2136 re-runs the fixed `r = 48` tail price with the record-2135
+variation bound, preserving the same one-copy G8-H owner and coefficient path.
+The `160..1e6` tail is `8.096843616867657e-291`, or
+`2.3771946746027827e-303` of `|Q1600|` and
+`1.8350970152252827e-301` of the L2 charge. This removes the tail as the
+quantity-scale bottleneck for that candidate. It does not close the
+finite-window signed C3' margin or transfer the result to the complete
+closed-ball owner.

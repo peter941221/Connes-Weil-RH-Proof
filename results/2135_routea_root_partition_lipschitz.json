@@ -1,0 +1,23 @@
+{
+  "record": 2135,
+  "status": "ROOT-PARTITION-LIPSCHITZ-CANDIDATE",
+  "order": 48,
+  "root_source": "results/2066_exact_root_isolation.json",
+  "root_count": 64,
+  "max_root_interval_width": "8.208978016844465824863108792519709608055e-41",
+  "max_lipschitz_error": "1187653668654654625.537912960137689971893",
+  "variation_upper": "2.293439423352467453772645531519483089119e+73",
+  "measured_N48": "2.293437471710000092172115747867376686052e+73",
+  "upper_over_measured": "1.000000850968248071068947498525149331454",
+  "improvement_over_2068": "54356804.72183470679115382291669863039193",
+  "nonclaims": [
+    "mpmath interval arithmetic is not an independent formal proof",
+    "the endpoint and monotonicity bridge needs an Arb or Lean audit",
+    "the owner is the one-copy numerical G8-H candidate",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/routea_root_partition_lipschitz_2135.py",
+    "prior_skeleton": "results/2068_interval_variation_bound.json"
+  }
+}
