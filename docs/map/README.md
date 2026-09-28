@@ -587,6 +587,71 @@ Route A link L5, PRICED (IDEAL-L2-VIABLE, 2056): the pipeline's own
          independent.  Not a producer theorem; not RH.
 ```
 
+### Route state after the 2026-09-28 L5-bridged batch (record 2057)
+
+```text
+Route A link L5, BRIDGED (IDEAL-L2-VIABLE, 2057): the (P) rule-residual
+         channel - 94.96% of the L5 price at 2056 - is repriced by the
+         split-rule bridge registered there.  For the outer panel
+         P = [2a/3, a] cut at |u| = 1 - delta (DELTA_SPLIT = 0.05) into
+         P1 = [2a/3, a(1-delta)] and the edge slice P2:
+         |GL_c - I| <= |GL_c - S1| + |S1 - I_P1| + |I_P2|.
+         |GL_c - S1| is COMPUTED as one complex difference of two sums
+         (both outer panels combined before the modulus; slot k carries
+         the moment (-2 pi i a x)^k directly, no transport);
+         |S1 - I_P1| carries the P1 Trefethen ellipse bound (uc 0.85833,
+         hu 0.14167, rho 2.21895, rho^{-2m} = e^{-2552}, floored at
+         1e-300; the ellipse's rightmost real point 0.99743 misses u = 1
+         by 0.00257, P7 rightmost_gap); |I_P2| the elementary edge slice
+         (delta a exp(h_out over P2); B2sum 9.478e-135 at a = 1.76 to
+         2.542e-130 at a = 4.752); per node the (P) bound is
+         min(elementary, bridged) + the four floored inner panels, the
+         bridge winning at every profile node and every family.
+         PRICE: charge_L5 = 3.478788e+10 -> 1.842946e+09 (GAIN 18.876x)
+         = charge_value 1.842910e+09 + charge_kernel 3.607399e+04;
+         charge_value = (SIG_MAX + C_book) int e_g, int e_g 7.5068e+07
+         -> 3.976762e+06 (5.30% of 2056).  Triangle: 4.401166e+10 +
+         1.842946e+09 = 4.585461e+10 = 0.0135x budget3 = 0.1346x bar10
+         -> VIABLE with 7.43x margin (2056: 4.32x).  int g reads
+         1.235172e+14 both records (rel 4.8e-13: the K4 bundle entry now
+         carries the bridged k = 4 bound, which moves the value channel's
+         regress term).
+         CHANNELS (S7 decomp, dxi = 0.004): rule 7.128255e+07 ->
+         1.950806e+05 (-365x, 4.91% of int e_g); solve 3.793124e+06
+         UNCHANGED and now BINDS (95.38%); X 9.738e+04 and F 5.443e+04
+         unchanged.  So the (P) channel leaves the binding position and
+         the KKT-floor solve channel becomes the price of the ideal-twin
+         window.
+         CONTROLS: R56 reproduces the 2056 price IN THE SAME RUN, bitwise
+         (rel 0.0 on int e_g, charge_value, charge_L5); B6 bridge-off
+         JetL5B is bitwise against JetL5 (dev 0.0, 4 nodes); A12a bound
+         >= mp.quad truth, 4 families x u0 in {0, 24}, worst ratio
+         4.415e-02; A12b |D_float - D_mp| over the accumulation allowance
+         8.4e-13 ... 5.4e-11 (fam 16, xi = +-40, k = 0/2, mp dps 50);
+         A13 bridge <= elementary at every family, both profile nodes;
+         P7 0 bad, clear_min 0.00208, bound/err 1e+31 ... 1e+33; per-
+         family gain 88.2x (a = 1.76) to 1713.3x (a = 4.752).  The
+         bridge's binding part is now its own accumulation allowance
+         (allow0_max 1.214e-23; abs_c0_max 1.718e-12, dp0_max 1.422e-32,
+         covers_2056_el 5.84e-04).  Inherited gates all green (25/25):
+         C1/C2, C4, P2 0.0, P3, P4 3.010e-16, A10 2.04e-53, A11 0.0,
+         P5 floor/lmax 2.63e+04, P6 9.906e-06, A7 0.199, A8 0.573, A9
+         2.57e-05, B2/B3/B5, S8 d12 1.423e-13 d13 2.286e-13
+         (registered).  S7: err0_max 1.161924e+08 -> 7.883735e+06,
+         err0_med 1.485e-06 -> 2.787e-16, corr_regress 3.6225 ->
+         1.677e-01, err1_ends 0.0243 -> 2.245e-13, epsK 2.920565e-10
+         unchanged.
+         REGISTERED LEVER: the solve channel (95.38% of int e_g) - the
+         KKT certificate in the uniform-floor regime, its charge carried
+         by the floor correction INS_S |c_KKT - c_minnorm| and the
+         stored-vs-KKT deviation (d_base_tot 4.514e+04, d_corr_tot
+         2.491e+07 at v-scale): a min-H1 / floor-side tightening.  The
+         bridge's own residual lever (cancellation-aware accumulation of
+         the two sums) is bounded in gain by the solve channel.  L4
+         (2053) standing, evaluator-independent.  Not a producer theorem;
+         not RH.
+```
+
 Live screen state of the same-span four-point subcampaign after the 2026-09-27
 batch (records 2028 - 2035): R-B1 is priced AND mass-certified (a genuine
 interval bracket for the `k = 3` weighted seed mass puts the strip bound at

@@ -191,8 +191,22 @@ maximum of the product `phi(x) e^{s'x}` and the S7 quadrature moved to the
 Euler-Maclaurin corrected trapezoid), so the ladder-to-ideal-twin triangle
 reads `4.401166e+10 + 3.478788e+10 = 7.879954e+10` = `0.2314x` the 10% bar
 with 4.32x margin; the registered next lever is the split-rule bridging of
-the (P) channel (expected >= `1e+03`).  Details and numbers are
-in `docs/map/README.md`.
+the (P) channel (expected >= `1e+03`).  Record 2057 then executes that
+lever and lands **IDEAL-L2-VIABLE** at the same owner: the outer panels are
+cut at `|u| = 1 - delta` (delta = 0.05), the bridging difference
+`|GL_c - S1|` is computed directly per slot (both panels combined before
+the modulus, no derivative transport), the `P1` piece is ellipse-bounded
+(`rho^{-2m} = e^{-2552}`, floored at 1e-300) and the edge slice carries
+`e^{-K/(2 delta)}` scale (`B2sum ~ 1e-134`), so the (P) channel falls
+365x (`7.128255e+07` -> `1.950806e+05`) and the L5 gap prices at
+`1.842946e+09` (18.876x gain; the R56 control reproduces the 2056 price
+bitwise in the same run, and the bridge-off jet is bitwise against 2056's
+evaluator); the ladder-to-ideal-twin triangle reads `4.401166e+10 +
+1.842946e+09 = 4.585461e+10` = `0.0135x` the budget = `0.1346x` the 10%
+bar with 7.43x margin.  The KKT-floor solve channel (`3.793124e+06`,
+unchanged by the bridge) is now the binding term of the gap and is the
+registered next lever -- a min-H1 / floor-side tightening.  Details and
+numbers are in `docs/map/README.md`.
 
 Authority remains in `docs/map/`; this directory is the navigational topology.
 
