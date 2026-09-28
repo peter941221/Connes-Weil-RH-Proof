@@ -1,0 +1,279 @@
+{
+  "record": 2140,
+  "status": "OVERCOMPLETE-H1-RESIDUAL-SCREEN",
+  "owner_model": "exact orbit/healthy target constraints; known zeta zeros omitted",
+  "rho": [
+    0.945,
+    39.25244858548658
+  ],
+  "N": 0,
+  "formal_radius": 43.2666238038906,
+  "anchor_multiplicity_model": 1.0,
+  "schemes": {
+    "16_profile": {
+      "profile_count": 16,
+      "factors": [
+        0.7,
+        1.0
+      ],
+      "support": 4.0,
+      "base": {
+        "constraint_resid": 1.5897283489607617e-12,
+        "gram_condition": 593519758.1319102,
+        "coefficient_norm": 20.102987911053074
+      },
+      "correction": {
+        "constraint_resid": 6.780354055990756e-12,
+        "gram_condition": 593519758.1319102,
+        "coefficient_norm": 50.56645050491418
+      },
+      "known_omitted_zero_count": 21,
+      "signed_residual_real": 13.592996620400951,
+      "absolute_residual_budget": 13.592996620400951,
+      "residual_over_anchor": 13.592996620400951,
+      "gate": {
+        "C": -13.58593860897473,
+        "B01": -249890.22785568552,
+        "D": -4672149047.780931,
+        "det": 1030404157.3650513,
+        "healthy_signs": false,
+        "route_spread": [
+          1.8406243357565533e-08,
+          2.6240482975704528e-08,
+          4.1880745788161826e-08
+        ],
+        "routes": [
+          "A",
+          "Ap",
+          "B"
+        ],
+        "n_primes": 465
+      }
+    },
+    "24_profile": {
+      "profile_count": 24,
+      "factors": [
+        0.55,
+        0.8,
+        1.05
+      ],
+      "support": 4.2,
+      "base": {
+        "constraint_resid": 4.07829325865805e-12,
+        "gram_condition": 753326826755.3911,
+        "coefficient_norm": 15.59026512355298
+      },
+      "correction": {
+        "constraint_resid": 6.892264536872972e-12,
+        "gram_condition": 753326826755.3911,
+        "coefficient_norm": 27.29596342250199
+      },
+      "known_omitted_zero_count": 21,
+      "signed_residual_real": 5.315321421144139,
+      "absolute_residual_budget": 5.315321421144139,
+      "residual_over_anchor": 5.315321421144139,
+      "gate": {
+        "C": -5.3103884671489165,
+        "B01": -102022.80820236598,
+        "D": -1010409175353.4792,
+        "det": 5355256578505.066,
+        "healthy_signs": false,
+        "route_spread": [
+          6.86771856888958e-08,
+          5.028385684191923e-08,
+          1.561434798812658e-05
+        ],
+        "routes": [
+          "A",
+          "Ap",
+          "B"
+        ],
+        "n_primes": 644
+      }
+    },
+    "40_profile_a": {
+      "profile_count": 40,
+      "factors": [
+        0.4,
+        0.6,
+        0.8,
+        1.0,
+        1.2
+      ],
+      "support": 4.8,
+      "base": {
+        "constraint_resid": 3.2020608387036146e-11,
+        "gram_condition": 4.662387678464802e+17,
+        "coefficient_norm": 10.053652256677141
+      },
+      "correction": {
+        "constraint_resid": 3.073097332162433e-11,
+        "gram_condition": 4.662387678464802e+17,
+        "coefficient_norm": 8.733313997317707
+      },
+      "known_omitted_zero_count": 21,
+      "signed_residual_real": 0.048493301650358415,
+      "absolute_residual_budget": 0.048493301650358415,
+      "residual_over_anchor": 0.048493301650358415,
+      "gate": {
+        "C": -0.054190048026308224,
+        "B01": -23540.223879443074,
+        "D": -82491001475277.94,
+        "det": 4469637189543.28,
+        "healthy_signs": false,
+        "route_spread": [
+          6.501371149255816e-08,
+          0.00012038323012152145,
+          0.0001306586022860645
+        ],
+        "routes": [
+          "A",
+          "Ap",
+          "B"
+        ],
+        "n_primes": 1787
+      }
+    },
+    "40_profile_b": {
+      "profile_count": 40,
+      "factors": [
+        0.45,
+        0.65,
+        0.85,
+        1.05,
+        1.25
+      ],
+      "support": 5.0,
+      "base": {
+        "constraint_resid": 1.5333512237702962e-11,
+        "gram_condition": 2.5675679526657532e+16,
+        "coefficient_norm": 9.003701105637354
+      },
+      "correction": {
+        "constraint_resid": 1.0260237104375847e-11,
+        "gram_condition": 2.5675679526657532e+16,
+        "coefficient_norm": 7.200486293655937
+      },
+      "known_omitted_zero_count": 21,
+      "signed_residual_real": 0.050777798971905486,
+      "absolute_residual_budget": 0.050777798971905486,
+      "residual_over_anchor": 0.050777798971905486,
+      "gate": {
+        "C": -0.08137452357157615,
+        "B01": -129840402.5606365,
+        "D": -3.932692645202182e+17,
+        "det": 1.514356889856877e+16,
+        "healthy_signs": false,
+        "route_spread": [
+          8.909631301072682e-06,
+          1.9262096189877928e-05,
+          2.4178027200249626e-05
+        ],
+        "routes": [
+          "A",
+          "Ap",
+          "B"
+        ],
+        "n_primes": 2532
+      }
+    },
+    "40_profile_c": {
+      "profile_count": 40,
+      "factors": [
+        0.5,
+        0.7,
+        0.9,
+        1.1,
+        1.3
+      ],
+      "support": 5.2,
+      "base": {
+        "constraint_resid": 2.473825588822365e-10,
+        "gram_condition": 6.515143173488751e+16,
+        "coefficient_norm": 8.110125602056003
+      },
+      "correction": {
+        "constraint_resid": 1.1863221516250633e-10,
+        "gram_condition": 6.515143173488751e+16,
+        "coefficient_norm": 6.139098960576566
+      },
+      "known_omitted_zero_count": 21,
+      "signed_residual_real": 0.04351995840518659,
+      "absolute_residual_budget": 0.04351995840518659,
+      "residual_over_anchor": 0.04351995840518659,
+      "gate": {
+        "C": -0.07466652213550407,
+        "B01": -65383671.43852385,
+        "D": -1.3560299354094898e+17,
+        "det": 5849979428085042.0,
+        "healthy_signs": false,
+        "route_spread": [
+          5.193387991891531e-07,
+          1.3437991792844367e-07,
+          2.087197111872987e-07
+        ],
+        "routes": [
+          "A",
+          "Ap",
+          "B"
+        ],
+        "n_primes": 3601
+      }
+    },
+    "48_profile": {
+      "profile_count": 48,
+      "factors": [
+        0.35,
+        0.55,
+        0.75,
+        0.95,
+        1.15,
+        1.35
+      ],
+      "support": 5.4,
+      "base": {
+        "constraint_resid": 3.644308188979348e-10,
+        "gram_condition": 5.899864154796803e+16,
+        "coefficient_norm": 7.230857445179401
+      },
+      "correction": {
+        "constraint_resid": 6.0367710830181e-11,
+        "gram_condition": 5.899864154796803e+16,
+        "coefficient_norm": 5.2739730382671
+      },
+      "known_omitted_zero_count": 21,
+      "signed_residual_real": 0.036259095145341334,
+      "absolute_residual_budget": 0.036259095145341334,
+      "residual_over_anchor": 0.036259095145341334,
+      "gate": {
+        "C": -0.12836310830732023,
+        "B01": -26929639.2924086,
+        "D": -3.863860192070499e+16,
+        "det": 4234565570771649.0,
+        "healthy_signs": false,
+        "route_spread": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "routes": [
+          "A",
+          "B"
+        ],
+        "n_primes": 5121
+      }
+    }
+  },
+  "nonclaims": [
+    "known zeros are a finite under-approximation",
+    "H1 Gram is numerical quadrature, not an interval certificate",
+    "no abstract-owner residual bound",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "script": "scripts\\routea_overcomplete_h1_residual_screen_2140.py",
+    "prior_no_go": "results/2139_routea_owner_local_residual_screen.json",
+    "basis_gram": "scripts/routea_health_cone_2006.py",
+    "family": "scripts/fourpoint_owner_density_1959.py"
+  }
+}
