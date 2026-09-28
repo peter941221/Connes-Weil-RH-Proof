@@ -457,3 +457,22 @@ side at `4.0432520934276974e-284` on the same grid after replacing
 remains small, but the 2136 full-line interpretation is withdrawn. Both the
 integral enclosure and the infinity remainder remain open; neither the
 finite-window signed C3' margin nor the complete closed-ball owner is proved.
+## 2138-2139 residual-budget owner-local branch
+
+Record 2138 adds a consumer-side shell identity allowing a finite exact
+prefix plus an explicit omitted low-shell residual budget. This is a smaller
+formal consumer obligation, not a producer premise discharge.
+
+Record 2139 screens the first owner-local implementation: fixed smooth-seed
+cardinal interpolation with orbit/healthy targets and a finite omitted-zero
+budget. At `rho = 0.945 + 39.25244858548658 i`, `N = 0`, the orbit-only
+prefix leaves an absolute residual `5.92468117481211e4` against anchor model
+`1`; adding 5, 10, or 15 known zero pins increases the residual to
+`1.852410508636541e15`, `1.9157305927827673e32`, and
+`4.309477489612436e31` through conditioning collapse. Only all 21 known pins
+remove the residual.
+
+Decision: `SCOPED-NO-GO-FOR-NAIVE-OWNER-LOCAL-CARDINAL-PREFIX`. Reopening
+requires a changed basis or regularization, a proved signed residual identity,
+or a different owner construction. The abstract closed-ball owner and the
+Route-A signed C3' producer remain open.
