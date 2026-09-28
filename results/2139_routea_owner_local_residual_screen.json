@@ -1,0 +1,66 @@
+{
+  "record": 2139,
+  "status": "OWNER-LOCAL-RESIDUAL-SCREEN",
+  "owner_model": "rho-orbit-and-healthy-target interpolation, with a sweep adding known zeros",
+  "rho": [
+    0.945,
+    39.25244858548658
+  ],
+  "N": 0,
+  "formal_radius": 43.2666238038906,
+  "known_omitted_zero_count": 21,
+  "anchor_multiplicity_model": 1.0,
+  "prefix_sweep": [
+    {
+      "prefix_count": 0,
+      "interpolation_nodes": 8,
+      "remaining_omitted_zero_count": 21,
+      "signed_residual_real": 59246.8117481211,
+      "absolute_residual_budget": 59246.8117481211,
+      "residual_over_anchor": 59246.8117481211
+    },
+    {
+      "prefix_count": 5,
+      "interpolation_nodes": 13,
+      "remaining_omitted_zero_count": 16,
+      "signed_residual_real": 1852410508636541.0,
+      "absolute_residual_budget": 1852410508636541.0,
+      "residual_over_anchor": 1852410508636541.0
+    },
+    {
+      "prefix_count": 10,
+      "interpolation_nodes": 18,
+      "remaining_omitted_zero_count": 11,
+      "signed_residual_real": 1.9157305927827673e+32,
+      "absolute_residual_budget": 1.9157305927827673e+32,
+      "residual_over_anchor": 1.9157305927827673e+32
+    },
+    {
+      "prefix_count": 15,
+      "interpolation_nodes": 23,
+      "remaining_omitted_zero_count": 6,
+      "signed_residual_real": 4.309477489612436e+31,
+      "absolute_residual_budget": 4.309477489612436e+31,
+      "residual_over_anchor": 4.309477489612436e+31
+    },
+    {
+      "prefix_count": 21,
+      "interpolation_nodes": 29,
+      "remaining_omitted_zero_count": 0,
+      "signed_residual_real": 0,
+      "absolute_residual_budget": 0,
+      "residual_over_anchor": 0
+    }
+  ],
+  "nonclaims": [
+    "known zeta zeros are only a finite under-approximation",
+    "quadrature and interpolation are numerical",
+    "this does not bound the abstract omitted owner",
+    "no producer theorem or RH claim"
+  ],
+  "provenance": {
+    "script": "scripts\\routea_owner_local_residual_screen_2139.py",
+    "construction": "scripts/fourpoint_actual_owner_1980.py",
+    "consumer": "docs/proofs/2138_routea_residual_budget_consumer.md"
+  }
+}
