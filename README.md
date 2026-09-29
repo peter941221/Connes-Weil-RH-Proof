@@ -518,11 +518,24 @@ is fixed with its ledger (`0.0012695277646158757` unconditional /
 multiplicity constant is tightened (`192 -> 72`, the exact rung supremum:
 `spectralMultiplicityConstant = 128.70692502980964`, high-shell
 `tail/margin = 0.0029211540846331738`, module/probe/full-library builds
-green; 2248). This is still a `GO-CANDIDATE / PARTIALLY PRICED`, not a
-producer: the remaining obligations are the `L1` downward enclosure of
-the finite-window functional `|Q|` (the anchor is a binary64 sample), the
-per-node uniformity half of the transfer, and a uniform-in-`rho`
-separation statement.
+green; 2248). The 2249-2252 batch then closes `L1` and upgrades the other
+two: the finite-window functional is enclosed by a first-order
+forward-error shadow (`E_total = 1281535.3012791811`, `7.65e-7` of `|q|`,
+certified margin `1675396046388.2737`; readings `0.0012695287356749262` /
+`0.0010339516131735035`, `eps0 ~ 1.673e12`; cross-checks at `3.06e-13`
+on the `g` peak and `3.55e-15` on the kernel; 2249), the count brick goes
+per node (worst window count `<= 8` unconditional / `<= 2` enumerated,
+against the ball-window `26 / 21`; 2250), the 2247 separations are
+certified by 21 Hardy-Z brackets with a local uniform-in-`rho` lemma
+(radius `0.18587152073670352`, separation `>= 1.3529256614271667`,
+floor `>= 0.0015137680096211589`; 2251), and the item-5 arithmetic is
+formalized in Lean (four `norm_num` theorems, axiom audit clean,
+module/probe `3521` jobs and full library `4148` jobs green; 2252). This
+is still a `GO-CANDIDATE / PARTIALLY PRICED`, not a producer: the
+remaining obligations are the per-node charge uniformity half of the
+transfer (per-node charge `<= tail/62`), global uniformity-in-`rho` of
+the separation, and the registered ideal-to-discrete gaps of the `L1`
+enclosure.
 
 ```mermaid
 flowchart LR
@@ -535,7 +548,7 @@ flowchart LR
     F -->|2197-2200: 0.002203 margin ratio| G[GO-CANDIDATE]
     G --> H[Outward interval enclosure]
     H -->|2229-2231: 30-node MPFR envelope| H2[Interval terminal priced]
-    H2 -->|2234-2248: outward B_zm viable 0.00292, Z=0 certified, count bricked| H3[Low shell + owner transfer]
+    H2 -->|2234-2252: outward B_zm viable, L1 enclosed, Z=0, counts per node| H3[Low shell + owner transfer]
     H3 --> J[Same-owner qw >= 0]
     J --> K[SourceRH]
     K --> L[Mathlib RH]
@@ -551,9 +564,10 @@ composite-EM lever: a certified zero count replacing the global panel
 majorants; closed by 2242-2243, the shell now reads `tail/margin =
 0.0029211540846331738` after the 2248 Lean tightening), and (3) transfer
 the resulting bound to the complete actual owner (the count side is
-bricked at `<= 26` unconditional / `= 21` imported, 2245, so the coarse
-product reads `0.00122500010000746` / `0.000989423157698333`; the
-per-node uniformity half remains open). RH is not claimed.
+bricked at `<= 26` unconditional / `= 21` imported, 2245, per node
+`<= 8 / <= 2` at the 30 construction nodes, 2250, so the coarse product
+reads `0.00122500010000746` / `0.000989423157698333`; the per-node
+CHARGE uniformity half remains open). RH is not claimed.
 
 An alternative four-point same-owner span has formal finite-prefix and gate
 algebra. Its live analytic obligation is the strict scored cross-determinant

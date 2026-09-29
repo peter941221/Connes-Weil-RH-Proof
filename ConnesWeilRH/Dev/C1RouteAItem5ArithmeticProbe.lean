@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1RouteAItem5Arithmetic
+
+namespace ConnesWeilRH.Source.C1RouteAItem5Arithmetic
+
+#print axioms transfer_import_le_margin_sub_slack
+#print axioms transfer_uncond_le_margin_sub_slack
+#print axioms a005_item5_strict_signed_margin_import
+#print axioms a005_item5_strict_signed_margin_uncond
+
+end ConnesWeilRH.Source.C1RouteAItem5Arithmetic

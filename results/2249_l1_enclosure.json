@@ -1,0 +1,73 @@
+{
+  "record": 2249,
+  "status": "L1-DISCRETE-ENCLOSURE",
+  "object": "q_disc = sum w_i G(x_i) on the 4001-point grid; all stored operands exact (convention A, record 2230); first-order forward-error shadow, U=2^-52 per op, 64*2^-53 per pairwise reduction, final 1e-6 inflation",
+  "diagnostics": {
+    "families": 30,
+    "points": 4001,
+    "gl_identity_ok": true,
+    "base_md5": "d461872e14212dcba8efe1874de6f652",
+    "corr_md5": "c37e16a9dfeb4383c7bab1d23aa59566",
+    "cond": 265373.1999607843,
+    "base_abs_max": 277567753448698.28,
+    "corr_abs_max": 5.6875117346762605e+17,
+    "q": -1675397327923.575,
+    "E_total": 1281535.3012791811,
+    "E_over_abs_q": 7.649142564095338e-07,
+    "q_lo": -1675398609458.8762,
+    "q_hi": -1675396046388.2737,
+    "g_abs_max": 945431314259516.1,
+    "sum_abs_wg": 712095748034950.2,
+    "cancel_factor": 425.03096797790363,
+    "abs_hb_min": 8.054027501676629e-24,
+    "abs_hb_max": 1.106840255270498,
+    "abs_hc_min": 5.668725323812063e-23,
+    "abs_hc_max": 2854.694740122722,
+    "eg_over_g_max": 848.1067108434706,
+    "q_plain_2103_pipeline": -1675397327885.4666,
+    "max_abs_g_diff_vs_plain": 988.25,
+    "rel_g_diff_at_peak": 3.0620944708905883e-13,
+    "eg_over_g_max_live": 2.8167167992853135e-05,
+    "live_points": 651,
+    "rel_v_diff_mid": 0.00031031277331218846,
+    "v_ref_worst_family": "(3.9255161597355023270974648224737026939731642712488e-26 - 8.7137678884739696884787550155096294729455188277307e-28j)",
+    "rel_v_mine_vs_ref": "3.7644938195048e-05",
+    "rel_v_plain_vs_ref": "0.00029780784024769654",
+    "abs_v_worst": 3.9261315748068223e-26,
+    "rel_lb_diff_mid": 2.925633394491888e-15,
+    "rel_lc_diff_mid": 1.9606520780325898,
+    "abs_kern_diff_max": 3.552713678800501e-15,
+    "rel_p_diff_mid": 0.0,
+    "margin_lo_certified": 1675396046388.2737,
+    "margin_hi_certified": 1675398609458.8762,
+    "charge_uncond": 2126963424.526075,
+    "reading_uncond": 0.0012695287356749262,
+    "slack_uncond": 0.9987304712643251,
+    "eps0_uncond": 1673269082963.7476,
+    "charge_import": 1732278444.8676655,
+    "reading_import": 0.0010339516131735035,
+    "slack_import": 0.9989660483868265,
+    "eps0_import": 1673663767943.406
+  },
+  "nonclaims": [
+    "encloses the discrete-defined functional only; the ideal-to-discrete gaps (GL phi quadrature choice, numerical owner list, [\u221240,40] window vs integral) remain registered",
+    "the coefficient channel (float solve vs exact solve of the stored matrix) is NOT charged: the stored floats define the object",
+    "screening-grade no producer GO, no gate sign change, no RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/routea_weighted_zero_l1_enclosure_2249.py",
+    "candidate": {
+      "gamma": 39.25244858548658,
+      "delta": 0.445,
+      "scale": 0.8,
+      "K": 30.0,
+      "m": 6400,
+      "step": 0.02,
+      "window": [
+        -40.0,
+        40.0
+      ]
+    },
+    "anchor_2103": -1675397327895.099
+  }
+}

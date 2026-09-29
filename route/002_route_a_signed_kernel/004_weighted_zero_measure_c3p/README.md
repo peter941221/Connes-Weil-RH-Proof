@@ -126,3 +126,25 @@ enclosure of `|Q|` is the load-bearing open brick). 2247 measures the
 The remaining open list is now exactly: `L1` (downward enclosure of the
 finite-window functional), the per-node uniformity half of the transfer,
 and the uniform-in-`rho` separation statement.
+
+The 2249--2252 batch closes the first of those and upgrades the other
+two. 2249 lands `L1`: the first-order forward-error shadow encloses the
+full pipeline with `E_total = 1281535.3012791811`
+(`7.649142564095338e-07` of `|q|`), so the certified margin is
+`1675396046388.2737` and the strict signed margin holds with `eps0`
+`1673269082963.7476` (unconditional) / `1673663767943.406` (imported);
+cross-checks against the plain pipeline sit at `3.0620944708905883e-13`
+(`g` peak) and `3.55e-15` (kernel). 2250 extends the count brick to all
+30 nodes with window-framed family-height counts: worst node `<= 8`
+unconditional and `<= 2` enumerated (densest window), against the
+ball-window `26 / 21`. 2251 certifies the 2247 separations with 21
+Hardy-Z brackets (width `<= 5.293955920339377e-25`) and proves a local
+uniform-in-`rho` lemma with radius `0.18587152073670352` and separation
+lower bound `1.3529256614271667` (floor `>= 0.0015137680096211589`).
+2252 formalizes the item-5 arithmetic in Lean
+(`ConnesWeilRH/Dev/C1RouteAItem5Arithmetic.lean`, four `norm_num`
+theorems, axiom audit clean, module + probe `3521` jobs and full library
+`4148` jobs green). The open list is now: the per-node CHARGE uniformity
+half of the transfer (per-node charge `<= tail/62`), global
+uniformity-in-`rho` of the separation, and the registered
+ideal-to-discrete gaps of the `L1` enclosure.

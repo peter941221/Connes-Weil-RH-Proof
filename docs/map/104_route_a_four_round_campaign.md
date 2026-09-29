@@ -1328,6 +1328,65 @@ Module+probe build `3532` jobs and full library build `4148` jobs both
 exit 0; the probe axiom audit stays `[propext, Classical.choice,
 Quot.sound]`.
 
+## 2249 — certified downward enclosure of the finite-window functional (L1)
+
+Record [2249](../proofs/2249_routea_weighted_zero_l1_enclosure.md) closes
+the load-bearing L1 brick of 2246. Every float operation of the 2103
+pipeline carries a first-order forward-error shadow (`U = 2^-52` per
+elementary op, `64 * 2^-53 * sum |terms|` per pairwise reduction, final
+`1e-6` inflation), giving `q = -1675397327923.575` with
+`E_total = 1281535.3012791811` (`7.649142564095338e-07` of `|q|`), so the
+certified margin reads `margin_lo = 1675396046388.2737` (`= -q_hi`).
+Readings at the certified margin: `0.0012695287356749262` (unconditional)
+and `0.0010339516131735035` (imported), slacks `0.9987304712643251 /
+0.9989660483868265`, eps0 `1673269082963.7476 / 1673663767943.406`
+(positive, i.e. the strict inequality holds against a certified margin).
+Cross-checks against the plain pipeline: `g` peak relative difference
+`3.0620944708905883e-13`, kernel `3.55e-15`, `p` bitwise. An instrument
+bug (complex power update in the sigma recursion, kernel drift `6.1e-07`)
+was found and fixed. Ideal-to-discrete gaps stay registered (GL
+quadrature choice, numerical owner list, window vs integral, float solve
+vs exact solve).
+
+## 2250 — per-node count uniformity
+
+Record [2250](../proofs/2250_routea_weighted_zero_pernode_count_uniformity.md)
+extends the 2245 count brick to all 30 construction nodes with
+window-framed family-height counts `[|h| - a, |h| + a]` (mirrored,
+non-cumulative). Worst-node bound `<= 8` unconditional (node 26,
+`h = 72.0671576744819`), densest window 2 true zeros (node 1, the
+`rho + 1/2`-target family, `gamma_6 + gamma_7`); histograms `{0: 3, 3: 1,
+6: 1, 7: 21, 8: 4}` and `{0: 5, 1: 17, 2: 8}`; the ball-window row
+reproduces the 2245 stress values bitwise (`26 / 21`). Worst per-node
+ratios `8/62` and `2/62` against the ball-window `26/62` and `21/62`. The
+charge half of the transfer stays open.
+
+## 2251 — certified per-node isolation and local uniform-in-rho separation
+
+Record [2251](../proofs/2251_routea_weighted_zero_separation_certified.md)
+upgrades the 2247 separation input: 21 Hardy-Z sign-change brackets
+(bisected to width `<= 5.293955920339377e-25`, min pairwise gap
+`1.4401493697908734`, no coordinate conflicts, refined endpoint margin
+`2.91e-26` against a `1e-58` evaluation error), per-target minima
+`1.7246687029005743 / 1.7246687029005743 / 1.915589239572187` (bitwise
+the 2247 candidate-1 numbers), floors
+`0.0030755954591358543 / 0.009608984322583001 / 0.0007699022126940044`.
+Local uniform-in-rho lemma: for `|rho' - rho| <= eps_rho =
+0.18587152073670352` the node set is unchanged and every separation is
+`>= 1.3529256614271667`, the 2157 floor `>= 0.0015137680096211589`.
+Global uniformity remains open.
+
+## 2252 — Lean brick: item-5 transfer arithmetic
+
+Record [2252](../proofs/2252_routea_weighted_zero_item5_arithmetic_lean.md)
+lands `ConnesWeilRH/Dev/C1RouteAItem5Arithmetic.lean`: the 2248 tail,
+2109 known-error sum, 2245 count ratios, and 2249 certified margin frozen
+as constants, four `norm_num` theorems (two strict arithmetic slacks
+`943.406... / 963.747...`, two strict signed-margin conclusions). Module +
+probe build `3521` jobs, full library `4148` jobs, both exit 0; axiom
+audit `[propext, Classical.choice, Quot.sound]` for all four. The numeric
+inputs remain artifact-level facts.
+
 ## 2178 algebraic infinity remainder
 
 Record [2178](../proofs/2178_routea_infinity_algebraic_remainder.md) replaces

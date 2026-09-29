@@ -1,0 +1,474 @@
+{
+  "record": 2251,
+  "status": "SEPARATION-CERTIFIED-PER-NODE + LOCAL-UNIFORM",
+  "date": "2026-09-30",
+  "candidate": {
+    "rho": [
+      0.945,
+      39.25244858548658
+    ],
+    "delta": 0.445,
+    "n_shell": 0,
+    "support": 5.120000000000001
+  },
+  "brackets": {
+    "count": 21,
+    "target_width": 1e-24,
+    "max_width": 5.293955920339377e-25,
+    "min_pairwise_gap": 1.4401493697908734,
+    "coordinate_conflicts": [],
+    "endpoint_margin_min": 2.9109288740357516e-26,
+    "evaluation_error_budget": "mpmath at 60 dps: absolute evaluation error of order 1e-58; the initial sign-change endpoints carry |Z| >= 1e-6 and the smallest |Z| used in any sign decision is the registered refined endpoint margin (order 1e-26), still 30+ orders above the error"
+  },
+  "pins": [
+    {
+      "node": [
+        0.9450000000000001,
+        -39.25244858548658
+      ],
+      "kind": "off_line_pin",
+      "re_exact": null,
+      "half_width": 0.0
+    },
+    {
+      "node": [
+        0.05499999999999994,
+        -39.25244858548658
+      ],
+      "kind": "off_line_pin",
+      "re_exact": null,
+      "half_width": 0.0
+    },
+    {
+      "node": [
+        0.5,
+        0.0
+      ],
+      "kind": "real_axis_pin",
+      "re_exact": null,
+      "half_width": 0.0
+    },
+    {
+      "node": [
+        1.0,
+        0.0
+      ],
+      "kind": "real_axis_pin",
+      "re_exact": null,
+      "half_width": 0.0
+    },
+    {
+      "node": [
+        1.5,
+        0.0
+      ],
+      "kind": "real_axis_pin",
+      "re_exact": null,
+      "half_width": 0.0
+    },
+    {
+      "node": [
+        0.5,
+        14.134725141734695
+      ],
+      "kind": "critical_line_zero",
+      "re_exact": 0.5,
+      "bracket_lo": 14.134725141734695,
+      "bracket_hi": 14.134725141734695,
+      "bracket_width": 5.293955920339377e-25,
+      "bracket_za": -3.643233703405528e-25,
+      "bracket_zb": 5.557226685410936e-26,
+      "half_width": 2.6469779601696886e-25
+    },
+    {
+      "node": [
+        0.5,
+        21.022039638771556
+      ],
+      "kind": "critical_line_zero",
+      "re_exact": 0.5,
+      "bracket_lo": 21.022039638771556,
+      "bracket_hi": 21.022039638771556,
+      "bracket_width": 5.293955920339377e-25,
+      "bracket_za": 2.9773724763885007e-25,
+      "bracket_zb": -3.0410036436767863e-25,
+      "half_width": 2.6469779601696886e-25
+    },
+    {
+      "node": [
+        0.5,
+        25.01085758014569
+      ],
+      "kind": "critical_line_zero",
+      "re_exact": 0.5,
+      "bracket_lo": 25.01085758014569,
+      "bracket_hi": 25.01085758014569,
+      "bracket_width": 5.293955920339377e-25,
+      "bracket_za": -3.1332509186939e-26,
+      "bracket_zb": 6.948506937643992e-25,
+      "half_width": 2.6469779601696886e-25
+    },
+    {
+      "node": [
+        0.5,
+        27.67032193035704
+      ],
+      "kind": "critical_line_nonzero_pin",
+      "re_exact": 0.5,
+      "abs_Z": 2.845101349134501,
+      "half_width": 0.0
+    },
+    {
+      "node": [
+        0.5,
+        30.424876125859512
+      ],
+      "kind": "critical_line_zero",
+      "re_exact": 0.5,
+      "bracket_lo": 30.424876125859512,
+      "bracket_hi": 30.424876125859512,
+      "bracket_width": 5.293955920339377e-25,
+      "bracket_za": 3.359805393932337e-25,
+      "bracket_zb": -3.5432005202296343e-25,
+      "half_width": 2.6469779601696886e-25
+    },
+    {
+      "node": [
+        0.5,
+        32.93506158773919
+      ],
+      "kind": "critical_line_zero",
+      "re_exact": 0.5,
+      "bracket_lo": 32.93506158773919,
+      "bracket_hi": 32.93506158773919,
+      "bracket_width": 5.293955920339377e-25,
+      "bracket_za": -5.284690928371295e-25,
+      "bracket_zb": 2.0321889763822643e-25,
+      "half_width": 2.6469779601696886e-25
+    },
+    {
+      "node": [
+        0.5,
+        37.58617815882567
+      ],
+      "kind": "critical_line_zero",
+      "re_exact": 0.5,
+      "bracket_lo": 37.586178158825675,
+      "bracket_hi": 37.586178158825675,
+      "bracket_width": 5.293955920339377e-25,
+      "bracket_za": 1.7617484291893295e-25,
+      "bracket_zb": -8.490039378455762e-25,
+      "half_width": 2.6469779601696886e-25
+    },
+    {
+      "node": [
+        0.5,
+        40.9187190121475
+      ],
+      "kind": "critical_line_zero",
+      "re_exact": 0.5,
+      "bracket_lo": 40.9187190121475,
+      "bracket_hi": 40.9187190121475,
+      "bracket_width": 5.293955920339377e-25,
+      "bracket_za": -5.195554133647335e-25,
+      "bracket_zb": 2.6956735320579935e-25,
+      "half_width": 2.6469779601696886e-25
+    },
+    {
+      "node": [
+        0.5,
+        43.327073280915
+      ],
+      "kind": "critical_line_zero",
+      "re_exact": 0.5,
+      "bracket_lo": 43.327073280915,
+      "bracket_hi": 43.327073280915,
+      "bracket_width": 5.293955920339377e-25,
+      "bracket_za": 9.415434194391692e-25,
+      "bracket_zb": -2.9109288740357516e-26,
+      "half_width": 2.6469779601696886e-25
+    },
+    {
+      "node": [
+        0.5,
+        48.00515088116716
+      ],
+      "kind": "critical_line_zero",
+      "re_exact": 0.5,
+      "bracket_lo": 48.00515088116716,
+      "bracket_hi": 48.00515088116716,
+      "bracket_width": 5.293955920339377e-25,
+      "bracket_za": -6.307172417145276e-25,
+      "bracket_zb": 1.9939170965190248e-25,
+      "half_width": 2.6469779601696886e-25
+    },
+    {
+      "node": [
+        0.5,
+        49.7738324776723
+      ],
+      "kind": "critical_line_zero",
+      "re_exact": 0.5,
+      "bracket_lo": 49.7738324776723,
+      "bracket_hi": 49.7738324776723,
+      "bracket_width": 5.293955920339377e-25,
+      "bracket_za": 7.141446046462108e-25,
+      "bracket_zb": -3.7031874125861896e-26,
+      "half_width": 2.6469779601696886e-25
+    },
+    {
+      "node": [
+        0.5,
+        52.970321477714464
+      ],
+      "kind": "critical_line_zero",
+      "re_exact": 0.5,
+      "bracket_lo": 52.970321477714464,
+      "bracket_hi": 52.970321477714464,
+      "bracket_width": 5.293955920339377e-25,
+      "bracket_za": -1.057648898599438e-24,
+      "bracket_zb": 2.2697136364029127e-25,
+      "half_width": 2.6469779601696886e-25
+    },
+    {
+      "node": [
+        0.5,
+        56.44624769706339
+      ],
+      "kind": "critical_line_zero",
+      "re_exact": 0.5,
+      "bracket_lo": 56.44624769706339,
+      "bracket_hi": 56.44624769706339,
+      "bracket_width": 5.293955920339377e-25,
+      "bracket_za": 6.179268089521666e-25,
+      "bracket_zb": -6.3564750483990675e-25,
+      "half_width": 2.6469779601696886e-25
+    },
+    {
+      "node": [
+        0.5,
+        59.34704400260235
+      ],
+      "kind": "critical_line_zero",
+      "re_exact": 0.5,
+      "bracket_lo": 59.34704400260235,
+      "bracket_hi": 59.34704400260235,
+      "bracket_width": 5.293955920339377e-25,
+      "bracket_za": -5.4524151550145855e-25,
+      "bracket_zb": 1.9157424297985066e-25,
+      "half_width": 2.6469779601696886e-25
+    },
+    {
+      "node": [
+        0.5,
+        60.83177852460981
+      ],
+      "kind": "critical_line_zero",
+      "re_exact": 0.5,
+      "bracket_lo": 60.83177852460981,
+      "bracket_hi": 60.83177852460981,
+      "bracket_width": 5.293955920339377e-25,
+      "bracket_za": 1.1815074352772303e-25,
+      "bracket_zb": -7.575480218727404e-25,
+      "half_width": 2.6469779601696886e-25
+    },
+    {
+      "node": [
+        0.5,
+        65.1125440480816
+      ],
+      "kind": "critical_line_zero",
+      "re_exact": 0.5,
+      "bracket_lo": 65.1125440480816,
+      "bracket_hi": 65.1125440480816,
+      "bracket_width": 5.293955920339377e-25,
+      "bracket_za": -1.3940887789687098e-25,
+      "bracket_zb": 1.0717312476745238e-24,
+      "half_width": 2.6469779601696886e-25
+    },
+    {
+      "node": [
+        0.5,
+        67.07981052949417
+      ],
+      "kind": "critical_line_zero",
+      "re_exact": 0.5,
+      "bracket_lo": 67.07981052949417,
+      "bracket_hi": 67.07981052949417,
+      "bracket_width": 5.293955920339377e-25,
+      "bracket_za": 1.547869539705762e-25,
+      "bracket_zb": -7.894322027185651e-25,
+      "half_width": 2.6469779601696886e-25
+    },
+    {
+      "node": [
+        0.5,
+        69.54640171117398
+      ],
+      "kind": "critical_line_zero",
+      "re_exact": 0.5,
+      "bracket_lo": 69.54640171117398,
+      "bracket_hi": 69.54640171117398,
+      "bracket_width": 5.293955920339377e-25,
+      "bracket_za": -8.015402584388297e-25,
+      "bracket_zb": 3.5588315707506217e-25,
+      "half_width": 2.6469779601696886e-25
+    },
+    {
+      "node": [
+        0.5,
+        72.0671576744819
+      ],
+      "kind": "critical_line_zero",
+      "re_exact": 0.5,
+      "bracket_lo": 72.0671576744819,
+      "bracket_hi": 72.0671576744819,
+      "bracket_width": 5.293955920339377e-25,
+      "bracket_za": 4.989443781721972e-25,
+      "bracket_zb": -1.0704668466511486e-24,
+      "half_width": 2.6469779601696886e-25
+    },
+    {
+      "node": [
+        0.5,
+        75.70469069908393
+      ],
+      "kind": "critical_line_zero",
+      "re_exact": 0.5,
+      "bracket_lo": 75.70469069908393,
+      "bracket_hi": 75.70469069908393,
+      "bracket_width": 5.293955920339377e-25,
+      "bracket_za": -3.7334467331631086e-25,
+      "bracket_zb": 5.687444263778408e-25,
+      "half_width": 2.6469779601696886e-25
+    },
+    {
+      "node": [
+        0.5,
+        77.1448400688748
+      ],
+      "kind": "critical_line_zero",
+      "re_exact": 0.5,
+      "bracket_lo": 77.1448400688748,
+      "bracket_hi": 77.1448400688748,
+      "bracket_width": 5.293955920339377e-25,
+      "bracket_za": 6.519171558039983e-25,
+      "bracket_zb": -1.1969946680853975e-25,
+      "half_width": 2.6469779601696886e-25
+    },
+    {
+      "node": [
+        0.5,
+        79.33737502024937
+      ],
+      "kind": "critical_line_zero",
+      "re_exact": 0.5,
+      "bracket_lo": 79.33737502024937,
+      "bracket_hi": 79.33737502024937,
+      "bracket_width": 5.293955920339377e-25,
+      "bracket_za": -8.414266115497767e-25,
+      "bracket_zb": 5.550587200858129e-25,
+      "half_width": 2.6469779601696886e-25
+    }
+  ],
+  "per_target": [
+    {
+      "target": [
+        0.9450000000000001,
+        39.25244858548658
+      ],
+      "value": [
+        1.0,
+        0.0
+      ],
+      "min_separation_measured": 1.7246687029005743,
+      "min_separation_certified_lower": 1.7246687029005738,
+      "min_separation_certified_upper": 1.7246687029005747,
+      "nearest_pin": [
+        0.5,
+        37.58617815882567
+      ],
+      "nearest_pin_kind": "critical_line_zero",
+      "floor_2157_measured": 0.0030755954591358543,
+      "floor_2157_certified_lower": 0.003075595459135854
+    },
+    {
+      "target": [
+        0.05499999999999994,
+        39.25244858548658
+      ],
+      "value": [
+        -1.0,
+        0.0
+      ],
+      "min_separation_measured": 1.7246687029005743,
+      "min_separation_certified_lower": 1.7246687029005738,
+      "min_separation_certified_upper": 1.7246687029005747,
+      "nearest_pin": [
+        0.5,
+        37.58617815882567
+      ],
+      "nearest_pin_kind": "critical_line_zero",
+      "floor_2157_measured": 0.009608984322583001,
+      "floor_2157_certified_lower": 0.009608984322583
+    },
+    {
+      "target": [
+        1.445,
+        39.25244858548658
+      ],
+      "value": [
+        -1.0,
+        0.0
+      ],
+      "min_separation_measured": 1.915589239572187,
+      "min_separation_certified_lower": 1.9155892395721865,
+      "min_separation_certified_upper": 1.9155892395721874,
+      "nearest_pin": [
+        0.5,
+        37.58617815882567
+      ],
+      "nearest_pin_kind": "critical_line_zero",
+      "floor_2157_measured": 0.0007699022126940044,
+      "floor_2157_certified_lower": 0.0007699022126940042
+    }
+  ],
+  "min_separation": {
+    "measured": 1.7246687029005743,
+    "certified_lower": 1.7246687029005738,
+    "pair": {
+      "target": [
+        0.9450000000000001,
+        39.25244858548658
+      ],
+      "pin": [
+        0.5,
+        37.58617815882567
+      ],
+      "pin_kind": "critical_line_zero"
+    },
+    "floor_2157_measured": 0.0030755954591358543
+  },
+  "local_uniform_in_rho": {
+    "radius_eps_rho": 0.18587152073670352,
+    "radius_from_window_gap": 0.19565423235442478,
+    "radius_from_ball_gap": 0.19678816063811305,
+    "window_gap_to_gamma_22": 0.39130846470884956,
+    "ball_gap_to_gamma_22_ordinate": 0.3935763212762261,
+    "statement": "for every rho' with |rho' - rho| <= eps_rho the node set of the construction is unchanged (the moving elements are the targets and the off-line pins, each Lipschitz-1 in rho'; all other pins are fixed constants; the ball and window membership thresholds move by <= 2 eps_rho and stay below the computed gaps to the first excluded ordinate gamma_22); every target-to-pin separation at rho' is >= s_min - 2 eps_rho, and the 2157 floor is >= the registered local floor (floor decreasing in the separation)",
+    "separation_lower": 1.3529256614271667,
+    "floor_2157_lower": 0.0015137680096211589,
+    "target_target_min_distance": 0.5,
+    "target_target_margin": 0.12825695852659297
+  },
+  "nonclaims": [
+    "global uniformity over all rho is NOT established; the local lemma covers an explicit neighborhood of the candidate radius only",
+    "the brackets are numeric certificates (mpmath 60 dps with an explicit error budget), not Lean-formalized interval arithmetic",
+    "no producer GO, no gate sign change, no RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/routea_weighted_zero_separation_certified_2251.py",
+    "machinery": "scripts/routea_weighted_zero_separation_input_2247.py",
+    "anchor_2103": "results/2103_full_known_prefix_direct_owner_grid_m6400.json"
+  }
+}
