@@ -580,3 +580,24 @@ The record is not a producer Go: the N48 interval candidate, shifted-Stirling
 envelope, stored-float coefficient path, complete-owner transfer, finite-window
 signed margin, and selected-detector compatibility remain open.  It is a
 strictly smaller quantitative tail obligation and does not promote `A.005.1`.
+
+## 2179 exact-rational N48 audit
+
+Record [2179](../proofs/2179_routea_n48_rational_horner_audit.md) independently
+rebuilds the order-48 numerator with exact rational coefficients and Horner
+intervals.  The deliberately coarse sign-free enclosure has
+`log10 N48 = 146.2702132174163`; after repricing the 2178 algebraic tail, the
+two-sided tail is still `10^-681.522...`, or `10^-692.166...` of the inherited
+L2 charge.  The tail margin therefore does not depend on the mpmath `N48`
+candidate or on exponential underflow.
+
+This is a tail-margin pass only.  The finite-window signed budget and
+complete-owner transfer remain open.
+
+## 2180 exact-rational Sturm completeness
+
+Record [2180](../proofs/2180_routea_root_sturm_audit.md) uses a 143-term
+Fraction Sturm chain to verify 64 roots in `(-1,1)`, one in each of the 64
+2066 intervals, and zero roots in every gap.  This closes the root-completeness
+premise of the sign partition; it does not close the selected-detector
+producer.

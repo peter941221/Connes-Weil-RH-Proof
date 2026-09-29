@@ -202,3 +202,10 @@ the one-copy G8-H numerical owner.  The bound is `6.9025590685960082e-974`
 after `|xi| >= 10^6`, and no floating-point underflow is used.  This is a
 strictly smaller tail obligation only; it does not transfer the owner, certify
 the finite-window signed aggregate, or close the selected-detector producer.
+
+Records [2179](../proofs/2179_routea_n48_rational_horner_audit.md) and
+[2180](../proofs/2180_routea_root_sturm_audit.md) strengthen this tail branch:
+exact-rational Horner arithmetic and an exact Sturm chain independently preserve
+the enormous tail margin and certify the 64-root sign partition.  The branch
+still remains a candidate-owner tail result; the complete closed-ball owner
+and finite-window signed aggregate are open.

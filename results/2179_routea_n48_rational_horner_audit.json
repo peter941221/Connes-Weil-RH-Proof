@@ -1,0 +1,32 @@
+{
+  "record": 2179,
+  "status": "RATIONAL-HORNER-AUDIT",
+  "engine": "exact Fraction interval/Horner arithmetic",
+  "root_source": "results/2066_exact_root_isolation.json",
+  "order": 48,
+  "root_count": 64,
+  "degree_P47": 139,
+  "degree_P48": 142,
+  "variation_upper_log10": 146.2702132174163,
+  "variation_upper_numerator_bits": 659903,
+  "variation_upper_denominator_bits": 659417,
+  "max_lipschitz_error_log10": 87.02642803037088,
+  "mpmath_candidate_log10": 73.36048727359328,
+  "tail_reprice_log10": -681.5220860929089,
+  "tail_over_l2_log10": -692.1667428154246,
+  "checks": {
+    "exact_rational_polynomial": true,
+    "exact_rational_interval_ops": true,
+    "no_mpmath_or_float_interval": true,
+    "no_termwise_absolute_expansion": true,
+    "exponential_factor_bound": "exp(-30/s) <= 1",
+    "sign_free_variation": true
+  },
+  "decision": "PASS-MARGIN",
+  "nonclaims": [
+    "this is a coarse independent audit, not the final sharp N48 enclosure",
+    "root completeness is inherited from the exact rational isolation artifact",
+    "the one-copy owner and finite-window signed margin remain open",
+    "no producer theorem or RH claim"
+  ]
+}
