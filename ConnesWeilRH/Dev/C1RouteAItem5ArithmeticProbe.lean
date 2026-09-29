@@ -6,5 +6,8 @@ namespace ConnesWeilRH.Source.C1RouteAItem5Arithmetic
 #print axioms transfer_uncond_le_margin_sub_slack
 #print axioms a005_item5_strict_signed_margin_import
 #print axioms a005_item5_strict_signed_margin_uncond
+#print axioms transfer_free_charge_le_margin_sub_slack
+#print axioms a005_item5_strict_signed_margin_full_tail
+#print axioms eps0FullTail2249_pos
 
 end ConnesWeilRH.Source.C1RouteAItem5Arithmetic

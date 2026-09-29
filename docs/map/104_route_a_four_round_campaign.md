@@ -1422,3 +1422,57 @@ Fraction Sturm chain to verify 64 roots in `(-1,1)`, one in each of the 64
 2066 intervals, and zero roots in every gap.  This closes the root-completeness
 premise of the sign partition; it does not close the selected-detector
 producer.
+
+## 2253 — per-node charge uniformity falsified; count-free fallback
+
+Record [2253](../proofs/2253_routea_weighted_zero_pernode_charge_falsification.md)
+measures the only canonical per-node split of the binding screen channel
+(absolute-value decomposition over the 30 construction nodes): the heaviest
+zero node costs `97.03078624970799 x` the uniform budget `tail/62`
+(`1.57 x` the whole tail), all-nodes max `207.1204982551802 x` (node 0),
+and the 21 zero nodes together `6.199637763470248 x` the tail.  The
+`owner/62` transfer factor of the 2246 ledger is withdrawn.  The count-free
+Lean bound (`4 * mult * B`, no count factor) gives the fallback ledger:
+charge `4968695278.066621`, reading `0.0029656840176851677`, eps0
+`1670427351110.207` at the 2249 margin.
+
+## 2254 — certified separation screen and local uniform-in-rho disks
+
+Record [2254](../proofs/2254_routea_weighted_zero_separation_screen.md)
+upgrades 2251 to all three 2103 stress configurations: 72 Hardy-Z brackets
+(max width `5.293955920339377e-25`, min endpoint margin `2.9109288740357516e-26`),
+certified separations `1.7246687029005743 / 1.283770840521257 /
+2.380992966914272`, local disks `eps_rho = 0.18587152073670574 /
+0.2613019397045188 / 0.2499569408768854`, local floors (min over targets)
+`0.0003688351374802202 / 0.00038388813750691464 / 0.00020275988007744964`.
+A continuum uniform-in-rho statement is obstructed at ball-edge ordinate
+crossings (the edge `gamma + R` sweeps across three ordinates per step,
+in-ball added `12 -> 15 -> 18`; `eps_rho` degenerates at each crossing);
+the discrete screen is certified member by member instead.
+
+## 2255 — ideal-to-discrete gaps measured and charged
+
+Record [2255](../proofs/2255_routea_weighted_zero_l1_gaps.md) measures the
+registered L1 gaps by refinement doubling: quad `m 6400 -> 12800`
+(`delta q = -127417.24731445312`, gap `2690487.8687415244`), window ring
+`40 <= |x| <= 80` (`delta q = -1.8895946191892285e-16` — the truncation is
+below the committed `E_total`, `|g(+=40)| = 5.86e-20`; gap
+`1281535.3012791811`), step `0.02 -> 0.01` (`delta q = 52.992919921875`,
+gap `2565926.579282266`).  Total `6537949.749302972`; the gap-adjusted
+margin reprices the transfer-free reading to `0.00296569559081069` with
+`eps0 = 1670420813160.4578`.  The charges are deliberately redundant (the
+committed `E_total` is charged in each channel) and are refinement
+estimates, not analytic bounds.
+
+## 2256 — terminal item-5 ledger; stored-solve residual audit
+
+Record [2256](../proofs/2256_routea_weighted_zero_item5_terminal_ledger.md)
+assembles the terminal ledger — margin `1675396046388.2737`, gap
+`6537949.749302972`, full-tail charge `4968695278.066621`, reading
+`0.00296569559081069`, `eps0 = 1670420813160.4578` — and freezes the Lean
+constants (`gapCharge2255 = 1e7` measured-rounded-up, `eps0FullTail2249 =
+1.67e12`, strict arithmetic slack `417351110.20703125`).  The
+stored-operand residual audit closes convention A operationally: relative
+residuals `2.3301336946878703e-29 / 2.0074563404256314e-29` (backward
+consistency; condition `265373.1999607843`), with the forward amplification
+`cond * u ~ 5.9e-11` explicitly left to convention A.

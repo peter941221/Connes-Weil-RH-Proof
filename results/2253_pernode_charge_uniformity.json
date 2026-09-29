@@ -1,0 +1,680 @@
+{
+  "record": 2253,
+  "status": "PER-NODE-CHARGE-BUDGET-FALSIFIED + FULL-TAIL-FALLBACK-VIABLE",
+  "date": "2026-09-30",
+  "candidate": {
+    "rho": [
+      0.945,
+      39.25244858548658
+    ],
+    "delta": 0.445,
+    "scale": 0.8,
+    "a_max": 2.5600000000000005
+  },
+  "screen": {
+    "C_upper": 240796.76135588222,
+    "B_upper_2243": 9506275.102584327,
+    "tail_2248": 4894093747.764274,
+    "mult_2248": 128.70692502980964,
+    "screen_nodes": 62.0,
+    "per_node_budget_ledger": 78936995.93168183,
+    "per_node_budget_mass": 153327.01778361798
+  },
+  "per_node_charges": {
+    "rows": [
+      {
+        "index": 0,
+        "kind": "target",
+        "node": [
+          0.9450000000000001,
+          39.25244858548658
+        ],
+        "a": 1.6,
+        "theta": -39.25244858548658,
+        "abs_base": 277567753448698.25,
+        "abs_corr": 5.68751173467626e+17,
+        "base_d2_mass_outward": 26542.506670767172,
+        "corr_d2_mass_outward": 710375973.8381388,
+        "charge_channel_a": 16349469928.137072,
+        "charge_channel_b": 752149961369.3864,
+        "ratio_over_budget_a": 207.1204982551802,
+        "ratio_over_budget_b": 9528.484742697265
+      },
+      {
+        "index": 1,
+        "kind": "target",
+        "node": [
+          0.05499999999999994,
+          39.25244858548658
+        ],
+        "a": 1.8399999999999999,
+        "theta": -39.25244858548658,
+        "abs_base": 31404487196124.945,
+        "abs_corr": 6.331780714997988e+16,
+        "base_d2_mass_outward": 3276.119833138418,
+        "corr_d2_mass_outward": 75936990.60341483,
+        "charge_channel_a": 2018001666.431223,
+        "charge_channel_b": 80402500439.68965,
+        "ratio_over_budget_a": 25.5647132578716,
+        "ratio_over_budget_b": 1018.5654963266677
+      },
+      {
+        "index": 2,
+        "kind": "offline_pin",
+        "node": [
+          0.9450000000000001,
+          -39.25244858548658
+        ],
+        "a": 2.08,
+        "theta": 39.25244858548658,
+        "abs_base": 20828273635814.875,
+        "abs_corr": 139015.94259576596,
+        "base_d2_mass_outward": 2380.333640680441,
+        "corr_d2_mass_outward": 0.00016349145233401284,
+        "charge_channel_a": 1466221474.8579004,
+        "charge_channel_b": 0.17310564276667345,
+        "ratio_over_budget_a": 18.574579100107655,
+        "ratio_over_budget_b": 2.1929595967458964e-09
+      },
+      {
+        "index": 3,
+        "kind": "offline_pin",
+        "node": [
+          0.05499999999999994,
+          -39.25244858548658
+        ],
+        "a": 2.32,
+        "theta": 39.25244858548658,
+        "abs_base": 10458573111882.0,
+        "abs_corr": 88113.48657237015,
+        "base_d2_mass_outward": 1308.8443086929383,
+        "corr_d2_mass_outward": 0.0001029209745249623,
+        "charge_channel_a": 806212876.9908695,
+        "charge_channel_b": 0.10897329000978928,
+        "ratio_over_budget_a": 10.213371657677833,
+        "ratio_over_budget_b": 1.3805097182074572e-09
+      },
+      {
+        "index": 4,
+        "kind": "target",
+        "node": [
+          1.445,
+          39.25244858548658
+        ],
+        "a": 2.5600000000000005,
+        "theta": -39.25244858548658,
+        "abs_base": 10244612798.09344,
+        "abs_corr": 194804740847981.3,
+        "base_d2_mass_outward": 1.4006336584680223,
+        "corr_d2_mass_outward": 227853.70211100002,
+        "charge_channel_a": 862752.6466699636,
+        "charge_channel_b": 241252744.39491355,
+        "ratio_over_budget_a": 0.010929636179930846,
+        "ratio_over_budget_b": 3.056269643244497
+      },
+      {
+        "index": 5,
+        "kind": "real_pin",
+        "node": [
+          0.5,
+          0.0
+        ],
+        "a": 1.6800000000000002,
+        "theta": -0.0,
+        "abs_base": 30932332017353.9,
+        "abs_corr": 491170288.92302406,
+        "base_d2_mass_outward": 92.03536462021127,
+        "corr_d2_mass_outward": 0.018253638899005924,
+        "charge_channel_a": 56691308.20415398,
+        "charge_channel_b": 19.3270525726794,
+        "ratio_over_budget_a": 0.7181842624619135,
+        "ratio_over_budget_b": 2.448415010549239e-07
+      },
+      {
+        "index": 6,
+        "kind": "real_pin",
+        "node": [
+          1.0,
+          0.0
+        ],
+        "a": 2.0,
+        "theta": -0.0,
+        "abs_base": 16514968390213.994,
+        "abs_corr": 539692850.8291985,
+        "base_d2_mass_outward": 34.27997872712543,
+        "corr_d2_mass_outward": 0.011942381784194255,
+        "charge_channel_a": 21115544.522160105,
+        "charge_channel_b": 12.644659065689137,
+        "ratio_over_budget_a": 0.26749870922925834,
+        "ratio_over_budget_b": 1.6018672761036918e-07
+      },
+      {
+        "index": 7,
+        "kind": "real_pin",
+        "node": [
+          1.5,
+          0.0
+        ],
+        "a": 2.32,
+        "theta": -0.0,
+        "abs_base": 2335962649237.0176,
+        "abs_corr": 144163321.31099296,
+        "base_d2_mass_outward": 3.677851623780626,
+        "corr_d2_mass_outward": 0.002118502792062484,
+        "charge_channel_a": 2265457.640041857,
+        "charge_channel_b": 2.243082328082513,
+        "ratio_over_budget_a": 0.0286995674626706,
+        "ratio_over_budget_b": 2.8416109602446102e-08
+      },
+      {
+        "index": 8,
+        "kind": "zero",
+        "node": [
+          0.5,
+          14.134725141734695
+        ],
+        "a": 1.7600000000000002,
+        "theta": -14.134725141734695,
+        "abs_base": 10568283373090.273,
+        "abs_corr": 8068365340186.572,
+        "base_d2_mass_outward": 183.91498737867488,
+        "corr_d2_mass_outward": 1680.8323110977308,
+        "charge_channel_a": 113286683.6120284,
+        "charge_channel_b": 1779674.4321601095,
+        "ratio_over_budget_a": 1.4351532164978187,
+        "ratio_over_budget_b": 0.022545504945493202
+      },
+      {
+        "index": 9,
+        "kind": "zero",
+        "node": [
+          0.5,
+          21.022039638771556
+        ],
+        "a": 1.7600000000000002,
+        "theta": -21.022039638771556,
+        "abs_base": 9003288240960.486,
+        "abs_corr": 389692898164871.9,
+        "base_d2_mass_outward": 295.1713392158868,
+        "corr_d2_mass_outward": 152940.21049794916,
+        "charge_channel_a": 181817602.76142758,
+        "charge_channel_b": 161933930.27685517,
+        "ratio_over_budget_a": 2.3033255904340035,
+        "ratio_over_budget_b": 2.0514326440419053
+      },
+      {
+        "index": 10,
+        "kind": "zero",
+        "node": [
+          0.5,
+          25.01085758014569
+        ],
+        "a": 1.7600000000000002,
+        "theta": -25.01085758014569,
+        "abs_base": 5394232304207.73,
+        "abs_corr": 1625692531859628.8,
+        "base_d2_mass_outward": 238.91940562458362,
+        "corr_d2_mass_outward": 861958.4902162817,
+        "charge_channel_a": 147167925.24383718,
+        "charge_channel_b": 912646357.6960907,
+        "ratio_over_budget_a": 1.8643720033532523,
+        "ratio_over_budget_b": 11.56170623070031
+      },
+      {
+        "index": 11,
+        "kind": "kills_pin",
+        "node": [
+          0.5,
+          27.67032193035704
+        ],
+        "a": 1.7600000000000002,
+        "theta": -27.67032193035704,
+        "abs_base": 3922657810530.876,
+        "abs_corr": 3698161312846123.0,
+        "base_d2_mass_outward": 208.04263228856146,
+        "corr_d2_mass_outward": 2347923.419077714,
+        "charge_channel_a": 128148663.6723148,
+        "charge_channel_b": 2485994141.1250005,
+        "ratio_over_budget_a": 1.623429700608629,
+        "ratio_over_budget_b": 31.493396876625148
+      },
+      {
+        "index": 12,
+        "kind": "zero",
+        "node": [
+          0.5,
+          30.424876125859512
+        ],
+        "a": 1.7600000000000002,
+        "theta": -30.424876125859512,
+        "abs_base": 6328870713191.568,
+        "abs_corr": 7149422329751958.0,
+        "base_d2_mass_outward": 398.7464162084194,
+        "corr_d2_mass_outward": 5392220.985371522,
+        "charge_channel_a": 245617063.28709576,
+        "charge_channel_b": 5709313033.1101265,
+        "ratio_over_budget_a": 3.1115582799688974,
+        "ratio_over_budget_b": 72.32746782068331
+      },
+      {
+        "index": 13,
+        "kind": "zero",
+        "node": [
+          0.5,
+          32.93506158773919
+        ],
+        "a": 1.7600000000000002,
+        "theta": -32.93506158773919,
+        "abs_base": 2148266652011.9504,
+        "abs_corr": 1.1332471817713776e+16,
+        "base_d2_mass_outward": 156.60845823876448,
+        "corr_d2_mass_outward": 9889579.726248233,
+        "charge_channel_a": 96466596.4005043,
+        "charge_channel_b": 10471141033.764671,
+        "ratio_over_budget_a": 1.2220707826783015,
+        "ratio_over_budget_b": 132.65188154394937
+      },
+      {
+        "index": 14,
+        "kind": "zero",
+        "node": [
+          0.5,
+          37.58617815882567
+        ],
+        "a": 1.7600000000000002,
+        "theta": -37.58617815882567,
+        "abs_base": 112920133781708.12,
+        "abs_corr": 2.475570345005174e+17,
+        "base_d2_mass_outward": 10534.76441627095,
+        "corr_d2_mass_outward": 276474369.7725143,
+        "charge_channel_a": 6489131420.791015,
+        "charge_channel_b": 292732572894.4263,
+        "ratio_over_budget_a": 82.20646534873471,
+        "ratio_over_budget_b": 3708.433155320221
+      },
+      {
+        "index": 15,
+        "kind": "zero",
+        "node": [
+          0.5,
+          40.9187190121475
+        ],
+        "a": 1.7600000000000002,
+        "theta": -40.9187190121475,
+        "abs_base": 113493792156802.22,
+        "abs_corr": 2.3871437714290755e+17,
+        "base_d2_mass_outward": 12434.502200403262,
+        "corr_d2_mass_outward": 313084115.10313076,
+        "charge_channel_a": 7659318779.441089,
+        "charge_channel_b": 331495171223.0128,
+        "ratio_over_budget_a": 97.03078624970799,
+        "ratio_over_budget_b": 4199.490584996601
+      },
+      {
+        "index": 16,
+        "kind": "zero",
+        "node": [
+          0.5,
+          43.327073280915
+        ],
+        "a": 1.7600000000000002,
+        "theta": -43.327073280915,
+        "abs_base": 1671232489665.614,
+        "abs_corr": 1.2201097093850282e+16,
+        "base_d2_mass_outward": 204.19469769899567,
+        "corr_d2_mass_outward": 17845660.83718233,
+        "charge_channel_a": 125778439.50178334,
+        "charge_channel_b": 18895083172.33184,
+        "ratio_over_budget_a": 1.5934029160501841,
+        "ratio_over_budget_b": 239.36916966899912
+      },
+      {
+        "index": 17,
+        "kind": "zero",
+        "node": [
+          0.5,
+          48.00515088116716
+        ],
+        "a": 1.7600000000000002,
+        "theta": -48.00515088116716,
+        "abs_base": 7035513169440.631,
+        "abs_corr": 590388104131056.4,
+        "base_d2_mass_outward": 1046.773339211149,
+        "corr_d2_mass_outward": 1051527.4920445855,
+        "charge_channel_a": 644784211.3517172,
+        "charge_channel_b": 1113363052.3100896,
+        "ratio_over_budget_a": 8.168339873356256,
+        "ratio_over_budget_b": 14.104451774091833
+      },
+      {
+        "index": 18,
+        "kind": "zero",
+        "node": [
+          0.5,
+          49.7738324776723
+        ],
+        "a": 1.7600000000000002,
+        "theta": -49.7738324776723,
+        "abs_base": 2119186421023.5762,
+        "abs_corr": 738384918574075.9,
+        "base_d2_mass_outward": 338.1440373085477,
+        "corr_d2_mass_outward": 1410397.566178671,
+        "charge_channel_a": 208287628.51715872,
+        "charge_channel_b": 1493336647.0506182,
+        "ratio_over_budget_a": 2.638656640764831,
+        "ratio_over_budget_b": 18.918083079106115
+      },
+      {
+        "index": 19,
+        "kind": "zero",
+        "node": [
+          0.5,
+          52.970321477714464
+        ],
+        "a": 1.7600000000000002,
+        "theta": -52.970321477714464,
+        "abs_base": 6392935412504.589,
+        "abs_corr": 339035835619949.56,
+        "base_d2_mass_outward": 1151.0659620136425,
+        "corr_d2_mass_outward": 730754.7732297039,
+        "charge_channel_a": 709025660.7892668,
+        "charge_channel_b": 773727145.4798003,
+        "ratio_over_budget_a": 8.982171824766581,
+        "ratio_over_budget_b": 9.801831655076455
+      },
+      {
+        "index": 20,
+        "kind": "zero",
+        "node": [
+          0.5,
+          56.44624769706339
+        ],
+        "a": 1.7600000000000002,
+        "theta": -56.44624769706339,
+        "abs_base": 6045535470088.903,
+        "abs_corr": 208182841195717.6,
+        "base_d2_mass_outward": 1232.1724774345385,
+        "corr_d2_mass_outward": 507934.6293409183,
+        "charge_channel_a": 758985091.9499408,
+        "charge_channel_b": 537803960.0252512,
+        "ratio_over_budget_a": 9.615074439960004,
+        "ratio_over_budget_b": 6.813078629071573
+      },
+      {
+        "index": 21,
+        "kind": "zero",
+        "node": [
+          0.5,
+          59.34704400260235
+        ],
+        "a": 1.7600000000000002,
+        "theta": -59.34704400260235,
+        "abs_base": 1412869425217.1907,
+        "abs_corr": 240048842169964.78,
+        "base_d2_mass_outward": 317.66073916026386,
+        "corr_d2_mass_outward": 646081.4793576102,
+        "charge_channel_a": 195670468.00333026,
+        "charge_channel_b": 684074599.4191346,
+        "ratio_over_budget_a": 2.4788182739140288,
+        "ratio_over_budget_b": 8.666083518191972
+      },
+      {
+        "index": 22,
+        "kind": "zero",
+        "node": [
+          0.5,
+          60.83177852460981
+        ],
+        "a": 1.7600000000000002,
+        "theta": -60.83177852460981,
+        "abs_base": 6619499320206.457,
+        "abs_corr": 171350708366050.56,
+        "base_d2_mass_outward": 1562.2790275367822,
+        "corr_d2_mass_outward": 484111.6411187845,
+        "charge_channel_a": 962321844.6132383,
+        "charge_channel_b": 512580049.9679213,
+        "ratio_over_budget_a": 12.191011746204605,
+        "ratio_over_budget_b": 6.4935337849890775
+      },
+      {
+        "index": 23,
+        "kind": "zero",
+        "node": [
+          0.5,
+          65.1125440480816
+        ],
+        "a": 1.7600000000000002,
+        "theta": -65.1125440480816,
+        "abs_base": 6963266490400.1,
+        "abs_corr": 67484967223968.27,
+        "base_d2_mass_outward": 1878.9572503482557,
+        "corr_d2_mass_outward": 217990.2579064862,
+        "charge_channel_a": 1157387108.9823487,
+        "charge_channel_b": 230809275.79432073,
+        "ratio_over_budget_a": 14.662163100101262,
+        "ratio_over_budget_b": 2.9239683252461357
+      },
+      {
+        "index": 24,
+        "kind": "zero",
+        "node": [
+          0.5,
+          67.07981052949417
+        ],
+        "a": 1.7600000000000002,
+        "theta": -67.07981052949417,
+        "abs_base": 1120355604417.6938,
+        "abs_corr": 67598706538349.8,
+        "base_d2_mass_outward": 320.627217984266,
+        "corr_d2_mass_outward": 231584.2622872122,
+        "charge_channel_a": 197497739.1396655,
+        "charge_channel_b": 245202681.886836,
+        "ratio_over_budget_a": 2.501966749666979,
+        "ratio_over_budget_b": 3.10630875919136
+      },
+      {
+        "index": 25,
+        "kind": "zero",
+        "node": [
+          0.5,
+          69.54640171117398
+        ],
+        "a": 1.7600000000000002,
+        "theta": -69.54640171117398,
+        "abs_base": 6146413037125.466,
+        "abs_corr": 41004266360018.875,
+        "base_d2_mass_outward": 1889.3561166919328,
+        "corr_d2_mass_outward": 150885.4246892126,
+        "charge_channel_a": 1163792530.847041,
+        "charge_channel_b": 159758311.8387579,
+        "ratio_over_budget_a": 14.743309105077635,
+        "ratio_over_budget_b": 2.0238711893346575
+      },
+      {
+        "index": 26,
+        "kind": "zero",
+        "node": [
+          0.5,
+          72.0671576744819
+        ],
+        "a": 1.7600000000000002,
+        "theta": -72.0671576744819,
+        "abs_base": 3398785805601.894,
+        "abs_corr": 21897680616182.824,
+        "base_d2_mass_outward": 1121.2258259004802,
+        "corr_d2_mass_outward": 86475.59819366454,
+        "charge_channel_a": 690644939.8541569,
+        "charge_channel_b": 91560835.72102834,
+        "ratio_over_budget_a": 8.749318766220776,
+        "ratio_over_budget_b": 1.159922982124531
+      },
+      {
+        "index": 27,
+        "kind": "zero",
+        "node": [
+          0.5,
+          75.70469069908393
+        ],
+        "a": 1.7600000000000002,
+        "theta": -75.70469069908393,
+        "abs_base": 13254545418017.74,
+        "abs_corr": 20056567487197.387,
+        "base_d2_mass_outward": 4822.425759771251,
+        "corr_d2_mass_outward": 87354.13811289276,
+        "charge_channel_a": 2970484510.6769547,
+        "charge_channel_b": 92491038.58633462,
+        "ratio_over_budget_a": 37.63108128979017,
+        "ratio_over_budget_b": 1.171707100006485
+      },
+      {
+        "index": 28,
+        "kind": "zero",
+        "node": [
+          0.5,
+          77.1448400688748
+        ],
+        "a": 1.7600000000000002,
+        "theta": -77.1448400688748,
+        "abs_base": 10369306892659.377,
+        "abs_corr": 18681137023981.383,
+        "base_d2_mass_outward": 3917.041910386116,
+        "corr_d2_mass_outward": 84476.8977972074,
+        "charge_channel_a": 2412792420.681319,
+        "charge_channel_b": 89444600.82380651,
+        "ratio_over_budget_a": 30.566053245420388,
+        "ratio_over_budget_b": 1.1331138177746056
+      },
+      {
+        "index": 29,
+        "kind": "zero",
+        "node": [
+          0.5,
+          79.33737502024937
+        ],
+        "a": 1.7600000000000002,
+        "theta": -79.33737502024937,
+        "abs_base": 13050706326491.957,
+        "abs_corr": 5910285617039.148,
+        "base_d2_mass_outward": 5213.457839330104,
+        "corr_d2_mass_outward": 28263.5349505689,
+        "charge_channel_a": 3211349750.158106,
+        "charge_channel_b": 29925585.188888285,
+        "ratio_over_budget_a": 40.682441892486715,
+        "ratio_over_budget_b": 0.3791072213438195
+      }
+    ],
+    "max_channel_a": {
+      "index": 0,
+      "kind": "target",
+      "node": [
+        0.9450000000000001,
+        39.25244858548658
+      ],
+      "a": 1.6,
+      "theta": -39.25244858548658,
+      "abs_base": 277567753448698.25,
+      "abs_corr": 5.68751173467626e+17,
+      "base_d2_mass_outward": 26542.506670767172,
+      "corr_d2_mass_outward": 710375973.8381388,
+      "charge_channel_a": 16349469928.137072,
+      "charge_channel_b": 752149961369.3864,
+      "ratio_over_budget_a": 207.1204982551802,
+      "ratio_over_budget_b": 9528.484742697265
+    },
+    "max_channel_a_over_zeros": {
+      "index": 15,
+      "kind": "zero",
+      "node": [
+        0.5,
+        40.9187190121475
+      ],
+      "a": 1.7600000000000002,
+      "theta": -40.9187190121475,
+      "abs_base": 113493792156802.22,
+      "abs_corr": 2.3871437714290755e+17,
+      "base_d2_mass_outward": 12434.502200403262,
+      "corr_d2_mass_outward": 313084115.10313076,
+      "charge_channel_a": 7659318779.441089,
+      "charge_channel_b": 331495171223.0128,
+      "ratio_over_budget_a": 97.03078624970799,
+      "ratio_over_budget_b": 4199.490584996601
+    },
+    "max_channel_b_node": 0,
+    "max_channel_b": 752149961369.3864,
+    "split_total_channel_a": 51190598089.70543,
+    "split_total_channel_b": 1501713427832.2363,
+    "split_total_a_over_tail": 10.45966847551508,
+    "split_total_b_over_tail": 306.8419824442985,
+    "zeros_total_channel_a": 30341608416.603027,
+    "nonzero_total_channel_a": 20848989673.1024,
+    "zeros_total_over_tail": 6.199637763470248
+  },
+  "screen_decomposition_check": {
+    "per_node_split_over_artifact_a": {
+      "bd2_sum": 83105.25033831398,
+      "artifact_base_D2": 7945.304436068302,
+      "ratio": 10.459668475515112
+    },
+    "corr_partner_bound_mc": 1196.4645507389077,
+    "base_partner_bound_mb": 2.0566210054949954,
+    "panel_checks": {
+      "panel_base_D2_2234_aggregate": 11693.314770969451,
+      "panel_base_D2_pernode_sum": 11693.314770969453,
+      "panel_base_D2_cem_artifact": 7.229989871395511,
+      "coeff_infl_base_D2_artifact": 0.15661735075389552,
+      "coeff_infl_base_D2_pernode_sum": 0.15661735075389555
+    }
+  },
+  "falsification": {
+    "claim": "per-node charge <= tail/62 (2246 L2 charge side)",
+    "max_ratio_channel_a_all": 207.1204982551802,
+    "max_ratio_channel_a_zeros": 97.03078624970799,
+    "argmax_all": {
+      "index": 0,
+      "kind": "target"
+    },
+    "argmax_zeros": {
+      "index": 15,
+      "kind": "zero"
+    },
+    "verdict": "falsified at the committed absolute-value split; the count-side transfer factor is withdrawn"
+  },
+  "fallback_ledger_full_tail": {
+    "charge": 4968695278.066621,
+    "reading_vs_2249_margin": 0.0029656840176851677,
+    "eps0": 1670427351110.207,
+    "hypothesis": "Lean exists_weightedZeroMeasure_highShell_tsum_bound instantiated at the constructed F with B = the mass-screen constant: the tail bounds the owner tsum with no count factor; the (owner/62) shave was an optional count-side reduction"
+  },
+  "withdrawn_transfer_ledger": {
+    "unconditional": {
+      "ratio": 0.41935483870967744,
+      "charge": 2126963424.526075,
+      "reading_vs_2249_margin": 0.0012695287356749262,
+      "eps0": 1673269082963.7476,
+      "status": "WITHDRAWN (per-node budget falsified)"
+    },
+    "imported": {
+      "ratio": 0.3387096774193548,
+      "charge": 1732278444.8676655,
+      "reading_vs_2249_margin": 0.0010339516131735035,
+      "eps0": 1673663767943.406,
+      "status": "WITHDRAWN (per-node budget falsified)"
+    }
+  },
+  "nonclaims": [
+    "the per-node split is the absolute-value (triangle) decomposition; a cancellation-aware per-node split is not constructed here and remains the missing mechanism for any count-side reduction",
+    "the fallback charges the full Lean tail; its formal assembly with the numeric B_upper is the registered remaining step (the 2252 Lean brick carries the arithmetic downstream)",
+    "the outward accounting is first-order-shadow grade (float64 sums, 2^-45 slack, 2234 majorants), not MPFR per-node arithmetic; margins are two orders of magnitude wide",
+    "no producer GO, no gate sign change, no RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/routea_weighted_zero_pernode_charge_2253.py",
+    "inputs": [
+      "results/2243_panel_cem_reprice.json",
+      "results/2237_generation_certificate.json",
+      "results/2234_build_cache.npz",
+      "scripts/routea_weighted_zero_direct_product_outward_2234.py"
+    ],
+    "recon": "scripts/routea_weighted_zero_pernode_charge_recon_2253.py"
+  }
+}

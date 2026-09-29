@@ -1,0 +1,522 @@
+{
+  "record": 2254,
+  "status": "CERTIFIED-PER-CONFIGURATION-SCREEN + LOCAL-DISKS",
+  "date": "2026-09-30",
+  "candidates": [
+    {
+      "gamma": 39.25244858548658,
+      "rho": [
+        0.9450000000000001,
+        39.25244858548658
+      ],
+      "radius": 43.266623803890596,
+      "support": 5.120000000000001,
+      "node_count": 30,
+      "in_ball_added_heights": [
+        49.7738324776723,
+        52.970321477714464,
+        56.44624769706339,
+        59.34704400260235,
+        60.83177852460981,
+        65.1125440480816,
+        67.07981052949417,
+        69.54640171117398,
+        72.0671576744819,
+        75.70469069908393,
+        77.1448400688748,
+        79.33737502024937
+      ],
+      "n_in_ball_added": 12,
+      "critical_line_zeros": 21,
+      "targets": 3,
+      "brackets": {
+        "count": 21,
+        "max_width": 5.293955920339377e-25,
+        "min_pairwise_gap": 1.4401493697908734,
+        "endpoint_margin_min": 2.9109288740357516e-26
+      },
+      "per_target": [
+        {
+          "target": [
+            0.9450000000000001,
+            39.25244858548658
+          ],
+          "min_separation_measured": 1.7246687029005743,
+          "min_separation_certified_lower": 1.7246687029005738,
+          "min_separation_certified_upper": 1.7246687029005747,
+          "nearest_pin": [
+            0.5,
+            37.58617815882567
+          ],
+          "nearest_pin_kind": "critical_line_zero",
+          "floor_2157_measured": 0.0030755954591358543,
+          "s_real": 0.9450000000000001
+        },
+        {
+          "target": [
+            0.05499999999999994,
+            39.25244858548658
+          ],
+          "min_separation_measured": 1.7246687029005743,
+          "min_separation_certified_lower": 1.7246687029005738,
+          "min_separation_certified_upper": 1.7246687029005747,
+          "nearest_pin": [
+            0.5,
+            37.58617815882567
+          ],
+          "nearest_pin_kind": "critical_line_zero",
+          "floor_2157_measured": 0.009608984322583001,
+          "s_real": 0.5
+        },
+        {
+          "target": [
+            1.445,
+            39.25244858548658
+          ],
+          "min_separation_measured": 1.915589239572187,
+          "min_separation_certified_lower": 1.9155892395721865,
+          "min_separation_certified_upper": 1.9155892395721874,
+          "nearest_pin": [
+            0.5,
+            37.58617815882567
+          ],
+          "nearest_pin_kind": "critical_line_zero",
+          "floor_2157_measured": 0.0007699022126940044,
+          "s_real": 1.445
+        }
+      ],
+      "min_separation": {
+        "measured": 1.7246687029005743,
+        "certified_lower": 1.7246687029005738,
+        "pair": {
+          "target": [
+            0.9450000000000001,
+            39.25244858548658
+          ],
+          "pin": [
+            0.5,
+            37.58617815882567
+          ],
+          "pin_kind": "critical_line_zero"
+        },
+        "floor_2157_measured": 0.0030755954591358543
+      },
+      "local_uniform_in_rho": {
+        "eps_rho": 0.18587152073670574,
+        "eps_window": 0.19565423235442708,
+        "eps_ball": 0.19678816063811388,
+        "window_edge": 82.51907238937717,
+        "first_ordinate_above_window": {
+          "index": 22,
+          "height": 82.91038085408603
+        },
+        "first_ordinate_outside_ball": {
+          "index": 22,
+          "height": 82.91038085408603,
+          "distance": 43.660200125166824
+        },
+        "separation_lower": 1.3529256614271623,
+        "floor_2157_lower": 0.0003688351374802202,
+        "floor_2157_worst_target": [
+          1.445,
+          39.25244858548658
+        ],
+        "floor_2157_by_target": [
+          {
+            "target": [
+              0.9450000000000001,
+              39.25244858548658
+            ],
+            "s_real": 0.9450000000000001,
+            "delta_sep_local": 1.3529256614271623,
+            "floor_2157_local": 0.0015137680096211467
+          },
+          {
+            "target": [
+              0.05499999999999994,
+              39.25244858548658
+            ],
+            "s_real": 0.5,
+            "delta_sep_local": 1.3529256614271623,
+            "floor_2157_local": 0.00472941687739524
+          },
+          {
+            "target": [
+              1.445,
+              39.25244858548658
+            ],
+            "s_real": 1.445,
+            "delta_sep_local": 1.543846198098775,
+            "floor_2157_local": 0.0003688351374802202
+          }
+        ],
+        "target_target_min_distance": 0.5,
+        "target_target_margin": 0.12825695852658853
+      }
+    },
+    {
+      "gamma": 42.12289614653125,
+      "rho": [
+        0.9450000000000001,
+        42.12289614653125
+      ],
+      "radius": 46.13610571435686,
+      "support": 5.120000000000001,
+      "node_count": 33,
+      "in_ball_added_heights": [
+        49.7738324776723,
+        52.970321477714464,
+        56.44624769706339,
+        59.34704400260235,
+        60.83177852460981,
+        65.1125440480816,
+        67.07981052949417,
+        69.54640171117398,
+        72.0671576744819,
+        75.70469069908393,
+        77.1448400688748,
+        79.33737502024937,
+        82.91038085408603,
+        84.73549298051705,
+        87.42527461312523
+      ],
+      "n_in_ball_added": 15,
+      "critical_line_zeros": 24,
+      "targets": 3,
+      "brackets": {
+        "count": 24,
+        "max_width": 5.293955920339377e-25,
+        "min_pairwise_gap": 1.4401493697908734,
+        "endpoint_margin_min": 2.9109288740357516e-26
+      },
+      "per_target": [
+        {
+          "target": [
+            0.9450000000000001,
+            42.12289614653125
+          ],
+          "min_separation_measured": 1.2837708405212573,
+          "min_separation_certified_lower": 1.283770840521257,
+          "min_separation_certified_upper": 1.2837708405212578,
+          "nearest_pin": [
+            0.5,
+            40.9187190121475
+          ],
+          "nearest_pin_kind": "critical_line_zero",
+          "floor_2157_measured": 0.004131877017085821,
+          "s_real": 0.9450000000000001
+        },
+        {
+          "target": [
+            0.05499999999999994,
+            42.12289614653125
+          ],
+          "min_separation_measured": 1.2837708405212573,
+          "min_separation_certified_lower": 1.283770840521257,
+          "min_separation_certified_upper": 1.2837708405212578,
+          "nearest_pin": [
+            0.5,
+            40.9187190121475
+          ],
+          "nearest_pin_kind": "critical_line_zero",
+          "floor_2157_measured": 0.01290909094109991,
+          "s_real": 0.5
+        },
+        {
+          "target": [
+            1.445,
+            42.12289614653125
+          ],
+          "min_separation_measured": 1.5307081926260981,
+          "min_separation_certified_lower": 1.5307081926260977,
+          "min_separation_certified_upper": 1.5307081926260986,
+          "nearest_pin": [
+            0.5,
+            40.9187190121475
+          ],
+          "nearest_pin_kind": "critical_line_zero",
+          "floor_2157_measured": 0.0009634863138932067,
+          "s_real": 1.445
+        }
+      ],
+      "min_separation": {
+        "measured": 1.2837708405212573,
+        "certified_lower": 1.283770840521257,
+        "pair": {
+          "target": [
+            0.9450000000000001,
+            42.12289614653125
+          ],
+          "pin": [
+            0.5,
+            40.9187190121475
+          ],
+          "pin_kind": "critical_line_zero"
+        },
+        "floor_2157_measured": 0.004131877017085821
+      },
+      "local_uniform_in_rho": {
+        "eps_rho": 0.2613019397045188,
+        "eps_window": 0.27505467337317774,
+        "eps_ball": 0.2761150533060895,
+        "window_edge": 88.2590018608881,
+        "first_ordinate_above_window": {
+          "index": 25,
+          "height": 88.80911120763446
+        },
+        "first_ordinate_outside_ball": {
+          "index": 25,
+          "height": 88.80911120763446,
+          "distance": 46.68833582096904
+        },
+        "separation_lower": 0.7611669611122195,
+        "floor_2157_lower": 0.00038388813750691464,
+        "floor_2157_worst_target": [
+          1.445,
+          42.12289614653125
+        ],
+        "floor_2157_by_target": [
+          {
+            "target": [
+              0.9450000000000001,
+              42.12289614653125
+            ],
+            "s_real": 0.9450000000000001,
+            "delta_sep_local": 0.7611669611122193,
+            "floor_2157_local": 0.001828635609887128
+          },
+          {
+            "target": [
+              0.05499999999999994,
+              42.12289614653125
+            ],
+            "s_real": 0.5,
+            "delta_sep_local": 0.7611669611122193,
+            "floor_2157_local": 0.005713147629649382
+          },
+          {
+            "target": [
+              1.445,
+              42.12289614653125
+            ],
+            "s_real": 1.445,
+            "delta_sep_local": 1.0081043132170602,
+            "floor_2157_local": 0.00038388813750691464
+          }
+        ],
+        "target_target_min_distance": 0.5,
+        "target_target_margin": -0.02260387940903763
+      }
+    },
+    {
+      "gamma": 45.66611208104108,
+      "rho": [
+        0.9450000000000001,
+        45.66611208104108
+      ],
+      "radius": 49.67829700851605,
+      "support": 5.120000000000001,
+      "node_count": 36,
+      "in_ball_added_heights": [
+        49.7738324776723,
+        52.970321477714464,
+        56.44624769706339,
+        59.34704400260235,
+        60.83177852460981,
+        65.1125440480816,
+        67.07981052949417,
+        69.54640171117398,
+        72.0671576744819,
+        75.70469069908393,
+        77.1448400688748,
+        79.33737502024937,
+        82.91038085408603,
+        84.73549298051705,
+        87.42527461312523,
+        88.80911120763446,
+        92.49189927055849,
+        94.65134404051989
+      ],
+      "n_in_ball_added": 18,
+      "critical_line_zeros": 27,
+      "targets": 3,
+      "brackets": {
+        "count": 27,
+        "max_width": 5.293955920339377e-25,
+        "min_pairwise_gap": 1.3838365945092335,
+        "endpoint_margin_min": 2.9109288740357516e-26
+      },
+      "per_target": [
+        {
+          "target": [
+            0.9450000000000001,
+            45.66611208104108
+          ],
+          "min_separation_measured": 2.380992966914273,
+          "min_separation_certified_lower": 2.380992966914272,
+          "min_separation_certified_upper": 2.380992966914274,
+          "nearest_pin": [
+            0.5,
+            43.327073280915
+          ],
+          "nearest_pin_kind": "critical_line_zero",
+          "floor_2157_measured": 0.0022278029817236807,
+          "s_real": 0.9450000000000001
+        },
+        {
+          "target": [
+            0.05499999999999994,
+            45.66611208104108
+          ],
+          "min_separation_measured": 2.380992966914273,
+          "min_separation_certified_lower": 2.380992966914272,
+          "min_separation_certified_upper": 2.380992966914274,
+          "nearest_pin": [
+            0.5,
+            43.327073280915
+          ],
+          "nearest_pin_kind": "critical_line_zero",
+          "floor_2157_measured": 0.006960253456480646,
+          "s_real": 0.5
+        },
+        {
+          "target": [
+            1.445,
+            45.66611208104108
+          ],
+          "min_separation_measured": 2.522722241645963,
+          "min_separation_certified_lower": 2.5227222416459623,
+          "min_separation_certified_upper": 2.522722241645964,
+          "nearest_pin": [
+            0.5,
+            43.327073280915
+          ],
+          "nearest_pin_kind": "critical_line_zero",
+          "floor_2157_measured": 0.0005846130698864416,
+          "s_real": 1.445
+        }
+      ],
+      "min_separation": {
+        "measured": 2.380992966914273,
+        "certified_lower": 2.380992966914272,
+        "pair": {
+          "target": [
+            0.9450000000000001,
+            45.66611208104108
+          ],
+          "pin": [
+            0.5,
+            43.327073280915
+          ],
+          "pin_kind": "critical_line_zero"
+        },
+        "floor_2157_measured": 0.0022278029817236807
+      },
+      "local_uniform_in_rho": {
+        "eps_rho": 0.2499569408768854,
+        "eps_window": 0.2631125693440899,
+        "eps_ball": 0.26409864142573813,
+        "window_edge": 95.34440908955713,
+        "first_ordinate_above_window": {
+          "index": 28,
+          "height": 95.87063422824531
+        },
+        "first_ordinate_outside_ball": {
+          "index": 28,
+          "height": 95.87063422824531,
+          "distance": 50.20649429136753
+        },
+        "separation_lower": 1.881079085160502,
+        "floor_2157_lower": 0.00020275988007744964,
+        "floor_2157_worst_target": [
+          1.445,
+          45.66611208104108
+        ],
+        "floor_2157_by_target": [
+          {
+            "target": [
+              0.9450000000000001,
+              45.66611208104108
+            ],
+            "s_real": 0.9450000000000001,
+            "delta_sep_local": 1.8810790851605015,
+            "floor_2157_local": 0.0007841996562821738
+          },
+          {
+            "target": [
+              0.05499999999999994,
+              45.66611208104108
+            ],
+            "s_real": 0.5,
+            "delta_sep_local": 1.8810790851605015,
+            "floor_2157_local": 0.0024500498531453774
+          },
+          {
+            "target": [
+              1.445,
+              45.66611208104108
+            ],
+            "s_real": 1.445,
+            "delta_sep_local": 2.0228083598921915,
+            "floor_2157_local": 0.00020275988007744964
+          }
+        ],
+        "target_target_min_distance": 0.5,
+        "target_target_margin": 8.611824622922759e-05
+      }
+    }
+  ],
+  "screen_summary": {
+    "candidate_count": 3,
+    "worst_min_separation": {
+      "gamma": 42.12289614653125,
+      "certified_lower": 1.283770840521257
+    },
+    "worst_local_floor": {
+      "gamma": 45.66611208104108,
+      "floor": 0.00020275988007744964
+    },
+    "total_brackets": 72,
+    "max_bracket_width": 5.293955920339377e-25,
+    "min_endpoint_margin": 2.9109288740357516e-26
+  },
+  "covering_statement": "each of the three registered 2103 stress configurations is certified with an explicit local disk |rho' - rho| <= eps_rho on which the node set is unchanged and every target-to-pin separation is >= s_min - 2 eps_rho, so the 2157 floor at every rho' in the union of the three disks is at least the registered per-candidate local floor; the union covers the registered configuration screen",
+  "continuum_obstruction": {
+    "finding": "a literal continuum uniform-in-rho statement is obstructed by closed-ball boundary crossings: the edge gamma + R(rho) sweeps ordinates as gamma varies (it sits below the first excluded ordinate at candidate 1 and above it at candidate 2), the in-ball node set changes between candidates, and eps_rho degenerates to zero at each crossing; the correct uniform object is the discrete configuration screen, certified member by member here",
+    "crossings": [
+      {
+        "pair": [
+          39.25244858548658,
+          42.12289614653125
+        ],
+        "window_edge_a": 82.51907238937717,
+        "window_edge_b": 88.2590018608881,
+        "last_ordinate_at_a": 82.91038085408603,
+        "critical_line_zeros_a": 21,
+        "critical_line_zeros_b": 24
+      },
+      {
+        "pair": [
+          42.12289614653125,
+          45.66611208104108
+        ],
+        "window_edge_a": 88.2590018608881,
+        "window_edge_b": 95.34440908955713,
+        "last_ordinate_at_a": 88.80911120763446,
+        "critical_line_zeros_a": 24,
+        "critical_line_zeros_b": 27
+      }
+    ]
+  },
+  "nonclaims": [
+    "the brackets are numeric certificates (mpmath 60 dps with an explicit error budget), not Lean-formalized interval arithmetic",
+    "global uniformity over the continuum of rho is NOT claimed; it is obstructed at ball-boundary crossings and would need re-derivation per crossing",
+    "no producer GO, no gate sign change, no RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/routea_weighted_zero_separation_certified_2254.py",
+    "machinery": "scripts/routea_weighted_zero_separation_input_2247.py",
+    "predecessor": "scripts/routea_weighted_zero_separation_certified_2251.py",
+    "anchor_2103": "results/2103_full_known_prefix_direct_owner_grid_m6400.json"
+  }
+}

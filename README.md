@@ -530,12 +530,32 @@ certified by 21 Hardy-Z brackets with a local uniform-in-`rho` lemma
 (radius `0.18587152073670352`, separation `>= 1.3529256614271667`,
 floor `>= 0.0015137680096211589`; 2251), and the item-5 arithmetic is
 formalized in Lean (four `norm_num` theorems, axiom audit clean,
-module/probe `3521` jobs and full library `4148` jobs green; 2252). This
-is still a `GO-CANDIDATE / PARTIALLY PRICED`, not a producer: the
-remaining obligations are the per-node charge uniformity half of the
-transfer (per-node charge `<= tail/62`), global uniformity-in-`rho` of
-the separation, and the registered ideal-to-discrete gaps of the `L1`
-enclosure.
+module/probe `3521` jobs and full library `4148` jobs green; 2252). The
+2253-2256 batch then attacks exactly those three open items. The per-node
+charge uniformity is falsified at the only canonical split (the heaviest
+zero node costs `97.03x` the `tail/62` budget and `1.57x` the whole tail,
+all-nodes max `207.12x`; 2253), the `owner/62` transfer factor is
+withdrawn, and the count-free Lean bound (`4 * mult * B`, no count factor)
+carries the fallback ledger (charge `4968695278.066621`, reading
+`0.0029656840176851677`, `eps0 = 1670427351110.207`; 2253). The
+separation certificate is upgraded to all three stress configurations (72
+Hardy-Z brackets, width `<= 5.293955920339377e-25`; certified separations
+`1.7246687029005743 / 1.283770840521257 / 2.380992966914272`; local disks
+`0.18587152073670574 / 0.2613019397045188 / 0.2499569408768854`; local
+floors `0.0003688351374802202 / 0.00038388813750691464 /
+0.00020275988007744964`) with the continuum obstruction registered (the
+ball edge sweeps three ordinates per stress step; the discrete screen is
+the certified object; 2254). The `L1` ideal-to-discrete gaps are measured
+and charged by refinement doubling (total `6537949.749302972`; the window
+truncation `-1.89e-16` sits below the committed error bar; 2255), and the
+terminal ledger is assembled and frozen in Lean (`gapCharge2255 = 1e7`,
+`eps0FullTail2249 = 1.67e12`, strict slack `417351110.20703125`; terminal
+reading `0.00296569559081069`, `eps0 = 1670420813160.4578`; stored-operand
+residuals `2.33e-29` relative, convention-A closure; 2256). This is still
+a `GO-CANDIDATE / PARTIALLY PRICED`, not a producer: the remaining
+obligations are the count-free assembly of the producer gate itself (no
+per-node transfer needed) and any future consumer wanting the count-side
+reduction back, which would require a cancellation-aware split.
 
 ```mermaid
 flowchart LR
@@ -548,7 +568,7 @@ flowchart LR
     F -->|2197-2200: 0.002203 margin ratio| G[GO-CANDIDATE]
     G --> H[Outward interval enclosure]
     H -->|2229-2231: 30-node MPFR envelope| H2[Interval terminal priced]
-    H2 -->|2234-2252: outward B_zm viable, L1 enclosed, Z=0, counts per node| H3[Low shell + owner transfer]
+    H2 -->|2234-2256: outward B_zm viable, L1 enclosed, Z=0, counts per node, charge count-free, gaps charged, terminal ledger| H3[Low shell + owner transfer]
     H3 --> J[Same-owner qw >= 0]
     J --> K[SourceRH]
     K --> L[Mathlib RH]
@@ -567,7 +587,9 @@ the resulting bound to the complete actual owner (the count side is
 bricked at `<= 26` unconditional / `= 21` imported, 2245, per node
 `<= 8 / <= 2` at the 30 construction nodes, 2250, so the coarse product
 reads `0.00122500010000746` / `0.000989423157698333`; the per-node
-CHARGE uniformity half remains open). RH is not claimed.
+CHARGE uniformity half is falsified and withdrawn at 2253, and the
+count-free fallback carries the terminal ledger at 2256). RH is not
+claimed.
 
 An alternative four-point same-owner span has formal finite-prefix and gate
 algebra. Its live analytic obligation is the strict scored cross-determinant

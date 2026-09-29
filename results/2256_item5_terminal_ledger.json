@@ -1,0 +1,47 @@
+{
+  "record": 2256,
+  "status": "TERMINAL-LEDGER-FULL-TAIL + SOLVE-RESIDUAL-AUDIT",
+  "date": "2026-09-30",
+  "ledger": {
+    "margin_2249": 1675396046388.2737,
+    "total_gap_charged_2255": 6537949.749302972,
+    "margin_terminal": 1675389508438.5244,
+    "charge_full_tail": 4968695278.066621,
+    "reading_terminal": 0.00296569559081069,
+    "eps0_terminal": 1670420813160.4578
+  },
+  "lean_constants": {
+    "highShellTail2248": 4894093747.764274,
+    "knownError2109": 74601530.30234718,
+    "gapCharge2255": 10000000,
+    "eps0FullTail2249": 1670000000000,
+    "strict_lemmas": [
+      "transfer_free_charge_le_margin_sub_slack",
+      "a005_item5_strict_signed_margin_full_tail"
+    ],
+    "note": "constants frozen from this artifact; the strict arithmetic lemma keeps slack 417351110.20703125"
+  },
+  "solve_residual_audit": {
+    "residual_base_inf": 6.4676997486962715e-15,
+    "residual_corr_inf": 1.1417431493021041e-11,
+    "base_abs_inf": 277567753448698.28,
+    "corr_abs_inf": 5.6875117346762605e+17,
+    "rel_residual_base": 2.3301336946878703e-29,
+    "rel_residual_corr": 2.0074563404256314e-29,
+    "condition_number": 265373.1999607843
+  },
+  "convention_a_statement": "record 2230 convention A: the stored binary64 operands are exact and define the object; the float solve vs exact solve gap is a convention, not a charge. The residual audit shows the stored coefficient vectors solve the stored matrix to machine precision, so the stored object is internally consistent",
+  "nonclaims": [
+    "the terminal margin carries the 2255 refinement-style gap charge; the ideal-to-discrete gaps beyond the measured refinements are not independently derived",
+    "the Lean repricing is the arithmetic only; the numeric inputs stay artifact-level facts",
+    "no producer GO, no gate sign change, no RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/routea_weighted_zero_item5_terminal_ledger_2256.py",
+    "inputs": [
+      "results/2249_l1_enclosure.json",
+      "results/2255_l1_gaps.json",
+      "results/2234_build_cache.npz"
+    ]
+  }
+}

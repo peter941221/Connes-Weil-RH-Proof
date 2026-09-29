@@ -148,3 +148,33 @@ theorems, axiom audit clean, module + probe `3521` jobs and full library
 half of the transfer (per-node charge `<= tail/62`), global
 uniformity-in-`rho` of the separation, and the registered
 ideal-to-discrete gaps of the `L1` enclosure.
+
+The 2253--2256 batch attacks exactly that open list. 2253 measures the
+only canonical per-node split of the binding channel and falsifies the
+uniform budget by two orders of magnitude (heaviest zero node
+`97.03078624970799 x` the `tail/62` budget, `1.57 x` the whole tail;
+all-nodes max `207.1204982551802 x`); the `owner/62` transfer factor is
+withdrawn and the count-free Lean bound (`4 * mult * B`, no count factor)
+carries the fallback ledger: charge `4968695278.066621`, reading
+`0.0029656840176851677`, eps0 `1670427351110.207`. 2254 upgrades the 2251
+separation certificate to all three 2103 stress configurations (72
+Hardy-Z brackets, width `<= 5.293955920339377e-25`; certified separations
+`1.7246687029005743 / 1.283770840521257 / 2.380992966914272`; local disks
+`0.18587152073670574 / 0.2613019397045188 / 0.2499569408768854`; local
+floors `0.0003688351374802202 / 0.00038388813750691464 /
+0.00020275988007744964`) and registers the continuum obstruction: the
+ball edge `gamma + R` sweeps three ordinates per stress step, so a literal
+uniform-in-`rho` statement degenerates at each crossing and the discrete
+screen is the certified object instead. 2255 measures and charges the
+registered L1 gaps by refinement doubling (total `6537949.749302972`; the
+window truncation `-1.8895946191892285e-16` is below the committed error
+bar), and 2256 assembles the terminal ledger: margin
+`1675396046388.2737`, gap-adjusted `1675389508438.5244`, charge
+`4968695278.066621`, reading `0.00296569559081069`, eps0
+`1670420813160.4578`, with the stored-operand residual audit at relative
+`2.3301336946878703e-29` (convention A closure) and the Lean repricing
+frozen (`gapCharge2255 = 1e7`, `eps0FullTail2249 = 1.67e12`, strict slack
+`417351110.20703125`). The open list is now: the count-free assembly of
+the producer gate itself (no per-node transfer needed), and any future
+consumer wanting the count-side reduction back must supply a
+cancellation-aware split.

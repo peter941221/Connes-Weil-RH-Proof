@@ -1,28 +1,36 @@
 import ConnesWeilRH.Dev.C1SpectralSummability
 
 /-!
-# Route A item-5 transfer arithmetic (records 2245, 2248, 2249)
+# Route A item-5 transfer arithmetic (records 2245, 2248, 2249, 2253, 2255)
 
 This module freezes the rational arithmetic of the item-5 strict signed
-margin at the 2249 certified standing and proves, with `norm_num`, the two
-transfer slacks and their strict signed-margin conclusions:
+margin at the 2249 certified standing and proves, with `norm_num`, the
+transfer slacks and their strict signed-margin conclusions, plus the
+transfer-free full-tail ledger of records 2253/2255/2256:
 
 * the record 2248 high-shell tail `4 * mult * B_upper`, with the multiplicity
   proxy `128.70692502980964` and `B_upper = 9506275.102584327`
   (`highShellTail2248`);
 * the record 2109 known-error sum (`knownError2109`);
 * the count ratios `26/62` (unconditional) and `21/62` (Platt-Trudgian
-  import) of record 2245;
+  import) of record 2245 (withdrawn-route arithmetic, record 2253);
 * the record 2249 certified margin lower bound `-q_hi = 1675396046388.2737`
-  of the L1 enclosure (`margin2249`).
+  of the L1 enclosure (`margin2249`);
+* the record 2255 ideal-to-discrete gap charge (`gapCharge2255`) and the
+  certified full-tail slack (`eps0FullTail2249`).
 
 The numeric inputs remain artifact-level facts: the 2249 enclosure is a
 numeric certificate (first-order error shadow, not Lean-formalized), the
-2245 count uses the cited Trudgian and Platt-Trudgian imports, and the 2109
-known-error sum is a ledger of measured evaluation errors.  What this module
-certifies is the arithmetic: from `margin2249 <= -qLo` and the transferred
-charge bound, the strict inequality `charge < -qLo` holds with an explicit
-positive slack.  No producer GO, no gate sign change, no RH claim.
+2245 count uses the cited Trudgian and Platt-Trudgian imports, the 2109
+known-error sum is a ledger of measured evaluation errors, and the 2255 gap
+charge is a refinement-doubling estimate.  What this module certifies is
+the arithmetic.  Record 2253 measured that the per-node charge budget
+underlying the `owner/62` transfer factor fails by two orders of magnitude,
+so the certified ledger is the full-tail fallback: from `margin2249 <=
+-qLo`, a charge bounded by the full tail plus the known-error sum, and a
+gap bounded by `gapCharge2255`, the strict inequality holds with the
+registered positive slack.  No producer GO, no gate sign change, no RH
+claim.
 -/
 
 namespace ConnesWeilRH
@@ -83,6 +91,41 @@ theorem a005_item5_strict_signed_margin_uncond
     (hcharge : charge <= highShellTail2248 * (26 / 62) + knownError2109) :
     charge + eps0Uncond2249 < -qLo := by
   have h := transfer_uncond_le_margin_sub_slack
+  linarith
+
+/-- Record 2255 ideal-to-discrete gap charge (refinement-doubling bound
+frozen from `results/2255_l1_gaps.json`; the measured total is
+`6537949.749302972`, here rounded up to `1e7`). -/
+def gapCharge2255 : Real := 10000000
+
+/-- Certified slack of the transfer-free full-tail ledger. -/
+def eps0FullTail2249 : Real := 1670000000000
+
+theorem eps0FullTail2249_pos : 0 < eps0FullTail2249 := by
+  norm_num [eps0FullTail2249]
+
+/-- The transfer-free charge (the full 2248 high-shell tail plus the
+known-error sum plus the 2255 gap charge) sits strictly below the certified
+margin minus the registered slack. -/
+theorem transfer_free_charge_le_margin_sub_slack :
+    highShellTail2248 + knownError2109 + gapCharge2255 <
+      margin2249 - eps0FullTail2249 := by
+  norm_num [highShellTail2248, knownError2109, margin2249, gapCharge2255,
+    eps0FullTail2249]
+
+/-- Item-5 strict signed-margin inequality, transfer-free ledger: for any
+signed downward enclosure `qLo` of the finite-window functional with
+`-qLo >= margin2249`, any charge bounded by the full high-shell tail plus
+the known-error sum, and any ideal-to-discrete gap bounded by
+`gapCharge2255`, the strict inequality `charge + gap < -qLo` holds with the
+registered positive slack. -/
+theorem a005_item5_strict_signed_margin_full_tail
+    {qLo charge gap : Real}
+    (hmargin : margin2249 <= -qLo)
+    (hcharge : charge <= highShellTail2248 + knownError2109)
+    (hgap : gap <= gapCharge2255) :
+    charge + gap + eps0FullTail2249 < -qLo := by
+  have h := transfer_free_charge_le_margin_sub_slack
   linarith
 
 end C1RouteAItem5Arithmetic

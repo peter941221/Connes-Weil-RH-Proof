@@ -1,0 +1,55 @@
+{
+  "record": 2255,
+  "date": "2026-09-30",
+  "q_committed": -1675397327923.575,
+  "E_committed": 1281535.3012791811,
+  "quad": {
+    "m_new": 12800,
+    "q": -1675397455340.8223,
+    "E": 1281535.3201478904,
+    "delta": -127417.24731445312,
+    "gap_charged": 2690487.8687415244,
+    "wall_s": 370.494202375412
+  },
+  "window": {
+    "ring_points": 4002,
+    "q_ring": -1.8895820282216714e-16,
+    "E_ring": 3.013774912233947e-15,
+    "q_endpoint_correction": -1.2590967557085536e-21,
+    "E_endpoint_correction": 9.55523599812857e-21,
+    "delta": -1.8895946191892285e-16,
+    "gap_charged": 1281535.3012791811,
+    "g_abs_at_40": 5.85594003842789e-20,
+    "g_abs_at_80": 1.403629857737869e-17,
+    "wall_s": 154.49128651618958
+  },
+  "step": {
+    "step_new": 0.01,
+    "q": -1675397327870.582,
+    "E": 1284338.2850831628,
+    "delta": 52.992919921875,
+    "gap_charged": 2565926.579282266,
+    "wall_s": 289.65781116485596
+  },
+  "total": {
+    "gap_charged_quad": 2690487.8687415244,
+    "gap_charged_window": 1281535.3012791811,
+    "gap_charged_step": 2565926.579282266,
+    "total_gap_charged": 6537949.749302972,
+    "margin_2249": 1675396046388.2737,
+    "margin_gap_adjusted": 1675389508438.5244,
+    "charge_full_tail": 4968695278.066621,
+    "reading": 0.00296569559081069,
+    "eps0": 1670420813160.4578
+  },
+  "nonclaims": [
+    "the gap charges are measured by refinement doubling (m, window, step), charged as the full difference plus both enclosures' E-totals; they are refinement estimates, not analytic error bounds",
+    "the owner-list and float-solve gaps are not treated here (2254 certifies the owner list per configuration; the solve convention is 2230 convention A)",
+    "no producer GO, no gate sign change, no RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/routea_weighted_zero_l1_gaps_2255.py",
+    "machinery": "scripts/routea_weighted_zero_l1_enclosure_2249.py",
+    "artifact_2249": "results/2249_l1_enclosure.json"
+  }
+}
