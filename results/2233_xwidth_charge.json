@@ -1,0 +1,55 @@
+{
+  "record": 2233,
+  "part": "x-channel",
+  "status": "XWIDTH-CHARGE-MEASURED",
+  "model": {
+    "delta_k": "k * 2^-52 * |x|, one and sixteen ulps of the stored binary64 x node",
+    "shift": "|dq| <= |dq/dx| d_k + (1/2)|q''| d_k^2 with analytic d1 = 2K|x|/a^2 (1-u^2)^-2 + |z|, d2 = (2K/a^2)((1-u^2)^-2 + 4u^2 (1-u^2)^-3)",
+    "charge": "re-evaluated at nextafter-up(rr + ri + extra) with MPFR RNDU accumulation"
+  },
+  "per_node": {
+    "2": {
+      "totals": {
+        "base": 8.792971355816406e-09,
+        "k1": 1.012586911411996e-08,
+        "k16": 3.011933548867331e-08
+      },
+      "committed_2229": 8.792971355816406e-09,
+      "base_relative_drift": 0.0,
+      "inflation_k1": 0.15158672812255491,
+      "inflation_k16": 2.4253876499608817,
+      "max_delta": {
+        "base": 36.09994721412674,
+        "k1": 60.16657729705971,
+        "k16": 421.16613756167084
+      }
+    },
+    "1": {
+      "totals": {
+        "base": 4.441432860466601e-09,
+        "k1": 4.508785982559424e-09,
+        "k16": 5.519082813951801e-09
+      },
+      "committed_2229": 4.441432860466601e-09,
+      "base_relative_drift": 0.0,
+      "inflation_k1": 0.015164728187683663,
+      "inflation_k16": 0.24263565100294815,
+      "max_delta": {
+        "base": 36.099947214126885,
+        "k1": 60.1665772970599,
+        "k16": 421.16613756167175
+      }
+    }
+  },
+  "worst_node_k1": 2,
+  "nonclaims": [
+    "the GL/Simpson nodes are taken from the stored binary64 grids; k ulps is a stated model of their generation error, not a certified bound on it",
+    "two nodes sampled (binding charge and minimum charge), not all 30",
+    "convention A (stored operands exact) remains the certificate reference",
+    "no producer or RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/routea_weighted_zero_xwidth_charge_2233.py",
+    "charge_backend": "scripts/routea_weighted_zero_q_mpfr_all_nodes_2229.py"
+  }
+}

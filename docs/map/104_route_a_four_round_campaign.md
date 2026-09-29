@@ -1077,6 +1077,81 @@ than the 2217 parameterized AMP price it replaces. The Simpson fourth-order
 remainder of the combined price, the operand construction ledger, the
 low-shell side, and complete-owner transfer remain open.
 
+## 2232 — family-stitch closure
+
+Record [2232](../proofs/2232_routea_weighted_zero_family_stitch_closure.md)
+closes the binary64 stitch of the 2229 node totals. Lemma: two
+round-to-nearest steps lose at most one spacing of the result and one
+`nextafter` step upward adds one spacing, so
+`nextafter-up(fl(fl(T+g)+s)) >= T+g+s` for outward-rounded nonnegative
+family charges. Verified by directed re-accumulation of all 30 committed
+node artifacts with 256-bit MPFR RNDU: no deficits, relative slack between
+`2.536371840662237e-15` and `4.656045912096321e-15`; worst node 2 recomputes
+to `8.792971355816368e-09` under the reported `8.792971355816406e-09`. The
+family accumulation step of ladder item 2 is closed; the operand ledger is
+priced in 2233.
+
+## 2233 — operand construction ledger (c, w, x channels)
+
+Record [2233](../proofs/2233_routea_weighted_zero_operand_ledger.md) prices
+the three measurable channels of the 2230 item 2a. c channel: the
+record-2201 provisional radius charges the q-chain charge by
+`1.1225276886070804e-05` relative (base-labeled `5.478274212797956e-09`);
+`|coeff|_max = 5.6875117346762605e+17` is bitwise the 2235 `corr_c_inf`, so
+the 2225 q-chain and the 2197 direct-product solve are the same 30x30
+system. w channel: the GL moment identities (`2a`, `2a^3/3`, `2a^5/5`)
+close in directed MPFR on all 30 stored grids with worst relative gap
+`9.164518758595832e-14` (family 8). x channel: an ideal node differing by
+`k` ulps shifts q by the analytic `|dq/dx| d_k + (1/2)|q''| d_k^2`; sampled
+re-evaluation at the two extreme nodes gives base drift `0.0` (bitwise
+against 2229, all 30 families at node 2), `k = 1` inflation
+`+0.15158672812255491` (node 2) and `+0.015164728187683663` (node 1),
+`k = 16` `+2.4253876499608817` / `+0.24263565100294815`. Read into the 2231
+budget the one-ulp channel costs about `2.1e-05` of the target.
+
+## 2234 — direct-product outward envelope (first brick)
+
+Record [2234](../proofs/2234_routea_weighted_zero_direct_product_outward_envelope.md)
+re-evaluates the 2197 direct-product screen with 256-bit MPFR RNDN plus
+documented outward allowances (slack `2^-200` magnitude sum, trapezoid panel
+majorants, sigma Lipschitz cover, coefficient mass bounds). The four sigma=1
+sums reproduce the committed 2197 values at the binary64 rounding level, but
+the envelope is measured *too loose*: `C_upper = 2.4866178385966296e9`,
+`32108.532816055962x` over the 2197 screen, `70.74142972939994x` the signed
+margin. Attribution at the binding row: the coefficient allowance dominates
+(`coeff_infl_corr_D2 = 55085.076713871786` relative), the panel allowance is
+second (`panel_corr_D2 = 17018191.948288612` against the `1.5261406872e6`
+norm). The defect is separated and repriced in 2235/2236.
+
+## 2235 — coefficient-channel reprice from the 2197 scales
+
+Record [2235](../proofs/2235_routea_weighted_zero_direct_product_reprice.md)
+measures the 2197 system (`A_inf = 7.94200337904096e-13`,
+`Ainv_inf = 6.77049894501907e+17`, `cond_inf = 537713.2549913471`,
+residuals `6.4676997486962715e-15` / `1.1417431493021041e-11`) and refutes
+the "wrong system" reading of the 2234 defect: the recomputed radii
+(`1.4925623914296788e8` / `3.0583277493621344e11`) land within 13 percent of
+the 2201 values, so the envelope was not repairable by rescaling
+(`1.3253659305957348x` only, still `53.3750174924163x` over margin). What it
+establishes instead is the attribution: one radius was charging the
+generation channel and the solve channel together.
+
+## 2236 — solve-floor envelope: viable
+
+Record [2236](../proofs/2236_routea_weighted_zero_direct_product_solve_floor.md)
+charges the coefficient channel at the computed binary64 solve floor
+`r_c = Ainv_inf (||resid||_inf + gamma_30 A_inf c_inf)` with
+`gamma_30 = 6.661338147750985e-15`: `r_base = 998596.0653225501`,
+`r_corr = 2044934208.0214145` (the 2201 radius overcharged this channel by
+`172.93818557922884x`). The envelope becomes viable: `C_upper =
+2721865.34164875` (`35.14617376530097x` over the 2197 screen), high-shell
+budget `129732635893.80194`, `tail/margin = 0.07743395177596035`, i.e.
+`12.9x` below the anchor; the stored-exact reading of the coefficient
+channel reads `1850509.4347934648` / `0.05264487413912939` on the same
+binding row. This opens the first gap of ladder item 4. The generation
+channel (screened at `1e-12`), the panel allowance, the multiplicity proxy,
+owner transfer and the signed margin remain open.
+
 ## 2178 algebraic infinity remainder
 
 Record [2178](../proofs/2178_routea_infinity_algebraic_remainder.md) replaces

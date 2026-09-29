@@ -53,8 +53,19 @@ node, binding node 2 at `8.792971355816406e-09`, minimum node 1 at
 convention and inventories the owner-transfer ladder; record 2231 prices the
 uniform charge at `1.4068690278731986e-04` of the `6.2550323e-05` candidate
 correction target, a `2.7956` factor below the parameterized 2224 assembly.
+The next batch closed the accumulation side of the operand gate (2232 family
+stitch, no deficits; 2233 ledger: c-radius `1.12e-05` relative, w channel
+screened at `9.2e-14`, x channel `+15.2%` per ulp at the binding node) and
+opened the first gap of the low-shell/`B_zm` side: 2234 built the outward
+direct-product envelope and measured it too loose (`70.74x` margin), 2235
+attributed the defect (the 2201 radius charged the generation and solve
+channels together, and the "wrong system" reading is refuted), and 2236
+charged the computed solve floor to reach viability (`C_upper =
+2721865.34164875`, `tail/margin = 0.07743395177596035`, `12.9x` headroom;
+stored-exact reading `0.05264487413912939`).
 
-The remaining gates are the binary64 operand construction ledger, the
-low-shell/`B_zm` side, transfer to the complete actual owner, and finally
-the strict signed margin. Until those gates pass, this branch remains a
-candidate and makes no RH claim.
+The remaining gates are the certified generation channel of 2236 (screened
+at `1e-12`), the panel allowance and multiplicity proxy of the direct-product
+side, transfer to the complete actual owner, and finally the strict signed
+margin. Until those gates pass, this branch remains a candidate and makes no
+RH claim.

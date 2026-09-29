@@ -477,9 +477,18 @@ owner nodes with outward charge accumulation (2229, binding node 2 at
 operand convention and the complete owner-transfer obstruction list are
 recorded (2230), and the uniform charge prices at `1.4069e-04` of the
 `6.2550323e-05` correction target, `2.7956x` below the parameterized
-assembly (2231). This is a `GO-CANDIDATE / PARTIALLY PRICED`, not a
-producer: the remaining gates are the operand construction ledger, the
-low-frequency shell, and complete-owner transfer.
+assembly (2231). The next batch closes the accumulation side of the operand
+gate (2232 family stitch, no deficits; 2233 ledger: c-radius `1.1e-05`
+relative, weights screened at `9.2e-14`, one-ulp node displacement `+15.2%`
+at the binding node, about `2.1e-05` of the target) and opens the first gap
+of the low-shell side: the direct-product screen is re-evaluated as an
+outward MPFR enclosure (2234), the too-loose envelope is attributed to a
+coefficient radius charging the generation and solve channels together
+(2235), and charging the computed solve floor makes the enclosure viable,
+`tail/margin = 0.0774` with `12.9x` headroom (2236). This is a
+`GO-CANDIDATE / PARTIALLY PRICED`, not a producer: the remaining gates are
+the certified operand-generation channel, the low-frequency shell, and
+complete-owner transfer.
 
 ```mermaid
 flowchart LR
@@ -492,18 +501,20 @@ flowchart LR
     F -->|2197-2200: 0.002203 margin ratio| G[GO-CANDIDATE]
     G --> H[Outward interval enclosure]
     H -->|2229-2231: 30-node MPFR envelope| H2[Interval terminal priced]
-    H2 --> I[Low shell + complete-owner transfer]
+    H2 -->|2234-2236: outward B_zm viable 0.0774| H3[Low shell first gap]
+    H3 --> I[Low shell + complete-owner transfer]
     I --> J[Same-owner qw >= 0]
     J --> K[SourceRH]
     K --> L[Mathlib RH]
 ```
 
 The graph has three open doors after the current candidate: (1) intervalize
-the direct-product functions and solve error (the q-construction
-exponent channel is now outward-certified through 2229-2231; the operand
-construction ledger remains), (2) certify the low-frequency shell without
-importing a finite list of numerical zeros, and (3) transfer the resulting
-bound to the complete actual owner. RH is not claimed.
+the direct-product functions and solve error (the q-construction exponent
+channel is outward-certified through 2229-2231 with the ledger priced by
+2233, and the direct-product solve channel by 2234-2236; the certified
+operand-generation channel remains), (2) certify the low-frequency shell
+without importing a finite list of numerical zeros, and (3) transfer the
+resulting bound to the complete actual owner. RH is not claimed.
 
 An alternative four-point same-owner span has formal finite-prefix and gate
 algebra. Its live analytic obligation is the strict scored cross-determinant

@@ -1,0 +1,133 @@
+{
+  "record": 2236,
+  "status": "DIRECT-PRODUCT-OUTWARD-VIABLE",
+  "lever": "solve-floor coefficient radius: r_c = Ainv (resid + gamma_30 A c); generation channel left to the ledger",
+  "radius": {
+    "r_base": 998596.0653225501,
+    "r_corr": 2044934208.0214145
+  },
+  "owner": {
+    "gamma": 39.25244858548658,
+    "delta": 0.445,
+    "scale": 0.8,
+    "nodes": 30,
+    "a_max": 2.5600000000000005
+  },
+  "grid": {
+    "x_nodes": 240001,
+    "sigma_nodes": 101,
+    "dx": 2.1333333333333338e-05,
+    "d_sigma": 0.01,
+    "sigma_cover": 1.0259304941903822
+  },
+  "binding_row": {
+    "sigma": 1.0,
+    "base_M0": 3.9103349086507246,
+    "base_D2": 21791.878179718606,
+    "corr_M0": 4930.962615257418,
+    "corr_D2": 6079019388.2506695,
+    "panel_base": 1.8076571806532764,
+    "panel_base_D2": 11693.314770969451,
+    "panel_corr": 2862.4920101295183,
+    "panel_corr_D2": 17018191.948288612,
+    "coeff_infl_base": 0.0001332565212854297,
+    "coeff_infl_base_D2": 0.15554411024810127,
+    "coeff_infl_corr": 0.27288393003079797,
+    "coeff_infl_corr_D2": 318.52465971799757,
+    "C_channel_a": 2721865.34164875,
+    "C_channel_b": 602126507.7660421,
+    "C_upper": 2721865.34164875
+  },
+  "screen": {
+    "C_upper": 2721865.34164875,
+    "B_upper": 107454936.62043647,
+    "spectralMultiplicityConstant_proxy": 301.83032993648527,
+    "high_shell_budget_upper": 129732635893.80194,
+    "signed_margin_anchor": 1675397327895.099,
+    "tail_upper_over_margin": 0.07743395177596035
+  },
+  "comparison_2197": {
+    "C_upper": 77444.14398633591,
+    "B_upper": 3057372.2573045553,
+    "tail_upper": 3691230708.643563,
+    "tail_over_margin": 0.0022031972041408675
+  },
+  "comparison_2234": {
+    "C_upper_2234": 2486617838.5966296,
+    "tail_over_margin_2234": 70.74142972939994,
+    "C_repricing_factor": 913.5712191736785
+  },
+  "inflation_over_2197": {
+    "C": 35.14617376530097,
+    "tail": 35.146173765301036
+  },
+  "sigma1_drift_vs_2197": {
+    "base_M0": {
+      "chunk_trapezoid": 2.003335788745609,
+      "committed_2197": 2.0033357887456087,
+      "relative": 2.2167487464901211e-16
+    },
+    "base_D2": {
+      "chunk_trapezoid": 6688.576604759939,
+      "committed_2197": 6688.576604759935,
+      "relative": 5.439092683042218e-16
+    },
+    "corr_M0": {
+      "chunk_trapezoid": 913.4469710803496,
+      "committed_2197": 913.4469710803505,
+      "relative": -9.956732361783981e-16
+    },
+    "corr_D2": {
+      "chunk_trapezoid": 1526140.6871880083,
+      "committed_2197": 1526140.687188009,
+      "relative": -4.576851510646868e-16
+    }
+  },
+  "allowances": {
+    "slack": "reused from 2234 (MPFR RNDN + 2^-200 magnitude sum)",
+    "panel": "reused from 2234 (global phi^(k) majorants, dx law)",
+    "sigma": "reused from 2234 (exp(a_max d_sigma) per norm)",
+    "coeff": "recomputed here from the 2197 system scales"
+  },
+  "nonclaims": [
+    "the coefficient radii separate a generation term (eta screen) from a solve term (residual); the split is the subject of 2236",
+    "the panel allowance still carries a global-majorant factor; the residual inflation over the 2197 screen is that channel",
+    "the multiplicity constant is still the 2197 diagnostic proxy",
+    "complete-owner transfer and the signed producer margin remain open",
+    "no producer or RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/routea_weighted_zero_direct_product_reprice_2235.py",
+    "sigma_sums": "results/2234_sigma_*.json",
+    "system": "scripts/routea_weighted_zero_direct_product_mass_screen_2197.py"
+  },
+  "floor_radius": {
+    "a_inf": 7.94200337904096e-13,
+    "ainv_inf": 6.77049894501907e+17,
+    "cond_inf": 537713.2549913471,
+    "base_c_inf": 277567753448698.28,
+    "corr_c_inf": 5.6875117346762605e+17,
+    "resid_base": 6.4676997486962715e-15,
+    "resid_corr": 1.1417431493021041e-11,
+    "gamma30": 6.661338147750985e-15,
+    "r_base": 998596.0653225501,
+    "r_corr": 2044934208.0214145,
+    "r_base_2201": 172590522.1940381,
+    "r_corr_2201": 353647211564.1207,
+    "charge_2201_over_floor_base": 172.8331686729516,
+    "charge_2201_over_floor_corr": 172.93818557922884
+  },
+  "generation_channel_registered": {
+    "screen": 1e-12,
+    "epsilon_charge_base": 2.20444403580237e-10,
+    "epsilon_charge_corr": 4.5170237415133973e-07,
+    "note": "the 2201-style charged version of this channel is the registered lever; it is not absorbed into this envelope"
+  },
+  "robustness": {
+    "stored_exact_C_upper": 1850509.4347934648,
+    "stored_exact_tail_over_margin": 0.05264487413912939,
+    "solve_floor_C_upper": 2721865.34164875,
+    "binding_row_invariant": true,
+    "note": "the binding row is channel a (db*mc); both coefficient channels enter it only through the small base/corr_M0 inflatons, so the verdict is read identically under both readings"
+  }
+}

@@ -1,0 +1,241 @@
+{
+  "record": 2232,
+  "status": "FAMILY-STITCH-CLOSED",
+  "scope": {
+    "nodes": 30,
+    "rows_per_node": 30,
+    "source": "results/2229_q_mpfr_node*.json"
+  },
+  "lemma": {
+    "statement": "nextafter-up(fl(fl(T+g)+s)) >= T+g+s for g,s >= 0 with g,s outward-rounded binary64",
+    "mechanism": "two round-to-nearest steps lose at most one spacing; one nextafter step upward adds one spacing",
+    "status": "paper lemma, verified numerically here against the committed rows"
+  },
+  "per_node": {
+    "0": {
+      "rows": 30,
+      "recomputed_mpfr_rndu": 4.741899692762544e-09,
+      "reported_2229": 4.7418996927625616e-09,
+      "reported_minus_recomputed": 1.737079286361358e-23,
+      "relative_slack": 3.663256076488972e-15
+    },
+    "1": {
+      "rows": 30,
+      "recomputed_mpfr_rndu": 4.441432860466581e-09,
+      "reported_2229": 4.441432860466601e-09,
+      "reported_minus_recomputed": 2.0679515313825692e-23,
+      "relative_slack": 4.656045912096321e-15
+    },
+    "10": {
+      "rows": 30,
+      "recomputed_mpfr_rndu": 5.07814882882334e-09,
+      "reported_2229": 5.078148828823359e-09,
+      "reported_minus_recomputed": 1.9025154088719637e-23,
+      "relative_slack": 3.7464743019609295e-15
+    },
+    "11": {
+      "rows": 30,
+      "recomputed_mpfr_rndu": 5.030699191176244e-09,
+      "reported_2229": 5.0306991911762615e-09,
+      "reported_minus_recomputed": 1.737079286361358e-23,
+      "relative_slack": 3.4529579693577465e-15
+    },
+    "12": {
+      "rows": 30,
+      "recomputed_mpfr_rndu": 4.900040148499105e-09,
+      "reported_2229": 4.900040148499124e-09,
+      "reported_minus_recomputed": 1.9025154088719637e-23,
+      "relative_slack": 3.882652695110486e-15
+    },
+    "13": {
+      "rows": 30,
+      "recomputed_mpfr_rndu": 4.763836204966141e-09,
+      "reported_2229": 4.763836204966159e-09,
+      "reported_minus_recomputed": 1.737079286361358e-23,
+      "relative_slack": 3.646387515487015e-15
+    },
+    "14": {
+      "rows": 30,
+      "recomputed_mpfr_rndu": 4.556200867712154e-09,
+      "reported_2229": 4.55620086771217e-09,
+      "reported_minus_recomputed": 1.6543612251060553e-23,
+      "relative_slack": 3.631010293751107e-15
+    },
+    "15": {
+      "rows": 30,
+      "recomputed_mpfr_rndu": 4.558776099348447e-09,
+      "reported_2229": 4.558776099348466e-09,
+      "reported_minus_recomputed": 1.9025154088719637e-23,
+      "relative_slack": 4.173303025660498e-15
+    },
+    "16": {
+      "rows": 30,
+      "recomputed_mpfr_rndu": 4.67470776648124e-09,
+      "reported_2229": 4.674707766481258e-09,
+      "reported_minus_recomputed": 1.737079286361358e-23,
+      "relative_slack": 3.71590989883181e-15
+    },
+    "17": {
+      "rows": 30,
+      "recomputed_mpfr_rndu": 4.8859939569126446e-09,
+      "reported_2229": 4.885993956912664e-09,
+      "reported_minus_recomputed": 1.9025154088719637e-23,
+      "relative_slack": 3.893814494347272e-15
+    },
+    "18": {
+      "rows": 30,
+      "recomputed_mpfr_rndu": 4.967670437946218e-09,
+      "reported_2229": 4.967670437946238e-09,
+      "reported_minus_recomputed": 2.0679515313825692e-23,
+      "relative_slack": 4.1628194889625605e-15
+    },
+    "19": {
+      "rows": 30,
+      "recomputed_mpfr_rndu": 5.1289520824697826e-09,
+      "reported_2229": 5.1289520824698e-09,
+      "reported_minus_recomputed": 1.737079286361358e-23,
+      "relative_slack": 3.3868112987417295e-15
+    },
+    "2": {
+      "rows": 30,
+      "recomputed_mpfr_rndu": 8.792971355816368e-09,
+      "reported_2229": 8.792971355816406e-09,
+      "reported_minus_recomputed": 3.8050308177439273e-23,
+      "relative_slack": 4.327354956327679e-15
+    },
+    "20": {
+      "rows": 30,
+      "recomputed_mpfr_rndu": 5.360926213574175e-09,
+      "reported_2229": 5.360926213574193e-09,
+      "reported_minus_recomputed": 1.819797347616661e-23,
+      "relative_slack": 3.3945577221503793e-15
+    },
+    "21": {
+      "rows": 30,
+      "recomputed_mpfr_rndu": 5.490735493256013e-09,
+      "reported_2229": 5.490735493256033e-09,
+      "reported_minus_recomputed": 1.9852334701272664e-23,
+      "relative_slack": 3.615605728168159e-15
+    },
+    "22": {
+      "rows": 30,
+      "recomputed_mpfr_rndu": 5.573891574867413e-09,
+      "reported_2229": 5.573891574867431e-09,
+      "reported_minus_recomputed": 1.819797347616661e-23,
+      "relative_slack": 3.2648596105135915e-15
+    },
+    "23": {
+      "rows": 30,
+      "recomputed_mpfr_rndu": 5.7553200399368924e-09,
+      "reported_2229": 5.755320039936912e-09,
+      "reported_minus_recomputed": 1.9852334701272664e-23,
+      "relative_slack": 3.4493884898693395e-15
+    },
+    "24": {
+      "rows": 30,
+      "recomputed_mpfr_rndu": 5.726349895909157e-09,
+      "reported_2229": 5.726349895909177e-09,
+      "reported_minus_recomputed": 1.9852334701272664e-23,
+      "relative_slack": 3.46683927146243e-15
+    },
+    "25": {
+      "rows": 30,
+      "recomputed_mpfr_rndu": 5.7394735955993004e-09,
+      "reported_2229": 5.739473595599319e-09,
+      "reported_minus_recomputed": 1.819797347616661e-23,
+      "relative_slack": 3.1706694304020793e-15
+    },
+    "26": {
+      "rows": 30,
+      "recomputed_mpfr_rndu": 6.087835690681198e-09,
+      "reported_2229": 6.087835690681217e-09,
+      "reported_minus_recomputed": 1.9025154088719637e-23,
+      "relative_slack": 3.1251096539681444e-15
+    },
+    "27": {
+      "rows": 30,
+      "recomputed_mpfr_rndu": 6.196422538110195e-09,
+      "reported_2229": 6.1964225381102105e-09,
+      "reported_minus_recomputed": 1.5716431638507526e-23,
+      "relative_slack": 2.536371840662237e-15
+    },
+    "28": {
+      "rows": 30,
+      "recomputed_mpfr_rndu": 6.2228312442693065e-09,
+      "reported_2229": 6.222831244269325e-09,
+      "reported_minus_recomputed": 1.819797347616661e-23,
+      "relative_slack": 2.924388073824978e-15
+    },
+    "29": {
+      "rows": 30,
+      "recomputed_mpfr_rndu": 6.475830084303244e-09,
+      "reported_2229": 6.475830084303264e-09,
+      "reported_minus_recomputed": 2.0679515313825692e-23,
+      "relative_slack": 3.1933381581383276e-15
+    },
+    "3": {
+      "rows": 30,
+      "recomputed_mpfr_rndu": 8.063938632912945e-09,
+      "reported_2229": 8.06393863291298e-09,
+      "reported_minus_recomputed": 3.474158572722716e-23,
+      "relative_slack": 4.308265142969897e-15
+    },
+    "4": {
+      "rows": 30,
+      "recomputed_mpfr_rndu": 5.171385204235247e-09,
+      "reported_2229": 5.171385204235266e-09,
+      "reported_minus_recomputed": 1.9025154088719637e-23,
+      "relative_slack": 3.678928050677499e-15
+    },
+    "5": {
+      "rows": 30,
+      "recomputed_mpfr_rndu": 6.360731458283912e-09,
+      "reported_2229": 6.360731458283933e-09,
+      "reported_minus_recomputed": 2.0679515313825692e-23,
+      "relative_slack": 3.2511222096782093e-15
+    },
+    "6": {
+      "rows": 30,
+      "recomputed_mpfr_rndu": 6.789401684407041e-09,
+      "reported_2229": 6.7894016844070584e-09,
+      "reported_minus_recomputed": 1.737079286361358e-23,
+      "relative_slack": 2.5585160034806037e-15
+    },
+    "7": {
+      "rows": 30,
+      "recomputed_mpfr_rndu": 7.571867406838134e-09,
+      "reported_2229": 7.571867406838162e-09,
+      "reported_minus_recomputed": 2.812414082680294e-23,
+      "relative_slack": 3.714293887582355e-15
+    },
+    "8": {
+      "rows": 30,
+      "recomputed_mpfr_rndu": 5.630892019853078e-09,
+      "reported_2229": 5.630892019853098e-09,
+      "reported_minus_recomputed": 1.9852334701272664e-23,
+      "relative_slack": 3.525610974474104e-15
+    },
+    "9": {
+      "rows": 30,
+      "recomputed_mpfr_rndu": 5.376133265350227e-09,
+      "reported_2229": 5.376133265350242e-09,
+      "reported_minus_recomputed": 1.4889251025954498e-23,
+      "relative_slack": 2.76950929061178e-15
+    }
+  },
+  "deficits": {},
+  "worst_node": 2,
+  "max_charge_mpfr": 8.792971355816368e-09,
+  "min_charge_mpfr": 4.441432860466581e-09,
+  "max_relative_slack": 4.656045912096321e-15,
+  "min_relative_slack": 2.536371840662237e-15,
+  "nonclaims": [
+    "binary64 operands are taken as exact (discrete-defined convention; record 2230)",
+    "the paper lemma is not yet formalized in Lean",
+    "no producer or RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/routea_weighted_zero_family_stitch_2232.py",
+    "mpfr_backend": "routea_weighted_zero_mpfr_exp_binding_2223.py"
+  }
+}
