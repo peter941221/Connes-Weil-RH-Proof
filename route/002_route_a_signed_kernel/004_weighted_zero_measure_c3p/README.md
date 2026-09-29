@@ -1,6 +1,6 @@
 # 004 — Weighted-zero-measure C3′ certificate
 
-Status: `GO-CANDIDATE / UNPRICED` (`A.005.1`); not yet a producer GO.
+Status: `GO-CANDIDATE / PARTIALLY PRICED` (`A.005.1`); not yet a producer GO.
 
 Consumer: the same-owner selected-detector inequality needed for
 `qw(g) >= 0 -> SourceRH`.
@@ -37,3 +37,21 @@ W(F,z) = spectralNormTerm(F,z)
 
 and bound the omitted low-shell residual by its exact finite weighted sum.
 The strict producer gate `B_zm < epsilon` remains open.
+
+## Active terminal subroute
+
+The current numerical terminal is
+`001_q_construction_mpfr_interval/`. It owns the outward interval audit for
+the finite `q` construction and its exponential propagation; it does not
+replace the actual owner or prove the signed producer margin.
+
+Record 2228 corrected the earlier complex-weight implementation error in
+records 2225--2227. The corrected MPFR runs at nodes 2, 3, and 29 have zero
+interval failures, with charges respectively
+`8.792971355816332e-09`, `8.063938632912915e-09`, and
+`6.475830084303228e-09`. These are a three-node stability certificate only.
+
+The next gates are the complete 30-node envelope, binary64 operand and
+finite-sum accumulation provenance, transfer to the complete actual owner,
+and finally the strict signed margin. Until those gates pass, this branch
+remains a candidate and makes no RH claim.
