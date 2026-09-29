@@ -81,9 +81,24 @@ numerics lever. 2241 re-checked the owner transfer: the 2119 cardinality
 ratio reads `1.721x` over the margin at the 2238 standing (`0.530x` with
 the projected composite-EM panel of 2238, `3.248x`).
 
-The remaining gates: certify the zero count `Z = 0` of the 2238
-composite-EM lever (or charge the measured dips `2.5e-12` / `4.9e-9`), the
-2119 count refinement (needs `1.721x`) or the composite-EM landing, the
-2157 near-pin separation input, and finally the strict signed margin.
-Until those gates pass, this branch remains a candidate and makes no RH
-claim.
+The 2242--2244 batch then closed the two numeric gates of that list and
+re-inventoried the rest. 2242 certified the zero count `Z = 0` for all
+four channel functions: a directed 256-bit MPFR interval pavement over
+`[-2.32, 2.32]` (8780 / 9247 / 21219 / 12500 boxes, zero failures, floors
+`1.28e-63 ... 1.06e-53`) plus an analytic single-family certificate on the
+edge arcs `+-(2.32, 2.5600000000000005)` where `B2_re >=
+435200.11369115417 > 0` and `phi > 0` strictly; the `~5e-314` denormal
+candidates at `+-2.5079` are the phi tail, disposed of analytically, not
+sampled. 2243 landed the composite-EM panel on that certificate: the
+envelope (the 2238 loop bitwise, `N_risk = 0`) reprices by
+`5.187365461729664x` to `C_upper = 240796.76135588222`, `tail/margin =
+0.006850392090059914` (`146x` headroom), and the 2119 coarse transfer
+product closes at `0.3317529367828551`. 2244 re-inventories the ladder:
+items 1, 2a, 2b, 3 are executed or priced and the 2197 outward enclosure
+is executed; 2134 is bypassed.
+
+The remaining obligations: the 2157 near-pin separation input, the formal
+complete-owner transfer (read inside the margin, not proved by the
+reading), and the strict signed margin as the terminal analytic
+obligation. Until those pass, this branch remains a candidate and makes no
+RH claim.

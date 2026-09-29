@@ -1,0 +1,47 @@
+{
+  "record": 2242,
+  "part": "edge",
+  "a29": 2.32,
+  "a30": 2.5600000000000005,
+  "families_on_edge_arc": [
+    [
+      2.5600000000000005,
+      -39.25244858548658
+    ]
+  ],
+  "n_families_beyond_a29": 1,
+  "q29_upper": 0.17871093750000044,
+  "q29_lower": 0.17871093750000042,
+  "G2_lower_bound_at_q29u": 48.65831279754636,
+  "G2_positive": true,
+  "inv_q4_lower_bound": 980.3823131338909,
+  "B2_re_lower_bound": 435200.11369115417,
+  "B2_re_positive": true,
+  "c30": {
+    "base": [
+      -10219581129.919819,
+      -715718458.5063183
+    ],
+    "corr": [
+      -187554128800042.1,
+      -52652975480084.484
+    ]
+  },
+  "c30_nonzero": {
+    "base": true,
+    "corr": true
+  },
+  "arcs": [
+    "(a29, a30)",
+    "(-a30, -a29)"
+  ],
+  "phi_positive": "phi = exp(-K/q) > 0 for q > 0, i.e. |x| < a30, strictly; holds on both open arcs including arbitrary slivers at +-a30",
+  "verdict_by_channel": {
+    "base_M0": true,
+    "corr_M0": true,
+    "base_D2": true,
+    "corr_D2": true
+  },
+  "boundary_zeros_flat": "h_k(+-a30) = 0 with all one-sided derivatives 0 (flat C-infinity extension of phi at |u| = 1); g'(+-a_max) = 0 exactly, no kink mass (2238 identity)",
+  "all_pass": true
+}

@@ -1227,6 +1227,47 @@ extrapolates a sampled tail, its tail is the Lean geometric assembly over
 the certified 2197-screen budget - the independently certified rule 2134
 listed as the admissible replacement.
 
+## 2242 — certified zero count Z = 0
+
+Record [2242](../proofs/2242_routea_weighted_zero_zero_count_certificate.md)
+certifies the last open item of the 2238 composite-EM lever. Directed
+256-bit MPFR interval paving over `[-a29, a29]` (`a29 = 2.32`) plus a
+single-family analytic certificate on the edge arcs `+-(a29, a30)`
+(`a30 = 2.5600000000000005`, `theta = -39.25244858548658`) gives `Z = 0`
+for all four channel functions (`h_0 = F`, `h_2 = F''`, base and corr):
+`n_failures = 0` in every channel (box counts `8780 / 9247 / 21219 /
+12500`; bisections `40 / 236 / 13364 / 4509`; floors
+`1.2760421464680534e-63 ... 1.0615649871831736e-53`, every floor box at
+`[-2.32, -2.3199249487652582]`). The `~5e-314` candidates at `+-2.5079`
+are the phi-decay denormal tail, bypassed analytically: on the arcs
+`B2_re >= 435200.11369115417 > 0` (decreasing in `q`; infimum at
+`q29 = 0.17871093750000044`). The boundary zeros at `+-a30` are flat.
+
+## 2243 — composite-EM panel landing
+
+Record [2243](../proofs/2243_routea_weighted_zero_panel_cem.md) lands the
+lever: with `N_risk = 0` the panel is `(dx^2/12)(2 a_max) M_k(sigma)` and
+the 2238 envelope (bitwise the same loop) reprices by
+`5.187365461729664x` to `C_upper = 240796.76135588222`,
+`tail/margin = 0.006850392090059914` (`146.0x` headroom;
+`3.109295925568858x` the 2197 screen). The `sigma = 1` panels reproduce
+the 2238 projection bitwise (`888.370x / 888.378x / 947.150x / 999.480x`
+below the 2238 values); the registered projection's scalar gain (`3.248x`)
+undercounted the recomputed composition gain (`5.187x`), so the landing
+sits `1.597x` below the projection. The 2119 coarse transfer product now
+closes: `0.3317529367828551` (`3.01x` slack).
+
+## 2244 — ladder at the 2243 standing
+
+Record [2244](../proofs/2244_routea_weighted_zero_transfer_ledger_at_2243.md)
+re-inventories the ladder: 1 executed, 2a paid at the rounding level
+(node-position exactness booked to the 2119 item), 2b closed, 3 priced,
+4 open (2119 reading inside, 2157 open, 2134 bypassed, 2197 enclosure
+executed at `C_upper = 240796.76135588222`), 5 open - the strict signed
+margin is now the terminal analytic obligation, with `146.0x` numeric
+headroom against the anchor `1675397327895.099`. The formal transfer
+reading does not prove transfer; no producer GO, no RH claim.
+
 ## 2178 algebraic infinity remainder
 
 Record [2178](../proofs/2178_routea_infinity_algebraic_remainder.md) replaces

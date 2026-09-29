@@ -1,0 +1,146 @@
+{
+  "record": 2243,
+  "status": "PANEL-CEM-REPRICE-VIABLE",
+  "lever": "composite-EM panel: N_risk = 0 by the 2242 certified zero count Z = 0; panel_cem = (dx^2/12)(2 a_max) M_k(sigma)",
+  "gate": {
+    "zero_count_certificate": "ZERO-COUNT-CERTIFIED",
+    "min_floor": {
+      "base_M0": 1.2760421464680534e-63,
+      "base_D2": 5.587411531104226e-58,
+      "corr_M0": 2.4240105139404953e-59,
+      "corr_D2": 1.0615649871831736e-53
+    },
+    "edge_B2_re_lower_bound": 435200.11369115417
+  },
+  "radius": {
+    "r_base": 1005486.289224448,
+    "r_corr": 2057069012.526474
+  },
+  "radius_source": "2237 certified generation channel",
+  "panel_cem_sigma1": {
+    "base_M0": 0.001034980056666458,
+    "base_D2": 7.229989871395511,
+    "corr_M0": 1.5948664429589159,
+    "corr_D2": 9721.552345634816
+  },
+  "panel_2238_sigma1": {
+    "base_M0": 0.9194450801774107,
+    "base_D2": 6422.964947252888,
+    "corr_M0": 1510.5771804832668,
+    "corr_D2": 9716500.106800418
+  },
+  "panel_2234_sigma1": {
+    "base_M0": 1.8076571806532764,
+    "base_D2": 11693.314770969451,
+    "corr_M0": 2862.4920101295183,
+    "corr_D2": 17018191.948288612
+  },
+  "projection_check": {
+    "base_M0": {
+      "computed": 0.001034980056666458,
+      "projected": 0.001034980056666458,
+      "rel": 0.0
+    },
+    "base_D2": {
+      "computed": 7.229989871395511,
+      "projected": 7.229989871395511,
+      "rel": 0.0
+    },
+    "corr_M0": {
+      "computed": 1.5948664429589159,
+      "projected": 1.5948664429589159,
+      "rel": 0.0
+    },
+    "corr_D2": {
+      "computed": 9721.552345634816,
+      "projected": 9721.552345634816,
+      "rel": 0.0
+    }
+  },
+  "binding_row": {
+    "sigma": 1.0,
+    "base_M0": 2.0566210054949954,
+    "base_D2": 7945.304436068302,
+    "corr_M0": 1196.4645507389077,
+    "corr_D2": 506449430.219294,
+    "panel_base": 0.001034980056666458,
+    "panel_base_D2": 7.229989871395511,
+    "panel_corr": 1.5948664429589159,
+    "panel_corr_D2": 9721.552345634816,
+    "coeff_infl_base": 0.00013417597941262356,
+    "coeff_infl_base_D2": 0.15661735075389552,
+    "coeff_infl_corr": 0.2745032452784508,
+    "coeff_infl_corr_D2": 320.41481073633196,
+    "C_channel_a": 240796.76135588222,
+    "C_channel_b": 26383391.220194407,
+    "C_upper": 240796.76135588222
+  },
+  "screen": {
+    "C_upper": 240796.76135588222,
+    "B_upper": 9506275.102584327,
+    "spectralMultiplicityConstant": 301.83032993648527,
+    "high_shell_budget_upper": 11477128602.720102,
+    "signed_margin_anchor": 1675397327895.099,
+    "tail_upper_over_margin": 0.006850392090059914
+  },
+  "comparison_2197": {
+    "C_upper": 77444.14398633591,
+    "B_upper": 3057372.2573045553,
+    "tail_upper": 3691230708.643563,
+    "tail_over_margin": 0.0022031972041408675
+  },
+  "comparison_2238": {
+    "C_upper_2238": 1249100.8031538636,
+    "tail_over_margin_2238": 0.03553548732728288,
+    "C_repricing_factor": 5.187365461729664
+  },
+  "transfer_2119": {
+    "formal_owner_cardinality_bound": 3002.5554464806,
+    "screened_family_nodes": 62.0,
+    "count_ratio": 48.428313652912905,
+    "over_margin_at_2238": 1.720923726094767,
+    "over_margin_at_2243": 0.3317529367828551,
+    "reading": "2119 x tail_over_margin (coarse product reading, docs/proofs/2241)"
+  },
+  "drift": {
+    "base_M0": {
+      "chunk_trapezoid": 2.003335788745609,
+      "committed_2197": 2.0033357887456087,
+      "relative": 2.2167487464901211e-16
+    },
+    "base_D2": {
+      "chunk_trapezoid": 6688.576604759939,
+      "committed_2197": 6688.576604759935,
+      "relative": 5.439092683042218e-16
+    },
+    "corr_M0": {
+      "chunk_trapezoid": 913.4469710803496,
+      "committed_2197": 913.4469710803505,
+      "relative": -9.956732361783981e-16
+    },
+    "corr_D2": {
+      "chunk_trapezoid": 1526140.6871880083,
+      "committed_2197": 1526140.687188009,
+      "relative": -4.576851510646868e-16
+    }
+  },
+  "inflation_over_2197": {
+    "C": 3.109295925568858,
+    "tail": 3.1092959255688646
+  },
+  "nonclaims": [
+    "the risk term drops by the 2242 certificate (interval pavement + edge-arc analytic bound), not by the 2238 measured node test",
+    "the majorant ladder m0..m4 and the coefficient inflation are exactly the 2238 machinery (recon table cached)",
+    "the reduction is bitwise the 2238 loop; only panel_new is replaced by panel_cem (N_risk = 0)",
+    "the 2119 count ratio itself is unchanged (3002.5554464806 vs 62 nodes); the transfer moves by the margin, not by the count",
+    "2157 near-pin separation input remains open; 2134 bypassed",
+    "no producer GO, no gate sign change, no RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/routea_weighted_zero_panel_cem_2243.py",
+    "gate": "results/2242_zero_count_certificate.json",
+    "sigma_sums": "results/2234_sigma_*.json",
+    "radius": "results/2237_generation_certificate.json",
+    "prior": "results/2238_panel_dx2_reprice.json"
+  }
+}

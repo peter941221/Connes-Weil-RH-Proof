@@ -1,0 +1,52 @@
+{
+  "record": 2242,
+  "part": "pave",
+  "channel": "corr_M0",
+  "k": 0,
+  "coef_source": "corr",
+  "region": [
+    -2.32,
+    2.32
+  ],
+  "a29": 2.32,
+  "a30": 2.5600000000000005,
+  "families_on_edge_arc": [
+    [
+      2.5600000000000005,
+      -39.25244858548658
+    ]
+  ],
+  "n_boxes_initial": 7855,
+  "n_boxes_final": 21219,
+  "n_pass_first": 7321,
+  "n_bisections": 13364,
+  "max_depth": 7,
+  "depth_histogram": {
+    "0": 7321,
+    "1": 262,
+    "2": 350,
+    "3": 592,
+    "4": 522,
+    "5": 3353,
+    "6": 4505,
+    "7": 4314
+  },
+  "n_failures": 0,
+  "min_floor": {
+    "value": 2.4240105139404953e-59,
+    "box": [
+      -2.32,
+      -2.3199249487652582
+    ]
+  },
+  "walk": {
+    "safety": 0.05,
+    "wmax": 0.02,
+    "wmin": 5e-08,
+    "grid": 240001,
+    "n_anchors": 13
+  },
+  "method": "directed 256-bit MPFR natural interval extension, final hull expanded 32 ulp; pass iff one coordinate interval excludes 0",
+  "elapsed_s": 77.0,
+  "verdict": "ZERO-FREE-CERTIFIED"
+}

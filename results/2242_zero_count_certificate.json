@@ -1,0 +1,166 @@
+{
+  "record": 2242,
+  "status": "ZERO-COUNT-CERTIFIED",
+  "claim": "Z = 0 for each of the four channel functions on the open interval (-a30, a30): no real zeros, hence |h_k| is C-infinity on R and the composite-trapezoid identity carries no kink term (the 2238 risk-cell wall drops)",
+  "a29": 2.32,
+  "a30": 2.5600000000000005,
+  "families_on_edge_arc": [
+    [
+      2.5600000000000005,
+      -39.25244858548658
+    ]
+  ],
+  "channels": {
+    "base_M0": {
+      "k": 0,
+      "region": [
+        -2.32,
+        2.32
+      ],
+      "n_boxes_final": 8780,
+      "n_pass_first": 8702,
+      "n_bisections": 40,
+      "max_depth": 2,
+      "n_failures": 0,
+      "min_floor": {
+        "value": 1.2760421464680534e-63,
+        "box": [
+          -2.32,
+          -2.3199249487652582
+        ]
+      },
+      "verdict": "ZERO-FREE-CERTIFIED"
+    },
+    "base_D2": {
+      "k": 2,
+      "region": [
+        -2.32,
+        2.32
+      ],
+      "n_boxes_final": 9247,
+      "n_pass_first": 8859,
+      "n_bisections": 236,
+      "max_depth": 4,
+      "n_failures": 0,
+      "min_floor": {
+        "value": 5.587411531104226e-58,
+        "box": [
+          -2.32,
+          -2.3199249487652582
+        ]
+      },
+      "verdict": "ZERO-FREE-CERTIFIED"
+    },
+    "corr_M0": {
+      "k": 0,
+      "region": [
+        -2.32,
+        2.32
+      ],
+      "n_boxes_final": 21219,
+      "n_pass_first": 7321,
+      "n_bisections": 13364,
+      "max_depth": 7,
+      "n_failures": 0,
+      "min_floor": {
+        "value": 2.4240105139404953e-59,
+        "box": [
+          -2.32,
+          -2.3199249487652582
+        ]
+      },
+      "verdict": "ZERO-FREE-CERTIFIED"
+    },
+    "corr_D2": {
+      "k": 2,
+      "region": [
+        -2.32,
+        2.32
+      ],
+      "n_boxes_final": 12500,
+      "n_pass_first": 7308,
+      "n_bisections": 4509,
+      "max_depth": 5,
+      "n_failures": 0,
+      "min_floor": {
+        "value": 1.0615649871831736e-53,
+        "box": [
+          -2.32,
+          -2.3199249487652582
+        ]
+      },
+      "verdict": "ZERO-FREE-CERTIFIED"
+    }
+  },
+  "edge_arcs": {
+    "record": 2242,
+    "part": "edge",
+    "a29": 2.32,
+    "a30": 2.5600000000000005,
+    "families_on_edge_arc": [
+      [
+        2.5600000000000005,
+        -39.25244858548658
+      ]
+    ],
+    "n_families_beyond_a29": 1,
+    "q29_upper": 0.17871093750000044,
+    "q29_lower": 0.17871093750000042,
+    "G2_lower_bound_at_q29u": 48.65831279754636,
+    "G2_positive": true,
+    "inv_q4_lower_bound": 980.3823131338909,
+    "B2_re_lower_bound": 435200.11369115417,
+    "B2_re_positive": true,
+    "c30": {
+      "base": [
+        -10219581129.919819,
+        -715718458.5063183
+      ],
+      "corr": [
+        -187554128800042.1,
+        -52652975480084.484
+      ]
+    },
+    "c30_nonzero": {
+      "base": true,
+      "corr": true
+    },
+    "arcs": [
+      "(a29, a30)",
+      "(-a30, -a29)"
+    ],
+    "phi_positive": "phi = exp(-K/q) > 0 for q > 0, i.e. |x| < a30, strictly; holds on both open arcs including arbitrary slivers at +-a30",
+    "verdict_by_channel": {
+      "base_M0": true,
+      "corr_M0": true,
+      "base_D2": true,
+      "corr_D2": true
+    },
+    "boundary_zeros_flat": "h_k(+-a30) = 0 with all one-sided derivatives 0 (flat C-infinity extension of phi at |u| = 1); g'(+-a_max) = 0 exactly, no kink mass (2238 identity)",
+    "all_pass": true
+  },
+  "consequence": {
+    "panel_cem": "(dx^2/12)(2 a_max) M_k(sigma) with N_risk = 0 (priced in record 2243)",
+    "identity": "T - I = (dx^2/12) sum_p Delta_p - (dx^2/2) sum_p int_0^1 B_2 dg'; with Z = 0 the Delta sum telescopes to g'(x_N) - g'(x_0) = 0 and TV(g') <= int |g''| (2238)"
+  },
+  "boundary_zeros_flat": "h_k(+-a30) = 0 with all one-sided derivatives 0 (flat C-infinity extension of phi at |u| = 1); g'(+-a_max) = 0 exactly, no kink mass (2238 identity)",
+  "nonclaims": [
+    "the pavement certifies h_k(x) != 0 per box through outward interval hulls; it is not a sampling or scan",
+    "float64 arrays are used for box sizing only; every acceptance decision is made in directed 256-bit MPFR with a 32-ulp hull inflation absorbing constant rounding",
+    "the edge-arc certificate is the analytic single-family bound (phi > 0; k=2: B2_re lower bound LB > 0 on the whole arc)",
+    "the four channels are exactly the 2234 node_bounds channels (h_0 = F, h_2 = F'')",
+    "no producer GO, no gate sign change, no RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/routea_weighted_zero_zero_count_certificate_2242.py",
+    "mpfr": "libmpfr.so.6 via ctypes, 256-bit precision, RNDD/RNDU directed rounding",
+    "construction": "results/2234_build_cache.npz (local-only)",
+    "pave_parts": [
+      "results/2242_pave_base_M0.json",
+      "results/2242_pave_base_D2.json",
+      "results/2242_pave_corr_M0.json",
+      "results/2242_pave_corr_D2.json"
+    ],
+    "edge_part": "results/2242_edge.json"
+  }
+}

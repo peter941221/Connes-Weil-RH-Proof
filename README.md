@@ -495,11 +495,20 @@ nodes bitwise (2239), the multiplicity constant is verified as the Lean
 formal constant, bitwise at `301.83032993648527` (2240), and the transfer
 re-check reads the 2119 cardinality ratio at `1.721x` over the margin,
 flipped to `0.530x` by the registered composite-EM panel lever (`3.248x`,
-pending a certified zero count; 2241). This is a `GO-CANDIDATE /
-PARTIALLY PRICED`, not a producer: the remaining gates are the certified
-zero count `Z = 0` (or charging the measured dips), the 2119 count
-refinement or the composite-EM landing, the 2157 separation input, and
-complete-owner transfer.
+pending a certified zero count; 2241). The 2242-2244 batch then closes
+those two numeric gates: the zero count `Z = 0` is certified for all four
+channel functions by a directed 256-bit MPFR interval pavement plus an
+analytic edge-arc certificate (2242: `8780 / 9247 / 21219 / 12500` boxes,
+zero failures, floors `1.28e-63 ... 1.06e-53`; the `~5e-314` denormal
+candidates at `+-2.5079` are the phi tail, bypassed analytically), the
+composite-EM panel lands on that certificate (2243: `C_upper =
+240796.76135588222`, `tail/margin = 0.006850392090059914`, `146x`
+headroom, `5.19x` over the 2238 standing), and the transfer ledger is
+re-inventoried (2244). This is still a `GO-CANDIDATE / PARTIALLY PRICED`,
+not a producer: the remaining obligations are the 2157 near-pin
+separation input, the formal complete-owner transfer (the 2119 coarse
+product now reads `0.332x`, inside the margin), and the strict signed
+margin.
 
 ```mermaid
 flowchart LR
@@ -512,7 +521,7 @@ flowchart LR
     F -->|2197-2200: 0.002203 margin ratio| G[GO-CANDIDATE]
     G --> H[Outward interval enclosure]
     H -->|2229-2231: 30-node MPFR envelope| H2[Interval terminal priced]
-    H2 -->|2234-2238: outward B_zm viable 0.0355| H3[Low shell + owner transfer]
+    H2 -->|2234-2243: outward B_zm viable 0.00685, Z=0 certified| H3[Low shell + owner transfer]
     H3 --> J[Same-owner qw >= 0]
     J --> K[SourceRH]
     K --> L[Mathlib RH]
@@ -525,10 +534,11 @@ channel is outward-certified through 2229-2231 with the ledger priced by
 operand-generation channel by 2237), (2) certify the low-frequency shell
 without importing a finite list of numerical zeros (the registered 2238
 composite-EM lever: a certified zero count replacing the global panel
-majorants, projected `tail/margin ~ 0.0109`), and (3) transfer the
-resulting bound to the complete actual owner (quantified by 2241: the 2119
-count ratio reads `1.721x` over the margin at the current standing). RH is
-not claimed.
+majorants; closed by 2242-2243, the shell now reads `tail/margin =
+0.006850392090059914`), and (3) transfer the resulting bound to the
+complete actual owner (the 2119 coarse product now reads
+`0.3317529367828551`, inside the margin; the formal transfer remains
+open, 2244). RH is not claimed.
 
 An alternative four-point same-owner span has formal finite-prefix and gate
 algebra. Its live analytic obligation is the strict scored cross-determinant
