@@ -464,6 +464,38 @@ formal source derivative transport. Its remaining obligation is a
 source-specific weighted minimization with a uniform signed physical-kernel
 margin ([records 1927-1930](docs/proofs/1927_variational_min_norm_affine_selector.md)).
 
+The current Route-A continuation keeps the actual source owner and splits its
+weighted zero mass by exact dyadic height shells. Records 2186-2194 formalize
+the shell partition, multiplicity-preserving summability, and a high-shell
+budget. The first global coefficient-triangle screen failed, so that shortcut
+is frozen (2196). The owner-local direct-product screen then reduced the
+high-shell budget to `3.691e9`, or `0.002203` of the candidate signed margin
+(2197). Quadrature order, coefficient perturbation, and physical-grid
+controls remain stable through 2200. This is a `GO-CANDIDATE / UNPRICED`, not
+an interval certificate: the remaining gates are outward enclosure, the
+low-frequency shell, and complete-owner transfer.
+
+```mermaid
+flowchart LR
+    A[Hypothetical off-line zero] --> B[Healthy CompactLog detector]
+    B --> C[Actual sourceNontrivialZeroSet owner]
+    C --> D[Exact dyadic height shells]
+    D --> E[High-shell weighted mass]
+    E --> F{Direct-product C3' budget}
+    F -->|2196: triangle bound fails| X[Freeze shortcut]
+    F -->|2197-2200: 0.002203 margin ratio| G[GO-CANDIDATE]
+    G --> H[Outward interval enclosure]
+    H --> I[Low shell + complete-owner transfer]
+    I --> J[Same-owner qw >= 0]
+    J --> K[SourceRH]
+    K --> L[Mathlib RH]
+```
+
+The graph has three open doors after the current candidate: (1) intervalize
+the direct-product functions and solve error, (2) certify the low-frequency
+shell without importing a finite list of numerical zeros, and (3) transfer
+the resulting bound to the complete actual owner. RH is not claimed.
+
 An alternative four-point same-owner span has formal finite-prefix and gate
 algebra. Its live analytic obligation is the strict scored cross-determinant
 inequality, equivalently an explicit signed-variance/five-moment inequality,

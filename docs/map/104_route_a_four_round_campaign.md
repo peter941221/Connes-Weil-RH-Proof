@@ -587,6 +587,433 @@ This is not yet the producer margin: the next gate is still an independently
 enclosed `B_zm < epsilon` on the exact owner. The map route, consumer, and RH
 status do not change.
 
+## 2186 — scalar weighted-budget summability bridge
+
+The new theorem
+`weightedZeroMeasure_summable_of_geometric_heightMultiplicity_bound` transports
+the existing quadratic vertical Laplace estimate and analytic
+multiplicity-shell bound to the exact scalar weight introduced in 2185. Under
+the explicit shell premise
+
+```text
+0 <= q, q < 4,
+spectralHeightMultiplicity (n+1) <= K*q^n,
+```
+
+it proves `Summable (weightedZeroMeasure F)` for the same source-zero owner.
+The owning module, refreshed aggregate module, and paired audit pass with the
+standard three axioms and no `sorryAx`.
+
+This is a strictly smaller quantitative obligation: it separates the future
+`B_zm` certificate into an exact finite shell-prefix contribution and a scalar
+tail. It does not price the shell premise, does not prove
+`B_zm < epsilon`, and does not change the producer or RH status.
+
+## 2187 — candidate weighted-budget screen
+
+The first candidate-owner weighted-zero screen uses the 2185 weight on 90
+omitted known critical-line zeros below `|Im z| < 256`. It reads
+`sum W = 2.0626232011592017e-3` against the 2138 anchor multiplicity `1`,
+leaving a factor about `485` before owner/multiplicity/enclosure inflation.
+This is `SCREEN-GO` for the residual-budget mechanism on the candidate owner,
+not a producer result. The next binding check is whether the complete
+source-zero owner, analytic multiplicities, and outward evaluation enclosure
+consume more than that factor; the signed comparison with the final
+`epsilon` remains open.
+
+## 2188 — inflation stress screen
+
+The candidate weighted budget was extended from 120 to 240 known critical-line
+zeros and from `|Im z| < 256` to `< 512`. The budget stayed at
+`2.0626232939013377e-3`; the implied anchor headroom is `484.8195...` for the
+combined multiplicity and outward-enclosure factor. This is a candidate-owner
+screen only. It gives no analytic multiplicity theorem, but it removes the
+immediate finite-shell growth concern and makes the next enclosure target
+quantitative: prove the actual combined inflation is below `484.8` and then
+compare the resulting `B_zm` to the signed `epsilon`.
+
+## 2189 — formal factor split
+
+The exact-owner weight now has an audited pointwise factorization bound:
+
+```text
+xiMultiplicity rho <= Mmult
+||laplaceAt F (rho - 1/2)|| <= Meval
+  -> W(F,rho) <= Mmult * Meval.
+```
+
+This is a formal smaller obligation, not a producer result. It isolates the
+next finite-shell certificate into multiplicity/cardinality and transform
+enclosure factors; both must still be priced on the actual selected owner.
+
+## 2190 — finite weighted-budget aggregation
+
+The factor split is now aggregated on any finite exact source-zero set:
+
+```text
+sum W(F,rho) <= card(S) * (Mmult * Meval).
+```
+
+The theorem is formally audited and does not supply the three numerical
+inputs itself. The next live obligation is to instantiate `S` with the exact
+low-shell owner and prove its cardinality/multiplicity and transform bounds;
+the 2188 candidate headroom remains the diagnostic margin.
+
+## 2191 — exact-shell weighted-zero bound
+
+The existing quadratic dyadic Laplace estimate is now connected formally to
+the actual source-zero shell owner. For some `B >= 0`, every shell satisfies
+
+```text
+sum W(F,rho) <= spectralHeightMultiplicity(n+1) * (B / (2^n)^2).
+```
+
+The owning module and paired axiom audit are green in record 2191. This is a
+smaller obligation only: the remaining gate is an explicit multiplicity-mass
+certificate (using the finite-height bound if needed), followed by the signed
+epsilon comparison. No RH producer margin has yet been closed.
+
+## 2192 — geometric weighted-zero shell budget
+
+The existing analytic multiplicity estimate is now connected to the weighted
+zero budget. Since multiplicity growth is `3^n` and the vertical Laplace
+estimate contributes `4^(-n)`, the exact-owner shell sum is bounded by
+`spectralMultiplicityConstant * B * (3/4)^n`. The owning module and paired
+axiom audit are green in record 2192.
+
+The next gate is no longer convergence: it is to assemble an explicit total
+weighted-zero constant and compare it against the signed selected-detector
+epsilon. This remains an open producer obligation.
+
+## 2193 — actual-owner weighted-zero summability
+
+The geometric shell bound is now instantiated into an unconditional theorem
+`Summable (weightedZeroMeasure F)` for the exact source-zero owner. This
+removes convergence as a separate premise. The remaining obligation is only
+the quantitative size of that sum: a certified finite prefix/tail bound and
+comparison with the signed selected-detector epsilon.
+
+## 2194 — explicit high-shell weighted-zero budget
+
+The high shells now have one scalar bound:
+`sum_n sum_{rho in shell(n+1)} W(F,rho) <= 4 * spectralMultiplicityConstant * B`.
+The factor `4` is the exact geometric sum for ratio `3/4`; shell zero is kept
+as the finite prefix. The module and paired audit are green in record 2194.
+
+The remaining gate is numerical/analytic pricing of `B` and the shell-zero
+prefix against the selected-owner signed epsilon. Convergence is no longer a
+live premise, and no producer margin has yet been claimed.
+
+## 2195 — quadratic constant candidate screen
+
+The first candidate-owner screen for the global quadratic Laplace constant
+found `C_lower ≈ 2315.34`, `B_lower ≈ 9.14e4`, and a high-shell budget lower
+screen of `1.10e8`, only `6.59e-5` of the candidate signed margin. The generic
+constant path therefore does not trigger a scoped no-go. This remains a
+sampled lower screen; the next required artifact is an outward enclosure of
+the same constant and the shell-zero prefix on the complete owner.
+
+## 2196 — global-C triangle enclosure screen
+
+The first structural upper screen used second-derivative masses and absolute
+coefficient triangle inequalities. It priced the high-shell budget at
+`5.10e12`, while the candidate signed margin is `1.675e12`; the ratio is
+`3.0446`. Therefore the specific `GLOBAL-C-TRIANGLE-ENCLOSURE` architecture
+is frozen as measured-fail for this candidate. This is not a Route-A no-go:
+the screen discarded signed cancellation and was not interval-certified.
+Reopen only with a named owner-local/direct-product or signed cross-family
+enclosure mechanism.
+
+## 2197 — owner-local direct-product mass screen
+
+The named direct-product mechanism was tested. Forming the complete base and
+correction functions before taking absolute values reduced the high-shell
+budget screen to `3.691e9`, only `0.002203` of the candidate signed margin.
+This reopens the branch as `GO-CANDIDATE / UNPRICED`; it is still not an
+interval certificate. The next gate is outward enclosure of the functions,
+second derivatives, and coefficient solve, with roughly a factor `454` of
+headroom available.
+
+## 2198 — direct-product stability control
+
+The direct-product screen was recomputed at quadrature orders `m=1600, 3200,
+6400`. The `C_upper` drift stayed below `1.7e-11` relative, with stable matrix
+condition `2.6537e5` and solve residuals below `1.81e-11`. This supports the
+mechanism as a genuine candidate, while exposing the large correction
+coefficient (`~5.69e17`) that must be charged in the eventual outward solve
+enclosure. The branch remains `GO-CANDIDATE / UNPRICED`.
+
+## 2199 — coefficient-error budget
+
+Adding a worst-case relative coefficient perturbation showed little movement:
+the budget/margin ratio is `0.00220337` at `1e-6` error and `0.00238287` even
+at `1e-3`. The large correction coefficient therefore does not bind this
+screen. The next required enclosure work is physical-grid/trapezoid error and
+complete-owner transfer; the branch remains `GO-CANDIDATE / UNPRICED`.
+
+## 2200 — direct-product physical-grid refinement
+
+Holding the `m=6400` coefficient path fixed, physical grids from 30001 through
+240001 nodes changed `C_upper` by at most `2.0e-10` relative. The physical
+trapezoid/grid term is therefore not binding in the measured candidate screen.
+The remaining enclosure work is outward intervalization of the physical
+functions and solve error, followed by complete-owner transfer.
+
+## 2201 — solve-enclosure preflight
+
+The interpolation solve was given a provisional residual enclosure using the
+`m=3200` to `m=6400` matrix difference and the Neumann perturbation estimate.
+The factor `||A^{-1}|| ||E||` is `6.22e-7`; after propagating the resulting
+base/correction coefficient radii through the direct-product mass screen, the
+worst high-shell budget ratio is `0.00220402` at `sigma=1`, versus `0.00220320`
+without the solve radius. Thus the large correction coefficient does not bind
+this candidate screen. This is a `SOLVE-ENCLOSURE-PREFLIGHT`, not an outward
+certificate: replacing the measured matrix difference by an analytic bound is
+still required. See [2201](../proofs/2201_routea_weighted_zero_solve_enclosure_preflight.md).
+
+## 2202 — endpoint-split entrywise bound is too coarse
+
+The endpoint-split rule was priced on all 900 interpolation entries. The
+largest explicit entrywise bound is `2.7215e-14`; the resulting row-sum matrix
+bound gives a Neumann factor of approximately `5.53e5` against the measured
+`||A^{-1}||inf = 6.77e17`. Therefore the componentwise-modulus Simpson
+assembly cannot feed the solve enclosure at this resolution. This is a scoped
+`ENTRYWISE-SPLIT-BOUND-NO-GO`, not a no-go for the direct-product mechanism:
+matrix-level cancellation or a sharper endpoint rule remains admissible. See
+[2202](../proofs/2202_routea_weighted_zero_split_quadrature_price.md).
+
+## 2203 — matrix-level cancellation survives
+
+Applying the measured `m=3200` to `m=6400` matrix difference to the actual
+base/correction solve vectors reduces the propagated correction movement to
+`4.91e6`, about `9.6e-12` relative to the `5.69e17` correction coefficient.
+The base movement is `4.47e3`. This is far below the existing `1e-6`
+coefficient-error screen, so matrix-level cancellation remains a
+`GO-CANDIDATE / UNPRICED`; 2202 freezes only its entrywise assembly. The next
+obligation is an analytic bound on `E c`, not an entrywise bound on `E`. See
+[2203](../proofs/2203_routea_weighted_zero_matrix_cancellation_preflight.md).
+
+## 2205 — vector-split binding-node refinement
+
+The two binding rows were recomputed with `NSEG=1000`. The base bound is
+`9.1285e-8` and the correction bound is `7.2251e-5`; after the 2201 inverse
+norm these correspond to provisional relative coefficient movements of about
+`2.2e-4` and `8.6e-5`. This remains within the candidate budget headroom, so
+the matrix-level branch stays `GO-CANDIDATE / UNPRICED`. Only the two binding
+nodes were refined; the full 30-node envelope and floating allowance are open.
+See [2205](../proofs/2205_routea_weighted_zero_vector_split_binding_refinement.md).
+
+## 2207 — vector-split rounding allowance
+
+The correction binding row's GL, Simpson, and coefficient-rounding allowance
+totals `1.2689e-5`, or `0.1756` of the `7.2251e-5` vector-split bound. The
+combined correction price is about `8.494e-5`, corresponding to roughly
+`1.01e-4` relative solve movement under the 2201 inverse norm. This remains
+inside the direct-product margin, but is close to the 2199 `1e-4` screen;
+increase `NSEG` modestly before treating the allowance as closed. See
+[2207](../proofs/2207_routea_weighted_zero_vector_rounding_allowance.md).
+
+## 2208 — NSEG=1100 binding refinement
+
+Raising the vector-split Simpson resolution from `NSEG=1000` to `1100` lowers
+the correction binding bound from `7.2251e-5` to `4.9349e-5` and the base bound
+to `6.2350e-8`. With the 2207 rounding allowance at the same scale, the
+correction solve movement is about `7.4e-5` relative, restoring margin below
+the `1e-4` screen. This is a binding-node pass only; the full-node and
+analytic outward assembly remain open. See
+[2208](../proofs/2208_routea_weighted_zero_vector_split_binding_refinement.md).
+
+## 2209–2210 — full-node refinement and matched allowance
+
+The full 30-node vector-split run at `NSEG=1100` has worst bounds
+`6.23497e-8` (base) and `4.93489e-5` (correction), with the same worst nodes
+29 and 2 and no hidden spike. The matched rounding allowance is `1.31768e-5`;
+the combined correction price is about `6.253e-5`, or `7.44e-5` relative after
+the inverse-norm propagation. The measured numerical budget is therefore
+below the `1e-4` screen. Analytic transcendental allowance and complete-owner
+transfer remain open. See [2209](../proofs/2209_routea_weighted_zero_vector_split_full_refinement.md)
+and [2210](../proofs/2210_routea_weighted_zero_vector_rounding_allowance.md).
+
+## 2211 — transcendental allowance price
+
+The AMP-style exponent-argument allowance at the correction binding row is
+`2.4594e-8` total (`2.4377e-8` argument smear plus `2.1685e-10` operation
+rounding). The combined vector bound, rounding, and transcendental price is
+`6.25503e-5`; transcendental error is only about `0.04%` of the total. This
+closes the numerical pricing question but not the formal outward `exp` lemma.
+See [2211](../proofs/2211_routea_weighted_zero_transcendental_allowance.md).
+
+## 2212 — formal exponential perturbation lemma
+
+The Lean brick
+`C1RouteAExpPerturbation.norm_exp_add_sub_exp_le` now proves the reusable AMP
+propagation inequality
+`‖exp (z + δ) - exp z‖ ≤ 2 * exp (Re z) * ‖δ‖` whenever `‖δ‖ ≤ 1`.
+The paired audit passes with exactly the standard three axioms and no
+`sorryAx`. This closes the formal lemma used by the transcendental allowance
+price; the outward floating-point assembly, complete-owner transfer, and
+selected-detector signed margin remain open. See
+[2212](../proofs/2212_routea_exp_perturbation_lemma.md).
+
+## 2213 — coefficient-weighted exponential propagation
+
+The same audited module now proves the directly usable form
+`‖c * (exp (z + δ) - exp z)‖ ≤ 2 * ‖c‖ * exp(Re z) * ‖δ‖` under
+`‖δ‖ ≤ 1`. This closes the formal coefficient propagation step used by the
+AMP allowance price. IEEE/outward input assembly, summation certification,
+and complete-owner transfer remain open. See
+[2213](../proofs/2213_routea_exp_coefficient_propagation.md).
+
+## 2214 — finite-sum exponential propagation
+
+The audited exponential module now lifts the coefficient-weighted bound to
+every finite quadrature family:
+`‖Σ cᵢ (exp(zᵢ+δᵢ)-exp(zᵢ))‖ ≤ Σ 2‖cᵢ‖exp(Re zᵢ)‖δᵢ‖`, assuming
+`‖δᵢ‖ ≤ 1` on the finite index set. This closes the analytic aggregation
+step used by the GL/Simpson AMP price. IEEE operand and summation allowances,
+and complete-owner transfer, remain open. See
+[2214](../proofs/2214_routea_exp_finite_sum_propagation.md).
+
+## 2215 — finite accumulator error interface
+
+The exponential/finite-sum chain now has an explicit accumulator interface:
+if each approximate term has radius `‖Eᵢ‖` and the final complex accumulator
+has radius `‖r‖`, then the total readout error is bounded by
+`‖r‖ + Σ‖Eᵢ‖`. This closes the mathematical aggregation seam for the AMP
+price; concrete IEEE/ulp radii and complete-owner transfer remain open. See
+[2215](../proofs/2215_routea_exp_accumulator_error_interface.md).
+
+## 2216 — final finite AMP aggregation interface
+
+The analytic chain now has a single final interface for the finite GL/Simpson
+readout: final accumulator radius plus the sum of the coefficient-weighted
+exponential perturbation radii. The paired audit remains standard-axiom-only.
+This closes the AMP aggregation seam; concrete IEEE/ulp radii and
+complete-owner transfer remain open. See
+[2216](../proofs/2216_routea_exp_final_aggregate_interface.md).
+
+## 2217 — full-node IEEE-style AMP radius screen
+
+The parameterized AMP forward-error radius was evaluated over all 30 nodes,
+all 30 families, and the complete `NSEG=1100` finite rule. The maximum is
+`2.459424789942387e-8` at node 2, exactly the previous binding row to shown
+precision; the minimum is `5.294892110768219e-10`, so no hidden node spike was
+found. This closes the finite-node scope gap, but remains a forward-error
+price rather than an outward IEEE proof. See
+[2217](../proofs/2217_routea_weighted_zero_ieee_radius_screen.md).
+
+## 2218 — relative-error to complex-radius interface
+
+The Lean interface now turns a supplied real relative operation error
+`|e| ≤ u` into the exact complex radius `u‖x‖`, which can feed the 2216 final
+AMP aggregation. Mathlib's FP layer was checked and its arithmetic is
+`unsafe` without a soundness theorem, so the remaining task is a separate
+binary64 semantics/rational-ulp certificate, not an unverified Mathlib call.
+See [2218](../proofs/2218_routea_float_relative_error_interface.md).
+
+## 2219 — binary64 exp-cell scope no-go
+
+The exact-Fraction atom screen checked three representative exponent atoms on
+the binding node against adjacent-binary64 midpoint cells. Five of six real/
+imaginary components were contained; one imaginary component was not. Thus
+the stronger “NumPy `exp` is correctly rounded” assumption cannot be used as
+the outward certificate. This freezes only the rounding-cell-only assembly;
+the next admissible move is a certified transcendental implementation
+remainder or a correctly-rounded MPFR backend. See
+[2219](../proofs/2219_routea_binary64_exp_atom_scope_no_go.md).
+
+## 2220 — implementation-radius replacement
+
+The 2219 rounding-cell assumption is now replaced on the same three-atom
+scope by exact-Fraction `exp/sin/cos` brackets. The mathematical exponential
+is enclosed around the returned binary64 value with an explicit implementation
+radius; the largest observed radius is `0.7352658427507756` adjacent-ULP-cell
+widths, or `1.6001640668480035e-16` relative to the returned value, including
+the previously failing family-0 imaginary component. This
+is the first quantitative replacement for the 2219 assumption. It remains an
+atomic interface brick: the full quadrature term, finite sum, owner transfer,
+and signed producer margin are not yet certified. See
+[2220](../proofs/2220_routea_exp_implementation_radius_certificate.md).
+
+## 2221 — black-box exponential fallback no-go
+
+The complete 2211 finite rule was priced with the unconditional bound
+`|exp(q)-v| <= exp(Re q)+|v|`. Its `2.659471411358396e+05` charge is
+`4.251730900507734e+09` times the `6.2550323e-05` combined-correction target.
+Thus the triangle-inequality fallback is closed for this owner; it cannot
+replace the missing implementation certificate. The 2220 explicit-radius
+route remains admissible and must be lifted term-by-term. See
+[2221](../proofs/2221_routea_exp_blackbox_triangle_no_go.md).
+
+## 2222 — all-family atom lift
+
+The exact-Fraction implementation-radius screen now covers all 30 families at
+the binding node's central GL atom. All 60 real/imaginary components are
+finite; the maximum relative radius remains `1.6001640668480035e-16`, and the
+maximum radius is `0.9232114502239269` adjacent-ULP-cell widths. No family
+spike appeared. This closes the family-selection gap only; the full
+quadrature-point and finite-sum lift remains the next gate. See
+[2222](../proofs/2222_routea_exp_all_family_atoms_certificate.md).
+
+## 2223 — MPFR full quadrature at binding node
+
+The implementation-radius route has now been lifted from atoms to the full
+binding-node quadrature rule: 30 families, all GL points, and 12 Simpson
+panels at `NSEG=1100`, using 256-bit MPFR RNDD/RNDU calls. The charge is
+`7.039855400051501e-12`, only `1.1254706710389811e-07` of the 2211
+combined-correction target. An independent MPFR ABI self-test passed for
+`exp(1)`, `sin(1)`, and `cos(1)`. The remaining gates are input-`q`
+construction, finite-sum accumulation, the other nodes, and owner transfer;
+the library implementation itself is no longer the binding gate at node 2.
+See [2223](../proofs/2223_routea_mpfr_exp_binding_radius_certificate.md).
+
+## 2224 — binding-node combined budget
+
+Adding the certified 2223 MPFR implementation charge to the existing 2217
+input/operation price gives `2.460128775482392e-08` on the same full binding
+quadrature, only `3.933039283398092e-04` of the 2211 target. The remaining
+binding-node issue is therefore the outward certification of the `q` input
+construction and accumulation, not the transcendental library. The 2217
+component remains explicitly parameterized rather than certified. See
+[2224](../proofs/2224_routea_binding_combined_mpfr_budget.md).
+
+## 2225 — q-construction interval at binding node
+
+The full binding-node q construction is now enclosed with MPFR directed
+interval operations: 30 families, `1,944,360` GL/Simpson terms, and zero
+containment failures. Using the valid all-delta exponential bound (rather
+than the `delta <= 1` linear lemma at endpoint cells), the propagated charge
+is `2.436718255644566e-09`, or `3.89561258643631e-05` of the 2211 target.
+The remaining input question is the provenance of the binary64 operands and
+finite-sum accumulation; see [2225](../proofs/2225_routea_q_mpfr_interval_binding_certificate.md).
+
+## 2226 — adjacent-node q stability
+
+The same MPFR q interval was run at node 3, the next-highest nearby 2217 row.
+Its full 30-family quadrature charge is `2.233376170985172e-09`, below node
+2's `2.436718255644566e-09`; both have zero containment failures and the same
+endpoint q-radius maximum `36.099947214126594`. This is not yet the universal
+30-node envelope, but it removes the immediate adjacent-node spike concern.
+See [2226](../proofs/2226_routea_q_mpfr_two_node_stability.md).
+
+## 2227 — remote-tail q stability
+
+The MPFR q interval was also run at remote high-imaginary node 29. Its charge
+is `1.7939006677210619e-09`, below node 2 and node 3, with zero containment
+failures. Together nodes 2, 3, and 29 show no adjacent or remote-tail spike;
+this remains a stability certificate rather than a universal 30-node bound.
+See [2227](../proofs/2227_routea_q_mpfr_three_node_stability.md).
+
+## 2228 — corrected complex-weight audit
+
+An audit found that 2225–2227's first charge implementation cast complex
+coefficients/weights to `float`, dropping imaginary parts. Those readings are
+superseded. The corrected `abs(c)`/`abs(w)` runs at nodes 2, 3, and 29 have
+zero interval failures and charges `8.792971355816332e-09`,
+`8.063938632912915e-09`, and `6.475830084303228e-09`, respectively. Only
+2228 is authoritative for this numerical charge. See
+[2228](../proofs/2228_routea_q_mpfr_complex_weight_fix.md).
+
 Record [2182](../proofs/2182_routea_chebyshev_majorant_sign_obstruction.md)
 also closes the unsigned Chebyshev shortcut as a scoped no-go: its sharpened
 majorant is nonnegative and can only absorb against a separately proved
