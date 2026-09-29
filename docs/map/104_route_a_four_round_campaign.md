@@ -566,6 +566,46 @@ B_zm < epsilon(rho,N)
 on the exact closed-ball owner. It is `GO-CANDIDATE / UNPRICED`; no owner,
 consumer, or RH status changes until this fixed-owner enclosure is priced.
 
+## 2026-09-29 — A.005.1 first formal residual reduction
+
+The first smaller brick is now formal in
+`C1RouteAWeightedZeroMeasure.lean`. For the exact source-zero subtype and the
+actual test `F`, it fixes
+
+```text
+W(F,z) = spectralNormTerm(F,z)
+       = xiMultiplicity(z) * ||laplaceAt F (z - 1/2)|| >= 0
+```
+
+and proves that the real part of the omitted low-shell spectral residual is at
+most the exact finite sum of these weights. This removes the unnamed residual
+premise from the A.005.1 contract, while preserving the complete source-zero
+owner. The paired audit has only `[propext, Classical.choice, Quot.sound]` and
+no `sorryAx`; see proof record [2185](../proofs/2185_routea_weighted_zero_measure_residual_brick.md).
+
+This is not yet the producer margin: the next gate is still an independently
+enclosed `B_zm < epsilon` on the exact owner. The map route, consumer, and RH
+status do not change.
+
+Record [2182](../proofs/2182_routea_chebyshev_majorant_sign_obstruction.md)
+also closes the unsigned Chebyshev shortcut as a scoped no-go: its sharpened
+majorant is nonnegative and can only absorb against a separately proved
+same-owner `archimedeanTerm <= 0`. The ROOT-support sign theorem cannot be
+transported to the actual selected owner. The live producer therefore remains
+the signed C3′/weighted-zero-measure mechanism, not an absolute-value
+majorant.
+
+Record [2183](../proofs/2183_routea_quantifier_integrity_audit.md) confirms that
+the selected-owner and `SourceRH` quantifiers are genuine and that no existing
+master exit preloads RH. Thus the remaining signed margin is a real universal
+producer obligation, not a missing wrapper or vacuous quantifier.
+
+Record [2184](../proofs/2184_routea_rh_exit_axiom_boundary_audit.md) separately
+rejects the repository's unconditional skeleton as Route-A evidence: it uses
+project-root axioms outside the allowed library trio and does not instantiate
+the selected-owner signed margin. Only the axiom-clean conditional exits are
+admissible for the final GO.
+
 ## 2178 algebraic infinity remainder
 
 Record [2178](../proofs/2178_routea_infinity_algebraic_remainder.md) replaces

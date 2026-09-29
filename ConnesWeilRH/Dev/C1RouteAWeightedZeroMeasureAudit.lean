@@ -1,0 +1,18 @@
+import ConnesWeilRH.Dev.C1RouteAWeightedZeroMeasure
+
+namespace ConnesWeilRH
+namespace Dev
+
+open Source
+open Source.C1RouteAWeightedZeroMeasure
+
+#check @weightedZeroMeasure
+#check @weightedZeroMeasure_nonneg
+#check @spectralTerm_re_le_weightedZeroMeasure
+#check @finite_prefix_residual_re_le_weightedZeroMeasure
+#print axioms weightedZeroMeasure_nonneg
+#print axioms spectralTerm_re_le_weightedZeroMeasure
+#print axioms finite_prefix_residual_re_le_weightedZeroMeasure
+
+end Dev
+end ConnesWeilRH

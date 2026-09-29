@@ -51,10 +51,10 @@ The WSL resource-aware run
 `results/20260929_routea_inf_2178.log` completed successfully and produced:
 
 ```text
-one-sided bound          = 3.4512795342980041e-974
-two-sided bound          = 6.9025590685960082e-974
-two-sided / |Q1600|     = 2.0265584263989342e-986
-two-sided / L2 charge    = 1.5644201794645804e-984
+one-sided bound          = 3.4512795416489271e-974
+two-sided bound          = 6.9025590832978542e-974
+two-sided / |Q1600|     = 2.0265584307153261e-986
+two-sided / L2 charge    = 1.5644201827966582e-984
 ```
 
 The script evaluates both signs and performs the closed-form integral in

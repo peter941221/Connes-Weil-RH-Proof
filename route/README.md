@@ -22,6 +22,12 @@ Lean source + paired audits + proof records
 
 Current topology:
 
+The canonical Route A navigation entry is now also available directly at
+`002_route_a_signed_kernel/`; the historical nested tree under
+`000_rh_mainline/002_b5_compactlog/001_route_a_signed_kernel/` remains as the
+older detailed navigation record. The two entries share the same authority
+records; neither promotes a candidate to a producer theorem.
+
 ```text
 000_rh_mainline/
     001_shared_contracts/
