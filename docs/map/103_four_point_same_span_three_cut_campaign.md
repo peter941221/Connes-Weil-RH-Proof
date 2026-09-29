@@ -750,3 +750,44 @@ remains the main line.
 
 Evidence: [2130](../proofs/2130_routeb_n6_height_scan.md) and
 `results/2130_routeb_n6_height_scan.json`.
+
+## 2156 target-value floor for the named high-shell certificate
+
+Record [2156](../proofs/2156_target_value_tail_floor.md) gives an exact
+necessary condition for the `C4/C2` global-strip certificate on the same
+four-point owner. The target values `base(rho)=correction(rho)=1` alone force
+`C4 >= (gamma/(2*pi))^4` and `C2 >= (gamma/(2*pi))^2`. Consequently the
+record-2033 unit-proxy tail ratio is strictly greater than
+`(3+|rho|)^4 gamma^12 q^(2n)` for any nonzero span coefficient. At the
+2151–2154 trial height with `q=2^-14`, this floor exceeds one for `n<=3`,
+independently of the correction selector. This is a scoped no-go for those
+unit-proxy rows, not for a true tail estimate.
+
+The actual spectral-shell consumer multiplies the floor by `beta_s/m`,
+where `beta_s=4*spectralMultiplicityConstant*(3/4)^s` and
+`m=xiMultiplicity(rho)`. An actual-owner no-go needs its specific complete
+prefix, shell `s`, and multiplicity `m`; the auxiliary trial supplies none
+of these. The existing `finiteHeightMultiplicity_dyadic_le` bound eliminates
+`m` for a bounded shell: conditional on a genuine source zero with
+`Im rho>39`, the `n=0, q=2^-14` certificate cannot meet the strict actual
+shell budget at any `s<=43`. This is not a claim that the trial height is
+an actual zero. The remaining producer obligation is a same-owner gate and strict
+actual shell budget at the same index, or a different tail estimate that
+does not inherit the global-`C4/C2` floor. This PAPER algebra changes no
+binding route ruling and gives no producer Go.
+
+## 2174 coefficient-scaled tail contract
+
+Record [2174](../proofs/2174_coefficient_scaled_four_point_tail_contract.md)
+adds a real contract reduction for the same-span consumer. The transported
+prefix is `-xiMultiplicity(rho) * lambda^2`; if the span tail is certified at
+`epsilon = lambda * eta`, its acceptance inequality factors and cancels the
+positive `lambda^2`. The remaining premise is the coefficient-independent
+budget `4 eta^2 * spectralMultiplicityConstant * (3/4)^N <
+xiMultiplicity(rho)`. The Lean theorem and paired audit build with only
+`[propext, Classical.choice, Quot.sound]`.
+
+This does not reopen the frozen Route-B family or supply the scaled-tail
+certificate itself. It strictly narrows the producer target: prove a matching
+coefficient-scaled tail on the selected owner, together with the already
+required gate and prefix transport. No route ruling or RH claim changes.

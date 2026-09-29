@@ -1,0 +1,51 @@
+{
+  "record": 2178,
+  "status": "INFINITY-TAIL-ALGEBRAIC-REMAINDER-BOUND-CANDIDATE",
+  "consumer": "same-owner signed C3' tail, then SourceRH",
+  "owner": "one-copy G8-H numerical owner (not complete closed-ball owner)",
+  "rung": 48,
+  "x0": "1000000.0",
+  "eta": "6.283137302028705309764283462059105799889",
+  "beta": "6.283226226020791905524326117515451328254",
+  "theta_max": "48.0051508811671610033044998999685049057",
+  "node_radius": "40.91884120542859903935095644555985927582",
+  "N48_upper_source": "results/2135_routea_root_partition_lipschitz.json",
+  "C_sigma": "10.0",
+  "C_book": "458.0475860314684837248933035880327224731",
+  "C0": "470.0475860314684837248933035880327224731",
+  "B_base": "12792607252745453742143371577.72450782939",
+  "B_correction": "5730098096544791821303959516844.344686669",
+  "integral_power": 184,
+  "one_sided_tail_bound": "3.45127953429800411977729710367664032556e-974",
+  "two_sided_tail_bound": "6.902559068596008239554594207353280651119e-974",
+  "q1600_abs": "3.406049871881275e12",
+  "l2_charge": "4.412215566637855e10",
+  "two_sided_over_q1600": "2.026558426398934239894420334836701917021e-986",
+  "two_sided_over_l2": "1.564420179464580359078089137590773393383e-984",
+  "solve": {
+    "resid": 4.7406639699105555e-09,
+    "cond_raw": 1318248.4163169176,
+    "min_eig": 2.887872343527708e-29,
+    "max_eig": 3.8069331433808264e-23
+  },
+  "checks": {
+    "both_signs": true,
+    "no_float_underflow_remainder": true,
+    "closed_form_integral": true,
+    "denominator_exponent": "|theta-2*pi*x| >= eta*|x|",
+    "polynomial_modulus": "|P|^2 <= beta^8 |x|^8"
+  },
+  "nonclaims": [
+    "N48 is still an mpmath interval candidate, not an independent Arb/Lean enclosure",
+    "coefficient and Gram paths are stored-float owner measurements",
+    "C_sigma is a deliberately broad elementary bound but its shifted-Stirling derivation is not yet formalized",
+    "this closes only the algebraic infinity remainder for the one-copy numerical owner",
+    "no complete-owner transfer, finite-window signed margin, producer theorem, or RH claim"
+  ],
+  "provenance": {
+    "prior_screen": "results/2137_routea_fixed_r48_absP_screen.json",
+    "variation_source": "results/2135_routea_root_partition_lipschitz.json",
+    "owner_source": "results/2058_l5_solve.json",
+    "script": "scripts/routea_infinity_algebraic_remainder_2178.py"
+  }
+}

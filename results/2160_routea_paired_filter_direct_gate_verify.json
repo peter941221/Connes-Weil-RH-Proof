@@ -1,0 +1,52 @@
+{
+  "record": 2160,
+  "decision_target": "adjudicate 2159 width-2.5 direct-C crossing at unchanged 0.1% route threshold",
+  "owner_model": "2143 trial 162; 21 known positive-height zeros plus conjugates",
+  "width": 2.5,
+  "rows": [
+    {
+      "xmax": 20.0,
+      "nodes_per_panel": 1600,
+      "dxi": 0.01,
+      "C_route_A": -0.038951322959723034,
+      "C_route_B": -0.037632795137776065,
+      "route_relative_spread": 0.035036669934288805,
+      "n_primes": 34059,
+      "n_covered": 34059,
+      "window_mass": 0.4804226760318384,
+      "edge_fraction_last_5": 1.3766082024254356e-27
+    },
+    {
+      "xmax": 40.0,
+      "nodes_per_panel": 1600,
+      "dxi": 0.01,
+      "C_route_A": -970.4251193335369,
+      "C_route_B": -1123.4817541757125,
+      "route_relative_spread": 0.13623419719394703,
+      "n_primes": 34059,
+      "n_covered": 34059,
+      "window_mass": 339.64163125733967,
+      "edge_fraction_last_5": 0.9985805029770385
+    },
+    {
+      "xmax": 40.0,
+      "nodes_per_panel": 3200,
+      "dxi": 0.01,
+      "C_route_A": -50204.55608818882,
+      "C_route_B": -62906.03626550052,
+      "route_relative_spread": 0.201911945678853,
+      "n_primes": 34059,
+      "n_covered": 34059,
+      "window_mass": 17869.980654463157,
+      "edge_fraction_last_5": 0.999968183206516
+    }
+  ],
+  "rule_relative_on_large_window": 0.9821403187854031,
+  "screen_go": false,
+  "nonclaims": [
+    "known zeros are not the complete formal owner",
+    "sampled finite-window gate is not an integral certificate",
+    "the 2143 float coefficients are not exact target pins",
+    "no producer or RH claim"
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "record": 2152,
+  "status": "PAIRED-FILTER-VERTEX-REPLICATION",
+  "owner_model": "2143 trial 162, 21 known positive-height zeros and their conjugates",
+  "filter_degree": 44,
+  "damping_width": 1.0,
+  "rows": [
+    {
+      "nodes_per_panel": 1600,
+      "dxi": 0.01,
+      "C": 4898.613220279736,
+      "B01": 11629819598.893696,
+      "D": 2.7610360847869756e+16,
+      "det": -225236743110656.0,
+      "vertex_coefficient": 2374104.4813963845,
+      "relative_determinant_margin": 1.6653030705582314e-06,
+      "vertex_gate": -45979695269.306,
+      "vertex_signs": true,
+      "n_primes": 8755,
+      "n_covered": 8755,
+      "A_vs_B_prime_relative": [
+        3.791888030464195e-07,
+        1.8242108349452513e-10,
+        7.76642177052757e-10
+      ],
+      "window_mass": 477.5578461526736,
+      "edge_fraction_15_20": 7.3499840893770015e-28,
+      "relative_to_m3200_dxi001": {
+        "C": 2.543219571973761e-07,
+        "B01": 2.543409512643846e-07,
+        "D": 2.5436005622424176e-07,
+        "det": 4.4204832041232543e-07,
+        "vertex_gate": 1.877264109472203e-07
+      }
+    },
+    {
+      "nodes_per_panel": 1600,
+      "dxi": 0.005,
+      "C": 4898.613223352808,
+      "B01": 11629819606.184763,
+      "D": 2.7610360865168268e+16,
+      "det": -225236743372800.0,
+      "vertex_coefficient": 2374104.4813954197,
+      "relative_determinant_margin": 1.6653030704083585e-06,
+      "vertex_gate": -45979695293.97524,
+      "vertex_signs": true,
+      "n_primes": 8755,
+      "n_covered": 8755,
+      "A_vs_B_prime_relative": [
+        4.006901582891127e-07,
+        1.7339337747960453e-10,
+        7.479681743781675e-10
+      ],
+      "window_mass": 477.5578461502954,
+      "edge_fraction_15_20": 7.280938248454484e-28,
+      "relative_to_m3200_dxi001": {
+        "C": 2.5369462233356907e-07,
+        "B01": 2.5371402277190053e-07,
+        "D": 2.537335338946256e-07,
+        "det": 4.408844610859148e-07,
+        "vertex_gate": 1.871898863338376e-07
+      }
+    },
+    {
+      "nodes_per_panel": 3200,
+      "dxi": 0.01,
+      "C": 4898.614466104955,
+      "B01": 11629822556.833828,
+      "D": 2.761036787084448e+16,
+      "det": -225236842676224.0,
+      "vertex_coefficient": 2374104.4814414782,
+      "relative_determinant_margin": 1.6653029595931814e-06,
+      "vertex_gate": -45979703900.91079,
+      "vertex_signs": true,
+      "n_primes": 8755,
+      "n_covered": 8755,
+      "A_vs_B_prime_relative": [
+        3.791887075884404e-07,
+        1.824232410823903e-10,
+        7.766359619349563e-10
+      ],
+      "window_mass": 477.55798695646126,
+      "edge_fraction_15_20": 8.03141034694938e-28
+    }
+  ],
+  "nonclaims": [
+    "not the complete formal owner",
+    "finite-window sampled values are not integral certificates",
+    "same-index spectral tail and parameter uniformity are open",
+    "no producer or RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/routea_paired_filter_vertex_verify_2152.py",
+    "predecessor": "results/2151_routea_polynomial_zero_filter.json"
+  }
+}

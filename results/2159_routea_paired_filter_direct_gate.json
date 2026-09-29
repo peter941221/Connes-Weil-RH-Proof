@@ -1,0 +1,60 @@
+{
+  "record": 2159,
+  "decision_target": "direct ICgate(g.square) < 0 on the registered paired-filter model",
+  "owner_model": "2143 trial 162; 21 known positive-height zeros plus conjugates",
+  "widths": [
+    1.5,
+    2.0,
+    2.5
+  ],
+  "nodes_per_panel": 1600,
+  "dxi": 0.01,
+  "go_count": 0,
+  "rows": [
+    {
+      "width": 1.5,
+      "support_radius": 11.9,
+      "n_primes": 13736,
+      "n_covered": 13736,
+      "C_route_A": 0.025162964439981894,
+      "C_route_B": 0.026605676588761784,
+      "C_selected": 0.026605676588761784,
+      "route_relative_spread": 0.054225726752962576,
+      "window_mass": 0.4895785335802001,
+      "edge_fraction_15_20": 1.3972603584693677e-27,
+      "screen_go": false
+    },
+    {
+      "width": 2.0,
+      "support_radius": 12.4,
+      "n_primes": 21601,
+      "n_covered": 21601,
+      "C_route_A": 0.012996970317669332,
+      "C_route_B": 0.01441568502998003,
+      "C_selected": 0.01441568502998003,
+      "route_relative_spread": 0.09841465801730709,
+      "window_mass": 0.4854705190134755,
+      "edge_fraction_15_20": 1.3144358561445992e-27,
+      "screen_go": false
+    },
+    {
+      "width": 2.5,
+      "support_radius": 12.9,
+      "n_primes": 34059,
+      "n_covered": 34059,
+      "C_route_A": -0.038951322959723034,
+      "C_route_B": -0.037632795137776065,
+      "C_selected": -0.037632795137776065,
+      "route_relative_spread": 0.035036669934288805,
+      "window_mass": 0.4804226760318384,
+      "edge_fraction_15_20": 1.3766082024254356e-27,
+      "screen_go": false
+    }
+  ],
+  "nonclaims": [
+    "known zeros are not the complete formal source-zero owner",
+    "sampled finite-window gate is not an integral certificate",
+    "the 2143 float coefficients are not exact target pins",
+    "no producer or RH claim"
+  ]
+}

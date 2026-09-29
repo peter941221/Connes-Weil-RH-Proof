@@ -721,6 +721,20 @@ Route A link L5, SOLVE CHANNEL REPRICED (IDEAL-L2-VIABLE, 2058): 2057's
          independent.  Not a producer theorem; not RH.
 ```
 
+### 2026-09-29 finite-zero filter construction (records 2151–2153)
+
+The [2151–2153 proof record](../proofs/2151_2153_routea_finite_zero_filter.md) gives exact paper algebra for a finite-zero filter with fixed support increment, but **no producer Go**. Generic finite interpolation was already formal. The paired-zero trial-162 auxiliary-span screen has a sampled vertex sign; its best margin is `4.5762e-4`, below the registered `1e-3` screen bar. Record 1931 already forces the actual healthy selected detector's gate to be positive under the hypothetical off-line-zero assumption, so the auxiliary row cannot be substituted for it. Complete-owner sign, same-index spectral tail, formal membership for the changed correction, and full-line certification remain open. The earlier "construction Go" wording is withdrawn; no route ruling or RH status changes.
+
+Record [2162](../proofs/2162_routea_paired_filter_direct_gate_screen.md) reads the
+direct selected-g coefficient on the same finite known-zero model. A paired
+zero filter of width `2.5` gives the direct prime-kernel value
+`-0.03763279514` on `[-20,20]`, stable under grid and seed-rule changes, but
+the independent FFT read differs by `1.39e-3`, above the registered cross-route
+bar. The `[-40,40]` retry is alias-dominated. This is a numerical candidate,
+not a complete-owner sign certificate; record 1931 still forces the actual
+healthy selected gate positive under the off-line-zero hypothesis. No producer
+Go or route ruling changes.
+
 Live screen state of the same-span four-point subcampaign after the 2026-09-27
 batch (records 2028 - 2035): R-B1 is priced AND mass-certified (a genuine
 interval bracket for the `k = 3` weighted seed mass puts the strip bound at

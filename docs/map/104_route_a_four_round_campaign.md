@@ -488,3 +488,95 @@ Record 2142 audits trial 162 with 80-digit arithmetic. The 160-point Gauss-Legen
 Record 2143 reconstructs the trial-162 coefficients against a 320-point high-precision target matrix. Minimum-norm corrections reduce both pin residuals below `1.5e-14`; the signed gate is unchanged at 20001 nodes. The remaining proof gap is complete-owner transfer plus interval full-line gate/tail, not the small target residual.
 
 Records 2144-2150 now close the changed-basis owner-local residual promotion attempt. The finite known-zero gate survives, but complete-ball transfer fails catastrophically under log-scaled sampling (`max log10 residual product ~= 1613`), and exact 29-pin repair is ill-conditioned (`s_min ~= 2.74e-35`). The next work must use a different owner-preserving analytic mechanism.
+
+## 2026-09-29 — exact finite-zero filter and its current gate limit (2151–2153)
+
+The construction in [2151–2153](../proofs/2151_2153_routea_finite_zero_filter.md) bypasses the ill-conditioned full-owner interpolation solve. For any finite omitted-zero set disjoint from the three nonzero correction targets, a zero polynomial, a carrier-centred smooth factor, and a quadratic target interpolant give a correction that vanishes at every omitted zero, retains all three target values, and enlarges physical support only by the chosen smoothing width, independently of the zero count. This is exact paper algebra, not yet a Lean theorem or a signed producer. Its derivative order and gate cost still grow with the zero count.
+
+On the old trial-162 numerical under-approximation (21 known zeros plus conjugates), the width-1.0 filter has a sampled vertex sign with the complete 8755-entry visible-prime book. An independent `m=3200` rule and grid refinement reproduce the relative determinant margin `1.6653e-6`. A target-preserving null-shape scan improves its best sampled margin to `4.5762e-4` at coefficient `0.962 i`, below the preregistered `1e-3` Go bar (`go_count=0`). The third nonzero target `rho+1/2` is enforced; the earlier two-target reading is withdrawn. The `m=400` filtered window is evaluator-alias dominated and supplies no gate verdict.
+
+Decision: **NO PRODUCER GO**. The exact zero filter bypasses the 40-profile interpolation solve with a support increment independent of owner cardinality. Generic finite interpolation was already formal, so this construction does not shrink the signed producer premise. Moreover record 1931 formally forces `ICgate > 0` for the actual healthy selected geometry under the hypothetical off-line-zero assumption; the negative sampled vertex value here concerns an auxiliary span and cannot be substituted for that gate. Formal selected-owner membership for the changed correction, the actual complete-owner signed C3′ inequality, same-index spectral tail, full-line integral certificate, and uniform off-line-zero quantifiers remain open. The null-shape trial is a scoped no-go only at its stated grid and margin bar. The earlier "construction GO" wording is withdrawn. No binding route ruling or RH status changes.
+
+Record 2154 repairs the trial-162 base/correction target pins on the `m=1600` matrix in the same run: residuals `2.615e-10` / `2.542e-11` fall to `1.78e-15` / `1.42e-14`, while the sampled determinant moves only `6.43e-11` relative. The thin auxiliary vertex margin survives this float repair, so coefficient pin noise is not the binding issue on that numerical row. This does not repair the incomplete owner, certify the integral, or change the `NO PRODUCER GO` decision. Evidence is in [2151–2154](../proofs/2151_2153_routea_finite_zero_filter.md) and `results/2154_routea_paired_filter_pin_repair.json`.
+
+Record [2155](../proofs/2155_minimal_height_owner_truncation_no_go.md) closes one owner shortcut exactly: choosing a least positive-height off-line zero does not make the committed closed-ball correction owner line-only. Its radius `2^(N+1)+2+dist(2,rho)` exceeds `Im rho` at every `N`, so the owner extends above twice that ordinate, where minimality gives no restriction. The scoped no-go is for this owner truncation inference, not for the full B5 route; reopening needs control of the upper part of the exact ball or a changed prefix/tail geometry. No producer Go or route ruling follows.
+
+Record [2156](../proofs/2156_target_value_tail_floor.md) supplies an exact target-value floor for the named four-point global-`C4/C2` tail certificate. It rules out the 2151–2154 auxiliary `n=0` row under the registered unit tail proxy, independently of the filter coefficients. The formal shell consumer has the additional `beta_s/m` factor and needs a complete prefix owner. The existing dyadic multiplicity theorem removes the unknown `m`: for a genuine source zero with `Im rho>39`, the `n=0,q=2^-14` certificate fails the strict shell budget at every `s<=43`. The trial height is not claimed to be an actual source zero, and larger shells or different indices remain open. The remaining work is the same-owner signed gate with an actual shell budget or a different tail method. No producer Go or route ruling follows.
+
+Record [2157](../proofs/2157_near_pin_derivative_cost_floor.md) gives a quantitative Route-A selector obstruction. On support `(a,b)`, target value `1` at `t` and zero at `z` force the actual correction's derivative cost to be at least `4 exp(-X S)/(|z-t| X (b-a)^2)`, where `X=max(|a|,|b|)` and `S=max(|Re t|,|Re z|)`. Thus the current support-and-pins API cannot yield a separation-independent uniform derivative budget; a nearby owner pin makes that cost diverge. This is a scoped no-go for that shortcut, not for the actual finite owner, which has positive separation at each fixed `rho`. The signed C3' budget and uniform owner control remain open. No producer Go or route ruling follows.
+
+The exact node geometry narrows that obstruction. The closed-ball kill set contains `rho`, but `healthyCorrectionValue` prioritizes its nonzero target value, and the kill theorem excludes target nodes. The detector target `rho+1/2` is separated from every source zero by more than `rho.re-1/2`; that bound does not separate the orbit target `rho` from a different nearby source zero. Consequently the remaining separation cost concerns nonzero orbit targets or must be bypassed by a signed estimate. This is exact owner algebra, not a C3' margin.
+
+## 2162 direct selected-g screen
+
+Record [2162](../proofs/2162_routea_paired_filter_direct_gate_screen.md) runs
+the finite-zero filter against the direct selected-g coefficient
+`C = ICgate(g.convolutionSquare)`, rather than the auxiliary four-point
+vertex determinant. On the 21-known-zero under-approximation, paired zeros,
+carrier width `2.5`, and a 34059-entry visible prime-power book, the trusted
+`[-20,20]` window gives direct-kernel `C=-0.03763279514`, stable under grid
+and seed-rule changes at relative movements `1.29e-12` and `3.82e-10`.
+The independent FFT read differs by `1.39e-3` absolute, so the registered
+cross-route `1e-3` gate is not passed. Extending to `[-40,40]` is invalid:
+the evaluator horizon is crossed and the last-five-unit mass becomes
+`0.99858`/`0.999968` at the two node counts. The negative sign is therefore a
+finite-model candidate only. It cannot replace the complete owner; formal
+record 1931 forces the actual healthy detector's gate positive under the
+hypothetical off-line-zero assumptions. No producer Go or route ruling
+changes.
+
+## 2169–2171 root-window sign screen correction
+
+The root-window branch was rechecked after a false positive in record 2168.
+The translated-bump cross matrix had used a reflected overlap for `F(0)`;
+record [2169](../proofs/2169_root_window_arch_screen_false_positive.md) repairs
+that term and reassembles the form by direct autocorrelation polarization.
+With three node constraints and a complex detection normalization, the top
+Arch eigenvalue is `-0.0062324` at `dx=.002` and `-0.0060688` at `dx=.001`;
+the independent 24-mode sine screen reads a top value near `-0.859`.  A
+wider-window sine scan including the exact finite prime-power terms also has
+top `ICgate` values below zero over the tested radii, with the closest row
+moving from `-4.39e-4` to `-2.36e-4` under grid halving.
+
+Decision: **SCOPED NO-GO for the root-window positive-direction screen.** This
+does not assert a continuum sign theorem and does not alter the selected-owner
+Route-A producer obligation. Reopening requires a named smooth source family,
+owner change, or a certified positive finite-prime quadratic margin.
+
+## 2177 topology extension screen and the only surviving grandchild
+
+Record [2177](../proofs/2177_routea_topological_extension_screen.md) screens a
+weak-compactness/confluent-node extension against the actual selected owner.
+Topology alone is a scoped no-go: ROOT closure does not control the mixed
+quadratic terms, finite interpolation does not determine the signed aggregate,
+the actual-height owner count is far beyond the compact interpolation family,
+and the near-pin derivative cost has the explicit `1/|z-t|` lower bound of
+record 2157. A minimizer-existence argument therefore cannot supply the
+selected-owner signed C3' margin.
+
+The only retained grandchild is `A.005.1`, an owner-preserving,
+non-interpolating weighted-zero-measure certificate. It must derive a fixed
+nonnegative weight from the same physical-kernel/correction formula and prove
+
+```text
+Arch + C3'_aggregate <= -epsilon(rho,N) + B_zm(rho,N),
+B_zm < epsilon(rho,N)
+```
+
+on the exact closed-ball owner. It is `GO-CANDIDATE / UNPRICED`; no owner,
+consumer, or RH status changes until this fixed-owner enclosure is priced.
+
+## 2178 algebraic infinity remainder
+
+Record [2178](../proofs/2178_routea_infinity_algebraic_remainder.md) replaces
+the floating-point-underflow remainder in the fixed order-48 tail screen by an
+explicit two-sided algebraic integral.  On the one-copy G8-H numerical owner,
+the bound for `|xi| >= 10^6` is `6.9025590685960082e-974`, or
+`1.5644201794645804e-984` of the inherited L2 charge.  This closes the
+infinity-remainder sub-obligation at the candidate-owner level and evaluates
+both signs with the complex polynomial modulus.
+
+The record is not a producer Go: the N48 interval candidate, shifted-Stirling
+envelope, stored-float coefficient path, complete-owner transfer, finite-window
+signed margin, and selected-detector compatibility remain open.  It is a
+strictly smaller quantitative tail obligation and does not promote `A.005.1`.

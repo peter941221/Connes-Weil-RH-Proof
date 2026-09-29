@@ -1,0 +1,18 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Dev.C1C3StrictPinnedMargin
+
+open ConnesWeilRH.Dev.C1C3StrictPinnedMargin
+
+#check @strict_carrier_twoSpan_determinant_margin_of_pinned_geometry
+#check @strict_carrier_twoSpan_phase_budget_of_pinned_geometry
+#check @strict_carrier_twoSpan_determinant_product_bound_of_pinned_geometry
+#check @strict_carrier_twoSpan_optimal_qform_margin_of_pinned_geometry
+
+#print axioms strict_carrier_twoSpan_determinant_margin_of_pinned_geometry
+#print axioms strict_carrier_twoSpan_phase_budget_of_pinned_geometry
+#print axioms strict_carrier_twoSpan_determinant_product_bound_of_pinned_geometry
+#print axioms strict_carrier_twoSpan_optimal_qform_margin_of_pinned_geometry

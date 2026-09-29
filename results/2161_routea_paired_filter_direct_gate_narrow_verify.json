@@ -1,0 +1,54 @@
+{
+  "record": 2161,
+  "status": "NARROW-DIRECT-B-CONTROL",
+  "decision_target": "is 2159's direct-C sign stable on the model's trusted narrow window?",
+  "owner_model": "2143 trial 162; 21 known positive-height zeros plus conjugates",
+  "width": 2.5,
+  "xmax": 20.0,
+  "rows": [
+    {
+      "nodes_per_panel": 1600,
+      "dxi": 0.01,
+      "C_route_A": -0.038951322959723034,
+      "C_route_B": -0.037632795137776065,
+      "A_minus_B_abs": 0.0013185278219469687,
+      "window_mass": 0.4804226760318384,
+      "edge_fraction_15_20": 1.3766082024254356e-27,
+      "n_primes": 34059,
+      "n_covered": 34059
+    },
+    {
+      "nodes_per_panel": 1600,
+      "dxi": 0.005,
+      "C_route_A": -0.03902261793894046,
+      "C_route_B": -0.03763279513782447,
+      "A_minus_B_abs": 0.0013898228011159919,
+      "window_mass": 0.48042267603183897,
+      "edge_fraction_15_20": 1.3709536848308936e-27,
+      "n_primes": 34059,
+      "n_covered": 34059
+    },
+    {
+      "nodes_per_panel": 3200,
+      "dxi": 0.01,
+      "C_route_A": -0.038951322945369404,
+      "C_route_B": -0.037632795123424545,
+      "A_minus_B_abs": 0.0013185278219448593,
+      "window_mass": 0.480422676035564,
+      "edge_fraction_15_20": 5.484804279988222e-26,
+      "n_primes": 34059,
+      "n_covered": 34059
+    }
+  ],
+  "grid_relative_B": 1.2862643791522895e-12,
+  "rule_relative_B": 3.8135673738504357e-10,
+  "booked_A_B_absolute_gap": 0.0013898228011159919,
+  "narrow_candidate": true,
+  "nonclaims": [
+    "2159's registered A/B 0.1% gate remains failed",
+    "known zeros are not the complete formal owner",
+    "window samples are not an integral certificate",
+    "no full-line tail certificate",
+    "no producer or RH claim"
+  ]
+}

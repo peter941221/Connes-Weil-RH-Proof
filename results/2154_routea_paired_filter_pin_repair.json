@@ -1,0 +1,58 @@
+{
+  "record": 2154,
+  "status": "PAIRED-FILTER-PIN-REPAIR-SENSITIVITY",
+  "owner_model": "2143 trial 162 with 21 known zeros and conjugates",
+  "coefficient": [
+    0.0,
+    0.962
+  ],
+  "T_scale": 57084.61892046203,
+  "target_error_before": {
+    "base": 2.614796317451237e-10,
+    "corr": 2.541988137868502e-11
+  },
+  "target_error_after": {
+    "base": 1.7763568394002505e-15,
+    "corr": 1.4211288389453755e-14
+  },
+  "coefficient_correction_l2": {
+    "base": 0.6996070656570269,
+    "corr": 0.45882495859759836
+  },
+  "original_gate": {
+    "C": 5.090057436132301,
+    "B01": 12146089.330838304,
+    "D": 28970198666570.547,
+    "det": -67510883696.625,
+    "relative_determinant_margin": 0.00045761563158243677,
+    "vertex_signs": true,
+    "n_primes": 8755,
+    "n_covered": 8755
+  },
+  "repaired_gate": {
+    "C": 5.090057436155443,
+    "B01": 12146089.33089323,
+    "D": 28970198666700.105,
+    "det": -67510883700.96875,
+    "relative_determinant_margin": 0.0004576156316077417,
+    "vertex_signs": true,
+    "n_primes": 8755,
+    "n_covered": 8755
+  },
+  "relative_gate_movement": {
+    "C": 4.546584629758379e-12,
+    "B01": 4.5220876172109935e-12,
+    "D": 4.47213342376906e-12,
+    "det": 6.434147743524727e-11
+  },
+  "nonclaims": [
+    "least-squares pin repair in float is not an exact interpolation certificate",
+    "known zeros are not the complete formal owner",
+    "sampled finite-window gate is not an integral certificate",
+    "no producer or RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/routea_paired_filter_pin_repair_2154.py",
+    "parent": "results/2153_routea_paired_filter_nullshape.json"
+  }
+}

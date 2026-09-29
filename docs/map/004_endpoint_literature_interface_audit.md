@@ -105,3 +105,19 @@ prove qw(g_rho) >= 0.
 
 No stored conclusion, `SourceRH` premise, universal positivity premise, or
 RH-equivalent coverage socket may be used as analytic source data.
+
+## 2026-09-29 semilocal spectral-descent import audit
+
+Record [2158](../proofs/2158_semilocal_spectral_descent_import_no_go.md)
+checks the Zenodo preprint DOI `10.5281/zenodo.19546495` against its cited
+CCM theorem (arXiv:2511.22755, Theorem 1.1 and §8). The finite spectral
+operator is self-adjoint using the **shifted** form
+`QW_lambda^N - epsilon_N I`, with simple-even hypotheses; this gives no
+nonnegative sign for the unshifted Weil form. The exact matrix
+`diag(-1,1)` has a nonnegative minimum-eigenvalue shift but a negative
+original direction. The preprint's proposed sum-of-squares equality for
+the unshifted form is not supplied by that cited theorem, and finite-prime
+stabilization cannot supply the missing sign. This source is therefore
+`NOT IMPORTABLE` as the selected-detector C3'/B5 producer. The exact
+support-derived owner and analytic signed budget remain open; no binding
+route ruling or RH status changes.

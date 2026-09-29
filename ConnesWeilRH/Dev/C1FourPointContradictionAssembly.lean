@@ -143,6 +143,51 @@ theorem qw_neg_of_spectralHeightShellPrefix_and_fourthOrderTail_scaled
   rw [qw_eq_spectralWeilValue_centerTwo v]
   exact hspectral
 
+/-! ### Coefficient-scaled tail margin
+
+The transported prefix is quadratic in the span coefficient.  When the tail
+certificate is supplied at the matching scale `epsilon = lambda * eta`, the
+same square cancels from the acceptance inequality.  This is a genuine
+parameter reduction: the remaining budget is independent of the gate-selected
+coefficient. -/
+
+theorem qw_neg_of_spectralHeightShellPrefix_and_coefficient_scaled_tail
+    (v : CompactLogTest) (rho : sourceNontrivialZeroSet)
+    (T eta lambda : Real)
+    (htail : FourthOrderSpectralTail v.convolutionSquare rho.1 T (lambda * eta))
+    (n0 : Nat) (hT : T ≤ (2 : Real) ^ (n0 + 1))
+    (hrhoHeight : 2 * |rho.1.im| ≤ (2 : Real) ^ (n0 + 1))
+    (hlambda : 0 < lambda)
+    (hprefix :
+      (∑ k ∈ Finset.range (n0 + 1), ∑' z : spectralHeightShell k,
+        spectralTerm v.convolutionSquare z.1).re ≤
+        -(xiMultiplicity rho : Real) * lambda ^ 2)
+    (hsmall : 4 * eta ^ 2 * spectralMultiplicityConstant *
+        (3 / 4 : Real) ^ n0 < (xiMultiplicity rho : Real)) :
+    C1SameOwnerWeil.qw v < 0 := by
+  have hlam2 : 0 < lambda ^ 2 := sq_pos_of_pos hlambda
+  have hsmall' :
+      4 * (lambda * eta) ^ 2 * spectralMultiplicityConstant *
+          (3 / 4 : Real) ^ n0 <
+        (xiMultiplicity rho : Real) * lambda ^ 2 := by
+    have hscaled := mul_lt_mul_of_pos_left hsmall hlam2
+    calc
+      4 * (lambda * eta) ^ 2 * spectralMultiplicityConstant *
+          (3 / 4 : Real) ^ n0 =
+        lambda ^ 2 *
+          (4 * eta ^ 2 * spectralMultiplicityConstant *
+            (3 / 4 : Real) ^ n0) := by ring
+      _ < lambda ^ 2 * (xiMultiplicity rho : Real) := hscaled
+      _ = (xiMultiplicity rho : Real) * lambda ^ 2 := by ring
+  have hprefix' :
+      (∑ k ∈ Finset.range (n0 + 1), ∑' z : spectralHeightShell k,
+        spectralTerm v.convolutionSquare z.1).re ≤
+        -((xiMultiplicity rho : Real) * lambda ^ 2) := by
+    simpa [neg_mul] using hprefix
+  exact qw_neg_of_spectralHeightShellPrefix_and_fourthOrderTail_scaled
+    v rho T (lambda * eta) htail n0 hT hrhoHeight
+    ((xiMultiplicity rho : Real) * lambda ^ 2) hprefix' hsmall'
+
 /-! ## Nonnegativity from Gate and Triple Vanishing -/
 
 /-- Span nonnegativity: an annihilator-detector span vector `v` satisfying triple vanishing
