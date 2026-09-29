@@ -551,11 +551,30 @@ truncation `-1.89e-16` sits below the committed error bar; 2255), and the
 terminal ledger is assembled and frozen in Lean (`gapCharge2255 = 1e7`,
 `eps0FullTail2249 = 1.67e12`, strict slack `417351110.20703125`; terminal
 reading `0.00296569559081069`, `eps0 = 1670420813160.4578`; stored-operand
-residuals `2.33e-29` relative, convention-A closure; 2256). This is still
-a `GO-CANDIDATE / PARTIALLY PRICED`, not a producer: the remaining
-obligations are the count-free assembly of the producer gate itself (no
-per-node transfer needed) and any future consumer wanting the count-side
-reduction back, which would require a cancellation-aware split.
+residuals `2.33e-29` relative, convention-A closure; 2256). The
+2257-2259 batch prices the first open item and hardens the other two. The
+count-free terminal consumer is assembled in Lean: the frozen tail
+strictly bounds `4 * mult * B` (exact product `6.32e-6` below the
+rounded-up tail), the terminal theorem consumes that bound shape directly,
+and all ten audited theorems are axiom-clean — no count factor anywhere,
+the `owner/62` theorems stay as history (2257). The cancellation-aware
+recon shows the four screen rows are cancelled signed L1 norms
+(reconstruction `1.77e-15`; cancellation factors
+`19.25 / 64.55 / 10.30 / 61.12`), the canonical pro-rata two-sided split
+still fails at `8.12x` / `9.09x` (3/30 nodes) while its total is only
+`0.20 / 0.22` of the screen product, the mandatory floors are ~0
+(`<= 0.00288` singleton, `<= 8.7e-3` top-3 coalition), flat-factor splits
+are structurally impossible (`>= 62/30`) and per-factor-bounded splits die
+on the all-node Hall condition (30 < 62), leaving the coalitional Hall LP
+as the registered design question (2258). The separation input is
+re-certified with Arb ball arithmetic: 72 brackets (21/24/27), width
+`<= 1.65e-26`, min gap `1.3838`, min endpoint margin `8.66e-28`, kill pin
+`|Z| >= 2.8451` (2259). This is still a `GO-CANDIDATE / PARTIALLY
+PRICED`, not a producer: the remaining obligation is the count-free
+assembly of the producer gate itself (no per-node transfer needed; the
+Lean consumer side is priced), and any future consumer wanting the
+count-side reduction back would need an allocation-design argument for
+the cancellation-aware split.
 
 ```mermaid
 flowchart LR
@@ -568,7 +587,7 @@ flowchart LR
     F -->|2197-2200: 0.002203 margin ratio| G[GO-CANDIDATE]
     G --> H[Outward interval enclosure]
     H -->|2229-2231: 30-node MPFR envelope| H2[Interval terminal priced]
-    H2 -->|2234-2256: outward B_zm viable, L1 enclosed, Z=0, counts per node, charge count-free, gaps charged, terminal ledger| H3[Low shell + owner transfer]
+    H2 -->|2234-2259: outward B_zm viable, L1 enclosed, Z=0, counts per node, charge count-free, gaps charged, terminal ledger, count-free Lean assembly, cancellation-split recon, Arb brackets| H3[Low shell + owner transfer]
     H3 --> J[Same-owner qw >= 0]
     J --> K[SourceRH]
     K --> L[Mathlib RH]
@@ -587,8 +606,11 @@ the resulting bound to the complete actual owner (the count side is
 bricked at `<= 26` unconditional / `= 21` imported, 2245, per node
 `<= 8 / <= 2` at the 30 construction nodes, 2250, so the coarse product
 reads `0.00122500010000746` / `0.000989423157698333`; the per-node
-CHARGE uniformity half is falsified and withdrawn at 2253, and the
-count-free fallback carries the terminal ledger at 2256). RH is not
+CHARGE uniformity half is falsified and withdrawn at 2253, the count-free
+fallback carries the terminal ledger at 2256 with the Lean consumer
+assembled count-free at 2257, and the cancellation-aware recon at 2258
+leaves the coalitional Hall LP as the design question for any count-side
+revival). RH is not
 claimed.
 
 An alternative four-point same-owner span has formal finite-prefix and gate

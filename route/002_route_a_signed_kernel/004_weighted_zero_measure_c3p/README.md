@@ -174,7 +174,36 @@ bar), and 2256 assembles the terminal ledger: margin
 `1670420813160.4578`, with the stored-operand residual audit at relative
 `2.3301336946878703e-29` (convention A closure) and the Lean repricing
 frozen (`gapCharge2255 = 1e7`, `eps0FullTail2249 = 1.67e12`, strict slack
-`417351110.20703125`). The open list is now: the count-free assembly of
-the producer gate itself (no per-node transfer needed), and any future
-consumer wanting the count-side reduction back must supply a
-cancellation-aware split.
+`417351110.20703125`).
+
+The 2257--2259 batch prices the first open item and hardens the other two.
+2257 assembles the count-free terminal consumer in Lean: the frozen tail
+strictly bounds `4 * mult * B` (the exact rational product sits `6.32e-6`
+below the rounded-up frozen tail), `a005_item5_terminal_count_free`
+consumes the bound shape `charge <= 4 * mult * B + knownError2109` directly
+under `mult <= multProxy2248`, `0 <= B <= bUpper2243`, and all ten audited
+theorems are axiom-clean — no count factor anywhere; the `owner/62`
+theorems stay as history. 2258 measures the cancellation-aware splits the
+withdrawn transfer would need: the four 2234 rows are cancelled signed L1
+norms (reconstruction `1.77e-15` against the committed MPFR anchors;
+cancellation factors `19.25 / 64.55 / 10.30 / 61.12`), the canonical
+pro-rata two-sided split still fails at max diagonal ratio `8.1166`
+(channel a) / `9.0918` (channel b) with 3/30 nodes over budget while its
+total charge is only `0.1997 / 0.2241` of the screen product (localization,
+not total, node 0 alone at 32.0--41.7% per row), and the mandatory floors
+are ~0 (`<= 0.00288` singleton, `<= 8.7e-3` top-3 coalition, in budget
+units) — the residual gap is allocation design, not mandatory integrand
+mass. Flat-factor splits are structurally impossible (`>= 62/30`), and
+per-factor-bounded splits die on the all-node Hall condition (30 nodes <
+62 budget slots); the coalitional Hall LP is the registered design
+question. 2259 re-certifies the separation input with certified ball
+arithmetic (python-flint Arb): all 72 brackets (21/24/27 per candidate),
+max width upper `1.6543612251060554e-26`, min pairwise gap lower
+`1.383836594509236`, min endpoint margin `8.656304746693204e-28`, and the
+nonzero kill pin certified at `|Z| >= 2.8451013491344974`.
+
+The open list is now: the count-free assembly of the producer gate itself
+(no per-node transfer needed; the Lean consumer side is priced at 2257),
+and any future consumer wanting the count-side reduction back must supply
+a cancellation-aware split — 2258 prices the canonical forms and registers
+the coalitional Hall LP.

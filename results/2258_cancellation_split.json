@@ -1,0 +1,583 @@
+{
+  "record": 2258,
+  "status": "CANCELLATION-SPLIT-RECON (pro-rata + coalitional floor)",
+  "date": "2026-09-30",
+  "sigma": 1.0,
+  "budget_denom": 62.0,
+  "rows": {
+    "base_M0": {
+      "norm": 2.0033357887456087,
+      "anchor_2234": 2.0033357887456122,
+      "reconstruction_rel_err": 1.7733989971920938e-15,
+      "triangle_total": 38.572076423932494,
+      "cancellation_factor": 19.253924699305877,
+      "signed_piece_sum_ratio": 1.3704729779824747,
+      "pro_rata_sum": 2.0033357887456087,
+      "pro_rata_telescope_rel_err": 0.0,
+      "floor_sum": 9.324642752218788e-05,
+      "floor_le_share": true,
+      "max_share_ratio": 21.806458059133956,
+      "max_floor_ratio": 0.002875076317844758,
+      "max_signed_ratio": 48.58374158231995,
+      "nodes_over_budget_pro": 10,
+      "nodes_over_budget_floor": 0,
+      "top_nodes": [
+        {
+          "node": 0,
+          "a": 1.6,
+          "theta": -39.25244858548658,
+          "coef": 271450539234354.66,
+          "share": 0.704607384768438,
+          "share_frac": 0.3517170654699025,
+          "floor": 2.6579766176665167e-42,
+          "floor_frac": 1.3267753876302546e-42,
+          "signed_piece_mass": 4.022820757933169e-09,
+          "ratio_pro_over_budget": 21.806458059133956,
+          "ratio_floor_over_budget": 8.226007403307578e-41,
+          "ratio_signed_over_budget": 1.2449979099511216e-07
+        },
+        {
+          "node": 15,
+          "a": 1.7600000000000002,
+          "theta": -40.9187190121475,
+          "coef": -110860041260504.86,
+          "share": 0.31188368410129114,
+          "share_frac": 0.1556821806176475,
+          "floor": 2.6579766176665167e-42,
+          "floor_frac": 1.3267753876302546e-42,
+          "signed_piece_mass": 1.0180961551063488e-10,
+          "ratio_pro_over_budget": 9.652295198294144,
+          "ratio_floor_over_budget": 8.226007403307578e-41,
+          "ratio_signed_over_budget": 3.1508428078408925e-09
+        },
+        {
+          "node": 14,
+          "a": 1.7600000000000002,
+          "theta": -37.58617815882567,
+          "coef": -110108740857839.22,
+          "share": 0.31030725702065654,
+          "share_frac": 0.15489527954520088,
+          "floor": 2.6579766176665167e-42,
+          "floor_frac": 1.3267753876302546e-42,
+          "signed_piece_mass": 7.766707151250789e-10,
+          "ratio_pro_over_budget": 9.603507331802453,
+          "ratio_floor_over_budget": 8.226007403307578e-41,
+          "ratio_signed_over_budget": 2.4036701489721958e-08
+        },
+        {
+          "node": 1,
+          "a": 1.8399999999999999,
+          "theta": -39.25244858548658,
+          "coef": -30696111144658.49,
+          "share": 0.08989707476628353,
+          "share_frac": 0.04487369280342798,
+          "floor": 2.6579766176665167e-42,
+          "floor_frac": 1.3267753876302546e-42,
+          "signed_piece_mass": 2.842787845823566e-11,
+          "ratio_pro_over_budget": 2.7821689538125347,
+          "ratio_floor_over_budget": 8.226007403307578e-41,
+          "ratio_signed_over_budget": 8.797968240332891e-10
+        },
+        {
+          "node": 5,
+          "a": 1.6800000000000002,
+          "theta": -0.0,
+          "coef": 30932332016412.566,
+          "share": 0.08166667909066701,
+          "share_frac": 0.0407653472520464,
+          "floor": 2.6579766176665167e-42,
+          "floor_frac": 1.3267753876302546e-42,
+          "signed_piece_mass": 1.5698314235972544,
+          "ratio_pro_over_budget": 2.5274515296268767,
+          "ratio_floor_over_budget": 8.226007403307578e-41,
+          "ratio_signed_over_budget": 48.58374158231995
+        }
+      ],
+      "hall_top3": {
+        "nodes": [
+          0,
+          15,
+          14
+        ],
+        "mandatory_mass": 2.6579766176665167e-42,
+        "ratio_over_budget": 8.226007403307578e-41,
+        "pro_rata_share_frac": 0.6622945256327507,
+        "total_cancellation_frac": 0.9480625370869945
+      }
+    },
+    "corr_M0": {
+      "norm": 913.4469710803507,
+      "anchor_2234": 913.4469710803506,
+      "reconstruction_rel_err": 1.2445915452229974e-16,
+      "triangle_total": 58967.35747453304,
+      "cancellation_factor": 64.55476819282815,
+      "signed_piece_sum_ratio": 1.9893230368789317e-06,
+      "pro_rata_sum": 913.446971080351,
+      "pro_rata_telescope_rel_err": 2.489183090445995e-16,
+      "floor_sum": 0.01786581721061329,
+      "floor_le_share": true,
+      "max_share_ratio": 25.331407476757757,
+      "max_floor_ratio": 0.0012126153113705704,
+      "max_signed_ratio": 0.0001041628202208656,
+      "nodes_over_budget_pro": 4,
+      "nodes_over_budget_floor": 0,
+      "top_nodes": [
+        {
+          "node": 0,
+          "a": 1.6,
+          "theta": -39.25244858548658,
+          "coef": 1.5474860046096554e+17,
+          "share": 373.2080231104278,
+          "share_frac": 0.40857108833480255,
+          "floor": 2.7605387062657643e-33,
+          "floor_frac": 3.022111620777311e-36,
+          "signed_piece_mass": 8.242973969865328e-06,
+          "ratio_pro_over_budget": 25.331407476757757,
+          "ratio_floor_over_budget": 1.8737092048819328e-34,
+          "ratio_signed_over_budget": 5.594899346233587e-07
+        },
+        {
+          "node": 14,
+          "a": 1.7600000000000002,
+          "theta": -37.58617815882567,
+          "coef": -6.733305319228147e+16,
+          "share": 223.12457760242896,
+          "share_frac": 0.24426659090952524,
+          "floor": 2.7605387062657643e-33,
+          "floor_frac": 3.022111620777311e-36,
+          "signed_piece_mass": 1.7027105339732277e-06,
+          "ratio_pro_over_budget": 15.144528636390564,
+          "ratio_floor_over_budget": 1.8737092048819328e-34,
+          "ratio_signed_over_budget": 1.1557108014872808e-07
+        },
+        {
+          "node": 15,
+          "a": 1.7600000000000002,
+          "theta": -40.9187190121475,
+          "coef": -6.487269479186266e+16,
+          "share": 215.15463971809237,
+          "share_frac": 0.23554146713478613,
+          "floor": 2.7605387062657643e-33,
+          "floor_frac": 3.022111620777311e-36,
+          "signed_piece_mass": 2.1413868195761423e-07,
+          "ratio_pro_over_budget": 14.60357096235674,
+          "ratio_floor_over_budget": 1.8737092048819328e-34,
+          "ratio_signed_over_budget": 1.4534613066448294e-08
+        },
+        {
+          "node": 1,
+          "a": 1.8399999999999999,
+          "theta": -39.25244858548658,
+          "coef": -1.6893393365873134e+16,
+          "share": 66.23108285336538,
+          "share_frac": 0.07250676278999825,
+          "floor": 3.3683546905704806e-07,
+          "floor_frac": 3.687520783594766e-10,
+          "signed_piece_mass": 5.731638971087487e-08,
+          "ratio_pro_over_budget": 4.495419292979891,
+          "ratio_floor_over_budget": 2.2862628858287548e-08,
+          "ratio_signed_over_budget": 3.8903365762670535e-09
+        },
+        {
+          "node": 16,
+          "a": 1.7600000000000002,
+          "theta": -43.327073280915,
+          "coef": -3637873451265244.0,
+          "share": 10.996918915450486,
+          "share_frac": 0.01203892427651736,
+          "floor": 2.7605387062657643e-33,
+          "floor_frac": 3.022111620777311e-36,
+          "signed_piece_mass": 3.024176589945715e-09,
+          "ratio_pro_over_budget": 0.7464133051440764,
+          "ratio_floor_over_budget": 1.8737092048819328e-34,
+          "ratio_signed_over_budget": 2.0526528032040636e-10
+        }
+      ],
+      "hall_top3": {
+        "nodes": [
+          0,
+          14,
+          15
+        ],
+        "mandatory_mass": 2.7605387062657643e-33,
+        "ratio_over_budget": 1.8737092048819328e-34,
+        "pro_rata_share_frac": 0.888379146379114,
+        "total_cancellation_frac": 0.9845092775019663
+      }
+    },
+    "base_D2": {
+      "norm": 6688.576604759935,
+      "anchor_2234": 6688.576604759946,
+      "reconstruction_rel_err": 1.6317278049126628e-15,
+      "triangle_total": 68867.33997871053,
+      "cancellation_factor": 10.296262425954872,
+      "signed_piece_sum_ratio": 0.00041047860053629515,
+      "pro_rata_sum": 6688.576604759936,
+      "pro_rata_telescope_rel_err": 1.3597731707605546e-16,
+      "floor_sum": 0.3044244125994599,
+      "floor_le_share": true,
+      "max_share_ratio": 19.865764779924184,
+      "max_floor_ratio": 0.002821757590705776,
+      "max_signed_ratio": 0.014551608513202138,
+      "nodes_over_budget_pro": 11,
+      "nodes_over_budget_floor": 0,
+      "top_nodes": [
+        {
+          "node": 0,
+          "a": 1.6,
+          "theta": -39.25244858548658,
+          "coef": 271450539234354.66,
+          "share": 2143.1240248816903,
+          "share_frac": 0.3204155609665191,
+          "floor": 2.3457293140351975e-38,
+          "floor_frac": 3.507068024556758e-42,
+          "signed_piece_mass": 4.0231996763661246e-09,
+          "ratio_pro_over_budget": 19.865764779924184,
+          "ratio_floor_over_budget": 2.17438217522519e-40,
+          "ratio_signed_over_budget": 3.72931932568712e-11
+        },
+        {
+          "node": 15,
+          "a": 1.7600000000000002,
+          "theta": -40.9187190121475,
+          "coef": -110860041260504.86,
+          "share": 998.025104877837,
+          "share_frac": 0.1492133773526031,
+          "floor": 2.3457293140351975e-38,
+          "floor_frac": 3.507068024556758e-42,
+          "signed_piece_mass": 1.0193360005485057e-10,
+          "ratio_pro_over_budget": 9.25122939586139,
+          "ratio_floor_over_budget": 2.17438217522519e-40,
+          "ratio_signed_over_budget": 9.44877150529035e-13
+        },
+        {
+          "node": 14,
+          "a": 1.7600000000000002,
+          "theta": -37.58617815882567,
+          "coef": -110108740857839.22,
+          "share": 840.7382014052183,
+          "share_frac": 0.12569762612973673,
+          "floor": 2.3457293140351975e-38,
+          "floor_frac": 3.507068024556758e-42,
+          "signed_piece_mass": 7.764195754850526e-10,
+          "ratio_pro_over_budget": 7.793252820043677,
+          "ratio_floor_over_budget": 2.17438217522519e-40,
+          "ratio_signed_over_budget": 7.1970490172476715e-12
+        },
+        {
+          "node": 29,
+          "a": 1.7600000000000002,
+          "theta": -79.33737502024937,
+          "coef": 12943718925820.785,
+          "share": 425.43043643105585,
+          "share_frac": 0.06360552649248237,
+          "floor": 2.3457293140351975e-38,
+          "floor_frac": 3.507068024556758e-42,
+          "signed_piece_mass": 6.156044012742064e-14,
+          "ratio_pro_over_budget": 3.943542642533907,
+          "ratio_floor_over_budget": 2.17438217522519e-40,
+          "ratio_signed_over_budget": 5.706367009662244e-16
+        },
+        {
+          "node": 27,
+          "a": 1.7600000000000002,
+          "theta": -75.70469069908393,
+          "coef": 12972726778994.326,
+          "share": 393.61283270546005,
+          "share_frac": 0.05884851979199056,
+          "floor": 2.3457293140351975e-38,
+          "floor_frac": 3.507068024556758e-42,
+          "signed_piece_mass": 1.1374233532693354e-13,
+          "ratio_pro_over_budget": 3.6486082271034146,
+          "ratio_floor_over_budget": 2.17438217522519e-40,
+          "ratio_signed_over_budget": 1.054338644376338e-15
+        }
+      ],
+      "hall_top3": {
+        "nodes": [
+          0,
+          15,
+          14
+        ],
+        "mandatory_mass": 2.3457293140351975e-38,
+        "ratio_over_budget": 2.17438217522519e-40,
+        "pro_rata_share_frac": 0.5953265644488589,
+        "total_cancellation_frac": 0.9028773783504978
+      }
+    },
+    "corr_D2": {
+      "norm": 1526140.687188009,
+      "anchor_2234": 1526140.6871880104,
+      "reconstruction_rel_err": 9.153703021293729e-16,
+      "triangle_total": 93278201.19924879,
+      "cancellation_factor": 61.12031609033278,
+      "signed_piece_sum_ratio": 1.1906775387961508e-09,
+      "pro_rata_sum": 1526140.687188009,
+      "pro_rata_telescope_rel_err": 0.0,
+      "floor_sum": 24.800026747842544,
+      "floor_le_share": true,
+      "max_share_ratio": 25.849663398139896,
+      "max_floor_ratio": 0.0010068791772288204,
+      "max_signed_ratio": 6.234498131706655e-08,
+      "nodes_over_budget_pro": 4,
+      "nodes_over_budget_floor": 0,
+      "top_nodes": [
+        {
+          "node": 0,
+          "a": 1.6,
+          "theta": -39.25244858548658,
+          "coef": 1.5474860046096554e+17,
+          "share": 636293.9203550959,
+          "share_frac": 0.416930054808708,
+          "floor": 2.634972363603051e-29,
+          "floor_frac": 1.7265592783966202e-35,
+          "signed_piece_mass": 8.242975865954442e-06,
+          "ratio_pro_over_budget": 25.849663398139896,
+          "ratio_floor_over_budget": 1.0704667526059045e-33,
+          "ratio_signed_over_budget": 3.348737819387002e-10
+        },
+        {
+          "node": 15,
+          "a": 1.7600000000000002,
+          "theta": -40.9187190121475,
+          "coef": -6.487269479186266e+16,
+          "share": 386467.1215683839,
+          "share_frac": 0.2532316481781696,
+          "floor": 2.634972363603051e-29,
+          "floor_frac": 1.7265592783966202e-35,
+          "signed_piece_mass": 2.1447535048346266e-07,
+          "ratio_pro_over_budget": 15.700362187046515,
+          "ratio_floor_over_budget": 1.0704667526059045e-33,
+          "ratio_signed_over_budget": 8.713136240719684e-12
+        },
+        {
+          "node": 14,
+          "a": 1.7600000000000002,
+          "theta": -37.58617815882567,
+          "coef": -6.733305319228147e+16,
+          "share": 341477.21500444243,
+          "share_frac": 0.22375212054245888,
+          "floor": 2.634972363603051e-29,
+          "floor_frac": 1.7265592783966202e-35,
+          "signed_piece_mass": 1.7028553380542233e-06,
+          "ratio_pro_over_budget": 13.87263147363245,
+          "ratio_floor_over_budget": 1.0704667526059045e-33,
+          "ratio_signed_over_budget": 6.917909459179208e-11
+        },
+        {
+          "node": 1,
+          "a": 1.8399999999999999,
+          "theta": -39.25244858548658,
+          "coef": -1.6893393365873134e+16,
+          "share": 108795.04987898524,
+          "share_frac": 0.07128769371809725,
+          "floor": 0.015522240556064094,
+          "floor_frac": 1.0170910641708008e-08,
+          "signed_piece_mass": 5.715307639024308e-08,
+          "ratio_pro_over_budget": 4.419837010522029,
+          "ratio_floor_over_budget": 6.305964597858965e-07,
+          "ratio_signed_over_budget": 2.321863748173919e-12
+        },
+        {
+          "node": 16,
+          "a": 1.7600000000000002,
+          "theta": -43.327073280915,
+          "coef": -3637873451265244.0,
+          "share": 22019.016417239436,
+          "share_frac": 0.014427907336518615,
+          "floor": 2.634972363603051e-29,
+          "floor_frac": 1.7265592783966202e-35,
+          "signed_piece_mass": 3.032608855934972e-09,
+          "ratio_pro_over_budget": 0.8945302548641542,
+          "ratio_floor_over_budget": 1.0704667526059045e-33,
+          "ratio_signed_over_budget": 1.232007970473599e-13
+        }
+      ],
+      "hall_top3": {
+        "nodes": [
+          0,
+          15,
+          14
+        ],
+        "mandatory_mass": 214.24802063685704,
+        "ratio_over_budget": 0.008703900886071274,
+        "pro_rata_share_frac": 0.8939138235293365,
+        "total_cancellation_frac": 0.983638828069507
+      }
+    }
+  },
+  "channels": {
+    "a": {
+      "rows": [
+        "base_D2",
+        "corr_M0"
+      ],
+      "raw_product": 6109660.040456859,
+      "diag_product_share": 0.19971536841526247,
+      "max_diag_ratio": 8.116577136736812,
+      "max_diag_floor_ratio": 7.827227207940086e-14,
+      "nodes_over_budget_diag": 3,
+      "nodes_over_budget_diag_floor": 0,
+      "top_nodes": [
+        {
+          "node": 0,
+          "a": 1.6,
+          "theta": -39.25244858548658,
+          "share_l_frac": 0.3204155609665191,
+          "share_r_frac": 0.40857108833480255,
+          "floor_l_frac": 3.507068024556758e-42,
+          "floor_r_frac": 3.022111620777311e-36,
+          "ratio_diag_over_budget": 8.116577136736812,
+          "ratio_diag_floor_over_budget": 6.571225639759093e-76
+        },
+        {
+          "node": 15,
+          "a": 1.7600000000000002,
+          "theta": -40.9187190121475,
+          "share_l_frac": 0.1492133773526031,
+          "share_r_frac": 0.23554146713478613,
+          "floor_l_frac": 3.507068024556758e-42,
+          "floor_r_frac": 3.022111620777311e-36,
+          "ratio_diag_over_budget": 2.179048144701653,
+          "ratio_diag_floor_over_budget": 6.571225639759093e-76
+        },
+        {
+          "node": 14,
+          "a": 1.7600000000000002,
+          "theta": -37.58617815882567,
+          "share_l_frac": 0.12569762612973673,
+          "share_r_frac": 0.24426659090952524,
+          "floor_l_frac": 3.507068024556758e-42,
+          "floor_r_frac": 3.022111620777311e-36,
+          "ratio_diag_over_budget": 1.9036312984481127,
+          "ratio_diag_floor_over_budget": 6.571225639759093e-76
+        },
+        {
+          "node": 1,
+          "a": 1.8399999999999999,
+          "theta": -39.25244858548658,
+          "share_l_frac": 0.03900059473256561,
+          "share_r_frac": 0.07250676278999825,
+          "floor_l_frac": 3.507068024556758e-42,
+          "floor_r_frac": 3.687520783594766e-10,
+          "ratio_diag_over_budget": 0.1753240259984654,
+          "ratio_diag_floor_over_budget": 8.018079462620885e-50
+        },
+        {
+          "node": 12,
+          "a": 1.7600000000000002,
+          "theta": -30.424876125859512,
+          "share_l_frac": 0.004669646149664886,
+          "share_r_frac": 0.0070543946488311,
+          "floor_l_frac": 3.507068024556758e-42,
+          "floor_r_frac": 3.022111620777311e-36,
+          "ratio_diag_over_budget": 0.002042374662228105,
+          "ratio_diag_floor_over_budget": 6.571225639759093e-76
+        }
+      ]
+    },
+    "b": {
+      "rows": [
+        "corr_D2",
+        "base_M0"
+      ],
+      "raw_product": 3057372.2573045553,
+      "diag_product_share": 0.22406435637796265,
+      "max_diag_ratio": 9.09176775377851,
+      "max_diag_floor_ratio": 2.37724561156831e-13,
+      "nodes_over_budget_diag": 3,
+      "nodes_over_budget_diag_floor": 0,
+      "top_nodes": [
+        {
+          "node": 0,
+          "a": 1.6,
+          "theta": -39.25244858548658,
+          "share_l_frac": 0.416930054808708,
+          "share_r_frac": 0.3517170654699025,
+          "floor_l_frac": 1.7265592783966202e-35,
+          "floor_r_frac": 1.3267753876302546e-42,
+          "ratio_diag_over_budget": 9.09176775377851,
+          "ratio_diag_floor_over_budget": 1.4202689406339988e-75
+        },
+        {
+          "node": 15,
+          "a": 1.7600000000000002,
+          "theta": -40.9187190121475,
+          "share_l_frac": 0.2532316481781696,
+          "share_r_frac": 0.1556821806176475,
+          "floor_l_frac": 1.7265592783966202e-35,
+          "floor_r_frac": 1.3267753876302546e-42,
+          "ratio_diag_over_budget": 2.4442666217662588,
+          "ratio_diag_floor_over_budget": 1.4202689406339988e-75
+        },
+        {
+          "node": 14,
+          "a": 1.7600000000000002,
+          "theta": -37.58617815882567,
+          "share_l_frac": 0.22375212054245888,
+          "share_r_frac": 0.15489527954520088,
+          "floor_l_frac": 1.7265592783966202e-35,
+          "floor_r_frac": 1.3267753876302546e-42,
+          "ratio_diag_over_budget": 2.1488051301358504,
+          "ratio_diag_floor_over_budget": 1.4202689406339988e-75
+        },
+        {
+          "node": 1,
+          "a": 1.8399999999999999,
+          "theta": -39.25244858548658,
+          "share_l_frac": 0.07128769371809725,
+          "share_r_frac": 0.04487369280342798,
+          "floor_l_frac": 1.0170910641708008e-08,
+          "floor_r_frac": 1.3267753876302546e-42,
+          "ratio_diag_over_budget": 0.198334408251387,
+          "ratio_diag_floor_over_budget": 8.36659862370699e-49
+        },
+        {
+          "node": 12,
+          "a": 1.7600000000000002,
+          "theta": -30.424876125859512,
+          "share_l_frac": 0.00437045004311992,
+          "share_r_frac": 0.008681465080623589,
+          "floor_l_frac": 1.7265592783966202e-35,
+          "floor_r_frac": 1.3267753876302546e-42,
+          "ratio_diag_over_budget": 0.0023523983850292376,
+          "ratio_diag_floor_over_budget": 1.4202689406339988e-75
+        }
+      ]
+    }
+  },
+  "structural": {
+    "flat_factor_pigeonhole": {
+      "statement": "with one factor held flat at the row norm, any nonneg split of the other row has max_j >= row/N with N=30 nodes, so its ratio over the uniform budget row/62 is at least 62/30 > 1: flat-factor splits CANNOT fit, independent of the cancellation structure",
+      "min_ratio": 2.066666666666667
+    },
+    "free_double_allocation_degenerate": {
+      "statement": "if BOTH factors are allocatable with only the sum constraints, the min-max objective has value 0 (concentrate the left mass on one node set and the right mass on a disjoint one: the diagonal products vanish), so feasibility of a split is NOT a free-allocation question; the binding objects are the mandatory floor and the canonical (fixed-piece) allocations"
+    },
+    "pro_rata_dominates_floor": {
+      "statement": "pointwise max(0, |g_j|-(S-|G|)) <= |g_j|*|G|/S, so the pro-rata allocation is valid (dominates every valid split's floor)",
+      "verified": true
+    },
+    "norms_are_cancelled": {
+      "cancellation_factors": {
+        "base_M0": 19.253924699305877,
+        "corr_M0": 64.55476819282815,
+        "base_D2": 10.296262425954872,
+        "corr_D2": 61.12031609033278
+      }
+    }
+  },
+  "verdict": "SPLIT-STILL-FAILS-CANONICALLY: reconstruction certified (rel err 1.77e-15); cancellation factors 19.3 / 64.6 / 10.3 / 61.1; single-node coalitional floor <= 0.00288 of the uniform budget, top-3 coalition Hall mass <= 0.0087 (dominated by the pro-rata top-3 allocation pointwise) -- no mandatory localization at these coalition levels; the canonical pro-rata two-sided split fails at max diagonal ratio 9.092 (channel a 8.117, channel b 9.092) with 3/30 nodes over in the worse channel, while its total charge is only 0.224 of the screen product (localization, not total).  Flat-factor and any per-factor-bounded split are structurally impossible (30 nodes < 62 budget slots: the all-node Hall condition).  The owner/62 count-side transfer stays withdrawn; the residual obstruction is allocation localization, not mandatory integrand mass, so any revival needs an allocation-design argument (the coalitional Hall LP) tied to the producer's fixed shell pieces.",
+  "nonclaims": [
+    "float64 measurement on the committed grid; the MPFR anchors bound the reconstruction error (see reconstruction_rel_err)",
+    "the coalitional floor is a lower bound valid for pointwise allocations with sum_j a_j >= |G| and a_j <= |g_j|; the producer's fixed shell pieces may impose further structure not modeled here",
+    "the ledger ratios use the diagonal (same-family) pairing; cross-node pairings are not available to the analytic decomposition",
+    "no producer GO, no gate sign change, no RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/routea_weighted_zero_cancellation_split_2258.py",
+    "machinery": "scripts/routea_weighted_zero_direct_product_outward_2234.py (build_construction, grid)",
+    "anchors": "results/2234_sigma_100.json",
+    "predecessor": "scripts/routea_weighted_zero_pernode_charge_2253.py"
+  }
+}

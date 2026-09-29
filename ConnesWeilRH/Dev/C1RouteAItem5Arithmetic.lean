@@ -17,7 +17,14 @@ transfer-free full-tail ledger of records 2253/2255/2256:
 * the record 2249 certified margin lower bound `-q_hi = 1675396046388.2737`
   of the L1 enclosure (`margin2249`);
 * the record 2255 ideal-to-discrete gap charge (`gapCharge2255`) and the
-  certified full-tail slack (`eps0FullTail2249`).
+  certified full-tail slack (`eps0FullTail2249`);
+* the record 2257 count-free assembly: the frozen tail bounds the formal
+  bound shape `4 * mult * B` (`four_mul_multProxy_mul_bUpper_le_highShellTail`,
+  `four_mul_mult_mul_B_le_highShellTail`), and the terminal inequality
+  consumes that shape directly (`a005_item5_terminal_count_free`) with the
+  numeric inputs `mult <= multProxy2248` (record 2240/2248: the proxy is the
+  measured binary64 value of `spectralMultiplicityConstant`) and
+  `B <= bUpper2243` (record 2243 composite-EM screen).
 
 The numeric inputs remain artifact-level facts: the 2249 enclosure is a
 numeric certificate (first-order error shadow, not Lean-formalized), the
@@ -127,6 +134,55 @@ theorem a005_item5_strict_signed_margin_full_tail
     charge + gap + eps0FullTail2249 < -qLo := by
   have h := transfer_free_charge_le_margin_sub_slack
   linarith
+
+/-- Record 2243 composite-EM screen constant `B_upper` of the direct-product
+mass screen (`results/2243_panel_cem_reprice.json`). -/
+def bUpper2243 : Real := 9506275.102584327
+
+/-- Record 2240/2248 binary64 value of `spectralMultiplicityConstant` (the
+multiplicity proxy, measured bitwise in record 2240 after the 2248
+tightening). -/
+def multProxy2248 : Real := 128.70692502980964
+
+/-- The frozen 2248 tail bounds the formal bound shape `4 * mult * B` at the
+frozen screen constant and multiplicity proxy.  The exact rational product
+sits `6.3e-6` below the frozen tail (the tail is the rounded-up bound), so
+this is a strict inequality, not an identity. -/
+theorem four_mul_multProxy_mul_bUpper_le_highShellTail :
+    4 * multProxy2248 * bUpper2243 <= highShellTail2248 := by
+  norm_num [multProxy2248, bUpper2243, highShellTail2248]
+
+/-- Monotonicity of the count-free bound shape: any `mult` at most the 2248
+proxy and any nonnegative `B` at most the 2243 screen constant give
+`4 * mult * B` at most the frozen high-shell tail. -/
+theorem four_mul_mult_mul_B_le_highShellTail
+    {B mult : Real} (hmult : mult <= multProxy2248) (hB : B <= bUpper2243)
+    (hmun : 0 <= mult) (hBnn : 0 <= B) :
+    4 * mult * B <= highShellTail2248 := by
+  have hmul := mul_le_mul hmult hB hBnn (le_trans hmun hmult)
+  have h4 : (4 : Real) * (mult * B) <= 4 * (multProxy2248 * bUpper2243) :=
+    mul_le_mul_of_nonneg_left hmul (by norm_num)
+  have hf := four_mul_multProxy_mul_bUpper_le_highShellTail
+  linarith
+
+/-- Item-5 terminal inequality consuming the formal count-free bound shape
+directly: if the high-shell weighted tsum is bounded by `4 * mult * B` --
+the shape delivered by `exists_weightedZeroMeasure_highShell_tsum_bound`
+with `mult = spectralMultiplicityConstant` -- with any `mult` at most the
+2248 proxy and any nonnegative `B` at most the 2243 screen constant, and
+the L1 margin and 2255 gap bound hold, then the strict signed margin
+follows with the registered slack.  No count factor enters anywhere. -/
+theorem a005_item5_terminal_count_free
+    {qLo charge gap B mult : Real}
+    (hmun : 0 <= mult) (hmult : mult <= multProxy2248)
+    (hBnn : 0 <= B) (hB : B <= bUpper2243)
+    (hmargin : margin2249 <= -qLo)
+    (hcharge : charge <= 4 * mult * B + knownError2109)
+    (hgap : gap <= gapCharge2255) :
+    charge + gap + eps0FullTail2249 < -qLo := by
+  have htail : 4 * mult * B <= highShellTail2248 :=
+    four_mul_mult_mul_B_le_highShellTail hmult hB hmun hBnn
+  exact a005_item5_strict_signed_margin_full_tail hmargin (by linarith) hgap
 
 end C1RouteAItem5Arithmetic
 end Source

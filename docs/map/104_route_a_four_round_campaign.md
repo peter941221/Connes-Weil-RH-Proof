@@ -1476,3 +1476,53 @@ stored-operand residual audit closes convention A operationally: relative
 residuals `2.3301336946878703e-29 / 2.0074563404256314e-29` (backward
 consistency; condition `265373.1999607843`), with the forward amplification
 `cond * u ~ 5.9e-11` explicitly left to convention A.
+
+## 2257 — count-free Lean assembly of the producer gate
+
+The item-5 terminal consumer is repriced in count-free form.
+`ConnesWeilRH/Dev/C1RouteAItem5Arithmetic.lean` freezes the 2243 screen
+constant `bUpper2243 = 9506275.102584327` and the 2240/2248 multiplicity
+proxy `multProxy2248 = 128.70692502980964` and proves, by `norm_num`:
+`4 * multProxy2248 * bUpper2243 <= highShellTail2248` (the exact rational
+product sits `6.32e-6` below the frozen tail — the tail is the rounded-up
+bound, so this is a strict inequality, not an identity), its monotone
+generalization over any `mult <= multProxy2248` and nonnegative
+`B <= bUpper2243`, and the terminal theorem
+`a005_item5_terminal_count_free` consuming the bound shape
+`charge <= 4 * mult * B + knownError2109` directly — the exact shape
+delivered by `exists_weightedZeroMeasure_highShell_tsum_bound`.  No count
+factor enters anywhere; the `owner/62` transfer theorems remain as
+history.  All ten audited theorems are axiom-clean
+(`propext, Classical.choice, Quot.sound`); the numeric tie
+`spectralMultiplicityConstant <= multProxy2248` stays an artifact-level
+fact (the constant is transcendental).
+
+## 2258 — cancellation-aware split recon
+
+Record [2258](../proofs/2258_routea_weighted_zero_cancellation_split.md)
+reconstructs the four 2234 sigma rows as cancelled signed L1 norms
+(relative error `1.77e-15` against the committed MPFR anchors) and prices
+the canonical cancellation-aware splits.  Cancellation factors
+`19.25 / 64.55 / 10.30 / 61.12`; the pro-rata two-sided split fails at max
+diagonal ratio `8.1166` (channel a) / `9.0918` (channel b) with 3/30 nodes
+over budget while its total charge is only `0.1997 / 0.2241` of the screen
+product — localization, not total; node 0 `(1.60, -39.25)` carries
+32.0–41.7% of every row.  Mandatory floors are ~0 (`<= 0.00288` singleton,
+`<= 8.7e-3` top-3 coalition, in budget units): the failure is an
+allocation-design gap, not mandatory integrand mass.  Flat-factor splits
+are structurally impossible (`>= 62/30`) and per-factor-bounded splits die
+on the all-node Hall condition (30 nodes < 62 slots); the coalitional Hall
+LP stays registered open.  The `owner/62` transfer stays withdrawn; the
+count-free assembly of 2257 remains the live route.
+
+## 2259 — rigorous Arb re-certification of the Hardy-Z brackets
+
+Record [2259](../proofs/2259_routea_weighted_zero_brackets_arb.md)
+re-derives the 2251/2254 separation input with certified ball arithmetic
+(python-flint `acb.zeta` / `acb.lgamma`, 200-bit, arb bisection on
+certified signs, IVT): all 72 brackets re-certified (21/24/27), max width
+upper `1.6543612251060554e-26`, min pairwise gap lower `1.383836594509236`,
+min certified endpoint margin `8.656304746693204e-28`; the nonzero kill
+pin at `27.67032193035704` is certified with `|Z| >= 2.8451013491344974`.
+The screening values reproduce 2254 to 15 digits with ball-grade
+enclosures.
