@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1RouteADirectProductDecay
+#print axioms ConnesWeilRH.Dev.stripNorm_nonneg
+#print axioms ConnesWeilRH.Dev.stripSecondNorm_nonneg
+#print axioms ConnesWeilRH.Dev.laplaceAt_eq_integral
+#print axioms ConnesWeilRH.Dev.sq_mul_exp_integral_eq
+#print axioms ConnesWeilRH.Dev.norm_exp_integral_le_stripNorm
+#print axioms ConnesWeilRH.Dev.t_sq_mul_norm_exp_integral_le
+#print axioms ConnesWeilRH.Dev.test_t_sq_mul_norm_le_stripSecond
+#print axioms ConnesWeilRH.Dev.laplaceAt_convolution_quadratic_bound
+#print axioms ConnesWeilRH.Dev.laplaceAt_convolution_spectral_bound_of_strip

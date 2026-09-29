@@ -1608,3 +1608,75 @@ functional-equation mirror pairs, and the kill pin re-certified at
 ball-checked end to end: zeros by certified brackets, non-zero pins by
 certified lower bounds (the mpmath `siegelz` rule remains the
 classifier, not the certificate).
+
+## 2264 — sigma-range audit: frozen constant vs the centered strip
+
+Record [2264](../proofs/2264_routea_weighted_zero_sigma_range_audit.md)
+audits the convention gap between the committed screen and the Lean
+chain: the chain evaluates `laplaceAt F` at
+`centeredXiCoordinate ρ = (ρ.re - 1/2) + i ρ.im`, i.e. at Laplace real
+parts `σ ∈ (-1/2, 1/2)`, while the 2197/2234/2243 envelope tabulates
+`σ ∈ [0, 1]` certified at `σ = 1`.  Raw binary64 re-measurement over
+`σ ∈ [-0.6, 1.1]` (341 points) reproduces the committed 2197 binding row
+at `σ = 1` bitwise (relative deviation `0.0` on all four norms) and
+finds: max min-product over `[0, 1]` = `3057372.2573045553` at
+`σ = 1` (the raw 2197 number, channel b); over the centered strip
+`[-1/2, 1/2]` = `2874525.124523096` at the edge `σ = -1/2` (channel b),
+which is `0.302382` of the frozen `bUpper2243 = 9506275.102584327`,
+margin `3.3071x`; over `[-0.6, 0]` = `2901133.1486646286` at `-0.6`,
+still `0.305181` of frozen.  Verdict: **COVERED at screen grade** — the
+frozen constant dominates the centered strip with the screen's own
+headroom.  The certified envelope on `[-1/2, 1]` (2234-style panel /
+coefficient / Lipschitz re-run) remains the registered numeric obligation
+before the tie holds at certified grade.
+
+## 2265 — Lean brick: the direct-product decay estimate (producer lemma)
+
+Record [2265](../proofs/2265_routea_weighted_zero_direct_product_decay_lean.md)
+lands the 2260 single producer-side lemma.
+`ConnesWeilRH/Dev/C1RouteADirectProductDecay.lean` defines the strip
+functionals `stripNorm σ f = ∫ e^{σx} ‖f‖` and
+`stripSecondNorm σ f = ∫ e^{σx} ‖f''‖`, proves the two-IBP identity
+`s² ∫ e^{sx} f = ∫ e^{sx} f''`, the per-factor bound
+`t² ‖∫ e^{(σ+it)x} f‖ <= D2_f(σ)`, the min-product quadratic bound
+`‖t/2π‖² ‖L(b⋆c)(σ+it)‖ <= min(D2_b·M_c, D2_c·M_b)(σ) / (2π)²`, and the
+producer-shaped corollary `laplaceAt_convolution_spectral_bound_of_strip`:
+a strip-norm envelope `B` on `σ ∈ [-1/2, 1/2]` gives, for every source
+nontrivial zero, `‖ρ.im/2π‖² ‖L(b⋆c)(centeredXiCoordinate ρ)‖ <=
+B / (2π)²` — the exact shape of
+`exists_spectral_laplaceAt_quadratic_bound`.  The earlier convention
+mismatch is resolved at the interface: the hypothesis is stated on
+precisely the strip the chain uses, and the numeric envelope enters only
+through `hB` (screen-grade value by 2264).  All 9 declarations are
+axiom-clean (`[propext, Classical.choice, Quot.sound]`); module + probe
+build `3518 jobs`; log
+`build-logs/routea_direct_product_decay_20260930.log`.
+
+## 2266 — Exact two-end Hall enumeration with certified middle brackets
+
+Record [2266](../proofs/2266_routea_weighted_zero_hall_exact.md) upgrades
+the 2261 Hall screen to exact enumeration at both ends of the curve
+(exhaustive for `k <= 6` and, via complements, for `k >= 24`; fork-
+parallel chunked matmul, `k = 30` reproducing the row norm bitwise) plus
+certified ceilings in the middle, the four-way minimum of trivial
+(`62/k`), mass, cover, and a new complement-m-smallest bound
+`∫ (|G| - L_m)^+` (`L_m` = pointwise sum of the `m = 30 - k` smallest
+family magnitudes; every excluded complement of size `m` dominates it
+pointwise).  Result: `base_M0` is now EXACT —
+`t* = 2.1475067585012337` at `k = 28` (its maximum lies in the
+complement-exact range and every middle ceiling stays below it); the
+other three rows are bracketed to relative width `<= 4.8e-4`:
+`corr_M0 [6.1624990602415091, 6.1654080613840732]` at `k = 8`,
+`base_D2 [2.6403870620083922, 2.64068660502853]` at `k = 17`,
+`corr_D2 [6.0894516916697183, 6.0917247299667272]` at `k = 7` (upper
+ends certified ceilings, binding bound always complement-m-smallest;
+lower ends 1-swap climbs from greedy prefixes).  The best coalitions
+beat the 2261 greedy bounds by `5.6% / 10.8% / 12.5%` on the three open
+rows, so the certified single-factor infeasibility factors rise to
+`2.1475 / 6.1625 / 2.6404 / 6.0895` against the pigeonhole floor
+`62/30`.  All cross-checks green on every row: greedy vs 2261 bitwise
+(`rel 0.0`), `k = 30` vs row norm `rel 0.0`, exact-range monotonicity,
+ceilings `>=` exact, `ub >= lb` throughout.  A direct MILP encoding of
+the exact problem remains unavailable (positive-part epigraph maximizes
+unboundedly; disjunctive form needs one binary per grid node); the
+two-end enumeration + certified ceilings is the sound replacement.

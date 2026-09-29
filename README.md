@@ -591,11 +591,28 @@ the certified lower ratios (rows `10 / 4 / 11 / 4`; channels
 (2262). The Arb census certifies all 18 non-zero pin instances (`15`
 acb with minimum lower bound `9.23e-13`; `3` classical at the pole point
 `s = 1`), completing the 2259 extension to the kill-list non-zero side
-(2263). This is still a `GO-CANDIDATE / PARTIALLY PRICED`, not a
-producer: the remaining obligation is the single producer-side Lean lemma
-named at 2260, and any future consumer wanting the count-side reduction
-back would need an allocation-design argument for the cancellation-aware
-split (the coalitional Hall LP stays registered; 2258/2261).
+(2263). The 2264-2266 batch lands the producer-side lemma and reprices
+the count side. The sigma-range audit shows the Lean chain's centered
+strip `(-1/2, 1/2)` is covered by the frozen constant at screen grade
+(centered max `0.302382` of it, margin `3.31x`, certified-row anchor
+bitwise), with the certified negative-half envelope as the remaining
+numeric obligation (2264). The direct-product decay estimate is now a
+theorem: `C1RouteADirectProductDecay.lean` proves the two-IBP identity,
+the per-factor `t^2` bound, the min-product quadratic bound over
+`(2*pi)^2`, and the chain-shaped corollary with the strip hypothesis on
+`[-1/2, 1/2]` — 9 declarations axiom-clean, build `3518 jobs` (2265).
+The Hall screen is upgraded to exact enumeration at `k <= 6` and
+`k >= 24` (complements) plus certified complement-m-smallest ceilings:
+`base_M0` is now exact (`2.1475067585012337` at `k = 28`) and the other
+rows bracket to `<= 4.8e-4` relative width, with certified single-factor
+infeasibility factors `2.1475 / 6.1625 / 2.6404 / 6.0895` against the
+pigeonhole floor `62/30` (2266). This is still a `GO-CANDIDATE /
+PARTIALLY PRICED`, not a producer: the producer-side lemma landed at
+2265, so the remaining obligation is the certified envelope on the
+centered strip `[-1/2, 1]`, and any future consumer wanting the
+count-side reduction back would need an allocation-design argument for
+the cancellation-aware split (the coalitional Hall LP stays registered;
+2266).
 
 ```mermaid
 flowchart LR
@@ -608,7 +625,7 @@ flowchart LR
     F -->|2197-2200: 0.002203 margin ratio| G[GO-CANDIDATE]
     G --> H[Outward interval enclosure]
     H -->|2229-2231: 30-node MPFR envelope| H2[Interval terminal priced]
-    H2 -->|2234-2263: outward B_zm viable, L1 enclosed, Z=0, counts per node, charge count-free, gaps charged, terminal ledger, count-free Lean assembly, cancellation-split recon, Arb brackets, producer lemma named, Hall screen, directed split cert, census Arb| H3[Low shell + owner transfer]
+    H2 -->|2234-2266: outward B_zm viable, L1 enclosed, Z=0, counts per node, charge count-free, gaps charged, terminal ledger, count-free Lean assembly, cancellation-split recon, Arb brackets, producer lemma named, Hall screen, directed split cert, census Arb, producer lemma landed, sigma audit, exact Hall brackets| H3[Low shell + owner transfer]
     H3 --> J[Same-owner qw >= 0]
     J --> K[SourceRH]
     K --> L[Mathlib RH]

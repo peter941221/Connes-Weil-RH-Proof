@@ -230,10 +230,41 @@ non-zero pin instances certified (15 `acb`, minimum
 `9.227272168362652e-13`; 3 classical at the pole point `s = 1`), and the
 kill pin re-certified at `|xi| >= 3.8781880974656257e-07`.
 
-The open list is now: the single producer-side Lean lemma named at 2260
-(the direct-product decay estimate; the Lean consumer side is priced at
-2257 and the numeric tie is certified at the frozen screen constants),
-and any future consumer wanting the count-side reduction back must supply
-a cancellation-aware split — 2258 prices the canonical forms, 2261
-screens the Hall LP, 2262 ball-certifies every quantity, and the
-coalitional Hall LP stays the registered design question.
+The 2264--2266 batch lands the producer-side lemma and prices the Hall
+curve at both ends.  2264 audits the sigma-convention gap: the Lean chain
+evaluates at `centeredXiCoordinate rho` (Laplace real parts in
+`(-1/2, 1/2)`), while the committed envelope tabulates `sigma in [0, 1]`;
+a raw min-product scan over `[-0.6, 1.1]` reproduces the certified
+`sigma = 1` row bitwise (rel `0.0`) and finds the centered-strip maximum
+`2874525.124523096` at the edge `sigma = -1/2` (channel b) — `0.302382`
+of the frozen `bUpper2243 = 9506275.102584327`, margin `3.3071x`:
+COVERED at screen grade, with the certified negative-half envelope
+remaining as the registered numeric obligation.  2265 lands the 2260
+single producer lemma as
+`ConnesWeilRH/Dev/C1RouteADirectProductDecay.lean`: the two-IBP identity
+`s^2 ∫ e^{sx} f = ∫ e^{sx} f''`, the per-factor bound
+`t^2 ‖∫ e^{(sigma+it)x} f‖ <= D2_f(sigma)`, the min-product quadratic
+bound over `(2 pi)^2`, and the producer corollary with the strip
+hypothesis on `Set.Icc (-(1/2)) (1/2)` and the exact chain-shaped
+conclusion at `centeredXiCoordinate rho` — 9 declarations axiom-clean,
+build `3518 jobs`.  2266 upgrades the 2261 Hall screen to exact
+enumeration at `k <= 6` and `k >= 24` (complements; `k = 30` reproduces
+the row norm bitwise) plus certified middle ceilings, the decisive one
+being the complement-m-smallest bound `∫ (|G| - L_m)^+` (`L_m` = sum of
+the `m = 30 - k` smallest family magnitudes): `base_M0` becomes EXACT
+(`t* = 2.1475067585012337` at `k = 28`) and the other rows bracket to
+relative width `<= 4.8e-4` — `corr_M0 [6.1624990602415091,
+6.1654080613840732]` at `k = 8`, `base_D2 [2.6403870620083922,
+2.64068660502853]` at `k = 17`, `corr_D2 [6.0894516916697183,
+6.0917247299667272]` at `k = 7` — raising the certified single-factor
+infeasibility factors to `2.1475 / 6.1625 / 2.6404 / 6.0895` against the
+pigeonhole floor `62/30`.
+
+The open list is now: the certified envelope of the two product-channel
+strip norms on `[-1/2, 1]` (the producer lemma is landed; its `hB` is
+screen-grade until the negative half is panel/coefficient-certified,
+2264), and any future consumer wanting the count-side reduction back must
+supply a cancellation-aware split — 2258 prices the canonical forms,
+2266 gives the exact/bracketed Hall curve with the complement-cardinality
+ceiling binding (the coalitional Hall LP stays the registered design
+question, now priced at both ends).
