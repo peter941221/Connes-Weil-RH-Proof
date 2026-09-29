@@ -1,0 +1,218 @@
+{
+  "record": 2223,
+  "status": "MPFR-DIRECTED-EXP-RADIUS-BINDING-NODE",
+  "backend": {
+    "library": "libmpfr.so.6",
+    "precision_bits": 256,
+    "exp_sin_cos_rounding": "RNDD/RNDU",
+    "binary64_conversion": "RNDD/RNDU"
+  },
+  "scope": {
+    "node_index": 2,
+    "families": 30,
+    "NSEG": 1100,
+    "panels": 12,
+    "terms": 1944360
+  },
+  "charge": {
+    "gl": 3.519729311380404e-12,
+    "simpson": 3.520126088671097e-12,
+    "total": 7.039855400051501e-12
+  },
+  "max_component_radius": {
+    "real": 5.048709793414477e-29,
+    "imag": 5.048709793414477e-29
+  },
+  "families": [
+    {
+      "family": 0,
+      "gl_charge": 1.599450676989934e-12,
+      "simpson_charge": 1.599848075879897e-12,
+      "total": 3.1992987528698312e-12
+    },
+    {
+      "family": 1,
+      "gl_charge": 2.0486211982326125e-13,
+      "simpson_charge": 2.053208198990923e-13,
+      "total": 4.1018293972235355e-13
+    },
+    {
+      "family": 2,
+      "gl_charge": 6.235256440774893e-25,
+      "simpson_charge": 6.236107359540421e-25,
+      "total": 1.2471363800315313e-24
+    },
+    {
+      "family": 3,
+      "gl_charge": 7.834445550724532e-25,
+      "simpson_charge": 7.834714566504619e-25,
+      "total": 1.566916011722915e-24
+    },
+    {
+      "family": 4,
+      "gl_charge": 4.0354997350852974e-15,
+      "simpson_charge": 4.0451606758206555e-15,
+      "total": 8.080660410905953e-15
+    },
+    {
+      "family": 5,
+      "gl_charge": 5.232491514052274e-21,
+      "simpson_charge": 5.241084545151087e-21,
+      "total": 1.047357605920336e-20
+    },
+    {
+      "family": 6,
+      "gl_charge": 6.95517973094847e-21,
+      "simpson_charge": 6.958931615525674e-21,
+      "total": 1.3914111346474144e-20
+    },
+    {
+      "family": 7,
+      "gl_charge": 2.2309910680263556e-21,
+      "simpson_charge": 2.2246448971124863e-21,
+      "total": 4.455635965138842e-21
+    },
+    {
+      "family": 8,
+      "gl_charge": 9.236303050254073e-17,
+      "simpson_charge": 9.245091612849931e-17,
+      "total": 1.8481394663104005e-16
+    },
+    {
+      "family": 9,
+      "gl_charge": 3.862805411152342e-15,
+      "simpson_charge": 3.869878166644933e-15,
+      "total": 7.732683577797275e-15
+    },
+    {
+      "family": 10,
+      "gl_charge": 1.2894850908589823e-14,
+      "simpson_charge": 1.2829293874051069e-14,
+      "total": 2.572414478264089e-14
+    },
+    {
+      "family": 11,
+      "gl_charge": 2.399313169304629e-14,
+      "simpson_charge": 2.395937300248653e-14,
+      "total": 4.795250469553282e-14
+    },
+    {
+      "family": 12,
+      "gl_charge": 3.6047225344603684e-14,
+      "simpson_charge": 3.593630288765802e-14,
+      "total": 7.198352823226171e-14
+    },
+    {
+      "family": 13,
+      "gl_charge": 4.4654722038441305e-14,
+      "simpson_charge": 4.465447980437588e-14,
+      "total": 8.930920184281719e-14
+    },
+    {
+      "family": 14,
+      "gl_charge": 7.781645776348498e-13,
+      "simpson_charge": 7.776798572020896e-13,
+      "total": 1.5558444348369394e-12
+    },
+    {
+      "family": 15,
+      "gl_charge": 7.476205972949816e-13,
+      "simpson_charge": 7.479733352801462e-13,
+      "total": 1.4955939325751277e-12
+    },
+    {
+      "family": 16,
+      "gl_charge": 4.20913833934754e-14,
+      "simpson_charge": 4.198812417133512e-14,
+      "total": 8.407950756481052e-14
+    },
+    {
+      "family": 17,
+      "gl_charge": 5.394062140239617e-15,
+      "simpson_charge": 5.3812719117920305e-15,
+      "total": 1.0775334052031647e-14
+    },
+    {
+      "family": 18,
+      "gl_charge": 5.0904797207161625e-15,
+      "simpson_charge": 5.070913900281834e-15,
+      "total": 1.0161393620997997e-14
+    },
+    {
+      "family": 19,
+      "gl_charge": 2.5692770956314172e-15,
+      "simpson_charge": 2.5691032409133515e-15,
+      "total": 5.138380336544769e-15
+    },
+    {
+      "family": 20,
+      "gl_charge": 1.9103705236043136e-15,
+      "simpson_charge": 1.913742285559794e-15,
+      "total": 3.824112809164108e-15
+    },
+    {
+      "family": 21,
+      "gl_charge": 2.4636669439414988e-15,
+      "simpson_charge": 2.4703953705695896e-15,
+      "total": 4.9340623145110884e-15
+    },
+    {
+      "family": 22,
+      "gl_charge": 1.8358575932811607e-15,
+      "simpson_charge": 1.828067860178337e-15,
+      "total": 3.663925453459498e-15
+    },
+    {
+      "family": 23,
+      "gl_charge": 7.737170049178025e-16,
+      "simpson_charge": 7.725510047852192e-16,
+      "total": 1.5462680097030216e-15
+    },
+    {
+      "family": 24,
+      "gl_charge": 7.804071512305317e-16,
+      "simpson_charge": 7.809465856324952e-16,
+      "total": 1.561353736863027e-15
+    },
+    {
+      "family": 25,
+      "gl_charge": 4.68655656941704e-16,
+      "simpson_charge": 4.686553640817648e-16,
+      "total": 9.373110210234688e-16
+    },
+    {
+      "family": 26,
+      "gl_charge": 2.4171308152569863e-16,
+      "simpson_charge": 2.42064646572651e-16,
+      "total": 4.837777280983496e-16
+    },
+    {
+      "family": 27,
+      "gl_charge": 2.0179416731287212e-16,
+      "simpson_charge": 2.0183621277523767e-16,
+      "total": 4.036303800881098e-16
+    },
+    {
+      "family": 28,
+      "gl_charge": 1.7851496324006982e-16,
+      "simpson_charge": 1.7870784565274993e-16,
+      "total": 3.572228088928197e-16
+    },
+    {
+      "family": 29,
+      "gl_charge": 5.082761982878636e-17,
+      "simpson_charge": 5.0666256508578776e-17,
+      "total": 1.0149387633736513e-16
+    }
+  ],
+  "nonclaims": [
+    "input exponent construction is not certified",
+    "finite-sum accumulation is not certified",
+    "other nodes and complete-owner transfer remain open",
+    "no RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/routea_weighted_zero_mpfr_exp_binding_2223.py",
+    "target": "2220/2222 implementation-radius route"
+  }
+}

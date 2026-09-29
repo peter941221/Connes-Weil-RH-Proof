@@ -1,0 +1,60 @@
+{
+  "record": 2231,
+  "status": "UNIFORM-CHARGE-PRICED",
+  "scope": {
+    "nodes_present": 30,
+    "missing": [],
+    "nodes_expected": 30,
+    "interval_failures": 0,
+    "source": "results/2229_q_mpfr_all_nodes.json",
+    "operand_cache_md5": "c78a0342fad8ac0166c23d01f653f666"
+  },
+  "uniform_charge": {
+    "value": 8.792971355816406e-09,
+    "worst_node": 2,
+    "min_node_charge": 4.441432860466601e-09,
+    "max_over_min": 1.9797600531312878
+  },
+  "budget": {
+    "target_2211_2217": 6.2550323e-05,
+    "uniform_over_target": 0.00014057435572021598,
+    "impl_2223": 7.039855400051501e-12,
+    "assembled_replay": 8.800011211216458e-09,
+    "assembled_over_target": 0.00014068690278731986,
+    "amp_2217_price": 2.459424789942387e-08,
+    "amp_over_uniform": 2.7970349162067016,
+    "anchor_2197": 1675397327895.099,
+    "uniform_over_anchor": 5.248290187297563e-21
+  },
+  "drift_2228_to_2229": {
+    "2": {
+      "2228": 8.792971355816332e-09,
+      "2229": 8.792971355816406e-09,
+      "relative_increase": 8.43769498715119e-15
+    },
+    "3": {
+      "2228": 8.063938632912915e-09,
+      "2229": 8.06393863291298e-09,
+      "relative_increase": 7.993605777301127e-15
+    },
+    "29": {
+      "2228": 6.475830084303228e-09,
+      "2229": 6.475830084303264e-09,
+      "relative_increase": 5.551115123125783e-15
+    }
+  },
+  "nonclaims": [
+    "binary64 operands are taken as exact (discrete-defined convention; record 2230)",
+    "uniform charge is the exponent-radius charge only; the operand construction ledger (coefficient solve, quadrature generation error), the low-shell/B_zm side, complete-owner transfer, and the strict signed margin remain open",
+    "no producer or RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/routea_weighted_zero_uniform_charge_budget_2231.py",
+    "inputs": [
+      "results/2229_q_mpfr_all_nodes.json",
+      "results/2217_weighted_zero_ieee_radius.json",
+      "results/2223_mpfr_exp_binding.json",
+      "results/2228_q_mpfr_node{2,3,29}.json"
+    ]
+  }
+}

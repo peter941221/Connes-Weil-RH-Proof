@@ -470,9 +470,15 @@ the shell partition, multiplicity-preserving summability, and a high-shell
 budget. The first global coefficient-triangle screen failed, so that shortcut
 is frozen (2196). The owner-local direct-product screen then reduced the
 high-shell budget to `3.691e9`, or `0.002203` of the candidate signed margin
-(2197). Quadrature order, coefficient perturbation, and physical-grid
-controls remain stable through 2200. This is a `GO-CANDIDATE / UNPRICED`, not
-an interval certificate: the remaining gates are outward enclosure, the
+(2197). The numerical terminal now carries directed-MPFR q-interval
+certificates: the corrected complex-weight evaluator was extended to all 30
+owner nodes with outward charge accumulation (2229, binding node 2 at
+`8.792971355816406e-09`, zero interval failures), the discrete-defined
+operand convention and the complete owner-transfer obstruction list are
+recorded (2230), and the uniform charge prices at `1.4069e-04` of the
+`6.2550323e-05` correction target, `2.7956x` below the parameterized
+assembly (2231). This is a `GO-CANDIDATE / PARTIALLY PRICED`, not a
+producer: the remaining gates are the operand construction ledger, the
 low-frequency shell, and complete-owner transfer.
 
 ```mermaid
@@ -485,16 +491,19 @@ flowchart LR
     F -->|2196: triangle bound fails| X[Freeze shortcut]
     F -->|2197-2200: 0.002203 margin ratio| G[GO-CANDIDATE]
     G --> H[Outward interval enclosure]
-    H --> I[Low shell + complete-owner transfer]
+    H -->|2229-2231: 30-node MPFR envelope| H2[Interval terminal priced]
+    H2 --> I[Low shell + complete-owner transfer]
     I --> J[Same-owner qw >= 0]
     J --> K[SourceRH]
     K --> L[Mathlib RH]
 ```
 
 The graph has three open doors after the current candidate: (1) intervalize
-the direct-product functions and solve error, (2) certify the low-frequency
-shell without importing a finite list of numerical zeros, and (3) transfer
-the resulting bound to the complete actual owner. RH is not claimed.
+the direct-product functions and solve error (the q-construction
+exponent channel is now outward-certified through 2229-2231; the operand
+construction ledger remains), (2) certify the low-frequency shell without
+importing a finite list of numerical zeros, and (3) transfer the resulting
+bound to the complete actual owner. RH is not claimed.
 
 An alternative four-point same-owner span has formal finite-prefix and gate
 algebra. Its live analytic obligation is the strict scored cross-determinant

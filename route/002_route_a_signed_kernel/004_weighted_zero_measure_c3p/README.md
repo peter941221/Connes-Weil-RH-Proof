@@ -46,12 +46,15 @@ the finite `q` construction and its exponential propagation; it does not
 replace the actual owner or prove the signed producer margin.
 
 Record 2228 corrected the earlier complex-weight implementation error in
-records 2225--2227. The corrected MPFR runs at nodes 2, 3, and 29 have zero
-interval failures, with charges respectively
-`8.792971355816332e-09`, `8.063938632912915e-09`, and
-`6.475830084303228e-09`. These are a three-node stability certificate only.
+records 2225--2227. Record 2229 then executed the complete 30-node envelope
+with directed MPFR charge accumulation: zero interval failures at every
+node, binding node 2 at `8.792971355816406e-09`, minimum node 1 at
+`4.441432860466601e-09`. Record 2230 fixes the discrete-defined operand
+convention and inventories the owner-transfer ladder; record 2231 prices the
+uniform charge at `1.4068690278731986e-04` of the `6.2550323e-05` candidate
+correction target, a `2.7956` factor below the parameterized 2224 assembly.
 
-The next gates are the complete 30-node envelope, binary64 operand and
-finite-sum accumulation provenance, transfer to the complete actual owner,
-and finally the strict signed margin. Until those gates pass, this branch
-remains a candidate and makes no RH claim.
+The remaining gates are the binary64 operand construction ledger, the
+low-shell/`B_zm` side, transfer to the complete actual owner, and finally
+the strict signed margin. Until those gates pass, this branch remains a
+candidate and makes no RH claim.

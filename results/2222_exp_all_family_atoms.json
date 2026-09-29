@@ -1,0 +1,1164 @@
+{
+  "record": 2222,
+  "status": "ALL-FAMILY-EXP-IMPLEMENTATION-RADIUS-CERTIFICATE",
+  "scope": {
+    "node_index": 2,
+    "families": 30,
+    "points_per_family": 1,
+    "samples": 30
+  },
+  "method": "exact Fraction exp/sin/cos brackets; radius around returned binary64 value",
+  "max_radius_over_ulp_cell": 0.9232114502239269,
+  "max_radius_over_value_abs": 1.6001640668480035e-16,
+  "samples": [
+    {
+      "family": 0,
+      "point": 19200,
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 168557,
+          "denominator_bits": 168654
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 6.2273187837171565e-30,
+        "value_abs": 9.357623235128855e-14,
+        "radius_over_value_abs": 6.654808199949297e-17,
+        "radius_over_ulp_cell": 0.4933790246244738,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 168556,
+          "denominator_bits": 168670
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 115
+        },
+        "radius_float": 3.540176259097088e-35,
+        "value_abs": 2.212383300214029e-19,
+        "radius_over_value_abs": 1.6001640668480035e-16,
+        "radius_over_ulp_cell": 0.7352658427507756,
+        "finite": true
+      }
+    },
+    {
+      "family": 1,
+      "point": 19200,
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 172143,
+          "denominator_bits": 172241
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 3.7946173600144714e-30,
+        "value_abs": 9.357623320995815e-14,
+        "radius_over_value_abs": 4.055108043834636e-17,
+        "radius_over_ulp_cell": 0.30064056087867524,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 172147,
+          "denominator_bits": 172261
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 115
+        },
+        "radius_float": 3.8386727033057884e-35,
+        "value_abs": 2.925876944386799e-19,
+        "radius_over_value_abs": 1.3119733933684938e-16,
+        "radius_over_ulp_cell": 0.7972611287327216,
+        "finite": true
+      }
+    },
+    {
+      "family": 2,
+      "point": 19200,
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 176715,
+          "denominator_bits": 176813
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 2.2101467200860316e-30,
+        "value_abs": 9.357623418912283e-14,
+        "radius_over_value_abs": 2.361867560965534e-17,
+        "radius_over_ulp_cell": 0.1751058635193444,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 0,
+          "numerator_bits": 0,
+          "denominator_bits": 1
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 1075
+        },
+        "radius_float": 0.0,
+        "value_abs": 0.0,
+        "radius_over_value_abs": 0.0,
+        "radius_over_ulp_cell": 0.0,
+        "finite": true
+      }
+    },
+    {
+      "family": 3,
+      "point": 19200,
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 172092,
+          "denominator_bits": 172190
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 1.773461674631636e-30,
+        "value_abs": 9.357623528767184e-14,
+        "radius_over_value_abs": 1.8952051973235128e-17,
+        "radius_over_ulp_cell": 0.14050810977053463,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 0,
+          "numerator_bits": 0,
+          "denominator_bits": 1
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 1075
+        },
+        "radius_float": 0.0,
+        "value_abs": 0.0,
+        "radius_over_value_abs": 0.0,
+        "radius_over_ulp_cell": 0.0,
+        "finite": true
+      }
+    },
+    {
+      "family": 4,
+      "point": 19200,
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 178333,
+          "denominator_bits": 178430
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 5.55617243263185e-30,
+        "value_abs": 9.357623650434832e-14,
+        "radius_over_value_abs": 5.937589114703992e-17,
+        "radius_over_ulp_cell": 0.4402053324498316,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 176111,
+          "denominator_bits": 176225
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 114
+        },
+        "radius_float": 5.498406353745537e-35,
+        "value_abs": 5.663701495794627e-19,
+        "radius_over_value_abs": 9.708149975467769e-17,
+        "radius_over_ulp_cell": 0.5709871607500178,
+        "finite": true
+      }
+    },
+    {
+      "family": 5,
+      "point": 19200,
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 176896,
+          "denominator_bits": 176992
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 1.1652566725344801e-29,
+        "value_abs": 9.357623262444327e-14,
+        "radius_over_value_abs": 1.2452485421283146e-16,
+        "radius_over_ulp_cell": 0.9232114502239269,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 176896,
+          "denominator_bits": 177013
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 116
+        },
+        "radius_float": 6.138068407347122e-36,
+        "value_abs": 1.219576297116323e-19,
+        "radius_over_value_abs": 5.0329515437947826e-17,
+        "radius_over_ulp_cell": 0.25496538647152267,
+        "finite": true
+      }
+    },
+    {
+      "family": 6,
+      "point": 19200,
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 173619,
+          "denominator_bits": 173716
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 4.749509468813536e-30,
+        "value_abs": 9.357623384941184e-14,
+        "radius_over_value_abs": 5.075550995626426e-17,
+        "radius_over_ulp_cell": 0.3762949080581961,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 173623,
+          "denominator_bits": 173740
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 116
+        },
+        "radius_float": 8.305270075079836e-36,
+        "value_abs": 1.7284244809624364e-19,
+        "radius_over_value_abs": 4.805110183613705e-17,
+        "radius_over_ulp_cell": 0.34498742176096275,
+        "finite": true
+      }
+    },
+    {
+      "family": 7,
+      "point": 19200,
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 172126,
+          "denominator_bits": 172225
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 1.5801083194451646e-30,
+        "value_abs": 9.357623528738282e-14,
+        "radius_over_value_abs": 1.6885786381472602e-17,
+        "radius_over_ulp_cell": 0.1251890787231426,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 174075,
+          "denominator_bits": 174191
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 115
+        },
+        "radius_float": 1.9469958442759996e-35,
+        "value_abs": 2.325768018270988e-19,
+        "radius_over_value_abs": 8.371410342650711e-17,
+        "radius_over_ulp_cell": 0.4043752162325855,
+        "finite": true
+      }
+    },
+    {
+      "family": 8,
+      "point": 19200,
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 151990,
+          "denominator_bits": 152089
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 1.4827395544065967e-30,
+        "value_abs": 9.357623291063428e-14,
+        "radius_over_value_abs": 1.584525801356654e-17,
+        "radius_over_ulp_cell": 0.11747473038285373,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 150191,
+          "denominator_bits": 150307
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 116
+        },
+        "radius_float": 7.400683346742443e-36,
+        "value_abs": 1.8204800552166806e-19,
+        "radius_over_value_abs": 4.065237257357145e-17,
+        "radius_over_ulp_cell": 0.3074123591384144,
+        "finite": true
+      }
+    },
+    {
+      "family": 9,
+      "point": 19200,
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 150175,
+          "denominator_bits": 150272
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 5.883832104840069e-30,
+        "value_abs": 9.357623291058564e-14,
+        "radius_over_value_abs": 6.287742006522332e-17,
+        "radius_over_ulp_cell": 0.466165206208915,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 151974,
+          "denominator_bits": 152091
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 116
+        },
+        "radius_float": 7.917350534253743e-36,
+        "value_abs": 2.0553345680235318e-19,
+        "radius_over_value_abs": 3.852098172935072e-17,
+        "radius_over_ulp_cell": 0.328873874455398,
+        "finite": true
+      }
+    },
+    {
+      "family": 10,
+      "point": 19200,
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 151996,
+          "denominator_bits": 152093
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 1.0187395259070894e-29,
+        "value_abs": 9.357623291055479e-14,
+        "radius_over_value_abs": 1.088673367393252e-16,
+        "radius_over_ulp_cell": 0.8071286071827148,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 150197,
+          "denominator_bits": 150313
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 115
+        },
+        "radius_float": 8.964113185943256e-36,
+        "value_abs": 2.1913515735921444e-19,
+        "radius_over_value_abs": 4.0906777780294516e-17,
+        "radius_over_ulp_cell": 0.18617734693969518,
+        "finite": true
+      }
+    },
+    {
+      "family": 11,
+      "point": 19200,
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 151991,
+          "denominator_bits": 152090
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 2.2389275458844592e-30,
+        "value_abs": 9.357623291053311e-14,
+        "radius_over_value_abs": 2.3926241485111562e-17,
+        "radius_over_ulp_cell": 0.17738611546299696,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 150198,
+          "denominator_bits": 150312
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 115
+        },
+        "radius_float": 3.117708504218439e-35,
+        "value_abs": 2.2820381836728003e-19,
+        "radius_over_value_abs": 1.3661947142359723e-16,
+        "radius_over_ulp_cell": 0.6475227228912287,
+        "finite": true
+      }
+    },
+    {
+      "family": 12,
+      "point": 19200,
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 151972,
+          "denominator_bits": 152070
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 4.572935527331935e-30,
+        "value_abs": 9.357623291050973e-14,
+        "radius_over_value_abs": 4.8868557593093057e-17,
+        "radius_over_ulp_cell": 0.3623052791267076,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 150175,
+          "denominator_bits": 150290
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 115
+        },
+        "radius_float": 1.7381873689388761e-35,
+        "value_abs": 2.3759673172795953e-19,
+        "radius_over_value_abs": 7.315704034721504e-17,
+        "radius_over_ulp_cell": 0.36100739261144976,
+        "finite": true
+      }
+    },
+    {
+      "family": 13,
+      "point": 19200,
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 151994,
+          "denominator_bits": 152092
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 3.588203293229904e-30,
+        "value_abs": 9.35762329104876e-14,
+        "radius_over_value_abs": 3.834524196611204e-17,
+        "radius_over_ulp_cell": 0.2842867536502373,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 151992,
+          "denominator_bits": 152107
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 115
+        },
+        "radius_float": 2.6729265458356887e-35,
+        "value_abs": 2.4615635803742344e-19,
+        "radius_over_value_abs": 1.0858653285036499e-16,
+        "radius_over_ulp_cell": 0.5551451242814798,
+        "finite": true
+      }
+    },
+    {
+      "family": 14,
+      "point": 19200,
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 151996,
+          "denominator_bits": 152094
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 2.8609373408325582e-30,
+        "value_abs": 9.357623291044454e-14,
+        "radius_over_value_abs": 3.05733331194318e-17,
+        "radius_over_ulp_cell": 0.22666680858260918,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 151990,
+          "denominator_bits": 152107
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 115
+        },
+        "radius_float": 7.368743068272373e-36,
+        "value_abs": 2.6201646892358468e-19,
+        "radius_over_value_abs": 2.812320576086161e-17,
+        "radius_over_ulp_cell": 0.15304280593896372,
+        "finite": true
+      }
+    },
+    {
+      "family": 15,
+      "point": 19200,
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 150197,
+          "denominator_bits": 150295
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 1.751325938603606e-30,
+        "value_abs": 9.357623291041203e-14,
+        "radius_over_value_abs": 1.871549948244112e-17,
+        "radius_over_ulp_cell": 0.138754336079133,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 150193,
+          "denominator_bits": 150309
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 115
+        },
+        "radius_float": 1.4563109104008352e-35,
+        "value_abs": 2.7338029235361723e-19,
+        "radius_over_value_abs": 5.3270515510207223e-17,
+        "radius_over_ulp_cell": 0.30246394260497006,
+        "finite": true
+      }
+    },
+    {
+      "family": 16,
+      "point": 19200,
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 151993,
+          "denominator_bits": 152091
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 3.463083664438863e-30,
+        "value_abs": 9.357623291038768e-14,
+        "radius_over_value_abs": 3.7008154279465914e-17,
+        "radius_over_ulp_cell": 0.2743737553666563,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 151989,
+          "denominator_bits": 152112
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 115
+        },
+        "radius_float": 8.077401455945621e-38,
+        "value_abs": 2.815926785993705e-19,
+        "radius_over_value_abs": 2.868469981578448e-19,
+        "radius_over_ulp_cell": 0.0016776106481932436,
+        "finite": true
+      }
+    },
+    {
+      "family": 17,
+      "point": 19200,
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 151992,
+          "denominator_bits": 152091
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 2.809062435692301e-30,
+        "value_abs": 9.357623291033832e-14,
+        "radius_over_value_abs": 3.00189732833534e-17,
+        "radius_over_ulp_cell": 0.22255685516774484,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 151996,
+          "denominator_bits": 152110
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 115
+        },
+        "radius_float": 4.3067463548978905e-35,
+        "value_abs": 2.9754472545521893e-19,
+        "radius_over_value_abs": 1.4474282305992563e-16,
+        "radius_over_ulp_cell": 0.8944762227617055,
+        "finite": true
+      }
+    },
+    {
+      "family": 18,
+      "point": 19200,
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 150188,
+          "denominator_bits": 150292
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 5.033753531200486e-32,
+        "value_abs": 9.357623291031894e-14,
+        "radius_over_value_abs": 5.379307730868698e-19,
+        "radius_over_ulp_cell": 0.003988150428267041,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 151994,
+          "denominator_bits": 152112
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 115
+        },
+        "radius_float": 4.9052799213925765e-36,
+        "value_abs": 3.035758549300689e-19,
+        "radius_over_value_abs": 1.615833354903191e-17,
+        "radius_over_ulp_cell": 0.10187867810432256,
+        "finite": true
+      }
+    },
+    {
+      "family": 19,
+      "point": 19200,
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 150193,
+          "denominator_bits": 150292
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 1.5874501576580303e-30,
+        "value_abs": 9.357623291028294e-14,
+        "radius_over_value_abs": 1.6964245175161223e-17,
+        "radius_over_ulp_cell": 0.12577075907422497,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 151987,
+          "denominator_bits": 152105
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 115
+        },
+        "radius_float": 3.738714333137422e-36,
+        "value_abs": 3.144757472918575e-19,
+        "radius_over_value_abs": 1.1888720721180479e-17,
+        "radius_over_ulp_cell": 0.07765005874763428,
+        "finite": true
+      }
+    },
+    {
+      "family": 20,
+      "point": 19200,
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 151973,
+          "denominator_bits": 152072
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 2.896349405652742e-30,
+        "value_abs": 9.357623291024237e-14,
+        "radius_over_value_abs": 3.0951763237048656e-17,
+        "radius_over_ulp_cell": 0.22947244140914838,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 150176,
+          "denominator_bits": 150291
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 115
+        },
+        "radius_float": 1.7319650596616625e-35,
+        "value_abs": 3.263285087585501e-19,
+        "radius_over_value_abs": 5.3074279849179235e-17,
+        "radius_over_ulp_cell": 0.35971506953493343,
+        "finite": true
+      }
+    },
+    {
+      "family": 21,
+      "point": 19200,
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 151975,
+          "denominator_bits": 152072
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 7.858816999980458e-30,
+        "value_abs": 9.357623291020735e-14,
+        "radius_over_value_abs": 8.398304521962877e-17,
+        "radius_over_ulp_cell": 0.622639630444315,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 150176,
+          "denominator_bits": 150291
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 115
+        },
+        "radius_float": 2.235931838686732e-35,
+        "value_abs": 3.3622010153218583e-19,
+        "radius_over_value_abs": 6.650202734748415e-17,
+        "radius_over_ulp_cell": 0.4643848744764448,
+        "finite": true
+      }
+    },
+    {
+      "family": 22,
+      "point": 19200,
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 151997,
+          "denominator_bits": 152094
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 8.976810239582152e-30,
+        "value_abs": 9.357623291018903e-14,
+        "radius_over_value_abs": 9.593045114562114e-17,
+        "radius_over_ulp_cell": 0.711216180521327,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 151991,
+          "denominator_bits": 152106
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 115
+        },
+        "radius_float": 1.996444535066708e-35,
+        "value_abs": 3.412829834865682e-19,
+        "radius_over_value_abs": 5.849821502000792e-17,
+        "radius_over_ulp_cell": 0.4146453075066357,
+        "finite": true
+      }
+    },
+    {
+      "family": 23,
+      "point": 19200,
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 151975,
+          "denominator_bits": 152072
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 1.0632417483486785e-29,
+        "value_abs": 9.357623291013465e-14,
+        "radius_over_value_abs": 1.1362305526551343e-16,
+        "radius_over_ulp_cell": 0.8423869003011965,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 151971,
+          "denominator_bits": 152090
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 115
+        },
+        "radius_float": 2.105969699352713e-36,
+        "value_abs": 3.5588021295653146e-19,
+        "radius_over_value_abs": 5.917636391911297e-18,
+        "radius_over_ulp_cell": 0.04373927941647451,
+        "finite": true
+      }
+    },
+    {
+      "family": 24,
+      "point": 19200,
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 151993,
+          "denominator_bits": 152091
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 2.393347298587718e-30,
+        "value_abs": 9.357623291010889e-14,
+        "radius_over_value_abs": 2.557644419055438e-17,
+        "radius_over_ulp_cell": 0.18962050872558325,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 151995,
+          "denominator_bits": 152111
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 115
+        },
+        "radius_float": 1.305560403392253e-35,
+        "value_abs": 3.62588508493925e-19,
+        "radius_over_value_abs": 3.6006667966812497e-17,
+        "radius_over_ulp_cell": 0.2711542872464423,
+        "finite": true
+      }
+    },
+    {
+      "family": 25,
+      "point": 19200,
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 151995,
+          "denominator_bits": 152093
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 3.094699919205511e-30,
+        "value_abs": 9.357623291007592e-14,
+        "radius_over_value_abs": 3.307143088544106e-17,
+        "radius_over_ulp_cell": 0.24518738813169494,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 151995,
+          "denominator_bits": 152110
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 115
+        },
+        "radius_float": 2.008713278660635e-35,
+        "value_abs": 3.709994801507748e-19,
+        "radius_over_value_abs": 5.414329092440481e-17,
+        "radius_over_ulp_cell": 0.41719342585947233,
+        "finite": true
+      }
+    },
+    {
+      "family": 26,
+      "point": 19200,
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 150196,
+          "denominator_bits": 150293
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 5.750252578872484e-30,
+        "value_abs": 9.357623291004144e-14,
+        "radius_over_value_abs": 6.144992590587004e-17,
+        "radius_over_ulp_cell": 0.45558194581697675,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 150199,
+          "denominator_bits": 150313
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 115
+        },
+        "radius_float": 4.1587979727751855e-35,
+        "value_abs": 3.795951514232114e-19,
+        "radius_over_value_abs": 1.095587748469035e-16,
+        "radius_over_ulp_cell": 0.8637485459728642,
+        "finite": true
+      }
+    },
+    {
+      "family": 27,
+      "point": 19200,
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 151994,
+          "denominator_bits": 152092
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 2.0967529749601315e-30,
+        "value_abs": 9.357623290999031e-14,
+        "radius_over_value_abs": 2.2406896599235506e-17,
+        "radius_over_ulp_cell": 0.16612188545240852,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 150196,
+          "denominator_bits": 150311
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 115
+        },
+        "radius_float": 2.483672307360365e-35,
+        "value_abs": 3.919989852640191e-19,
+        "radius_over_value_abs": 6.335915144493454e-17,
+        "radius_over_ulp_cell": 0.5158385567654868,
+        "finite": true
+      }
+    },
+    {
+      "family": 28,
+      "point": 19200,
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 151994,
+          "denominator_bits": 152092
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 3.218137810525613e-30,
+        "value_abs": 9.357623290996961e-14,
+        "radius_over_value_abs": 3.4390546728054414e-17,
+        "radius_over_ulp_cell": 0.2549671454456221,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 150194,
+          "denominator_bits": 150311
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 115
+        },
+        "radius_float": 6.958658230209146e-36,
+        "value_abs": 3.9690983373412414e-19,
+        "radius_over_value_abs": 1.753208824468306e-17,
+        "radius_over_ulp_cell": 0.1445256770733299,
+        "finite": true
+      }
+    },
+    {
+      "family": 29,
+      "point": 19200,
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 151995,
+          "denominator_bits": 152092
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 4.938447834249172e-30,
+        "value_abs": 9.35762329099376e-14,
+        "radius_over_value_abs": 5.2774595436024645e-17,
+        "radius_over_ulp_cell": 0.39126414758011013,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 150197,
+          "denominator_bits": 150312
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 115
+        },
+        "radius_float": 2.4012440268124104e-35,
+        "value_abs": 4.0438628523107534e-19,
+        "radius_over_value_abs": 5.937995709820589e-17,
+        "radius_over_ulp_cell": 0.4987188726797439,
+        "finite": true
+      }
+    }
+  ],
+  "nonclaims": [
+    "central GL atom only; complete quadrature terms remain open",
+    "input exponent construction and finite summation are not certified",
+    "no complete-owner transfer and no RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/routea_weighted_zero_exp_all_family_atoms_2222.py",
+    "extends": "2220 three-family atom certificate"
+  }
+}

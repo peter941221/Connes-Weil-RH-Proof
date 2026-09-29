@@ -1,0 +1,32 @@
+{
+  "record": 2211,
+  "status": "VECTOR-SPLIT-TRANSCENDENTAL-ALLOWANCE-PRICE",
+  "node": 2,
+  "rhs": "correction",
+  "NSEG": 1100,
+  "unit_roundoff": 1.1102230246251565e-16,
+  "term_count": 1944360,
+  "absolute_sums": {
+    "gl": 61039.20949298669,
+    "simpson": 61039.20949298469
+  },
+  "allowances": {
+    "exp_argument_smear": 2.4377393064914967e-08,
+    "exp_term_operation": 2.1685483450889965e-10,
+    "total": 2.459424789942387e-08
+  },
+  "reference": {
+    "vector_bound_2209": 4.934893138128475e-05,
+    "rounding_allowance_2210": 1.3176797747730188e-05,
+    "combined_with_transcendental": 6.255032337691436e-05
+  },
+  "nonclaims": [
+    "AMP is a forward-error price, not an interval proof of exp",
+    "stored float sums and coefficients are not outward intervals",
+    "no complete-owner transfer and no RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/routea_weighted_zero_transcendental_allowance_2211.py",
+    "parent": "scripts/routea_weighted_zero_vector_split_full_refinement_2206.py"
+  }
+}

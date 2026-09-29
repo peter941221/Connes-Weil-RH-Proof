@@ -1,0 +1,146 @@
+{
+  "record": 2220,
+  "status": "EXP-IMPLEMENTATION-RADIUS-CERTIFICATE",
+  "scope": {
+    "node_index": 2,
+    "families_selected": [
+      0,
+      15,
+      29
+    ],
+    "samples_per_family": 1,
+    "samples": 3
+  },
+  "method": "exact Fraction exp/sin/cos brackets; radius around returned binary64 value",
+  "samples": [
+    {
+      "family": 0,
+      "point": 19200,
+      "q_real": "-2111062323327249/70368744177664",
+      "q_imag": "-5582445713859697/2361183241434822606848",
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 168557,
+          "denominator_bits": 168654
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 6.2273187837171565e-30,
+        "value_abs": 9.357623235128855e-14,
+        "radius_over_value_abs": 6.654808199949297e-17,
+        "radius_over_ulp_cell": 0.4933790246244738,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 168556,
+          "denominator_bits": 168670
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 115
+        },
+        "radius_float": 3.540176259097088e-35,
+        "value_abs": 2.212383300214029e-19,
+        "radius_over_value_abs": 1.6001640668480035e-16,
+        "radius_over_ulp_cell": 0.7352658427507756,
+        "finite": true
+      }
+    },
+    {
+      "family": 15,
+      "point": 19200,
+      "q_real": "-32985348795417/1099511627776",
+      "q_imag": "-6898129415618455/2361183241434822606848",
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 150197,
+          "denominator_bits": 150295
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 1.751325938603606e-30,
+        "value_abs": 9.357623291041203e-14,
+        "radius_over_value_abs": 1.871549948244112e-17,
+        "radius_over_ulp_cell": 0.138754336079133,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 150193,
+          "denominator_bits": 150309
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 115
+        },
+        "radius_float": 1.4563109104008352e-35,
+        "value_abs": 2.7338029235361723e-19,
+        "radius_over_value_abs": 5.3270515510207223e-17,
+        "radius_over_ulp_cell": 0.30246394260497006,
+        "finite": true
+      }
+    },
+    {
+      "family": 29,
+      "point": 19200,
+      "q_real": "-32985348795417/1099511627776",
+      "q_imag": "-5101883726537321/1180591620717411303424",
+      "real": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 151995,
+          "denominator_bits": 152092
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 97
+        },
+        "radius_float": 4.938447834249172e-30,
+        "value_abs": 9.35762329099376e-14,
+        "radius_over_value_abs": 5.2774595436024645e-17,
+        "radius_over_ulp_cell": 0.39126414758011013,
+        "finite": true
+      },
+      "imag": {
+        "radius": {
+          "sign": 1,
+          "numerator_bits": 150197,
+          "denominator_bits": 150312
+        },
+        "ulp_cell": {
+          "sign": 1,
+          "numerator_bits": 1,
+          "denominator_bits": 115
+        },
+        "radius_float": 2.4012440268124104e-35,
+        "value_abs": 4.0438628523107534e-19,
+        "radius_over_value_abs": 5.937995709820589e-17,
+        "radius_over_ulp_cell": 0.4987188726797439,
+        "finite": true
+      }
+    }
+  ],
+  "nonclaims": [
+    "atomic samples do not certify every quadrature term",
+    "input exponent construction and summation are not certified",
+    "no complete-owner transfer and no RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/routea_weighted_zero_exp_implementation_radius_2220.py",
+    "replaces": "2219 rounding-cell-only assumption"
+  }
+}

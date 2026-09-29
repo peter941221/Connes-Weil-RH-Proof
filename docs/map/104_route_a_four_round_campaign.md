@@ -1033,6 +1033,50 @@ project-root axioms outside the allowed library trio and does not instantiate
 the selected-owner signed margin. Only the axiom-clean conditional exits are
 admissible for the final GO.
 
+## 2229 — all-30-node outward q-interval envelope
+
+Record [2229](../proofs/2229_routea_weighted_zero_all_node_outward_envelope.md)
+extends the corrected 2225/2228 evaluator to every owner node and upgrades
+the charge accumulation to directed MPFR arithmetic (`mpfr_exp`/`mpfr_mul`/
+`mpfr_add` RNDU, 256-bit). The binding node stays node 2 and is now
+outward-certified at `8.792971355816406e-09`; the minimum over the 30 nodes
+is `4.441432860466601e-09` at node 1 (`max/min = 1.9798`); interval failures
+are zero at every node. The three 2228 control nodes drift outward by
+`+8.4e-15`, `+8.0e-15`, `+5.6e-15` relative, i.e. at the binary64 rounding
+level. The node-independent operands are pinned in
+`results/2229_operand_cache.npz` (md5 `c78a0342fad8ac0166c23d01f653f666`,
+same call chain as 2225). Ladder item 1 of the q-construction terminal is
+executed; items 2 and 4 remain open.
+
+## 2230 — operand provenance convention and transfer preflight
+
+Record [2230](../proofs/2230_routea_weighted_zero_operand_provenance_and_owner_transfer_preflight.md)
+fixes the discrete-defined operand convention: the stored binary64 tuple
+`(K, a, theta, node, x, c, w)` is exact, and every interval artifact
+2217--2229 bounds the finite sum for exactly that tuple. The
+ideal-to-stored-tuple gap is item 2a of the acceptance ladder (coefficient
+solve, quadrature generation error; interfaces 2199/2200/2201). The record
+also inventories the complete-owner transfer obstructions with their
+numbers: the 2119 cardinality bridge (`3002.5554464806` bound vs `62`-node
+family, `48.43x`), the 2157 near-pin derivative floor, the 2134 evaluator
+horizon, and the 2197 direct-product screen
+(`3.691230708643563e9 = 0.0022031972041408675 x` the `1.675397327895099e12`
+anchor). Convention choice, drift control, and ladder status are recorded;
+no numeric claim is added.
+
+## 2231 — uniform charge vs candidate budget
+
+Record [2231](../proofs/2231_routea_weighted_zero_uniform_charge_vs_budget.md)
+prices one uniform charge against the candidate budget chain. The maximum
+over the 30 nodes, `8.792971355816406e-09`, consumes
+`1.4057435572021598e-04` of the `6.2550323e-05` combined-correction target;
+assembled with the certified 2223 implementation price it reads
+`1.4068690278731986e-04`, a `2.7956` factor below the parameterized 2224
+assembly (`3.933039283398092e-04`). The outward charge is `2.797 x` tighter
+than the 2217 parameterized AMP price it replaces. The Simpson fourth-order
+remainder of the combined price, the operand construction ledger, the
+low-shell side, and complete-owner transfer remain open.
+
 ## 2178 algebraic infinity remainder
 
 Record [2178](../proofs/2178_routea_infinity_algebraic_remainder.md) replaces

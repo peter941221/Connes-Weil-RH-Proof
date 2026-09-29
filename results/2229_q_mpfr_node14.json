@@ -1,0 +1,228 @@
+{
+  "record": 2229,
+  "status": "MPFR-Q-INTERVAL-NODE-OUTWARD",
+  "backend": {
+    "library": "libmpfr.so.6",
+    "precision_bits": 256,
+    "rounding": "RNDD/RNDU; charge accumulation RNDU",
+    "charge_backend": "mpfr_exp/mpfr_mul/mpfr_add RNDU"
+  },
+  "scope": {
+    "node_index": 14,
+    "families": 30,
+    "NSEG": 1100,
+    "panels": 12,
+    "terms": 1944360,
+    "smoke_families": null
+  },
+  "q_interval": {
+    "operation": "directed MPFR scalar interval (2225)",
+    "failures": 0,
+    "max_real_radius": 36.099947214126594,
+    "max_imag_radius": 2.842170943040401e-13,
+    "max_delta": 36.099947214126885
+  },
+  "exp_lipschitz_charge": 4.55620086771217e-09,
+  "rows": [
+    {
+      "family": 0,
+      "gl": 1.0524886342359862e-09,
+      "simpson": 1.0535654835733491e-09,
+      "total": 2.1060541178093357e-09
+    },
+    {
+      "family": 1,
+      "gl": 1.3710829364615898e-10,
+      "simpson": 1.3718003359927589e-10,
+      "total": 2.7428832724543494e-10
+    },
+    {
+      "family": 2,
+      "gl": 8.275855875417584e-22,
+      "simpson": 8.275872431672384e-22,
+      "total": 1.6551728307089969e-21
+    },
+    {
+      "family": 3,
+      "gl": 6.401235631569647e-22,
+      "simpson": 6.413087007084512e-22,
+      "total": 1.281432263865416e-21
+    },
+    {
+      "family": 4,
+      "gl": 6.476353890897819e-13,
+      "simpson": 6.484065482032129e-13,
+      "total": 1.2960419372929951e-12
+    },
+    {
+      "family": 5,
+      "gl": 1.3123424547277678e-18,
+      "simpson": 1.3135336564339525e-18,
+      "total": 2.6258761111617207e-18
+    },
+    {
+      "family": 6,
+      "gl": 1.922978690755752e-18,
+      "simpson": 1.925150564319007e-18,
+      "total": 3.8481292550747595e-18
+    },
+    {
+      "family": 7,
+      "gl": 7.218622330993765e-19,
+      "simpson": 7.224374165361982e-19,
+      "total": 1.4442996496355748e-18
+    },
+    {
+      "family": 8,
+      "gl": 2.104913247911798e-14,
+      "simpson": 2.1078996897877965e-14,
+      "total": 4.212812937699595e-14
+    },
+    {
+      "family": 9,
+      "gl": 9.439214572580112e-13,
+      "simpson": 9.451303603999753e-13,
+      "total": 1.889051817657987e-12
+    },
+    {
+      "family": 10,
+      "gl": 3.77463584365143e-12,
+      "simpson": 3.779238716126181e-12,
+      "total": 7.553874559777614e-12
+    },
+    {
+      "family": 11,
+      "gl": 8.507676822031676e-12,
+      "simpson": 8.515969426499564e-12,
+      "total": 1.7023646248531243e-11
+    },
+    {
+      "family": 12,
+      "gl": 1.5575833361873664e-11,
+      "simpson": 1.5593755901695857e-11,
+      "total": 3.1169589263569524e-11
+    },
+    {
+      "family": 13,
+      "gl": 2.445844840805441e-11,
+      "simpson": 2.4486513128029423e-11,
+      "total": 4.894496153608384e-11
+    },
+    {
+      "family": 14,
+      "gl": 5.003415996388076e-10,
+      "simpson": 5.009578524173712e-10,
+      "total": 1.001299452056179e-09
+    },
+    {
+      "family": 15,
+      "gl": 5.008240419190556e-10,
+      "simpson": 5.013949474652848e-10,
+      "total": 1.0022189893843406e-09
+    },
+    {
+      "family": 16,
+      "gl": 2.6134832386143467e-11,
+      "simpson": 2.6161441195863624e-11,
+      "total": 5.2296273582007094e-11
+    },
+    {
+      "family": 17,
+      "gl": 1.3302896975086415e-12,
+      "simpson": 1.3319420668115663e-12,
+      "total": 2.662231764320208e-12
+    },
+    {
+      "family": 18,
+      "gl": 1.6736685740103114e-12,
+      "simpson": 1.6757881001874372e-12,
+      "total": 3.349456674197749e-12
+    },
+    {
+      "family": 19,
+      "gl": 7.947888652774764e-13,
+      "simpson": 7.957325356460729e-13,
+      "total": 1.5905214009235495e-12
+    },
+    {
+      "family": 20,
+      "gl": 5.355690807229329e-13,
+      "simpson": 5.358591104260844e-13,
+      "total": 1.0714281911490176e-12
+    },
+    {
+      "family": 21,
+      "gl": 6.230307936243662e-13,
+      "simpson": 6.235218475502306e-13,
+      "total": 1.246552641174597e-12
+    },
+    {
+      "family": 22,
+      "gl": 4.4681743091164783e-13,
+      "simpson": 4.473915751349857e-13,
+      "total": 8.942090060466336e-13
+    },
+    {
+      "family": 23,
+      "gl": 1.782574255675539e-13,
+      "simpson": 1.7848145091077893e-13,
+      "total": 3.5673887647833287e-13
+    },
+    {
+      "family": 24,
+      "gl": 1.7281507151265372e-13,
+      "simpson": 1.7292626041683601e-13,
+      "total": 3.457413319294898e-13
+    },
+    {
+      "family": 25,
+      "gl": 1.0981246884839176e-13,
+      "simpson": 1.098378916423719e-13,
+      "total": 2.1965036049076369e-13
+    },
+    {
+      "family": 26,
+      "gl": 6.209846887544969e-14,
+      "simpson": 6.217252828376354e-14,
+      "total": 1.2427099715921326e-13
+    },
+    {
+      "family": 27,
+      "gl": 5.841099562982101e-14,
+      "simpson": 5.846516816138992e-14,
+      "total": 1.1687616379121095e-13
+    },
+    {
+      "family": 28,
+      "gl": 5.4702918186427536e-14,
+      "simpson": 5.473027631174783e-14,
+      "total": 1.0943319449817538e-13
+    },
+    {
+      "family": 29,
+      "gl": 1.8645781260606186e-14,
+      "simpson": 1.8649837905469954e-14,
+      "total": 3.7295619166076144e-14
+    }
+  ],
+  "outward": {
+    "delta": "nextafter-up of rr + ri",
+    "exponential": "2*delta*exp(qr) for delta<1; exp(delta)*exp(qr) else",
+    "panel_factor": "4-step up-inflation of (hi-lo)/(2*NSEG)/3",
+    "accumulation": "per-term MPFR RNDU into family accumulators"
+  },
+  "nonclaims": [
+    "binary64 operands are taken as exact (discrete-defined convention; record 2230)",
+    "family totals are combined in binary64 with upward inflation; the per-term chain is MPFR RNDU",
+    "complete-owner transfer and the signed producer margin remain open; no RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/routea_weighted_zero_q_mpfr_all_nodes_2229.py",
+    "predecessor": "2225/2228 binding-node evaluator",
+    "theorem_interface": "2212/2213 exp perturbation bound",
+    "operand_cache": {
+      "path": "results/2229_operand_cache.npz",
+      "md5": "c78a0342fad8ac0166c23d01f653f666"
+    }
+  }
+}

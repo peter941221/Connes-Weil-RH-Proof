@@ -1,0 +1,35 @@
+{
+  "record": 2207,
+  "status": "VECTOR-SPLIT-ROUNDING-ALLOWANCE-PRICE",
+  "node": 2,
+  "rhs": "correction",
+  "unit_roundoff": 1.1102230246251565e-16,
+  "term_counts": {
+    "gl": 1152000,
+    "simpson": 792360,
+    "families": 30
+  },
+  "absolute_term_sums": {
+    "gl": 61039.20949298669,
+    "simpson": 61039.20949298468
+  },
+  "allowances": {
+    "gl": 7.806984121439914e-06,
+    "simpson": 5.369806849576695e-06,
+    "coefficient_rounding": 6.776713578403225e-12,
+    "total": 1.3176797747730188e-05
+  },
+  "reference": {
+    "vector_split_bound_2206": 7.225074000015776e-05,
+    "ratio_allowance_to_2206": 0.18237595556393496
+  },
+  "nonclaims": [
+    "stored float term sums are not outward intervals",
+    "no analytic transcendental allowance yet",
+    "no complete-owner transfer and no RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/routea_weighted_zero_vector_rounding_allowance_2207.py",
+    "parent": "scripts/routea_weighted_zero_vector_split_full_refinement_2206.py"
+  }
+}

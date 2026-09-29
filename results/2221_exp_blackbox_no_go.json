@@ -1,0 +1,303 @@
+{
+  "record": 2221,
+  "status": "BLACKBOX-EXP-TRIANGLE-SCOPED-NO-GO",
+  "owner": {
+    "nodes": 30,
+    "families": 30,
+    "NSEG": 1100,
+    "panels": 12
+  },
+  "bound": "|exp(q)-v| <= exp(Re q)+|v|",
+  "target_combined_correction": 6.2550323e-05,
+  "binding": {
+    "node_index": 7,
+    "node_real": 1.5,
+    "node_imag": 0.0,
+    "gl_blackbox": 132973.57056792022,
+    "simpson_blackbox": 132973.57056791944,
+    "total": 265947.1411358396,
+    "term_count": 792360
+  },
+  "max_blackbox": 265947.1411358396,
+  "ratio_to_target": 4251730900.5077343,
+  "rows": [
+    {
+      "node_index": 0,
+      "node_real": 0.9450000000000001,
+      "node_imag": 39.25244858548658,
+      "gl_blackbox": 122078.41898597337,
+      "simpson_blackbox": 122078.41898596939,
+      "total": 244156.83797194276,
+      "term_count": 792360
+    },
+    {
+      "node_index": 1,
+      "node_real": 0.05499999999999994,
+      "node_imag": 39.25244858548658,
+      "gl_blackbox": 115417.58686178492,
+      "simpson_blackbox": 115417.58686177892,
+      "total": 230835.17372356384,
+      "term_count": 792360
+    },
+    {
+      "node_index": 2,
+      "node_real": 0.9450000000000001,
+      "node_imag": -39.25244858548658,
+      "gl_blackbox": 122078.41898597337,
+      "simpson_blackbox": 122078.41898596939,
+      "total": 244156.83797194276,
+      "term_count": 792360
+    },
+    {
+      "node_index": 3,
+      "node_real": 0.05499999999999994,
+      "node_imag": -39.25244858548658,
+      "gl_blackbox": 115417.58686178492,
+      "simpson_blackbox": 115417.58686177892,
+      "total": 230835.17372356384,
+      "term_count": 792360
+    },
+    {
+      "node_index": 4,
+      "node_real": 1.445,
+      "node_imag": 39.25244858548658,
+      "gl_blackbox": 131624.04124335712,
+      "simpson_blackbox": 131624.04124335598,
+      "total": 263248.0824867131,
+      "term_count": 792360
+    },
+    {
+      "node_index": 5,
+      "node_real": 0.5,
+      "node_imag": 0.0,
+      "gl_blackbox": 117229.04919923516,
+      "simpson_blackbox": 117229.04919922969,
+      "total": 234458.09839846485,
+      "term_count": 792360
+    },
+    {
+      "node_index": 6,
+      "node_real": 1.0,
+      "node_imag": 0.0,
+      "gl_blackbox": 122904.21476359532,
+      "simpson_blackbox": 122904.21476359162,
+      "total": 245808.42952718693,
+      "term_count": 792360
+    },
+    {
+      "node_index": 7,
+      "node_real": 1.5,
+      "node_imag": 0.0,
+      "gl_blackbox": 132973.57056792022,
+      "simpson_blackbox": 132973.57056791944,
+      "total": 265947.1411358396,
+      "term_count": 792360
+    },
+    {
+      "node_index": 8,
+      "node_real": 0.5,
+      "node_imag": 14.134725141734695,
+      "gl_blackbox": 117229.04919923516,
+      "simpson_blackbox": 117229.04919922969,
+      "total": 234458.09839846485,
+      "term_count": 792360
+    },
+    {
+      "node_index": 9,
+      "node_real": 0.5,
+      "node_imag": 21.022039638771556,
+      "gl_blackbox": 117229.04919923516,
+      "simpson_blackbox": 117229.04919922969,
+      "total": 234458.09839846485,
+      "term_count": 792360
+    },
+    {
+      "node_index": 10,
+      "node_real": 0.5,
+      "node_imag": 25.01085758014569,
+      "gl_blackbox": 117229.04919923516,
+      "simpson_blackbox": 117229.04919922969,
+      "total": 234458.09839846485,
+      "term_count": 792360
+    },
+    {
+      "node_index": 11,
+      "node_real": 0.5,
+      "node_imag": 27.67032193035704,
+      "gl_blackbox": 117229.04919923516,
+      "simpson_blackbox": 117229.04919922969,
+      "total": 234458.09839846485,
+      "term_count": 792360
+    },
+    {
+      "node_index": 12,
+      "node_real": 0.5,
+      "node_imag": 30.424876125859512,
+      "gl_blackbox": 117229.04919923516,
+      "simpson_blackbox": 117229.04919922969,
+      "total": 234458.09839846485,
+      "term_count": 792360
+    },
+    {
+      "node_index": 13,
+      "node_real": 0.5,
+      "node_imag": 32.93506158773919,
+      "gl_blackbox": 117229.04919923516,
+      "simpson_blackbox": 117229.0491992297,
+      "total": 234458.09839846485,
+      "term_count": 792360
+    },
+    {
+      "node_index": 14,
+      "node_real": 0.5,
+      "node_imag": 37.58617815882567,
+      "gl_blackbox": 117229.04919923516,
+      "simpson_blackbox": 117229.04919922969,
+      "total": 234458.09839846485,
+      "term_count": 792360
+    },
+    {
+      "node_index": 15,
+      "node_real": 0.5,
+      "node_imag": 40.9187190121475,
+      "gl_blackbox": 117229.04919923516,
+      "simpson_blackbox": 117229.04919922969,
+      "total": 234458.09839846485,
+      "term_count": 792360
+    },
+    {
+      "node_index": 16,
+      "node_real": 0.5,
+      "node_imag": 43.327073280915,
+      "gl_blackbox": 117229.04919923516,
+      "simpson_blackbox": 117229.04919922969,
+      "total": 234458.09839846485,
+      "term_count": 792360
+    },
+    {
+      "node_index": 17,
+      "node_real": 0.5,
+      "node_imag": 48.00515088116716,
+      "gl_blackbox": 117229.04919923516,
+      "simpson_blackbox": 117229.04919922969,
+      "total": 234458.09839846485,
+      "term_count": 792360
+    },
+    {
+      "node_index": 18,
+      "node_real": 0.5,
+      "node_imag": 49.7738324776723,
+      "gl_blackbox": 117229.04919923516,
+      "simpson_blackbox": 117229.04919922969,
+      "total": 234458.09839846485,
+      "term_count": 792360
+    },
+    {
+      "node_index": 19,
+      "node_real": 0.5,
+      "node_imag": 52.970321477714464,
+      "gl_blackbox": 117229.04919923516,
+      "simpson_blackbox": 117229.04919922969,
+      "total": 234458.09839846485,
+      "term_count": 792360
+    },
+    {
+      "node_index": 20,
+      "node_real": 0.5,
+      "node_imag": 56.44624769706339,
+      "gl_blackbox": 117229.04919923516,
+      "simpson_blackbox": 117229.04919922969,
+      "total": 234458.09839846485,
+      "term_count": 792360
+    },
+    {
+      "node_index": 21,
+      "node_real": 0.5,
+      "node_imag": 59.34704400260235,
+      "gl_blackbox": 117229.04919923516,
+      "simpson_blackbox": 117229.04919922969,
+      "total": 234458.09839846485,
+      "term_count": 792360
+    },
+    {
+      "node_index": 22,
+      "node_real": 0.5,
+      "node_imag": 60.83177852460981,
+      "gl_blackbox": 117229.04919923516,
+      "simpson_blackbox": 117229.04919922969,
+      "total": 234458.09839846485,
+      "term_count": 792360
+    },
+    {
+      "node_index": 23,
+      "node_real": 0.5,
+      "node_imag": 65.1125440480816,
+      "gl_blackbox": 117229.04919923516,
+      "simpson_blackbox": 117229.0491992297,
+      "total": 234458.09839846485,
+      "term_count": 792360
+    },
+    {
+      "node_index": 24,
+      "node_real": 0.5,
+      "node_imag": 67.07981052949417,
+      "gl_blackbox": 117229.04919923516,
+      "simpson_blackbox": 117229.04919922969,
+      "total": 234458.09839846485,
+      "term_count": 792360
+    },
+    {
+      "node_index": 25,
+      "node_real": 0.5,
+      "node_imag": 69.54640171117398,
+      "gl_blackbox": 117229.04919923516,
+      "simpson_blackbox": 117229.04919922969,
+      "total": 234458.09839846485,
+      "term_count": 792360
+    },
+    {
+      "node_index": 26,
+      "node_real": 0.5,
+      "node_imag": 72.0671576744819,
+      "gl_blackbox": 117229.04919923516,
+      "simpson_blackbox": 117229.04919922969,
+      "total": 234458.09839846485,
+      "term_count": 792360
+    },
+    {
+      "node_index": 27,
+      "node_real": 0.5,
+      "node_imag": 75.70469069908393,
+      "gl_blackbox": 117229.04919923516,
+      "simpson_blackbox": 117229.04919922969,
+      "total": 234458.09839846485,
+      "term_count": 792360
+    },
+    {
+      "node_index": 28,
+      "node_real": 0.5,
+      "node_imag": 77.1448400688748,
+      "gl_blackbox": 117229.04919923516,
+      "simpson_blackbox": 117229.04919922969,
+      "total": 234458.09839846485,
+      "term_count": 792360
+    },
+    {
+      "node_index": 29,
+      "node_real": 0.5,
+      "node_imag": 79.33737502024937,
+      "gl_blackbox": 117229.04919923516,
+      "simpson_blackbox": 117229.04919922969,
+      "total": 234458.09839846485,
+      "term_count": 792360
+    }
+  ],
+  "nonclaims": [
+    "not an RH claim",
+    "does not reject a certified implementation remainder"
+  ],
+  "provenance": {
+    "script": "scripts/routea_weighted_zero_exp_blackbox_no_go_2221.py",
+    "source_budget": "2211 combined correction"
+  }
+}

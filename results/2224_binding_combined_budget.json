@@ -1,0 +1,25 @@
+{
+  "record": 2224,
+  "status": "BINDING-NODE-PARAMETERIZED-INPUT-PLUS-MPFR",
+  "scope": {
+    "node_index": 2,
+    "families": 30,
+    "full_quadrature": true
+  },
+  "prices": {
+    "input_q_and_operation_parameterized_2217": 2.459424789942387e-08,
+    "exp_sin_cos_mpfr_certified_2223": 7.039855400051501e-12,
+    "assembled": 2.460128775482392e-08,
+    "target": 6.2550323e-05,
+    "assembled_over_target": 0.0003933039283398092
+  },
+  "interpretation": [
+    "2217 input/operation term is a parameterized IEEE forward-error price, not an outward certificate",
+    "2223 transcendental term is a directed-rounding MPFR certificate at node 2",
+    "other nodes, finite accumulation, and owner transfer remain open"
+  ],
+  "provenance": {
+    "input": "results/2217_weighted_zero_ieee_radius.json",
+    "implementation": "results/2223_mpfr_exp_binding.json"
+  }
+}
