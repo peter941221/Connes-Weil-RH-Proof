@@ -1526,3 +1526,85 @@ min certified endpoint margin `8.656304746693204e-28`; the nonzero kill
 pin at `27.67032193035704` is certified with `|Z| >= 2.8451013491344974`.
 The screening values reproduce 2254 to 15 digits with ball-grade
 enclosures.
+
+## 2260 — producer-side assembly recon: the count-free chain and its single remaining lemma
+
+Record [2260](../proofs/2260_routea_weighted_zero_producer_assembly_recon.md)
+is docs-only: it traces the proved count-free chain leaf to root
+(`C1SpectralWeil.lean:248/275/385`,
+`C1RouteAWeightedZeroMeasure.lean:117/158/219`) and verifies that the
+screen lane computes exactly the chain's constant.  The 2197 header
+formula `C <= min(‖base''‖₁ ‖corr‖₁, ‖corr''‖₁ ‖base‖₁)/(2π)²`
+reproduces the frozen constants: `(2π)² · 77444.14398633591 =
+3057372.2573045553` bitwise equals the 2197 `B_upper`, and `(2π)² ·
+240796.76135588222 = 9506275.102584315` against the frozen 2243
+`B_upper = 9506275.102584327` (relative difference
+`1.175630914820416e-15`, the frozen value rounded up).  The producer-side
+obligation is therefore exactly one Lean lemma — the direct-product
+decay estimate for the concrete factorization, i.e. that the compactness
+constant of `exists_spectral_laplaceAt_quadratic_bound` can be taken as
+the min-product of the factor L¹ norms over `(2π)²` — with count-freeness
+automatic (the factor norms contain no zero count).  The 2257 consumer
+already consumes the `B_upper` side; this lemma is the last formal gap
+between the proved chain and the concrete screen constants.
+
+## 2261 — coalitional Hall screen of the direct-product rows
+
+Record [2261](../proofs/2261_routea_weighted_zero_hall_screen.md)
+computes the decidable pieces of the 2258 allocation question on the
+committed grid: the greedy coalition scan gives single-factor lower
+bounds `2.1475 / 5.5627 / 2.5011 / 5.4124` (rows `base_M0 / corr_M0 /
+base_D2 / corr_D2`, coalitions of size `28 / 9 / 18 / 8`), all above the
+exact pigeonhole `62/30 = 2.0667`; hence every single-factor split of
+every row exceeds the uniform budget by at least `max(found, 62/30)`.
+The `parity` and `halves` partitions are disjoint self-covers on both
+sides of all four rows (both Hall ratios `<= 0.0067` of budget), so the
+pointwise-universe product split is degenerate there: feasibility must be
+posed on the fixed analytic per-node pieces.  The `theta_sign` split is
+emphatically not a self-cover (the shield side alone carries Hall ratios
+`8.38 / 62.0 / 36.10 / 62.0`).  The coalitional Hall LP stays registered;
+the count-free assembly of 2257/2260 remains the live route.
+
+## 2262 — directed MPFR ball-ization of the 2258 split quantities
+
+Record [2262](../proofs/2262_routea_weighted_zero_cancellation_split_ball.md)
+replaces every 2258 reading by a certified one-sided enclosure at 256-bit
+MPFR along the 2234 path (one `nextafter` guard per operation; no
+accumulated-drift correction needed).  Certified intervals bracket the
+readings — `base_M0 [19.25392469924447, 19.25392469936748]`, `corr_M0
+[64.55476819263616, 64.55476819302037]`, `base_D2 [10.296262425921586,
+10.296262425988186]`, `corr_D2 [61.12031609013271, 61.120316090533244]`
+— and every failure count is reproduced exactly at the certified lower
+ratios (rows `10 / 4 / 11 / 4` nodes over budget; channels `a` and `b`
+both `3/30`), with 0 ulp reading residuals over norms/triangles/shares/
+family masses (all four anchors `>=` the certified lower norms) and
+certified mask decisions (min `|q - 0.04| = 1.819057697104165e-06`, 0
+disagreements, 0 undecided).  The certified floor-ratio uppers are all
+`<= 0.00288` of budget (the float64 floor readings are cancellation
+noise at the `S ~ 1e19` scale, kept for audit only).  Two extraction
+laws became canonical: the phi-underflow law (strictly positive
+magnitudes take directed RNDU/RNDD conversions with relative-only pads —
+absolute pads leak `2^-52`-scale garbage amplified by `hypot(g,h)` in
+the deep-`phi` band) and the hypot box law (lower bounds via
+`hypot(boxmin|g|, boxmin|h|)`; the naive nonnegative-part form collapses
+the dominant `h ~ 0, g < 0` zone and loses an order of magnitude).  The
+2258 conclusions survive interval certification.
+
+## 2263 — Arb certification of the census non-zero pins
+
+Record [2263](../proofs/2263_routea_weighted_zero_census_arb.md)
+completes the 2259 extension to the kill-list non-zero side: all 18 pin
+instances at the three candidates certify `xi != 0` — 15 by `acb` balls
+(smallest certified lower bound `9.227272168362652e-13`; per-candidate
+minima `5.547830231357397e-11 / 4.354577967736868e-12 /
+9.227272168362652e-13`) and 3 at `s = 1` by the classical exact
+`xi(1) = 1/2` (the pole point: `acb.zeta` is indeterminate and interval
+arithmetic cannot cancel `(s-1) zeta(s)`).  Distinct geometry: 3
+real-axis pins (`|xi(0.5)| >= 0.4971207781883137` = classical `Xi(0)`;
+`|xi(1.5)| >= 0.5087310387263231`), 6 off-line pins in
+functional-equation mirror pairs, and the kill pin re-certified at
+`|xi| >= 3.8781880974656257e-07`, consistent with the 2259
+`|Z| >= 2.8451013491344974`.  The 2245 census classification is now
+ball-checked end to end: zeros by certified brackets, non-zero pins by
+certified lower bounds (the mpmath `siegelz` rule remains the
+classifier, not the certificate).

@@ -569,12 +569,33 @@ on the all-node Hall condition (30 < 62), leaving the coalitional Hall LP
 as the registered design question (2258). The separation input is
 re-certified with Arb ball arithmetic: 72 brackets (21/24/27), width
 `<= 1.65e-26`, min gap `1.3838`, min endpoint margin `8.66e-28`, kill pin
-`|Z| >= 2.8451` (2259). This is still a `GO-CANDIDATE / PARTIALLY
-PRICED`, not a producer: the remaining obligation is the count-free
-assembly of the producer gate itself (no per-node transfer needed; the
-Lean consumer side is priced), and any future consumer wanting the
-count-side reduction back would need an allocation-design argument for
-the cancellation-aware split.
+`|Z| >= 2.8451` (2259). The 2260-2263 batch pins down the producer side
+and closes the certification loop on the supporting inputs. The
+producer-side recon traces the proved count-free high-shell chain and
+verifies the screen lane computes exactly the chain constant:
+`77444.14398633591 * (2*pi)^2 = 3057372.2573045553` bitwise equals the
+2197 `B_upper`, and `240796.76135588222 * (2*pi)^2 = 9506275.102584315`
+against the frozen 2243 `B_upper = 9506275.102584327` (relative
+`1.18e-15`), so the assembly is one Lean lemma short — the direct-product
+decay estimate giving the compactness constant as the min-product of the
+factor L1 norms over `(2*pi)^2`, count-free because the factor norms
+carry no zero count (2260). The Hall screen gives greedy single-factor
+lower bounds `2.1475 / 5.5627 / 2.5011 / 5.4124`, all above the exact
+pigeonhole `62/30`, and finds the `parity`/`halves` partitions are
+disjoint self-covers, so the split question must be posed on the fixed
+analytic per-node pieces (2261). The directed-MPFR ball-ization
+certifies every 2258 quantity: all four cancellation-factor intervals
+bracket the readings and the failure counts are reproduced exactly at
+the certified lower ratios (rows `10 / 4 / 11 / 4`; channels
+`3/30 + 3/30`), with 0 ulp reading residuals and certified mask decisions
+(2262). The Arb census certifies all 18 non-zero pin instances (`15`
+acb with minimum lower bound `9.23e-13`; `3` classical at the pole point
+`s = 1`), completing the 2259 extension to the kill-list non-zero side
+(2263). This is still a `GO-CANDIDATE / PARTIALLY PRICED`, not a
+producer: the remaining obligation is the single producer-side Lean lemma
+named at 2260, and any future consumer wanting the count-side reduction
+back would need an allocation-design argument for the cancellation-aware
+split (the coalitional Hall LP stays registered; 2258/2261).
 
 ```mermaid
 flowchart LR
@@ -587,7 +608,7 @@ flowchart LR
     F -->|2197-2200: 0.002203 margin ratio| G[GO-CANDIDATE]
     G --> H[Outward interval enclosure]
     H -->|2229-2231: 30-node MPFR envelope| H2[Interval terminal priced]
-    H2 -->|2234-2259: outward B_zm viable, L1 enclosed, Z=0, counts per node, charge count-free, gaps charged, terminal ledger, count-free Lean assembly, cancellation-split recon, Arb brackets| H3[Low shell + owner transfer]
+    H2 -->|2234-2263: outward B_zm viable, L1 enclosed, Z=0, counts per node, charge count-free, gaps charged, terminal ledger, count-free Lean assembly, cancellation-split recon, Arb brackets, producer lemma named, Hall screen, directed split cert, census Arb| H3[Low shell + owner transfer]
     H3 --> J[Same-owner qw >= 0]
     J --> K[SourceRH]
     K --> L[Mathlib RH]
@@ -608,9 +629,11 @@ bricked at `<= 26` unconditional / `= 21` imported, 2245, per node
 reads `0.00122500010000746` / `0.000989423157698333`; the per-node
 CHARGE uniformity half is falsified and withdrawn at 2253, the count-free
 fallback carries the terminal ledger at 2256 with the Lean consumer
-assembled count-free at 2257, and the cancellation-aware recon at 2258
+assembled count-free at 2257, the cancellation-aware recon at 2258
 leaves the coalitional Hall LP as the design question for any count-side
-revival). RH is not
+revival — screened at 2261 and ball-certified at 2262 — and the
+producer-side recon at 2260 reduces the assembly itself to the single
+direct-product decay lemma). RH is not
 claimed.
 
 An alternative four-point same-owner span has formal finite-prefix and gate

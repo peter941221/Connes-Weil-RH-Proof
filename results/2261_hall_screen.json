@@ -1,0 +1,1001 @@
+{
+  "record": 2261,
+  "status": "HALL-SCREEN (single-factor cap lower bounds + disjoint-cover diagnostics)",
+  "date": "2026-09-30",
+  "budget_denom": 62.0,
+  "pigeonhole_floor": 2.066666666666667,
+  "rows": {
+    "base_M0": {
+      "norm": 2.0033357887456087,
+      "t_star_lower": 2.1475067585012337,
+      "t_star_lower_k": 28,
+      "curve": [
+        {
+          "k": 1,
+          "added": 3,
+          "hall": 9.289908520827982e-05,
+          "ratio_over_budget": 0.002875076317844758
+        },
+        {
+          "k": 2,
+          "added": 2,
+          "hall": 0.0002322110209410941,
+          "ratio_over_budget": 0.0035932776170695246
+        },
+        {
+          "k": 3,
+          "added": 7,
+          "hall": 0.0005370352112954329,
+          "ratio_over_budget": 0.005540123509227126
+        },
+        {
+          "k": 4,
+          "added": 6,
+          "hall": 0.0007721416229017543,
+          "ratio_over_budget": 0.0059741333540849345
+        },
+        {
+          "k": 5,
+          "added": 15,
+          "hall": 0.0008782354820828208,
+          "ratio_over_budget": 0.0054359933262340615
+        },
+        {
+          "k": 6,
+          "added": 14,
+          "hall": 0.0011200060262703028,
+          "ratio_over_budget": 0.00577706227274052
+        },
+        {
+          "k": 7,
+          "added": 1,
+          "hall": 0.0015588722182272837,
+          "ratio_over_budget": 0.006892081702147194
+        },
+        {
+          "k": 8,
+          "added": 0,
+          "hall": 0.0017571544208883755,
+          "ratio_over_budget": 0.006797635642705612
+        },
+        {
+          "k": 9,
+          "added": 5,
+          "hall": 0.05910319797974163,
+          "ratio_over_budget": 0.2032387012440801
+        },
+        {
+          "k": 10,
+          "added": 27,
+          "hall": 0.1133645381245395,
+          "ratio_over_budget": 0.35084489595837637
+        },
+        {
+          "k": 11,
+          "added": 29,
+          "hall": 0.17913189125040083,
+          "ratio_over_budget": 0.5039856441585361
+        },
+        {
+          "k": 12,
+          "added": 8,
+          "hall": 0.24109992305871059,
+          "ratio_over_budget": 0.6218043639021316
+        },
+        {
+          "k": 13,
+          "added": 28,
+          "hall": 0.3099984689699633,
+          "ratio_over_budget": 0.7379962185728809
+        },
+        {
+          "k": 14,
+          "added": 9,
+          "hall": 0.3779865117827666,
+          "ratio_over_budget": 0.8355764799243554
+        },
+        {
+          "k": 15,
+          "added": 17,
+          "hall": 0.4365420106068064,
+          "ratio_over_budget": 0.9006845751861087
+        },
+        {
+          "k": 16,
+          "added": 23,
+          "hall": 0.5001147389364018,
+          "ratio_over_budget": 0.9673588542997096
+        },
+        {
+          "k": 17,
+          "added": 22,
+          "hall": 0.5675502222274891,
+          "ratio_over_budget": 1.0332212190283419
+        },
+        {
+          "k": 18,
+          "added": 19,
+          "hall": 0.6429724071815259,
+          "ratio_over_budget": 1.105497514839589
+        },
+        {
+          "k": 19,
+          "added": 12,
+          "hall": 0.7365648130771483,
+          "ratio_over_budget": 1.1997625651579031
+        },
+        {
+          "k": 20,
+          "added": 25,
+          "hall": 0.8509635744977365,
+          "ratio_over_budget": 1.3167972617285304
+        },
+        {
+          "k": 21,
+          "added": 20,
+          "hall": 1.0147120601373403,
+          "ratio_over_budget": 1.4954140865104562
+        },
+        {
+          "k": 22,
+          "added": 10,
+          "hall": 1.220091579990746,
+          "ratio_over_budget": 1.7163572510226213
+        },
+        {
+          "k": 23,
+          "added": 11,
+          "hall": 1.3973997544231183,
+          "ratio_over_budget": 1.880315674984713
+        },
+        {
+          "k": 24,
+          "added": 26,
+          "hall": 1.5624438224034187,
+          "ratio_over_budget": 2.0147961367988345
+        },
+        {
+          "k": 25,
+          "added": 13,
+          "hall": 1.6704304147652023,
+          "ratio_over_budget": 2.0678847010523578
+        },
+        {
+          "k": 26,
+          "added": 18,
+          "hall": 1.7802113553544692,
+          "ratio_over_budget": 2.1190253824114826
+        },
+        {
+          "k": 27,
+          "added": 16,
+          "hall": 1.8681420287050219,
+          "ratio_over_budget": 2.141332294650843
+        },
+        {
+          "k": 28,
+          "added": 21,
+          "hall": 1.942918711041946,
+          "ratio_over_budget": 2.1475067585012337
+        },
+        {
+          "k": 29,
+          "added": 24,
+          "hall": 2.002520785361473,
+          "ratio_over_budget": 2.137061274636236
+        },
+        {
+          "k": 30,
+          "added": 4,
+          "hall": 2.003335788745609,
+          "ratio_over_budget": 2.0666666666666673
+        }
+      ],
+      "partitions": {
+        "parity": {
+          "part_a": {
+            "size": 15,
+            "hall": 0.0002169770057655997,
+            "ratio_over_budget": 0.006715087122708734,
+            "min_cover_ratio": 5.06151123843737e-14
+          },
+          "part_b": {
+            "size": 15,
+            "hall": 5.143641030420825e-10,
+            "ratio_over_budget": 1.591873642340181e-08,
+            "min_cover_ratio": 0.0
+          }
+        },
+        "halves": {
+          "part_a": {
+            "size": 15,
+            "hall": 2.6579766176665167e-42,
+            "ratio_over_budget": 8.226007403307578e-41,
+            "min_cover_ratio": 5.06151123843737e-14
+          },
+          "part_b": {
+            "size": 15,
+            "hall": 0.0013345195550811765,
+            "ratio_over_budget": 0.04130122013486358,
+            "min_cover_ratio": 0.0
+          }
+        },
+        "theta_sign": {
+          "part_a": {
+            "size": 5,
+            "hall": 0.27078256128898004,
+            "ratio_over_budget": 8.380281974810082,
+            "min_cover_ratio": 0.0
+          },
+          "part_b": {
+            "size": 25,
+            "hall": 0.000778950444485218,
+            "ratio_over_budget": 0.02410725542337735,
+            "min_cover_ratio": 5.06151123843737e-14
+          }
+        },
+        "min_width": {
+          "part_a": {
+            "size": 1,
+            "hall": 0.0030811756834907295,
+            "ratio_over_budget": 0.09535740011715196,
+            "min_cover_ratio": 0.0
+          },
+          "part_b": {
+            "size": 29,
+            "hall": 2.6579766176665167e-42,
+            "ratio_over_budget": 8.226007403307578e-41,
+            "min_cover_ratio": 5.06151123843737e-14
+          }
+        }
+      }
+    },
+    "corr_M0": {
+      "norm": 913.4469710803507,
+      "t_star_lower": 5.5626802232172095,
+      "t_star_lower_k": 9,
+      "curve": [
+        {
+          "k": 1,
+          "added": 4,
+          "hall": 0.01786548037511458,
+          "ratio_over_budget": 0.0012126153113705704
+        },
+        {
+          "k": 2,
+          "added": 1,
+          "hall": 0.02463705661930131,
+          "ratio_over_budget": 0.0008361172343645092
+        },
+        {
+          "k": 3,
+          "added": 14,
+          "hall": 0.0429601988292857,
+          "ratio_over_budget": 0.0009719711567804546
+        },
+        {
+          "k": 4,
+          "added": 15,
+          "hall": 1.2620002619753574,
+          "ratio_over_budget": 0.02141449332026672
+        },
+        {
+          "k": 5,
+          "added": 0,
+          "hall": 186.55791988115303,
+          "ratio_over_budget": 2.532515055351591
+        },
+        {
+          "k": 6,
+          "added": 16,
+          "hall": 301.1508098247367,
+          "ratio_over_budget": 3.406756823378359
+        },
+        {
+          "k": 7,
+          "added": 13,
+          "hall": 471.0236808981808,
+          "ratio_over_budget": 4.567231774689938
+        },
+        {
+          "k": 8,
+          "added": 12,
+          "hall": 630.119519937451,
+          "ratio_over_budget": 5.346151921374839
+        },
+        {
+          "k": 9,
+          "added": 11,
+          "hall": 737.595493691564,
+          "ratio_over_budget": 5.5626802232172095
+        },
+        {
+          "k": 10,
+          "added": 10,
+          "hall": 792.7769788297014,
+          "ratio_over_budget": 5.380955243554894
+        },
+        {
+          "k": 11,
+          "added": 18,
+          "hall": 819.938135526583,
+          "ratio_over_budget": 5.0593736007290415
+        },
+        {
+          "k": 12,
+          "added": 17,
+          "hall": 842.7918713097195,
+          "ratio_over_budget": 4.76702513259581
+        },
+        {
+          "k": 13,
+          "added": 9,
+          "hall": 858.5153524537245,
+          "ratio_over_budget": 4.482425323428147
+        },
+        {
+          "k": 14,
+          "added": 19,
+          "hall": 872.6701187598679,
+          "ratio_over_budget": 4.230877190316976
+        },
+        {
+          "k": 15,
+          "added": 21,
+          "hall": 882.9976658173466,
+          "ratio_over_budget": 3.9955507007284394
+        },
+        {
+          "k": 16,
+          "added": 20,
+          "hall": 892.1915140813422,
+          "ratio_over_budget": 3.784830676022995
+        },
+        {
+          "k": 17,
+          "added": 22,
+          "hall": 900.2993572707423,
+          "ratio_over_budget": 3.5945652224000786
+        },
+        {
+          "k": 18,
+          "added": 24,
+          "hall": 903.7273531109521,
+          "ratio_over_budget": 3.4077935110276725
+        },
+        {
+          "k": 19,
+          "added": 23,
+          "hall": 907.286946488585,
+          "ratio_over_budget": 3.2411520930704145
+        },
+        {
+          "k": 20,
+          "added": 25,
+          "hall": 909.4715875845859,
+          "ratio_over_budget": 3.0865085886460433
+        },
+        {
+          "k": 21,
+          "added": 26,
+          "hall": 910.6382606463885,
+          "ratio_over_budget": 2.9433028302255124
+        },
+        {
+          "k": 22,
+          "added": 27,
+          "hall": 911.706842173797,
+          "ratio_over_budget": 2.8128131434792873
+        },
+        {
+          "k": 23,
+          "added": 28,
+          "hall": 912.7021429872364,
+          "ratio_over_budget": 2.6934541289996967
+        },
+        {
+          "k": 24,
+          "added": 8,
+          "hall": 913.1320124633771,
+          "ratio_over_budget": 2.5824425940571536
+        },
+        {
+          "k": 25,
+          "added": 29,
+          "hall": 913.4469029368395,
+          "ratio_over_budget": 2.479999814991003
+        },
+        {
+          "k": 26,
+          "added": 6,
+          "hall": 913.4469358363528,
+          "ratio_over_budget": 2.3846152926085336
+        },
+        {
+          "k": 27,
+          "added": 5,
+          "hall": 913.4469607634923,
+          "ratio_over_budget": 2.2962962703609495
+        },
+        {
+          "k": 28,
+          "added": 7,
+          "hall": 913.446971065219,
+          "ratio_over_budget": 2.2142857142490335
+        },
+        {
+          "k": 29,
+          "added": 2,
+          "hall": 913.4469710740543,
+          "ratio_over_budget": 2.137931034468022
+        },
+        {
+          "k": 30,
+          "added": 3,
+          "hall": 913.4469710803507,
+          "ratio_over_budget": 2.066666666666667
+        }
+      ],
+      "partitions": {
+        "parity": {
+          "part_a": {
+            "size": 15,
+            "hall": 6.386779211004866e-06,
+            "ratio_over_budget": 4.335011485275039e-07,
+            "min_cover_ratio": 9.62463300999944e-10
+          },
+          "part_b": {
+            "size": 15,
+            "hall": 0.023653291469087605,
+            "ratio_over_budget": 0.0016054616387297994,
+            "min_cover_ratio": 0.0
+          }
+        },
+        "halves": {
+          "part_a": {
+            "size": 15,
+            "hall": 2.7605387062657643e-33,
+            "ratio_over_budget": 1.8737092048819328e-34,
+            "min_cover_ratio": 9.62463300999944e-10
+          },
+          "part_b": {
+            "size": 15,
+            "hall": 0.053508952455585554,
+            "ratio_over_budget": 0.003631907661068239,
+            "min_cover_ratio": 0.0
+          }
+        },
+        "theta_sign": {
+          "part_a": {
+            "size": 5,
+            "hall": 913.4469029368397,
+            "ratio_over_budget": 61.99999537477509,
+            "min_cover_ratio": 0.0
+          },
+          "part_b": {
+            "size": 25,
+            "hall": 2.968297715268512e-14,
+            "ratio_over_budget": 2.0147251474159114e-15,
+            "min_cover_ratio": 9.62463300999944e-10
+          }
+        },
+        "min_width": {
+          "part_a": {
+            "size": 1,
+            "hall": 2.884916146337239,
+            "ratio_over_budget": 0.19581301020831246,
+            "min_cover_ratio": 0.0
+          },
+          "part_b": {
+            "size": 29,
+            "hall": 2.7605387062657643e-33,
+            "ratio_over_budget": 1.8737092048819328e-34,
+            "min_cover_ratio": 9.62463300999944e-10
+          }
+        }
+      }
+    },
+    "base_D2": {
+      "norm": 6688.576604759935,
+      "t_star_lower": 2.5010525127626595,
+      "t_star_lower_k": 18,
+      "curve": [
+        {
+          "k": 1,
+          "added": 3,
+          "hall": 0.3044119646048131,
+          "ratio_over_budget": 0.002821757590705776
+        },
+        {
+          "k": 2,
+          "added": 2,
+          "hall": 0.7528799330447455,
+          "ratio_over_budget": 0.0034894237299723354
+        },
+        {
+          "k": 3,
+          "added": 15,
+          "hall": 0.8967776033947313,
+          "ratio_over_budget": 0.0027709040201919478
+        },
+        {
+          "k": 4,
+          "added": 14,
+          "hall": 1.151357614092511,
+          "ratio_over_budget": 0.0026681376431771384
+        },
+        {
+          "k": 5,
+          "added": 1,
+          "hall": 1.402341472139982,
+          "ratio_over_budget": 0.002599810883852455
+        },
+        {
+          "k": 6,
+          "added": 6,
+          "hall": 1.537529961512175,
+          "ratio_over_budget": 0.0023753648259012073
+        },
+        {
+          "k": 7,
+          "added": 29,
+          "hall": 1.669517951881722,
+          "ratio_over_budget": 0.00221080805022965
+        },
+        {
+          "k": 8,
+          "added": 0,
+          "hall": 3.6309671961657237,
+          "ratio_over_budget": 0.004207172532083805
+        },
+        {
+          "k": 9,
+          "added": 27,
+          "hall": 304.6888932926761,
+          "ratio_over_budget": 0.3138138434533343
+        },
+        {
+          "k": 10,
+          "added": 28,
+          "hall": 966.9940888910592,
+          "ratio_over_budget": 0.8963586283601743
+        },
+        {
+          "k": 11,
+          "added": 25,
+          "hall": 1362.80643761096,
+          "ratio_over_budget": 1.1484166366407906
+        },
+        {
+          "k": 12,
+          "added": 23,
+          "hall": 1793.2256178190519,
+          "ratio_over_budget": 1.3851974153671178
+        },
+        {
+          "k": 13,
+          "added": 22,
+          "hall": 2219.3600776619305,
+          "ratio_over_budget": 1.582495199779142
+        },
+        {
+          "k": 14,
+          "added": 20,
+          "hall": 2652.3864202898408,
+          "ratio_over_budget": 1.7561707688399917
+        },
+        {
+          "k": 15,
+          "added": 19,
+          "hall": 3137.016017217406,
+          "ratio_over_budget": 1.9385788094192966
+        },
+        {
+          "k": 16,
+          "added": 26,
+          "hall": 3816.3226482609152,
+          "ratio_over_budget": 2.210971202974182
+        },
+        {
+          "k": 17,
+          "added": 17,
+          "hall": 4563.684572521446,
+          "ratio_over_budget": 2.4884257251647
+        },
+        {
+          "k": 18,
+          "added": 12,
+          "hall": 4856.655868298818,
+          "ratio_over_budget": 2.5010525127626595
+        },
+        {
+          "k": 19,
+          "added": 18,
+          "hall": 5119.896746733801,
+          "ratio_over_budget": 2.4978455771071366
+        },
+        {
+          "k": 20,
+          "added": 24,
+          "hall": 5375.995818570262,
+          "ratio_over_budget": 2.4916492734355056
+        },
+        {
+          "k": 21,
+          "added": 21,
+          "hall": 5634.29097168206,
+          "ratio_over_budget": 2.4870124583948194
+        },
+        {
+          "k": 22,
+          "added": 9,
+          "hall": 5860.44439336799,
+          "ratio_over_budget": 2.4692544934151988
+        },
+        {
+          "k": 23,
+          "added": 10,
+          "hall": 6049.581675670986,
+          "ratio_over_budget": 2.438122332886447
+        },
+        {
+          "k": 24,
+          "added": 16,
+          "hall": 6219.161614125453,
+          "ratio_over_budget": 2.402030873313749
+        },
+        {
+          "k": 25,
+          "added": 11,
+          "hall": 6386.99807312582,
+          "ratio_over_budget": 2.3681802807012255
+        },
+        {
+          "k": 26,
+          "added": 8,
+          "hall": 6521.383400678789,
+          "ratio_over_budget": 2.3250075621720696
+        },
+        {
+          "k": 27,
+          "added": 13,
+          "hall": 6650.377258576482,
+          "ratio_over_budget": 2.2831818442468754
+        },
+        {
+          "k": 28,
+          "added": 5,
+          "hall": 6685.305201542536,
+          "ratio_over_budget": 2.2132027003893344
+        },
+        {
+          "k": 29,
+          "added": 7,
+          "hall": 6687.303605750187,
+          "ratio_over_budget": 2.137524134143474
+        },
+        {
+          "k": 30,
+          "added": 4,
+          "hall": 6688.576604759935,
+          "ratio_over_budget": 2.0666666666666664
+        }
+      ],
+      "partitions": {
+        "parity": {
+          "part_a": {
+            "size": 15,
+            "hall": 0.4400297041135942,
+            "ratio_over_budget": 0.004078871076340469,
+            "min_cover_ratio": 1.0070086585594834e-05
+          },
+          "part_b": {
+            "size": 15,
+            "hall": 4.513354907475088e-07,
+            "ratio_over_budget": 4.1836704698024305e-09,
+            "min_cover_ratio": 0.0
+          }
+        },
+        "halves": {
+          "part_a": {
+            "size": 15,
+            "hall": 2.3457293140351975e-38,
+            "ratio_over_budget": 2.17438217522519e-40,
+            "min_cover_ratio": 1.0070086585594834e-05
+          },
+          "part_b": {
+            "size": 15,
+            "hall": 1.4034265363510974,
+            "ratio_over_budget": 0.013009112460765644,
+            "min_cover_ratio": 0.0
+          }
+        },
+        "theta_sign": {
+          "part_a": {
+            "size": 5,
+            "hall": 3894.626779196514,
+            "ratio_over_budget": 36.10138218920056,
+            "min_cover_ratio": 0.0
+          },
+          "part_b": {
+            "size": 25,
+            "hall": 0.8663351222125127,
+            "ratio_over_budget": 0.008030524392731185,
+            "min_cover_ratio": 1.0070086585594834e-05
+          }
+        },
+        "min_width": {
+          "part_a": {
+            "size": 1,
+            "hall": 5.872841912072197,
+            "ratio_over_budget": 0.05443851809805876,
+            "min_cover_ratio": 0.0
+          },
+          "part_b": {
+            "size": 29,
+            "hall": 2.3457293140351975e-38,
+            "ratio_over_budget": 2.17438217522519e-40,
+            "min_cover_ratio": 1.0070086585594834e-05
+          }
+        }
+      }
+    },
+    "corr_D2": {
+      "norm": 1526140.687188009,
+      "t_star_lower": 5.412402245080699,
+      "t_star_lower_k": 8,
+      "curve": [
+        {
+          "k": 1,
+          "added": 4,
+          "hall": 24.784504507278857,
+          "ratio_over_budget": 0.0010068791772288204
+        },
+        {
+          "k": 2,
+          "added": 1,
+          "hall": 35.28772276515002,
+          "ratio_over_budget": 0.0007167880490331807
+        },
+        {
+          "k": 3,
+          "added": 15,
+          "hall": 67.9761179285927,
+          "ratio_over_budget": 0.0009205178672699808
+        },
+        {
+          "k": 4,
+          "added": 14,
+          "hall": 1869.658151818744,
+          "ratio_over_budget": 0.018988879332341953
+        },
+        {
+          "k": 5,
+          "added": 0,
+          "hall": 350147.03284407157,
+          "ratio_over_budget": 2.844969172053538
+        },
+        {
+          "k": 6,
+          "added": 16,
+          "hall": 632324.1293768426,
+          "ratio_over_budget": 4.281398208182209
+        },
+        {
+          "k": 7,
+          "added": 13,
+          "hall": 883337.4058885167,
+          "ratio_over_budget": 5.126555933338233
+        },
+        {
+          "k": 8,
+          "added": 12,
+          "hall": 1065817.7137606943,
+          "ratio_over_budget": 5.412402245080699
+        },
+        {
+          "k": 9,
+          "added": 11,
+          "hall": 1159112.9653681673,
+          "ratio_over_budget": 5.232152248561425
+        },
+        {
+          "k": 10,
+          "added": 18,
+          "hall": 1222185.4480024686,
+          "ratio_over_budget": 4.965171193736616
+        },
+        {
+          "k": 11,
+          "added": 17,
+          "hall": 1272636.6002167568,
+          "ratio_over_budget": 4.700118878937608
+        },
+        {
+          "k": 12,
+          "added": 10,
+          "hall": 1314943.072748383,
+          "ratio_over_budget": 4.45166857785003
+        },
+        {
+          "k": 13,
+          "added": 19,
+          "hall": 1354350.904145352,
+          "ratio_over_budget": 4.2323830683571835
+        },
+        {
+          "k": 14,
+          "added": 21,
+          "hall": 1391303.1606746835,
+          "ratio_over_budget": 4.037298446709965
+        },
+        {
+          "k": 15,
+          "added": 20,
+          "hall": 1422050.4189661425,
+          "ratio_over_budget": 3.8514197594872766
+        },
+        {
+          "k": 16,
+          "added": 22,
+          "hall": 1453420.324675948,
+          "ratio_over_budget": 3.6903568625095424
+        },
+        {
+          "k": 17,
+          "added": 24,
+          "hall": 1469689.3932301647,
+          "ratio_over_budget": 3.5121556711156225
+        },
+        {
+          "k": 18,
+          "added": 23,
+          "hall": 1485089.8555841492,
+          "ratio_over_budget": 3.351794199257501
+        },
+        {
+          "k": 19,
+          "added": 25,
+          "hall": 1495751.6985752126,
+          "ratio_over_budget": 3.198180878569591
+        },
+        {
+          "k": 20,
+          "added": 9,
+          "hall": 1505793.7314476338,
+          "ratio_over_budget": 3.0586698897914952
+        },
+        {
+          "k": 21,
+          "added": 27,
+          "hall": 1511964.681450154,
+          "ratio_over_budget": 2.924956895298507
+        },
+        {
+          "k": 22,
+          "added": 26,
+          "hall": 1518074.9601520046,
+          "ratio_over_budget": 2.8032875915393403
+        },
+        {
+          "k": 23,
+          "added": 28,
+          "hall": 1524041.8205575014,
+          "ratio_over_budget": 2.69194490469286
+        },
+        {
+          "k": 24,
+          "added": 29,
+          "hall": 1526037.6390193016,
+          "ratio_over_budget": 2.5831589013354215
+        },
+        {
+          "k": 25,
+          "added": 8,
+          "hall": 1526140.6859636216,
+          "ratio_over_budget": 2.4799999980103533
+        },
+        {
+          "k": 26,
+          "added": 5,
+          "hall": 1526140.6865182377,
+          "ratio_over_budget": 2.384615383568858
+        },
+        {
+          "k": 27,
+          "added": 6,
+          "hall": 1526140.687040926,
+          "ratio_over_budget": 2.296296296074989
+        },
+        {
+          "k": 28,
+          "added": 7,
+          "hall": 1526140.687164257,
+          "ratio_over_budget": 2.2142857142512526
+        },
+        {
+          "k": 29,
+          "added": 2,
+          "hall": 1526140.6871781473,
+          "ratio_over_budget": 2.1379310344689433
+        },
+        {
+          "k": 30,
+          "added": 3,
+          "hall": 1526140.687188009,
+          "ratio_over_budget": 2.066666666666667
+        }
+      ],
+      "partitions": {
+        "parity": {
+          "part_a": {
+            "size": 15,
+            "hall": 0.5858034434476647,
+            "ratio_over_budget": 2.379847008775861e-05,
+            "min_cover_ratio": 0.191486066509865
+          },
+          "part_b": {
+            "size": 15,
+            "hall": 34.03549645903234,
+            "ratio_over_budget": 0.0013827039657452263,
+            "min_cover_ratio": 0.0
+          }
+        },
+        "halves": {
+          "part_a": {
+            "size": 15,
+            "hall": 2.634972363603051e-29,
+            "ratio_over_budget": 1.0704667526059045e-33,
+            "min_cover_ratio": 0.191486066509865
+          },
+          "part_b": {
+            "size": 15,
+            "hall": 77.88608585723073,
+            "ratio_over_budget": 0.0031641495202161638,
+            "min_cover_ratio": 0.0
+          }
+        },
+        "theta_sign": {
+          "part_a": {
+            "size": 5,
+            "hall": 1526140.6859636214,
+            "ratio_over_budget": 61.99999995025882,
+            "min_cover_ratio": 0.0
+          },
+          "part_b": {
+            "size": 25,
+            "hall": 7.639039684749929e-12,
+            "ratio_over_budget": 3.1033866302795786e-16,
+            "min_cover_ratio": 0.191486066509865
+          }
+        },
+        "min_width": {
+          "part_a": {
+            "size": 1,
+            "hall": 3928.011163702409,
+            "ratio_over_budget": 0.15957682944570328,
+            "min_cover_ratio": 0.0
+          },
+          "part_b": {
+            "size": 29,
+            "hall": 2.634972363603051e-29,
+            "ratio_over_budget": 1.0704667526059045e-33,
+            "min_cover_ratio": 0.191486066509865
+          }
+        }
+      }
+    }
+  },
+  "verdict": "single-factor optimal-cap lower bounds 2.148 / 5.563 / 2.501 / 5.412 (>= the exact pigeonhole 2.06667 at k=30); every single-factor split of every row therefore fails the uniform budget by at least max(found, 62/30).  Disjoint self-cover detected for partitions: base_M0:parity, base_M0:halves, corr_M0:parity, corr_M0:halves, base_D2:parity, base_D2:halves, corr_D2:parity, corr_D2:halves -> the pointwise-universe product split is degenerate there (zero diagonal charge), so the count-side feasibility question must be posed on the fixed analytic per-node pieces.  The coalitional Hall LP stays registered as the design question; count-free assembly (2257) remains the live route.",
+  "nonclaims": [
+    "the greedy curve gives LOWER bounds on max_J Hall(J)/|J| (any found coalition is a certificate); the exact LP dual is not claimed",
+    "the Hall family is a necessary condition on feasible pointwise allocations; sufficiency of the Hall family is not used",
+    "float64 measurement on the committed grid",
+    "no producer GO, no gate sign change, no RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/routea_weighted_zero_hall_screen_2261.py",
+    "machinery": "scripts/routea_weighted_zero_cancellation_split_2258.py (family_terms, weights)",
+    "predecessor": "docs/proofs/2258_routea_weighted_zero_cancellation_split.md"
+  }
+}

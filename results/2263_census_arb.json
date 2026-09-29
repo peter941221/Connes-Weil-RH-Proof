@@ -1,0 +1,378 @@
+{
+  "record": 2263,
+  "status": "ARB-CERTIFIED (acb zeta/gamma, 200-bit balls)",
+  "date": "2026-09-30",
+  "precision_bits": 200,
+  "blocks": [
+    {
+      "gamma": 39.25244858548658,
+      "radius": 43.266623803890596,
+      "node_count": 30,
+      "counts": {
+        "critical_line_zero": 21,
+        "critical_line_nonzero_pin": 1,
+        "off_line_pin": 2,
+        "real_axis_pin": 3
+      },
+      "nonzero_pins": [
+        {
+          "node": [
+            0.9450000000000001,
+            -39.25244858548658
+          ],
+          "kind": "off_line_pin",
+          "abs_xi_lower": 5.547830231357397e-11,
+          "abs_xi_value": 5.547830231357402e-11,
+          "acb_certified": true,
+          "nonvanishing_certified": true
+        },
+        {
+          "node": [
+            0.05499999999999994,
+            -39.25244858548658
+          ],
+          "kind": "off_line_pin",
+          "abs_xi_lower": 5.547830231357397e-11,
+          "abs_xi_value": 5.547830231357402e-11,
+          "acb_certified": true,
+          "nonvanishing_certified": true
+        },
+        {
+          "node": [
+            0.5,
+            0.0
+          ],
+          "kind": "real_axis_pin",
+          "abs_xi_lower": 0.4971207781883137,
+          "abs_xi_value": 0.4971207781883141,
+          "acb_certified": true,
+          "nonvanishing_certified": true
+        },
+        {
+          "node": [
+            1.0,
+            0.0
+          ],
+          "kind": "real_axis_pin",
+          "abs_xi_lower": 0.5,
+          "abs_xi_value": 0.5,
+          "classical": "xi(1) = 1/2 (entire completion normalization; acb.zeta is indeterminate at the pole and interval arithmetic cannot cancel (s-1) zeta(s) at the boundary point)",
+          "nonvanishing_certified": true
+        },
+        {
+          "node": [
+            1.5,
+            0.0
+          ],
+          "kind": "real_axis_pin",
+          "abs_xi_lower": 0.5087310387263231,
+          "abs_xi_value": 0.508731038726324,
+          "acb_certified": true,
+          "nonvanishing_certified": true
+        },
+        {
+          "node": [
+            0.5,
+            27.67032193035704
+          ],
+          "kind": "critical_line_nonzero_pin",
+          "abs_xi_lower": 3.8781880974656257e-07,
+          "abs_xi_value": 3.87818809746563e-07,
+          "acb_certified": true,
+          "nonvanishing_certified": true
+        }
+      ],
+      "min_pin_margin": 5.547830231357397e-11
+    },
+    {
+      "gamma": 42.12289614653125,
+      "radius": 46.13610571435686,
+      "node_count": 33,
+      "counts": {
+        "critical_line_zero": 24,
+        "critical_line_nonzero_pin": 1,
+        "off_line_pin": 2,
+        "real_axis_pin": 3
+      },
+      "nonzero_pins": [
+        {
+          "node": [
+            0.9450000000000001,
+            -42.12289614653125
+          ],
+          "kind": "off_line_pin",
+          "abs_xi_lower": 4.354577967736868e-12,
+          "abs_xi_value": 4.354577967736875e-12,
+          "acb_certified": true,
+          "nonvanishing_certified": true
+        },
+        {
+          "node": [
+            0.05499999999999994,
+            -42.12289614653125
+          ],
+          "kind": "off_line_pin",
+          "abs_xi_lower": 4.354577967736868e-12,
+          "abs_xi_value": 4.354577967736875e-12,
+          "acb_certified": true,
+          "nonvanishing_certified": true
+        },
+        {
+          "node": [
+            0.5,
+            0.0
+          ],
+          "kind": "real_axis_pin",
+          "abs_xi_lower": 0.4971207781883137,
+          "abs_xi_value": 0.4971207781883141,
+          "acb_certified": true,
+          "nonvanishing_certified": true
+        },
+        {
+          "node": [
+            1.0,
+            0.0
+          ],
+          "kind": "real_axis_pin",
+          "abs_xi_lower": 0.5,
+          "abs_xi_value": 0.5,
+          "classical": "xi(1) = 1/2 (entire completion normalization; acb.zeta is indeterminate at the pole and interval arithmetic cannot cancel (s-1) zeta(s) at the boundary point)",
+          "nonvanishing_certified": true
+        },
+        {
+          "node": [
+            1.5,
+            0.0
+          ],
+          "kind": "real_axis_pin",
+          "abs_xi_lower": 0.5087310387263231,
+          "abs_xi_value": 0.508731038726324,
+          "acb_certified": true,
+          "nonvanishing_certified": true
+        },
+        {
+          "node": [
+            0.5,
+            27.67032193035704
+          ],
+          "kind": "critical_line_nonzero_pin",
+          "abs_xi_lower": 3.8781880974656257e-07,
+          "abs_xi_value": 3.87818809746563e-07,
+          "acb_certified": true,
+          "nonvanishing_certified": true
+        }
+      ],
+      "min_pin_margin": 4.354577967736868e-12
+    },
+    {
+      "gamma": 45.66611208104108,
+      "radius": 49.67829700851605,
+      "node_count": 36,
+      "counts": {
+        "critical_line_zero": 27,
+        "critical_line_nonzero_pin": 1,
+        "off_line_pin": 2,
+        "real_axis_pin": 3
+      },
+      "nonzero_pins": [
+        {
+          "node": [
+            0.9450000000000001,
+            -45.66611208104108
+          ],
+          "kind": "off_line_pin",
+          "abs_xi_lower": 9.227272168362652e-13,
+          "abs_xi_value": 9.227272168362668e-13,
+          "acb_certified": true,
+          "nonvanishing_certified": true
+        },
+        {
+          "node": [
+            0.05499999999999994,
+            -45.66611208104108
+          ],
+          "kind": "off_line_pin",
+          "abs_xi_lower": 9.227272168362652e-13,
+          "abs_xi_value": 9.227272168362668e-13,
+          "acb_certified": true,
+          "nonvanishing_certified": true
+        },
+        {
+          "node": [
+            0.5,
+            0.0
+          ],
+          "kind": "real_axis_pin",
+          "abs_xi_lower": 0.4971207781883137,
+          "abs_xi_value": 0.4971207781883141,
+          "acb_certified": true,
+          "nonvanishing_certified": true
+        },
+        {
+          "node": [
+            1.0,
+            0.0
+          ],
+          "kind": "real_axis_pin",
+          "abs_xi_lower": 0.5,
+          "abs_xi_value": 0.5,
+          "classical": "xi(1) = 1/2 (entire completion normalization; acb.zeta is indeterminate at the pole and interval arithmetic cannot cancel (s-1) zeta(s) at the boundary point)",
+          "nonvanishing_certified": true
+        },
+        {
+          "node": [
+            1.5,
+            0.0
+          ],
+          "kind": "real_axis_pin",
+          "abs_xi_lower": 0.5087310387263231,
+          "abs_xi_value": 0.508731038726324,
+          "acb_certified": true,
+          "nonvanishing_certified": true
+        },
+        {
+          "node": [
+            0.5,
+            27.67032193035704
+          ],
+          "kind": "critical_line_nonzero_pin",
+          "abs_xi_lower": 3.8781880974656257e-07,
+          "abs_xi_value": 3.87818809746563e-07,
+          "acb_certified": true,
+          "nonvanishing_certified": true
+        }
+      ],
+      "min_pin_margin": 9.227272168362652e-13
+    }
+  ],
+  "distinct_nonzero_pins": [
+    {
+      "node": [
+        0.055,
+        -45.666112081
+      ],
+      "abs_xi_lower": 9.227272168362652e-13,
+      "kind": "off_line_pin",
+      "gamma": 45.66611208104108
+    },
+    {
+      "node": [
+        0.055,
+        -42.122896147
+      ],
+      "abs_xi_lower": 4.354577967736868e-12,
+      "kind": "off_line_pin",
+      "gamma": 42.12289614653125
+    },
+    {
+      "node": [
+        0.055,
+        -39.252448585
+      ],
+      "abs_xi_lower": 5.547830231357397e-11,
+      "kind": "off_line_pin",
+      "gamma": 39.25244858548658
+    },
+    {
+      "node": [
+        0.5,
+        0.0
+      ],
+      "abs_xi_lower": 0.4971207781883137,
+      "kind": "real_axis_pin",
+      "gamma": 39.25244858548658
+    },
+    {
+      "node": [
+        0.5,
+        27.67032193
+      ],
+      "abs_xi_lower": 3.8781880974656257e-07,
+      "kind": "critical_line_nonzero_pin",
+      "gamma": 39.25244858548658
+    },
+    {
+      "node": [
+        0.945,
+        -45.666112081
+      ],
+      "abs_xi_lower": 9.227272168362652e-13,
+      "kind": "off_line_pin",
+      "gamma": 45.66611208104108
+    },
+    {
+      "node": [
+        0.945,
+        -42.122896147
+      ],
+      "abs_xi_lower": 4.354577967736868e-12,
+      "kind": "off_line_pin",
+      "gamma": 42.12289614653125
+    },
+    {
+      "node": [
+        0.945,
+        -39.252448585
+      ],
+      "abs_xi_lower": 5.547830231357397e-11,
+      "kind": "off_line_pin",
+      "gamma": 39.25244858548658
+    },
+    {
+      "node": [
+        1.0,
+        0.0
+      ],
+      "abs_xi_lower": 0.5,
+      "kind": "real_axis_pin",
+      "gamma": 39.25244858548658
+    },
+    {
+      "node": [
+        1.5,
+        0.0
+      ],
+      "abs_xi_lower": 0.5087310387263231,
+      "kind": "real_axis_pin",
+      "gamma": 39.25244858548658
+    }
+  ],
+  "kill_pin": {
+    "height": 27.67032193035704,
+    "abs_xi_lower": 3.8781880974656257e-07,
+    "abs_xi_value": 3.87818809746563e-07,
+    "anchor_2259_abs_Z_lower": 2.8451013491344974,
+    "anchor_2259_is_zero": false
+  },
+  "summary": {
+    "pin_instances": 18,
+    "acb_certified_instances": 15,
+    "classical_instances": 3,
+    "distinct_points": 10,
+    "distinct_kinds": {
+      "off_line_pin": 6,
+      "real_axis_pin": 3,
+      "critical_line_nonzero_pin": 1
+    },
+    "all_certified": true,
+    "min_pin_margin": 9.227272168362652e-13,
+    "comparison_2259": {
+      "brackets": 72,
+      "kill_pin_abs_Z_lower": 2.8451013491344974
+    }
+  },
+  "verdict": "CENSUS-ARB-CERTIFIED: all 18 non-zero pin instances at the three candidates (10 distinct points: 1 critical_line_nonzero_pin, 6 off_line_pin, 3 real_axis_pin) have xi != 0: 15 acb-certified, of which the smallest certified lower bound is 9.22727e-13 at the (off_line_pin) pin 0.945 + -45.6661i; 3 instance(s) at the pole point s = 1 use the classical exact xi(1) = 1/2.  The kill pin at 27.67032193035704 re-certified with |xi| >= 3.87819e-07 (2259 Hardy-Z pin |Z| >= 2.8451013491344974).  The 2259 extension is complete: zeros by certified brackets, non-zero pins by certified lower bounds; the census classification is now ball-checked end to end at ball rigor (the mpmath rule remains the classifier, not the certificate).  No producer GO, no gate sign change, no RH claim.",
+  "nonclaims": [
+    "the xi evaluation certifies non-vanishing at the committed float node coordinates (arb(float) is exact); the critical-line zero side remains the 2259 brackets",
+    "the pin at s = 1 uses the classical exact value xi(1) = 1/2 rather than an acb evaluation: acb.zeta at the pole s = 1 is indeterminate and interval arithmetic cannot cancel (s-1) zeta(s) at the boundary point",
+    "the classification rule (mpmath siegelz < 1e-9) is the committed r47 rule, not a certified object",
+    "no producer GO, no gate sign change, no RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/routea_weighted_zero_census_arb_2263.py",
+    "dependency": "python-flint (Arb) in a local venv",
+    "machinery": "scripts/routea_weighted_zero_separation_input_2247.py (assemble_owner, classification rule)",
+    "predecessor": "docs/proofs/2259_routea_weighted_zero_brackets_arb.md",
+    "consumer_record": "docs/proofs/2245_routea_weighted_zero_owner_count_brick.md"
+  }
+}

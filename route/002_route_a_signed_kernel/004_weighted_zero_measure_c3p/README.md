@@ -202,8 +202,38 @@ max width upper `1.6543612251060554e-26`, min pairwise gap lower
 `1.383836594509236`, min endpoint margin `8.656304746693204e-28`, and the
 nonzero kill pin certified at `|Z| >= 2.8451013491344974`.
 
-The open list is now: the count-free assembly of the producer gate itself
-(no per-node transfer needed; the Lean consumer side is priced at 2257),
+The 2260--2263 batch pins down the producer side and closes the
+certification loop on the supporting inputs. 2260 traces the proved
+count-free high-shell chain (`C1SpectralWeil.lean:248/275/385`,
+`C1RouteAWeightedZeroMeasure.lean:117/158/219`) and verifies the screen
+lane computes exactly its constant: `(2π)² · 77444.14398633591 =
+3057372.2573045553` bitwise equals the 2197 `B_upper`, and `(2π)² ·
+240796.76135588222 = 9506275.102584315` against the frozen 2243
+`B_upper = 9506275.102584327` (relative difference
+`1.175630914820416e-15`).  The producer-side assembly is one Lean lemma
+short: the direct-product decay estimate making the compactness constant
+equal the min-product of the factor L¹ norms over `(2π)²`; count-freeness
+is automatic because the factor norms contain no zero count. 2261 screens
+the coalitional Hall LP: greedy single-factor lower bounds `2.1475 /
+5.5627 / 2.5011 / 5.4124` all exceed the exact pigeonhole `62/30`, and
+the `parity`/`halves` partitions are disjoint self-covers (both sides
+`<= 0.0067` of budget), so the split question must be posed on the fixed
+analytic per-node pieces; the LP stays registered. 2262 ball-izes every
+2258 quantity with directed 256-bit MPFR (one guard per operation):
+certified intervals bracket all four cancellation factors, the failure
+counts are reproduced exactly at the certified lower ratios (rows
+`10 / 4 / 11 / 4`; channels `3/30 + 3/30`), reading residuals are 0 ulp,
+the mask decisions are certified, the certified floor uppers are
+`<= 0.00288` of budget, and the phi-underflow / hypot-box extraction laws
+became canonical. 2263 completes the Arb extension: all 18 census
+non-zero pin instances certified (15 `acb`, minimum
+`9.227272168362652e-13`; 3 classical at the pole point `s = 1`), and the
+kill pin re-certified at `|xi| >= 3.8781880974656257e-07`.
+
+The open list is now: the single producer-side Lean lemma named at 2260
+(the direct-product decay estimate; the Lean consumer side is priced at
+2257 and the numeric tie is certified at the frozen screen constants),
 and any future consumer wanting the count-side reduction back must supply
-a cancellation-aware split — 2258 prices the canonical forms and registers
-the coalitional Hall LP.
+a cancellation-aware split — 2258 prices the canonical forms, 2261
+screens the Hall LP, 2262 ball-certifies every quantity, and the
+coalitional Hall LP stays the registered design question.
