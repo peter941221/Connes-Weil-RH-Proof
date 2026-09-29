@@ -485,9 +485,20 @@ of the low-shell side: the direct-product screen is re-evaluated as an
 outward MPFR enclosure (2234), the too-loose envelope is attributed to a
 coefficient radius charging the generation and solve channels together
 (2235), and charging the computed solve floor makes the enclosure viable,
-`tail/margin = 0.0774` with `12.9x` headroom (2236). This is a
-`GO-CANDIDATE / PARTIALLY PRICED`, not a producer: the remaining gates are
-the certified operand-generation channel, the low-frequency shell, and
+`tail/margin = 0.0774` with `12.9x` headroom (2236). The 2237-2241
+batch then retires two of those gates and isolates the rest: the generation
+channel becomes a certified per-entry MPFR enclosure at `3.97e-05` of its
+screen (2237, `delta_max 9.49e-29`), the panel is repriced by the `dx^2`
+composite-trapezoid law on measured zero-free cells to `tail/margin =
+0.0355` with `28.1x` headroom (2238), the x-channel ledger covers all 30
+nodes bitwise (2239), the multiplicity constant is verified as the Lean
+formal constant, bitwise at `301.83032993648527` (2240), and the transfer
+re-check reads the 2119 cardinality ratio at `1.721x` over the margin,
+flipped to `0.530x` by the registered composite-EM panel lever (`3.248x`,
+pending a certified zero count; 2241). This is a `GO-CANDIDATE /
+PARTIALLY PRICED`, not a producer: the remaining gates are the certified
+zero count `Z = 0` (or charging the measured dips), the 2119 count
+refinement or the composite-EM landing, the 2157 separation input, and
 complete-owner transfer.
 
 ```mermaid
@@ -501,9 +512,8 @@ flowchart LR
     F -->|2197-2200: 0.002203 margin ratio| G[GO-CANDIDATE]
     G --> H[Outward interval enclosure]
     H -->|2229-2231: 30-node MPFR envelope| H2[Interval terminal priced]
-    H2 -->|2234-2236: outward B_zm viable 0.0774| H3[Low shell first gap]
-    H3 --> I[Low shell + complete-owner transfer]
-    I --> J[Same-owner qw >= 0]
+    H2 -->|2234-2238: outward B_zm viable 0.0355| H3[Low shell + owner transfer]
+    H3 --> J[Same-owner qw >= 0]
     J --> K[SourceRH]
     K --> L[Mathlib RH]
 ```
@@ -511,10 +521,14 @@ flowchart LR
 The graph has three open doors after the current candidate: (1) intervalize
 the direct-product functions and solve error (the q-construction exponent
 channel is outward-certified through 2229-2231 with the ledger priced by
-2233, and the direct-product solve channel by 2234-2236; the certified
-operand-generation channel remains), (2) certify the low-frequency shell
-without importing a finite list of numerical zeros, and (3) transfer the
-resulting bound to the complete actual owner. RH is not claimed.
+2233/2239, the direct-product solve channel by 2234-2236, and the
+operand-generation channel by 2237), (2) certify the low-frequency shell
+without importing a finite list of numerical zeros (the registered 2238
+composite-EM lever: a certified zero count replacing the global panel
+majorants, projected `tail/margin ~ 0.0109`), and (3) transfer the
+resulting bound to the complete actual owner (quantified by 2241: the 2119
+count ratio reads `1.721x` over the margin at the current standing). RH is
+not claimed.
 
 An alternative four-point same-owner span has formal finite-prefix and gate
 algebra. Its live analytic obligation is the strict scored cross-determinant

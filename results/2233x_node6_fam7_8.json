@@ -1,0 +1,30 @@
+{
+  "record": 2233,
+  "part": "x-channel",
+  "mode": "node",
+  "status": "XWIDTH-CHANNEL-SAMPLED",
+  "node_index": 6,
+  "family_lo": 7,
+  "family_hi": 8,
+  "levels": [
+    1,
+    16
+  ],
+  "rows": [
+    {
+      "family": 7,
+      "gl_base": 4.816413797211633e-19,
+      "sim_base": 4.8194196791063725e-19,
+      "total_base": 9.63583347631801e-19,
+      "max_delta_base": 36.0999472141266,
+      "gl_k1": 4.929789569146516e-19,
+      "sim_k1": 4.932795451041278e-19,
+      "total_k1": 9.8625850201878e-19,
+      "max_delta_k1": 60.166577297059526,
+      "gl_k16": 6.630426148169748e-19,
+      "sim_k16": 6.633432030064845e-19,
+      "total_k16": 1.3263858178234599e-18,
+      "max_delta_k16": 421.1661375616699
+    }
+  ]
+}

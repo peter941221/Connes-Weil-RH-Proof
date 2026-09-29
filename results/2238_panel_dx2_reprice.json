@@ -1,0 +1,121 @@
+{
+  "record": 2238,
+  "status": "PANEL-DX2-REPRICE-VIABLE",
+  "lever": "dx^2-law panel: Euler-Maclaurin measure form on measured zero-free cells, global phi^(k) majorant ladder m0..m4",
+  "radius": {
+    "r_base": 1005486.289224448,
+    "r_corr": 2057069012.526474
+  },
+  "radius_source": "2237 certified generation channel",
+  "panel_2238_sigma1": {
+    "base_M0": 0.9194450801774107,
+    "base_D2": 6422.964947252888,
+    "corr_M0": 1510.5771804832668,
+    "corr_D2": 9716500.106800418
+  },
+  "panel_2234_sigma1": {
+    "base_M0": 1.8076571806532764,
+    "base_D2": 11693.314770969451,
+    "corr_M0": 2862.4920101295183,
+    "corr_D2": 17018191.948288612
+  },
+  "n_risk": {
+    "base_M0": 182747,
+    "base_D2": 199759,
+    "corr_M0": 189618,
+    "corr_D2": 207826
+  },
+  "binding_row": {
+    "sigma": 1.0,
+    "base_M0": 2.998972357333835,
+    "base_D2": 15558.273343860988,
+    "corr_M0": 3169.537007543597,
+    "corr_D2": 3707252433.007615,
+    "panel_base": 0.9194450801774107,
+    "panel_base_D2": 6422.964947252888,
+    "panel_corr": 1510.5771804832668,
+    "panel_corr_D2": 9716500.106800418,
+    "coeff_infl_base": 0.00013417597941262356,
+    "coeff_infl_base_D2": 0.15661735075389552,
+    "coeff_infl_corr": 0.2745032452784508,
+    "coeff_infl_corr_D2": 320.41481073633196,
+    "C_channel_a": 1249100.8031538636,
+    "C_channel_b": 281620901.822096,
+    "C_upper": 1249100.8031538636
+  },
+  "screen": {
+    "C_upper": 1249100.8031538636,
+    "B_upper": 49312523.13684655,
+    "spectralMultiplicityConstant": 301.83032993648527,
+    "high_shell_budget_upper": 59536060513.57989,
+    "signed_margin_anchor": 1675397327895.099,
+    "tail_upper_over_margin": 0.03553548732728288
+  },
+  "comparison_2197": {
+    "C_upper": 77444.14398633591,
+    "B_upper": 3057372.2573045553,
+    "tail_upper": 3691230708.643563,
+    "tail_over_margin": 0.0022031972041408675
+  },
+  "comparison_2234": {
+    "C_upper_2234": 2486617838.5966296,
+    "tail_over_margin_2234": 70.74142972939994,
+    "C_repricing_factor": 1990.726314736289
+  },
+  "drift": {
+    "base_M0": {
+      "chunk_trapezoid": 2.003335788745609,
+      "committed_2197": 2.0033357887456087,
+      "relative": 2.2167487464901211e-16
+    },
+    "base_D2": {
+      "chunk_trapezoid": 6688.576604759939,
+      "committed_2197": 6688.576604759935,
+      "relative": 5.439092683042218e-16
+    },
+    "corr_M0": {
+      "chunk_trapezoid": 913.4469710803496,
+      "committed_2197": 913.4469710803505,
+      "relative": -9.956732361783981e-16
+    },
+    "corr_D2": {
+      "chunk_trapezoid": 1526140.6871880083,
+      "committed_2197": 1526140.687188009,
+      "relative": -4.576851510646868e-16
+    }
+  },
+  "inflation_over_2197": {
+    "C": 16.12905429459266,
+    "tail": 16.129054294592695
+  },
+  "finding_classification_wall": {
+    "node_test": "|h_k(x_p)| > dx * m_{k+1} (both endpoints, 1e-9 guard both sides on the stored outward values)",
+    "medians": {
+      "base_M0": 1.5337719165999609e-06,
+      "base_D2": 0.0047337743906605565,
+      "corr_M0": 0.0008276013962915109,
+      "corr_D2": 1.6521282558716452
+    },
+    "thresholds": {
+      "base_M0": 0.10917224164110072,
+      "base_D2": 697.6396781017141,
+      "corr_M0": 172.87828287919206,
+      "corr_D2": 1014605.2178916262
+    },
+    "consequence": "76-87% of cells fail the test; the corner mass is bounded by the global m_{k+1}, which is 1e3..1e6x above the local slope scale",
+    "next_instrument": "local Bell-level probes P0..P4 with directed node bounds; the leftover cascade dx^(j+1) m_{j+1} then shrinks by ~dx per measured level (corr_D2 needs P4 local: its dx^2 m4 floor is 1715 vs median |F''| 1.65)"
+  },
+  "nonclaims": [
+    "the risk-cell count is measured from the committed 2234 chunk arrays with a 1e-9 guard; the corner mass still uses a global majorant (the classification wall)",
+    "the order-4 majorant follows the same validity rule as 2234's ladder (master bound sup q^-m e^-K/q <= e^-K, m <= 8 here)",
+    "the coefficient radii inherit the 2237 certificate",
+    "complete-owner transfer and the signed producer margin remain open",
+    "no producer or RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/routea_weighted_zero_panel_dx2_2238.py",
+    "sigma_sums": "results/2234_sigma_*.json",
+    "chunks": "results/2234_chunk_*.npz (local-only)",
+    "radius": "2237 certified generation channel"
+  }
+}

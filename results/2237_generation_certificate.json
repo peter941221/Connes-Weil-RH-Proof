@@ -1,0 +1,143 @@
+{
+  "record": 2237,
+  "status": "DIRECT-PRODUCT-OUTWARD-VIABLE",
+  "lever": "certified generation channel: measured per-entry |A_bin64 - A*| charged through the coefficient radius on top of the 2236 solve floor",
+  "radius": {
+    "r_base": 1005486.289224448,
+    "r_corr": 2057069012.526474
+  },
+  "owner": {
+    "gamma": 39.25244858548658,
+    "delta": 0.445,
+    "scale": 0.8,
+    "nodes": 30,
+    "a_max": 2.5600000000000005
+  },
+  "grid": {
+    "x_nodes": 240001,
+    "sigma_nodes": 101,
+    "dx": 2.1333333333333338e-05,
+    "d_sigma": 0.01,
+    "sigma_cover": 1.0259304941903822
+  },
+  "binding_row": {
+    "sigma": 1.0,
+    "base_M0": 3.9103385035608915,
+    "base_D2": 21812.117931842637,
+    "corr_M0": 4937.235601159832,
+    "corr_D2": 6114979882.496457,
+    "panel_base": 1.8076571806532764,
+    "panel_base_D2": 11693.314770969451,
+    "panel_corr": 2862.4920101295183,
+    "panel_corr_D2": 17018191.948288612,
+    "coeff_infl_base": 0.00013417597941262356,
+    "coeff_infl_base_D2": 0.15661735075389552,
+    "coeff_infl_corr": 0.2745032452784508,
+    "coeff_infl_corr_D2": 320.41481073633196,
+    "C_channel_a": 2727859.2133313827,
+    "C_channel_b": 605688949.4067999,
+    "C_upper": 2727859.2133313827
+  },
+  "screen": {
+    "C_upper": 2727859.2133313827,
+    "B_upper": 107691565.18979038,
+    "spectralMultiplicityConstant_proxy": 301.83032993648527,
+    "high_shell_budget_upper": 130018322610.4439,
+    "signed_margin_anchor": 1675397327895.099,
+    "tail_upper_over_margin": 0.07760447056089889
+  },
+  "comparison_2197": {
+    "C_upper": 77444.14398633591,
+    "B_upper": 3057372.2573045553,
+    "tail_upper": 3691230708.643563,
+    "tail_over_margin": 0.0022031972041408675
+  },
+  "comparison_2234": {
+    "C_upper_2234": 2486617838.5966296,
+    "tail_over_margin_2234": 70.74142972939994,
+    "C_repricing_factor": 911.5638470065549
+  },
+  "inflation_over_2197": {
+    "C": 35.22356982617925,
+    "tail": 35.223569826179315
+  },
+  "sigma1_drift_vs_2197": {
+    "base_M0": {
+      "chunk_trapezoid": 2.003335788745609,
+      "committed_2197": 2.0033357887456087,
+      "relative": 2.2167487464901211e-16
+    },
+    "base_D2": {
+      "chunk_trapezoid": 6688.576604759939,
+      "committed_2197": 6688.576604759935,
+      "relative": 5.439092683042218e-16
+    },
+    "corr_M0": {
+      "chunk_trapezoid": 913.4469710803496,
+      "committed_2197": 913.4469710803505,
+      "relative": -9.956732361783981e-16
+    },
+    "corr_D2": {
+      "chunk_trapezoid": 1526140.6871880083,
+      "committed_2197": 1526140.687188009,
+      "relative": -4.576851510646868e-16
+    }
+  },
+  "allowances": {
+    "slack": "reused from 2234 (MPFR RNDN + 2^-200 magnitude sum)",
+    "panel": "reused from 2234 (global phi^(k) majorants, dx law)",
+    "sigma": "reused from 2234 (exp(a_max d_sigma) per norm)",
+    "coeff": "recomputed here from the 2197 system scales"
+  },
+  "nonclaims": [
+    "the coefficient radii separate a generation term (eta screen) from a solve term (residual); the split is the subject of 2236",
+    "the panel allowance still carries a global-majorant factor; the residual inflation over the 2197 screen is that channel",
+    "the multiplicity constant is still the 2197 diagnostic proxy",
+    "complete-owner transfer and the signed producer margin remain open",
+    "no producer or RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/routea_weighted_zero_direct_product_reprice_2235.py",
+    "sigma_sums": "results/2234_sigma_*.json",
+    "system": "scripts/routea_weighted_zero_direct_product_mass_screen_2197.py"
+  },
+  "generation_certificate": {
+    "reading": "delta = |A_bin64 - A*| per entry; A* = exact real arithmetic of family_values on the stored binary64 inputs (X, W, a, theta, node, K); 256-bit MPFR, RNDN terms, RNDU/RNDD accumulation, 2^-200 magnitude-sum slack",
+    "entries": 900,
+    "delta_max": 9.490758943075902e-29,
+    "delta_max_at": [
+      7,
+      7
+    ],
+    "delta_max_over_a_inf": 1.1950081723865955e-16,
+    "S_over_abs_max": 26397299762749.555,
+    "interval_halfwidth_max": 8.361167990095088e-86,
+    "slack_scale": 6.223015277861142e-61,
+    "v_base": 1.0176832913826672e-14,
+    "v_corr": 1.7923057312538845e-11,
+    "v_base_argmax_node": 4,
+    "v_corr_argmax_node": 15,
+    "v_screen_eta_1e_12_base": 2.20444403580237e-10,
+    "v_screen_eta_1e_12_corr": 4.5170237415133973e-07,
+    "cert_over_screen_base": 4.616507721922061e-05,
+    "cert_over_screen_corr": 3.967890880851082e-05,
+    "gamma_lu_term_base": 1.4684547150272464e-12,
+    "gamma_lu_term_corr": 3.0089422563640076e-09,
+    "gen_radius_base": 6890.223901897575,
+    "gen_radius_corr": 12134804.505058868,
+    "floor_base": 998596.0653225501,
+    "floor_corr": 2044934208.0214145,
+    "radius_guard": 1.0000000364614705
+  },
+  "bitwise_columns_verified": 30,
+  "system": {
+    "a_inf": 7.94200337904096e-13,
+    "ainv_inf": 6.77049894501907e+17,
+    "cond_inf": 537713.2549913471,
+    "base_c_inf": 277567753448698.28,
+    "corr_c_inf": 5.6875117346762605e+17,
+    "resid_base": 6.4676997486962715e-15,
+    "resid_corr": 1.1417431493021041e-11,
+    "gamma30": 6.661338147750985e-15
+  }
+}

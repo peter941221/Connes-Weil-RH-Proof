@@ -23,6 +23,8 @@ __pycache__/
 # local-only WSL setup/verification helpers (contain local absolute paths)
 a0*.sh
 a1*.sh
+a0*.py
+a1*.py
 mc_setup.sh
 
 # local-only pre-compression backups (private workflow artifacts)

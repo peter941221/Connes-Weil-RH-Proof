@@ -64,8 +64,26 @@ charged the computed solve floor to reach viability (`C_upper =
 2721865.34164875`, `tail/margin = 0.07743395177596035`, `12.9x` headroom;
 stored-exact reading `0.05264487413912939`).
 
-The remaining gates are the certified generation channel of 2236 (screened
-at `1e-12`), the panel allowance and multiplicity proxy of the direct-product
-side, transfer to the complete actual owner, and finally the strict signed
-margin. Until those gates pass, this branch remains a candidate and makes no
-RH claim.
+The 2237--2241 batch then retired two of those gates, reclassified a third,
+and isolated the fourth. 2237 certified the generation channel: the stored
+matrix entries are enclosed per entry in 256-bit MPFR (`delta_max =
+9.490758943075902e-29`, half an ulp of `A_inf`, interval halfwidth
+`<= 8.4e-86`, dump md5 `599e1714c9beb092b6704bcde3670caf`), charged at
+`3.97e-05` of the `1e-12` screen (`2.52e4x` tighter), moving the envelope
+by `+0.22%`. 2238 replaced the panel by the `dx^2` composite-trapezoid law
+on measured zero-free cells and repriced the envelope to `C_upper =
+1249100.8031538636`, `tail/margin = 0.03553548732728288` (`28.14x`
+headroom; `1990.73x` below 2234). 2239 extended the x-channel charge to all
+30 nodes (bitwise reproduction of the 2229 ledger; worst one-ulp cost
+`2.13e-05` of the target). 2240 showed the multiplicity constant is the
+Lean formal constant bitwise (`301.83032993648527`), so that item is not a
+numerics lever. 2241 re-checked the owner transfer: the 2119 cardinality
+ratio reads `1.721x` over the margin at the 2238 standing (`0.530x` with
+the projected composite-EM panel of 2238, `3.248x`).
+
+The remaining gates: certify the zero count `Z = 0` of the 2238
+composite-EM lever (or charge the measured dips `2.5e-12` / `4.9e-9`), the
+2119 count refinement (needs `1.721x`) or the composite-EM landing, the
+2157 near-pin separation input, and finally the strict signed margin.
+Until those gates pass, this branch remains a candidate and makes no RH
+claim.

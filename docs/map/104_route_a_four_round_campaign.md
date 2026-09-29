@@ -1152,6 +1152,81 @@ binding row. This opens the first gap of ladder item 4. The generation
 channel (screened at `1e-12`), the panel allowance, the multiplicity proxy,
 owner transfer and the signed margin remain open.
 
+## 2237 — certified generation channel
+
+Record [2237](../proofs/2237_routea_weighted_zero_matrix_enclosure.md)
+replaces the `eta = 1e-12` generation screen by a measured 256-bit MPFR
+enclosure of all 900 stored matrix entries: `delta_max =
+9.490758943075902e-29` at entry `[7, 7]` (`1.1950081723865955e-16` of
+`A_inf`, about half an ulp), interval halfwidth at most
+`8.361167990095088e-86`, 30/30 bitwise columns against the rebuilt system,
+operand dump md5 `599e1714c9beb092b6704bcde3670caf`. The certified charge
+is `3.967890880851082e-05` of the screen on the corr vector (`2.52e4x`
+tighter; base `4.616507721922061e-05`), so the envelope moves by only
+`+0.22%`: `C_upper = 2727859.2133313827`, `tail/margin =
+0.07760447056089889`. The largest registered 2236 lever is retired.
+
+## 2238 — dx^2 panel law with measured zero-free cells
+
+Record [2238](../proofs/2238_routea_weighted_zero_panel_dx2.md) replaces the
+2234 O(dx) panel by the composite-trapezoid identity on the uniform grid
+(two integrations by parts; the `Delta` sum telescopes; `g'` vanishes
+exactly at `+-a_max` by the `phi` extension, so every kink rate is `dx^2`).
+Risk cells (node test `|h_k(x_p)| > dx m_{k+1}`, both endpoints) measured
+from the committed chunks: 182747 / 199759 / 189618 / 207826 of 240000,
+because the corner mass still uses global `m_{k+1}` (the classification
+wall). Panels `1.8076571806532764`, `11693.314770969451`,
+`2862.4920101295183`, `17018191.948288612` fall to `0.9194450801774107`,
+`6422.964947252888`, `1510.5771804832668`, `9716500.106800418`
+(`1.75..1.97x`). Stacked on the 2237 radii the envelope reads `C_upper =
+1249100.8031538636`, `tail/margin = 0.03553548732728288` (`28.14x`
+headroom; `16.12905429459266x` over the 2197 screen; `1990.73x` below
+2234). Registered composite-EM lever: a numpy scan finds zero real zeros of
+all four channels (deepest interior dips `2.487e-12` / `4.920e-09` on the
+base channels), projecting panels `1.6e3..1.8e3x` below the 2234 values
+and `tail/margin ~ 0.010940194125321153` once `Z = 0` is certified.
+
+## 2239 — x-channel charge over all 30 owner nodes
+
+Record [2239](../proofs/2239_routea_weighted_zero_xwidth_charge_all_nodes.md)
+extends the 2233 x-channel sweep from the two sampled nodes to all 30
+(900 chunk files; families sorted, one `nextafter`-up per `gl + sim`
+addition). The reduction reproduces the committed 2233 two-node artifact
+entry for entry (bitwise gate) and the per-node base column is bitwise
+equal to the committed 2229 `exp_lipschitz_charge` at all 30 nodes (drift
+`0.0`). Worst node is 2 at both levels: `k = 1` inflation
+`+0.15158672812255491`, `k = 16` `+2.4253876499608817`; the worst one-ulp
+absolute charge is `1.332898e-09`, `2.1309206641563692e-05` of the target.
+
+## 2240 — the multiplicity constant is formal
+
+Record [2240](../proofs/2240_routea_weighted_zero_multiplicity_constant_formal.md)
+audits the `spectralMultiplicityConstant_proxy` carried since 2234: it is a
+binary64 evaluation of the Lean
+`spectralMultiplicityConstant` (`ConnesWeilRH/Dev/C1SpectralSummability.lean:303`,
+with `xiGrowthFixedConstant` at `:38` and `kernelSmallMomentConstant` at
+`:29`, tail constant `ConnesWeilRH/Source/CC20ZetaCounting.lean:85`),
+bitwise equal at `301.83032993648527` (relative `0.0`; `‖xi(2)‖ = pi/6`
+exactly). The `4 *` factor is the `3/4` geometric assembly of
+`exists_weightedZeroMeasure_highShell_tsum_bound`. The multiplicity item
+is therefore not a numerics lever; the only slack inside the constant is
+the flat `+192` (`276.997447850681` of `301.83032993648527` in log2 units),
+registered as a Lean-side task.
+
+## 2241 — owner-transfer re-check at the 2238 standing
+
+Record [2241](../proofs/2241_routea_weighted_zero_owner_transfer_recheck.md)
+re-checks the three transfer items. The 2119 cardinality ratio `48.43x`
+against the 62-node screened family, read as a linear count transfer, now
+costs `48.43 x 0.03553548732728288 = 1.721x` over the margin (`3.750x` at
+the 2236 standing; `0.530x` with the projected composite-EM panel) - the
+binding transfer gap, needing a `1.721x` count refinement or the
+composite-EM landing. 2157 (near-pin separation) is unchanged and open;
+2134 (sampled-tail horizon) is bypassed: the current lane never
+extrapolates a sampled tail, its tail is the Lean geometric assembly over
+the certified 2197-screen budget - the independently certified rule 2134
+listed as the admissible replacement.
+
 ## 2178 algebraic infinity remainder
 
 Record [2178](../proofs/2178_routea_infinity_algebraic_remainder.md) replaces
