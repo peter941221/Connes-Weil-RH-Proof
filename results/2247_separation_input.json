@@ -1,0 +1,419 @@
+{
+  "record": 2247,
+  "status": "SEPARATION-INPUT-MEASURED",
+  "date": "2026-09-30",
+  "proposition": "At a fixed candidate (rho, N): every nonzero target of the owner (the 1994 orbit/real targets with value +-1) is separated from every zero-valued interpolation pin that is not itself a target, with |t - z| >= s_min, and the 2157 derivative floor 4 exp(-X S)/(delta X L^2) with delta = s_min is finite and explicit.  Uniformity in the configuration requires a certified zero-isolation procedure for every rho; per fixed rho it is a finite certified check.",
+  "measured": {
+    "worst_candidate_gamma": 42.12289614653125,
+    "min_separation": 1.2837708405212573,
+    "min_separation_pair": {
+      "target": [
+        0.9450000000000001,
+        42.12289614653125
+      ],
+      "pin": [
+        0.5,
+        40.9187190121475
+      ],
+      "pin_kind": "critical_line_zero"
+    },
+    "floor_2157_at_min_separation": 0.004131877017085821
+  },
+  "target_classification": "nonzero targets: rho (value 1), 1 - conj(rho) (value -1), rho + 1/2 (value -1); zero-valued pins: conj(rho), 1 - rho (off-line), the real-axis points 0.5/1/1.5, and the kill ordinates plus the in-ball zeros added by the 2103 loop.  The 1994 kill list carries one non-zero pinned ordinate: 27.67032193035704 is not a zeta zero (|zeta| = 2.845101349, no Hardy-Z sign change; audit in results/2245).  Pins are labelled by kind in each row.",
+  "alternatives_2157": [
+    "explicit separation bound (this record, measured at the three candidates; the formal uniform version needs certified zero isolation)",
+    "cost estimate using the full node geometry (the direct solver actually does this; the 2109/2103 ledgers price the construction without charging a derivative seminorm)",
+    "signed argument avoiding the derivative seminorm charge"
+  ],
+  "rows": [
+    {
+      "gamma": 39.25244858548658,
+      "rho": [
+        0.9450000000000001,
+        39.25244858548658
+      ],
+      "radius": 43.266623803890596,
+      "support": 5.120000000000001,
+      "n_nodes": 30,
+      "n_targets_nonzero": 3,
+      "n_pins": 27,
+      "pin_kinds": {
+        "off_line_pin": 2,
+        "real_axis_pin": 3,
+        "critical_line_zero": 21,
+        "critical_line_nonzero_pin": 1
+      },
+      "n_in_ball_added": 12,
+      "per_target": [
+        {
+          "target": [
+            0.9450000000000001,
+            39.25244858548658
+          ],
+          "value": [
+            1.0,
+            0.0
+          ],
+          "min_separation": 1.7246687029005743,
+          "nearest_pin": [
+            0.5,
+            37.58617815882567
+          ],
+          "nearest_pin_kind": "critical_line_zero",
+          "floor_2157_at_min_separation": 0.0030755954591358543
+        },
+        {
+          "target": [
+            0.05499999999999994,
+            39.25244858548658
+          ],
+          "value": [
+            -1.0,
+            0.0
+          ],
+          "min_separation": 1.7246687029005743,
+          "nearest_pin": [
+            0.5,
+            37.58617815882567
+          ],
+          "nearest_pin_kind": "critical_line_zero",
+          "floor_2157_at_min_separation": 0.009608984322583001
+        },
+        {
+          "target": [
+            1.445,
+            39.25244858548658
+          ],
+          "value": [
+            -1.0,
+            0.0
+          ],
+          "min_separation": 1.915589239572187,
+          "nearest_pin": [
+            0.5,
+            37.58617815882567
+          ],
+          "nearest_pin_kind": "critical_line_zero",
+          "floor_2157_at_min_separation": 0.0007699022126940044
+        }
+      ],
+      "min_separation": 1.7246687029005743,
+      "min_separation_pair": {
+        "target": [
+          0.9450000000000001,
+          39.25244858548658
+        ],
+        "pin": [
+          0.5,
+          37.58617815882567
+        ],
+        "pin_kind": "critical_line_zero"
+      },
+      "floor_2157_at_min_separation": 0.0030755954591358543,
+      "target_to_target": [
+        {
+          "pair": [
+            [
+              0.9450000000000001,
+              39.25244858548658
+            ],
+            [
+              0.05499999999999994,
+              39.25244858548658
+            ]
+          ],
+          "distance": 0.8900000000000001
+        },
+        {
+          "pair": [
+            [
+              0.9450000000000001,
+              39.25244858548658
+            ],
+            [
+              1.445,
+              39.25244858548658
+            ]
+          ],
+          "distance": 0.5
+        },
+        {
+          "pair": [
+            [
+              0.05499999999999994,
+              39.25244858548658
+            ],
+            [
+              1.445,
+              39.25244858548658
+            ]
+          ],
+          "distance": 1.3900000000000001
+        }
+      ],
+      "detector_automatic_separation": 0.445
+    },
+    {
+      "gamma": 42.12289614653125,
+      "rho": [
+        0.9450000000000001,
+        42.12289614653125
+      ],
+      "radius": 46.13610571435686,
+      "support": 5.120000000000001,
+      "n_nodes": 33,
+      "n_targets_nonzero": 3,
+      "n_pins": 30,
+      "pin_kinds": {
+        "off_line_pin": 2,
+        "real_axis_pin": 3,
+        "critical_line_zero": 24,
+        "critical_line_nonzero_pin": 1
+      },
+      "n_in_ball_added": 15,
+      "per_target": [
+        {
+          "target": [
+            0.9450000000000001,
+            42.12289614653125
+          ],
+          "value": [
+            1.0,
+            0.0
+          ],
+          "min_separation": 1.2837708405212573,
+          "nearest_pin": [
+            0.5,
+            40.9187190121475
+          ],
+          "nearest_pin_kind": "critical_line_zero",
+          "floor_2157_at_min_separation": 0.004131877017085821
+        },
+        {
+          "target": [
+            0.05499999999999994,
+            42.12289614653125
+          ],
+          "value": [
+            -1.0,
+            0.0
+          ],
+          "min_separation": 1.2837708405212573,
+          "nearest_pin": [
+            0.5,
+            40.9187190121475
+          ],
+          "nearest_pin_kind": "critical_line_zero",
+          "floor_2157_at_min_separation": 0.01290909094109991
+        },
+        {
+          "target": [
+            1.445,
+            42.12289614653125
+          ],
+          "value": [
+            -1.0,
+            0.0
+          ],
+          "min_separation": 1.5307081926260981,
+          "nearest_pin": [
+            0.5,
+            40.9187190121475
+          ],
+          "nearest_pin_kind": "critical_line_zero",
+          "floor_2157_at_min_separation": 0.0009634863138932067
+        }
+      ],
+      "min_separation": 1.2837708405212573,
+      "min_separation_pair": {
+        "target": [
+          0.9450000000000001,
+          42.12289614653125
+        ],
+        "pin": [
+          0.5,
+          40.9187190121475
+        ],
+        "pin_kind": "critical_line_zero"
+      },
+      "floor_2157_at_min_separation": 0.004131877017085821,
+      "target_to_target": [
+        {
+          "pair": [
+            [
+              0.9450000000000001,
+              42.12289614653125
+            ],
+            [
+              0.05499999999999994,
+              42.12289614653125
+            ]
+          ],
+          "distance": 0.8900000000000001
+        },
+        {
+          "pair": [
+            [
+              0.9450000000000001,
+              42.12289614653125
+            ],
+            [
+              1.445,
+              42.12289614653125
+            ]
+          ],
+          "distance": 0.5
+        },
+        {
+          "pair": [
+            [
+              0.05499999999999994,
+              42.12289614653125
+            ],
+            [
+              1.445,
+              42.12289614653125
+            ]
+          ],
+          "distance": 1.3900000000000001
+        }
+      ],
+      "detector_automatic_separation": 0.445
+    },
+    {
+      "gamma": 45.66611208104108,
+      "rho": [
+        0.9450000000000001,
+        45.66611208104108
+      ],
+      "radius": 49.67829700851605,
+      "support": 5.120000000000001,
+      "n_nodes": 36,
+      "n_targets_nonzero": 3,
+      "n_pins": 33,
+      "pin_kinds": {
+        "off_line_pin": 2,
+        "real_axis_pin": 3,
+        "critical_line_zero": 27,
+        "critical_line_nonzero_pin": 1
+      },
+      "n_in_ball_added": 18,
+      "per_target": [
+        {
+          "target": [
+            0.9450000000000001,
+            45.66611208104108
+          ],
+          "value": [
+            1.0,
+            0.0
+          ],
+          "min_separation": 2.380992966914273,
+          "nearest_pin": [
+            0.5,
+            43.327073280915
+          ],
+          "nearest_pin_kind": "critical_line_zero",
+          "floor_2157_at_min_separation": 0.0022278029817236807
+        },
+        {
+          "target": [
+            0.05499999999999994,
+            45.66611208104108
+          ],
+          "value": [
+            -1.0,
+            0.0
+          ],
+          "min_separation": 2.380992966914273,
+          "nearest_pin": [
+            0.5,
+            43.327073280915
+          ],
+          "nearest_pin_kind": "critical_line_zero",
+          "floor_2157_at_min_separation": 0.006960253456480646
+        },
+        {
+          "target": [
+            1.445,
+            45.66611208104108
+          ],
+          "value": [
+            -1.0,
+            0.0
+          ],
+          "min_separation": 2.522722241645963,
+          "nearest_pin": [
+            0.5,
+            43.327073280915
+          ],
+          "nearest_pin_kind": "critical_line_zero",
+          "floor_2157_at_min_separation": 0.0005846130698864416
+        }
+      ],
+      "min_separation": 2.380992966914273,
+      "min_separation_pair": {
+        "target": [
+          0.9450000000000001,
+          45.66611208104108
+        ],
+        "pin": [
+          0.5,
+          43.327073280915
+        ],
+        "pin_kind": "critical_line_zero"
+      },
+      "floor_2157_at_min_separation": 0.0022278029817236807,
+      "target_to_target": [
+        {
+          "pair": [
+            [
+              0.9450000000000001,
+              45.66611208104108
+            ],
+            [
+              0.05499999999999994,
+              45.66611208104108
+            ]
+          ],
+          "distance": 0.8900000000000001
+        },
+        {
+          "pair": [
+            [
+              0.9450000000000001,
+              45.66611208104108
+            ],
+            [
+              1.445,
+              45.66611208104108
+            ]
+          ],
+          "distance": 0.5
+        },
+        {
+          "pair": [
+            [
+              0.05499999999999994,
+              45.66611208104108
+            ],
+            [
+              1.445,
+              45.66611208104108
+            ]
+          ],
+          "distance": 1.3900000000000001
+        }
+      ],
+      "detector_automatic_separation": 0.445
+    }
+  ],
+  "nonclaims": [
+    "measured separations at three candidates are not a uniform separation theorem over all rho",
+    "no producer GO, no RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/routea_weighted_zero_separation_input_2247.py",
+    "anchor_2103": "results/2103_full_known_prefix_direct_owner_grid_m6400.json"
+  }
+}

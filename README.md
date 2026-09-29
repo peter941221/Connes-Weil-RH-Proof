@@ -504,11 +504,25 @@ candidates at `+-2.5079` are the phi tail, bypassed analytically), the
 composite-EM panel lands on that certificate (2243: `C_upper =
 240796.76135588222`, `tail/margin = 0.006850392090059914`, `146x`
 headroom, `5.19x` over the 2238 standing), and the transfer ledger is
-re-inventoried (2244). This is still a `GO-CANDIDATE / PARTIALLY PRICED`,
-not a producer: the remaining obligations are the 2157 near-pin
-separation input, the formal complete-owner transfer (the 2119 coarse
-product now reads `0.332x`, inside the margin), and the strict signed
-margin.
+re-inventoried (2244). The 2245-2248 batch then executes the registered
+open items: the owner count is bricked explicitly (`N(T) = (theta(T) +
+Phi(T))/pi` with the cited Trudgian `|S(T)|` bound: `<= 26 / 29 / 32`
+unconditional, `= 21 / 24 / 27` under the Platt-Trudgian import at the
+three stress candidates; the 2119 count ratio drops `48.43x -> 0.419x`
+or `0.339x`, 2245, with an instrument finding that the 1980 kill list's
+`27.67032193035704` is not a zeta zero), the 2157 separation input is
+measured (`1.72 / 1.28 / 2.38` minimum target-to-pin, floors
+`3.08e-3 / 4.13e-3 / 2.23e-3`, 2247), the item-5 strict-margin statement
+is fixed with its ledger (`0.0012695277646158757` unconditional /
+`0.0010339508223067488` imported, slack `~0.9987`; 2246), and the Lean
+multiplicity constant is tightened (`192 -> 72`, the exact rung supremum:
+`spectralMultiplicityConstant = 128.70692502980964`, high-shell
+`tail/margin = 0.0029211540846331738`, module/probe/full-library builds
+green; 2248). This is still a `GO-CANDIDATE / PARTIALLY PRICED`, not a
+producer: the remaining obligations are the `L1` downward enclosure of
+the finite-window functional `|Q|` (the anchor is a binary64 sample), the
+per-node uniformity half of the transfer, and a uniform-in-`rho`
+separation statement.
 
 ```mermaid
 flowchart LR
@@ -521,7 +535,7 @@ flowchart LR
     F -->|2197-2200: 0.002203 margin ratio| G[GO-CANDIDATE]
     G --> H[Outward interval enclosure]
     H -->|2229-2231: 30-node MPFR envelope| H2[Interval terminal priced]
-    H2 -->|2234-2243: outward B_zm viable 0.00685, Z=0 certified| H3[Low shell + owner transfer]
+    H2 -->|2234-2248: outward B_zm viable 0.00292, Z=0 certified, count bricked| H3[Low shell + owner transfer]
     H3 --> J[Same-owner qw >= 0]
     J --> K[SourceRH]
     K --> L[Mathlib RH]
@@ -535,10 +549,11 @@ operand-generation channel by 2237), (2) certify the low-frequency shell
 without importing a finite list of numerical zeros (the registered 2238
 composite-EM lever: a certified zero count replacing the global panel
 majorants; closed by 2242-2243, the shell now reads `tail/margin =
-0.006850392090059914`), and (3) transfer the resulting bound to the
-complete actual owner (the 2119 coarse product now reads
-`0.3317529367828551`, inside the margin; the formal transfer remains
-open, 2244). RH is not claimed.
+0.0029211540846331738` after the 2248 Lean tightening), and (3) transfer
+the resulting bound to the complete actual owner (the count side is
+bricked at `<= 26` unconditional / `= 21` imported, 2245, so the coarse
+product reads `0.00122500010000746` / `0.000989423157698333`; the
+per-node uniformity half remains open). RH is not claimed.
 
 An alternative four-point same-owner span has formal finite-prefix and gate
 algebra. Its live analytic obligation is the strict scored cross-determinant

@@ -1268,6 +1268,66 @@ margin is now the terminal analytic obligation, with `146.0x` numeric
 headroom against the anchor `1675397327895.099`. The formal transfer
 reading does not prove transfer; no producer GO, no RH claim.
 
+## 2245 — explicit owner zero-count brick
+
+Record [2245](../proofs/2245_routea_weighted_zero_owner_count_brick.md)
+replaces the 2119 Jensen cardinality bound at the three stress candidates
+by the explicit window count `N(T) = (theta(T) + Phi(T))/pi` with the cited
+Trudgian `|S(T)|` bound (J. Number Theory 134 (2014) Theorem 1,
+`0.111 log T + 0.275 log log T + 2.450` for `T >= e`) plus the
+Platt-Trudgian import: owner `<= 26 / 29 / 32` unconditional, `= 21 / 24 /
+27` imported; at the stress point `3002.5554464806 -> 26` (`115.48x`) or
+`21` (`142.98x`), so the 2119 count ratio drops `48.428313652912905 ->
+0.41935483870967744 / 0.3387096774193548` and the coarse readings against
+the 2243 `tail/margin` become `0.0028727450700251254 /
+0.0023202940950202934`. Instrument finding: the 1980 `GAMMAS[3] =
+27.67032193035704` labelled `gamma_4` is not a zeta zero (`|zeta| =
+2.845101349`; no Hardy-Z sign change; the exact phase identity gives
+`N(82.519...) = 21`); the true `gamma_4 = 30.424876125859513210`. The
+count side of the transfer is done; the per-node half stays open.
+
+## 2246 — strict signed-margin statement
+
+Record [2246](../proofs/2246_routea_weighted_zero_item5_margin_statement.md)
+fixes the item-5 inequality `(-q_lo) - (4 * mult * B_upper * transfer +
+known_error_sum) >= eps0` at the candidate and assembles the ledger:
+anchor `1675397327895.099` (a binary64 sample), known errors
+`74601530.30234718`, high-shell tail `4894093747.764274` (2248 standing),
+transferred totals `2126963424.5260766 / 1732278444.8676672`, readings
+`0.0012695277646158757 / 0.0010339508223067488`, slacks
+`0.9987304722353841 / 0.9989660491776933`. Bricks: `L1` downward
+enclosure of `|Q|` OPEN (load-bearing), `L2` count side done (2245) /
+per-node open, `L3` strict arithmetic fixed. The statement exists; it is
+not proved.
+
+## 2247 — measured separation input
+
+Record [2247](../proofs/2247_routea_weighted_zero_separation_input.md)
+measures the 2157 near-pin input at the three candidates: minimum
+target-to-pin separations `1.7246687029005743 / 1.2837708405212573 /
+2.380992966914273`, all against true critical-line zeros; 2157 floors at
+those separations `0.0030755954591358543 / 0.004131877017085821 /
+0.0022278029817236807` (per-target minimum `0.0005846130698864416` at the
+`rho + 1/2` target of candidate 3, where `S = 1.445`). Target-to-target
+distances `0.5 / 0.89 / 1.39`; the detector target's automatic `0.445`
+bound is dominated by measured `1.53 ... 2.52`. Uniform in `rho` remains
+research-grade; per fixed `rho` it is a finite certified check.
+
+## 2248 — multiplicity constant 192 -> 72
+
+Record [2248](../proofs/2248_routea_weighted_zero_multiplicity_tightening.md)
+lands the registered Lean tightening: the absorption lemma
+`2 (n+4) + (n+4) 2^(n+4) <= 72 * 3^n` (`72` the exact supremum, attained
+at `n = 0`) replaces `192 = 3 * 64` at all four sites, so
+`spectralMultiplicityConstant` reads `128.70692502980964` (was
+`301.83032993648527`, `2.345x`), the high-shell tail reprices
+`11477128602.720102 -> 4894093747.764274` (`tail/margin
+0.0029211540846331738`), and combined with 2245 the readings are
+`0.00122500010000746` (unconditional) / `0.000989423157698333` (imported).
+Module+probe build `3532` jobs and full library build `4148` jobs both
+exit 0; the probe axiom audit stays `[propext, Classical.choice,
+Quot.sound]`.
+
 ## 2178 algebraic infinity remainder
 
 Record [2178](../proofs/2178_routea_infinity_algebraic_remainder.md) replaces

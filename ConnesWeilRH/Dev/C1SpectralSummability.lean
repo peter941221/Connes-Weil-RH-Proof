@@ -66,6 +66,51 @@ theorem nat_add_four_mul_two_pow_le_three_pow (n : Nat) :
           mul_le_mul_of_nonneg_left ih (by norm_num)
         _ = 64 * (3 : Real) ^ (n + 1) := by rw [pow_succ]; ring
 
+/-- Sharp constant form of the same absorption: the exact supremum of
+`(2 (n + 4) + (n + 4) 2^(n + 4)) / 3^n` over `n >= 0` is `72`, attained at
+`n = 0`; the geometric term `64 * 3^n` of `nat_add_four_mul_two_pow_le_three_pow`
+is tight there too, and the linear term `2 (n + 4)` is absorbed with factor
+`27/8 < 4` on the same rung. -/
+theorem two_mul_add_four_add_rlogr_le_three_pow (n : Nat) :
+    2 * ((n : Real) + 4) + ((n : Real) + 4) * (2 : Real) ^ (n + 4) <=
+      72 * (3 : Real) ^ n := by
+  induction n with
+  | zero => norm_num
+  | succ n ih =>
+      have hlin : 2 * (((n + 1 : Nat) : Real) + 4) <=
+          3 * (2 * ((n : Real) + 4)) := by
+        push_cast
+        linarith
+      have hgeo : 2 * (((n + 1 : Nat) : Real) + 4) * (2 : Real) ^ (n + 4) <=
+          3 * (((n : Real) + 4) * (2 : Real) ^ (n + 4)) := by
+        have hcoef : 2 * (((n + 1 : Nat) : Real) + 4) <=
+            3 * ((n : Real) + 4) := by
+          push_cast
+          linarith
+        calc
+          2 * (((n + 1 : Nat) : Real) + 4) * (2 : Real) ^ (n + 4) =
+              (2 * (((n + 1 : Nat) : Real) + 4)) *
+                (2 : Real) ^ (n + 4) := by ring
+          _ <= (3 * ((n : Real) + 4)) * (2 : Real) ^ (n + 4) :=
+              mul_le_mul_of_nonneg_right hcoef
+                (pow_nonneg (show (0 : Real) ≤ 2 by norm_num) (n + 4))
+          _ = 3 * (((n : Real) + 4) * (2 : Real) ^ (n + 4)) := by ring
+      calc
+        2 * (((n + 1 : Nat) : Real) + 4) +
+            (((n + 1 : Nat) : Real) + 4) * (2 : Real) ^ (n + 1 + 4) =
+            2 * (((n + 1 : Nat) : Real) + 4) +
+              2 * (((n + 1 : Nat) : Real) + 4) * (2 : Real) ^ (n + 4) := by
+              rw [show n + 1 + 4 = (n + 4) + 1 by omega, pow_succ]
+              ring
+        _ <= 3 * (2 * ((n : Real) + 4)) +
+              3 * (((n : Real) + 4) * (2 : Real) ^ (n + 4)) :=
+              add_le_add hlin hgeo
+        _ = 3 * (2 * ((n : Real) + 4) +
+              ((n : Real) + 4) * (2 : Real) ^ (n + 4)) := by ring
+        _ <= 3 * (72 * (3 : Real) ^ n) :=
+              mul_le_mul_of_nonneg_left ih (by norm_num)
+        _ = 72 * (3 : Real) ^ (n + 1) := by rw [pow_succ]; ring
+
 theorem two_pow_le_exp_nat (k : Nat) :
     (2 : Real) ^ k <= Real.exp (k : Real) := by
   have htwo : (2 : Real) <= Real.exp 1 := by
@@ -247,25 +292,23 @@ theorem norm_completedRiemannXi_le_exp_of_halfplane_dyadic_rlogr
       ring
 
 /-- A geometric relaxation of the sharp dyadic bound.  It is retained for
-the spectral summability argument, whose decay needs a ratio below `4`. -/
+the spectral summability argument, whose decay needs a ratio below `4`.
+The absorption constant is `72`, the exact supremum of the sharp rung ratio
+(see `two_mul_add_four_add_rlogr_le_three_pow`); the earlier reading `192`
+was three times that value. -/
 theorem norm_completedRiemannXi_le_exp_of_halfplane_dyadic
     (n : Nat) {w : Complex} (hwRe : (1 / 2 : Real) <= w.re)
     (hwNorm : ‖w‖ <= (2 : Real) ^ (n + 4)) :
     ‖completedRiemannXi w‖ <=
-      Real.exp (xiGrowthFixedConstant + 1 + 192 * (3 : Real) ^ n) := by
+      Real.exp (xiGrowthFixedConstant + 1 + 72 * (3 : Real) ^ n) := by
   refine (norm_completedRiemannXi_le_exp_of_halfplane_dyadic_rlogr n hwRe hwNorm).trans ?_
   apply Real.exp_le_exp.mpr
   unfold xiDyadicRLogRGrowthExponent
-  have hmain : ((n + 4 : Nat) : Real) * (2 : Real) ^ (n + 4) <=
-      64 * (3 : Real) ^ n := by
+  have hsharp : 2 * ((n + 4 : Nat) : Real) +
+      ((n + 4 : Nat) : Real) * (2 : Real) ^ (n + 4) <=
+      72 * (3 : Real) ^ n := by
     simpa only [Nat.cast_add, Nat.cast_ofNat] using
-      nat_add_four_mul_two_pow_le_three_pow n
-  have hpow : (1 : Real) <= (2 : Real) ^ (n + 4) :=
-    one_le_pow₀ (by norm_num)
-  have hk : 0 <= ((n + 4 : Nat) : Real) := Nat.cast_nonneg _
-  have hlinear : ((n + 4 : Nat) : Real) <=
-      ((n + 4 : Nat) : Real) * (2 : Real) ^ (n + 4) := by
-    simpa only [mul_one] using mul_le_mul_of_nonneg_left hpow hk
+      two_mul_add_four_add_rlogr_le_three_pow n
   nlinarith
 
 /-- The preceding folded-ball estimate controls the doubled Jensen circle for
@@ -275,7 +318,7 @@ theorem norm_completedRiemannXi_le_exp_on_dyadic_jensen_sphere
     (hz : z ∈ Metric.sphere (2 : Complex)
       (2 * ((2 : Real) ^ (n + 2) + 2))) :
     ‖completedRiemannXi z‖ <=
-      Real.exp (xiGrowthFixedConstant + 1 + 192 * (3 : Real) ^ n) := by
+      Real.exp (xiGrowthFixedConstant + 1 + 72 * (3 : Real) ^ n) := by
   rcases exists_half_le_re_norm_le_add_one_and_norm_completedRiemannXi_eq z with
     ⟨w, hwRe, hwNorm, hxiNorm⟩
   rw [← hxiNorm]
@@ -299,10 +342,12 @@ theorem norm_completedRiemannXi_le_exp_on_dyadic_jensen_sphere
     _ <= 4 * (2 : Real) ^ (n + 2) := by linarith
     _ = (2 : Real) ^ (n + 4) := by ring_nf
 
-/-- One explicit nonnegative Jensen constant for all dyadic windows. -/
+/-- One explicit nonnegative Jensen constant for all dyadic windows.
+The absorption constant is the sharp `72` of
+`two_mul_add_four_add_rlogr_le_three_pow`. -/
 noncomputable def spectralMultiplicityConstant : Real :=
   (xiGrowthFixedConstant + 1 +
-    |Real.log ‖completedRiemannXi 2‖| + 192) / Real.log 2
+    |Real.log ‖completedRiemannXi 2‖| + 72) / Real.log 2
 
 theorem spectralMultiplicityConstant_nonneg :
     0 <= spectralMultiplicityConstant := by
@@ -317,7 +362,7 @@ theorem spectralMultiplicityConstant_nonneg :
 theorem finiteHeightMultiplicity_dyadic_le (n : Nat) :
     (finiteHeightMultiplicity ((2 : Real) ^ (n + 2)) : Real) <=
       spectralMultiplicityConstant * (3 : Real) ^ n := by
-  let G : Real := xiGrowthFixedConstant + 1 + 192 * (3 : Real) ^ n
+  let G : Real := xiGrowthFixedConstant + 1 + 72 * (3 : Real) ^ n
   have hG : 0 <= G := by
     dsimp only [G]
     exact add_nonneg
@@ -346,14 +391,14 @@ theorem finiteHeightMultiplicity_dyadic_le (n : Nat) :
       |Real.log ‖completedRiemannXi 2‖| := neg_le_abs _
   have hnumerator : G - Real.log ‖completedRiemannXi 2‖ <=
       (xiGrowthFixedConstant + 1 +
-        |Real.log ‖completedRiemannXi 2‖| + 192) * (3 : Real) ^ n := by
+        |Real.log ‖completedRiemannXi 2‖| + 72) * (3 : Real) ^ n := by
     dsimp only [G, fixed] at hfixedScale ⊢
     nlinarith
   calc
     (finiteHeightMultiplicity ((2 : Real) ^ (n + 2)) : Real) <=
         (G - Real.log ‖completedRiemannXi 2‖) / Real.log 2 := hJensen
     _ <= ((xiGrowthFixedConstant + 1 +
-          |Real.log ‖completedRiemannXi 2‖| + 192) * (3 : Real) ^ n) /
+          |Real.log ‖completedRiemannXi 2‖| + 72) * (3 : Real) ^ n) /
           Real.log 2 := by
             exact div_le_div_of_nonneg_right hnumerator
               (Real.log_pos one_lt_two).le

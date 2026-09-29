@@ -1,0 +1,79 @@
+{
+  "record": 2246,
+  "status": "SIGNED-MARGIN-STATEMENT-FIXED",
+  "date": "2026-09-30",
+  "target": {
+    "rho": [
+      0.945,
+      39.25244858548658
+    ],
+    "n_shell": 0,
+    "support": 5.12,
+    "scale": 0.8,
+    "anchor_source": -1675397327895.099,
+    "margin": 1675397327895.099,
+    "anchor_is_sample_not_enclosure": true,
+    "anchor_construction": "scripts\\routea_full_known_prefix_direct_owner_grid_m6400_2103.py"
+  },
+  "statement": "There is eps0 > 0 and a certified downward enclosure q_lo of the finite-window functional with (-q_lo) - (4 * mult * B_upper + known_error_sum) >= eps0, where the high-shell budget is first transferred from the 62-node screen to the complete owner by the 2245 count brick and the per-node uniformity lemma.  The producer gate B_zm < epsilon(rho, N) is this inequality in the formal shell.",
+  "ledger": {
+    "anchor_margin": 1675397327895.099,
+    "known_error_sum": 74601530.30234718,
+    "known_error_over_margin": 4.452766460841471e-05,
+    "high_shell_budget_2234_standing": 11477128602.720102,
+    "high_shell_budget_2248_standing": 4894093747.764274,
+    "spectral_multiplicity_2243": 301.83032993648527,
+    "spectral_multiplicity_2248": 128.70692502980964,
+    "b_upper": 9506275.102584327,
+    "count_ratio_unconditional": 0.41935483870967744,
+    "count_ratio_imported": 0.3387096774193548,
+    "transferred_charge_unconditional": 2052361894.223729,
+    "transferred_charge_imported": 1657676914.5653195,
+    "total_charge_unconditional": 2126963424.5260766,
+    "total_charge_imported": 1732278444.8676672,
+    "reading_unconditional": 0.0012695277646158757,
+    "reading_imported": 0.0010339508223067488,
+    "slack_unconditional": 0.9987304722353841,
+    "slack_imported": 0.9989660491776933
+  },
+  "bricks": {
+    "L1_downward_enclosure": {
+      "status": "OPEN",
+      "content": "certified interval enclosure of the direct finite-window functional (trapezoid/solve/quadrature outward) at the candidate",
+      "note": "the known-error ledger (2109) prices the evaluation errors but is charged against the sampled margin, not an interval of it"
+    },
+    "L2_transfer": {
+      "status": "COUNT-SIDE-DONE / PER-NODE-OPEN",
+      "content": "owner cardinality at the stress point: <= 26 unconditional (Trudgian window count), = 21 under the Platt-Trudgian import (2245); per-node uniformity of the screen charges remains the open half"
+    },
+    "L3_strict_arithmetic": {
+      "status": "STATEMENT-FIXED",
+      "content": "q_lo > total charge with positive slack; current slack ~0.9987 of the anchor"
+    }
+  },
+  "combination_2245_2248": {
+    "b_upper": 9506275.102584327,
+    "tail_old": 11477128602.720102,
+    "tail_new": 4894093747.764274,
+    "tail_over_margin_old": 0.006850392090059914,
+    "tail_over_margin_new": 0.0029211540846331738,
+    "reading_2119_old_constant": 0.3317529367828551,
+    "unconditional_new_constant": 0.00122500010000746,
+    "imported_new_constant": 0.000989423157698333
+  },
+  "nonclaims": [
+    "the anchor is a binary64 sample; the strict inequality is not established until L1 lands",
+    "the transferred charge uses the coarse linear reading; L2's per-node half is open",
+    "no producer GO, no gate sign change, no RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/routea_weighted_zero_item5_margin_statement_2246.py",
+    "artifacts": [
+      "results/2103_full_known_prefix_direct_owner_grid_m6400.json",
+      "results/2109_known_prefix_margin_ledger.json",
+      "results/2243_panel_cem_reprice.json",
+      "results/2245_owner_count_brick.json",
+      "results/2248_multiplicity_tightening.json"
+    ]
+  }
+}

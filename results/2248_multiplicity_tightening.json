@@ -1,0 +1,48 @@
+{
+  "record": 2248,
+  "status": "MULTIPLICITY-TIGHTENED-72",
+  "date": "2026-09-30",
+  "lean": {
+    "file": "ConnesWeilRH/Dev/C1SpectralSummability.lean",
+    "new_lemma": "two_mul_add_four_add_rlogr_le_three_pow",
+    "statement": "2 * (n + 4) + (n + 4) * 2 ^ (n + 4) <= 72 * 3 ^ n",
+    "supremum_check": {
+      "sup_n_0_to_30": 72.0,
+      "attained_at": 0
+    },
+    "changed_constants": [
+      "norm_completedRiemannXi_le_exp_of_halfplane_dyadic: 192 -> 72",
+      "norm_completedRiemannXi_le_exp_on_dyadic_jensen_sphere: 192 -> 72",
+      "spectralMultiplicityConstant: 192 -> 72",
+      "finiteHeightMultiplicity_dyadic_le: 192 -> 72"
+    ]
+  },
+  "proxy": {
+    "xi_growth_fixed_constant": 15.565812619574155,
+    "adjusted": 1.6470295833786548,
+    "abs_log_xi2": 0.6470295833786548,
+    "kappa": 72,
+    "mult_old_c192": 301.83032993648527,
+    "mult_new_c72": 128.70692502980964,
+    "gain": 2.3450978248962033
+  },
+  "reprice": {
+    "b_upper": 9506275.102584327,
+    "tail_old": 11477128602.720102,
+    "tail_new": 4894093747.764274,
+    "tail_over_margin_old": 0.006850392090059914,
+    "tail_over_margin_new": 0.0029211540846331738,
+    "reading_2119_old_constant": 0.3317529367828551,
+    "unconditional_new_constant": 0.00122500010000746,
+    "imported_new_constant": 0.000989423157698333
+  },
+  "nonclaims": [
+    "the constant change is a Lean-side strength increase in the same bound shape (smaller constant); numerical consumers of the abstract constant remain valid",
+    "no producer GO, no gate sign change, no RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/routea_weighted_zero_multiplicity_tightening_2248.py",
+    "artifact_2243": "results/2243_panel_cem_reprice.json",
+    "artifact_2245": "results/2245_owner_count_brick.json"
+  }
+}

@@ -102,3 +102,27 @@ complete-owner transfer (read inside the margin, not proved by the
 reading), and the strict signed margin as the terminal analytic
 obligation. Until those pass, this branch remains a candidate and makes no
 RH claim.
+
+The 2245--2248 batch attacks all four registered items. 2245 lands the
+count side of the transfer: the explicit window count
+`N(T) = (theta(T) + Phi(T))/pi` with the cited Trudgian `|S(T)|` bound
+gives owner `<= 26 / 29 / 32` unconditional and `= 21 / 24 / 27` under the
+Platt--Trudgian import at the three stress candidates, so the 2119 count
+ratio drops `48.428313652912905 -> 0.41935483870967744` (or
+`0.3387096774193548`) and the coarse readings against the 2243
+`tail/margin` become `0.0028727450700251254 / 0.0023202940950202934`; the
+same record audits the 1980 kill list and finds `27.67032193035704` is
+not a zeta zero (the true `gamma_4 = 30.424876125859513210`). 2246 fixes
+the item-5 strict-margin statement with its full ledger (readings
+`0.0012695277646158757 / 0.0010339508223067488` after 2248; `L1` downward
+enclosure of `|Q|` is the load-bearing open brick). 2247 measures the
+2157 separation input: minimum target-to-pin separations
+`1.7246687029005743 / 1.2837708405212573 / 2.380992966914273`, floors
+`0.0030755954591358543 / 0.004131877017085821 / 0.0022278029817236807`.
+2248 lands the registered Lean tightening: the absorption constant
+`192 -> 72` (exact supremum at `n = 0`),
+`spectralMultiplicityConstant = 128.70692502980964`, high-shell tail
+`4894093747.764274`, with module, probe, and full-library builds green.
+The remaining open list is now exactly: `L1` (downward enclosure of the
+finite-window functional), the per-node uniformity half of the transfer,
+and the uniform-in-`rho` separation statement.
