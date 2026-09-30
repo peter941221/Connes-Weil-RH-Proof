@@ -1,0 +1,130 @@
+{
+  "record": 2289,
+  "status": "FILON-AMPLITUDE-REMAINDER-PRICE",
+  "certificate": false,
+  "hgap_closed": false,
+  "rows": [
+    {
+      "profile": "12:4",
+      "base": {
+        "panels": 12,
+        "degree": 4,
+        "derivative_order": 5,
+        "panel_length": 1.0922666666666672,
+        "sampled_derivative_max": 3353763197.1173167,
+        "amplitude_remainder_price": 16293928.923403902
+      },
+      "corr": {
+        "panels": 12,
+        "degree": 4,
+        "derivative_order": 5,
+        "panel_length": 1.0922666666666672,
+        "sampled_derivative_max": 4170681774.9305835,
+        "amplitude_remainder_price": 20262847.55622172
+      }
+    },
+    {
+      "profile": "12:6",
+      "base": {
+        "panels": 12,
+        "degree": 6,
+        "derivative_order": 7,
+        "panel_length": 1.0922666666666672,
+        "sampled_derivative_max": 21757080434740.875,
+        "amplitude_remainder_price": 750658002.7084619
+      },
+      "corr": {
+        "panels": 12,
+        "degree": 6,
+        "derivative_order": 7,
+        "panel_length": 1.0922666666666672,
+        "sampled_derivative_max": 9100517956144.055,
+        "amplitude_remainder_price": 313984068.45357376
+      }
+    },
+    {
+      "profile": "12:8",
+      "base": {
+        "panels": 12,
+        "degree": 8,
+        "derivative_order": 9,
+        "panel_length": 1.0922666666666672,
+        "sampled_derivative_max": 1.4060825395821157e+17,
+        "amplitude_remainder_price": 20096350176.72337
+      },
+      "corr": {
+        "panels": 12,
+        "degree": 8,
+        "derivative_order": 9,
+        "panel_length": 1.0922666666666672,
+        "sampled_derivative_max": 2.801344261107375e+16,
+        "amplitude_remainder_price": 4003804446.1813364
+      }
+    },
+    {
+      "profile": "24:4",
+      "base": {
+        "panels": 24,
+        "degree": 4,
+        "derivative_order": 5,
+        "panel_length": 0.5461333333333336,
+        "sampled_derivative_max": 5975770010.4373045,
+        "amplitude_remainder_price": 1814543.2103026477
+      },
+      "corr": {
+        "panels": 24,
+        "degree": 4,
+        "derivative_order": 5,
+        "panel_length": 0.5461333333333336,
+        "sampled_derivative_max": 4939081623.250519,
+        "amplitude_remainder_price": 1499752.6693541473
+      }
+    },
+    {
+      "profile": "24:6",
+      "base": {
+        "panels": 24,
+        "degree": 6,
+        "derivative_order": 7,
+        "panel_length": 0.5461333333333336,
+        "sampled_derivative_max": 34642279311752.098,
+        "amplitude_remainder_price": 18675317.182539966
+      },
+      "corr": {
+        "panels": 24,
+        "degree": 6,
+        "derivative_order": 7,
+        "panel_length": 0.5461333333333336,
+        "sampled_derivative_max": 11277237587418.922,
+        "amplitude_remainder_price": 6079449.536002783
+      }
+    },
+    {
+      "profile": "24:8",
+      "base": {
+        "panels": 24,
+        "degree": 8,
+        "derivative_order": 9,
+        "panel_length": 0.5461333333333336,
+        "sampled_derivative_max": 2.043823367850465e+17,
+        "amplitude_remainder_price": 114106338.3978932
+      },
+      "corr": {
+        "panels": 24,
+        "degree": 8,
+        "derivative_order": 9,
+        "panel_length": 0.5461333333333336,
+        "sampled_derivative_max": 3.0472490418950896e+16,
+        "amplitude_remainder_price": 17012743.65616202
+      }
+    }
+  ],
+  "nonclaims": [
+    "sampled amplitude derivatives are not uniform bounds",
+    "phase-aware residual price is not a quadrature certificate",
+    "finite xi window and infinite tail remain separate",
+    "no producer GO or RH claim"
+  ],
+  "best_base_price": 1814543.2103026477,
+  "best_corr_price": 1499752.6693541473
+}
