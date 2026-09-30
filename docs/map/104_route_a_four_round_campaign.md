@@ -1680,3 +1680,98 @@ ceilings `>=` exact, `ub >= lb` throughout.  A direct MILP encoding of
 the exact problem remains unavailable (positive-part epigraph maximizes
 unboundedly; disjunctive form needs one binary per grid node); the
 two-end enumeration + certified ceilings is the sound replacement.
+
+## 2267 — Certified centered-strip envelope of the direct-product screen
+
+Record [2267](../proofs/2267_routea_weighted_zero_sigma_envelope_certified.md)
+discharges the numeric obligation left open by 2264/2265: the certified
+envelope of the two-channel product
+`N(σ) = min(D₂_b·M_c, D₂_c·M_b)(σ)` on the centered strip
+`σ ∈ [-1/2, 1/2]` at the frozen constant
+`bUpper2243 = 9506275.102584327`.  The reduction is the 2234/2243
+machinery run over the full `j = -50..50` grid (`σ = j/100`; the 50
+negative-σ point sums are fresh 256-bit MPFR sigma-worker runs over the
+committed per-node upper chunks), with the panel and coefficient
+inflation in the σ-symmetric form (support-supremum weight
+`e^{|σ|a_max}` and cross term `2|σ| m_{k+1}`, reducing to the 2243
+form at `σ >= 0`), and the grid coverage applied once at the end by the
+log-derivative transfer `|d/dσ log N| <= 2 a_max` at half-step `0.005`
+(`factor 1.0259304941903822`).  Result: **CERTIFIED-STRIP-COVERED** —
+certified sup `6663660.437141987 <= 9506275.102584327`, margin
+`1.4266x`; the maximum grid point sits at the strip edge `σ = -1/2`
+(channel a binding, because the corr-side D2 inflation is dominated by
+the 2237 radius `r_corr ≈ 2.057e9`).  Anchors: the `σ = 1.0` row
+recomputed through this reduction reproduces the 2243 binding row
+`C_upper` bitwise (`rel 0.0`); all 101 certified point sums are uppers
+of the 2264 raw readings (`rel_max 2.44e-15`).  Combined with the frozen
+2234 reduction's own certified envelope on `[0, 1]`, the union
+`[-1/2, 1]` is covered at the 2243 standard, superseding the 2264
+screen-grade audit.
+
+## 2268 — Producer-side wiring of the direct-product decay brick
+
+Record [2268](../proofs/2268_routea_weighted_zero_producer_wired_lean.md)
+wires the 2265 producer brick into the 2257 count-free consumer chain at
+the frozen constants.  `ConnesWeilRH/Dev/C1RouteAProducerWired.lean`
+proves: `directProduct_dyadic_shell_bound` (the per-shell dyadic tail
+with `bUpper2243`, mirroring `exists_spectral_laplaceAt_dyadic_tail_bound`),
+`directProduct_weightedZeroMeasure_shell_bound` (the frozen re-run of
+`exists_spectralHeightShell_weightedZeroMeasure_bound` with
+`F = b ⋆ c`), `directProduct_highShell_tsum_bound` (the high-shell
+weighted-zero tsum `<= 4 · spectralMultiplicityConstant · bUpper2243`),
+and the end-to-end `a005_item5_producer_wired`, which places the actual
+high-shell tsum of `b ⋆ c` inside `a005_item5_terminal_count_free` and
+reduces the chain to four explicit inputs: the strip hypothesis (2267's
+certified target), the count-side
+`spectralMultiplicityConstant <= multProxy2248`, and the 2249/2109/2255
+analytic enclosures.  All four theorems are axiom-clean
+(`[propext, Classical.choice, Quot.sound]`); module + probe build
+`3524 jobs`.
+
+## 2269 — Ball-grade Hall quantities for the four direct-product rows
+
+Record [2269](../proofs/2269_routea_weighted_zero_hall_ball.md) re-runs
+the 2262 directed-MPFR node machinery and ball-izes the Hall quantities
+2266 bracketed in float64.  Per node and row it accumulates the witness
+coalition Hall pair (the 2266 convention `Hall(J) = ∫ w (AG - Σ_{j∉J}
+M_j)^+`, i.e. the complement's magnitudes are deducted), the full
+complement-m-smallest table `ms[m] = ∫ w (AG - L_m)^+` for `m = 1..30`
+via the sorted-domination law, and the norm/triangle/weight pairs, all
+with one-sided guards.  Result: **HALL-BALL-CERTIFIED** — all four rows
+carry certified two-sided brackets, each containing the 2266 float
+bracket with both ends within `2e-11`: `base_M0
+[2.1475067584947944, 2.147512373192978]`, `corr_M0
+[6.162499060223501, 6.165408061402101]`, `base_D2
+[2.6403870620001513, 2.6406866050367617]`, `corr_D2
+[6.0894516916512975, 6.091724729985202]`.  The certified upper is valid
+at every `k` through `min(62/k, 62·msmall_u[30-k]/(k·norm_lo))` alone
+(the other 2266 ceiling components are not re-certified and not
+needed); the witness Hall readings reproduce the 2266 float64 values to
+`<= 1.6e-12` relative; anchors green (0 mask disagreements, certified
+mask margin `1.82e-06`, norm/triangle inside the 2262 certified
+intervals, weight sum bitwise).  The `base_M0` certified upper
+(`2.147512373192978`) sits `2.6e-6` above the float "exact"
+`2.1475067585012337` — the price of not re-verifying the exhaustive
+enumeration in directed arithmetic; the other three rows certify at
+exactly their 2266 widths (ceiling-limited).  The single-factor
+infeasibility factors are now certified at both ends.
+
+## 2270 — Exact middle-k enumeration for the two open Hall rows (reserve)
+
+Record [2270](../proofs/2270_routea_weighted_zero_hall_middle_exact.md)
+runs the reserve exact enumeration registered by 2266: the two deciding
+middle `k`'s of the open rows are swept exhaustively on the committed
+float64 machinery with one full `combinations` index table per job
+(`corr_M0` `k = 8`, `C(30,8) = 5,850,925` subsets; `corr_D2` `k = 7`,
+`2,035,800`).  Result: **MIDDLE-EXACT-CONFIRMED** — the exact maxima
+`726.3375614016927` (ratio `6.1624990602415135`) and
+`1049250.3213751798` (ratio `6.089451691669726`) land within `7.1e-16` /
+`1.3e-15` relative of the 2266 climb lower ends, and the exact argmax
+witnesses are *identical* to the 2266 `witness_idx` on both rows
+(`{0,1,11..16}` and `{0,1,12..16}`).  The 2266 climbs were globally
+exact at the deciding `k`; the remaining 2266 bracket widths
+(`4.72e-04` / `3.73e-04`) are entirely ceiling slack, and only a sharper
+certified ceiling or a directed-MPFR exhaustive run could narrow them.
+Cost calibrated for future budgeting: `2472.6 s` + `878.1 s` =
+`3350.6 s` wall.  Certified-grade statements of the same quantities are
+2269; the certified upper ends are unchanged.

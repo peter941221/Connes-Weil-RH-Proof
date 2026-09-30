@@ -606,13 +606,39 @@ The Hall screen is upgraded to exact enumeration at `k <= 6` and
 `base_M0` is now exact (`2.1475067585012337` at `k = 28`) and the other
 rows bracket to `<= 4.8e-4` relative width, with certified single-factor
 infeasibility factors `2.1475 / 6.1625 / 2.6404 / 6.0895` against the
-pigeonhole floor `62/30` (2266). This is still a `GO-CANDIDATE /
-PARTIALLY PRICED`, not a producer: the producer-side lemma landed at
-2265, so the remaining obligation is the certified envelope on the
-centered strip `[-1/2, 1]`, and any future consumer wanting the
-count-side reduction back would need an allocation-design argument for
-the cancellation-aware split (the coalitional Hall LP stays registered;
-2266).
+pigeonhole floor `62/30` (2266). The 2267-2269 batch closes the producer-side numeric obligation and
+certifies the Hall curve. The certified centered-strip envelope lands at
+`6663660.437141987` against the frozen `9506275.102584327` (margin
+`1.4266x`; maximum at the edge `sigma = -1/2`, channel a binding; the
+`sigma = 1` row reproduces the 2243 binding row bitwise; all 101
+certified point sums are uppers of the 2264 raw readings, `rel_max
+2.44e-15`) — CERTIFIED-STRIP-COVERED, so the 2265 corollary's `hB`
+holds at the 2243 standard on `[-1/2, 1/2]` and, with the frozen 2234
+envelope on `[0, 1]`, on the whole registered range `[-1/2, 1]` (2267).
+The producer brick is then wired into the count-free chain:
+`C1RouteAProducerWired.lean` proves the frozen dyadic shell, shell-mass
+and high-shell tsum bounds and the end-to-end
+`a005_item5_producer_wired`, placing the actual high-shell tsum of
+`b * c` inside `a005_item5_terminal_count_free` — axiom-clean, build
+`3524 jobs` (2268). The Hall curve is ball-ized: all four rows carry
+certified two-sided brackets containing the 2266 float brackets with
+ends within `2e-11` — `base_M0 [2.1475067584947944, 2.147512373192978]`,
+`corr_M0 [6.162499060223501, 6.165408061402101]`, `base_D2
+[2.6403870620001513, 2.6406866050367617]`, `corr_D2
+[6.0894516916512975, 6.091724729985202]` — the certified upper valid at
+every `k` via `min(62/k, msmall)` alone, and the single-factor
+infeasibility factors certified at both ends (2269). The reserve exact
+enumeration then confirms the 2266 climbs were globally exact at the
+deciding `k` on both open rows (`6.1624990602415135` at `corr_M0 k = 8`,
+`6.089451691669726` at `corr_D2 k = 7`, within `1.3e-15` of the lower
+ends and with identical argmax witnesses), so the remaining 2266 bracket
+width is entirely ceiling slack (2270). This is still a
+`GO-CANDIDATE / PARTIALLY PRICED`, not a producer: the remaining
+obligations are the count side (the lean constant comparison
+`spectralMultiplicityConstant <= multProxy2248` plus an allocation
+design; the coalitional Hall LP is now certified at both ends) and the
+analytic enclosure lanes carried as hypotheses of the end-to-end theorem
+(2249 L1 margin, 2109 known-error, 2255 gap charge).
 
 ```mermaid
 flowchart LR
@@ -625,7 +651,7 @@ flowchart LR
     F -->|2197-2200: 0.002203 margin ratio| G[GO-CANDIDATE]
     G --> H[Outward interval enclosure]
     H -->|2229-2231: 30-node MPFR envelope| H2[Interval terminal priced]
-    H2 -->|2234-2266: outward B_zm viable, L1 enclosed, Z=0, counts per node, charge count-free, gaps charged, terminal ledger, count-free Lean assembly, cancellation-split recon, Arb brackets, producer lemma named, Hall screen, directed split cert, census Arb, producer lemma landed, sigma audit, exact Hall brackets| H3[Low shell + owner transfer]
+    H2 -->|2234-2270: outward B_zm viable, L1 enclosed, Z=0, counts per node, charge count-free, gaps charged, terminal ledger, count-free Lean assembly, cancellation-split recon, Arb brackets, producer lemma named, Hall screen, directed split cert, census Arb, producer lemma landed, sigma audit, exact Hall brackets, strip envelope certified, producer wired, Hall ball-grade, middle exact| H3[Low shell + owner transfer]
     H3 --> J[Same-owner qw >= 0]
     J --> K[SourceRH]
     K --> L[Mathlib RH]

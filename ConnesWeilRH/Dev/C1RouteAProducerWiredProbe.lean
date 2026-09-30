@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1RouteAProducerWired
+
+#print axioms ConnesWeilRH.Dev.directProduct_dyadic_shell_bound
+#print axioms ConnesWeilRH.Dev.directProduct_weightedZeroMeasure_shell_bound
+#print axioms ConnesWeilRH.Dev.directProduct_highShell_tsum_bound
+#print axioms ConnesWeilRH.Dev.a005_item5_producer_wired

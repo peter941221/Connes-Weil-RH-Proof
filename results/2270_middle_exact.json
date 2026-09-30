@@ -1,0 +1,56 @@
+{
+  "record": 2270,
+  "jobs": {
+    "corr_M0": {
+      "k": 8,
+      "hall_exact": 726.3375614016927,
+      "witness": [
+        0,
+        1,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "ratio": 6.1624990602415135,
+      "row_norm": 913.4469710803507,
+      "bracket_2266": [
+        6.162499060241509,
+        6.165408061384073
+      ],
+      "k_star_2266": 8,
+      "width_rel_before": 0.0004720489389332401,
+      "wall_seconds": 2472.560312271118
+    },
+    "corr_D2": {
+      "k": 7,
+      "hall_exact": 1049250.3213751798,
+      "witness": [
+        0,
+        1,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "ratio": 6.089451691669726,
+      "row_norm": 1526140.687188009,
+      "bracket_2266": [
+        6.089451691669718,
+        6.091724729966727
+      ],
+      "k_star_2266": 7,
+      "width_rel_before": 0.00037327470716589316,
+      "wall_seconds": 878.0574398040771
+    }
+  },
+  "wall_seconds_total": 3350.6270985603333,
+  "nonclaims": [
+    "float64 enumeration on the committed 2197/2258 grid; the exact maxima at these two k's are exact in the enumeration sense only, the arithmetic is float64",
+    "the middle ceiling upper ends of 2266 are unchanged; this record only lifts the lower end at the deciding k",
+    "certified-grade brackets of the same quantities are record 2269 (directed MPFR); no producer GO, no gate sign change, no RH claim"
+  ]
+}

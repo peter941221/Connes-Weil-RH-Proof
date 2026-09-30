@@ -260,11 +260,49 @@ relative width `<= 4.8e-4` — `corr_M0 [6.1624990602415091,
 infeasibility factors to `2.1475 / 6.1625 / 2.6404 / 6.0895` against the
 pigeonhole floor `62/30`.
 
-The open list is now: the certified envelope of the two product-channel
-strip norms on `[-1/2, 1]` (the producer lemma is landed; its `hB` is
-screen-grade until the negative half is panel/coefficient-certified,
-2264), and any future consumer wanting the count-side reduction back must
-supply a cancellation-aware split — 2258 prices the canonical forms,
-2266 gives the exact/bracketed Hall curve with the complement-cardinality
-ceiling binding (the coalitional Hall LP stays the registered design
-question, now priced at both ends).
+The 2267--2269 batch closes the producer-side numeric obligation and
+certifies the Hall curve.  2267 runs the 2234/2243 reduction over the
+full centered strip (`j = -50..50`, the 50 negative-sigma point sums
+fresh 256-bit MPFR sigma-worker runs) with the sigma-symmetric panel and
+coefficient forms (support-supremum weight `e^{|sigma| a_max}`) and the
+log-derivative transfer `e^{2 a_max h}` at half-step `0.005`: the
+certified sup `6663660.437141987` sits under the frozen
+`bUpper2243 = 9506275.102584327` with margin `1.4266x` (max at the edge
+`sigma = -1/2`, channel a binding), the `sigma = 1` row reproduces the
+2243 binding row bitwise (`rel 0.0`), and all 101 certified point sums
+are uppers of the 2264 raw readings (`rel_max 2.44e-15`) — verdict
+CERTIFIED-STRIP-COVERED, so `hB` of the 2265 corollary now holds at the
+2243 standard and the union `[-1/2, 1]` is covered (the frozen 2234
+envelope carries `[0, 1]`).  2268 wires the producer brick into the
+count-free chain: `ConnesWeilRH/Dev/C1RouteAProducerWired.lean` proves
+the frozen dyadic shell bound, the frozen shell-mass bound, the
+high-shell tsum bound `4 * spectralMultiplicityConstant * bUpper2243`,
+and the end-to-end `a005_item5_producer_wired` placing the actual
+high-shell tsum of `b * c` inside `a005_item5_terminal_count_free` — all
+axiom-clean, build `3524 jobs`.  2269 ball-izes the 2266 Hall
+quantities with the 2262 directed-MPFR node machinery (documenting the
+complement convention `Hall(J) = int w (AG - sum_{j notin J} M_j)^+`):
+all four rows now carry certified two-sided brackets containing the 2266
+float brackets with ends within `2e-11` — `base_M0
+[2.1475067584947944, 2.147512373192978]`, `corr_M0
+[6.162499060223501, 6.165408061402101]`, `base_D2
+[2.6403870620001513, 2.6406866050367617]`, `corr_D2
+[6.0894516916512975, 6.091724729985202]` — the certified upper valid at
+every `k` via `min(62/k, msmall)` alone, witness Halls reproduced to
+`1.6e-12` relative, anchors green.  2270 (reserve) lands the exact
+middle-`k` enumeration: the exact maxima at `corr_M0 k = 8`
+(`6.1624990602415135`) and `corr_D2 k = 7` (`6.089451691669726`) sit
+within `7.1e-16` / `1.3e-15` relative of the 2266 climb lower ends, with
+argmax witnesses *identical* to the 2266 ones — the 2266 climbs were
+globally exact at the deciding `k`, and the remaining 2266 bracket width
+is entirely ceiling slack.
+
+The open list is now: the count-side reduction (the Lean hypothesis
+`spectralMultiplicityConstant <= multProxy2248` plus an allocation
+design; the Hall LP is now certified at both ends, 2269, with the
+deciding-`k` maxima exact at float64 grade, 2270), the analytic
+enclosure lanes carried as hypotheses of the end-to-end theorem
+(2249 L1 margin, 2109 known-error, 2255 gap charge), and — only if a
+consumer ever needs it — a directed-MPFR exhaustive run at the deciding
+middle `k` (the sole remaining way to narrow the certified brackets,
+since ball ceilings already suffice for the certified upper, 2269).
