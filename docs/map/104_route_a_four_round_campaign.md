@@ -2330,3 +2330,48 @@ was 5.6e-9); the derivative trig selector is (1,0,1,0) with signs
 outward nextafter per side; 492475 is the sieve limit, not a book element
 (largest entry: the prime 492467). Module selftest 9/9 PASS, artifact
 selftest 13 tests OK. No hgap certificate, no producer GO, no RH claim.
+
+### Record 2309: the transform side is certified; TRANSFORM-SIDE-CERTIFIED, hgap closed
+
+2308 left exactly one model-grade factor in the window half: the
+transform-side perturbation majorant T_cell inherited from 2298/2302
+(complex128 BLAS gemm leg, model execution bounds, float64 cell
+assembly). Record 2309 re-derives the whole cell majorant on the
+exclusive-extended path: order-0 leg bitwise identical to the stored
+evaluator (np.array_equal control on every rung), orders >= 1 via
+explicitly counted clongdouble elementwise contractions; every stored
+float64 jet becomes an interval through the exact rational cast plus a
+mechanical budget M_ch,k R_k (L1 coefficient ladder over all 30 families
+x 768 panels grouped before bounding, compiled-operation counts 546..927,
+extended unit 2^-64); a degree-6 iv Taylor cell assembly with exact
+Fraction delta powers; iv error_terms; directed charge sum with the 2308
+certified weight factor on the same dyadic cells.
+
+Certified ladder: denom 64: 863819.2915438175 (0.0864x budget), denom
+128: 571815.9145338645 (0.0572x), denom 256: 477248.9858117574
+(0.0477x). Cross-record: the certified T moves the charge only
+-2.6e-9 / -1.4e-9 / -8.6e-10 relative below the 2308 charge (budgets
+are pointwise below the model errors on all 14 channel/order slots, so
+the certified majorant is strictly tighter; the 2302/2308 predictions
+confirm to 9 decimal places). The dps-100 reference control measures
+true execution residuals >= 1000x below the budgets (worst allowance
+ratio 9.617e-4, base order 0 at xi = -3.605). Subsample sandwich:
+certified >= zero-padding stored-jet witness (min margin 1+3.2e-12) and
+<= model-grade T (max margin 1-5.5e-12); order-0 bitwise true on every
+rung; cross-path ratio <= 2.1e-4. Closure with the 2307 tail (order 36,
+1.96e-27): sum 477248.9858117574 <= 1e7 at margin 20.953x; the cheapest
+tail rung (order 16) also closes at 20.66x.
+
+Grade: hgap is closed at NUMERIC grade end to end (2275 split / 2308
+weight / 2309 transform / 2307 tail all interval-certified); the platform
+contract and counted-operation assumptions, the inherited structural
+lemmas (interpolation model, carrierwise grouping, mass bounds,
+error_terms), and the 2299/2301 radii ledger remain declared. Lessons
+locked: ivmpf.a/.b are degenerate intervals whose sum can widen -- use
+.mid for float readouts; the soundness direction of a tightened majorant
+is measured against the zero-padding witness, not the model T;
+iv-scale units must be built as mp.iv.mpf(2)**-k, never from a plain
+mpf; mp.iv.mpf([lo, hi]) is the list-form constructor; the extended-jets
+polynomial tensor is (chunk, length, 2). Module selftest 5/5 PASS,
+artifact selftest 17/17 OK. No Lean hgap discharge, no producer GO, no
+RH claim.
