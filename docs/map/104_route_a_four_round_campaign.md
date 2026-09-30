@@ -10,6 +10,12 @@ This record is subordinate to [003](003_b1_b5_minimal_exit_route_selection.md),
 [080](080_c3p_signed_certificate_owner.md), [081](081_orbit_physical_kernel_coboundary_certificate.md),
 and [082](082_direct_semilocal_gate_assault.md). RH is not claimed.
 
+Current owner guard (2026-09-30, record 2276): the legacy 2267 strip
+envelope uses width-a physical profiles, while the 2249 transform uses
+width-a^2 profiles. The numerical coefficient vectors agree but the
+functions do not. That envelope is not a supplier for the current
+owner's hstrip. The generic Lean producer remains conditional and valid.
+
 ## Consumer and owner
 
 The campaign serves the healthy detector-specific B5 consumer:
@@ -1874,3 +1880,34 @@ No derivative cap, ideal-tail cap, owner readback or hgap theorem is
 claimed. Ten exact/provenance controls pass. The live task remains a
 fixed-owner analytic supplier, not another refinement ledger or a
 conditional wrapper. hstrip, hmargin, hcharge and hgap remain open.
+
+### Record 2276: physical-scale owner no-go; analytic majorants priced
+
+Record [2276](../proofs/2276_routea_owner_scale_price.md) identifies the
+ideal integral underlying 1980/2249 by y = a*x: its physical bump width
+is a^2, not a. At y = 6 every legacy family vanishes, while exactly
+stored family 4 survives at squared width with nonzero base/corr
+coefficients. C1RouteAOwnerScaleAudit proves the support mismatch and
+its stored-entry specializations; all eight paired audit declarations
+use only the permitted three axioms. The 2943-job build succeeds.
+The paired audit plus root aggregate also pass together (4283 jobs).
+
+This rules out transfer of the 2267 envelope to the 2249 ideal owner;
+2267's raw artifact and replay are preserved as legacy-input evidence.
+The new comparison finds zero coefficient-component mismatches, so the
+failure is profile scale, not a different solve or rounding convention.
+
+For the correctly scaled, same-stored-coefficient functions, directed
+MPFR evaluates analytic absolute-family strip and ideal two-sided tail
+majorants. Their upper expression endpoints are 1.907160891918978e13
+(2.006e6 times the frozen strip cap) and 1.005130285058951e41 (1.005e34
+times the gap cap). These figures price a rejected sufficient-bound
+method, NOT lower bounds on the true norms/tail. The tail keeps the
+frozen visible-prime kernel and does not establish selected-detector
+readback or its support-derived prime set. Thirteen new controls pass.
+
+The live order is now: bind the squared-width CompactLog functions and
+the selected owner/visible set; preserve cancellation in corrected-owner
+analytic pricing; prove the complete window, ideal-tail and grid bridge;
+only then attach an hgap supplier. No generic conditional wrapper is
+added, no producer premise is removed by this record, and RH is not claimed.

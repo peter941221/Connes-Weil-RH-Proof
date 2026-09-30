@@ -1,0 +1,101 @@
+{
+  "record": 2276,
+  "owner_status": "LEGACY-STRIP-OWNER-MISMATCH",
+  "price_status": "ABSOLUTE-FAMILY-METHOD-REJECTED",
+  "hgap_closed": false,
+  "source_controls": {
+    "frequency_dilates_again": true,
+    "screen_uses_unsquared_width": true,
+    "outward_uses_unsquared_width": true,
+    "visible_cutoff_uses_legacy_support": true,
+    "annihilator_uses_centered_orbit": true
+  },
+  "unique_surviving_family_at_six": 4,
+  "legacy_base_and_corr_at_six_exact": "0",
+  "corrected_magnitude_at_six_enclosures": {
+    "base": [
+      3.097400811079255e-71,
+      3.0974008110813695e-71
+    ],
+    "corr": [
+      5.8898113007932725e-67,
+      5.889811300797294e-67
+    ]
+  },
+  "legacy_max_radius_exact": "1441151880758559/562949953421312",
+  "corrected_max_radius_exact": "2076918743413931858457251756481/316912650057057350374175801344",
+  "coefficient_component_mismatches": {
+    "base": 0,
+    "corr": 0
+  },
+  "norm_upper_expression_enclosures": {
+    "base_D0": [
+      2035.0656901916448,
+      2035.0656901916586
+    ],
+    "base_D2": [
+      7231675.145032459,
+      7231675.145032515
+    ],
+    "base_weighted_D3": [
+      492788319.7824488,
+      492788319.7824528
+    ],
+    "corr_D0": [
+      2637232.5272782804,
+      2637232.527278302
+    ],
+    "corr_D2": [
+      9561487273.553999,
+      9561487273.554089
+    ],
+    "corr_weighted_D3": [
+      601281319363.517,
+      601281319363.523
+    ]
+  },
+  "strip_upper_expression_enclosure": [
+    19071608919189.473,
+    19071608919189.78
+  ],
+  "ideal_tail_upper_expression_enclosure": [
+    1.005130285058913e+41,
+    1.0051302850589506e+41
+  ],
+  "method_price_ratios": {
+    "strip": [
+      2006212.6030841207,
+      2006212.6030841537
+    ],
+    "ideal_tail": [
+      1.005130285058913e+34,
+      1.0051302850589506e+34
+    ]
+  },
+  "visible_cutoff_enclosure": [
+    167.33536962110423,
+    167.33536962110426
+  ],
+  "annihilator_node_l1_cap_exact": "178781414657156799/4503599627370496",
+  "prime_channel_abs_upper": 28056,
+  "tail_scope": "ideal same-stored-coefficient transform with the frozen visible-prime kernel; not an actual selected-detector readback",
+  "enclosure_scope": "intervals enclose analytic majorant expressions, not lower bounds on the true norms or tail",
+  "input_sha256": {
+    "results/2275_gap_owner_audit.json": "743fe372bef89b5730c38274d5a5517ac9ea4d3421989d46c49d4af3e78b5e74",
+    "results/2267_replay_operands.json": "99a12b781756bb9fd538a0c1a8e0b2e71f4d3f6996fbaeeb3936d3e5577415e9",
+    "scripts/fourpoint_owner_completion_1980.py": "52595ca7269c5de8d4c699dc79ed136fa7da62404d7e08c9315094aae7a2bf1e",
+    "scripts/routea_weighted_zero_l1_enclosure_2249.py": "81a15b3309b7b8d0c4fc8d4ff591e0b9588c0edb406bafbec34b199801394542",
+    "scripts/routea_weighted_zero_direct_product_mass_screen_2197.py": "99f21b0abb158a255eda314f950fc784442f7a902f2d1f05f2392c18c7d422c5",
+    "scripts/routea_weighted_zero_direct_product_outward_2234.py": "a6cce713cca770ebf4e54d7766025b68c00199879a5e590c9a48fafd7a93385f",
+    "scripts/routea_owner_scale_price_2276.py": "fca29b745ef181dcb939a07647a110fede9a9e9f47413e349b6699eebf1c5737",
+    "ConnesWeilRH/Dev/C1RouteAOwnerScaleAudit.lean": "32fdbbc63973a2b72bc29a0614120d796c25ecd843b106d15e5b10e66fdf464b",
+    "ConnesWeilRH/Dev/C1RouteAOwnerScaleAuditAudit.lean": "a33ed741c85998ed4cb8b1ac89bad86ea544b9e646e7978b263404f30b8e4e9f",
+    "scripts/routea_gap_owner_audit_2275.py": "97ee85fe6785204422b403fc1ed9d656f8889d01f1f7efba98e41d3314b07972"
+  },
+  "nonclaims": [
+    "the actual ideal gap is not bounded here",
+    "the true norms/tail need not exceed the frozen budgets",
+    "the generic Lean producer theorem remains valid",
+    "no producer GO or RH claim"
+  ]
+}

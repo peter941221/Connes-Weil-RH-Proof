@@ -2,6 +2,14 @@
 
 Date: 2026-09-30
 
+Owner correction (record 2276): the historical certified status below
+describes the legacy width-a physical inputs. The 2249 transform instead
+has physical width a^2. Even with identical stored coefficient vectors,
+the two functions are provably different. Transfer of this envelope as
+hstrip for the 2249/2275 owner is withdrawn; the numeric replay remains
+unchanged. See [2276](2276_routea_owner_scale_price.md) for the Lean support
+witness and corrected-owner analytic majorant prices.
+
 Consumer: 2265 pinned the producer side of the weighted-zero C3' candidate
 to `laplaceAt_convolution_spectral_bound_of_strip`, whose hypothesis `hB`
 is a certified bound on the two-channel product
