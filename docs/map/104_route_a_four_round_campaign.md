@@ -2250,3 +2250,42 @@ Scope: this frees the tail half of hgap at artifact grade. The live constraint
 on the 1e7 budget is now the finite-window half (records 2295-2302); a
 certified window enclosure plus intervalization of this same cell scheme are
 the named successors. No hgap certificate, no producer GO, no route change.
+
+### Record 2307: the grouped flat-edge tail is certified; TAIL-CERTIFIED
+
+Record [2307](../proofs/2307_routea_hgap_tail_certified.md) removes the
+declared kappa = 2^-30 slack model of 2306 and re-encloses the same grouped
+scheme in mpmath.iv interval arithmetic (dps 40, 136 bits): exact big-int A_j,
+the monotone-clip S-function sup, certified a1 and C_W closed forms (own
+sieve, 41136 prime powers up to 492475), and the exact tail-integral closed
+form verified against normalized quadrature (rel 1.32e-20). No sampled
+maximum, no float64 on the certificate path.
+
+Verdict TAIL-CERTIFIED. Best rung N = 36 on the 2048 master grid:
+1.9586382184619955e-27, margin 5.1055881100147315e+33; the full certified
+ladder is N = 16: 6918.973606907223 (margin 1.445301e3, the tightest rung and
+the crossing order), N = 20: 2.452555829669849e-5 (4.077379e11), N = 24:
+3.362393870024703e-12 (2.974072e18). Any single rung discharges tail <= 1e7.
+The certified bounds sit (2-8)e-9 relatively below the float64 bounds on the
+same lattice -- the kappa signature, i.e. the certified path carries only
+interval inflation (1e-29..1e-40 relative). Certified constants vs the 2306
+float64 conventions: a1 upper +0.76 ulp, c_w upper -0.16 ulp, widths
+2.3e-40 / 4.6e-37 relative (the certificate resolves both closed forms ~25
+orders beyond one double ulp).
+
+The certified lattice is the master grid only (no adaptive refinement; a pure
+function of n0 and the family cuts). The 2306 refined-lattice ladder remains
+artifact grade; the refinement gain between the columns is 9x (N = 20) to
+9.1e4 x (N = 36) and is a cost optimization, not a requirement. Lessons
+locked: iv endpoints round outward (verified) but must never be re-rendered
+outside a high-precision context; s_lo is the min of the endpoint lowers (an
+early max was unsound, caught at a cell reading 3.6e34 vs 9e-134); the
+S-clip is the monotone image (a swap fallback inflated ~158 orders); the
+prime cutoff floor of e^{2S} needs no margin (+64 primes inflated c_w by
+7.5e-5); float64-convention constants differ from the certified forms at the
+ulp level and references must be rebuilt from the same float64 terms.
+
+Scope: the tail half of hgap is now numerically free at certificate grade.
+The finite-window half stays screen-grade (2295-2302); its certified
+enclosure plus the localized [-2, 2] instrument are the named successors. No
+hgap certificate, no producer GO, no route change.

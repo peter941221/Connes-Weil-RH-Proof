@@ -1,0 +1,64 @@
+{
+ "record": 2307,
+ "status": "TAIL-CERTIFIED",
+ "certificate": true,
+ "scope": "numeric enclosure of the 2306 grouped tail scheme; the structural identification of the tail integrand is inherited from 2304/2305; owner data frozen at 2275 (hex floats, exact); no declared slack model -- the 2306 kappa = 2^-30 running-magnitude model is removed and every endpoint is an outward-rounded mpmath.iv bound; hstrip/hmargin/hcharge-rest/hgap remain Lean hypotheses",
+ "budget": 10000000.0,
+ "xi0": 40.0,
+ "interval_dps": 40,
+ "a1_float_2306": 2497731.388738144,
+ "c_w_float_2306": 2810.1333609392077,
+ "rows": [
+  {
+   "order": 16,
+   "n0": 4096,
+   "cells": 4109,
+   "V_base": 8.306422352561895e+31,
+   "V_corr": 1.5721111918942438e+32,
+   "tail_upper": 6918.973606907222,
+   "margin": 1445.3010761620747,
+   "timing_sec": 338.7767221927643
+  },
+  {
+   "order": 20,
+   "n0": 4096,
+   "cells": 4109,
+   "V_base": 3.7621277712770065e+39,
+   "V_corr": 3.737828451708567e+39,
+   "tail_upper": 2.4525558296698494e-05,
+   "margin": 407737914832.5504,
+   "timing_sec": 466.1829171180725
+  },
+  {
+   "order": 24,
+   "n0": 2048,
+   "cells": 2061,
+   "V_base": 2.7542937513736065e+47,
+   "V_corr": 3.3312484215771577e+47,
+   "tail_upper": 3.362393870024703e-12,
+   "margin": 2.9740715652466176e+18,
+   "timing_sec": 305.5558292865753
+  },
+  {
+   "order": 36,
+   "n0": 2048,
+   "cells": 2061,
+   "V_base": 9.382582452430504e+70,
+   "V_corr": 1.186074348079619e+74,
+   "tail_upper": 1.9586382184619955e-27,
+   "margin": 5.1055881100147315e+33,
+   "timing_sec": 570.1389791965485
+  }
+ ],
+ "best": {
+  "order": 36,
+  "n0": 2048,
+  "tail_upper": 1.9586382184619955e-27,
+  "margin": 5.1055881100147315e+33
+ },
+ "provenance": {
+  "script": "scripts/routea_hgap_tail_cert_2307.py",
+  "predecessor": "results/2306_hgap_tail_sharp.json",
+  "owner": "results/2275_gap_owner_audit.json"
+ }
+}
