@@ -173,10 +173,10 @@ the 2306 tail formula reproduces 2304's recorded bounds to the stored
 
 - Artifact grade: the binary64 evaluation carries the declared
   running-magnitude slack model (kappa = 2^-30), not a machine-verified
-  interval certificate. The uniform 1.008x base inflation at the crossing
-  order means a certificate at N = 20 is a factor ~1.01 away from what the
-  instrument already reads; certifying it means intervalizing the same
-  expressions, not re-pricing the mechanism.
+  interval certificate. The base inflation reads 1.032 at the crossing
+  order N = 16 and 1.008 at N = 20, so a certificate at N = 20 is a factor
+  ~1.01 away from what the instrument already reads; certifying it means
+  intervalizing the same expressions, not re-pricing the mechanism.
 - The kernel triangle bound, the prime-power sum and the annihilator l1
   norm are 2304's constants, unchanged and not re-certified here.
 - This record covers the tail half of hgap only. The finite-window half
