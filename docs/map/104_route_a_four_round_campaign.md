@@ -1998,3 +1998,23 @@ Do not continue increasing FFT nodes, GL order, Chebyshev degree, or generic
 derivative order without a named enclosure or residual theorem. A numerical
 reading without that theorem is a diagnostic only. No producer GO or RH claim
 is permitted from these screens.
+
+### Record 2292: derivative-instrument erratum
+
+Record [2292](../proofs/2292_routea_explicit_grouped_fifth_derivative_preflight.md)
+withdraws the astronomical prices, direct-interval no-go, and subdivision freeze.
+The instrument evaluated exterior families as growing exponentials, used wrong
+derivative numerators, took a component maximum instead of a complex modulus,
+and omitted panel length. Repaired formulas pass independent containment tests,
+but endpoint-crossing cells require the 2293 handler.
+
+### Record 2293: grouped centered derivative and flat-endpoint preflight
+
+Record [2293](../proofs/2293_routea_grouped_centered_derivative_preflight.md)
+adds grouped Taylor jets, centre-fifth/sixth-variation bounds, and flat endpoint
+envelopes. The 8/16/32-subcell ladder reads a 32-subcell Lobatto interpolation
+proxy of `2.02183024e4` for base and `2.39897951e6` for correction; the correction
+is 2.71x tighter than same-run direct intervalization. Nineteen tests pass.
+These are transform-interpolation prices, not kernel-weighted hgap charges.
+Node/moment arithmetic, finite-window quadrature, infinite-xi tail and actual
+selected-owner readback remain open. No supplier, producer GO, or RH claim follows.

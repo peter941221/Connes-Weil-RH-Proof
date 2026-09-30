@@ -1,0 +1,1371 @@
+{
+  "record": 2293,
+  "status": "GROUPED-CENTERED-DERIVATIVE-PREFLIGHT",
+  "certificate": false,
+  "hgap_closed": false,
+  "owner_capture_sha256": "743fe372bef89b5730c38274d5a5517ac9ea4d3421989d46c49d4af3e78b5e74",
+  "input_convention": "exact stored binary64 operands",
+  "panels": 24,
+  "degree": 4,
+  "base": {
+    "subcells_per_panel": 32,
+    "cells": 768,
+    "full_support_covered": true,
+    "edge_family_cells": 60,
+    "global_bounds": {
+      "direct_fifth_bound": "18486222243.8515182280620409243",
+      "centered_fifth_bound": "18486222243.8515182280620409243"
+    },
+    "legacy_global_proxy": {
+      "direct_fifth_bound": "5613343.38472504273215835598615",
+      "centered_fifth_bound": "5613343.38472504273215835598615"
+    },
+    "integrated_panel_proxy": {
+      "direct_fifth_bound": "347460.978103610150792940677126",
+      "centered_fifth_bound": "323492.838353589446255455738796"
+    },
+    "lobatto_integrated_panel_proxy": {
+      "direct_fifth_bound": "21716.3111314756344245587923204",
+      "centered_fifth_bound": "20218.3023970993403909659836748"
+    },
+    "rows": [
+      {
+        "panel": 0,
+        "direct_fifth_bound": "1.24932006964154278093605268726e-60",
+        "centered_fifth_bound": "1.24932006964154278093605268726e-60",
+        "edge_family_cells": 1
+      },
+      {
+        "panel": 1,
+        "direct_fifth_bound": "3.49066598702652494020066309811e-24",
+        "centered_fifth_bound": "3.49066598702652494020066309811e-24",
+        "edge_family_cells": 0
+      },
+      {
+        "panel": 2,
+        "direct_fifth_bound": "2.31394566024642208257007899604e-12",
+        "centered_fifth_bound": "1.92269830290112082166106986444e-12",
+        "edge_family_cells": 2
+      },
+      {
+        "panel": 3,
+        "direct_fifth_bound": "0.00000199018650720442416732742519518",
+        "centered_fifth_bound": "0.00000160752994976291555022604211382",
+        "edge_family_cells": 0
+      },
+      {
+        "panel": 4,
+        "direct_fifth_bound": "0.00705001244339614073637450299012",
+        "centered_fifth_bound": "0.00586196298222467806929514545486",
+        "edge_family_cells": 2
+      },
+      {
+        "panel": 5,
+        "direct_fifth_bound": "2.95881628036201312797283409942",
+        "centered_fifth_bound": "2.39959616636833825917390531768",
+        "edge_family_cells": 1
+      },
+      {
+        "panel": 6,
+        "direct_fifth_bound": "1801.18666166981347838596262366",
+        "centered_fifth_bound": "1558.82463313704855848873882409",
+        "edge_family_cells": 23
+      },
+      {
+        "panel": 7,
+        "direct_fifth_bound": "146687.562701296550227316139393",
+        "centered_fifth_bound": "140030.863134635263381203246935",
+        "edge_family_cells": 1
+      },
+      {
+        "panel": 8,
+        "direct_fifth_bound": "2960335.82420507516498347319549",
+        "centered_fifth_bound": "2562444.3068514091001482230952",
+        "edge_family_cells": 0
+      },
+      {
+        "panel": 9,
+        "direct_fifth_bound": "222296311.543620715330918557463",
+        "centered_fifth_bound": "183264414.166844516826682230144",
+        "edge_family_cells": 0
+      },
+      {
+        "panel": 10,
+        "direct_fifth_bound": "4796647490.48945290904154006124",
+        "centered_fifth_bound": "3588766289.55864352410835420046",
+        "edge_family_cells": 0
+      },
+      {
+        "panel": 11,
+        "direct_fifth_bound": "18486222243.8515182280620409243",
+        "centered_fifth_bound": "18486222243.8515182280620409243",
+        "edge_family_cells": 0
+      },
+      {
+        "panel": 12,
+        "direct_fifth_bound": "18454830567.7788311963433648714",
+        "centered_fifth_bound": "18454830567.7788311963433648714",
+        "edge_family_cells": 0
+      },
+      {
+        "panel": 13,
+        "direct_fifth_bound": "7692609414.47124491554979558644",
+        "centered_fifth_bound": "5586916217.56725208059978891436",
+        "edge_family_cells": 0
+      },
+      {
+        "panel": 14,
+        "direct_fifth_bound": "614532523.160141337850563050841",
+        "centered_fifth_bound": "500347572.577028517344529348807",
+        "edge_family_cells": 0
+      },
+      {
+        "panel": 15,
+        "direct_fifth_bound": "14275873.5336167327697324291206",
+        "centered_fifth_bound": "12745038.6214123342276316136403",
+        "edge_family_cells": 0
+      },
+      {
+        "panel": 16,
+        "direct_fifth_bound": "1226595.76638090778729533957308",
+        "centered_fifth_bound": "1203001.42566317473907317722281",
+        "edge_family_cells": 1
+      },
+      {
+        "panel": 17,
+        "direct_fifth_bound": "25880.4144307843383850505474045",
+        "centered_fifth_bound": "22811.3276590284773296329766084",
+        "edge_family_cells": 23
+      },
+      {
+        "panel": 18,
+        "direct_fifth_bound": "75.3073391256629233858330373099",
+        "centered_fifth_bound": "58.8199804231521381673375538374",
+        "edge_family_cells": 1
+      },
+      {
+        "panel": 19,
+        "direct_fifth_bound": "0.308693686968278519485616009742",
+        "centered_fifth_bound": "0.259372712174027507672509647587",
+        "edge_family_cells": 2
+      },
+      {
+        "panel": 20,
+        "direct_fifth_bound": "0.000151795563264269428685671236598",
+        "centered_fifth_bound": "0.000117092634046928481515756216809",
+        "edge_family_cells": 0
+      },
+      {
+        "panel": 21,
+        "direct_fifth_bound": "2.96126203269702797175605010059e-10",
+        "centered_fifth_bound": "2.48691932680512601096390025201e-10",
+        "edge_family_cells": 2
+      },
+      {
+        "panel": 22,
+        "direct_fifth_bound": "7.84491232784101519743331009787e-22",
+        "centered_fifth_bound": "7.84491232784101519743331009787e-22",
+        "edge_family_cells": 0
+      },
+      {
+        "panel": 23,
+        "direct_fifth_bound": "4.9481298012472528541503428534e-58",
+        "centered_fifth_bound": "4.9481298012472528541503428534e-58",
+        "edge_family_cells": 1
+      }
+    ]
+  },
+  "corr": {
+    "subcells_per_panel": 32,
+    "cells": 768,
+    "full_support_covered": true,
+    "edge_family_cells": 60,
+    "global_bounds": {
+      "direct_fifth_bound": "4952828545101.93386429432690828",
+      "centered_fifth_bound": "1769185235556.56222214913044349"
+    },
+    "legacy_global_proxy": {
+      "direct_fifth_bound": "1503926923.66187286747872302444",
+      "centered_fifth_bound": "537213288.218889130504963342583"
+    },
+    "integrated_panel_proxy": {
+      "direct_fifth_bound": "103901450.50885660506927728365",
+      "centered_fifth_bound": "38383672.1301506381964391432016"
+    },
+    "lobatto_integrated_panel_proxy": {
+      "direct_fifth_bound": "6493840.6568035378168298302281",
+      "centered_fifth_bound": "2398979.5081344148872774464501"
+    },
+    "rows": [
+      {
+        "panel": 0,
+        "direct_fifth_bound": "2.68430051472766559972038027484e-56",
+        "centered_fifth_bound": "2.68430051472766559972038027484e-56",
+        "edge_family_cells": 1
+      },
+      {
+        "panel": 1,
+        "direct_fifth_bound": "7.56465620151597234545229159041e-20",
+        "centered_fifth_bound": "7.56465620151597234545229159041e-20",
+        "edge_family_cells": 0
+      },
+      {
+        "panel": 2,
+        "direct_fifth_bound": "0.0000000494213293955068286160064178205",
+        "centered_fifth_bound": "0.000000039701682711198574033998829453",
+        "edge_family_cells": 2
+      },
+      {
+        "panel": 3,
+        "direct_fifth_bound": "0.0420660199412305177686807881264",
+        "centered_fifth_bound": "0.0330766800956413089053633515258",
+        "edge_family_cells": 0
+      },
+      {
+        "panel": 4,
+        "direct_fifth_bound": "142.510567595774538892515588828",
+        "centered_fifth_bound": "117.329551192552437566337865806",
+        "edge_family_cells": 2
+      },
+      {
+        "panel": 5,
+        "direct_fifth_bound": "30323.6999893147532708572352977",
+        "centered_fifth_bound": "27833.1895638564735548469603038",
+        "edge_family_cells": 1
+      },
+      {
+        "panel": 6,
+        "direct_fifth_bound": "1462993.68966048421642115713865",
+        "centered_fifth_bound": "1365614.31812349964914314539999",
+        "edge_family_cells": 23
+      },
+      {
+        "panel": 7,
+        "direct_fifth_bound": "21544480.2004092217290556161398",
+        "centered_fifth_bound": "21237637.6623074049248849530654",
+        "edge_family_cells": 1
+      },
+      {
+        "panel": 8,
+        "direct_fifth_bound": "288477856.746595735191677711837",
+        "centered_fifth_bound": "221724787.498015849801931071196",
+        "edge_family_cells": 0
+      },
+      {
+        "panel": 9,
+        "direct_fifth_bound": "79577804322.8267960222548164925",
+        "centered_fifth_bound": "38127200795.4802121632608209191",
+        "edge_family_cells": 0
+      },
+      {
+        "panel": 10,
+        "direct_fifth_bound": "1903125779336.09373547259439795",
+        "centered_fifth_bound": "747857678538.081557419066662062",
+        "edge_family_cells": 0
+      },
+      {
+        "panel": 11,
+        "direct_fifth_bound": "4915918848581.09874026018992141",
+        "centered_fifth_bound": "1758160309022.2566147614148263",
+        "edge_family_cells": 0
+      },
+      {
+        "panel": 12,
+        "direct_fifth_bound": "4952828545101.93386429432690828",
+        "centered_fifth_bound": "1769185235556.56222214913044349",
+        "edge_family_cells": 0
+      },
+      {
+        "panel": 13,
+        "direct_fifth_bound": "2971429026805.46725914577258644",
+        "centered_fifth_bound": "1144107667650.88514482175664088",
+        "edge_family_cells": 0
+      },
+      {
+        "panel": 14,
+        "direct_fifth_bound": "212165417347.15331692673771613",
+        "centered_fifth_bound": "95934167628.7850655272273542913",
+        "edge_family_cells": 0
+      },
+      {
+        "panel": 15,
+        "direct_fifth_bound": "1428796186.83769661600259096723",
+        "centered_fifth_bound": "1207619030.44163777283271845813",
+        "edge_family_cells": 0
+      },
+      {
+        "panel": 16,
+        "direct_fifth_bound": "175047195.615906530576161476976",
+        "centered_fifth_bound": "174858989.756569904531667393451",
+        "edge_family_cells": 1
+      },
+      {
+        "panel": 17,
+        "direct_fifth_bound": "22061322.5643547193252837875696",
+        "centered_fifth_bound": "20320485.19299882064427126966",
+        "edge_family_cells": 23
+      },
+      {
+        "panel": 18,
+        "direct_fifth_bound": "799471.558446054307440075805104",
+        "centered_fifth_bound": "721252.055391306703980870203804",
+        "edge_family_cells": 1
+      },
+      {
+        "panel": 19,
+        "direct_fifth_bound": "6395.81383891471138196898528968",
+        "centered_fifth_bound": "5195.27880717137552942981228281",
+        "edge_family_cells": 2
+      },
+      {
+        "panel": 20,
+        "direct_fifth_bound": "3.24585694301696780980283941116",
+        "centered_fifth_bound": "2.3958435035555935984749808743",
+        "edge_family_cells": 0
+      },
+      {
+        "panel": 21,
+        "direct_fifth_bound": "0.00000622618059965993460584851047841",
+        "centered_fifth_bound": "0.0000052112238293070385106483572089",
+        "edge_family_cells": 2
+      },
+      {
+        "panel": 22,
+        "direct_fifth_bound": "1.67274663508376215637793853839e-17",
+        "centered_fifth_bound": "1.67274663508376215637793853839e-17",
+        "edge_family_cells": 0
+      },
+      {
+        "panel": 23,
+        "direct_fifth_bound": "1.0700807877189846588493799902e-53",
+        "centered_fifth_bound": "1.0700807877189846588493799902e-53",
+        "edge_family_cells": 1
+      }
+    ]
+  },
+  "partition_readings": [
+    {
+      "subcells_per_panel": 8,
+      "base": {
+        "subcells_per_panel": 8,
+        "cells": 192,
+        "full_support_covered": true,
+        "edge_family_cells": 60,
+        "global_bounds": {
+          "direct_fifth_bound": "32148469114.3830477027139120988",
+          "centered_fifth_bound": "32148469114.3830477027139120988"
+        },
+        "legacy_global_proxy": {
+          "direct_fifth_bound": "9761886.12534290032386639940499",
+          "centered_fifth_bound": "9761886.12534290032386639940499"
+        },
+        "integrated_panel_proxy": {
+          "direct_fifth_bound": "670411.417474516944107331363775",
+          "centered_fifth_bound": "670411.417474516944107331363775"
+        },
+        "lobatto_integrated_panel_proxy": {
+          "direct_fifth_bound": "41900.7135921573090067082102359",
+          "centered_fifth_bound": "41900.7135921573090067082102359"
+        },
+        "rows": [
+          {
+            "panel": 0,
+            "direct_fifth_bound": "4.62002843582439372247290427524e-60",
+            "centered_fifth_bound": "4.62002843582439372247290427524e-60",
+            "edge_family_cells": 1
+          },
+          {
+            "panel": 1,
+            "direct_fifth_bound": "8.42417979135843365995554766262e-24",
+            "centered_fifth_bound": "8.42417979135843365995554766262e-24",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 2,
+            "direct_fifth_bound": "5.76492935206516914229789136489e-12",
+            "centered_fifth_bound": "5.76492935206516914229789136489e-12",
+            "edge_family_cells": 2
+          },
+          {
+            "panel": 3,
+            "direct_fifth_bound": "0.00000435022705650333329679027317124",
+            "centered_fifth_bound": "0.00000435022705650333329679027317124",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 4,
+            "direct_fifth_bound": "0.0143365447992974156161579823464",
+            "centered_fifth_bound": "0.0143365447992974156161579823464",
+            "edge_family_cells": 2
+          },
+          {
+            "panel": 5,
+            "direct_fifth_bound": "5.69349657718022873711684147562",
+            "centered_fifth_bound": "5.69349657718022873711684147562",
+            "edge_family_cells": 1
+          },
+          {
+            "panel": 6,
+            "direct_fifth_bound": "3179.18312382815877526345112322",
+            "centered_fifth_bound": "3179.18312382815877526345112322",
+            "edge_family_cells": 23
+          },
+          {
+            "panel": 7,
+            "direct_fifth_bound": "251831.149500533062633295358706",
+            "centered_fifth_bound": "251831.149500533062633295358706",
+            "edge_family_cells": 1
+          },
+          {
+            "panel": 8,
+            "direct_fifth_bound": "6167143.16262881858680280523466",
+            "centered_fifth_bound": "6167143.16262881858680280523466",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 9,
+            "direct_fifth_bound": "505806311.742603691495170352872",
+            "centered_fifth_bound": "505806311.742603691495170352872",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 10,
+            "direct_fifth_bound": "11920191273.3171815683768305918",
+            "centered_fifth_bound": "11920191273.3171815683768305918",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 11,
+            "direct_fifth_bound": "31214080971.1688393069393636657",
+            "centered_fifth_bound": "31214080971.1688393069393636657",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 12,
+            "direct_fifth_bound": "32148469114.3830477027139120988",
+            "centered_fifth_bound": "32148469114.3830477027139120988",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 13,
+            "direct_fifth_bound": "19748183531.1048638940534337343",
+            "centered_fifth_bound": "19748183531.1048638940534337343",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 14,
+            "direct_fifth_bound": "1449399570.78234843906959416438",
+            "centered_fifth_bound": "1449399570.78234843906959416438",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 15,
+            "direct_fifth_bound": "29581049.2786227461802567637813",
+            "centered_fifth_bound": "29581049.2786227461802567637813",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 16,
+            "direct_fifth_bound": "2119375.48406623514833834206946",
+            "centered_fifth_bound": "2119375.48406623514833834206946",
+            "edge_family_cells": 1
+          },
+          {
+            "panel": 17,
+            "direct_fifth_bound": "46665.6198450875687726718543756",
+            "centered_fifth_bound": "46665.6198450875687726718543756",
+            "edge_family_cells": 23
+          },
+          {
+            "panel": 18,
+            "direct_fifth_bound": "143.814616232765285658749592543",
+            "centered_fifth_bound": "143.814616232765285658749592543",
+            "edge_family_cells": 1
+          },
+          {
+            "panel": 19,
+            "direct_fifth_bound": "0.616589827500383063773536522481",
+            "centered_fifth_bound": "0.616589827500383063773536522481",
+            "edge_family_cells": 2
+          },
+          {
+            "panel": 20,
+            "direct_fifth_bound": "0.00032916455999613667033073256941",
+            "centered_fifth_bound": "0.00032916455999613667033073256941",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 21,
+            "direct_fifth_bound": "7.60819317827242933576086130684e-10",
+            "centered_fifth_bound": "7.60819317827242933576086130684e-10",
+            "edge_family_cells": 2
+          },
+          {
+            "panel": 22,
+            "direct_fifth_bound": "1.9886296394263666942922734204e-21",
+            "centered_fifth_bound": "1.9886296394263666942922734204e-21",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 23,
+            "direct_fifth_bound": "1.94003942731715198388079451361e-57",
+            "centered_fifth_bound": "1.94003942731715198388079451361e-57",
+            "edge_family_cells": 1
+          }
+        ]
+      },
+      "corr": {
+        "subcells_per_panel": 8,
+        "cells": 192,
+        "full_support_covered": true,
+        "edge_family_cells": 60,
+        "global_bounds": {
+          "direct_fifth_bound": "16878091599194.7461677549863162",
+          "centered_fifth_bound": "16878091599194.7461677549863162"
+        },
+        "legacy_global_proxy": {
+          "direct_fifth_bound": "5125034340.4604651444079231132",
+          "centered_fifth_bound": "5125034340.4604651444079231132"
+        },
+        "integrated_panel_proxy": {
+          "direct_fifth_bound": "353695087.478541436189461215814",
+          "centered_fifth_bound": "353695087.478541436189461215814"
+        },
+        "lobatto_integrated_panel_proxy": {
+          "direct_fifth_bound": "22105942.9674088397618413259884",
+          "centered_fifth_bound": "22105942.9674088397618413259884"
+        },
+        "rows": [
+          {
+            "panel": 0,
+            "direct_fifth_bound": "9.73305307315167638447624570013e-56",
+            "centered_fifth_bound": "9.73305307315167638447624570013e-56",
+            "edge_family_cells": 1
+          },
+          {
+            "panel": 1,
+            "direct_fifth_bound": "1.833374049259297699580161317e-19",
+            "centered_fifth_bound": "1.833374049259297699580161317e-19",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 2,
+            "direct_fifth_bound": "0.000000126138491235491141720642116963",
+            "centered_fifth_bound": "0.000000126138491235491141720642116963",
+            "edge_family_cells": 2
+          },
+          {
+            "panel": 3,
+            "direct_fifth_bound": "0.0939902865776468117955260875251",
+            "centered_fifth_bound": "0.0939902865776468117955260875251",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 4,
+            "direct_fifth_bound": "311.243257268227321135264309007",
+            "centered_fifth_bound": "311.243257268227321135264309007",
+            "edge_family_cells": 2
+          },
+          {
+            "panel": 5,
+            "direct_fifth_bound": "63429.6742134203854511814270762",
+            "centered_fifth_bound": "63429.6742134203854511814270762",
+            "edge_family_cells": 1
+          },
+          {
+            "panel": 6,
+            "direct_fifth_bound": "2587495.60841735843841438987541",
+            "centered_fifth_bound": "2587495.60841735843841438987541",
+            "edge_family_cells": 23
+          },
+          {
+            "panel": 7,
+            "direct_fifth_bound": "35139914.6831448405227739090517",
+            "centered_fifth_bound": "35139914.6831448405227739090517",
+            "edge_family_cells": 1
+          },
+          {
+            "panel": 8,
+            "direct_fifth_bound": "688498209.912272021859419766243",
+            "centered_fifth_bound": "688498209.912272021859419766243",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 9,
+            "direct_fifth_bound": "238950191044.997738207601003424",
+            "centered_fifth_bound": "238950191044.997738207601003424",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 10,
+            "direct_fifth_bound": "6556924528150.71277644711790979",
+            "centered_fifth_bound": "6556924528150.71277644711790979",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 11,
+            "direct_fifth_bound": "16378642587563.8013332861197645",
+            "centered_fifth_bound": "16378642587563.8013332861197645",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 12,
+            "direct_fifth_bound": "16878091599194.7461677549863162",
+            "centered_fifth_bound": "16878091599194.7461677549863162",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 13,
+            "direct_fifth_bound": "10465166845668.013738751071968",
+            "centered_fifth_bound": "10465166845668.013738751071968",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 14,
+            "direct_fifth_bound": "665792378084.626259194132465091",
+            "centered_fifth_bound": "665792378084.626259194132465091",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 15,
+            "direct_fifth_bound": "3364846544.24200842045482368485",
+            "centered_fifth_bound": "3364846544.24200842045482368485",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 16,
+            "direct_fifth_bound": "299914740.285440637419019487803",
+            "centered_fifth_bound": "299914740.285440637419019487803",
+            "edge_family_cells": 1
+          },
+          {
+            "panel": 17,
+            "direct_fifth_bound": "37279299.2883666980468141374508",
+            "centered_fifth_bound": "37279299.2883666980468141374508",
+            "edge_family_cells": 23
+          },
+          {
+            "panel": 18,
+            "direct_fifth_bound": "1583875.83460266529667746636718",
+            "centered_fifth_bound": "1583875.83460266529667746636718",
+            "edge_family_cells": 1
+          },
+          {
+            "panel": 19,
+            "direct_fifth_bound": "13262.2059930715477592553424596",
+            "centered_fifth_bound": "13262.2059930715477592553424596",
+            "edge_family_cells": 2
+          },
+          {
+            "panel": 20,
+            "direct_fifth_bound": "7.11848708787953791872823489826",
+            "centered_fifth_bound": "7.11848708787953791872823489826",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 21,
+            "direct_fifth_bound": "0.0000165474497152108975783344974109",
+            "centered_fifth_bound": "0.0000165474497152108975783344974109",
+            "edge_family_cells": 2
+          },
+          {
+            "panel": 22,
+            "direct_fifth_bound": "4.35189567966008119957702287055e-17",
+            "centered_fifth_bound": "4.35189567966008119957702287055e-17",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 23,
+            "direct_fifth_bound": "4.1698959523081688533114509077e-53",
+            "centered_fifth_bound": "4.1698959523081688533114509077e-53",
+            "edge_family_cells": 1
+          }
+        ]
+      }
+    },
+    {
+      "subcells_per_panel": 16,
+      "base": {
+        "subcells_per_panel": 16,
+        "cells": 384,
+        "full_support_covered": true,
+        "edge_family_cells": 60,
+        "global_bounds": {
+          "direct_fifth_bound": "24630262933.5678557031922762648",
+          "centered_fifth_bound": "24630262933.5678557031922762648"
+        },
+        "legacy_global_proxy": {
+          "direct_fifth_bound": "7478982.00499920593500943014156",
+          "centered_fifth_bound": "7478982.00499920593500943014156"
+        },
+        "integrated_panel_proxy": {
+          "direct_fifth_bound": "494173.133581579642272294435553",
+          "centered_fifth_bound": "494173.133581579642272294435553"
+        },
+        "lobatto_integrated_panel_proxy": {
+          "direct_fifth_bound": "30885.820848848727642018402222",
+          "centered_fifth_bound": "30885.820848848727642018402222"
+        },
+        "rows": [
+          {
+            "panel": 0,
+            "direct_fifth_bound": "1.95638118379519645917784233686e-60",
+            "centered_fifth_bound": "1.95638118379519645917784233686e-60",
+            "edge_family_cells": 1
+          },
+          {
+            "panel": 1,
+            "direct_fifth_bound": "5.19511977588164997844186906626e-24",
+            "centered_fifth_bound": "5.19511977588164997844186906626e-24",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 2,
+            "direct_fifth_bound": "3.72146347691635869020216672521e-12",
+            "centered_fifth_bound": "3.72146347691635869020216672521e-12",
+            "edge_family_cells": 2
+          },
+          {
+            "panel": 3,
+            "direct_fifth_bound": "0.00000287536386154466115041959869437",
+            "centered_fifth_bound": "0.00000287536386154466115041959869437",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 4,
+            "direct_fifth_bound": "0.00935973019937978802122482560828",
+            "centered_fifth_bound": "0.00935973019937978802122482560828",
+            "edge_family_cells": 2
+          },
+          {
+            "panel": 5,
+            "direct_fifth_bound": "4.20352527401161148353738272675",
+            "centered_fifth_bound": "4.20352527401161148353738272675",
+            "edge_family_cells": 1
+          },
+          {
+            "panel": 6,
+            "direct_fifth_bound": "2388.84156496871809792633957881",
+            "centered_fifth_bound": "2388.84156496871809792633957881",
+            "edge_family_cells": 23
+          },
+          {
+            "panel": 7,
+            "direct_fifth_bound": "193263.827161083333978386065931",
+            "centered_fifth_bound": "193263.827161083333978386065931",
+            "edge_family_cells": 1
+          },
+          {
+            "panel": 8,
+            "direct_fifth_bound": "4412949.57464160866648315682528",
+            "centered_fifth_bound": "4412949.57464160866648315682528",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 9,
+            "direct_fifth_bound": "353454353.214243432506551271224",
+            "centered_fifth_bound": "353454353.214243432506551271224",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 10,
+            "direct_fifth_bound": "7950889059.24915827210709748145",
+            "centered_fifth_bound": "7950889059.24915827210709748145",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 11,
+            "direct_fifth_bound": "24496431059.4361511300919479329",
+            "centered_fifth_bound": "24496431059.4361511300919479329",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 12,
+            "direct_fifth_bound": "24630262933.5678557031922762648",
+            "centered_fifth_bound": "24630262933.5678557031922762648",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 13,
+            "direct_fifth_bound": "13080531617.006793993732805826",
+            "centered_fifth_bound": "13080531617.006793993732805826",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 14,
+            "direct_fifth_bound": "979265432.1431414533680167061",
+            "centered_fifth_bound": "979265432.1431414533680167061",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 15,
+            "direct_fifth_bound": "21373096.3889390262238933608373",
+            "centered_fifth_bound": "21373096.3889390262238933608373",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 16,
+            "direct_fifth_bound": "1624585.87271692818675778968948",
+            "centered_fifth_bound": "1624585.87271692818675778968948",
+            "edge_family_cells": 1
+          },
+          {
+            "panel": 17,
+            "direct_fifth_bound": "34516.1020629614984413941447886",
+            "centered_fifth_bound": "34516.1020629614984413941447886",
+            "edge_family_cells": 23
+          },
+          {
+            "panel": 18,
+            "direct_fifth_bound": "107.803978609326063639716951457",
+            "centered_fifth_bound": "107.803978609326063639716951457",
+            "edge_family_cells": 1
+          },
+          {
+            "panel": 19,
+            "direct_fifth_bound": "0.415133182918674454932096907505",
+            "centered_fifth_bound": "0.415133182918674454932096907505",
+            "edge_family_cells": 2
+          },
+          {
+            "panel": 20,
+            "direct_fifth_bound": "0.000211021485917318665842885397262",
+            "centered_fifth_bound": "0.000211021485917318665842885397262",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 21,
+            "direct_fifth_bound": "4.87146613640295378090285786682e-10",
+            "centered_fifth_bound": "4.87146613640295378090285786682e-10",
+            "edge_family_cells": 2
+          },
+          {
+            "panel": 22,
+            "direct_fifth_bound": "1.19349385395967743884930586104e-21",
+            "centered_fifth_bound": "1.19349385395967743884930586104e-21",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 23,
+            "direct_fifth_bound": "7.85452631817019068611632680308e-58",
+            "centered_fifth_bound": "7.85452631817019068611632680308e-58",
+            "edge_family_cells": 1
+          }
+        ]
+      },
+      "corr": {
+        "subcells_per_panel": 16,
+        "cells": 384,
+        "full_support_covered": true,
+        "edge_family_cells": 60,
+        "global_bounds": {
+          "direct_fifth_bound": "9322579182347.64823321218273269",
+          "centered_fifth_bound": "6719139830118.88824978201606764"
+        },
+        "legacy_global_proxy": {
+          "direct_fifth_bound": "2830802177.50880414019516677191",
+          "centered_fifth_bound": "2040267536.48842215712885732557"
+        },
+        "integrated_panel_proxy": {
+          "direct_fifth_bound": "195385393.972123487555782292199",
+          "centered_fifth_bound": "144234999.862314883735462899474"
+        },
+        "lobatto_integrated_panel_proxy": {
+          "direct_fifth_bound": "12211587.1232577179722363932624",
+          "centered_fifth_bound": "9014687.4913946802334664312171"
+        },
+        "rows": [
+          {
+            "panel": 0,
+            "direct_fifth_bound": "4.17929799431079585063539024155e-56",
+            "centered_fifth_bound": "4.17929799431079585063539024155e-56",
+            "edge_family_cells": 1
+          },
+          {
+            "panel": 1,
+            "direct_fifth_bound": "1.12280572620567672813439473435e-19",
+            "centered_fifth_bound": "1.12280572620567672813439473435e-19",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 2,
+            "direct_fifth_bound": "0.0000000797999313069182572973792943219",
+            "centered_fifth_bound": "0.0000000797999313069182572973792943219",
+            "edge_family_cells": 2
+          },
+          {
+            "panel": 3,
+            "direct_fifth_bound": "0.0625927318166167211918025113101",
+            "centered_fifth_bound": "0.0625927318166167211918025113101",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 4,
+            "direct_fifth_bound": "203.931318395483440620693180928",
+            "centered_fifth_bound": "203.931318395483440620693180928",
+            "edge_family_cells": 2
+          },
+          {
+            "panel": 5,
+            "direct_fifth_bound": "45372.8128868600014531278709629",
+            "centered_fifth_bound": "45372.8128868600014531278709629",
+            "edge_family_cells": 1
+          },
+          {
+            "panel": 6,
+            "direct_fifth_bound": "1945519.34117916047621112834915",
+            "centered_fifth_bound": "1945519.34117916047621112834915",
+            "edge_family_cells": 23
+          },
+          {
+            "panel": 7,
+            "direct_fifth_bound": "27834390.1162510331698163946732",
+            "centered_fifth_bound": "27834390.1162510331698163946732",
+            "edge_family_cells": 1
+          },
+          {
+            "panel": 8,
+            "direct_fifth_bound": "441571422.18509902313154199915",
+            "centered_fifth_bound": "441571422.18509902313154199915",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 9,
+            "direct_fifth_bound": "138879413117.981178391536561242",
+            "centered_fifth_bound": "125242481124.953883340841333571",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 10,
+            "direct_fifth_bound": "3624559667847.23823809430351949",
+            "centered_fifth_bound": "2846086655930.19853690097429329",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 11,
+            "direct_fifth_bound": "9106321077478.5076268786598246",
+            "centered_fifth_bound": "6454308820707.56685491201194415",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 12,
+            "direct_fifth_bound": "9322579182347.64823321218273269",
+            "centered_fifth_bound": "6719139830118.88824978201606764",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 13,
+            "direct_fifth_bound": "5703436184326.45533373607632954",
+            "centered_fifth_bound": "4395024104014.57063777259782248",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 14,
+            "direct_fifth_bound": "378111410065.778682062903708158",
+            "centered_fifth_bound": "331419959746.686163136280041983",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 15,
+            "direct_fifth_bound": "2256042805.48518598337234084369",
+            "centered_fifth_bound": "2256042805.48518598337234084369",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 16,
+            "direct_fifth_bound": "219403940.091904350470883734347",
+            "centered_fifth_bound": "219403940.091904350470883734347",
+            "edge_family_cells": 1
+          },
+          {
+            "panel": 17,
+            "direct_fifth_bound": "27046472.0652768571666051074669",
+            "centered_fifth_bound": "27046472.0652768571666051074669",
+            "edge_family_cells": 23
+          },
+          {
+            "panel": 18,
+            "direct_fifth_bound": "1132573.6474067871952871187302",
+            "centered_fifth_bound": "1132573.6474067871952871187302",
+            "edge_family_cells": 1
+          },
+          {
+            "panel": 19,
+            "direct_fifth_bound": "8927.9344017457651834540381054",
+            "centered_fifth_bound": "8927.9344017457651834540381054",
+            "edge_family_cells": 2
+          },
+          {
+            "panel": 20,
+            "direct_fifth_bound": "4.61605151681976253788289088882",
+            "centered_fifth_bound": "4.61605151681976253788289088882",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 21,
+            "direct_fifth_bound": "0.0000105262759728286267693994413045",
+            "centered_fifth_bound": "0.0000105262759728286267693994413045",
+            "edge_family_cells": 2
+          },
+          {
+            "panel": 22,
+            "direct_fifth_bound": "2.56761313205464593709461780793e-17",
+            "centered_fifth_bound": "2.56761313205464593709461780793e-17",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 23,
+            "direct_fifth_bound": "1.61731560239401646340555581773e-53",
+            "centered_fifth_bound": "1.61731560239401646340555581773e-53",
+            "edge_family_cells": 1
+          }
+        ]
+      }
+    },
+    {
+      "subcells_per_panel": 32,
+      "base": {
+        "subcells_per_panel": 32,
+        "cells": 768,
+        "full_support_covered": true,
+        "edge_family_cells": 60,
+        "global_bounds": {
+          "direct_fifth_bound": "18486222243.8515182280620409243",
+          "centered_fifth_bound": "18486222243.8515182280620409243"
+        },
+        "legacy_global_proxy": {
+          "direct_fifth_bound": "5613343.38472504273215835598615",
+          "centered_fifth_bound": "5613343.38472504273215835598615"
+        },
+        "integrated_panel_proxy": {
+          "direct_fifth_bound": "347460.978103610150792940677126",
+          "centered_fifth_bound": "323492.838353589446255455738796"
+        },
+        "lobatto_integrated_panel_proxy": {
+          "direct_fifth_bound": "21716.3111314756344245587923204",
+          "centered_fifth_bound": "20218.3023970993403909659836748"
+        },
+        "rows": [
+          {
+            "panel": 0,
+            "direct_fifth_bound": "1.24932006964154278093605268726e-60",
+            "centered_fifth_bound": "1.24932006964154278093605268726e-60",
+            "edge_family_cells": 1
+          },
+          {
+            "panel": 1,
+            "direct_fifth_bound": "3.49066598702652494020066309811e-24",
+            "centered_fifth_bound": "3.49066598702652494020066309811e-24",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 2,
+            "direct_fifth_bound": "2.31394566024642208257007899604e-12",
+            "centered_fifth_bound": "1.92269830290112082166106986444e-12",
+            "edge_family_cells": 2
+          },
+          {
+            "panel": 3,
+            "direct_fifth_bound": "0.00000199018650720442416732742519518",
+            "centered_fifth_bound": "0.00000160752994976291555022604211382",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 4,
+            "direct_fifth_bound": "0.00705001244339614073637450299012",
+            "centered_fifth_bound": "0.00586196298222467806929514545486",
+            "edge_family_cells": 2
+          },
+          {
+            "panel": 5,
+            "direct_fifth_bound": "2.95881628036201312797283409942",
+            "centered_fifth_bound": "2.39959616636833825917390531768",
+            "edge_family_cells": 1
+          },
+          {
+            "panel": 6,
+            "direct_fifth_bound": "1801.18666166981347838596262366",
+            "centered_fifth_bound": "1558.82463313704855848873882409",
+            "edge_family_cells": 23
+          },
+          {
+            "panel": 7,
+            "direct_fifth_bound": "146687.562701296550227316139393",
+            "centered_fifth_bound": "140030.863134635263381203246935",
+            "edge_family_cells": 1
+          },
+          {
+            "panel": 8,
+            "direct_fifth_bound": "2960335.82420507516498347319549",
+            "centered_fifth_bound": "2562444.3068514091001482230952",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 9,
+            "direct_fifth_bound": "222296311.543620715330918557463",
+            "centered_fifth_bound": "183264414.166844516826682230144",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 10,
+            "direct_fifth_bound": "4796647490.48945290904154006124",
+            "centered_fifth_bound": "3588766289.55864352410835420046",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 11,
+            "direct_fifth_bound": "18486222243.8515182280620409243",
+            "centered_fifth_bound": "18486222243.8515182280620409243",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 12,
+            "direct_fifth_bound": "18454830567.7788311963433648714",
+            "centered_fifth_bound": "18454830567.7788311963433648714",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 13,
+            "direct_fifth_bound": "7692609414.47124491554979558644",
+            "centered_fifth_bound": "5586916217.56725208059978891436",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 14,
+            "direct_fifth_bound": "614532523.160141337850563050841",
+            "centered_fifth_bound": "500347572.577028517344529348807",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 15,
+            "direct_fifth_bound": "14275873.5336167327697324291206",
+            "centered_fifth_bound": "12745038.6214123342276316136403",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 16,
+            "direct_fifth_bound": "1226595.76638090778729533957308",
+            "centered_fifth_bound": "1203001.42566317473907317722281",
+            "edge_family_cells": 1
+          },
+          {
+            "panel": 17,
+            "direct_fifth_bound": "25880.4144307843383850505474045",
+            "centered_fifth_bound": "22811.3276590284773296329766084",
+            "edge_family_cells": 23
+          },
+          {
+            "panel": 18,
+            "direct_fifth_bound": "75.3073391256629233858330373099",
+            "centered_fifth_bound": "58.8199804231521381673375538374",
+            "edge_family_cells": 1
+          },
+          {
+            "panel": 19,
+            "direct_fifth_bound": "0.308693686968278519485616009742",
+            "centered_fifth_bound": "0.259372712174027507672509647587",
+            "edge_family_cells": 2
+          },
+          {
+            "panel": 20,
+            "direct_fifth_bound": "0.000151795563264269428685671236598",
+            "centered_fifth_bound": "0.000117092634046928481515756216809",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 21,
+            "direct_fifth_bound": "2.96126203269702797175605010059e-10",
+            "centered_fifth_bound": "2.48691932680512601096390025201e-10",
+            "edge_family_cells": 2
+          },
+          {
+            "panel": 22,
+            "direct_fifth_bound": "7.84491232784101519743331009787e-22",
+            "centered_fifth_bound": "7.84491232784101519743331009787e-22",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 23,
+            "direct_fifth_bound": "4.9481298012472528541503428534e-58",
+            "centered_fifth_bound": "4.9481298012472528541503428534e-58",
+            "edge_family_cells": 1
+          }
+        ]
+      },
+      "corr": {
+        "subcells_per_panel": 32,
+        "cells": 768,
+        "full_support_covered": true,
+        "edge_family_cells": 60,
+        "global_bounds": {
+          "direct_fifth_bound": "4952828545101.93386429432690828",
+          "centered_fifth_bound": "1769185235556.56222214913044349"
+        },
+        "legacy_global_proxy": {
+          "direct_fifth_bound": "1503926923.66187286747872302444",
+          "centered_fifth_bound": "537213288.218889130504963342583"
+        },
+        "integrated_panel_proxy": {
+          "direct_fifth_bound": "103901450.50885660506927728365",
+          "centered_fifth_bound": "38383672.1301506381964391432016"
+        },
+        "lobatto_integrated_panel_proxy": {
+          "direct_fifth_bound": "6493840.6568035378168298302281",
+          "centered_fifth_bound": "2398979.5081344148872774464501"
+        },
+        "rows": [
+          {
+            "panel": 0,
+            "direct_fifth_bound": "2.68430051472766559972038027484e-56",
+            "centered_fifth_bound": "2.68430051472766559972038027484e-56",
+            "edge_family_cells": 1
+          },
+          {
+            "panel": 1,
+            "direct_fifth_bound": "7.56465620151597234545229159041e-20",
+            "centered_fifth_bound": "7.56465620151597234545229159041e-20",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 2,
+            "direct_fifth_bound": "0.0000000494213293955068286160064178205",
+            "centered_fifth_bound": "0.000000039701682711198574033998829453",
+            "edge_family_cells": 2
+          },
+          {
+            "panel": 3,
+            "direct_fifth_bound": "0.0420660199412305177686807881264",
+            "centered_fifth_bound": "0.0330766800956413089053633515258",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 4,
+            "direct_fifth_bound": "142.510567595774538892515588828",
+            "centered_fifth_bound": "117.329551192552437566337865806",
+            "edge_family_cells": 2
+          },
+          {
+            "panel": 5,
+            "direct_fifth_bound": "30323.6999893147532708572352977",
+            "centered_fifth_bound": "27833.1895638564735548469603038",
+            "edge_family_cells": 1
+          },
+          {
+            "panel": 6,
+            "direct_fifth_bound": "1462993.68966048421642115713865",
+            "centered_fifth_bound": "1365614.31812349964914314539999",
+            "edge_family_cells": 23
+          },
+          {
+            "panel": 7,
+            "direct_fifth_bound": "21544480.2004092217290556161398",
+            "centered_fifth_bound": "21237637.6623074049248849530654",
+            "edge_family_cells": 1
+          },
+          {
+            "panel": 8,
+            "direct_fifth_bound": "288477856.746595735191677711837",
+            "centered_fifth_bound": "221724787.498015849801931071196",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 9,
+            "direct_fifth_bound": "79577804322.8267960222548164925",
+            "centered_fifth_bound": "38127200795.4802121632608209191",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 10,
+            "direct_fifth_bound": "1903125779336.09373547259439795",
+            "centered_fifth_bound": "747857678538.081557419066662062",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 11,
+            "direct_fifth_bound": "4915918848581.09874026018992141",
+            "centered_fifth_bound": "1758160309022.2566147614148263",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 12,
+            "direct_fifth_bound": "4952828545101.93386429432690828",
+            "centered_fifth_bound": "1769185235556.56222214913044349",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 13,
+            "direct_fifth_bound": "2971429026805.46725914577258644",
+            "centered_fifth_bound": "1144107667650.88514482175664088",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 14,
+            "direct_fifth_bound": "212165417347.15331692673771613",
+            "centered_fifth_bound": "95934167628.7850655272273542913",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 15,
+            "direct_fifth_bound": "1428796186.83769661600259096723",
+            "centered_fifth_bound": "1207619030.44163777283271845813",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 16,
+            "direct_fifth_bound": "175047195.615906530576161476976",
+            "centered_fifth_bound": "174858989.756569904531667393451",
+            "edge_family_cells": 1
+          },
+          {
+            "panel": 17,
+            "direct_fifth_bound": "22061322.5643547193252837875696",
+            "centered_fifth_bound": "20320485.19299882064427126966",
+            "edge_family_cells": 23
+          },
+          {
+            "panel": 18,
+            "direct_fifth_bound": "799471.558446054307440075805104",
+            "centered_fifth_bound": "721252.055391306703980870203804",
+            "edge_family_cells": 1
+          },
+          {
+            "panel": 19,
+            "direct_fifth_bound": "6395.81383891471138196898528968",
+            "centered_fifth_bound": "5195.27880717137552942981228281",
+            "edge_family_cells": 2
+          },
+          {
+            "panel": 20,
+            "direct_fifth_bound": "3.24585694301696780980283941116",
+            "centered_fifth_bound": "2.3958435035555935984749808743",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 21,
+            "direct_fifth_bound": "0.00000622618059965993460584851047841",
+            "centered_fifth_bound": "0.0000052112238293070385106483572089",
+            "edge_family_cells": 2
+          },
+          {
+            "panel": 22,
+            "direct_fifth_bound": "1.67274663508376215637793853839e-17",
+            "centered_fifth_bound": "1.67274663508376215637793853839e-17",
+            "edge_family_cells": 0
+          },
+          {
+            "panel": 23,
+            "direct_fifth_bound": "1.0700807877189846588493799902e-53",
+            "centered_fifth_bound": "1.0700807877189846588493799902e-53",
+            "edge_family_cells": 1
+          }
+        ]
+      }
+    }
+  ],
+  "nonclaims": [
+    "derivative preflight, not a directed-MPFR integral certificate",
+    "proxy is a Laplace interpolation error size, not the kernel-weighted functional charge",
+    "infinite xi tail, interpolation arithmetic and owner readback remain open",
+    "no hgap supplier, producer GO or RH claim"
+  ]
+}
