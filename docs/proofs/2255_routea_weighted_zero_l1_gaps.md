@@ -2,6 +2,14 @@
 
 Date: 2026-09-30
 
+Correction (record 2275): the numbers below are historical refinement
+measurements, not an analytic gap certificate. The quad run reconstructs
+both coefficient vectors after changing the rule; it is not a fixed-owner
+rule comparison. The finite-rule ring does not bound the ideal infinite
+tail. The former window-exact/resolved interpretation is withdrawn.
+See [2275](2275_routea_gap_owner_audit.md) for the exact inference
+counterexample, original-coefficient capture and analytic supplier contract.
+
 Consumer: the registered ideal-to-discrete gaps of the 2249 L1 enclosure —
 GL phi quadrature, the `[-40,40]` window, the trapezoid step, the owner
 list, and the float solve.
@@ -29,10 +37,11 @@ weight correction `1/50 - 1/100` applied explicitly.
 
 ## What the numbers say
 
-The window truncation is below the committed error bar: `|g|` at `x = +-40`
-is `5.85594003842789e-20`, the whole ring sum is `-1.8895820282216714e-16`
-(roundoff floor), and the charged window gap is just the committed
-`E_total` — the `[-40,40]` window is exact at the available error budget.
+The sampled ring reading is below the committed error bar: `|g|` at `x = +-40`
+is `5.85594003842789e-20`, the whole sampled ring sum is
+`-1.8895820282216714e-16`, and its measured charge is dominated by the
+committed `E_total`. This establishes neither an infinite-tail bound nor
+exactness of the `[-40,40]` window.
 
 The two numerical refinements move `q` at the `1e-10` relative scale
 (quad: `7.6e-11`, step: `3.2e-11` of `|q|`) while both enclosures'
@@ -46,7 +55,7 @@ in all three channels although they share the committed baseline. The
 over-charge (~`2.6e6`) is inside the registered slack and never in the
 optimistic direction.
 
-## The four registered gaps, resolved
+## Historical gap readings, not analytic resolutions
 
 ```text
 GL phi quadrature   measured, charged (quad channel above)

@@ -1846,3 +1846,31 @@ input-validation metadata updated.
 The next unresolved item is the analytic hgap enclosure, followed by the
 formal strip certificate and the selected-owner signed inequality. This
 is one removed producer premise, not producer GO or an RH proof.
+
+### Record 2275: hgap inference audit; analytic supplier still open
+
+Record [2275](../proofs/2275_routea_gap_owner_audit.md) reconstructs the
+2249 coefficient vectors and matches both original MD5 anchors exactly.
+The captured binary64 vectors, target nodes, family parameters and rule
+hashes are available in results/2275_gap_owner_audit.json. This captures
+the numerical owner; it does not identify it with a selected Lean detector.
+
+The 2255 quad refinement changes the rule AND re-solves both vectors.
+The finite-rule ring cannot supply an ideal infinite tail: its nonzero
+family sums recur exactly, with common phase period
+T = (pi / pi_stored) * 2^106 for these stored tables. An exact positive
+polynomial has equal zero coarse/fine trapezoids but integral 20000000,
+so agreement plus arithmetic bars alone cannot establish the 1e7 gap cap.
+This freezes only those inference mechanisms, not the actual ideal gap
+or the CompactLog producer. Record 2255's window-exact/resolved wording
+is withdrawn; its numeric artifact remains historical and unchanged.
+
+The analytic bridge now explicitly separates ideal tail, same-coefficient
+window rule error, analytic trapezoid remainder and stored-coordinate
+transfer. The stored grid differs from -40+j/50 by at most
+55/4398046511104. The basic C2 window bound is M2/375, where M2 bounds
+the second derivative; using all 1e7 on it would require M2 <= 3.75e9.
+No derivative cap, ideal-tail cap, owner readback or hgap theorem is
+claimed. Ten exact/provenance controls pass. The live task remains a
+fixed-owner analytic supplier, not another refinement ledger or a
+conditional wrapper. hstrip, hmargin, hcharge and hgap remain open.
