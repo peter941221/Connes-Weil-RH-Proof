@@ -1935,3 +1935,13 @@ for the signed integral and 5.191x for its absolute integral. The result
 is marked FFT-TAIL-UNTRUSTED and cannot close hgap. The next tail route
 must use direct oscillatory quadrature or a certified panel rule with a
 measured trust horizon.
+
+### Record 2279: direct Gauss-Legendre tail trust horizon rejected
+
+Record [2279](../proofs/2279_routea_direct_oscillatory_tail_screen.md)
+replaces FFT with direct composite Gauss-Legendre integration and uses the
+corrected support-derived 41136-term kernel. The order-64 to 128 signed
+reading changes 4.618x, order 128 to 256 changes 10.307x, and an
+independent order-512 to 1024 run changes 4.583x. The instrument is marked
+DIRECT-GL-TAIL-UNTRUSTED. The next tail attempt needs interval quadrature,
+a transformed oscillatory variable, or a certified remainder formula.

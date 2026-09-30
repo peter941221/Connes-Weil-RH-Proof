@@ -1,0 +1,83 @@
+{
+  "record": 2279,
+  "status": "DIRECT-OSCILLATORY-SCREEN",
+  "certificate": false,
+  "hgap_closed": false,
+  "readings": [
+    {
+      "order": 64,
+      "panels": 6,
+      "xi_max": 200.0,
+      "xi_step": 0.25,
+      "quadrature_nodes": 384,
+      "support_half_width": 6.553600000000003,
+      "prime_power_count": 41136,
+      "xi_points": 641,
+      "signed_integral": -7.489743689716224e+27,
+      "absolute_integral": 1.362427698382184e+28,
+      "negative_absolute_mass": 1.0557010336769033e+28,
+      "base_transform_max": 1.1081994275348963,
+      "corr_transform_max": 26.67697533088613,
+      "base_md5": "d461872e14212dcba8efe1874de6f652",
+      "corr_md5": "c37e16a9dfeb4383c7bab1d23aa59566"
+    },
+    {
+      "order": 128,
+      "panels": 6,
+      "xi_max": 200.0,
+      "xi_step": 0.25,
+      "quadrature_nodes": 768,
+      "support_half_width": 6.553600000000003,
+      "prime_power_count": 41136,
+      "xi_points": 641,
+      "signed_integral": -1.3332043997100335e+27,
+      "absolute_integral": 3.0922247734295773e+27,
+      "negative_absolute_mass": 2.2127145865698055e+27,
+      "base_transform_max": 0.8305908985314288,
+      "corr_transform_max": 21.786199882278954,
+      "base_md5": "d461872e14212dcba8efe1874de6f652",
+      "corr_md5": "c37e16a9dfeb4383c7bab1d23aa59566"
+    },
+    {
+      "order": 256,
+      "panels": 6,
+      "xi_max": 200.0,
+      "xi_step": 0.25,
+      "quadrature_nodes": 1536,
+      "support_half_width": 6.553600000000003,
+      "prime_power_count": 41136,
+      "xi_points": 641,
+      "signed_integral": -1.1790964949985475e+26,
+      "absolute_integral": 2.2699391618689062e+26,
+      "negative_absolute_mass": 1.724517828433727e+26,
+      "base_transform_max": 0.3439280692179777,
+      "corr_transform_max": 19.428119620718174,
+      "base_md5": "d461872e14212dcba8efe1874de6f652",
+      "corr_md5": "c37e16a9dfeb4383c7bab1d23aa59566"
+    }
+  ],
+  "input_sha256": {
+    "results/2275_gap_owner_audit.json": "743fe372bef89b5730c38274d5a5517ac9ea4d3421989d46c49d4af3e78b5e74"
+  },
+  "nonclaims": [
+    "finite xi range is not the infinite tail",
+    "floating quadrature is not a directed enclosure",
+    "no selected-detector readback",
+    "no hgap supplier, producer GO or RH claim"
+  ],
+  "order_refinement": [
+    {
+      "from": 64,
+      "to": 128,
+      "signed_relative_change": 4.617851014702031,
+      "absolute_relative_change": 3.4059788605571497
+    },
+    {
+      "from": 128,
+      "to": 256,
+      "signed_relative_change": 10.306999939065003,
+      "absolute_relative_change": 12.622500661575705
+    }
+  ],
+  "trust_status": "DIRECT-GL-TAIL-UNTRUSTED"
+}

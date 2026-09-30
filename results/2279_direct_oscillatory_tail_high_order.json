@@ -1,0 +1,60 @@
+{
+  "record": 2279,
+  "status": "DIRECT-OSCILLATORY-SCREEN",
+  "certificate": false,
+  "hgap_closed": false,
+  "readings": [
+    {
+      "order": 512,
+      "panels": 6,
+      "xi_max": 100.0,
+      "xi_step": 0.5,
+      "quadrature_nodes": 3072,
+      "support_half_width": 6.553600000000003,
+      "prime_power_count": 41136,
+      "xi_points": 121,
+      "signed_integral": -3.0814141554895444e-25,
+      "absolute_integral": 4.9024812931378175e-25,
+      "negative_absolute_mass": 3.991947724313681e-25,
+      "base_transform_max": 1.8732041325983894e-13,
+      "corr_transform_max": 1.626410375181586e-11,
+      "base_md5": "d461872e14212dcba8efe1874de6f652",
+      "corr_md5": "c37e16a9dfeb4383c7bab1d23aa59566"
+    },
+    {
+      "order": 1024,
+      "panels": 6,
+      "xi_max": 100.0,
+      "xi_step": 0.5,
+      "quadrature_nodes": 6144,
+      "support_half_width": 6.553600000000003,
+      "prime_power_count": 41136,
+      "xi_points": 121,
+      "signed_integral": -5.519403257306375e-26,
+      "absolute_integral": 7.644155492043397e-26,
+      "negative_absolute_mass": 6.581779374674887e-26,
+      "base_transform_max": 1.2795821350306009e-13,
+      "corr_transform_max": 1.1174407834842738e-11,
+      "base_md5": "d461872e14212dcba8efe1874de6f652",
+      "corr_md5": "c37e16a9dfeb4383c7bab1d23aa59566"
+    }
+  ],
+  "input_sha256": {
+    "results/2275_gap_owner_audit.json": "743fe372bef89b5730c38274d5a5517ac9ea4d3421989d46c49d4af3e78b5e74"
+  },
+  "nonclaims": [
+    "finite xi range is not the infinite tail",
+    "floating quadrature is not a directed enclosure",
+    "no selected-detector readback",
+    "no hgap supplier, producer GO or RH claim"
+  ],
+  "order_refinement": [
+    {
+      "from": 512,
+      "to": 1024,
+      "signed_relative_change": 4.582875560705745,
+      "absolute_relative_change": 5.413372017668509
+    }
+  ],
+  "trust_status": "DIRECT-GL-TAIL-UNTRUSTED"
+}
