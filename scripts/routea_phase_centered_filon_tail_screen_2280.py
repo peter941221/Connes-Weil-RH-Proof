@@ -36,9 +36,17 @@ def owner_values(y, families, coefficients):
 
 def polynomial_moments(alpha, degree):
     moments = np.empty(degree + 1, dtype=complex)
-    if abs(alpha) < 1e-12:
+    if abs(alpha) <= 1.0:
         for index in range(degree + 1):
-            moments[index] = 2.0 / (index + 1) if index % 2 == 0 else 0.0
+            value = 0j
+            factor = 1+0j
+            for order in range(100):
+                if (index + order) % 2 == 0:
+                    value += factor*2/(index + order + 1)
+                factor *= -1j*alpha/(order + 1)
+                if abs(factor) < 1e-18:
+                    break
+            moments[index] = value
         return moments
     moments[0] = 2.0 * math.sin(alpha) / alpha
     minus = complex(math.cos(alpha), -math.sin(alpha))

@@ -2036,3 +2036,20 @@ change: a frequency-dependent residual, correlated channels, direct signed
 functional difference, or a sufficient radius reduction. The optimistic common
 radius-scale ceiling is 3.40625424e-7 (necessary, not sufficient). Ten controls
 pass. hstrip/hgap, selected-owner readback and infinite-tail proof remain open.
+
+### Record 2295: direct signed difference rejects the sampled current profiles
+
+Record [2295](../proofs/2295_routea_direct_functional_difference_screen.md)
+changes the 2294 independent-ball hypothesis and evaluates the signed functional
+difference directly on the same [-40,40] grid, full 41136-term kernel and stored
+owner. After repairing near-zero Filon moments and exact grid-zero generation,
+the 24:4 profile reads -1.95312399e16 at step 0.01; 24:6 reads +8.10997332e15.
+Both are many orders above the 1e7 diagnostic budget, with 256/512 reference-
+order agreement and the 0.02/0.01 grid controls retained. Six tests pass.
+
+These are measured profile mismatches, not continuous-integral certificates or
+global Filon no-gos. Do not use the transform-only price gate as a functional
+gate. The next candidate needs a named representation/profile change and a
+same-functional diagnostic before enclosure work. Arithmetic precision alone
+cannot repair the current sampled low-degree function mismatch. hstrip/hgap,
+the actual selected-owner bridge and infinite tail remain open.
