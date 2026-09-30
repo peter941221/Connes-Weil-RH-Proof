@@ -1,0 +1,795 @@
+{
+  "record": 2290,
+  "status": "FILON-FIFTH-DERIVATIVE-SAMPLING",
+  "certificate": false,
+  "hgap_closed": false,
+  "profiles": {
+    "panels": 24,
+    "degree": 4,
+    "derivative_order": 5
+  },
+  "rows": [
+    {
+      "base": {
+        "samples_per_panel": 3,
+        "global_sampled_max": 5975770010.4373045,
+        "amplitude_remainder_price": 1814543.2103026477,
+        "panel_rows": [
+          {
+            "panel": 0,
+            "sampled_max": 7.123464129045633e-76,
+            "sampled_arg": 2
+          },
+          {
+            "panel": 1,
+            "sampled_max": 5.006014347217976e-28,
+            "sampled_arg": 2
+          },
+          {
+            "panel": 2,
+            "sampled_max": 2.538169714176043e-14,
+            "sampled_arg": 2
+          },
+          {
+            "panel": 3,
+            "sampled_max": 1.160609046028737e-07,
+            "sampled_arg": 2
+          },
+          {
+            "panel": 4,
+            "sampled_max": 0.0010549559038365772,
+            "sampled_arg": 2
+          },
+          {
+            "panel": 5,
+            "sampled_max": 0.5138713810213418,
+            "sampled_arg": 2
+          },
+          {
+            "panel": 6,
+            "sampled_max": 351.68771051924705,
+            "sampled_arg": 2
+          },
+          {
+            "panel": 7,
+            "sampled_max": 47801.02514962176,
+            "sampled_arg": 2
+          },
+          {
+            "panel": 8,
+            "sampled_max": 1029484.438418828,
+            "sampled_arg": 2
+          },
+          {
+            "panel": 9,
+            "sampled_max": 19318918.56453932,
+            "sampled_arg": 2
+          },
+          {
+            "panel": 10,
+            "sampled_max": 418772180.1351713,
+            "sampled_arg": 2
+          },
+          {
+            "panel": 11,
+            "sampled_max": 5674166295.287602,
+            "sampled_arg": 2
+          },
+          {
+            "panel": 12,
+            "sampled_max": 5975770010.4373045,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 13,
+            "sampled_max": 601838915.6127518,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 14,
+            "sampled_max": 64862165.54595891,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 15,
+            "sampled_max": 5752463.039783824,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 16,
+            "sampled_max": 457213.7306463156,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 17,
+            "sampled_max": 5811.3811959804425,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 18,
+            "sampled_max": 15.036908387136684,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 19,
+            "sampled_max": 0.05097962583997979,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 20,
+            "sampled_max": 9.55554813553843e-06,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 21,
+            "sampled_max": 3.571710528552086e-12,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 22,
+            "sampled_max": 1.233514191564983e-25,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 23,
+            "sampled_max": 3.1369755679032565e-73,
+            "sampled_arg": 0
+          }
+        ]
+      },
+      "corr": {
+        "samples_per_panel": 3,
+        "global_sampled_max": 4939081623.250519,
+        "amplitude_remainder_price": 1499752.6693541475,
+        "panel_rows": [
+          {
+            "panel": 0,
+            "sampled_max": 1.3545505437324858e-71,
+            "sampled_arg": 2
+          },
+          {
+            "panel": 1,
+            "sampled_max": 9.519103813982717e-24,
+            "sampled_arg": 2
+          },
+          {
+            "panel": 2,
+            "sampled_max": 4.826414654639533e-10,
+            "sampled_arg": 2
+          },
+          {
+            "panel": 3,
+            "sampled_max": 0.0022069369423077614,
+            "sampled_arg": 2
+          },
+          {
+            "panel": 4,
+            "sampled_max": 20.06026815275522,
+            "sampled_arg": 2
+          },
+          {
+            "panel": 5,
+            "sampled_max": 7870.719992383415,
+            "sampled_arg": 2
+          },
+          {
+            "panel": 6,
+            "sampled_max": 491607.0724386706,
+            "sampled_arg": 2
+          },
+          {
+            "panel": 7,
+            "sampled_max": 9379543.576594232,
+            "sampled_arg": 2
+          },
+          {
+            "panel": 8,
+            "sampled_max": 74842721.466662,
+            "sampled_arg": 2
+          },
+          {
+            "panel": 9,
+            "sampled_max": 1920295078.4920673,
+            "sampled_arg": 2
+          },
+          {
+            "panel": 10,
+            "sampled_max": 3756623127.193081,
+            "sampled_arg": 1
+          },
+          {
+            "panel": 11,
+            "sampled_max": 3553825646.97556,
+            "sampled_arg": 2
+          },
+          {
+            "panel": 12,
+            "sampled_max": 4091319579.309337,
+            "sampled_arg": 2
+          },
+          {
+            "panel": 13,
+            "sampled_max": 2894028420.8110995,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 14,
+            "sampled_max": 4939081623.250519,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 15,
+            "sampled_max": 468700394.7723541,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 16,
+            "sampled_max": 90124081.9085289,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 17,
+            "sampled_max": 8111996.210234976,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 18,
+            "sampled_max": 222576.36418071808,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 19,
+            "sampled_max": 969.3477592337372,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 20,
+            "sampled_max": 0.181701945685144,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 21,
+            "sampled_max": 6.791727101956297e-08,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 22,
+            "sampled_max": 2.34556851640936e-21,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 23,
+            "sampled_max": 5.965064025314558e-69,
+            "sampled_arg": 0
+          }
+        ]
+      }
+    },
+    {
+      "base": {
+        "samples_per_panel": 9,
+        "global_sampled_max": 8244211296.651051,
+        "amplitude_remainder_price": 2503355.6523276945,
+        "panel_rows": [
+          {
+            "panel": 0,
+            "sampled_max": 2.1978687688725516e-65,
+            "sampled_arg": 8
+          },
+          {
+            "panel": 1,
+            "sampled_max": 8.29290121552504e-26,
+            "sampled_arg": 8
+          },
+          {
+            "panel": 2,
+            "sampled_max": 2.291474896128728e-13,
+            "sampled_arg": 8
+          },
+          {
+            "panel": 3,
+            "sampled_max": 3.999040394867189e-07,
+            "sampled_arg": 8
+          },
+          {
+            "panel": 4,
+            "sampled_max": 0.002314332420109735,
+            "sampled_arg": 8
+          },
+          {
+            "panel": 5,
+            "sampled_max": 0.5996330654279036,
+            "sampled_arg": 8
+          },
+          {
+            "panel": 6,
+            "sampled_max": 625.564815086676,
+            "sampled_arg": 8
+          },
+          {
+            "panel": 7,
+            "sampled_max": 72450.53572227323,
+            "sampled_arg": 8
+          },
+          {
+            "panel": 8,
+            "sampled_max": 1286814.7507405365,
+            "sampled_arg": 8
+          },
+          {
+            "panel": 9,
+            "sampled_max": 32471293.65189379,
+            "sampled_arg": 8
+          },
+          {
+            "panel": 10,
+            "sampled_max": 505502864.76768076,
+            "sampled_arg": 8
+          },
+          {
+            "panel": 11,
+            "sampled_max": 8112865983.812111,
+            "sampled_arg": 8
+          },
+          {
+            "panel": 12,
+            "sampled_max": 8244211296.651051,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 13,
+            "sampled_max": 702114219.9465028,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 14,
+            "sampled_max": 91572698.16271323,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 15,
+            "sampled_max": 6786878.417501578,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 16,
+            "sampled_max": 652253.1062584274,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 17,
+            "sampled_max": 9806.068191374141,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 18,
+            "sampled_max": 19.50703876602842,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 19,
+            "sampled_max": 0.1053956749547532,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 20,
+            "sampled_max": 3.1033872919869715e-05,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 21,
+            "sampled_max": 3.036070285575513e-11,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 22,
+            "sampled_max": 1.9165884818975437e-23,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 23,
+            "sampled_max": 9.080827423807156e-63,
+            "sampled_arg": 0
+          }
+        ]
+      },
+      "corr": {
+        "samples_per_panel": 9,
+        "global_sampled_max": 4939081623.250519,
+        "amplitude_remainder_price": 1499752.6693541475,
+        "panel_rows": [
+          {
+            "panel": 0,
+            "sampled_max": 4.1793210185334716e-61,
+            "sampled_arg": 8
+          },
+          {
+            "panel": 1,
+            "sampled_max": 1.5769229193990762e-21,
+            "sampled_arg": 8
+          },
+          {
+            "panel": 2,
+            "sampled_max": 4.357316202161262e-09,
+            "sampled_arg": 8
+          },
+          {
+            "panel": 3,
+            "sampled_max": 0.0076043091439048464,
+            "sampled_arg": 8
+          },
+          {
+            "panel": 4,
+            "sampled_max": 44.02825453837371,
+            "sampled_arg": 8
+          },
+          {
+            "panel": 5,
+            "sampled_max": 13432.20601338213,
+            "sampled_arg": 8
+          },
+          {
+            "panel": 6,
+            "sampled_max": 717323.6354131824,
+            "sampled_arg": 8
+          },
+          {
+            "panel": 7,
+            "sampled_max": 12307756.64641734,
+            "sampled_arg": 8
+          },
+          {
+            "panel": 8,
+            "sampled_max": 91724005.7835072,
+            "sampled_arg": 8
+          },
+          {
+            "panel": 9,
+            "sampled_max": 2904662188.0844407,
+            "sampled_arg": 8
+          },
+          {
+            "panel": 10,
+            "sampled_max": 3756623127.193081,
+            "sampled_arg": 4
+          },
+          {
+            "panel": 11,
+            "sampled_max": 4285369462.5481405,
+            "sampled_arg": 8
+          },
+          {
+            "panel": 12,
+            "sampled_max": 4592026946.142042,
+            "sampled_arg": 8
+          },
+          {
+            "panel": 13,
+            "sampled_max": 3928786644.314403,
+            "sampled_arg": 8
+          },
+          {
+            "panel": 14,
+            "sampled_max": 4939081623.250519,
+            "sampled_arg": 1
+          },
+          {
+            "panel": 15,
+            "sampled_max": 562007061.226414,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 16,
+            "sampled_max": 111353801.43573418,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 17,
+            "sampled_max": 11147248.999800356,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 18,
+            "sampled_max": 357827.18345299165,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 19,
+            "sampled_max": 2004.9000103372164,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 20,
+            "sampled_max": 0.5901194794600713,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 21,
+            "sampled_max": 5.773189254042512e-07,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 22,
+            "sampled_max": 3.644457139441724e-19,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 23,
+            "sampled_max": 1.7267497248009315e-58,
+            "sampled_arg": 0
+          }
+        ]
+      }
+    },
+    {
+      "base": {
+        "samples_per_panel": 33,
+        "global_sampled_max": 8415232337.638705,
+        "amplitude_remainder_price": 2555286.209929648,
+        "panel_rows": [
+          {
+            "panel": 0,
+            "sampled_max": 3.5903833864946596e-62,
+            "sampled_arg": 32
+          },
+          {
+            "panel": 1,
+            "sampled_max": 4.605336057725891e-25,
+            "sampled_arg": 32
+          },
+          {
+            "panel": 2,
+            "sampled_max": 4.903486476221184e-13,
+            "sampled_arg": 32
+          },
+          {
+            "panel": 3,
+            "sampled_max": 6.167010545888805e-07,
+            "sampled_arg": 32
+          },
+          {
+            "panel": 4,
+            "sampled_max": 0.0030557428912554637,
+            "sampled_arg": 32
+          },
+          {
+            "panel": 5,
+            "sampled_max": 1.385290482553044,
+            "sampled_arg": 32
+          },
+          {
+            "panel": 6,
+            "sampled_max": 855.9922283181934,
+            "sampled_arg": 32
+          },
+          {
+            "panel": 7,
+            "sampled_max": 85304.37251857317,
+            "sampled_arg": 32
+          },
+          {
+            "panel": 8,
+            "sampled_max": 1376140.010921652,
+            "sampled_arg": 32
+          },
+          {
+            "panel": 9,
+            "sampled_max": 40601970.65577776,
+            "sampled_arg": 32
+          },
+          {
+            "panel": 10,
+            "sampled_max": 616065473.3256776,
+            "sampled_arg": 32
+          },
+          {
+            "panel": 11,
+            "sampled_max": 8392539498.430219,
+            "sampled_arg": 32
+          },
+          {
+            "panel": 12,
+            "sampled_max": 8415232337.638705,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 13,
+            "sampled_max": 874983812.3649601,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 14,
+            "sampled_max": 112315692.62677276,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 15,
+            "sampled_max": 7048128.282051224,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 16,
+            "sampled_max": 751240.6392986142,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 17,
+            "sampled_max": 12915.71908649896,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 18,
+            "sampled_max": 36.347875177250415,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 19,
+            "sampled_max": 0.1361980132788788,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 20,
+            "sampled_max": 4.683970950017208e-05,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 21,
+            "sampled_max": 6.356498726264621e-11,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 22,
+            "sampled_max": 1.0399402613076964e-22,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 23,
+            "sampled_max": 1.449290166579257e-59,
+            "sampled_arg": 0
+          }
+        ]
+      },
+      "corr": {
+        "samples_per_panel": 33,
+        "global_sampled_max": 5094555488.036463,
+        "amplitude_remainder_price": 1546962.3252201036,
+        "panel_rows": [
+          {
+            "panel": 0,
+            "sampled_max": 6.827234166245454e-58,
+            "sampled_arg": 32
+          },
+          {
+            "panel": 1,
+            "sampled_max": 8.757200637296096e-21,
+            "sampled_arg": 32
+          },
+          {
+            "panel": 2,
+            "sampled_max": 9.324143636054446e-09,
+            "sampled_arg": 32
+          },
+          {
+            "panel": 3,
+            "sampled_max": 0.011726776940284234,
+            "sampled_arg": 32
+          },
+          {
+            "panel": 4,
+            "sampled_max": 58.08384818789159,
+            "sampled_arg": 32
+          },
+          {
+            "panel": 5,
+            "sampled_max": 16228.417173854856,
+            "sampled_arg": 32
+          },
+          {
+            "panel": 6,
+            "sampled_max": 820147.0232624883,
+            "sampled_arg": 32
+          },
+          {
+            "panel": 7,
+            "sampled_max": 13552755.346821364,
+            "sampled_arg": 32
+          },
+          {
+            "panel": 8,
+            "sampled_max": 99718420.29897524,
+            "sampled_arg": 32
+          },
+          {
+            "panel": 9,
+            "sampled_max": 3234717876.3737497,
+            "sampled_arg": 32
+          },
+          {
+            "panel": 10,
+            "sampled_max": 3764334522.6740823,
+            "sampled_arg": 17
+          },
+          {
+            "panel": 11,
+            "sampled_max": 4417166602.382655,
+            "sampled_arg": 32
+          },
+          {
+            "panel": 12,
+            "sampled_max": 4632174466.477502,
+            "sampled_arg": 30
+          },
+          {
+            "panel": 13,
+            "sampled_max": 4303071027.662411,
+            "sampled_arg": 32
+          },
+          {
+            "panel": 14,
+            "sampled_max": 5094555488.036463,
+            "sampled_arg": 3
+          },
+          {
+            "panel": 15,
+            "sampled_max": 599336963.1710787,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 16,
+            "sampled_max": 119964105.37212186,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 17,
+            "sampled_max": 12469997.491244469,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 18,
+            "sampled_max": 423025.04173311574,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 19,
+            "sampled_max": 2588.433786888506,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 20,
+            "sampled_max": 0.8906727516788089,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 21,
+            "sampled_max": 1.2087095056447134e-06,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 22,
+            "sampled_max": 1.9774812098230753e-18,
+            "sampled_arg": 0
+          },
+          {
+            "panel": 23,
+            "sampled_max": 2.755873754121212e-55,
+            "sampled_arg": 0
+          }
+        ]
+      }
+    }
+  ],
+  "nonclaims": [
+    "sampled maxima are not uniform derivative enclosures",
+    "no interval panel certificate",
+    "finite window and infinite tail remain separate",
+    "no hgap supplier, producer GO or RH claim"
+  ],
+  "base_refinement": [
+    1.3796065247242912,
+    1.0207443786717507
+  ],
+  "corr_refinement": [
+    1.0,
+    1.0314782942752063
+  ]
+}
