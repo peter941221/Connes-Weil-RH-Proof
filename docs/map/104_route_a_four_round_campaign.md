@@ -2053,3 +2053,38 @@ gate. The next candidate needs a named representation/profile change and a
 same-functional diagnostic before enclosure work. Arithmetic precision alone
 cannot repair the current sampled low-degree function mismatch. hstrip/hgap,
 the actual selected-owner bridge and infinite tail remain open.
+
+### Record 2296: carrier-separated 192:6 passes the sampled functional gate
+
+Record [2296](../proofs/2296_routea_carrier_separated_functional_screen.md)
+changes the 2295 representation: the 25 known carrier phases enter shifted
+analytic moments, while envelope polynomials retain all 30 captured families
+and both coefficient hashes. Complex carrier contributions are summed before
+modulus. The same run reproduces the old 24:4 controls bitwise at steps 0.02
+and 0.01, with the full 41136-prime-power kernel.
+
+The carrier-separated 96:6 profile passes the signed diagnostic only. At 192:6,
+all six 0.02/0.01/0.005-grid and 256/512-reference controls pass both signed and
+absolute sampled diagnostics. Worst absolute difference is 3.33863911e5 =
+0.0333864 times the 1e7 budget. Twelve tests pass, including the exact degree-six
+Lobatto nodal-product integral 1/32, whose transform remainder target is
+M r^8/(32*7!). The signed near-zero difference has no certified sign.
+
+This is a finite-window candidate, not a quadrature certificate or hgap supplier.
+Next price the seventh-derivative enclosure and carrierwise cancellation loss;
+shape/node/moment arithmetic, certified reference remainder, finite-window
+integration, actual selected-owner readback and infinite tail remain open.
+
+### Record 2297: interpolation-only radii clear the origin floor
+
+Record [2297](../proofs/2297_routea_carrier_envelope_remainder_price.md)
+prices seventh/eighth envelope derivatives on 192 panels with two cells each.
+The base/correction method radii are 2.43880724e-9 / 4.50084236e-6, including
+carrierwise triangle loss. The chosen majorant's origin-cell floor is only
+3.80444985e-24 times budget. Five independent controls pass, including both
+support-edge signs and seventh/eighth derivative orders.
+
+This clears a necessary condition, not the full functional gate. Next price
+the full-window majorant before arithmetic certification. Exact partition,
+support-radius, node/polynomial/moment arithmetic, continuous integration,
+infinite tail and actual selected-owner readback remain open; no hgap claim.
