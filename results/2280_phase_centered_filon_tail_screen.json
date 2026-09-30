@@ -1,0 +1,80 @@
+{
+  "record": 2280,
+  "status": "PHASE-CENTERED-FILON-SCREEN",
+  "certificate": false,
+  "hgap_closed": false,
+  "readings": [
+    {
+      "panels": 12,
+      "degree": 12,
+      "xi_max": 200.0,
+      "xi_step": 0.25,
+      "xi_points": 641,
+      "support_half_width": 6.553600000000003,
+      "prime_power_count": 41136,
+      "signed_integral": -346039617521158.25,
+      "absolute_integral": 526432962730590.06,
+      "negative_absolute_mass": 436236290125874.2,
+      "base_transform_max": 0.0010387132628747122,
+      "corr_transform_max": 0.09359652092309534,
+      "base_md5": "d461872e14212dcba8efe1874de6f652",
+      "corr_md5": "c37e16a9dfeb4383c7bab1d23aa59566"
+    },
+    {
+      "panels": 18,
+      "degree": 16,
+      "xi_max": 200.0,
+      "xi_step": 0.25,
+      "xi_points": 641,
+      "support_half_width": 6.553600000000003,
+      "prime_power_count": 41136,
+      "signed_integral": -51728509228054.17,
+      "absolute_integral": 126517528968236.4,
+      "negative_absolute_mass": 89123019098145.3,
+      "base_transform_max": 0.006292213768089671,
+      "corr_transform_max": 0.07178770685785853,
+      "base_md5": "d461872e14212dcba8efe1874de6f652",
+      "corr_md5": "c37e16a9dfeb4383c7bab1d23aa59566"
+    },
+    {
+      "panels": 24,
+      "degree": 20,
+      "xi_max": 200.0,
+      "xi_step": 0.25,
+      "xi_points": 641,
+      "support_half_width": 6.553600000000003,
+      "prime_power_count": 41136,
+      "signed_integral": -3224473209.139099,
+      "absolute_integral": 5389506512.226752,
+      "negative_absolute_mass": 4306989860.682926,
+      "base_transform_max": 0.004541113385013424,
+      "corr_transform_max": 0.0007847659493523907,
+      "base_md5": "d461872e14212dcba8efe1874de6f652",
+      "corr_md5": "c37e16a9dfeb4383c7bab1d23aa59566"
+    }
+  ],
+  "input_sha256": {
+    "results\\2275_gap_owner_audit.json": "743fe372bef89b5730c38274d5a5517ac9ea4d3421989d46c49d4af3e78b5e74"
+  },
+  "nonclaims": [
+    "finite xi range is not the infinite tail",
+    "polynomial interpolation is not an interval enclosure",
+    "no selected-detector readback",
+    "no hgap supplier, producer GO or RH claim"
+  ],
+  "profile_refinement": [
+    {
+      "from": 12,
+      "to": 16,
+      "signed_relative_change": 5.689533927907764,
+      "absolute_relative_change": 3.160948818900476
+    },
+    {
+      "from": 16,
+      "to": 20,
+      "signed_relative_change": 16041.468295732917,
+      "absolute_relative_change": 23473.789144649138
+    }
+  ],
+  "trust_status": "FILON-PROFILE-UNTRUSTED"
+}
