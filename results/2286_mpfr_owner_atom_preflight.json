@@ -1,0 +1,241 @@
+{
+  "record": 2286,
+  "status": "MPFR-DIRECTED-OWNER-ATOM-PREFLIGHT",
+  "certificate": false,
+  "hgap_closed": false,
+  "backend": {
+    "library": "libmpfr.so.6",
+    "precision_bits": 256,
+    "rounding": "RNDD/RNDU"
+  },
+  "owner": {
+    "families": 30,
+    "support_half_width": 6.553600000000003,
+    "prime_power_count": 41136
+  },
+  "rows": [
+    {
+      "xi": 40.0,
+      "y": -5.242880000000002,
+      "base_radius": 5.646111772457553e-40,
+      "corr_radius": 1.1114482758017044e-35,
+      "base_finite": true,
+      "corr_finite": true
+    },
+    {
+      "xi": 40.0,
+      "y": -3.932160000000002,
+      "base_radius": 5.571352231228742e-24,
+      "corr_radius": 1.1186128859677104e-19,
+      "base_finite": true,
+      "corr_finite": true
+    },
+    {
+      "xi": 40.0,
+      "y": -2.621440000000001,
+      "base_radius": 1.534993107014243e-17,
+      "corr_radius": 8.529201650508966e-15,
+      "base_finite": true,
+      "corr_finite": true
+    },
+    {
+      "xi": 40.0,
+      "y": -1.3107200000000008,
+      "base_radius": 4.6306274786855894e-14,
+      "corr_radius": 1.3340439863895881e-11,
+      "base_finite": true,
+      "corr_finite": true
+    },
+    {
+      "xi": 40.0,
+      "y": 0.0,
+      "base_radius": 1.3393730569077889e-12,
+      "corr_radius": 2.0685391177721613e-09,
+      "base_finite": true,
+      "corr_finite": true
+    },
+    {
+      "xi": 40.0,
+      "y": 1.3107200000000008,
+      "base_radius": 1.716699699061408e-13,
+      "corr_radius": 4.942624087789227e-11,
+      "base_finite": true,
+      "corr_finite": true
+    },
+    {
+      "xi": 40.0,
+      "y": 2.6214400000000015,
+      "base_radius": 2.1091798012989882e-16,
+      "corr_radius": 1.1754486273218845e-13,
+      "base_finite": true,
+      "corr_finite": true
+    },
+    {
+      "xi": 40.0,
+      "y": 3.9321600000000014,
+      "base_radius": 2.841623898061073e-22,
+      "corr_radius": 5.707307998599476e-18,
+      "base_finite": true,
+      "corr_finite": true
+    },
+    {
+      "xi": 40.0,
+      "y": 5.242880000000003,
+      "base_radius": 1.0683625048354809e-37,
+      "corr_radius": 2.1033825715873684e-33,
+      "base_finite": true,
+      "corr_finite": true
+    },
+    {
+      "xi": 120.0,
+      "y": -5.242880000000002,
+      "base_radius": 1.900967865539903e-39,
+      "corr_radius": 4.015121360424302e-35,
+      "base_finite": true,
+      "corr_finite": true
+    },
+    {
+      "xi": 120.0,
+      "y": -3.932160000000002,
+      "base_radius": 1.327810675668007e-23,
+      "corr_radius": 2.6978330242294487e-19,
+      "base_finite": true,
+      "corr_finite": true
+    },
+    {
+      "xi": 120.0,
+      "y": -2.621440000000001,
+      "base_radius": 2.8516211202263275e-17,
+      "corr_radius": 3.704263458470525e-14,
+      "base_finite": true,
+      "corr_finite": true
+    },
+    {
+      "xi": 120.0,
+      "y": -1.3107200000000008,
+      "base_radius": 9.526754385369429e-14,
+      "corr_radius": 5.0669690665472444e-11,
+      "base_finite": true,
+      "corr_finite": true
+    },
+    {
+      "xi": 120.0,
+      "y": 0.0,
+      "base_radius": 1.3393730569077889e-12,
+      "corr_radius": 2.0685391177721613e-09,
+      "base_finite": true,
+      "corr_finite": true
+    },
+    {
+      "xi": 120.0,
+      "y": 1.3107200000000008,
+      "base_radius": 3.53259088647917e-13,
+      "corr_radius": 1.878852629033645e-10,
+      "base_finite": true,
+      "corr_finite": true
+    },
+    {
+      "xi": 120.0,
+      "y": 2.6214400000000015,
+      "base_radius": 3.922643460052555e-16,
+      "corr_radius": 5.098699240591031e-13,
+      "base_finite": true,
+      "corr_finite": true
+    },
+    {
+      "xi": 120.0,
+      "y": 3.9321600000000014,
+      "base_radius": 6.775126204692142e-22,
+      "corr_radius": 1.3765979458776889e-17,
+      "base_finite": true,
+      "corr_finite": true
+    },
+    {
+      "xi": 120.0,
+      "y": 5.242880000000003,
+      "base_radius": 3.5970815901383183e-37,
+      "corr_radius": 7.59764316733074e-33,
+      "base_finite": true,
+      "corr_finite": true
+    },
+    {
+      "xi": 200.0,
+      "y": -5.242880000000002,
+      "base_radius": 1.874780399838601e-39,
+      "corr_radius": 3.0622362522889854e-35,
+      "base_finite": true,
+      "corr_finite": true
+    },
+    {
+      "xi": 200.0,
+      "y": -3.932160000000002,
+      "base_radius": 2.861598613487738e-23,
+      "corr_radius": 5.281448949477575e-19,
+      "base_finite": true,
+      "corr_finite": true
+    },
+    {
+      "xi": 200.0,
+      "y": -2.621440000000001,
+      "base_radius": 4.955142741437657e-17,
+      "corr_radius": 2.714842239903703e-14,
+      "base_finite": true,
+      "corr_finite": true
+    },
+    {
+      "xi": 200.0,
+      "y": -1.3107200000000008,
+      "base_radius": 1.9430897862937613e-13,
+      "corr_radius": 4.916955731459893e-11,
+      "base_finite": true,
+      "corr_finite": true
+    },
+    {
+      "xi": 200.0,
+      "y": 0.0,
+      "base_radius": 1.3393730569077889e-12,
+      "corr_radius": 2.0685391177721613e-09,
+      "base_finite": true,
+      "corr_finite": true
+    },
+    {
+      "xi": 200.0,
+      "y": 1.3107200000000008,
+      "base_radius": 7.20581580515578e-13,
+      "corr_radius": 1.8237855670122372e-10,
+      "base_finite": true,
+      "corr_finite": true
+    },
+    {
+      "xi": 200.0,
+      "y": 2.6214400000000015,
+      "base_radius": 6.818005361675095e-16,
+      "corr_radius": 3.7289615839597445e-13,
+      "base_finite": true,
+      "corr_finite": true
+    },
+    {
+      "xi": 200.0,
+      "y": 3.9321600000000014,
+      "base_radius": 1.4599091576707381e-21,
+      "corr_radius": 2.6943059260975226e-17,
+      "base_finite": true,
+      "corr_finite": true
+    },
+    {
+      "xi": 200.0,
+      "y": 5.242880000000003,
+      "base_radius": 3.547260833472608e-37,
+      "corr_radius": 5.7943407936212854e-33,
+      "base_finite": true,
+      "corr_finite": true
+    }
+  ],
+  "nonclaims": [
+    "fixed atoms only; no quadrature enclosure",
+    "no infinite xi tail",
+    "no hgap supplier, producer GO or RH claim"
+  ],
+  "max_base_radius": 1.3393730569077889e-12,
+  "max_corr_radius": 2.0685391177721613e-09
+}
