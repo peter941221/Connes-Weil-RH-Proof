@@ -1911,3 +1911,16 @@ the selected owner/visible set; preserve cancellation in corrected-owner
 analytic pricing; prove the complete window, ideal-tail and grid bridge;
 only then attach an hgap supplier. No generic conditional wrapper is
 added, no producer premise is removed by this record, and RH is not claimed.
+
+### Record 2277: corrected-owner cancellation screen
+
+Record [2277](../proofs/2277_routea_corrected_cancellation_screen.md)
+forms the corrected width-a^2 physical families before taking absolute
+values. The refined strip screen reads B = 337039.47691484215, 28.2x below
+the frozen strip cap, with refinement movement 1.30e-12. This remains a
+numerical screen, not an enclosure.
+
+The same cancellation-preserving D3 norms inserted into the old elementary
+tail envelope price 1.285918889357026e25, still 1.2859e18 times the 1e7
+hgap budget. The strip lane is promising but the tail method is rejected.
+hstrip and hgap remain explicit; no Lean supplier is attached.
