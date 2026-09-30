@@ -38,7 +38,7 @@ def cheb_coefficients(values):
         for j,value in enumerate(values):
             weight=mp.mpf('0.5') if j in (0,n) else mp.mpf(1)
             total += weight*value*mp.cos(mp.pi*k*j/n)
-        coeff.append((2*total/n) if k else total/n)
+        coeff.append(total/n if k in (0,n) else 2*total/n)
     return coeff
 
 def cheb_to_power(coeff):

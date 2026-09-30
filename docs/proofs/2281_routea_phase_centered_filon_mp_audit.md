@@ -40,3 +40,7 @@ Record 2280 correctly rejected the floating profile as untrusted, but it should 
 python scripts/routea_phase_centered_filon_mp_audit_2281.py
 python -m unittest discover -s scripts -p 'routea_phase_centered_filon_mp_audit_selftest_2281.py' -v
 ```
+
+## Erratum 2285
+
+The original 2281 result was invalid because the discrete Chebyshev coefficient formula halved `c_0` but not the endpoint coefficient `c_n`. For the test data `T_2`, the buggy routine returned coefficient 2 instead of 1. After fixing both endpoints, the maximum binary64-vs-100-digit error is `1.8425785913e-8` for base and `2.0121396395e-7` for corr. The old claim that floating arithmetic had order-one error is withdrawn.

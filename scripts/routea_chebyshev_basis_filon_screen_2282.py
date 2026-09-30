@@ -24,7 +24,7 @@ def cheb_coeff(values):
         for j,value in enumerate(values):
             weight=mp.mpf('.5') if j in (0,n) else 1
             total += weight*value*mp.cos(mp.pi*k*j/n)
-        out.append(total/n if k==0 else 2*total/n)
+        out.append(total/n if k in (0,n) else 2*total/n)
     return out
 
 def power_cheb(k):
@@ -84,3 +84,4 @@ def main():
     result={'record':2282,'status':'CHEBYSHEV-BASIS-FILON-SCREEN','certificate':False,'hgap_closed':False,'readings':readings,'profile_refinement':changes,'trust_status':'CHEBYSHEV-MP-STABLE-POINT-SCREEN' if max(max(x['max_base_relative_change'],x['max_corr_relative_change']) for x in changes)<1e-3 else 'CHEBYSHEV-MP-UNTRUSTED','nonclaims':['selected xi points are not an infinite-tail certificate','high precision is not a directed interval enclosure','no hgap supplier, producer GO or RH claim']}
     OUT.write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8'); print(json.dumps({'trust_status':result['trust_status'],'profile_refinement':changes}))
 if __name__=='__main__': main()
+

@@ -1,0 +1,11 @@
+{
+  "record": 2285,
+  "status": "CHEBYSHEV-ENDPOINT-COEFFICIENT-ERRATUM",
+  "certificate": false,
+  "supersedes": ["2281 arithmetic-failure claim", "2282 pre-correction numeric readings"],
+  "bug": "The discrete Chebyshev coefficient formula halved c_0 but not c_n.",
+  "unit_control": {"input": "T_2 samples at [-1,0,1]", "old_coefficients": [0,0,2], "correct_coefficients": [0,0,1]},
+  "corrected_2281": {"max_base_relative_error": 1.842578591264637e-08, "max_corr_relative_error": 2.012139639485867e-07},
+  "corrected_2282": {"12_to_18_base": 17.554664425936053, "12_to_18_corr": 39.47790946207902, "18_to_24_base": 1.8827964031429887, "18_to_24_corr": 484.068972039425},
+  "nonclaims": ["no hgap supplier", "no directed interval certificate", "no producer GO or RH claim"]
+}

@@ -42,3 +42,7 @@ Reopening this exact profile requires a named residual theorem, such as a unifor
 python scripts/routea_chebyshev_basis_filon_screen_2282.py
 python -m unittest discover -s scripts -p 'routea_chebyshev_basis_filon_selftest_2282.py' -v
 ```
+
+## Erratum 2285
+
+The original 2282 artifact used the same Chebyshev endpoint-coefficient bug as 2281. Its old numeric readings are superseded. After correcting `c_0` and `c_n`, the profile remains untrusted, with pointwise max changes `17.5547x` and `39.4779x` for 12:12 -> 18:16, then `1.8828x` and `484.0690x` for 18:16 -> 24:20. Thus the route-level approximation/residual concern remains, but the earlier arithmetic diagnosis was wrong.
