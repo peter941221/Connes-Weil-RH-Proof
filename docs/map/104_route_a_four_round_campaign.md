@@ -2147,3 +2147,23 @@ Kernel/annihilator/functional arithmetic, continuous integration, infinite tail
 and actual selected-owner readback remain open. Next target a local-frequency
 Taylor enclosure of the full complex transforms, with charged remainders; a
 global amplitude cap or sampled grid agreement is not an integral certificate.
+
+### Record 2302: transform cells covered; continuous weights remain open
+
+Record [2302](../proofs/2302_routea_local_frequency_taylor_model.md)
+forms frequency derivatives through order six using exact represented y-power
+polynomials and moment degrees through twelve. Order zero reproduces 2301
+bitwise; higher binary64 derivative paths have separate modeled error charges.
+Rational frequency cells cover [-40,40], including stored-midpoint displacement.
+The fine-grid base/correction Taylor remainders are 1.30368197e-9 / 2.11703341e-6.
+
+Twenty-four independent derivative controls pass. Eight controls cover moment
+parities, y powers, between-node bounds, end coverage and provenance. Sampled-
+weight proxy ratios are 0.04944301 / 0.04120909 / 0.04049288. They compare the
+original transform against exact regenerated polynomials, not the same
+execution-including object priced by 2301; no gain claim between them is valid.
+
+Next enclose the continuous full kernel and annihilator on the same cells,
+then sum the cell majorants with directed arithmetic. Arithmetic models,
+sampled weights, infinite tails and actual selected-owner readback are still
+not certificates or hgap suppliers.
