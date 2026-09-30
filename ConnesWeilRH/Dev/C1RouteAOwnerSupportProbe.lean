@@ -1,0 +1,18 @@
+import ConnesWeilRH.Dev.C1RouteAOwnerSupport
+
+namespace ConnesWeilRH.Dev
+
+#print axioms widthBump_eq_zero_of_not_lt
+#print axioms ofReal_widthBump_eq_zero_of_not_lt
+#print axioms widthBump_support_subset
+#print axioms familyTerm_support_subset
+#print axioms physicalFamilySum_support_subset
+#print axioms physicalFamilySum_tsupport_subset
+#print axioms storedWidth_nonneg
+#print axioms storedWidth_le_four
+#print axioms storedWidth_sq_le_four
+#print axioms storedWidth_four_sq_le_pin
+#print axioms correctedPhysical_tsupport_subset_four
+#print axioms correctedPhysical_tsupport_subset_pin
+
+end ConnesWeilRH.Dev

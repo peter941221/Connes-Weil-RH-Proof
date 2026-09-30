@@ -2621,3 +2621,58 @@ trusted (the first `(100)`-vs-`100` pattern slip was caught only by the
 first run); cross-record hash continuity makes "old files untouched"
 mechanically checkable when pin artifacts record md5s.  No owner
 bridge, no producer GO, no gate sign change, no RH claim.
+
+### Record 2314: the owner support radius is a Lean theorem; OWNER-SUPPORT-FORMALIZED
+
+The second strip-lane input named by record 2311 (support radius) now has
+a Lean proof for the actual corrected width-a^2 owner family sum.  New
+module `ConnesWeilRH/Dev/C1RouteAOwnerSupport.lean` (12 declarations,
+namespace `ConnesWeilRH.Dev`) proves, with no hypothesis on the
+coefficient and modulation vectors:
+
+  - the bump `widthBump r x` vanishes off `|x| < r` (real and complex
+    forms), a single family term is supported in `[-r, r]` (coefficient
+    and modulation free), the finite family sum is supported in
+    `[-R, R]` once every radius is at most `R`, and the same for
+    `tsupport` via `isClosed_Icc.closure_subset_iff`;
+  - the width block is completely classified in Lean: `storedWidth
+    index <= storedWidth 4` for all 30 indices (family 4 is the unique
+    largest width `a_4 = 1441151880758559 / 562949953421312`), hence
+    `storedWidth index ^ 2 <= a_4^2` (`pow_le_pow_left₀`);
+  - `a_4^2 <= stripRadius2303` in exact rational arithmetic
+    (`change` to the explicit literals plus `norm_num`), and the two
+    corrected-owner instances: `tsupport (correctedPhysical c m) subset
+    [-a_4^2, a_4^2] subset [-stripRadius2303, stripRadius2303]`.
+
+Pin check `scripts/routea_owner_support_lean_pin_2314.py` (verdict
+PINNED-OWNER-SUPPORT-VERIFIED, failures empty): the 30 width literals
+parse back bit-exact against the 2275 capture
+(`Fraction.from_float (float.fromhex ...)` equals the Lean literals);
+family 4 is the unique strict max; the exact radius `a_4^2 =
+2076918743413931858457251756481 / 316912650057057350374175801344`
+equals the 2276 artifact's `corrected_max_radius_exact`, and its float64
+render is bitwise the committed `owner.rmax` `6.553600000000003` from
+the 2303 envelope artifact -- the certified radius is the owner's own
+radius at render level.  The pin `6.5536001` dominates with exact slack
+`9.999999745341483e-08` (1.1259e8 ulps of 2^-50), and a decimal pin at
+`6.5536` would strictly exclude the owner (`a_4^2 > 6.5536` exactly),
+validating the 2312 pin choice.  Cross-record hash continuity: the 2312
+arithmetic/transfer md5s, the 2313 grid md5, and the audit module's
+sha256 against the 2276 price artifact input hashes all hold.  Controls:
+synthetic 3-entry parse; tie rejection (family 6 raised to `a_4` kills
+the unique max); widened rejection (`a_4 + 1e-7` exceeds the pin and
+changes the render); low-pin rejection (`a_4^2 - 1e-8`); decimal
+strictness.  The parse-guard-first-run rule from 2313 fired as designed:
+run 1 raised `ValueError` on the parenthesized literals instead of
+silently mis-parsing.
+
+Build acceptance: `build_2314_step1.log` (`Build completed successfully
+(3658 jobs)`, 0 errors, 0 sorryAx, 0 warnings from the two new files);
+root `build_2314_root.log` (`Build completed successfully (4329 jobs)`,
+0 errors, all 12 declarations replayed with `[propext,
+Classical.choice, Quot.sound]`; the root count moved 4245 -> 4329 with
+the added import closure, no census delta claimed).  Grade: the
+support-radius half of the owner bridge is a Lean theorem; residual
+strip-lane inputs are the `CompactLogTest` packaging of the owner (with
+the captured coefficient/modulation vectors) and the 101 node values at
+`stripGridMax2303`.  No producer GO, no gate sign change, no RH claim.

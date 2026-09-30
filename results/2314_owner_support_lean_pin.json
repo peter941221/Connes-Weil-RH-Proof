@@ -1,0 +1,101 @@
+{
+  "record": 2314,
+  "mode": "check",
+  "verdict": "PINNED-OWNER-SUPPORT-VERIFIED",
+  "widths": {
+    "lean_count": 30,
+    "capture_count": 30,
+    "lean_equals_capture": true,
+    "unique_max_index": 4,
+    "a4_exact": "1441151880758559/562949953421312",
+    "a4sq_exact": "2076918743413931858457251756481/316912650057057350374175801344",
+    "a4sq_render": 6.553600000000003
+  },
+  "radius_vs_pin": {
+    "lean_pin_literal": "6.5536001",
+    "pin_exact": "65536001/10000000",
+    "pin_render": 6.5536001,
+    "a4sq_le_pin": true,
+    "slack_exact": "2475880015520365766611298323/24758800785707605497982484480000000",
+    "slack_float": 9.999999745341483e-08,
+    "slack_in_pin_ulps": 112589987.8170624,
+    "design_pin_ok": true
+  },
+  "artifact_agreement": {
+    "legacy_max_radius_exact": "1441151880758559/562949953421312",
+    "corrected_max_radius_exact": "2076918743413931858457251756481/316912650057057350374175801344",
+    "envelope_owner_rmax": 6.553600000000003,
+    "ok": true
+  },
+  "continuity": {
+    "arith_recorded": "b3fb88c3dd1e2e289454193dfc000376",
+    "arith_live": "b3fb88c3dd1e2e289454193dfc000376",
+    "transfer_recorded": "9bcd576a9ade09702b07235ed1c9f6c2",
+    "transfer_live": "9bcd576a9ade09702b07235ed1c9f6c2",
+    "grid_recorded": "3581e51273315f70394add69cfbd7647",
+    "grid_live": "3581e51273315f70394add69cfbd7647",
+    "audit_sha256_recorded": "32fdbbc63973a2b72bc29a0614120d796c25ecd843b106d15e5b10e66fdf464b",
+    "audit_sha256_live": "32fdbbc63973a2b72bc29a0614120d796c25ecd843b106d15e5b10e66fdf464b",
+    "ok": true
+  },
+  "lean_guards": {
+    "imports_audit": true,
+    "imports_arith": true,
+    "no_sorry": true,
+    "bump_zero": true,
+    "bump_zero_complex": true,
+    "bump_support": true,
+    "term_support": true,
+    "sum_support": true,
+    "sum_tsupport": true,
+    "width_nonneg": true,
+    "width_le_four": true,
+    "width_sq_le_four": true,
+    "pin_theorem": true,
+    "owner_four": true,
+    "owner_pin": true,
+    "probe_axioms": true
+  },
+  "controls": {
+    "synthetic_parse": {
+      "parsed": [
+        "1/2",
+        "3/4",
+        "5/4"
+      ],
+      "ok": true
+    },
+    "predicates": {
+      "accepts_design": true,
+      "rejects_tie": true,
+      "rejects_widened": true,
+      "rejects_low_pin": true,
+      "ok": true
+    },
+    "render_and_decimal": {
+      "rejects_widened_render": true,
+      "decimal_pin_6p5536_excludes": true,
+      "ok": true
+    }
+  },
+  "provenance": {
+    "lean_support": {
+      "path": "ConnesWeilRH/Dev/C1RouteAOwnerSupport.lean",
+      "md5": "6fc7303da399b90d79e2603a256d8b2b"
+    },
+    "lean_probe": {
+      "path": "ConnesWeilRH/Dev/C1RouteAOwnerSupportProbe.lean",
+      "md5": "ac74c3b668f1b242094a944a4f7b2641"
+    },
+    "audit_sha256": "32fdbbc63973a2b72bc29a0614120d796c25ecd843b106d15e5b10e66fdf464b",
+    "inputs": [
+      "results/2275_gap_owner_audit.json",
+      "results/2276_owner_scale_price.json",
+      "results/2303_corrected_strip_envelope.json",
+      "results/2312_strip_transfer_lean_pin.json",
+      "results/2313_grid_sampling_lean_pin.json"
+    ],
+    "render_convention": "float64 renders of exact rationals; capture widths via Fraction.from_float (float.fromhex ...) are bit-exact"
+  },
+  "failures": []
+}
