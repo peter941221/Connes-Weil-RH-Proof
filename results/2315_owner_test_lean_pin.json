@@ -1,0 +1,82 @@
+{
+  "record": 2315,
+  "mode": "check",
+  "verdict": "PINNED-OWNER-TEST-VERIFIED",
+  "continuity": {
+    "support_recorded": "6fc7303da399b90d79e2603a256d8b2b",
+    "support_live": "6fc7303da399b90d79e2603a256d8b2b",
+    "ok": true
+  },
+  "compact_log_test_shape": {
+    "structure": true,
+    "test_field": true,
+    "compact_field": true,
+    "ok": true,
+    "md5": "352c40fb0dd14f695edfcfe47d44d469"
+  },
+  "identity_witness": {
+    "dps": 70,
+    "radius_source": "2076918743413931858457251756481/316912650057057350374175801344",
+    "samples": 17,
+    "interior": 9,
+    "boundary_or_outside": 8,
+    "max_branch_diff": "2.7796811e-83",
+    "tolerance": "1.0e-50",
+    "outside_exact_zero": true,
+    "interior_strict_positive": true,
+    "dip_at_zero_e_minus_30": "9.3576229688401746049e-14",
+    "ok": true,
+    "note": "sampled sanity witness at the exact owner radius; the Lean theorem is the proof"
+  },
+  "lean_guards": {
+    "imports_support": true,
+    "imports_clt": true,
+    "imports_glue": true,
+    "no_sorry": true,
+    "base_is_glue_not_transition": true,
+    "identity_theorem": true,
+    "identity_argument": true,
+    "identity_algebra": true,
+    "bump_contDiff": true,
+    "term_contDiff": true,
+    "sum_contDiff": true,
+    "sum_compact": true,
+    "width_pos": true,
+    "owner_contDiff_change": true,
+    "packaging": true,
+    "packaging_params": true,
+    "toFun": true,
+    "tsupport_shape": true,
+    "probe_axioms": true
+  },
+  "controls": {
+    "wrong_pairings": {
+      "rejects_argument_offset": true,
+      "rejects_halved_radius": true,
+      "max_diff_argument_offset": "9.357623e-14",
+      "max_diff_halved_radius": "4.1473394e-14",
+      "ok": true
+    }
+  },
+  "provenance": {
+    "lean_test": {
+      "path": "ConnesWeilRH/Dev/C1RouteAOwnerTest.lean",
+      "md5": "b88ce3efc3132d0ce7ac76a6cea4920e"
+    },
+    "lean_probe": {
+      "path": "ConnesWeilRH/Dev/C1RouteAOwnerTestProbe.lean",
+      "md5": "00869162fddb53a9eff6206520605e62"
+    },
+    "check_script": {
+      "path": "scripts/routea_owner_test_lean_pin_2315.py",
+      "md5": "f747974f4c438d95045be9ac2878aab4"
+    },
+    "support_module_md5": "6fc7303da399b90d79e2603a256d8b2b",
+    "compact_log_test_md5": "352c40fb0dd14f695edfcfe47d44d469",
+    "inputs": [
+      "results/2276_owner_scale_price.json",
+      "results/2314_owner_support_lean_pin.json"
+    ]
+  },
+  "failures": []
+}

@@ -1,0 +1,18 @@
+import ConnesWeilRH.Dev.C1RouteAOwnerTest
+
+namespace ConnesWeilRH.Dev
+
+#print axioms widthBump_eq_expNegInvGlue
+#print axioms widthBump_contDiff
+#print axioms familyTerm_contDiff
+#print axioms physicalFamilySum_contDiff
+#print axioms physicalFamilySum_hasCompactSupport
+#print axioms storedWidth_pos
+#print axioms correctedPhysical_contDiff
+#print axioms correctedPhysical_hasCompactSupport
+#print axioms correctedPhysicalCompactLogTest
+#print axioms correctedPhysicalCompactLogTest_toFun
+#print axioms correctedPhysicalCompactLogTest_tsupport_subset
+#print axioms correctedPhysicalCompactLogTest_compactSupport
+
+end ConnesWeilRH.Dev

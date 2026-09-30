@@ -2676,3 +2676,64 @@ support-radius half of the owner bridge is a Lean theorem; residual
 strip-lane inputs are the `CompactLogTest` packaging of the owner (with
 the captured coefficient/modulation vectors) and the 101 node values at
 `stripGridMax2303`.  No producer GO, no gate sign change, no RH claim.
+
+### Record 2315: the corrected owner is packaged as a CompactLogTest; OWNER-TEST-PACKAGED
+
+The structural half of the owner bridge lands.  New module
+`ConnesWeilRH/Dev/C1RouteAOwnerTest.lean` (12 declarations, namespace
+`ConnesWeilRH.Dev`) closes the gap between record 2314's raw-function
+support theorems and the record 2312/2313 consumer type
+`CompactLogTest = { test : SchwartzMap ℝ ℂ, compactSupport :
+HasCompactSupport test }`, for arbitrary coefficient and modulation
+vectors.  The bridge is the flat-junction identity
+
+    widthBump radius x = expNegInvGlue ((1 - (x / radius)^2) / 30)
+      (0 < radius),
+
+where `expNegInvGlue t = exp (-t⁻¹)` on `t > 0` and `0` on `t ≤ 0`:
+`|x| < radius` matches `u / 30 > 0` with `u = 1 - (x / radius)^2`
+(`abs_div` + `div_lt_one` + `sq_abs` against `one_le_div` +
+`one_le_pow₀`), the arguments agree on `-30 / u = -((u / 30)⁻¹)`
+(`inv_div`, `neg_div`), and both sides vanish literally at `|x| =
+radius`.  Smoothness is inherited from Mathlib's `expNegInvGlue.contDiff`
+(no boundary-flatness argument of our own), composed with the smooth
+rational map (`widthBump_contDiff`); family terms are constant × coerced
+bump × unimodular phase (`Complex.ofRealCLM`, `Complex.contDiff_exp`),
+the sum is `ContDiff.sum`, and compact support is
+`IsCompact.of_isClosed_subset isCompact_Icc (isClosed_tsupport _)` over
+the 2314 pin interval.  The packaging
+`correctedPhysicalCompactLogTest coefficients modulations :
+CompactLogTest` comes with `_toFun` (the underlying function is the
+owner, via `HasCompactSupport.toSchwartzMap_toFun`),
+`_tsupport_subset` (the support bound in exactly the record 2313
+consumer hypothesis shape), and `_compactSupport`.
+
+Pin check `scripts/routea_owner_test_lean_pin_2315.py` (verdict
+PINNED-OWNER-TEST-VERIFIED, failures empty): the record 2314 module is
+byte-frozen (live md5 `6fc7303d…` equals the 2314 artifact provenance);
+the `CompactLogTest` shape is still `test : TestFunction` +
+`compactSupport : HasCompactSupport test` (live md5 `352c40fb…`
+recorded as the anchor); transcription guards cover all 12 declarations
+plus the base-function guard (`expNegInvGlue` present,
+`Real.smoothTransition` absent — the logistic transition is a different
+function) and the free-parameter shape of the packaging; the sampled
+identity witness at dps 70 over the exact owner radius a_4^2 (9
+interior + 8 boundary/outside points, exact counts pinned) has max
+branch difference `2.778e-83` (bar 1e-50), exact zeros at `|x| >=
+radius`, strict positivity inside, and dip `e⁻³⁰ =
+9.3576229688401746049e-14` at zero.  Wrong pairings are rejected: an
+argument offset `-1/50` changes samples by up to `9.357623e-14` and a
+halved radius by `4.1473394e-14` (bar 1e-20).
+
+Build acceptance: `build_2315_step1.log` (`Build completed successfully
+(3659 jobs)`, 0 errors, 0 sorryAx, 0 warnings from the two new files);
+root `build_2315_root.log` (`Build completed successfully (4330 jobs)`,
+0 errors, all 12 declarations replayed with `[propext, Classical.choice,
+Quot.sound]`; plan counts quoted verbatim, no census delta claimed).
+Grade: the strip lane's inputs are now fully owner-shaped — the record
+2313 consumer takes `b c : CompactLogTest` plus node values, and the
+owner supplies the test and support bound for free vectors.  Residual:
+the 101 node values at `stripGridMax2303` (the value half, where the
+captured coefficient and modulation vectors enter bitwise); then signed
+margin, non-tail charge.  No producer GO, no gate sign change, no RH
+claim.
