@@ -1788,6 +1788,17 @@ real anchor-failure injection. This is evidence hygiene only: the strip
 envelope remains an artifact-grade input to the Lean FrozenStripHypothesis,
 not a Lean proof, and no producer GO or RH claim is made.
 
+## 2273 — Multiplicity proxy rounding correction
+
+Record 2273 found that the former 2248 decimal proxy
+`128.70692502980964` was below the exact Lean-defined multiplicity constant
+by approximately `6.16e-15`. The target was therefore numerically unsafe,
+not merely unproved. The ledger now uses the upward proxy
+`128.70692502981` and the upward tail `4894093747.7643`. This fixes the
+rounding direction but does not close `hmult`; formal analytic bounds for the
+underlying Gamma, exponential, pi, and xi-at-two terms remain required.
+No producer GO, no gate sign change, and no RH claim.
+
 ## 2272 — Mathematical-core closure order
 
 The producer-side wiring is now complete at the composition level, but its

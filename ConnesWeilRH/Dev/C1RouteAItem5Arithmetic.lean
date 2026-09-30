@@ -9,7 +9,7 @@ transfer slacks and their strict signed-margin conclusions, plus the
 transfer-free full-tail ledger of records 2253/2255/2256:
 
 * the record 2248 high-shell tail `4 * mult * B_upper`, with the multiplicity
-  proxy `128.70692502980964` and `B_upper = 9506275.102584327`
+  corrected proxy `128.70692502981` and `B_upper = 9506275.102584327`
   (`highShellTail2248`);
 * the record 2109 known-error sum (`knownError2109`);
 * the count ratios `26/62` (unconditional) and `21/62` (Platt-Trudgian
@@ -22,8 +22,8 @@ transfer-free full-tail ledger of records 2253/2255/2256:
   bound shape `4 * mult * B` (`four_mul_multProxy_mul_bUpper_le_highShellTail`,
   `four_mul_mult_mul_B_le_highShellTail`), and the terminal inequality
   consumes that shape directly (`a005_item5_terminal_count_free`) with the
-  numeric inputs `mult <= multProxy2248` (record 2240/2248: the proxy is the
-  measured binary64 value of `spectralMultiplicityConstant`) and
+  numeric inputs `mult <= multProxy2248` (record 2273: an upward decimal
+  proxy whose analytic comparison remains unproved) and
   `B <= bUpper2243` (record 2243 composite-EM screen).
 
 The numeric inputs remain artifact-level facts: the 2249 enclosure is a
@@ -45,7 +45,7 @@ namespace Source
 namespace C1RouteAItem5Arithmetic
 
 /-- Record 2248 high-shell tail `4 * mult * B_upper`. -/
-def highShellTail2248 : Real := 4894093747.764274
+def highShellTail2248 : Real := 4894093747.7643
 
 /-- Record 2109 known-error sum. -/
 def knownError2109 : Real := 74601530.30234718
@@ -139,14 +139,14 @@ theorem a005_item5_strict_signed_margin_full_tail
 mass screen (`results/2243_panel_cem_reprice.json`). -/
 def bUpper2243 : Real := 9506275.102584327
 
-/-- Record 2240/2248 binary64 value of `spectralMultiplicityConstant` (the
-multiplicity proxy, measured bitwise in record 2240 after the 2248
-tightening). -/
-def multProxy2248 : Real := 128.70692502980964
+/-- Candidate upper proxy for `spectralMultiplicityConstant`. Record 2273's
+high-precision diagnostic places it above the expression; the analytic
+comparison remains a separate proof obligation. -/
+def multProxy2248 : Real := 128.70692502981
 
 /-- The frozen 2248 tail bounds the formal bound shape `4 * mult * B` at the
-frozen screen constant and multiplicity proxy.  The exact rational product
-sits `6.3e-6` below the frozen tail (the tail is the rounded-up bound), so
+frozen screen constant and multiplicity proxy. The exact rational product
+sits below the corrected frozen tail (the tail is the rounded-up bound), so
 this is a strict inequality, not an identity. -/
 theorem four_mul_multProxy_mul_bUpper_le_highShellTail :
     4 * multProxy2248 * bUpper2243 <= highShellTail2248 := by
