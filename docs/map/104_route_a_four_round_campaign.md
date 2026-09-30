@@ -2289,3 +2289,44 @@ Scope: the tail half of hgap is now numerically free at certificate grade.
 The finite-window half stays screen-grade (2295-2302); its certified
 enclosure plus the localized [-2, 2] instrument are the named successors. No
 hgap certificate, no producer GO, no route change.
+
+### Record 2308: the finite-window weight factor is certified; WINDOW-WEIGHT-CERTIFIED
+
+The 2302-registered obligation -- a continuous kernel/annihilator weight
+bound on the window cells, retaining all 41136 prime powers and signed
+cancellations before bounding variation, then a directed summation -- is
+discharged on the weight side. Per dyadic cell the sup of |kernel| |ann|^2
+is enclosed by a degree-4 centre Taylor polynomial of the frozen 2280
+kernel convention with certified float64 execution budgets
+u[(6j+40) A_j + 40 |c| B_j + 2] (S-moment ladders A_j = sum 2 w phi^j and
+B_j = sum 2 w phi^j log n accumulated in mpmath.iv, all 41136 signed terms
+grouped before any triangle bound), a certified Lagrange remainder obeying
+the exact d^5 law (1.4047 -> 0.04390 -> 0.00137, factor 32.000 per
+halving), an interval sigma at the cast-widened true argument, and the
+interval product form of the four frozen annihilator nodes (+-4u casts).
+The cell charge h * supW * T_cell is summed in mpmath.iv at dps 80, with
+T_cell the inherited 2298/2302 perturbation majorant on the same cells.
+
+Certified ladder (dyadic cells, midpoint gap exactly zero -- a strict
+improvement over the 2302 decimal grids): denom 64: 863819.2938082191
+(0.0864x budget, 2.0026x same-grid proxy), denom 128: 571815.9153523268
+(0.0572x, 1.3993x), denom 256: 477248.9862236567 (0.0477x, 1.1828x); the
+best certified charge is 1.17860x the 2302 finest sampled proxy
+404928.783977559. Charge intervals cohesive to < 1e-38 relative; the
+T-side readings are grid-stable (t_sum_max ~ 8.9e-9, max_cell_sup_corr
+65.74 -> 65.16), so the decay is weight-side. The kernel sup/center mean
+rises at denom 256 (2.73 -> 3.88) while the charge ratio falls: centers
+land near kernel zeros (per-cell max 15211) in low-T cells -- the
+T-weighted ratio is the convergence measure.
+
+Grade: the weight factor is interval-certified; the transform-side
+majorant and the object difference radii stay inherited from the
+2297/2301/2302 chain at its declared standard-arithmetic/BLAS model.
+Lessons locked: the true-parameter control reference must multiply by
+phi^j = (2 pi log n)^j (a dropped (2 pi)^2 produced a phantom 9.6e4 gap
+against budget 2.9e-5 while est - ref_conv on the same float64 parameters
+was 5.6e-9); the derivative trig selector is (1,0,1,0) with signs
+(1,-1,-1,1); float interval endpoints built from center +- radius need one
+outward nextafter per side; 492475 is the sieve limit, not a book element
+(largest entry: the prime 492467). Module selftest 9/9 PASS, artifact
+selftest 13 tests OK. No hgap certificate, no producer GO, no RH claim.

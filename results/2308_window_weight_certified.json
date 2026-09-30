@@ -1,0 +1,75 @@
+{
+  "record": 2308,
+  "status": "WINDOW-WEIGHT-CERTIFIED",
+  "grade": "weight-side interval-certified; transform-side majorant and object difference radii inherited from the 2297/2301/2302 chain at its declared standard-arithmetic/BLAS model",
+  "weight_certificate": true,
+  "certificate": false,
+  "hgap_closed": false,
+  "budget": 10000000.0,
+  "taylor_degree": 4,
+  "interval": {
+    "lib": "mpmath.iv",
+    "dps": 80
+  },
+  "rows": [
+    {
+      "step_denom": 64,
+      "cell_count": 5120,
+      "charge_hi": 863819.2938082191,
+      "charge_hi_float": 863819.2938082193,
+      "cert_over_budget": 0.08638192938082191,
+      "sampled_weight_proxy_same_grid": 431349.61803428386,
+      "cert_over_proxy_same_grid": 2.0025966355198266,
+      "kernel_sup_over_center_mean": 5.0743503670554535,
+      "ann_sup_over_center_mean": 1.0103366925780244,
+      "kernel_taylor_remainder_upper": 1.4047090895918584
+    },
+    {
+      "step_denom": 128,
+      "cell_count": 10240,
+      "charge_hi": 571815.9153523268,
+      "charge_hi_float": 571815.9153523269,
+      "cert_over_budget": 0.05718159153523268,
+      "sampled_weight_proxy_same_grid": 408638.0119827797,
+      "cert_over_proxy_same_grid": 1.3993214008109054,
+      "kernel_sup_over_center_mean": 2.7303505499122935,
+      "ann_sup_over_center_mean": 1.0050559491561573,
+      "kernel_taylor_remainder_upper": 0.043897159049745574
+    },
+    {
+      "step_denom": 256,
+      "cell_count": 20480,
+      "charge_hi": 477248.9862236567,
+      "charge_hi_float": 477248.98622365674,
+      "cert_over_budget": 0.04772489862236567,
+      "sampled_weight_proxy_same_grid": 403484.8352200822,
+      "cert_over_proxy_same_grid": 1.1828176540100686,
+      "kernel_sup_over_center_mean": 3.880289422780765,
+      "ann_sup_over_center_mean": 1.0025008092200849,
+      "kernel_taylor_remainder_upper": 0.0013717862203045492
+    }
+  ],
+  "best": {
+    "step_denom": 256,
+    "charge_hi": 477248.9862236567,
+    "cert_over_budget": 0.04772489862236567,
+    "cert_over_proxy_same_grid": 1.1828176540100686
+  },
+  "cross_record": {
+    "2302_finest_sampled_proxy": 404928.78397755907,
+    "cert_over_2302_finest_proxy": 1.1785998059602143
+  },
+  "scope": "continuous certified weight enclosure sup_cell |kernel| |ann|^2 on dyadic cells via centre Taylor (degree 4) of the frozen 2280 kernel convention with all 41136 prime powers and signed cancellations, certified S-moment budgets, iv annihilator product form, and an mpmath.iv directed cell summation of h * supW * T_cell; T_cell (cell transform suprema, derivative execution bounds, object difference radii) is inherited from 2297/2301/2302 at its recorded model grade; no hgap certificate",
+  "nonclaims": [
+    "the transform-side perturbation majorant and the object difference radii are inherited at the 2301/2302 declared rounding-model grade; only the weight factor is interval-certified",
+    "the certified kernel bounds the true Weil kernel through the frozen 2280 float64 parameterization with certified cast budgets; libm cos/sin and numpy pairwise summation enter inside those budgets as declared substrate trust",
+    "sigma_arch_iv is the 2043 routine with iv-rebuilt Bernoulli coefficients (tightened); its analytic remainder is a bound, not a proof of the Stirling expansion",
+    "finite window |xi| <= 40 only; the infinite tail is 2307 and is not re-touched",
+    "no hgap certificate, no producer GO, no RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/routea_hgap_window_cert_2308.py",
+    "predecessor": "results/2302_local_frequency_taylor_screen.json",
+    "owner_capture": "results/2275_gap_owner_audit.json"
+  }
+}
