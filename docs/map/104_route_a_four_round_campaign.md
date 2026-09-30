@@ -2018,3 +2018,21 @@ is 2.71x tighter than same-run direct intervalization. Nineteen tests pass.
 These are transform-interpolation prices, not kernel-weighted hgap charges.
 Node/moment arithmetic, finite-window quadrature, infinite-xi tail and actual
 selected-owner readback remain open. No supplier, producer GO, or RH claim follows.
+
+### Record 2294: uniform independent-radius functional propagation is priced out
+
+Record [2294](../proofs/2294_routea_uniform_radius_functional_floor.md) prices
+the 2293 transform radii through an absolute functional majorant. With two
+independent uniform radii E/F, the squared-product error majorant has unavoidable
+floor E^2 F^2. On the origin cell [-1e-5,1e-5], complete enumeration of all 41136
+support-derived prime powers and a nonnegative archimedean sign bound give a
+weight-integral floor 3.15754323433e11. At the 32-subcell radii, the chosen
+majorant costs at least 7.42833974e32, or 7.42833974e25 times the 1e7 budget.
+
+Freeze this uniform-independent-ball/absolute propagation for windows containing
+that cell. The ruling is about the chosen majorant, not actual error, actual
+Weil sign, Filon globally, or tail-only intervals. Reopening requires a named
+change: a frequency-dependent residual, correlated channels, direct signed
+functional difference, or a sufficient radius reduction. The optimistic common
+radius-scale ceiling is 3.40625424e-7 (necessary, not sufficient). Ten controls
+pass. hstrip/hgap, selected-owner readback and infinite-tail proof remain open.

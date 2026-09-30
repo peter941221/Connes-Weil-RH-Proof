@@ -1,0 +1,130 @@
+{
+  "record": 2294,
+  "status": "SCOPED-NO-GO-UNIFORM-INDEPENDENT-RADIUS-PROPAGATION",
+  "certificate": false,
+  "hgap_closed": false,
+  "budget": "10000000",
+  "endpoint_encoding": "45-digit decimal ROUND_FLOOR/ROUND_CEILING from exact binary interval endpoints",
+  "owner_capture_sha256": "743fe372bef89b5730c38274d5a5517ac9ea4d3421989d46c49d4af3e78b5e74",
+  "gamma_stored": 39.25244858548658,
+  "weight_cell": {
+    "support_half_width": "6.55360000000000254658516496419931354888925231",
+    "cutoff": 492475,
+    "prime_power_count": 41136,
+    "cell": [
+      "-0.00001",
+      "0.00001"
+    ],
+    "kernel_lower_price": {
+      "lower": "2801.50140289687800754738190127716124634390230",
+      "upper": "2801.50140289687800754738190127716124634390231"
+    },
+    "polynomial_squared_lower_price": {
+      "lower": "5635448247622.86196877756073015229963469980912",
+      "upper": "5635448247622.86196877756073015229963469980913"
+    },
+    "weight_integral_lower_price": {
+      "lower": "315754323433.364011374943878363759495393276777",
+      "upper": "315754323433.364011374943878363759495393276778"
+    }
+  },
+  "rows": [
+    {
+      "subcells_per_panel": 8,
+      "base_radius": {
+        "lower": "41900.7135921573090067082102358999999999999999",
+        "upper": "41900.7135921573090067082102359000000000000001"
+      },
+      "corr_radius": {
+        "lower": "22105942.9674088397618413259883999999999999999",
+        "upper": "22105942.9674088397618413259884000000000000001"
+      },
+      "quartic_majorant_floor": {
+        "lower": "857947926664930186546144.276151235555303705835",
+        "upper": "857947926664930186546144.276151235555303705836"
+      },
+      "cell_majorant_charge_floor": {
+        "lower": "270900767125142433945471815910968984.096259573",
+        "upper": "270900767125142433945471815910968984.096259574"
+      },
+      "budget_ratio_floor": {
+        "lower": "27090076712514243394547181591.0968984096259573",
+        "upper": "27090076712514243394547181591.0968984096259574"
+      },
+      "common_radius_scale_necessary_ceiling": {
+        "lower": "7.79466475804314941614285309335708520337650868E-8",
+        "upper": "7.79466475804314941614285309335708520337650869E-8"
+      },
+      "method_over_budget": true
+    },
+    {
+      "subcells_per_panel": 16,
+      "base_radius": {
+        "lower": "30885.8208488487276420184022219999999999999999",
+        "upper": "30885.8208488487276420184022220000000000000001"
+      },
+      "corr_radius": {
+        "lower": "9014687.49139468023346643121709999999999999999",
+        "upper": "9014687.49139468023346643121710000000000000001"
+      },
+      "quartic_majorant_floor": {
+        "lower": "77521050209854644969474.5955817087062158726049",
+        "upper": "77521050209854644969474.5955817087062158726050"
+      },
+      "cell_majorant_charge_floor": {
+        "lower": "24477606760856494635682850485068339.5261525043",
+        "upper": "24477606760856494635682850485068339.5261525044"
+      },
+      "budget_ratio_floor": {
+        "lower": "2447760676085649463568285048.50683395261525043",
+        "upper": "2447760676085649463568285048.50683395261525044"
+      },
+      "common_radius_scale_necessary_ceiling": {
+        "lower": "1.42169933945058545627753538167397208726730208E-7",
+        "upper": "1.42169933945058545627753538167397208726730209E-7"
+      },
+      "method_over_budget": true
+    },
+    {
+      "subcells_per_panel": 32,
+      "base_radius": {
+        "lower": "20218.3023970993403909659836747999999999999999",
+        "upper": "20218.3023970993403909659836748000000000000001"
+      },
+      "corr_radius": {
+        "lower": "2398979.50813441488727744645009999999999999999",
+        "upper": "2398979.50813441488727744645010000000000000001"
+      },
+      "quartic_majorant_floor": {
+        "lower": "2352569445415675438412.61602077637521904820947",
+        "upper": "2352569445415675438412.61602077637521904820948"
+      },
+      "cell_majorant_charge_floor": {
+        "lower": "742833973567230983547167948548105.188660876894",
+        "upper": "742833973567230983547167948548105.188660876895"
+      },
+      "budget_ratio_floor": {
+        "lower": "74283397356723098354716794.8548105188660876894",
+        "upper": "74283397356723098354716794.8548105188660876895"
+      },
+      "common_radius_scale_necessary_ceiling": {
+        "lower": "3.40625424219193512533844656520120315731219948E-7",
+        "upper": "3.40625424219193512533844656520120315731219949E-7"
+      },
+      "method_over_budget": true
+    }
+  ],
+  "source_sha256": {
+    "results/2293_grouped_centered_derivative_preflight.json": "5aece2fb7efd1869044f10be9cf6788de306e941e50b3a6d4b0dbd676ec36d85",
+    "scripts/routea_uniform_radius_functional_floor_2294.py": "588e12e2c4c53f48feaa5097df4ebb713212b254fd52a95ca8149ff6a3d75691"
+  },
+  "scope": "advertised 2293 decimal radii, independent uniform balls, absolute propagation on one origin cell",
+  "nonclaims": [
+    "floor on a chosen majorant, not on actual error or signed functional",
+    "origin-cell ruling applies to windows containing this cell, not to tail-only intervals",
+    "no verdict on correlated, frequency-dependent or direct-functional mechanisms",
+    "rounding allowances and full-window/infinite-tail charges are omitted",
+    "stored owner is not an actual selected-owner readback",
+    "no hgap supplier, producer GO or RH claim"
+  ]
+}
