@@ -14,5 +14,6 @@ namespace ConnesWeilRH.Source.C1RouteAItem5Arithmetic
 #print axioms a005_item5_terminal_count_free
 #print axioms windowCharge2309_add_tailCharge2307_le_gapCharge2255
 #print axioms hgap_of_certified_split
+#print axioms stripGridMax2303_mul_stripTransfer2303_le_bUpper2243
 
 end ConnesWeilRH.Source.C1RouteAItem5Arithmetic

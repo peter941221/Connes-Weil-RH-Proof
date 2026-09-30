@@ -2430,3 +2430,59 @@ render's half-ulp bound (2.2e-43 at this magnitude); when restructuring
 hypotheses, keep the old theorem and add a new variant so existing
 callers compile unchanged. No Lean formalization of the certificates,
 no producer GO, no gate sign change, no RH claim.
+
+### Record 2311: the certified strip envelope is pinned and consumed; STRIP-ENVELOPE-WIRED
+
+2303 certified the centered-strip envelope on the corrected width-a^2
+owner at artifact grade (continuum sup 2823660.8460007603 = grid maximum
+2644542.851480454 times the log-derivative transfer factor
+1.0677311749439153, margin 3.3666x under the frozen bUpper2243) and
+registered two missing pieces: the certificate interface and the owner
+bridge. Record 2311 lands the interface. `C1RouteAItem5Arithmetic` pins
+the two certified factors as exact decimals -- `stripGridMax2303 :=
+2644542.8515` and `stripTransfer2303 := 1.0677312`, each rounded up from
+its committed render with slack above 4e4 / 1e8 ulp of that render -- and
+proves their product below `bUpper2243` by `norm_num` (pinned product
+2823660.912283517, margin 6682614.19030081, ratio 3.366648970218073 vs
+the certified 3.36664904924696, matching to 8e-8 relative).
+`C1RouteAProducerWired` gains
+`frozenStripHypothesis_of_certified_envelope`: any pair whose
+centered-strip min-product is bounded on [-1/2, 1/2] by the pinned
+product satisfies the producer's `FrozenStripHypothesis`, through the
+machine-checked join -- and the consumer
+`a005_item5_producer_wired_certified_multiplicity_gap_split_envelope`,
+which consumes that envelope plus the 2310 certified gap split and the
+2274 multiplicity discharge; the original conditional theorems remain
+for existing callers.
+
+Pin soundness and tightness are machine-checked in exact rational
+arithmetic by `scripts/routea_strip_envelope_lean_pin_2311.py` (verdict
+PINNED-ENVELOPE-VERIFIED; transcription guards on both def literals, the
+join theorem and its norm_num list, the conversion and consumer names and
+call lines; controls: synthetic parse, join direction, negative
+shifted-pin rejection). Grid-max pin slack 1.9546e-5 (4.2e4 ulp);
+transfer pin slack 2.5056e-8 (1.1e8 ulp); product pin slack 6.6283e-2
+(1.4e8 ulp); the artifact's own last multiply is internally consistent
+(rendered product vs sup_certified, 1.08e-15 relative).
+
+Build acceptance: targeted log `build_2311_step1.log` (`Build completed
+successfully (3572 jobs)`, 0 errors, 0 sorryAx, 0 warnings from the four
+touched files); root aggregate log `build_2311_root.log` (`Build
+completed successfully (4244 jobs)`, 0 errors, 0 sorryAx, same axiom
+profile). All three new declarations print `[propext, Classical.choice,
+Quot.sound]`.
+
+Grade: the envelope arithmetic (factor pins + join) and the hypothesis
+conversion are machine-checked; the 2303 reduction itself and the owner
+bridge remain named obligations, so the strip lane now reads: `henvelope`
+(artifact-grade, on the captured owner) + owner bridge -> `hstrip`.
+Lessons locked (AGENTS §2ac): product-form pins pin the factors
+separately with per-factor direction checks (a product pin alone can mask
+a below-render factor); the render-chain slack floor is the render's ulp
+times the number of chained roundings, with the measured slack/ulp ratio
+registered (4.2e4 / 1.1e8 / 1.4e8 here) and asserted >= 100; assert the
+artifact's internal factor-product consistency to a registered tolerance
+(1e-12); hypothesis-shape conversions that mention a downstream-defined
+type live in the downstream module, pins and joins in the owning
+arithmetic module. No Lean formalization of the 2303 reduction, no owner
+bridge, no producer GO, no gate sign change, no RH claim.

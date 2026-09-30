@@ -47,8 +47,16 @@ which consumes the certified hgap split through
 registered 2275/2286/2304 decomposition plus the two pinned certified
 enclosures (window 2308/2309, tail 2307), with the join arithmetic
 machine-checked in `C1RouteAItem5Arithmetic`.
+Record 2311 adds `frozenStripHypothesis_of_certified_envelope` and
+`a005_item5_producer_wired_certified_multiplicity_gap_split_envelope`:
+the opaque strip hypothesis becomes the record 2303 certified envelope
+shape (grid maximum times continuum-transfer factor, both pinned in
+`C1RouteAItem5Arithmetic` with the join arithmetic machine-checked), on
+the corrected width-a^2 owner.
 The original conditional theorems remain available for existing callers.
-The strip, signed margin, non-tail charge, and gap hypotheses remain open.
+The strip envelope itself, the owner bridge to the selected test
+functions, the signed margin, the non-tail charge, and the certified
+gap split remain open.
 
 No GO, no gate sign change, and no RH claim is made here.
 -/
@@ -303,6 +311,57 @@ theorem a005_item5_producer_wired_certified_multiplicity_gap_split
   exact a005_item5_producer_wired_certified_multiplicity b c hstrip
     hmargin hcharge
     (hgap_of_certified_split hsplit hwindow htail)
+
+/-- **Certified strip-envelope interface (record 2311).**  The record 2303
+certified centered-strip envelope on the corrected width-a^2 owner
+(continuum sup `2823660.8460007603` = certified grid maximum times the
+log-derivative transfer factor, margin `3.3666x` under the frozen
+`bUpper2243`) supplies the producer's strip hypothesis: any pair whose
+centered-strip min-product is bounded by the pinned product
+`stripGridMax2303 * stripTransfer2303` satisfies `FrozenStripHypothesis`.
+The join arithmetic of the pinned constants is machine-checked in
+`C1RouteAItem5Arithmetic`.  The envelope bound itself and the owner bridge
+(identification of the captured owner with the selected test functions)
+remain named obligations. -/
+theorem frozenStripHypothesis_of_certified_envelope
+    (b c : CompactLogTest)
+    (henvelope : ∀ sigma ∈ Set.Icc (-(1 / 2) : ℝ) (1 / 2),
+      min (stripSecondNorm sigma (b.test : ℝ → ℂ) *
+            stripNorm sigma (c.test : ℝ → ℂ))
+          (stripSecondNorm sigma (c.test : ℝ → ℂ) *
+            stripNorm sigma (b.test : ℝ → ℂ))
+        ≤ stripGridMax2303 * stripTransfer2303) :
+    FrozenStripHypothesis b c := by
+  intro sigma hsigma
+  exact (henvelope sigma hsigma).trans
+    stripGridMax2303_mul_stripTransfer2303_le_bUpper2243
+
+/-- **Producer with the certified strip envelope (record 2311).**  The
+strip hypothesis is consumed through the certified envelope interface
+`frozenStripHypothesis_of_certified_envelope`, the gap hypothesis through
+the 2310 split consumer, and multiplicity is discharged by the 2274
+analytic bound.  The envelope bound and the owner bridge remain explicit
+hypotheses. -/
+theorem a005_item5_producer_wired_certified_multiplicity_gap_split_envelope
+    (b c : CompactLogTest)
+    (henvelope : ∀ sigma ∈ Set.Icc (-(1 / 2) : ℝ) (1 / 2),
+      min (stripSecondNorm sigma (b.test : ℝ → ℂ) *
+            stripNorm sigma (c.test : ℝ → ℂ))
+          (stripSecondNorm sigma (c.test : ℝ → ℂ) *
+            stripNorm sigma (b.test : ℝ → ℂ))
+        ≤ stripGridMax2303 * stripTransfer2303)
+    {qLo gap chargeRest windowCharge tailCharge : Real}
+    (hmargin : margin2249 ≤ -qLo)
+    (hcharge : chargeRest ≤ knownError2109)
+    (hsplit : gap ≤ windowCharge + tailCharge)
+    (hwindow : windowCharge ≤ windowCharge2309)
+    (htail : tailCharge ≤ tailCharge2307) :
+    (∑' n : Nat, ∑' rho : spectralHeightShell (n + 1),
+        spectralNormTerm (b.convolution c) rho.1) +
+      chargeRest + gap + eps0FullTail2249 < -qLo := by
+  exact a005_item5_producer_wired_certified_multiplicity_gap_split b c
+    (frozenStripHypothesis_of_certified_envelope b c henvelope)
+    hmargin hcharge hsplit hwindow htail
 
 end Dev
 end ConnesWeilRH

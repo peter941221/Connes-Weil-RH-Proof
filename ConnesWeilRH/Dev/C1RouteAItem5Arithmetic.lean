@@ -1,7 +1,7 @@
 import ConnesWeilRH.Dev.C1SpectralSummability
 
 /-!
-# Route A item-5 transfer arithmetic (records 2245, 2248, 2249, 2253, 2255, 2310)
+# Route A item-5 transfer arithmetic (records 2245, 2248, 2249, 2253, 2255, 2310, 2311)
 
 This module freezes the rational arithmetic of the item-5 strict signed
 margin at the 2249 certified standing and proves, with `norm_num`, the
@@ -30,7 +30,11 @@ transfer-free full-tail ledger of records 2253/2255/2256:
   record 2307) join below the 2255 charge, machine-checked by `norm_num`
   (`windowCharge2309_add_tailCharge2307_le_gapCharge2255`), and
   `hgap_of_certified_split` discharges `gap <= gapCharge2255` from the
-  registered 2275/2286/2304 decomposition plus those two enclosures.
+  registered 2275/2286/2304 decomposition plus those two enclosures;
+* the record 2311 certified strip envelope: the pinned centered-strip grid
+  maximum (`stripGridMax2303`, record 2303) and continuum-transfer factor
+  (`stripTransfer2303`) join below `bUpper2243`, machine-checked by
+  `norm_num` (`stripGridMax2303_mul_stripTransfer2303_le_bUpper2243`).
 
 The numeric inputs remain artifact-level facts: the 2249 enclosure is a
 numeric certificate (first-order error shadow, not Lean-formalized), the
@@ -222,6 +226,27 @@ theorem hgap_of_certified_split {gap windowCharge tailCharge : Real}
     (htail : tailCharge <= tailCharge2307) :
     gap <= gapCharge2255 := by
   linarith [windowCharge2309_add_tailCharge2307_le_gapCharge2255]
+
+/-- Certified centered-strip grid maximum (record 2303): the maximum over
+the 101 certified sigma-nodes of the centered-strip min-product
+`min(D2_base * M_corr, D2_corr * M_base)` on the corrected width-a^2 owner,
+rounded up at the 4th decimal from the committed render `2644542.851480454`
+(`centered.max_point_B` of `results/2303_corrected_strip_envelope.json`;
+binding point `sigma = -1/2`, binding channel a).  The pin slack is
+1.95e-5, well above the ~6-ulp render-chain bound 2.8e-9 of the stored
+float64 value. -/
+def stripGridMax2303 : Real := 2644542.8515
+
+/-- Certified continuum-transfer factor (record 2303): the log-derivative
+half-step factor `e^(2 rmax h)` with `rmax = 6.553600000000003` and
+`h = 0.005`, rounded up at the 7th decimal from the committed render
+`1.0677311749439153` (`grid.transfer`).  The pin slack is 2.51e-8, far
+above the 2-ulp render bound 2.2e-16 of the stored value. -/
+def stripTransfer2303 : Real := 1.0677312
+
+theorem stripGridMax2303_mul_stripTransfer2303_le_bUpper2243 :
+    stripGridMax2303 * stripTransfer2303 <= bUpper2243 := by
+  norm_num [stripGridMax2303, stripTransfer2303, bUpper2243]
 
 end C1RouteAItem5Arithmetic
 end Source

@@ -6,3 +6,5 @@ import ConnesWeilRH.Dev.C1RouteAProducerWired
 #print axioms ConnesWeilRH.Dev.a005_item5_producer_wired
 #print axioms ConnesWeilRH.Dev.a005_item5_producer_wired_certified_multiplicity
 #print axioms ConnesWeilRH.Dev.a005_item5_producer_wired_certified_multiplicity_gap_split
+#print axioms ConnesWeilRH.Dev.frozenStripHypothesis_of_certified_envelope
+#print axioms ConnesWeilRH.Dev.a005_item5_producer_wired_certified_multiplicity_gap_split_envelope

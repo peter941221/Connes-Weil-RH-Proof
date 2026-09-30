@@ -1,0 +1,78 @@
+{
+  "record": 2311,
+  "mode": "check",
+  "verdict": "PINNED-ENVELOPE-VERIFIED",
+  "budget": "9506275102584327/1000000000",
+  "grid_max": {
+    "lean_literal": "2644542.8515",
+    "artifact_render": 2644542.851480454,
+    "pin_slack": 1.9546e-05,
+    "pin_slack_ulps": 41974.715383808,
+    "direction_ok": true,
+    "tight_ok": true,
+    "slack_ok": true
+  },
+  "transfer": {
+    "lean_literal": "1.0677312",
+    "artifact_render": 1.0677311749439153,
+    "pin_slack": 2.50560847e-08,
+    "pin_slack_ulps": 112842573.71828358,
+    "direction_ok": true,
+    "tight_ok": true,
+    "slack_ok": true
+  },
+  "product": {
+    "pin": 2823660.912283517,
+    "render": 2823660.846000757,
+    "sup_certified_render": 2823660.8460007603,
+    "pin_slack": 0.06628275955350897,
+    "pin_slack_ulps": 142341142.2854763,
+    "consistency_rel": 1.081400756802374e-15,
+    "direction_ok": true,
+    "tight_ok": true,
+    "slack_ok": true
+  },
+  "join": {
+    "margin": 6682614.19030081,
+    "margin_ratio": 3.366648970218073,
+    "closed": true
+  },
+  "lean_guards": {
+    "def_grid_pin": true,
+    "def_transfer_pin": true,
+    "join_theorem": true,
+    "join_norm_num": true,
+    "conversion_theorem": true,
+    "conversion_call": true,
+    "consumer_theorem": true,
+    "consumer_call": true
+  },
+  "controls": {
+    "synthetic_parse": {
+      "grid": "2469/200",
+      "transfer": "10123/10000",
+      "ok": true
+    },
+    "join_direction": {
+      "strictly_below": true,
+      "margin": "33413070951504051/5000000000"
+    },
+    "negative_pin_rejected": {
+      "shifted_pin_below": true,
+      "predicate_fails": true
+    }
+  },
+  "provenance": {
+    "lean_arithmetic": {
+      "path": "ConnesWeilRH/Dev/C1RouteAItem5Arithmetic.lean",
+      "md5": "9c54f76d5127ca54d8e785aa2e190ff9"
+    },
+    "lean_producer": {
+      "path": "ConnesWeilRH/Dev/C1RouteAProducerWired.lean",
+      "md5": "3b15d733875f50ae7c23a767a1b6a14e"
+    },
+    "envelope_artifact": "results/2303_corrected_strip_envelope.json",
+    "render_convention": "float64 renders of the 256-bit MPFR certified reduction; pin slack asserted >= 100 ulp of each render"
+  },
+  "failures": []
+}
