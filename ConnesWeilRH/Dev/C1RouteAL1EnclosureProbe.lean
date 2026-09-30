@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteAL1Enclosure
+
+#print axioms ConnesWeilRH.Dev.l1UpperEnclosure2249_eq_neg
+#print axioms ConnesWeilRH.Dev.l1MarginEnclosure2249_le_margin2249
+#print axioms ConnesWeilRH.Dev.transfer_free_charge_le_l1Enclosure_sub_slack
+#print axioms ConnesWeilRH.Dev.a005_item5_terminal_count_free_l1
+#print axioms ConnesWeilRH.Dev.hmargin_of_certified_l1_enclosure
+#print axioms ConnesWeilRH.Dev.a005_item5_producer_wired_owner_nodes_margin

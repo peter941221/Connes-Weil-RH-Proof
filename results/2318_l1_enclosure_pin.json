@@ -1,0 +1,142 @@
+{
+  "record": 2318,
+  "mode": "check",
+  "verdict": "PINNED-L1-ENCLOSURE-VERIFIED",
+  "scope": "record 2249 L1 enclosure wired into the producer margin lane: outward-rounded constants, enclosure consumer, and the owner-nodes producer variant",
+  "enclosure": {
+    "q": -1675397327923.575,
+    "E_total": 1281535.3012791811,
+    "q_lo": -1675398609458.8762,
+    "q_hi": -1675396046388.2737,
+    "margin_lo_certified": 1675396046388.2737,
+    "margin_hi_certified": 1675398609458.8762,
+    "q_plus_E_eq_q_hi": true,
+    "q_minus_E_eq_q_lo": true,
+    "neg_q_hi_eq_margin_lo": true,
+    "neg_q_lo_eq_margin_hi": true,
+    "exact_upper_minus_render_ulps": 0.03952598571777344,
+    "exact_lower_minus_render_ulps": -0.03952598571777344,
+    "exact_upper_minus_naive_decimal_ulps": 0.11472598571777344,
+    "shipped_upper_slack_ulps": 0.29487401428222654,
+    "shipped_lower_slack_vs_stored_ulps": 0.3344,
+    "naive_decimal_upper": "-1675396046388.2737",
+    "shipped_upper": "-1675396046388.2736",
+    "shipped_lower": "1675396046388.2736"
+  },
+  "owner_tie": {
+    "base_artifact": "d461872e14212dcba8efe1874de6f652",
+    "base_2316_claimed": "d461872e14212dcba8efe1874de6f652",
+    "corr_artifact": "c37e16a9dfeb4383c7bab1d23aa59566",
+    "corr_2316_claimed": "c37e16a9dfeb4383c7bab1d23aa59566",
+    "capture_2275_recorded": "d83ee0ffccdbf1b193cb7a9a065d5c82",
+    "capture_2275_live": "d83ee0ffccdbf1b193cb7a9a065d5c82"
+  },
+  "lean_guards": {
+    "def_lower": true,
+    "def_upper": true,
+    "neg_theorem": true,
+    "order_theorem": true,
+    "ledger_rerun": true,
+    "terminal_l1": true,
+    "consumer": true,
+    "producer_decl": true,
+    "hnode_binder": true,
+    "hnode_bound": true,
+    "call_owner_nodes": true,
+    "call_tsum": true,
+    "call_gap": true,
+    "call_mult": true,
+    "call_tail2248": true,
+    "call_margin": true,
+    "producer_conclusion": true,
+    "no_sorry": true,
+    "trailing_newline": true,
+    "probe_axioms": true
+  },
+  "continuity": {
+    "arith_recorded_2312": "b3fb88c3dd1e2e289454193dfc000376",
+    "arith_live": "b3fb88c3dd1e2e289454193dfc000376",
+    "producer_recorded_2311": "3b15d733875f50ae7c23a767a1b6a14e",
+    "producer_live": "3b15d733875f50ae7c23a767a1b6a14e",
+    "owner_nodes_recorded_2317": "68550f52601ad8b23920ec4f3813c676",
+    "owner_nodes_live": "68550f52601ad8b23920ec4f3813c676",
+    "pin_2317_live": "408bfb5a78e482f51fac6963575072b4"
+  },
+  "joins": {
+    "negation": true,
+    "order_le_margin2249": true,
+    "ledger_rerun": true
+  },
+  "consumer_replay": {
+    "at_bound": true,
+    "at_exact_upper": true
+  },
+  "replay": {
+    "backup_path": "buildlogs/2249_l1_before_2318.json",
+    "after_path": "buildlogs/2249_l1_after_2318.json",
+    "backup_exists": true,
+    "after_exists": true,
+    "plain_path_volatile": [
+      "diagnostics.q_plain_2103_pipeline",
+      "diagnostics.rel_lb_diff_mid",
+      "diagnostics.rel_lc_diff_mid"
+    ],
+    "backup_equals_frozen": true,
+    "after_diff_fields": [
+      "diagnostics.q_plain_2103_pipeline",
+      "diagnostics.rel_lb_diff_mid",
+      "diagnostics.rel_lc_diff_mid"
+    ],
+    "certified_bitwise_ok": true,
+    "volatile_deltas": {
+      "q_plain_rel": 1.5737871286495764e-14,
+      "rel_lb_diff_mid_abs": 6.820900295631004e-17,
+      "rel_lc_diff_mid_abs": 1.1442748970580396e-09
+    }
+  },
+  "controls": {
+    "synthetic_parse": {
+      "regex_match": true,
+      "ok": true
+    },
+    "naive_decimal_rejected": {
+      "measured_unsound": true,
+      "ok": true
+    },
+    "naive_lower_rejected": {
+      "measured_unsound": true,
+      "ok": true
+    },
+    "one_ulp_mutation_detected": {
+      "mutated_differs": true,
+      "relation_fails": true,
+      "ok": true
+    },
+    "sign_flip_rejected": {
+      "mutated_differs": true,
+      "guard_fails": true,
+      "ok": true
+    }
+  },
+  "provenance": {
+    "lean_l1_enclosure": {
+      "path": "ConnesWeilRH/Dev/C1RouteAL1Enclosure.lean",
+      "md5": "e08f71e2683327c138ff5e11dadf1e18"
+    },
+    "lean_probe": {
+      "path": "ConnesWeilRH/Dev/C1RouteAL1EnclosureProbe.lean",
+      "md5": "f6231e022a7bbbfa7ec7e5714e6bf8f8"
+    },
+    "check_script": {
+      "path": "scripts/routea_l1_enclosure_pin_2318.py",
+      "md5": "e1ed6172758a716986e32bf82484a2d0"
+    },
+    "inputs": [
+      "results/2249_l1_enclosure.json",
+      "results/2316_node_values.json",
+      "results/2317_owner_nodes_lean_pin.json",
+      "results/2275_gap_owner_audit.json"
+    ]
+  },
+  "failures": []
+}

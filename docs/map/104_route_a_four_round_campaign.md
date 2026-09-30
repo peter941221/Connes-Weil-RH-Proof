@@ -2851,3 +2851,71 @@ instantiation for the captured vectors (the frozen 2316 table).  Then
 the signed margin and the non-tail charge feed the producer alongside
 the record 2310 gap closure; the selected-owner signed inequality
 remains the summit.  No producer GO, no gate sign change, no RH claim.
+
+### Record 2318: the certified L1 enclosure enters the producer margin lane; L1-ENCLOSURE-WIRED
+
+Record 2249 certified the finite-window functional at the captured owner
+inside a two-sided first-order shadow enclosure (q in [q_lo, q_hi],
+results/2249_l1_enclosure.json).  Record 2318 wires it into the producer
+margin lane as a Lean interface.  New module
+ConnesWeilRH/Dev/C1RouteAL1Enclosure.lean (8 declarations, axiom trio),
+importing the record 2311 producer module and the record 2317 owner-nodes
+module without editing either:
+
+* outward-rounded constants: l1MarginEnclosure2249 = 1675396046388.2736
+  (certified |Q| lower bound) and l1UpperEnclosure2249 =
+  -1675396046388.2736 (signed functional upper), exact negatives of each
+  other; the consumer hmargin_of_certified_l1_enclosure turns
+  q <= l1UpperEnclosure2249 into the producer shape
+  l1MarginEnclosure2249 <= -q;
+* the record 2252 transfer-free ledger re-run at the certified constant
+  (HST + knownError2109 + gapCharge < l1MarginEnclosure2249 - eps0) and the
+  count-free terminal variant at the same constant;
+* the composed producer a005_item5_producer_wired_owner_nodes_margin: the
+  record 2317 strip interface + this enclosure + the record 2109 charge +
+  the record 2310 gap split into the item-5 strict signed inequality
+  tsum + chargeRest + gap + eps0FullTail2249 < -q, residuals exactly hnode
+  (the 2316 table), hq, hcharge, and the gap split trio.
+
+Sub-ulp finding, measured in exact Fractions: the exact shadow upper bound
+q + E sits 0.0395 ulp above the stored render q_hi and 0.1147 ulp above the
+shortest-decimal transcription -1675396046388.2737, so a Lean pin at that
+decimal would sit strictly inside the certified enclosure (the record 2314
+hazard on the margin side; the four stored binary64 relations all hold
+bitwise).  The shipped constants round outward by 1e-4 (0.41 ulp), covering
+the exact bound with 0.295 ulp slack; margin2249 (the 2252 transcription)
+is not routed through the enclosure and asserts no artifact direction.
+
+Replay evidence: the full record 2249 instrument re-run (~190 s, the
+original run recorded 190.2 s) reproduces every certified field of the
+artifact bitwise; exactly three of ~40 fields differ, all plain-float
+cross-check diagnostics routed through BLAS dgemv and np.trapezoid
+(q_plain rel 1.5737871286495764e-14; rel_lb_diff_mid abs
+6.820900295631004e-17; rel_lc_diff_mid abs 1.1442748970580396e-09, a
+documented near-cancellation midpoint channel).  A representative dgemv is
+bitwise-stable across processes and OPENBLAS_NUM_THREADS values in the
+current environment, so the difference is library drift since the
+2026-09-29 capture, not live nondeterminism; the artifact bytes stay frozen
+(4fb81ff7...).  Pin check scripts/routea_l1_enclosure_pin_2318.py (verdict
+PINNED-L1-ENCLOSURE-VERIFIED, failures empty): the four stored relations
+bitwise; the exact-Fraction readings; owner cross-tie (base d461872e... /
+corr c37e16a9... == record 2316 claimed, 2275 capture root d83ee0ff...
+frozen); continuity (arithmetic pins b3fb88c3... since 2312, producer
+3b15d733... since 2311, owner-nodes 68550f52... since 2317, 2317 artifact
+408bfb5a... + verdict); 20 statement guards; the joins and the consumer
+replay in Fractions; replay diff vs the documented volatile set; controls
+(synthetic parse, naive-decimal rejection in both directions, one-ulp q_hi
+mutation, sign-flip literal).
+
+Build acceptance: build_2318_step1.log (Build completed successfully (3709
+jobs), 0 errors, 0 sorryAx, warning-free after the trailing-newline fix);
+root build_2318_root.log (Build completed successfully (4148 jobs), 0
+errors, 0 sorryAx, probe axiom trio for all six theorems; plan counts
+verbatim).  Two first-run incidents, both loud: the resource runner execs
+in a non-login shell, so lake needs its absolute elan path (exit 127
+otherwise), and the whitespace linter again flagged the missing final
+newline on both new files.  Grade: the producer's hmargin lane is
+discharged by the certified enclosure; residual inputs are hnode (2316
+table), hq (this enclosure), hcharge (the 2109 ledger), and the gap split
+trio; the remaining unwired lane is hcharge-rest (the non-tail charge).
+No producer GO, no gate sign change, no RH claim.
