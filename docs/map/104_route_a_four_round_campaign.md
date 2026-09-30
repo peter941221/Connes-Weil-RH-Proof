@@ -2088,3 +2088,19 @@ This clears a necessary condition, not the full functional gate. Next price
 the full-window majorant before arithmetic certification. Exact partition,
 support-radius, node/polynomial/moment arithmetic, continuous integration,
 infinite tail and actual selected-owner readback remain open; no hgap claim.
+
+### Record 2298: full-window uniform propagation still overprices 192:6
+
+Record [2298](../proofs/2298_routea_carrier_full_window_propagation_screen.md)
+continues 2297 with the full [-40,40] kernel and both transform magnitudes.
+The 0.02/0.01/0.005 sampled majorant ratios are 1998.56 / 1999.54 / 1999.65;
+the correction-error channel carries about 99.4%. Same-candidate 2296 signed
+integrals reproduce bitwise. Six controls cover the error algebra, endpoints,
+provenance and ledger.
+
+This is a scoped sampled price failure, not a lower bound on real error or
+an analytic no-go. Do not certify the current 192:6 uniform-majorant path.
+Next reprice a named 768:6 profile using the summed r^7 remainder scaling,
+or change to frequency-dependent/correlated propagation; neither option is
+pre-approved as a proof. Exact arithmetic, continuous integration, tail and
+actual selected-owner readback remain open.

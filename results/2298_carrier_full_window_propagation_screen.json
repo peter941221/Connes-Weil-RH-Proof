@@ -1,0 +1,84 @@
+{
+  "record": 2298,
+  "status": "CARRIER-FULL-WINDOW-PROPAGATION-SCREEN",
+  "certificate": false,
+  "hgap_closed": false,
+  "window": [
+    -40,
+    40
+  ],
+  "base_radius": 2.43880724318819e-09,
+  "corr_radius": 4.500842363450426e-06,
+  "diagnostic_budget": 10000000,
+  "rows": [
+    {
+      "xi_step": 0.02,
+      "xi_points": 4001,
+      "prime_power_count": 41136,
+      "base_md5": "d461872e14212dcba8efe1874de6f652",
+      "corr_md5": "c37e16a9dfeb4383c7bab1d23aa59566",
+      "base_squared_corr_error_charge": 19867696591.855457,
+      "corr_squared_base_error_charge": 117929164.46061245,
+      "cross_error_charge": 109.70327924750742,
+      "sampled_majorant_charge": 19985625866.019352,
+      "sampled_budget_ratio": 1998.5625866019352,
+      "peak_xi": -3.64,
+      "peak_density": 16530058741.649137,
+      "same_candidate_signed_integral": -1675241989912.3186,
+      "same_candidate_relative_movement": 0.0,
+      "prior_sampled_absolute_difference": 321900.5666256842
+    },
+    {
+      "xi_step": 0.01,
+      "xi_points": 8001,
+      "prime_power_count": 41136,
+      "base_md5": "d461872e14212dcba8efe1874de6f652",
+      "corr_md5": "c37e16a9dfeb4383c7bab1d23aa59566",
+      "base_squared_corr_error_charge": 19876889998.40842,
+      "corr_squared_base_error_charge": 118555021.40242255,
+      "cross_error_charge": 109.77034804501983,
+      "sampled_majorant_charge": 19995445129.581192,
+      "sampled_budget_ratio": 1999.5445129581192,
+      "peak_xi": -3.64,
+      "peak_density": 16530058741.649137,
+      "same_candidate_signed_integral": -1675241989137.71,
+      "same_candidate_relative_movement": 0.0,
+      "prior_sampled_absolute_difference": 327780.3779787921
+    },
+    {
+      "xi_step": 0.005,
+      "xi_points": 16001,
+      "prime_power_count": 41136,
+      "base_md5": "d461872e14212dcba8efe1874de6f652",
+      "corr_md5": "c37e16a9dfeb4383c7bab1d23aa59566",
+      "base_squared_corr_error_charge": 19877961706.7654,
+      "corr_squared_base_error_charge": 118552184.17398885,
+      "cross_error_charge": 109.7811795653976,
+      "sampled_majorant_charge": 19996514000.72057,
+      "sampled_budget_ratio": 1999.651400072057,
+      "peak_xi": -3.605,
+      "peak_density": 17042620495.389664,
+      "same_candidate_signed_integral": -1675241989580.4307,
+      "same_candidate_relative_movement": 0.0,
+      "prior_sampled_absolute_difference": 328105.7667780913
+    }
+  ],
+  "sampled_majorant_pass_all_grids": false,
+  "source_sha256": {
+    "results/2297_carrier_envelope_remainder_price.json": "2ae7f3f39e00a18146a1ba305e81cf97b28220717258f5219dd937a1d7259da4",
+    "results/2296_carrier_separated_functional_screen.json": "df78a56b87a28eb2eb98d09a05d00a2f691cd1d0d7ead66c293e7171f82b5483",
+    "results/2275_gap_owner_audit.json": "743fe372bef89b5730c38274d5a5517ac9ea4d3421989d46c49d4af3e78b5e74",
+    "scripts/routea_phase_centered_filon_tail_screen_2280.py": "46eb25dc9492080ff39d7225384966b626711ca67f22e065b09236a83124567e",
+    "scripts/routea_direct_functional_difference_screen_2295.py": "cb5224633ea185de76b4eb5ec3b20a004ee28bf25ec8359b3cfd5604b17ba9da",
+    "scripts/routea_carrier_separated_functional_screen_2296.py": "a2abad52af3117554d47d27a76935a79b2adeef62e33341932032433c04e0899",
+    "scripts/routea_carrier_envelope_remainder_price_2297.py": "d56df3e66baab429f4223a2e62e7b3743b7dd97a7d6259fd90b5d884ceaed27d",
+    "scripts/routea_carrier_full_window_propagation_screen_2298.py": "eaafdf2ccbb4e98d3be2f2a2f97abcefa084e0c75540017c944fc79bbb0d9a66"
+  },
+  "nonclaims": [
+    "radii price ideal interpolation only, not the stored evaluator arithmetic",
+    "sampled magnitudes and trapezoids are not continuous enclosures",
+    "majorant size is not a lower bound on actual error",
+    "grid agreement is a reproducibility control, not an integral certificate",
+    "no infinite-tail estimate, selected-owner bridge, hgap supplier or RH claim"
+  ]
+}
