@@ -2737,3 +2737,61 @@ the 101 node values at `stripGridMax2303` (the value half, where the
 captured coefficient and modulation vectors enter bitwise); then signed
 margin, non-tail charge.  No producer GO, no gate sign change, no RH
 claim.
+
+### Record 2316: the 101 node values of the captured owner min-product; NODE-VALUES-CERTIFIED
+
+The value half of the owner bridge becomes a first-class table.  Record
+2313's consumer `frozenStripHypothesis_of_certified_nodes` asks, at each
+of the 101 grid nodes `j/100`, that the centered min-product
+`min(D2_b M_c, D2_c M_b)` of the owner pair be at most
+`stripGridMax2303`; record 2303 had computed certified per-node uppers
+of exactly this quantity (the `B_point` field of its 101 `grid_rows`).
+This record re-derives that table end to end and pins it.  New check
+`scripts/routea_node_values_2316.py` (verdict NODE-VALUES-CERTIFIED,
+failures empty) -> `results/2316_node_values.json`:
+
+1. continuity: the live 2275 capture parses and is bitwise equal to the
+   2267 replay operands (families, base and corr vectors — the captured
+   coefficient and modulation vectors enter bitwise); the 101
+   `2303_sigma_j.json` files are present, indexed (`sigma_index`,
+   `nodes = 240001`) and bitwise equal to the corresponding
+   `grid_rows.point` values; the 2303 envelope artifact bytes are frozen
+   by md5 `b7814e73…` (first record to do so);
+2. assembly replay: for all 101 rows the check re-derives, with the
+   record 2303 expressions verbatim (2238 `ladder` + panel law `(dx²/12)
+   (2 rmax) e^{|σ| rmax} (m_{k+2} + 2|σ| m_{k+1} + σ² m_k)`, 2234
+   `majorant_phi_le` inflation, upward-rounding chains), the four panel,
+   four inflation and four certified-norm values, the two channel
+   products, their min, the binding channel and `B_point`, and requires
+   bitwise equality with the committed fields; rmax, dx, the 2238
+   ladder (both copies), the transfer `1.0677311749439153`, the
+   continuum sup `2823660.8460007603`, the covered flag, the margin
+   `3.36664904924696x`, the raw-check floats and the `anchor_raw`
+   summary replay bitwise the same way; mismatches = {};
+3. exact rational directions: every `B_point` is an upper of the
+   certified min-product and at most the pin `stripGridMax2303 =
+   2644542.8515` (parsed from the Lean source, literal guard), and the
+   certified min-product dominates the live numpy raw screen (the 2277
+   reproduction, recomputed here bitwise from the capture) at all 101
+   nodes;
+4. the binding node is `j = -50`, `sigma = -0.5`, channel "a", with
+   `B_point = 2644542.851480454` and pin margin `1.9545793533325194e-5`
+   = 41974.272 ulp of the render — the same 4.2e4-ulp figure as the
+   2311 pin artifact, now per node; margin range over the 101 nodes
+   41974.272 ... 1.6956e16 ulp; worst raw ratio (min over nodes)
+   2.4661322656498452 at j = 0; raw ratio rel_max 7.2765792264717994
+   (replayed); cross-record pins 2311 and 2313 both consistent, and the
+   arithmetic pins file is byte-frozen since 2312 (`b3fb88c3…`).
+
+Controls: synthetic pin parse; shifted pin rejected; a one-ulp point
+mutation is detected by the bitwise replay; an inflated raw screen
+(x2.5 at j = 0) is rejected — the first-run control premise ("x2") was
+falsified by measurement (the certification price at j = 0 is 2.466x)
+and replaced; a capture mutation fails the operand anchor.  Grade:
+artifact; the sigma quadrature itself is not re-run (its committed
+files are re-linked and direction-checked), the 2303 analytic majorants
+stand as recorded, no Lean certificate.  Residual strip-lane work: the
+Lean instantiation of `frozenStripHypothesis_of_certified_nodes` with
+the 2315 packaged owner pair, leaving this table's 101-node bound as
+the single strip hypothesis; then the signed margin and the non-tail
+charge.  No producer GO, no gate sign change, no RH claim.
