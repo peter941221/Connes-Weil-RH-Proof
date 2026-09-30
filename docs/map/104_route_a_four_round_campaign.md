@@ -1775,3 +1775,37 @@ certified ceiling or a directed-MPFR exhaustive run could narrow them.
 Cost calibrated for future budgeting: `2472.6 s` + `878.1 s` =
 `3350.6 s` wall.  Certified-grade statements of the same quantities are
 2269; the certified upper ends are unchanged.
+
+## 2271 — Strip replay controls and fail-closed verdict
+
+Record 2271 closes the 2267 artifact reproducibility gap. The 50 negative-
+sigma inputs are versioned, the exact stored binary64 construction operands
+are committed, and a 123-file SHA-256 manifest binds the replay to its
+parameters. The 2267 consumer now refuses to report
+CERTIFIED-STRIP-COVERED when an input or anchor fails; it emits
+STRIP-CONTROL-FAIL instead. The control suite passes 22 tests, including a
+real anchor-failure injection. This is evidence hygiene only: the strip
+envelope remains an artifact-grade input to the Lean FrozenStripHypothesis,
+not a Lean proof, and no producer GO or RH claim is made.
+
+## 2272 — Mathematical-core closure order
+
+The producer-side wiring is now complete at the composition level, but its
+Lean theorem still carries explicit residual hypotheses: hstrip, hmult,
+hmargin, hcharge-rest, and hgap. These are proof obligations, not completed
+facts. The closure order is therefore:
+
+1. Prove the multiplicity comparison
+   `spectralMultiplicityConstant <= multProxy2248` in Lean.
+2. Replace the refinement-measured 2255 gap charge with an analytic error
+   enclosure; the measured refinement delta is not itself a proof bound.
+3. Consume the 2267 strip envelope through a formally checked certificate
+   interface. The replay manifest establishes provenance, not analytic truth.
+4. Return to the selected detector and prove the same-owner signed
+   `qw >= 0`, including the finite prefix, signed physical-kernel term, and
+   tail remainder.
+
+The Hall enumeration branch remains reserve infrastructure because the
+count-free fallback already supplies the producer shape. Route D
+operator-sign and identity-split mechanisms remain closed under the existing
+no-go records. No producer GO, no gate sign change, and no RH claim.

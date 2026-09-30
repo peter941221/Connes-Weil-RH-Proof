@@ -38,8 +38,10 @@ certified envelope with the 2234/2243 machinery:
 
    for the 0.01 grid (half-step 0.005).
 
-Verdict line: CERTIFIED-STRIP-COVERED iff the certified sup is at most the
-frozen constant bUpper2243 = 9506275.102584327 of record 2243.
+Verdict line: CERTIFIED-STRIP-COVERED requires a verified input manifest,
+passing anchors, and the certified sup at most the frozen constant
+bUpper2243 = 9506275.102584327 of record 2243. Record 2271 supplies the
+committed replay operands, without local construction/chunk caches.
 
 Anchors: (a) the sigma = 1.0 row recomputed with the 2243-identical
 construction (plain panel/inflation plus the embedded exp(a_max * 0.01)
@@ -49,6 +51,8 @@ certified point sums are uppers of the raw binary64 sums.
 
 No producer GO, no gate sign change, no RH claim.
 """
+import argparse
+import hashlib
 import importlib.util
 import json
 import math
@@ -61,6 +65,108 @@ FROZEN_C = 240796.76135588222
 GRID_J = list(range(-50, 51))
 HALF_STEP = 0.005
 OUT = R / "2267_sigma_envelope_certified.json"
+MANIFEST = R / "2271_strip_replay_manifest.json"
+OPERANDS = R / "2267_replay_operands.json"
+
+
+def required_inputs():
+    return sorted({
+        "scripts/routea_weighted_zero_sigma_envelope_certified_2267.py",
+        "scripts/routea_weighted_zero_direct_product_outward_2234.py",
+        "scripts/routea_weighted_zero_mpfr_exp_binding_2223.py",
+        "scripts/routea_weighted_zero_panel_dx2_2238.py",
+        "scripts/routea_weighted_zero_direct_product_mass_screen_2197.py",
+        "scripts/routea_weighted_zero_measure_screen_2187.py",
+        "scripts/routea_known_prefix_tail_price_2106.py",
+        "scripts/routea_weighted_zero_mpfr_exp_binding_2223.py",
+        "scripts/routea_weighted_zero_vector_split_full_refinement_2206.py",
+        "scripts/routea_weighted_zero_vector_split_price_2204.py",
+        "scripts/routea_weighted_zero_solve_enclosure_preflight_2201.py",
+        "scripts/routea_weighted_zero_split_quadrature_price_2202.py",
+        "scripts/routea_weighted_zero_direct_product_reprice_2235.py",
+        "ConnesWeilRH/Dev/C1RouteADirectProductDecay.lean",
+        "ConnesWeilRH/Dev/C1RouteAProducerWired.lean",
+        "ConnesWeilRH/Dev/C1RouteAItem5Arithmetic.lean",
+        "results/2267_replay_operands.json",
+        "results/2238_panel_recon.json",
+        "results/2237_generation_certificate.json",
+        "results/2242_zero_count_certificate.json",
+        "results/2243_panel_cem_reprice.json",
+        "results/2264_sigma_range_audit.json",
+        "results/2234_sigma_100.json",
+        *(f"results/2234_sigma_{index}.json" for index in GRID_J),
+    })
+
+
+def replay_parameters():
+    return {"grid_j": GRID_J, "half_step": HALF_STEP,
+            "frozen_B": FROZEN_B, "frozen_C": FROZEN_C}
+
+
+def validate_manifest(root, manifest_path):
+    errors = []
+    try:
+        content = manifest_path.read_bytes()
+        manifest = json.loads(content)
+    except (OSError, ValueError) as exc:
+        return {"ok": False, "errors": [str(exc)], "files_checked": 0,
+                "manifest_sha256": None}
+    if not isinstance(manifest, dict):
+        return {"ok": False, "errors": ["manifest must be an object"],
+                "files_checked": 0, "manifest_sha256": None}
+    if manifest.get("schema_version") != 1:
+        errors.append("unsupported manifest schema")
+    if manifest.get("parameters") != replay_parameters():
+        errors.append("replay parameters do not match the consumer")
+    files = manifest.get("files")
+    if not isinstance(files, dict):
+        return {"ok": False, "errors": errors + ["missing file inventory"],
+                "files_checked": 0,
+                "manifest_sha256": hashlib.sha256(content).hexdigest()}
+    if set(files) != set(required_inputs()):
+        errors.append("file inventory does not match required inputs")
+    checked = 0
+    for relative, entry in files.items():
+        path = (root / relative).resolve()
+        if not path.is_relative_to(root.resolve()):
+            errors.append(f"path outside replay root: {relative}")
+            continue
+        if not isinstance(entry, dict):
+            errors.append(f"invalid manifest entry: {relative}")
+            continue
+        try:
+            data = path.read_bytes()
+        except OSError:
+            errors.append(f"missing input: {relative}")
+            continue
+        checked += 1
+        if (hashlib.sha256(data).hexdigest() != entry.get("sha256")
+                or len(data) != entry.get("bytes")):
+            errors.append(f"input hash or size mismatch: {relative}")
+    return {"ok": not errors, "errors": errors, "files_checked": checked,
+            "manifest_sha256": hashlib.sha256(content).hexdigest()}
+
+
+def classify_status(sup_cert, frozen_bound, anchors_ok, inputs_ok):
+    if (not inputs_ok or not anchors_ok
+            or not math.isfinite(sup_cert) or sup_cert <= 0.0
+            or not math.isfinite(frozen_bound) or frozen_bound <= 0.0):
+        return "STRIP-CONTROL-FAIL"
+    return ("CERTIFIED-STRIP-COVERED" if sup_cert <= frozen_bound
+            else "STRIP-REPRICE-NEEDED")
+
+
+def majorant_phi_le(order, K, a):
+    eK = math.exp(-K)
+    if order == 0:
+        return eK
+    if order == 1:
+        return (2.0 * K / a) * eK
+    if order == 2:
+        return eK * (10.0 * K + 4.0 * K * K) / (a * a)
+    if order == 3:
+        return eK * (72.0 * K + 30.0 * K * K + 8.0 * K ** 3) / (a ** 3)
+    raise ValueError(order)
 
 
 def up_many(v, n):
@@ -93,16 +199,31 @@ def coeff_inflation_sym(coef, fam, K, a_max, sigma, radius, order, majorant):
     return radius * acc
 
 
-def main():
+def run_reduction(input_validation, output):
     cert = json.loads((R / "2242_zero_count_certificate.json")
                       .read_text(encoding="utf-8"))
-    assert cert["status"] == "ZERO-COUNT-CERTIFIED", cert["status"]
-    o34 = _load("o34f", "routea_weighted_zero_direct_product_outward_2234.py")
-    s97 = _load("s97h", "routea_weighted_zero_direct_product_mass_screen_2197.py")
-    o38 = _load("o38e", "routea_weighted_zero_panel_dx2_2238.py")
-    table = o38.panel_table()
-    fam, base, corr, a_max = o34.build_construction()
-    majorant = o34.majorant_phi_le
+    if cert["status"] != "ZERO-COUNT-CERTIFIED":
+        raise ValueError(f"zero-count gate failed: {cert['status']}")
+    operands = json.loads(OPERANDS.read_text(encoding="utf-8"))
+    fam = [tuple(float.fromhex(value) for value in family)
+           for family in operands["families_hex"]]
+    base = [complex(*(float.fromhex(value) for value in coefficient))
+            for coefficient in operands["base_hex"]]
+    corr = [complex(*(float.fromhex(value) for value in coefficient))
+            for coefficient in operands["corr_hex"]]
+    a_max = float.fromhex(operands["a_max_hex"])
+    order_K = operands["K"]
+    dx = float.fromhex(operands["dx_hex"])
+    recon = json.loads((R / "2238_panel_recon.json").read_text(encoding="utf-8"))
+    if (len(fam) != 30 or len(base) != len(fam) or len(corr) != len(fam)
+            or a_max != max(family[0] for family in fam)
+            or dx != 2.0 * a_max / (operands["NX"] - 1)
+            or operands["NX"] != 240001 or order_K != 30.0):
+        raise ValueError("replay operands do not match the construction")
+    table = {name: (row["majorants"], 0 if name.endswith("M0") else 2,
+                    row["n_risk"], a_max, dx)
+             for name, row in recon["channels"].items()}
+    majorant = majorant_phi_le
     cert37 = json.loads((R / "2237_generation_certificate.json")
                         .read_text(encoding="utf-8"))
     radii = {"r_base": cert37["radius"]["r_base"],
@@ -119,18 +240,24 @@ def main():
         sigma = j / 100.0
         p = R / f"2234_sigma_{j}.json"
         assert p.exists(), p
-        v = json.loads(p.read_text(encoding="utf-8"))["values"]
+        point = json.loads(p.read_text(encoding="utf-8"))
+        if (point["sigma_index"] != j or point["sigma"] != sigma
+                or point["nodes"] != operands["NX"]
+                or not all(math.isfinite(value) and value > 0.0
+                           for value in point["values"].values())):
+            raise ValueError(f"invalid sigma input: {p.name}")
+        v = point["values"]
         pb = panel_cem_sym("base_M0", sigma, table)
         pb2 = panel_cem_sym("base_D2", sigma, table)
         pc = panel_cem_sym("corr_M0", sigma, table)
         pc2 = panel_cem_sym("corr_D2", sigma, table)
-        eb = coeff_inflation_sym(base, fam, s97.K, a_max, sigma,
+        eb = coeff_inflation_sym(base, fam, order_K, a_max, sigma,
                                  radii["r_base"], 0, majorant)
-        eb2 = coeff_inflation_sym(base, fam, s97.K, a_max, sigma,
+        eb2 = coeff_inflation_sym(base, fam, order_K, a_max, sigma,
                                   radii["r_base"], 2, majorant)
-        ec = coeff_inflation_sym(corr, fam, s97.K, a_max, sigma,
+        ec = coeff_inflation_sym(corr, fam, order_K, a_max, sigma,
                                  radii["r_corr"], 0, majorant)
-        ec2 = coeff_inflation_sym(corr, fam, s97.K, a_max, sigma,
+        ec2 = coeff_inflation_sym(corr, fam, order_K, a_max, sigma,
                                   radii["r_corr"], 2, majorant)
         mb = up_many(up_many((v["base_M0"] + pb) * (1.0 + eb), 3), 3)
         db = up_many(up_many((v["base_D2"] + pb2) * (1.0 + eb2), 3), 3)
@@ -172,13 +299,13 @@ def main():
     pb2A = panel_cem_sym("base_D2", sigma1, table)
     pcA = panel_cem_sym("corr_M0", sigma1, table)
     pc2A = panel_cem_sym("corr_D2", sigma1, table)
-    ebA = coeff_inflation_sym(base, fam, s97.K, a_max, sigma1,
+    ebA = coeff_inflation_sym(base, fam, order_K, a_max, sigma1,
                               radii["r_base"], 0, majorant)
-    eb2A = coeff_inflation_sym(base, fam, s97.K, a_max, sigma1,
+    eb2A = coeff_inflation_sym(base, fam, order_K, a_max, sigma1,
                                radii["r_base"], 2, majorant)
-    ecA = coeff_inflation_sym(corr, fam, s97.K, a_max, sigma1,
+    ecA = coeff_inflation_sym(corr, fam, order_K, a_max, sigma1,
                               radii["r_corr"], 0, majorant)
-    ec2A = coeff_inflation_sym(corr, fam, s97.K, a_max, sigma1,
+    ec2A = coeff_inflation_sym(corr, fam, order_K, a_max, sigma1,
                                radii["r_corr"], 2, majorant)
     mbA = up_many(up_many((v1["base_M0"] + pbA) * (1.0 + ebA), 3) * cover1, 3)
     dbA = up_many(up_many((v1["base_D2"] + pb2A) * (1.0 + eb2A), 3) * cover1, 3)
@@ -207,10 +334,14 @@ def main():
     pos_max = max((r for r in rows if r["sigma"] >= 0), key=lambda r: r["B_point"])
     covered = sup_cert <= FROZEN_B
     margin = FROZEN_B / sup_cert
+    anchors_ok = bool(raw_upper_ok and raw_rel_max <= 1e-8
+                      and anchor_2243["C_rel"] <= 1e-12
+                      and anchor_2243["B_rel"] <= 1e-12)
     result = {
         "record": 2267,
-        "status": ("CERTIFIED-STRIP-COVERED" if covered
-                   else "STRIP-REPRICE-NEEDED"),
+        "status": classify_status(sup_cert, FROZEN_B, anchors_ok,
+                                  input_validation["ok"]),
+        "input_validation": input_validation,
         "lever": "2234/2243 certified reduction on the centered strip with "
                  "sigma-symmetric panel/inflation and the log-derivative "
                  "transfer e^{2 a_max h}, h = 0.005",
@@ -238,9 +369,7 @@ def main():
             "upper_ok": raw_upper_ok,
         },
         "anchor_2243": anchor_2243,
-        "anchors_ok": bool(raw_upper_ok and raw_rel_max <= 1e-8
-                           and anchor_2243["C_rel"] <= 1e-12
-                           and anchor_2243["B_rel"] <= 1e-12),
+        "anchors_ok": anchors_ok,
         "nonclaims": [
             "the numeric core (per-node upper chunks with the committed "
             "2^-200 slack, 256-bit RNDN sigma sums with the 4-ulp guards, "
@@ -259,6 +388,10 @@ def main():
             "no producer GO, no gate sign change, no RH claim",
         ],
         "provenance": {
+            "schema_version": 1,
+            "manifest": MANIFEST.relative_to(ROOT).as_posix(),
+            "operands": OPERANDS.relative_to(ROOT).as_posix(),
+            "scope": "artifact-grade reduction replay, not a Lean certificate",
             "script": "scripts/routea_weighted_zero_sigma_envelope_certified_2267.py",
             "sigma_sums": "results/2234_sigma_*.json (j = -50..50)",
             "gate": "results/2242_zero_count_certificate.json",
@@ -267,8 +400,8 @@ def main():
                       "results/2264_sigma_range_audit.json"],
         },
     }
-    OUT.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8",
-                   newline="\n")
+    output.write_text(json.dumps(result, indent=2, allow_nan=False) + "\n",
+                      encoding="utf-8", newline="\n")
     print(json.dumps({
         "status": result["status"],
         "max_point_sigma": max_row["sigma"],
@@ -284,7 +417,36 @@ def main():
         "anchor_B_rel": anchor_2243["B_rel"],
         "anchors_ok": result["anchors_ok"],
     }, indent=2), flush=True)
+    return result
+
+
+def write_control_failure(output, validation, error):
+    result = {"record": 2267, "status": "STRIP-CONTROL-FAIL",
+              "input_validation": validation, "error": error}
+    output.write_text(json.dumps(result, indent=2) + "\n",
+                      encoding="utf-8", newline="\n")
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--verify-only", action="store_true")
+    parser.add_argument("--output", type=Path, default=OUT)
+    args = parser.parse_args(argv)
+    validation = validate_manifest(ROOT, MANIFEST)
+    if args.verify_only or not validation["ok"]:
+        print(json.dumps(validation, indent=2), flush=True)
+        if not args.verify_only and not validation["ok"]:
+            write_control_failure(args.output, validation, "input validation failed")
+        return 0 if validation["ok"] else 1
+    try:
+        result = run_reduction(validation, args.output)
+    except (OSError, ValueError, KeyError, AssertionError) as exc:
+        write_control_failure(args.output, validation, str(exc))
+        print(json.dumps({"status": "STRIP-CONTROL-FAIL", "error": str(exc)},
+                         indent=2), flush=True)
+        return 1
+    return 0 if result["status"] == "CERTIFIED-STRIP-COVERED" else 1
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
