@@ -1,0 +1,96 @@
+{
+  "record": 2288,
+  "status": "GL-REMAINDER-SAMPLED-PRICE",
+  "certificate": false,
+  "hgap_closed": false,
+  "rows": [
+    {
+      "base": {
+        "panels": 8,
+        "order": 8,
+        "xi": 40.0,
+        "derivative_order": 16,
+        "panel_length": 1.6384000000000007,
+        "sampled_derivative_max": 8.310693772249097e+39,
+        "sampled_GL_remainder_bound": 4.984718367060795e+21
+      },
+      "corr": {
+        "panels": 8,
+        "order": 8,
+        "xi": 40.0,
+        "derivative_order": 16,
+        "panel_length": 1.6384000000000007,
+        "sampled_derivative_max": 8.384807381599908e+40,
+        "sampled_GL_remainder_bound": 5.029171391068702e+22
+      }
+    },
+    {
+      "base": {
+        "panels": 8,
+        "order": 16,
+        "xi": 40.0,
+        "derivative_order": 32,
+        "panel_length": 1.6384000000000007,
+        "sampled_derivative_max": 1.935199825276605e+80,
+        "sampled_GL_remainder_bound": 5.876557553710365e+33
+      },
+      "corr": {
+        "panels": 8,
+        "order": 16,
+        "xi": 40.0,
+        "derivative_order": 32,
+        "panel_length": 1.6384000000000007,
+        "sampled_derivative_max": 2.803965273796882e+80,
+        "sampled_GL_remainder_bound": 8.51470896950779e+33
+      }
+    },
+    {
+      "base": {
+        "panels": 16,
+        "order": 8,
+        "xi": 40.0,
+        "derivative_order": 16,
+        "panel_length": 0.8192000000000004,
+        "sampled_derivative_max": 1.8039180549242888e+40,
+        "sampled_GL_remainder_bound": 1.65097394991775e+17
+      },
+      "corr": {
+        "panels": 16,
+        "order": 8,
+        "xi": 40.0,
+        "derivative_order": 16,
+        "panel_length": 0.8192000000000004,
+        "sampled_derivative_max": 8.919547949863444e+40,
+        "sampled_GL_remainder_bound": 8.163309453036586e+17
+      }
+    },
+    {
+      "base": {
+        "panels": 16,
+        "order": 16,
+        "xi": 40.0,
+        "derivative_order": 32,
+        "panel_length": 0.8192000000000004,
+        "sampled_derivative_max": 4.110082294220531e+80,
+        "sampled_GL_remainder_bound": 2.905947970001169e+24
+      },
+      "corr": {
+        "panels": 16,
+        "order": 16,
+        "xi": 40.0,
+        "derivative_order": 32,
+        "panel_length": 0.8192000000000004,
+        "sampled_derivative_max": 2.4519304532104896e+80,
+        "sampled_GL_remainder_bound": 1.733586291717389e+24
+      }
+    }
+  ],
+  "nonclaims": [
+    "sampled derivative maxima are not uniform bounds",
+    "classical GL remainder formula is only priced, not certified for this owner",
+    "finite xi window only",
+    "no hgap supplier, producer GO or RH claim"
+  ],
+  "max_base_price": 5.876557553710365e+33,
+  "max_corr_price": 8.51470896950779e+33
+}
