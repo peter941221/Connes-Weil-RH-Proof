@@ -1924,3 +1924,14 @@ The same cancellation-preserving D3 norms inserted into the old elementary
 tail envelope price 1.285918889357026e25, still 1.2859e18 times the 1e7
 hgap budget. The strip lane is promising but the tail method is rejected.
 hstrip and hgap remain explicit; no Lean supplier is attached.
+
+### Record 2278: signed-kernel FFT tail screen rejected
+
+Record [2278](../proofs/2278_routea_signed_kernel_tail_screen.md) uses
+the corrected width-a^2 support and therefore 41136 visible prime powers,
+not the legacy 52-term kernel. The finite signed-kernel FFT screen reads
+tiny values on 40 <= xi <= 500, but coarse-to-fine movement is 6.315x
+for the signed integral and 5.191x for its absolute integral. The result
+is marked FFT-TAIL-UNTRUSTED and cannot close hgap. The next tail route
+must use direct oscillatory quadrature or a certified panel rule with a
+measured trust horizon.
