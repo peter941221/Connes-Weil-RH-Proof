@@ -116,12 +116,24 @@
       "bytes": 17595
     },
     "ConnesWeilRH/Dev/C1RouteAItem5Arithmetic.lean": {
-      "sha256": "c4152ae90a80dc9374e0054a175f2c593ad9a1f572166a8fe1fcb95d89936cc5",
-      "bytes": 8829
+      "sha256": "c041dc6ed2ca185d1092cb5b98b84e24fe7431ec4765315b9b3ddc7542954585",
+      "bytes": 8900
+    },
+    "ConnesWeilRH/Dev/C1RouteAMultiplicityBound.lean": {
+      "sha256": "fc5adfc6cf6bb0a389639d5c4e3804f4b99c92dd55072fb182aca550f89e788c",
+      "bytes": 5611
     },
     "ConnesWeilRH/Dev/C1RouteAProducerWired.lean": {
-      "sha256": "b4f1d26c6a94f668f9e848c7a0cafce6e819c889ea65c802b66dd97754989813",
-      "bytes": 11905
+      "sha256": "771e6333b00fe4d9710ead60b5f897a67fe038e0c8bb35b133e5764b0f63233c",
+      "bytes": 13043
+    },
+    "ConnesWeilRH/Dev/C1SpectralSummability.lean": {
+      "sha256": "38ba7d7271e8f7b00b6ffa330bb75ea086c9818c9202e298e119dc9c34f8bd1a",
+      "bytes": 19395
+    },
+    "ConnesWeilRH/Source/CC20ZetaCounting.lean": {
+      "sha256": "a44c30e8ef57b2326fe97eb4b4bc709889d3635f0fc753a60cf3d173044d4fd2",
+      "bytes": 28707
     },
     "results/2234_sigma_-1.json": {
       "sha256": "0738f5e6fc04880efa2fafa8eaa65fd22848db97e5cc76ec9f637669597dc8b2",
@@ -584,8 +596,8 @@
       "bytes": 15491
     },
     "scripts/routea_weighted_zero_sigma_envelope_certified_2267.py": {
-      "sha256": "d4647a26466971202584e3ca90a1cfdc4e6672c3b487725f07bab144c24eed61",
-      "bytes": 20836
+      "sha256": "5f02e10d8846fd79a68ff48f29eed335f45e0c7e795de9e88ae1e7e769ecb4b7",
+      "bytes": 21003
     },
     "scripts/routea_weighted_zero_solve_enclosure_preflight_2201.py": {
       "sha256": "c3a655a3cd05b3b3205ad3a72e0677db78322a5e2dedc63c1437df2607cdcb74",

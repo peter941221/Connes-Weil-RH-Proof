@@ -22,8 +22,8 @@ transfer-free full-tail ledger of records 2253/2255/2256:
   bound shape `4 * mult * B` (`four_mul_multProxy_mul_bUpper_le_highShellTail`,
   `four_mul_mult_mul_B_le_highShellTail`), and the terminal inequality
   consumes that shape directly (`a005_item5_terminal_count_free`) with the
-  numeric inputs `mult <= multProxy2248` (record 2273: an upward decimal
-  proxy whose analytic comparison remains unproved) and
+  numeric inputs `mult <= multProxy2248` (record 2274 proves the actual
+  spectral multiplicity comparison in `C1RouteAMultiplicityBound`) and
   `B <= bUpper2243` (record 2243 composite-EM screen).
 
 The numeric inputs remain artifact-level facts: the 2249 enclosure is a
@@ -139,9 +139,9 @@ theorem a005_item5_strict_signed_margin_full_tail
 mass screen (`results/2243_panel_cem_reprice.json`). -/
 def bUpper2243 : Real := 9506275.102584327
 
-/-- Candidate upper proxy for `spectralMultiplicityConstant`. Record 2273's
-high-precision diagnostic places it above the expression; the analytic
-comparison remains a separate proof obligation. -/
+/-- Upper proxy for `spectralMultiplicityConstant`. Record 2274 proves the
+comparison analytically in `C1RouteAMultiplicityBound`. Its original-proxy
+theorem also withdraws record 2273's incorrect under-rounding diagnosis. -/
 def multProxy2248 : Real := 128.70692502981
 
 /-- The frozen 2248 tail bounds the formal bound shape `4 * mult * B` at the

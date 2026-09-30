@@ -1198,18 +1198,20 @@ equal to the committed 2229 `exp_lipschitz_charge` at all 30 nodes (drift
 `+0.15158672812255491`, `k = 16` `+2.4253876499608817`; the worst one-ulp
 absolute charge is `1.332898e-09`, `2.1309206641563692e-05` of the target.
 
-## 2240 — the multiplicity constant is formal
+## 2240 — Historical multiplicity proxy audit (corrected in 2274)
 
 Record [2240](../proofs/2240_routea_weighted_zero_multiplicity_constant_formal.md)
-audits the `spectralMultiplicityConstant_proxy` carried since 2234: it is a
-binary64 evaluation of the Lean
-`spectralMultiplicityConstant` (`ConnesWeilRH/Dev/C1SpectralSummability.lean:303`,
+audits the `spectralMultiplicityConstant_proxy` carried since 2234. Record
+2274 withdraws its exact identification with the Lean
+`spectralMultiplicityConstant` (`ConnesWeilRH/Dev/C1SpectralSummability.lean:348`,
 with `xiGrowthFixedConstant` at `:38` and `kernelSmallMomentConstant` at
 `:29`, tail constant `ConnesWeilRH/Source/CC20ZetaCounting.lean:85`),
-bitwise equal at `301.83032993648527` (relative `0.0`; `‖xi(2)‖ = pi/6`
-exactly). The `4 *` factor is the `3/4` geometric assembly of
-`exists_weightedZeroMeasure_highShell_tsum_bound`. The multiplicity item
-is therefore not a numerics lever; the only slack inside the constant is
+because the historical binary64 reading `301.83032993648527` used the
+standard half-normalized value `pi/6`. The project value is `pi/3`;
+bitwise agreement at relative `0.0` shared the wrong convention. The
+`4 *` factor is still the `3/4` geometric assembly of
+`exists_weightedZeroMeasure_highShell_tsum_bound`. The historical
+calculation's flat slack was
 the flat `+192` (`276.997447850681` of `301.83032993648527` in log2 units),
 registered as a Lean-side task.
 
@@ -1790,24 +1792,25 @@ not a Lean proof, and no producer GO or RH claim is made.
 
 ## 2273 — Multiplicity proxy rounding correction
 
-Record 2273 found that the former 2248 decimal proxy
-`128.70692502980964` was below the exact Lean-defined multiplicity constant
-by approximately `6.16e-15`. The target was therefore numerically unsafe,
-not merely unproved. The ledger now uses the upward proxy
-`128.70692502981` and the upward tail `4894093747.7643`. This fixes the
-rounding direction but does not close `hmult`; formal analytic bounds for the
-underlying Gamma, exponential, pi, and xi-at-two terms remain required.
+WITHDRAWN by record 2274: the 2273 diagnostic substituted the standard
+half-normalized xi value `pi/6` into the project's doubled-xi expression.
+Lean proves the project value is `pi/3` and the multiplicity constant is
+at most `128.65`; the former proxy `128.70692502980964` is therefore safe.
+The slightly increased proxy `128.70692502981` and tail `4894093747.7643`
+remain conservative, but their increase was not mathematically necessary.
+The original diagnostic is preserved as superseded evidence; the current
+script and artifact use the project normalization.
 No producer GO, no gate sign change, and no RH claim.
 
 ## 2272 — Mathematical-core closure order
 
-The producer-side wiring is now complete at the composition level, but its
-Lean theorem still carries explicit residual hypotheses: hstrip, hmult,
-hmargin, hcharge-rest, and hgap. These are proof obligations, not completed
-facts. The closure order is therefore:
+Record 2274 discharges hmult and supplies a producer consumer without that
+argument. The original conditional theorem remains for existing callers.
+The residual hypotheses are hstrip, hmargin, hcharge-rest, and hgap.
+These remain proof obligations. The closure order is now:
 
-1. Prove the multiplicity comparison
-   `spectralMultiplicityConstant <= multProxy2248` in Lean.
+1. COMPLETED in 2274: the Lean theorem proves
+   `spectralMultiplicityConstant <= 128.65 <= multProxy2248`.
 2. Replace the refinement-measured 2255 gap charge with an analytic error
    enclosure; the measured refinement delta is not itself a proof bound.
 3. Consume the 2267 strip envelope through a formally checked certificate
@@ -1820,3 +1823,26 @@ The Hall enumeration branch remains reserve infrastructure because the
 count-free fallback already supplies the producer shape. Route D
 operator-sign and identity-split mechanisms remain closed under the existing
 no-go records. No producer GO, no gate sign change, and no RH claim.
+
+## 2274 — Multiplicity comparison proved; xi normalization corrected
+
+Record [2274](../proofs/2274_routea_multiplicity_bound.md) proves the exact
+project identity `completedRiemannXi(2) = pi/3`, the Gamma and kernel
+component bounds, and `spectralMultiplicityConstant <= 128.65`. This
+discharges `hmult` without a numeric artifact hypothesis.
+`a005_item5_producer_wired_certified_multiplicity` consumes the result for
+the same tests, same shell sum, and unchanged signed-margin budget; its
+arguments retain only hstrip, hmargin, hcharge-rest, and hgap. The original
+conditional consumer remains available. The original-proxy theorem also
+formally refutes the 2273 under-rounding interpretation.
+
+The final build covers the new paired audit, producer probe, and root
+aggregate (4244 jobs); all 15 audited declarations use only the permitted
+axioms. Seven multiplicity regressions and all 22 Linux strip controls
+pass. The reviewed replay manifest now binds 126 files; the strip replay
+keeps its numerical rows and anchors unchanged, with only provenance and
+input-validation metadata updated.
+
+The next unresolved item is the analytic hgap enclosure, followed by the
+formal strip certificate and the selected-owner signed inequality. This
+is one removed producer premise, not producer GO or an RH proof.

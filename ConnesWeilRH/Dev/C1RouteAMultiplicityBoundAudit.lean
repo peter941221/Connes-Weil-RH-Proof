@@ -1,0 +1,16 @@
+import ConnesWeilRH.Dev.C1RouteAMultiplicityBound
+
+namespace ConnesWeilRH.Source.C1RouteAMultiplicityBound
+
+#print axioms completedRiemannXi_two_eq
+#print axioms norm_completedRiemannXi_two_eq
+#print axioms gamma_quarter_le
+#print axioms pi_inv_quarter_le
+#print axioms kernelSmallMomentConstant_le
+#print axioms kernelTailConstant_le
+#print axioms xi_two_log_abs_le
+#print axioms spectralMultiplicityConstant_le_coarse
+#print axioms spectralMultiplicityConstant_lt_originalProxy2248
+#print axioms spectralMultiplicityConstant_le_multProxy2248
+
+end ConnesWeilRH.Source.C1RouteAMultiplicityBound

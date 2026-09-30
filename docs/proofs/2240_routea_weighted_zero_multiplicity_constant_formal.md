@@ -1,6 +1,15 @@
-# 2240 — The multiplicity constant is the Lean formal constant, bitwise
+# 2240 - Historical multiplicity proxy audit (corrected in 2274)
 
 Date: 2026-09-30
+
+Correction in record 2274: the exact-identification verdict below is
+withdrawn. The calculation used the standard half-normalized xi value
+pi/6; the project defines doubled xi and Lean proves its value at two is
+pi/3. The recorded number is a historical conservative proxy, not the
+exact project constant. Shared-convention bitwise agreement did not check
+normalization. Record 2274 proves the current multiplicity comparison
+analytically and supplies the consumer without hmult. The following
+audit text remains as the historical reading, not the current verdict.
 
 Consumer: the healthy `CompactLog` B5 selected detector, actual
 `sourceNontrivialZeroSet` owner, same-owner `qw >= 0` producer.

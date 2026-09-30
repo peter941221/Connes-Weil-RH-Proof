@@ -1,6 +1,12 @@
 {
   "record": 2267,
   "status": "CERTIFIED-STRIP-COVERED",
+  "input_validation": {
+    "ok": true,
+    "errors": [],
+    "files_checked": 126,
+    "manifest_sha256": "b030d66b877bcd8267c46aecc82e256aaab58c10d0188049ce74ab6b6ada1f85"
+  },
   "lever": "2234/2243 certified reduction on the centered strip with sigma-symmetric panel/inflation and the log-derivative transfer e^{2 a_max h}, h = 0.005",
   "gate": {
     "zero_count_certificate": "ZERO-COUNT-CERTIFIED"
@@ -2392,6 +2398,10 @@
     "no producer GO, no gate sign change, no RH claim"
   ],
   "provenance": {
+    "schema_version": 1,
+    "manifest": "results/2271_strip_replay_manifest.json",
+    "operands": "results/2267_replay_operands.json",
+    "scope": "artifact-grade reduction replay, not a Lean certificate",
     "script": "scripts/routea_weighted_zero_sigma_envelope_certified_2267.py",
     "sigma_sums": "results/2234_sigma_*.json (j = -50..50)",
     "gate": "results/2242_zero_count_certificate.json",

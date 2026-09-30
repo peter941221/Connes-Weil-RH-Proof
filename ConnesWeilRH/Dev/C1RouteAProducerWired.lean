@@ -6,6 +6,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 import ConnesWeilRH.Dev.C1RouteADirectProductDecay
 import ConnesWeilRH.Dev.C1RouteAWeightedZeroMeasure
 import ConnesWeilRH.Dev.C1RouteAItem5Arithmetic
+import ConnesWeilRH.Dev.C1RouteAMultiplicityBound
 
 /-!
 # Producer-side wiring of the direct-product decay brick (record 2268)
@@ -37,6 +38,11 @@ the frozen constants:
    the non-tail charge bound, the 2255 gap bound) give the count-free
    terminal inequality with the actual high-shell tsum in the charge
    position.
+
+Record 2274 adds `a005_item5_producer_wired_certified_multiplicity`,
+which supplies the multiplicity comparison from a proved analytic bound.
+The original conditional theorem remains available for existing callers.
+The strip, signed margin, non-tail charge, and gap hypotheses remain open.
 
 No GO, no gate sign change, and no RH claim is made here.
 -/
@@ -251,6 +257,22 @@ theorem a005_item5_producer_wired
         spectralNormTerm (b.convolution c) rho.1) + chargeRest)
     spectralMultiplicityConstant_nonneg hmult
     (by norm_num [bUpper2243]) le_rfl hmargin hcharge' hgap
+
+/-- The producer inequality with the multiplicity comparison discharged by
+record 2274's analytic bound. The strip, signed margin, non-tail charge,
+and ideal-to-discrete gap remain explicit hypotheses. -/
+theorem a005_item5_producer_wired_certified_multiplicity
+    (b c : CompactLogTest) (hstrip : FrozenStripHypothesis b c)
+    {qLo gap chargeRest : Real}
+    (hmargin : margin2249 ≤ -qLo)
+    (hcharge : chargeRest ≤ knownError2109)
+    (hgap : gap ≤ gapCharge2255) :
+    (∑' n : Nat, ∑' rho : spectralHeightShell (n + 1),
+        spectralNormTerm (b.convolution c) rho.1) +
+      chargeRest + gap + eps0FullTail2249 < -qLo := by
+  exact a005_item5_producer_wired b c hstrip
+    Source.C1RouteAMultiplicityBound.spectralMultiplicityConstant_le_multProxy2248
+    hmargin hcharge hgap
 
 end Dev
 end ConnesWeilRH

@@ -1,29 +1,32 @@
 {
   "record": 2273,
+  "correction_record": 2274,
   "precision_digits": 100,
   "mpmath_version": "1.3.0",
   "source_hash_convention": "UTF-8 text with LF line endings",
   "source_sha256": {
     "ConnesWeilRH/Dev/C1SpectralSummability.lean": "38ba7d7271e8f7b00b6ffa330bb75ea086c9818c9202e298e119dc9c34f8bd1a",
     "ConnesWeilRH/Source/CC20ZetaCounting.lean": "a44c30e8ef57b2326fe97eb4b4bc709889d3635f0fc753a60cf3d173044d4fd2",
-    "ConnesWeilRH/Dev/C1RouteAItem5Arithmetic.lean": "c51d158acdbf7231f3c4b2a4e1140ea6eb7acc6f16b16389e85bdc4b8be7613d"
+    "ConnesWeilRH/Dev/C1RouteAItem5Arithmetic.lean": "c041dc6ed2ca185d1092cb5b98b84e24fe7431ec4765315b9b3ddc7542954585",
+    "ConnesWeilRH/Dev/C1RouteAMultiplicityBound.lean": "fc5adfc6cf6bb0a389639d5c4e3804f4b99c92dd55072fb182aca550f89e788c"
   },
-  "xi_two_convention": "completedRiemannXi(2) = pi/6; the identity is not proved by this diagnostic",
+  "xi_two_convention": "completedRiemannXi(2) = pi/3; proved separately in C1RouteAMultiplicityBound.lean",
   "values": {
     "kernel_tail": "2.09033141072736823003001246094698125955697769739072638146608593264250318125414172433196764",
     "kernel_small_moment": "2.72328821633067102612286595765592867462732454883370376465767334731910822639321429620980041",
     "xi_growth_fixed": "15.5658126195741563041711991033563404623595150269742768590320019107695997460183295369710224",
-    "completed_xi_two": "0.523598775598298873077107230546583814032861566562517636829157432051302734381034833104672471",
-    "spectral_multiplicity": "128.706925029809646157520238638184587629935480682084465717016892063253114628530437086239836",
+    "completed_xi_two": "1.04719755119659774615421446109316762806572313312503527365831486410260546876206966620934494",
+    "spectral_multiplicity": "127.839992287311971390699319340504969282452805720225586654918963785147124100110802839115805",
+    "historical_standard_multiplicity": "128.706925029809646157520238638184587629935480682084465717016892063253114628530437086239836",
     "old_proxy": "128.70692502980964",
     "corrected_proxy": "128.70692502981",
-    "old_proxy_minus_exact": "-0.00000000000000615752023863818458762993548068208446571701689206325311462853043708623983637526762366397818",
-    "corrected_proxy_minus_exact": "0.000000000000353842479761361815412370064519317915534282983107936746885371469562913760163624732376335682"
+    "old_proxy_minus_value": "0.866932742497668609300680659495030717547194279774413345081036214852875899889197160884194989",
+    "corrected_proxy_minus_value": "0.866932742498028609300680659495030717547194279774413345081036214852875899889197160884194989"
   },
-  "status": "OLD-PROXY-UNDER-ROUNDS",
+  "status": "BOTH-PROXIES-COVER-PROJECT-NORMALIZATION",
   "nonclaims": [
     "This is an independent high-precision rounding audit, not a Lean proof.",
-    "The corrected proxy still requires formal analytic upper bounds before hmult is closed.",
+    "Lean proves hmult separately; this diagnostic supplies no analytic certificate.",
     "No producer GO, no gate sign change, no RH claim."
   ]
 }

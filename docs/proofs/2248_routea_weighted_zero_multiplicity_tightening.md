@@ -2,6 +2,13 @@
 
 Date: 2026-09-30
 
+Normalization correction in record 2274: the absorption proof 192 -> 72
+remains valid, but the quoted multiplicity decimals below use the
+standard xi-at-two value pi/6. They are conservative proxies, not exact
+evaluations of the project's doubled-xi constant. Lean proves project
+xi(2) = pi/3 and the current constant <= 128.65. The historical numeric
+tables remain unchanged; record 2274 supplies the formal comparison.
+
 Consumer: `spectralMultiplicityConstant` feeds the Lean high-shell tail
 `4 * mult * B_upper` of the weighted-zero-measure C3' producer gate
 (records 2240, 2243).
