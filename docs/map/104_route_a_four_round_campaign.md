@@ -2104,3 +2104,29 @@ Next reprice a named 768:6 profile using the summed r^7 remainder scaling,
 or change to frequency-dependent/correlated propagation; neither option is
 pre-approved as a proof. Exact arithmetic, continuous integration, tail and
 actual selected-owner readback remain open.
+
+### Record 2299: 768:6 clears the sampled interpolation-method price
+
+Record [2299](../proofs/2299_routea_carrier_refined_remainder_screen.md)
+reproduces the full 2297 baseline panel ledger and 2298 window prices in the
+same run, bitwise. The 768:6 base/correction interpolation radii are
+3.36711709e-14 / 6.11635156e-11; finest-grid price is 0.02717614 times budget,
+a measured 73581.15-fold gain. Seven controls pass. This is interpolation-only
+and sampled: executable arithmetic, continuous integration, tail and the
+actual selected-owner bridge remain open.
+
+### Record 2300: old coordinate/coefficient bridge consumes the margin
+
+Record [2300](../proofs/2300_routea_carrier_coefficient_bridge_price.md)
+uses the exact degree-six Lobatto cosine clock and directed interval envelope
+values to compare ideal coefficients with stored binary64 fit coefficients.
+The correction coefficient/geometry charges are 2.17023140e-9 / 8.07732452e-9;
+combined interpolation plus partial bridge prices at 4.5840351 times budget.
+Regenerated coefficients with ideal geometry price at 0.02878483 times budget,
+but that alternative is not a complete implemented evaluator and its magnitude
+readings are diagnostic. Eight controls pass.
+
+The next named move is regenerated coefficients plus higher-precision physical
+coordinates, followed by separate moment/phase/accumulation pricing, not more
+panel refinement alone. Both readings remain partial, sampled and captured-
+owner only: no hgap, infinite-tail or actual selected-owner claim.
