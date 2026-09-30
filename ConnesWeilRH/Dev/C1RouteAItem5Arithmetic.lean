@@ -1,7 +1,7 @@
 import ConnesWeilRH.Dev.C1SpectralSummability
 
 /-!
-# Route A item-5 transfer arithmetic (records 2245, 2248, 2249, 2253, 2255)
+# Route A item-5 transfer arithmetic (records 2245, 2248, 2249, 2253, 2255, 2310)
 
 This module freezes the rational arithmetic of the item-5 strict signed
 margin at the 2249 certified standing and proves, with `norm_num`, the
@@ -24,7 +24,13 @@ transfer-free full-tail ledger of records 2253/2255/2256:
   consumes that shape directly (`a005_item5_terminal_count_free`) with the
   numeric inputs `mult <= multProxy2248` (record 2274 proves the actual
   spectral multiplicity comparison in `C1RouteAMultiplicityBound`) and
-  `B <= bUpper2243` (record 2243 composite-EM screen).
+  `B <= bUpper2243` (record 2243 composite-EM screen);
+* the record 2310 certified hgap split: the pinned window charge upper
+  (`windowCharge2309`, records 2308/2309) and tail upper (`tailCharge2307`,
+  record 2307) join below the 2255 charge, machine-checked by `norm_num`
+  (`windowCharge2309_add_tailCharge2307_le_gapCharge2255`), and
+  `hgap_of_certified_split` discharges `gap <= gapCharge2255` from the
+  registered 2275/2286/2304 decomposition plus those two enclosures.
 
 The numeric inputs remain artifact-level facts: the 2249 enclosure is a
 numeric certificate (first-order error shadow, not Lean-formalized), the
@@ -183,6 +189,39 @@ theorem a005_item5_terminal_count_free
   have htail : 4 * mult * B <= highShellTail2248 :=
     four_mul_mult_mul_B_le_highShellTail hmult hB hmun hBnn
   exact a005_item5_strict_signed_margin_full_tail hmargin (by linarith) hgap
+
+/-- Certified finite-window charge upper (records 2308/2309), rounded up at
+the 8th decimal from the 45-digit directed-ceiling render
+`477248.985811757424832064525248710763476013975` of the certified interval
+upper endpoint of `results/2309_hgap_transform_certified.json` (best rung
+1/256; per-rung record `results/2309_transform_step_den256.json`).  The
+rounding-up keeps the constant a sound upper; the pin slack is 2.58e-9,
+far below the join margin 9.5e6. -/
+def windowCharge2309 : Real := 477248.98581176
+
+/-- Certified infinite-xi tail charge upper (record 2307, best rung order
+36), rounded up from `1.9586382184619955e-27` of
+`results/2307_hgap_tail_certified.json` to `2e-27`; the pin slack is
+4.1e-29, far above any float64 render rounding (<= 2.2e-43). -/
+def tailCharge2307 : Real := 0.000000000000000000000000002
+
+theorem windowCharge2309_add_tailCharge2307_le_gapCharge2255 :
+    windowCharge2309 + tailCharge2307 <= gapCharge2255 := by
+  norm_num [windowCharge2309, tailCharge2307, gapCharge2255]
+
+/-- **Certified hgap split (record 2310).**  The registered 2275/2286/2304
+decomposition of the ideal-to-discrete gap into a finite-window charge and
+an infinite-xi tail charge, plus the certified window (2308/2309) and tail
+(2307) enclosures, discharge the 2255 gap hypothesis `gap <=
+gapCharge2255`.  The join arithmetic of the pinned certified uppers is
+machine-checked above; the split and the two numeric enclosures remain
+named obligations. -/
+theorem hgap_of_certified_split {gap windowCharge tailCharge : Real}
+    (hsplit : gap <= windowCharge + tailCharge)
+    (hwindow : windowCharge <= windowCharge2309)
+    (htail : tailCharge <= tailCharge2307) :
+    gap <= gapCharge2255 := by
+  linarith [windowCharge2309_add_tailCharge2307_le_gapCharge2255]
 
 end C1RouteAItem5Arithmetic
 end Source

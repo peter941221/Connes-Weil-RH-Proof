@@ -2375,3 +2375,58 @@ mpf; mp.iv.mpf([lo, hi]) is the list-form constructor; the extended-jets
 polynomial tensor is (chunk, length, 2). Module selftest 5/5 PASS,
 artifact selftest 17/17 OK. No Lean hgap discharge, no producer GO, no
 RH claim.
+
+### Record 2310: the certified gap closure is wired into Lean; GAP-CLOSURE-WIRED
+
+2309 left hgap closed at numeric grade only: the producer's gap
+hypothesis stayed a single opaque `gap <= gapCharge2255` input. Record
+2310 moves the closure into Lean. `C1RouteAItem5Arithmetic` pins the two
+certified uppers as exact decimal constants -- `windowCharge2309 :=
+477248.98581176` (the 45-digit directed-ceiling render of the 2309
+transform-side interval upper, rounded up) and `tailCharge2307 :=
+2e-27` (the 2307 best rung order 36, rounded up) -- proves the join
+`windowCharge2309 + tailCharge2307 <= gapCharge2255` by `norm_num` on
+these exact rationals, and packages the consumer as
+`hgap_of_certified_split`: the registered 2275/2286/2304 decomposition
+`gap <= windowCharge + tailCharge` plus the two pinned enclosures
+`windowCharge <= windowCharge2309` and `tailCharge <= tailCharge2307`
+give `gap <= gapCharge2255`. `C1RouteAProducerWired` gains
+`a005_item5_producer_wired_certified_multiplicity_gap_split`, the
+producer with multiplicity discharged (2274) and the gap hypothesis
+now consumed through the split; the original conditional theorems stay
+for existing callers.
+
+Pin soundness is machine-checked in exact rational arithmetic by
+`scripts/routea_gap_closure_lean_pin_2310.py` (verdict
+PINNED-UPPERS-VERIFIED, all seven transcription guards, controls
+including a negative shifted-pin rejection): the window pin sits
+2.575e-9 above the directed-ceiling render and the render sits 5.82e-11
+above the stored float endpoint, so `pin >= render >= exact <= true` is
+chained without slack in the wrong direction; the tail pin sits 4.136e-29
+above the float64 render (17 orders above its half-ulp bound). Join
+margin 9522751.01418824, ratio 20.953423259749517, matching the 2309
+closure ratio to 1.2e-13.
+
+Build acceptance: targeted log `build_2310_step1.log`
+(`Build completed successfully (3572 jobs)`, 0 errors, 0 sorryAx, 0
+warnings from the four touched files); root aggregate log
+`build_2310_root.log` (`Build completed successfully (4244 jobs)`, 0
+errors, 0 sorryAx, same axiom profile). All three new declarations
+print `[propext, Classical.choice, Quot.sound]`.
+
+Grade: the join arithmetic and the hypothesis restructuring are
+machine-checked; the 2275/2286/2304 split and the two numeric
+enclosures remain named obligations (artifact-grade certificates, not
+Lean-formalized). Registrations updated: the 2305/2307/2308 localized
+[-2, 2] instrument is retired -- the regenerated evaluator (2301) and
+grouped S-moment ladders (2308) removed the precision wall it answered,
+and the global dyadic mesh is certified end to end over [-40, 40] with
+a 21x margin. Producer residual set: `hstrip`, `hmargin`,
+`hcharge-rest`, and the gap pair `hsplit` + window/tail enclosures.
+Lessons locked: Lean upper-bound pins must be >= the directed-ceiling
+render with the comparison done in exact rationals (round-up is the
+sound direction); float64-render references need pin slack above the
+render's half-ulp bound (2.2e-43 at this magnitude); when restructuring
+hypotheses, keep the old theorem and add a new variant so existing
+callers compile unchanged. No Lean formalization of the certificates,
+no producer GO, no gate sign change, no RH claim.

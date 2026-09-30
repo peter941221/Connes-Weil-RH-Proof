@@ -41,7 +41,13 @@ the frozen constants:
 
 Record 2274 adds `a005_item5_producer_wired_certified_multiplicity`,
 which supplies the multiplicity comparison from a proved analytic bound.
-The original conditional theorem remains available for existing callers.
+Record 2310 adds `a005_item5_producer_wired_certified_multiplicity_gap_split`,
+which consumes the certified hgap split through
+`hgap_of_certified_split`: the single opaque gap hypothesis becomes the
+registered 2275/2286/2304 decomposition plus the two pinned certified
+enclosures (window 2308/2309, tail 2307), with the join arithmetic
+machine-checked in `C1RouteAItem5Arithmetic`.
+The original conditional theorems remain available for existing callers.
 The strip, signed margin, non-tail charge, and gap hypotheses remain open.
 
 No GO, no gate sign change, and no RH claim is made here.
@@ -273,6 +279,30 @@ theorem a005_item5_producer_wired_certified_multiplicity
   exact a005_item5_producer_wired b c hstrip
     Source.C1RouteAMultiplicityBound.spectralMultiplicityConstant_le_multProxy2248
     hmargin hcharge hgap
+
+/-- **Producer with the certified gap split (record 2310).**  The 2255 gap
+hypothesis is replaced by the registered 2275/2286/2304 decomposition
+`hsplit` plus the two pinned certified enclosures: the window charge
+(records 2308/2309, `windowCharge2309`) and the infinite-xi tail charge
+(record 2307, `tailCharge2307`).  The join arithmetic is machine-checked
+in `C1RouteAItem5Arithmetic.windowCharge2309_add_tailCharge2307_le_gapCharge2255`
+and consumed through `hgap_of_certified_split`.  Multiplicity is discharged
+by the 2274 analytic bound; the strip, signed margin, and non-tail charge
+hypotheses remain explicit. -/
+theorem a005_item5_producer_wired_certified_multiplicity_gap_split
+    (b c : CompactLogTest) (hstrip : FrozenStripHypothesis b c)
+    {qLo gap chargeRest windowCharge tailCharge : Real}
+    (hmargin : margin2249 ≤ -qLo)
+    (hcharge : chargeRest ≤ knownError2109)
+    (hsplit : gap ≤ windowCharge + tailCharge)
+    (hwindow : windowCharge ≤ windowCharge2309)
+    (htail : tailCharge ≤ tailCharge2307) :
+    (∑' n : Nat, ∑' rho : spectralHeightShell (n + 1),
+        spectralNormTerm (b.convolution c) rho.1) +
+      chargeRest + gap + eps0FullTail2249 < -qLo := by
+  exact a005_item5_producer_wired_certified_multiplicity b c hstrip
+    hmargin hcharge
+    (hgap_of_certified_split hsplit hwindow htail)
 
 end Dev
 end ConnesWeilRH

@@ -12,5 +12,7 @@ namespace ConnesWeilRH.Source.C1RouteAItem5Arithmetic
 #print axioms four_mul_multProxy_mul_bUpper_le_highShellTail
 #print axioms four_mul_mult_mul_B_le_highShellTail
 #print axioms a005_item5_terminal_count_free
+#print axioms windowCharge2309_add_tailCharge2307_le_gapCharge2255
+#print axioms hgap_of_certified_split
 
 end ConnesWeilRH.Source.C1RouteAItem5Arithmetic

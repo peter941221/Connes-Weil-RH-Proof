@@ -1,0 +1,71 @@
+{
+  "record": 2310,
+  "mode": "check",
+  "verdict": "PINNED-UPPERS-VERIFIED",
+  "budget": 10000000,
+  "window": {
+    "lean_literal": "477248.98581176",
+    "artifact_render_upper": "19089959432470296993282581009948430539040559/40000000000000000000000000000000000000",
+    "artifact_charge_hi_float": 477248.9858117574,
+    "render_vs_float_gap": 5.820766091346741e-11,
+    "pin_slack": 2.575167935474751e-09,
+    "direction_ok": true,
+    "tight_ok": true
+  },
+  "tail": {
+    "lean_literal": "0.000000000000000000000000002",
+    "artifact_tail_upper_float": 1.9586382184619955e-27,
+    "artifact_best_order": 36,
+    "pin_slack": 4.136178153800449e-29,
+    "direction_ok": true,
+    "sound_ok": true,
+    "tight_ok": true
+  },
+  "join": {
+    "sum": 477248.98581176,
+    "margin": 9522751.01418824,
+    "margin_ratio": 20.953423259749517,
+    "closed": true
+  },
+  "lean_guards": {
+    "def_window_pin": true,
+    "def_tail_pin": true,
+    "join_theorem": true,
+    "join_norm_num": true,
+    "split_theorem": true,
+    "producer_theorem": true,
+    "producer_call": true
+  },
+  "controls": {
+    "synthetic_parse": {
+      "window": "15432/125",
+      "tail": "123/1000000",
+      "ok": true
+    },
+    "join_direction": {
+      "strictly_below": true,
+      "margin": "4761375507094119999999999999999999/500000000000000000000000000"
+    },
+    "negative_pin_rejected": {
+      "shifted_pin_below": true,
+      "predicate_fails": true
+    }
+  },
+  "provenance": {
+    "lean_arithmetic": {
+      "path": "ConnesWeilRH/Dev/C1RouteAItem5Arithmetic.lean",
+      "md5": "cb124d1c97e90cd32b9a207ab12e2339"
+    },
+    "lean_producer": {
+      "path": "ConnesWeilRH/Dev/C1RouteAProducerWired.lean",
+      "md5": "d31862e8739d21c13a2e300a728384c5"
+    },
+    "window_artifacts": [
+      "results/2309_transform_step_den256.json",
+      "results/2309_hgap_transform_certified.json"
+    ],
+    "tail_artifact": "results/2307_hgap_tail_certified.json",
+    "render_convention": "interval_text directed ceiling (2294); upper endpoint rendered ROUND_CEILING"
+  },
+  "failures": []
+}
