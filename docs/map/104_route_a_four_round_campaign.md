@@ -1945,3 +1945,56 @@ reading changes 4.618x, order 128 to 256 changes 10.307x, and an
 independent order-512 to 1024 run changes 4.583x. The instrument is marked
 DIRECT-GL-TAIL-UNTRUSTED. The next tail attempt needs interval quadrature,
 a transformed oscillatory variable, or a certified remainder formula.
+
+## 2026-09-30 — hgap supplier split after records 2275–2285
+
+The hgap obligation is now split into two independent interfaces. A finite-window
+numerical evaluator cannot silently include the infinite xi tail, and an infinite
+tail estimate cannot be inferred from sampled refinement.
+
+```text
+corrected width-a^2 owner
+          |
+          +-----------------------------+
+          |                             |
+          v                             v
+finite-window evaluator          infinite xi tail bound
+(certified complex enclosure)    (analytic signed-kernel estimate)
+          |                             |
+          +-------------+---------------+
+                        v
+             same-owner hgap supplier
+```
+
+The evidence has the following meaning:
+
+- Record 2277 preserves cross-family cancellation and finds a strip screen below
+the frozen cap, but its tail price is still `1.2859e18` times the `1e7`
+hgap budget. It is not a supplier.
+- Records 2278 and 2279 reject the current FFT and floating composite-GL
+instruments by refinement movement. They do not reject the true tail.
+- Records 2280–2283 reject the current unproved Filon profile/residual route.
+The generic derivative residual price remains many orders too large.
+- Record 2285 corrects a Chebyshev endpoint coefficient bug in 2281/2282.
+After correction, binary64 agrees with the 100-digit reconstruction to at most
+`2.0121396395e-7` on the sampled transforms. The corrected Chebyshev profile
+is still untrusted because its panel/degree refinement changes reach
+`484.0690x`; the old arithmetic-failure interpretation is withdrawn.
+- Record 2284 rejects bare `mpmath.quad` as a truth oracle: panel magnitudes
+are substantial while 35/50/70-digit totals drift by more than `1e14`.
+
+The next admissible evaluator must therefore satisfy all of the following:
+
+1. Preserve the complete corrected owner sum before taking modulus.
+2. Use an independently certified complex enclosure, such as Arb/ball or a
+proved directed-rounding oscillatory rule.
+3. Report panel contributions, enclosure widths, precision movement, and
+partition movement separately.
+4. Keep the finite window and infinite tail as separate theorem obligations.
+5. Pass the same-owner/readback and support-derived `41136` prime-power guards
+before any Lean supplier is attached.
+
+Do not continue increasing FFT nodes, GL order, Chebyshev degree, or generic
+derivative order without a named enclosure or residual theorem. A numerical
+reading without that theorem is a diagnostic only. No producer GO or RH claim
+is permitted from these screens.
