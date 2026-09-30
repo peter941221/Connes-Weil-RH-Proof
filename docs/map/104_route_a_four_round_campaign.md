@@ -2130,3 +2130,20 @@ The next named move is regenerated coefficients plus higher-precision physical
 coordinates, followed by separate moment/phase/accumulation pricing, not more
 panel refinement alone. Both readings remain partial, sampled and captured-
 owner only: no hgap, infinite-tail or actual selected-owner claim.
+
+### Record 2301: regenerated executable clears the transform-model price
+
+Record [2301](../proofs/2301_routea_regenerated_carrier_evaluator.md)
+implements regenerated degree-six coefficients, extended physical coordinates,
+real Horner phase/moment series and a depth-15 streaming pairwise sum. Both
+2300 coefficient-cast readings reproduce exactly. The full captured owner and
+41136-prime-power kernel are retained. Combined base/correction radii are
+1.38378507e-13 / 2.31151627e-10; finest-grid sampled price is 0.10275924 budget.
+
+Ten independent high-precision polynomial checks stay within the execution
+allowance, worst ratio 0.0005759913; nine controls cover the new execution path.
+This is a declared round-to-nearest model, not a machine or integral certificate.
+Kernel/annihilator/functional arithmetic, continuous integration, infinite tail
+and actual selected-owner readback remain open. Next target a local-frequency
+Taylor enclosure of the full complex transforms, with charged remainders; a
+global amplitude cap or sampled grid agreement is not an integral certificate.
