@@ -1,0 +1,12 @@
+import ConnesWeilRH.Dev.C1RouteAStripTransfer
+
+namespace ConnesWeilRH.Dev
+
+#print axioms expWeightedIntegral_le_transfer_of_neighbor
+#print axioms stripNorm_le_transfer_of_neighbor
+#print axioms stripSecondNorm_le_transfer_of_neighbor
+#print axioms min_stripProduct_le_transfer_of_neighbor
+#print axioms frozenStripHypothesis_of_certified_grid
+#print axioms frozenStripHypothesis_of_certified_grid_rmax
+
+end ConnesWeilRH.Dev

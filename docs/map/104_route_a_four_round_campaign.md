@@ -2486,3 +2486,79 @@ artifact's internal factor-product consistency to a registered tolerance
 type live in the downstream module, pins and joins in the owning
 arithmetic module. No Lean formalization of the 2303 reduction, no owner
 bridge, no producer GO, no gate sign change, no RH claim.
+
+### Record 2312: the transfer law is machine-checked; STRIP-TRANSFER-FORMALIZED
+
+2303's envelope splits into a grid maximum times a continuum-transfer
+factor, and the transfer half rested on the registered log-derivative law
+`|d/dsigma log N| <= 2 rmax`. Record 2312 lands that transfer in Lean in
+exponential form -- the form the envelope consumes. Core
+`expWeightedIntegral_le_transfer_of_neighbor`: for continuous `g >= 0`
+supported in `[-R, R]`, exponents within `h` obey
+`∫ e^(sigma x) g <= e^(R h) ∫ e^(sigma_0 x) g`; on the support
+`e^(sigma x) <= e^(sigma_0 x + R h)` is integrated against `g >= 0`, so
+no differentiation under the integral appears (the exponential form is
+per-point stronger than the infinitesimal law and is exactly the 2311
+consumer's hypothesis shape). Two strip-weight corollaries
+(`stripNorm`, `stripSecondNorm` with the `support_deriv_subset` /
+`tsupport_deriv_subset` chain), the min-product transfer
+`N sigma <= e^(2 R h) N sigma_0` from the four factor transfers, and the
+consumer `frozenStripHypothesis_of_certified_grid`: grid-existence
+(every centered `sigma` within `h` of a certified node whose min-product
+is at most `stripGridMax2303`) + support radius `R` + the record 2312
+exponent pin yield the 2311 certified envelope, hence
+`FrozenStripHypothesis`; the corner
+`frozenStripHypothesis_of_certified_grid_rmax` instantiates the pins.
+
+New pins in `C1RouteAItem5Arithmetic`: `stripRadius2303 := 6.5536001`
+(a sound upper of the committed `owner.rmax` render
+`6.553600000000003`; a pin at the exact decimal 6.5536 would strictly
+exclude the artifact's own radius, so the pin sits 1e-7 above the render
+-- 1.13e8 ulp, an order of magnitude inside the ~2.25e-6 radius-slack
+failure frontier of the Taylor margin), `stripHalfStep2303 := 0.005`
+(the exact `1/200` grid half-step), and
+`real_exp_transfer_le_stripTransfer2303 :
+Real.exp (2 * 6.5536001 * 0.005) <= 1.0677312`, proved by
+`Real.exp_bound'` at order 6 with the exact-rational evaluation by
+`norm_num`.
+
+Pin soundness and tightness are machine-checked in exact rational
+arithmetic by `scripts/routea_strip_transfer_lean_pin_2312.py` (verdict
+PINNED-TRANSFER-VERIFIED; 15 transcription guards on the def literals,
+the theorem statement, the exp_bound' order and norm_num list, the six
+new declarations and the support chain; controls: synthetic parse,
+negative shifted-pin rejection, radius +5e-6 overshoot rejection, render
+dust acceptance). Numbers: order-6 Taylor bound
+`1.0677311760289467` below the pin `1.0677312` at margin 2.3971053e-8
+with overshoot over `e^x` of 1.7301e-11; radius pin slack 1e-7
+(1.13e8 ulp); half-step exact; `e^(2 * rmax_render * 0.005)` at dps 60
+matches the committed `grid.transfer` render to 8.3e-16 relative, and
+the pinned transfer dominates that render.
+
+Build acceptance: targeted log `build_2312_step1.log` (`Build completed
+successfully (3573 jobs)`, 0 errors, 0 sorryAx, 0 warnings from the four
+touched files), post-cleanup confirmation `build_2312_step2.log` (the
+ring-to-ring_nf rewrite and the missing final newline fixed; the only
+rebuilds are the transfer module and its probe, the rest of the counted
+jobs are cached replays), root aggregate log `build_2312_root.log`
+(`Build completed successfully (4245 jobs)` -- the 2311 root count 4244
+plus the new module -- 0 errors, 0 sorryAx, 0 warnings from the touched
+files, replayed probe output carrying the axiom trio).  All seven new
+declarations print `[propext, Classical.choice, Quot.sound]`.
+
+Grade: the transfer inequality and the transfer-exponent arithmetic are
+machine-checked; the strip lane now reads: grid sampling (Lean-able
+next) + node values over the captured owner (artifact) + support radius
+(owner bridge) -> `henvelope` -> `FrozenStripHypothesis` -> producer.
+Lessons locked (AGENTS §2ad): transfer laws land in exponential form
+(integrate the pointwise bound; skip differentiation under the integral
+unless the derivative statement itself is needed); when a render's
+decimal value is not representable (6.553600000000003 vs 6.5536), pin at
+the next decimal with slack >= 100 ulp AND <= a tightness bar derived
+from the downstream numeric margin (here 1e-6, with the ~2.25e-6 failure
+frontier measured by an overshoot control); after `congr 1` peels a
+function application, the argument goal compares two `Real.exp` atoms
+that `ring` sees as distinct -- use `ring_nf`, and give every new file a
+final newline (whitespace linter). No Lean formalization of the 2303
+reduction, no grid-sampling proof, no owner bridge, no producer GO, no
+gate sign change, no RH claim.

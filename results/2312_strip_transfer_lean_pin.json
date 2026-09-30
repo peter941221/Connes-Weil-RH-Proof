@@ -1,0 +1,85 @@
+{
+  "record": 2312,
+  "mode": "check",
+  "verdict": "PINNED-TRANSFER-VERIFIED",
+  "radius": {
+    "lean_literal": "6.5536001",
+    "artifact_render": 6.553600000000003,
+    "pin_slack": 9.9999997e-08,
+    "pin_slack_ulps": 112589987.30656268,
+    "direction_ok": true,
+    "tight_ok": true,
+    "slack_ok": true
+  },
+  "half_step": {
+    "lean_literal": "0.005",
+    "artifact_render": 0.005,
+    "sigma_nodes": 101,
+    "exact_design_value": "1/200",
+    "ok": true
+  },
+  "taylor_bound": {
+    "order": 6,
+    "exponent_pin": "65536001/1000000000",
+    "bound": 1.0677311760289467,
+    "pin": 1.0677312,
+    "margin": 2.3971053178564005e-08,
+    "bound_ok": true,
+    "exp_reference": 1.0677311760116457,
+    "overshoot_over_exp": 1.7301049481943664e-11
+  },
+  "render_consistency": {
+    "transfer_render": 1.0677311749439153,
+    "exp_of_renders": 1.0677311749439145,
+    "rel_diff": 8.31837114568448e-16,
+    "pin_above_render_ok": true,
+    "render_dust_bound_ok": true
+  },
+  "lean_guards": {
+    "def_radius_pin": true,
+    "def_half_pin": true,
+    "def_transfer_pin": true,
+    "exp_theorem": true,
+    "exp_statement": true,
+    "exp_bound_prime": true,
+    "exp_bound_order": true,
+    "exp_norm_num": true,
+    "core_lemmas": true,
+    "min_product_lemma": true,
+    "consumer_theorem": true,
+    "consumer_pin_hypothesis": true,
+    "consumer_envelope_call": true,
+    "corner_theorem": true,
+    "support_chain": true
+  },
+  "controls": {
+    "synthetic_parse": {
+      "radius": "2469/200",
+      "half": "1/8",
+      "transfer": "39/4",
+      "ok": true
+    },
+    "overshoot_rejected": {
+      "radius_plus_5e_6_bound": 1.067731229415507,
+      "pin": 1.0677312,
+      "rejected": true
+    },
+    "negative_pin_rejected": {
+      "shifted_pin_below": true,
+      "predicate_fails": true
+    }
+  },
+  "provenance": {
+    "lean_arithmetic": {
+      "path": "ConnesWeilRH/Dev/C1RouteAItem5Arithmetic.lean",
+      "md5": "b3fb88c3dd1e2e289454193dfc000376"
+    },
+    "lean_transfer": {
+      "path": "ConnesWeilRH/Dev/C1RouteAStripTransfer.lean",
+      "md5": "9bcd576a9ade09702b07235ed1c9f6c2"
+    },
+    "envelope_artifact": "results/2303_corrected_strip_envelope.json",
+    "render_convention": "float64 renders of the 256-bit MPFR certified reduction; the radius pin is a sound upper of the render with slack >= 100 ulp asserted and <= 1e-6"
+  },
+  "failures": []
+}

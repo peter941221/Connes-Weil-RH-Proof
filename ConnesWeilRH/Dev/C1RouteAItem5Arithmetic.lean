@@ -1,7 +1,7 @@
 import ConnesWeilRH.Dev.C1SpectralSummability
 
 /-!
-# Route A item-5 transfer arithmetic (records 2245, 2248, 2249, 2253, 2255, 2310, 2311)
+# Route A item-5 transfer arithmetic (records 2245, 2248, 2249, 2253, 2255, 2310, 2311, 2312)
 
 This module freezes the rational arithmetic of the item-5 strict signed
 margin at the 2249 certified standing and proves, with `norm_num`, the
@@ -34,7 +34,14 @@ transfer-free full-tail ledger of records 2253/2255/2256:
 * the record 2311 certified strip envelope: the pinned centered-strip grid
   maximum (`stripGridMax2303`, record 2303) and continuum-transfer factor
   (`stripTransfer2303`) join below `bUpper2243`, machine-checked by
-  `norm_num` (`stripGridMax2303_mul_stripTransfer2303_le_bUpper2243`).
+  `norm_num` (`stripGridMax2303_mul_stripTransfer2303_le_bUpper2243`);
+* the record 2312 strip transfer arithmetic: the pinned support radius
+  (`stripRadius2303`, a sound upper of the record 2303 `owner.rmax` render)
+  and sigma half-step (`stripHalfStep2303`, the exact grid half-step), with
+  the transfer-exponent bound
+  `Real.exp (2 * stripRadius2303 * stripHalfStep2303) <= stripTransfer2303`
+  proved by `Real.exp_bound'` plus `norm_num`
+  (`real_exp_transfer_le_stripTransfer2303`).
 
 The numeric inputs remain artifact-level facts: the 2249 enclosure is a
 numeric certificate (first-order error shadow, not Lean-formalized), the
@@ -247,6 +254,36 @@ def stripTransfer2303 : Real := 1.0677312
 theorem stripGridMax2303_mul_stripTransfer2303_le_bUpper2243 :
     stripGridMax2303 * stripTransfer2303 <= bUpper2243 := by
   norm_num [stripGridMax2303, stripTransfer2303, bUpper2243]
+
+/-- Certified strip-support radius upper (record 2303): a sound upper of
+the committed `owner.rmax` render `6.553600000000003` of
+`results/2303_corrected_strip_envelope.json`, rounded up at the 7th
+decimal from the exact window radius `6.5536`.  The pin slack is 1e-7
+(about 1.1e8 ulp of the render), far above the ~4-ulp float64 render
+offset of the stored value, and small enough that the transfer exponent
+`2 * stripRadius2303 * stripHalfStep2303 = 0.065536001` keeps the
+transfer margin (2.4e-8 below `stripTransfer2303`) of record 2312
+intact. -/
+def stripRadius2303 : Real := 6.5536001
+
+/-- Certified strip sigma half-step (record 2303): the exact half-step of
+the 101-node sigma grid (`grid.half_step = 0.005`), the maximum distance
+from any `sigma` of the centered strip to a grid node. -/
+def stripHalfStep2303 : Real := 0.005
+
+/-- **Record 2312 transfer-exponent pin.**  The pinned radius and
+half-step exponentiate below the pinned continuum-transfer factor:
+`e^(2 * 6.5536001 * 0.005) = e^0.065536001 <= 1.0677312`.  Proved by the
+Mathlib Taylor bound `Real.exp_bound'` at order 6 (remainder about
+1.7e-11) with the exact-rational evaluation by `norm_num`; the slack
+below the pin is 2.4e-8, of which the Taylor remainder spends 1.7e-11. -/
+theorem real_exp_transfer_le_stripTransfer2303 :
+    Real.exp (2 * stripRadius2303 * stripHalfStep2303) <= stripTransfer2303 := by
+  refine (Real.exp_bound' (by norm_num [stripRadius2303, stripHalfStep2303])
+    (by norm_num [stripRadius2303, stripHalfStep2303]) (n := 6)
+    (by norm_num)).trans ?_
+  norm_num [stripRadius2303, stripHalfStep2303, stripTransfer2303,
+    Finset.sum_range_succ]
 
 end C1RouteAItem5Arithmetic
 end Source
