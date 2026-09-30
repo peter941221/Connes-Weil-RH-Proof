@@ -2795,3 +2795,59 @@ Lean instantiation of `frozenStripHypothesis_of_certified_nodes` with
 the 2315 packaged owner pair, leaving this table's 101-node bound as
 the single strip hypothesis; then the signed margin and the non-tail
 charge.  No producer GO, no gate sign change, no RH claim.
+
+### Record 2317: the strip consumer instantiated with the packaged owner pair; OWNER-NODES-WIRED
+
+The Lean side of the owner bridge closes.  New module
+`ConnesWeilRH/Dev/C1RouteAOwnerNodes.lean` (1 declaration, namespace
+`ConnesWeilRH.Dev`) instantiates the record 2313 consumer
+`frozenStripHypothesis_of_certified_nodes` with the record 2315 packaged
+owner pair:
+
+    theorem frozenStripHypothesis_of_owner_nodes
+      (baseCoefficients corrCoefficients : Fin 30 → ℂ)
+      (modulations : Fin 30 → ℝ)
+      (hnode : ∀ j : ℤ, −50 ≤ j → j ≤ 50 →
+        min (stripSecondNorm (j/100) (correctedPhysical base mods) *
+             stripNorm (j/100) (correctedPhysical corr mods))
+            (mirror term) ≤ stripGridMax2303) :
+      FrozenStripHypothesis (packaged base) (packaged corr)
+
+The proof is the consumer plus the record 2315 facts: the two support
+goals close by `correctedPhysicalCompactLogTest_tsupport_subset`, and
+the node goal rewrites the packaged tests back to the raw owner through
+the two `correctedPhysicalCompactLogTest_toFun` lemmas (explicit
+arguments — two instantiations share the goal) and closes by the
+hypothesis.  One shared modulation vector, matching the record 2275
+capture shape; the vectors stay free (the numeric instantiation is
+artifact-grade).  The residual strip hypothesis is now literally the
+record 2316 node table's 101-node bound.
+
+Pin check `scripts/routea_owner_nodes_lean_pin_2317.py` (verdict
+PINNED-OWNER-NODES-VERIFIED, failures empty): the record 2315 module
+(b88ce3ef…) and the record 2313 module (3581e512…) are byte-frozen
+against their pin artifacts; the record 2316 node artifact is frozen
+from here on (07d3f9e5…), verdict intact, table 101 contiguous rows
+with sigma = j/100 and max 2644542.851480454 at most the pin; the
+arithmetic pins file still b3fb88c3… (chain from 2312); statement
+guards cover the params, hnode binder, min shape, bound constant,
+conclusion, the consumer call, both tsupport calls, both toFun
+rewrites and the close; controls: synthetic statement probe, a mutated
+`≤ bUpper2243` constant fails the bound guard, a missing final newline
+fails the newline guard.
+
+Build acceptance: `build_2317_step1.log` (`Build completed successfully
+(3708 jobs)`, 0 errors, 0 sorryAx, 0 warnings from the new files after
+the trailing-newline fix); root `build_2317_root.log` (`Build completed
+successfully (4148 jobs)`, 0 errors, probe replay with `[propext,
+Classical.choice, Quot.sound]`; plan counts verbatim, no census delta
+claimed).  Two first-run incidents, both loud: `correctedPhysical`
+unknown until the record 2314 auxiliary namespace was opened (the 2315
+module carries the same `open ConnesWeilRH.Dev.C1RouteAOwnerScaleAudit`),
+and the `linter.style.whitespace` `'' starts on column N` warning is a
+missing final newline.  Grade: the strip lane is fully wired on the
+Lean side; remaining strip-lane work is only the numeric `hnode`
+instantiation for the captured vectors (the frozen 2316 table).  Then
+the signed margin and the non-tail charge feed the producer alongside
+the record 2310 gap closure; the selected-owner signed inequality
+remains the summit.  No producer GO, no gate sign change, no RH claim.

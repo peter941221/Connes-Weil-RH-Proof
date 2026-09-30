@@ -1,0 +1,74 @@
+{
+  "record": 2317,
+  "mode": "check",
+  "verdict": "PINNED-OWNER-NODES-VERIFIED",
+  "scope": "the record 2313 consumer instantiated with the record 2315 packaged owner pair; the residual strip hypothesis is the record 2316 node table's 101-node bound",
+  "pin": {
+    "lean_literal": "2644542.8515",
+    "nodes_2316_max_B_point": 2644542.851480454,
+    "nodes_2316_max_at_most_pin": true,
+    "node_table_rows": 101
+  },
+  "continuity": {
+    "owner_test_recorded": "b88ce3efc3132d0ce7ac76a6cea4920e",
+    "owner_test_live": "b88ce3efc3132d0ce7ac76a6cea4920e",
+    "grid_recorded": "3581e51273315f70394add69cfbd7647",
+    "grid_live": "3581e51273315f70394add69cfbd7647",
+    "arith_from_2316": "b3fb88c3dd1e2e289454193dfc000376",
+    "arith_live": "b3fb88c3dd1e2e289454193dfc000376",
+    "nodes_2316_live": "07d3f9e5f59b8daa4b398e4322694205",
+    "nodes_2316_frozen": "07d3f9e5f59b8daa4b398e4322694205"
+  },
+  "lean_guards": {
+    "theorem_decl": true,
+    "params": true,
+    "hnode_binder": true,
+    "hnode_min": true,
+    "hnode_base": true,
+    "hnode_corr": true,
+    "hnode_bound": true,
+    "conclusion": true,
+    "call_consumer": true,
+    "tsupport_calls": true,
+    "toFun_rewrites": true,
+    "close": true,
+    "no_sorry": true,
+    "trailing_newline": true,
+    "probe_axioms": true
+  },
+  "controls": {
+    "synthetic_statement": {
+      "regex_match": true,
+      "ok": true
+    },
+    "mutated_constant_rejected": {
+      "mutated_differs": true,
+      "guard_fails": true,
+      "ok": true
+    },
+    "missing_newline_rejected": {
+      "guard_fails": true,
+      "ok": true
+    }
+  },
+  "provenance": {
+    "lean_nodes": {
+      "path": "ConnesWeilRH/Dev/C1RouteAOwnerNodes.lean",
+      "md5": "68550f52601ad8b23920ec4f3813c676"
+    },
+    "lean_probe": {
+      "path": "ConnesWeilRH/Dev/C1RouteAOwnerNodesProbe.lean",
+      "md5": "8e5d8e86d43eafe029ac217c65898522"
+    },
+    "check_script": {
+      "path": "scripts/routea_owner_nodes_lean_pin_2317.py",
+      "md5": "83e2238627dd4cca937871b5590f09f4"
+    },
+    "inputs": [
+      "results/2315_owner_test_lean_pin.json",
+      "results/2313_grid_sampling_lean_pin.json",
+      "results/2316_node_values.json"
+    ]
+  },
+  "failures": []
+}
