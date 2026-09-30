@@ -2220,3 +2220,33 @@ dps 50-60, bitwise stable) gives `|C|` = 3.0363003090952906e-06,
 reading at x = 4 is 3.7e3x wrong. The weight lives at `|x| <= 2`, so a
 localized directed instrument on `[-2, 2]` is the natural successor to the
 global mesh. No verdict uses the unresolved band; no hgap, no route change.
+
+### Record 2306: the grouped flat-edge tail goes live; TAIL-SHARP-COVERED
+
+Record [2306](../proofs/2306_routea_hgap_tail_grouped_sharp.md) rebuilds the
+2304 mechanism as a direct grouped instrument and TURNS IT LIVE. The derivative
+h_f^{(N)} = e^{lambda_f y} e^{-K/s_f} Q_f is evaluated in the (u, s) variables
+with positive powers of s (one log-scaled exponential per Leibniz term); an
+expanded y-polynomial form was implemented first and rejected by measurement
+(coefficient-magnitude sums up to 1.37e16x the value near |y/R| ~ 0.5). The
+enclosure on 11277 rational cells uses honest triangle bounds: the coefficient
+triangle on |A_j|, the unimodal sup of e^{-K/s} s^{-m}, and derivative bounds
+from the exact ODE identity A_j' = (A_{j+1} - 2u(2j s - K) A_j)/s^2.
+
+Verdict TAIL-SHARP-COVERED at artifact grade. Best bound 2.145448788e-32 at
+N = 36 (margin 4.661029457099352e38 on the 1e7 budget); every N >= 16 clears
+(N = 16: 553.76, margin 1.81e4; N = 20: 2.620431005e-6, margin 3.82e12), only
+N = 8 and N = 12 are dead. The same order-20 cell that read 5.083377274e31
+before the u-space rewrite now reads 2.620431005e-6. Grouped inflation:
+base 1.008 at the crossing order, corr 4.60; cap-never-binding above N = 32.
+Controls: kappa variation moves the bound by <= 1.1e-7 relative over six
+decades of kappa; the mpmath Bell-path control puts the base cell bound 4.84x
+above the true sup at its argmax; 2304's own rigorous V values reproduce its
+recorded tail bounds through the 2306 formula to stored precision. Errata
+carried from 2304: the missing 2 R_f length factor and the 416x (not 74x)
+price arithmetic.
+
+Scope: this frees the tail half of hgap at artifact grade. The live constraint
+on the 1e7 budget is now the finite-window half (records 2295-2302); a
+certified window enclosure plus intervalization of this same cell scheme are
+the named successors. No hgap certificate, no producer GO, no route change.
