@@ -1,0 +1,33 @@
+{
+  "record": 2291,
+  "status": "FILON-GROUPED-VS-FAMILYWISE-PRICE",
+  "certificate": false,
+  "hgap_closed": false,
+  "rows": [
+    {
+      "channel": "base",
+      "values": {
+        "grouped_price": 2555286.2099296483,
+        "familywise_price": 10398014.396061596,
+        "grouped_sampled_max": 8415232337.638705
+      }
+    },
+    {
+      "channel": "corr",
+      "values": {
+        "grouped_price": 1546962.3252201038,
+        "familywise_price": 5527136453.209912,
+        "grouped_sampled_max": 5094555488.036463
+      }
+    }
+  ],
+  "nonclaims": [
+    "sampled maxima are not uniform bounds",
+    "familywise price is a feasibility comparison, not a certificate",
+    "no hgap supplier, producer GO or RH claim"
+  ],
+  "familywise_to_grouped": {
+    "base": 4.0692171216107615,
+    "corr": 3572.8966136415147
+  }
+}
