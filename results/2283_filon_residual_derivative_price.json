@@ -1,0 +1,76 @@
+{
+  "record": 2283,
+  "status": "FILON-RESIDUAL-DERIVATIVE-PRICE",
+  "certificate": false,
+  "hgap_closed": false,
+  "rows": [
+    {
+      "profile": "12:12",
+      "base": {
+        "panels": 12,
+        "degree": 12,
+        "derivative_order": 13,
+        "panel_width": 1.0922666666666672,
+        "sampled_derivative_max": 5.813129463793269e+24,
+        "interpolation_integral_bound": 746581262468.9159,
+        "max_panel_error": 358932330114.39044
+      },
+      "corr": {
+        "panels": 12,
+        "degree": 12,
+        "derivative_order": 13,
+        "panel_width": 1.0922666666666672,
+        "sampled_derivative_max": 6.92434740820488e+23,
+        "interpolation_integral_bound": 107876638665.92978,
+        "max_panel_error": 42754460660.62197
+      }
+    },
+    {
+      "profile": "18:16",
+      "base": {
+        "panels": 18,
+        "degree": 16,
+        "derivative_order": 17,
+        "panel_width": 0.7281777777777781,
+        "sampled_derivative_max": 2.7475657165501483e+32,
+        "interpolation_integral_bound": 40754980538.60653,
+        "max_panel_error": 26816729259.850475
+      },
+      "corr": {
+        "panels": 18,
+        "degree": 16,
+        "derivative_order": 17,
+        "panel_width": 0.7281777777777781,
+        "sampled_derivative_max": 2.9618992825600033e+31,
+        "interpolation_integral_bound": 5807142042.541634,
+        "max_panel_error": 2890866292.18418
+      }
+    },
+    {
+      "profile": "24:20",
+      "base": {
+        "panels": 24,
+        "degree": 20,
+        "derivative_order": 21,
+        "panel_width": 0.5461333333333336,
+        "sampled_derivative_max": 1.160720526277244e+40,
+        "interpolation_integral_bound": 428565441.69283235,
+        "max_panel_error": 329629612.67701757
+      },
+      "corr": {
+        "panels": 24,
+        "degree": 20,
+        "derivative_order": 21,
+        "panel_width": 0.5461333333333336,
+        "sampled_derivative_max": 1.424805867107102e+39,
+        "interpolation_integral_bound": 76334075.79111603,
+        "max_panel_error": 40462643.28768112
+      }
+    }
+  ],
+  "nonclaims": [
+    "sampled derivative maxima are not uniform derivative enclosures",
+    "residual price ignores kernel coupling and is only a feasibility screen",
+    "no hgap supplier, producer GO or RH claim"
+  ]
+}
