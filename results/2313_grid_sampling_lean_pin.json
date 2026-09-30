@@ -1,0 +1,99 @@
+{
+  "record": 2313,
+  "mode": "check",
+  "verdict": "PINNED-GRID-SAMPLING-VERIFIED",
+  "geometry": {
+    "lean_statement": {
+      "j_lo": 50,
+      "j_hi": 50,
+      "den": 100
+    },
+    "lean_consumer": {
+      "j_lo": 50,
+      "j_hi": 50
+    },
+    "artifact_sigma_nodes": 101,
+    "artifact_j_range": [
+      -50,
+      50
+    ],
+    "artifact_rows_contiguous_ok": true,
+    "sigma_render_max_diff": 0.0,
+    "sigma_render_ok": true,
+    "node_member_ok": true
+  },
+  "half_step": {
+    "lean_literal": "0.005",
+    "design_value": "1/200",
+    "artifact_render": 0.005,
+    "ok": true
+  },
+  "covering_radius": {
+    "sup_window_distance": "1/200",
+    "design_value": "1/200",
+    "lean_bound_target": "stripHalfStep2303",
+    "ok": true
+  },
+  "cross_record_frozen": {
+    "computed": {
+      "arith_recorded": "b3fb88c3dd1e2e289454193dfc000376",
+      "arith_live": "b3fb88c3dd1e2e289454193dfc000376",
+      "transfer_recorded": "9bcd576a9ade09702b07235ed1c9f6c2",
+      "transfer_live": "9bcd576a9ade09702b07235ed1c9f6c2"
+    },
+    "ok": true,
+    "note": "record 2312 module and arithmetic module hashes equal the record 2312 pin-artifact provenance"
+  },
+  "lean_guards": {
+    "sampling_theorem": true,
+    "statement_shape": true,
+    "floor_round": true,
+    "floor_lower": true,
+    "floor_upper": true,
+    "floor_bounds": true,
+    "nearest_half": true,
+    "abs_rewrite": true,
+    "pin_norm_num": true,
+    "consumer_theorem": true,
+    "consumer_node_hypothesis": true,
+    "consumer_corner_call": true,
+    "consumer_sampling_call": true,
+    "candidate_open": true,
+    "probe_axioms": true
+  },
+  "controls": {
+    "synthetic_parse": {
+      "stmt": {
+        "j_lo": 60,
+        "j_hi": 60,
+        "den": 120
+      },
+      "hnode": {
+        "j_lo": 60,
+        "j_hi": 60
+      },
+      "ok": true
+    },
+    "covering_predicate": {
+      "accepts_design": true,
+      "rejects_shift_6e3": true,
+      "rejects_short_grid": true,
+      "rejects_tight_bound": true,
+      "ok": true
+    }
+  },
+  "provenance": {
+    "lean_grid_sampling": {
+      "path": "ConnesWeilRH/Dev/C1RouteAGridSampling.lean",
+      "md5": "3581e51273315f70394add69cfbd7647"
+    },
+    "lean_probe": {
+      "path": "ConnesWeilRH/Dev/C1RouteAGridSamplingProbe.lean",
+      "md5": "44a6688c2728e1fb858013e1f55c25c7"
+    },
+    "envelope_artifact": "results/2303_corrected_strip_envelope.json",
+    "pin_2312_artifact": "results/2312_strip_transfer_lean_pin.json",
+    "render_convention": "artifact sigmas are float64 renders of the design nodes j/100; design values are compared in exact rationals"
+  },
+  "failures": []
+}

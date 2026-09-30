@@ -2562,3 +2562,62 @@ that `ring` sees as distinct -- use `ring_nf`, and give every new file a
 final newline (whitespace linter). No Lean formalization of the 2303
 reduction, no grid-sampling proof, no owner bridge, no producer GO, no
 gate sign change, no RH claim.
+
+### Record 2313: the grid-sampling arithmetic is machine-checked; GRID-SAMPLING-FORMALIZED
+
+The record 2312 "Lean-able next" item landed.  New module
+`ConnesWeilRH/Dev/C1RouteAGridSampling.lean` proves `gridSample2303`:
+every `sigma` in the centered window `[-1/2, 1/2]` lies within the
+pinned half-step `stripHalfStep2303` of a grid node `j / 100` with
+`j : Z`, `-50 <= j <= 50` -- the record 2303 sigma grid (101 nodes,
+spacing `1/100`, covering radius `1/200`).  The proof is the `Int.floor`
+round-to-nearest argument `j = floor (sigma * 100 + 1/2)`: index bounds
+by `Int.le_floor` / `Int.floor_le_iff`, distance bound by the floor
+sandwich `Int.floor_le` / `Int.lt_floor_add_one` giving
+`|sigma*100 - j| <= 1/2`, then `abs_div` and `norm_num` against the pin
+`stripHalfStep2303 = 1/200`.  No enumeration of the 101 nodes: the Lean
+statement is the continuum one.  The new consumer
+`frozenStripHypothesis_of_certified_nodes` takes node values only at
+the exact 101 nodes of the committed `grid_rows`, which together with
+the support-radius bound yields `FrozenStripHypothesis` through the
+2312 corner consumer.  The strip lane now reads: 101 node values
+(owner) + support radius (owner) -> `FrozenStripHypothesis` ->
+producer.
+
+Pin check `scripts/routea_grid_sampling_lean_pin_2313.py` (verdict
+PINNED-GRID-SAMPLING-VERIFIED, failures empty): the Lean statement
+geometry parses back exactly (50/50/100) and matches the committed
+artifact (101 contiguous `grid_rows` `-50..50`; all `sigma` renders
+round-trip to the design decimal `j/100` with max deviation 0.0); the
+half-step pin equals the exact design value `1/(2*(101-1)) = 1/200`
+and the committed `grid.half_step` render; the covering radius is
+certified exactly in `Fraction` arithmetic (distance-to-nearest-node
+sup over the window, attained on endpoints/nodes/midpoints, equals
+`1/200` = the Lean bound target); and cross-record hash continuity is
+asserted -- the live md5s of the 2312 files (`b3fb88c3...` arithmetic,
+`9bcd576a...` transfer) equal the hashes recorded in the 2312 pin
+artifact, so the 2312 module is provably byte-frozen.  Controls:
+synthetic 60/60/120 parse, shift +6e-3 rejection, short-grid (100
+nodes) rejection, tight-bound (1/1000) rejection.  One control premise
+was falsified by measurement first: a uniform +1e-3 node shift does NOT
+break the covering radius at midpoints (only the window endpoints move,
+and 1e-3 < 1/200), so the rejection control uses a shift above the
+radius -- a negative control must falsify the bound, not merely perturb
+the object.
+
+Build acceptance: `build_2313_step1.log` (`Build completed successfully
+(3573 jobs)`, 0 errors, 0 sorryAx, 0 warnings from the two new files);
+root `build_2313_root.log` (`Build completed successfully (4245 jobs)`,
+0 errors, replayed probe output carrying `[propext, Classical.choice,
+Quot.sound]` for both declarations; both root runs report 4245, so no
+per-module census delta is claimed).  Grade: the covering arithmetic is
+a Lean theorem with no hypothesis; the residual strip-lane inputs are
+exactly the 101 node values and the support radius, both owner-bridge
+obligations.  Lessons locked (AGENTS §2ae): control-premise validation
+(a control must fail the bound when the object is broken -- verify the
+rejection case exceeds the threshold before trusting it); regex/parse
+guards must be run against the real source once before the artifact is
+trusted (the first `(100)`-vs-`100` pattern slip was caught only by the
+first run); cross-record hash continuity makes "old files untouched"
+mechanically checkable when pin artifacts record md5s.  No owner
+bridge, no producer GO, no gate sign change, no RH claim.
