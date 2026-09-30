@@ -2167,3 +2167,56 @@ Next enclose the continuous full kernel and annihilator on the same cells,
 then sum the cell majorants with directed arithmetic. Arithmetic models,
 sampled weights, infinite tails and actual selected-owner readback are still
 not certificates or hgap suppliers.
+
+### Record 2303: corrected-owner strip envelope certified at artifact grade
+
+Record [2303](../proofs/2303_routea_corrected_strip_envelope.md) rebuilds the
+2267 centered-strip reduction on the corrected physical owner of 2276, whose
+profiles are `phi_(a^2)(y) exp(i theta y)`. Only the family-radius interface
+changes, because the 2234/2238/2242 machinery is radius-generic. The result is
+CORRECTED-STRIP-COVERED: certified continuum sup 2823660.8460007603 against the
+frozen `bUpper2243` 9506275.102584327, margin 3.36664904924696x.
+
+All four 2242 pavements are ZERO-FREE-CERTIFIED on the corrected radii and the
+single-family edge arc is certified by the exact `e1^2 + e2` factorization. The
+raw 2277 reading 337039.47691484215 is reproduced bitwise and every certified
+point sum is an upper of its raw row. The binding channel switches to `a` at
+sigma = -0.5, so the corrected corr_D2 inflation enters only the non-binding
+channel. The frozen constant is unchanged; `hstrip` stays a Lean hypothesis and
+the owner-identification bridge remains open.
+
+### Record 2304: flat-edge moment tail; probe-grade no-go with a measured price
+
+Record [2304](../proofs/2304_routea_hgap_tail_moment_probe.md) prices the
+infinite-xi tail by flat-edge integration by parts: the profile is flat at its
+support edge, so every boundary term vanishes and `|B(xi)| <= V_N/(2 pi xi)^N`.
+Verdict TAIL-MOMENT-DEAD at probe grade: the best closed-form bound over the
+tested orders is 2.9973776e17 at N = 28, above the 1e7 budget, while the
+measured ladder clears the budget by 4.3e12 at N = 20.
+
+The failure is entirely the closed-form sup-ladder: the partition majorant is
+1.1229e-11 at j = 1 against a measured 4.5095e-13 and grows to 9.8537e30 at
+j = 20. Certification price: a ladder within 74x of the partition majorant at
+N = 28, with grouped interval Bell evaluation (2291 law) and sharper partition
+algebra as the named suppliers. A probe erratum (inverted `sup_{s<=1}` branch)
+was caught and recorded.
+
+### Record 2305: M2 cap and per-cell intervalization both priced out
+
+Record [2305](../proofs/2305_routea_hgap_trapz_m2_probe.md) prices the two
+remaining window instruments on the ideal integrand. The 2275 trapezoid cap
+needs `M2 <= 3.75e9`; the measured `|Gi''|` reaches 1.610654527471709e15 on the
+precision-validated zone alone, so M2-CAP-FAILED by 4.30e5x. The panel-local
+sum at the design h = 1/50 is PANEL-LOCAL-FAILED by at least 398x and needs
+h <= 1.0e-3. Exact per-cell intervalization of the prime-power cosine sum, the
+quartic annihilator and the sigma slope charges at least 1.08e4x budget, so
+KERNEL-INTERVAL-FAILED-NEEDS-GROUPING.
+
+The structural result is a precision finding: the corr coefficient scale is
+5.69e17 and the float64 family-sum cancellation floor is 3.086636908941589e5,
+so float64 loses `|C|` past `|x| ~ 1`; the high-precision control (mpmath,
+dps 50-60, bitwise stable) gives `|C|` = 3.0363003090952906e-06,
+4.2780015472502136e-10, 9.440112224881565e-16 at x = 1, 2, 4, and the float64
+reading at x = 4 is 3.7e3x wrong. The weight lives at `|x| <= 2`, so a
+localized directed instrument on `[-2, 2]` is the natural successor to the
+global mesh. No verdict uses the unresolved band; no hgap, no route change.

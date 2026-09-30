@@ -1,0 +1,195 @@
+{
+  "record": 2305,
+  "certificate": false,
+  "budget": 10000000.0,
+  "window": [
+    -40.0,
+    40.0
+  ],
+  "dense_window": [
+    -4.0,
+    4.0
+  ],
+  "ann_coeffs": [
+    2374535.362188256,
+    -1.901412360894028e-11,
+    -121637.48109334442,
+    1.8189894035458565e-12,
+    1558.5454565440386
+  ],
+  "prime_power_count": 41136,
+  "gl": {
+    "panels": 40,
+    "nodes": 16
+  },
+  "gl_control": {
+    "x": [
+      1.0,
+      2.0,
+      4.0
+    ],
+    "abs_B_40x16": [
+      0.19635569794827626,
+      2.6904624211890193e-05,
+      2.499441828729473e-09
+    ],
+    "abs_C_40x16": [
+      3.036293879995737e-06,
+      4.384012755890616e-10,
+      3.5115963750531638e-12
+    ],
+    "abs_B_80x16": [
+      0.19635569794827376,
+      2.69046242147548e-05,
+      2.4994415420011687e-09
+    ],
+    "abs_C_80x16": [
+      3.036300918908992e-06,
+      4.2595859210133465e-10,
+      1.1865233726617331e-11
+    ],
+    "abs_B_40x32": [
+      0.19635569794828575,
+      2.69046242141249e-05,
+      2.499441180934028e-09
+    ],
+    "abs_C_40x32": [
+      3.036303592555187e-06,
+      4.062249035618359e-10,
+      3.55697276772408e-12
+    ],
+    "abs_B_pa_16": [
+      0.19635569794827437,
+      2.690462421405517e-05,
+      2.499449842417043e-09
+    ],
+    "abs_C_pa_16": [
+      3.036302407731517e-06,
+      4.365875649830709e-10,
+      4.624340228024034e-11
+    ],
+    "abs_B_pa_32": [
+      0.19635569794827634,
+      2.6904624214722095e-05,
+      2.4994213451843704e-09
+    ],
+    "abs_C_pa_32": [
+      3.036299850650373e-06,
+      4.3552384871819363e-10,
+      1.0053437873122304e-10
+    ]
+  },
+  "precision": {
+    "noise_floor_base": 206.94777571805758,
+    "noise_floor_corr": 308663.6908941589,
+    "noise_floor_note": "sum |c_f| R_f int e^{-K/(1-u^2)} du: the maximal family cancellation scale; float64 resolves the transform only where |B| or |C| stays above ~1e-16 of it",
+    "mp_x": [
+      1.0,
+      2.0,
+      4.0
+    ],
+    "abs_B_mp_1.0": 0.19635569794827712,
+    "abs_C_mp_1.0": 3.0363003090952906e-06,
+    "abs_B_mp_2.0": 2.6904624215247886e-05,
+    "abs_C_mp_2.0": 4.2780015472502136e-10,
+    "abs_B_mp_4.0": 2.499440681570086e-09,
+    "abs_C_mp_4.0": 9.440112224881565e-16
+  },
+  "trusted_zone": {
+    "abs_x_le": 1.0,
+    "justification": "setting-doubling agreement 2e-6 relative at x = 1; |C(2)|, |C(4)| sit at or below the corr float64 noise floor in the control table"
+  },
+  "global_scan": {
+    "h": 0.1,
+    "points": 800,
+    "sup_abs_Gi2_inside_dense_window": 2.9971164459771034e+22,
+    "sup_abs_Gi_inside_dense_window": 2.1214997350601871e+18,
+    "sup_abs_Gi2_outside_dense_window": 1.5887546361935117e+28,
+    "argmax_x_outside": -39.95,
+    "outside_note": "at |x| > 4 the transform term scale is O(1) while the true decay is e^{-c sqrt(x)}; the sampled values there are float64 cancellation noise (same mechanism as the 2304 calibration) and are excluded from M2"
+  },
+  "m2_rows": [
+    {
+      "h": 0.02,
+      "cells": 400,
+      "sup_abs_Gi2_dense_window": 3.996405448204249e+22,
+      "argmax_x": -3.6500000000000004,
+      "sup_by_region": {
+        "abs_x_le_0.5": 6201067194097.186,
+        "abs_x_le_1.0": 928419958426094.0,
+        "abs_x_le_1.5": 5.276840206615754e+17,
+        "abs_x_le_3.0": 3.00741272064492e+22,
+        "abs_x_le_4.0": 3.996405448204249e+22
+      },
+      "panel_local_mass": 9.3459459235296e+17,
+      "mass_by_region": {
+        "abs_x_le_0.5": 14808732.300243549,
+        "abs_x_le_1.0": 3878282833.23157,
+        "abs_x_le_1.5": 1136665567714.673,
+        "abs_x_le_3.0": 2.711944208261444e+17,
+        "abs_x_le_4.0": 9.3459459235296e+17
+      },
+      "mass_per_length": 1.1682432404412e+17,
+      "over_budget": 93459459235.296
+    },
+    {
+      "h": 0.005,
+      "cells": 1600,
+      "sup_abs_Gi2_dense_window": 4.035286586833944e+22,
+      "argmax_x": -3.6675,
+      "sup_by_region": {
+        "abs_x_le_0.5": 6472043495690.401,
+        "abs_x_le_1.0": 1610654527471709.2,
+        "abs_x_le_1.5": 6.832270221115519e+17,
+        "abs_x_le_3.0": 3.09328833878423e+22,
+        "abs_x_le_4.0": 4.035286586833944e+22
+      },
+      "panel_local_mass": 5.2491159499288424e+16,
+      "mass_by_region": {
+        "abs_x_le_0.5": 748304.6897587209,
+        "abs_x_le_1.0": 248725423.3683885,
+        "abs_x_le_1.5": 80030468230.02486,
+        "abs_x_le_3.0": 1.6064141511715342e+16,
+        "abs_x_le_4.0": 5.2491159499288424e+16
+      },
+      "mass_per_length": 6561394937411053.0,
+      "over_budget": 5249115949.928843
+    }
+  ],
+  "global_route": {
+    "M2_sampled_resolvable_window": 2.9971164459771034e+22,
+    "M2_lower_bound_trusted_zone": 1610654527471709.2,
+    "bound_at_h_1_50_from_lower_bound": 4295078739924.558,
+    "needs_M2_for_budget": 3750000000.0,
+    "cap_failure_factor": 429507.8739924558
+  },
+  "p4_verdict": "M2-CAP-FAILED",
+  "panel_local_route": {
+    "mass_over_dense_window_at_h_0.005": 5.2491159499288424e+16,
+    "mass_trusted_zone_at_h_0.005": 248725423.3683885,
+    "quadratic_coefficient_trusted_zone": 9949016934735.54,
+    "failure_factor_at_design_h_0.02_from_lower_bound": 397.96067738942156,
+    "required_h_upper_bound_from_lower_bound": 0.001002558942134511,
+    "h_squared_trend_ratio": 4.219573428450085
+  },
+  "p4_panel_local_verdict": "PANEL-LOCAL-FAILED",
+  "p3": {
+    "h": 0.02,
+    "cells": 400,
+    "sigma_prime_cap": 54.02700293316511,
+    "sigma_slope_charge_per_cell": 1.0805400586633023,
+    "prime_width_max": 2848.7562906663193,
+    "prime_width_mean": 2389.6687626920107,
+    "prime_triangle_width": 5603.004217032817,
+    "ann_width_max": 11698.555732552893,
+    "kernel_width_max": 2849.8368307249825,
+    "abs_weight_max": 804000014894214.4,
+    "integrated_kernel_interval_error": 1.0246081802409792e+18,
+    "integrated_kernel_squared_interval_error": 8.861925680429115e+19,
+    "integrated_kernel_squared_interval_error_trusted_zone": 108462012629.76184,
+    "per_cell_budget_share": 25000.0,
+    "over_budget": 8861925680429.115,
+    "over_budget_trusted_zone": 10846.201262976185
+  },
+  "p3_verdict": "KERNEL-INTERVAL-FAILED-NEEDS-GROUPING"
+}
