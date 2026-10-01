@@ -3677,6 +3677,15 @@ Evidence: scripts/routea_directed_span_partition_audit_2394.py,
 docs/proofs/2394_directed_span_partition_audit.md, and
 results/2394_directed_span_partition_audit.json.
 
+Record 2395 (2026-10-02): an AST source audit, bound to the 2385 hashes,
+confirms that directed point terms use the MPFR norm/weight path, RNDU
+conversion, and RNDU accumulation; the diagnostic `math.hypot` path is not
+used by the directed worker. This is path evidence, not a term-dominance
+theorem or Lean numeric import. Evidence:
+scripts/routea_directed_term_path_audit_2395.py,
+docs/proofs/2395_directed_term_path_audit.md, and
+results/2395_directed_term_path_audit.json.
+
 Record 2392 (2026-10-02): an independent artifact readback checks the 2385
 source hashes, four-channel directed-roundup dominance, channel alignment,
 and exact 2386 bridge readback. These controls pass, while Lean numeric import

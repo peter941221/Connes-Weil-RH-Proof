@@ -1,0 +1,13 @@
+{
+  "directed_binary64_accumulation_rndu_present": true,
+  "kernel_point_box_path_present": true,
+  "lean_numeric_imported": false,
+  "measurement_hypot_excluded_from_directed_worker": true,
+  "mpfr_term_to_binary64_rndu_present": true,
+  "numeric_term_dominance_theorem_proved": false,
+  "producer_go": false,
+  "record": 2395,
+  "rh_claim": false,
+  "source_hashes_match": true,
+  "status": "DIRECTED_TERM_CONSTRUCTION_PATH_AUDIT_PASS"
+}
