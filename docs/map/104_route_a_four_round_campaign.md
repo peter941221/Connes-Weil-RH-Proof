@@ -3786,3 +3786,24 @@ Evidence:
 `scripts/routea_pointbox_mpmath_control_2413.py`,
 `docs/proofs/2413_pointbox_mpmath_control.md`, and
 `results/2413_pointbox_mpmath_control.json`.
+
+Record 2414 (2026-10-02): after the named four-ULP public hull repair, the
+776611-node Linux replay was regenerated with current source hashes.  Its
+independent readback passes the 39-span partition and finite/nonnegative
+witness checks.  Evidence: `docs/proofs/2414_repaired_fullgrid_replay.md`,
+`results/2414_repaired_shared_geometry_776611.json`, and
+`results/2414_span_witness_audit.json`.
+
+Record 2415 (2026-10-02): the composite bridge was rerun from the current
+2414 per-span witnesses, retaining parent-reduction totals separately.  It is
+still interface-only: mathematical-term dominance and Lean numeric import
+are open.  Evidence: `docs/proofs/2415_repaired_span_composite_bridge.md`,
+`results/2415_repaired_span_composite_bridge.json`.
+
+Record 2416 (2026-10-02): the current artifact passed the independent
+exact-rational-operand, 90-digit mpmath control at 5001 uniform nodes and all
+four channels: 20004/20004 contained, zero failures, current source hashes
+matching.  This is sampled control only, not full-domain enclosure or Lean
+numeric import.  Evidence:
+`docs/proofs/2416_current_pointbox_mpmath_control.md`,
+`results/2416_pointbox_mpmath_control.json`.

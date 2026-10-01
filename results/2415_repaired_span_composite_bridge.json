@@ -1,0 +1,56 @@
+{
+  "analytic_trapezoid_remainder_theorem_proved": true,
+  "input_hashes": {
+    "old_bridge": "5ceaf540f89bacb546575b03a87fefde9cc9ae581e52fe732ec64db7496289f6",
+    "span": "2d423efc2fd66248d8bb661312f2ee4ec29141098298eb6e91b958a395167d26"
+  },
+  "lean_bridge_theorem": "repaired_fullgrid_partition_eq2410 + compositeNodeUpper_le_of_nodewise_coordinate_charge2359",
+  "nodes": 776611,
+  "numeric_trapezoid_remainder_imported": false,
+  "pointwise_mathematical_term_dominance_proved": false,
+  "producer_go": false,
+  "record": 2415,
+  "rh_claim": false,
+  "rows": [
+    {
+      "assembled_upper": 2.6889077598328956,
+      "channel": "base_M0",
+      "coordinate_charge": 3.048126404287535e-09,
+      "ideal_node_composite_upper": 2.6867143326956566,
+      "panel_remainder": 0.0021934271372390196,
+      "parent_roundup_node_composite": 2.686714329647529,
+      "span_sum_node_composite": 2.6867143296475304
+    },
+    {
+      "assembled_upper": 8616.457033936527,
+      "channel": "base_D2",
+      "coordinate_charge": 1.2955887138284451e-05,
+      "ideal_node_composite_upper": 8606.214410607268,
+      "panel_remainder": 10.24262332925951,
+      "parent_roundup_node_composite": 8606.214397651378,
+      "span_sum_node_composite": 8606.214397651382
+    },
+    {
+      "assembled_upper": 94.12144638464149,
+      "channel": "corr_M0",
+      "coordinate_charge": 4.845846989423805e-06,
+      "ideal_node_composite_upper": 90.78788709961759,
+      "panel_remainder": 3.333559285023898,
+      "parent_roundup_node_composite": 90.78788225377056,
+      "span_sum_node_composite": 90.7878822537706
+    },
+    {
+      "assembled_upper": 137991.35866301076,
+      "channel": "corr_D2",
+      "coordinate_charge": 0.018025814446196477,
+      "ideal_node_composite_upper": 125446.72936077777,
+      "panel_remainder": 12544.629302232996,
+      "parent_roundup_node_composite": 125446.71133496327,
+      "span_sum_node_composite": 125446.71133496333
+    }
+  ],
+  "span_count": 39,
+  "span_witness_imported_to_lean": false,
+  "span_witness_readback_pass": true,
+  "status": "REPAIRED_SPAN_COMPOSITE_BRIDGE_INTERFACE_ONLY"
+}
