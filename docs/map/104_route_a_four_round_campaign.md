@@ -3751,7 +3751,8 @@ Evidence: docs/proofs/2409_routea_source_chain_rebuild.md and commit
 Record 2410 (2026-10-02): the directed-accumulation source now proves the
 contiguous finite-sum partition identity
 `finite_sum_eq_contiguous_partition2394` from span-start recurrence and final
-coverage.  Its audit uses only `[propext, Classical.choice, Quot.sound]`.
-The concrete 39-span replay has not yet been instantiated in Lean, and the
-pointwise MPFR-to-mathematical-term dominance remains open. Evidence:
+coverage, and specializes it to the recorded 39-span, 776611-node replay in
+`repaired_fullgrid_partition_eq2410`.  Its audit uses only
+`[propext, Classical.choice, Quot.sound]`.  The pointwise MPFR-to-
+mathematical-term dominance remains open. Evidence:
 `ConnesWeilRH/Dev/C1RouteADirectedAccumulation.lean` and its audit.

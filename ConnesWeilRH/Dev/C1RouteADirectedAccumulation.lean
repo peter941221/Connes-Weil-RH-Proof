@@ -113,4 +113,32 @@ theorem finite_sum_eq_contiguous_partition2394
   rw [← hend]
   exact hprefix spans le_rfl
 
+def repairedSpanStart2410 (span : ℕ) : ℕ :=
+  if span ≤ 38 then span * 20001 else 776611
+
+def repairedSpanLength2410 (span : ℕ) : ℕ :=
+  if span < 38 then 20001 else 16573
+
+theorem repaired_fullgrid_partition_eq2410 (term : ℕ → ℝ) :
+    ∑ index ∈ Finset.range 776611, term index =
+      ∑ span ∈ Finset.range 39,
+        ∑ index ∈ Finset.range (repairedSpanLength2410 span),
+          term (repairedSpanStart2410 span + index) := by
+  apply finite_sum_eq_contiguous_partition2394 term
+    repairedSpanStart2410 repairedSpanLength2410 39 776611
+  · simp [repairedSpanStart2410]
+  · intro span hspan
+    by_cases hlt : span < 37
+    · have hlt38 : span < 38 := by omega
+      have hnextlt38 : span + 1 < 38 := by omega
+      have hle37 : span ≤ 37 := by omega
+      have hle38 : span ≤ 38 := by omega
+      simp [repairedSpanStart2410, repairedSpanLength2410, hle37, hle38,
+        hlt38, hnextlt38]
+      omega
+    · have hcases : span = 37 ∨ span = 38 := by omega
+      rcases hcases with rfl | rfl <;>
+        simp [repairedSpanStart2410, repairedSpanLength2410] <;> norm_num
+  · simp [repairedSpanStart2410]
+
 end ConnesWeilRH.Dev

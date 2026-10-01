@@ -20,5 +20,8 @@ check is a library inventory, not a replacement for the source audit.
 The partition equality is now also proved in Lean by
 `finite_sum_eq_contiguous_partition2394`: contiguous span starts, lengths,
 and endpoint coverage imply the exact finite-sum decomposition.  This closes
-the analytic/index identity; it does not prove the stored MPFR terms dominate
-the mathematical terms.
+the analytic/index identity.  The concrete replay instance
+`repaired_fullgrid_partition_eq2410` instantiates the recorded `39` spans,
+`20001` regular span length, `16573` final span length, and `776611` total
+nodes.  This still does not prove the stored MPFR terms dominate the
+mathematical terms.
