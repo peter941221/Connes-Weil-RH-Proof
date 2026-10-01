@@ -3705,6 +3705,18 @@ scripts/routea_pointbox_mpmath_containment_control_2397.py,
 docs/proofs/2397_pointbox_mpmath_containment_control.md, and
 results/2397_pointbox_mpmath_containment_control.json.
 
+Record 2398 (2026-10-02): the 2397 enclosure escape was repaired in a scoped
+evaluator revision: k=2 constants and angle endpoints now use directed
+intervals, and public binary64 endpoints take one explicit outward `nextafter`
+step after MPFR conversion. The independent 90-digit mpmath probe then
+contained all 4004/4004 values on 1001 points. Because the evaluator hash no
+longer matches the 2385 full-grid artifact, this is not a refreshed full-grid
+certificate; regeneration and the remaining mathematical/Lean obligations are
+still required. Evidence:
+scripts/routea_pointbox_mpmath_containment_control_2397.py,
+docs/proofs/2398_pointbox_mpmath_containment_repaired_probe.md, and
+results/2398_pointbox_mpmath_containment_repaired_probe.json.
+
 Record 2392 (2026-10-02): an independent artifact readback checks the 2385
 source hashes, four-channel directed-roundup dominance, channel alignment,
 and exact 2386 bridge readback. These controls pass, while Lean numeric import

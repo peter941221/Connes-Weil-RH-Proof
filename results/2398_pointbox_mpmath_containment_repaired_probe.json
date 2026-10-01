@@ -1,0 +1,21 @@
+{
+  "artifact_evaluator_source_sha256": "f88fd190123375ae0fae38521d65ae1fb86095f2d60179a448d04fac30152200",
+  "channels": 4,
+  "checked_point_channel_values": 4004,
+  "containment_failures": 0,
+  "current_evaluator_source_sha256": "32333155791b898feb80effcac020dd9b4741bd43058d876d2abbd6c1fa09a9c",
+  "evaluator_revision_probe": true,
+  "first_failure": null,
+  "full_real_domain_enclosure_proved": false,
+  "lean_numeric_imported": false,
+  "mpmath_dps": 90,
+  "nodes": 1001,
+  "producer_go": false,
+  "record": 2398,
+  "rh_claim": false,
+  "source_hashes_match": false,
+  "status": "POINTBOX_MPMATH_CONTAINMENT_REPAIRED_PROBE_PASS",
+  "stored_operands_converted_exactly": true,
+  "worst_relative_violation": 0.0,
+  "worst_row": null
+}

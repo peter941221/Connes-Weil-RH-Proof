@@ -178,11 +178,16 @@ class Kernel:
                 continue
             rec = {"a": mk(a), "th": mk(th), "th_abs": mk(abs(th)),
                    "cre": mk(cr), "cim": mk(ci)}
-            d = M()
-            MUL(BR(d.x), BR(rec["a"].x), BR(rec["a"].x), RNDN)
-            s2a2 = M()
-            DIV(BR(s2a2.x), BR(SIXTY.x), BR(d.x), RNDN)
-            rec["s2a2"] = s2a2
+            d_lo = M()
+            d_hi = M()
+            MUL(BR(d_lo.x), BR(rec["a"].x), BR(rec["a"].x), RNDD)
+            MUL(BR(d_hi.x), BR(rec["a"].x), BR(rec["a"].x), RNDU)
+            s2a2_lo = M()
+            s2a2_hi = M()
+            DIV(BR(s2a2_lo.x), BR(SIXTY.x), BR(d_hi.x), RNDD)
+            DIV(BR(s2a2_hi.x), BR(SIXTY.x), BR(d_lo.x), RNDU)
+            rec["s2a2_lo"] = s2a2_lo
+            rec["s2a2_hi"] = s2a2_hi
             invd = M()
             DIV(BR(invd.x), BR(ONE.x), BR(rec["a"].x), RNDD)
             rec["inv_d"] = invd
@@ -190,16 +195,23 @@ class Kernel:
             DIV(BR(invu.x), BR(ONE.x), BR(rec["a"].x), RNDU)
             rec["inv_u"] = invu
             if k == 2:
-                t2 = M()
-                MUL(BR(t2.x), BR(rec["th"].x), BR(rec["th"].x), RNDN)
-                rec["t2"] = t2
-                mr = M()
+                t2_lo = M()
+                t2_hi = M()
+                MUL(BR(t2_lo.x), BR(rec["th"].x), BR(rec["th"].x), RNDD)
+                MUL(BR(t2_hi.x), BR(rec["th"].x), BR(rec["th"].x), RNDU)
+                rec["t2_lo"] = t2_lo
+                rec["t2_hi"] = t2_hi
+                mr_lo = M()
+                mr_hi = M()
                 t120 = mk(-120.0)
-                MUL(BR(mr.x), BR(t120.x), BR(rec["th"].x), RNDN)
-                fq = M()
-                DIV(BR(fq.x), BR(mr.x), BR(rec["a"].x), RNDN)
-                rec["fq"] = fq
-                rec["fq_sgn"] = icmp(fq, ZERO)
+                MUL(BR(mr_lo.x), BR(t120.x), BR(rec["th"].x), RNDD)
+                MUL(BR(mr_hi.x), BR(t120.x), BR(rec["th"].x), RNDU)
+                fq_lo = M()
+                fq_hi = M()
+                DIV(BR(fq_lo.x), BR(mr_lo.x), BR(rec["a"].x), RNDD)
+                DIV(BR(fq_hi.x), BR(mr_hi.x), BR(rec["a"].x), RNDU)
+                rec["fq_lo"] = fq_lo
+                rec["fq_hi"] = fq_hi
             self.recs.append(rec)
         self.T = [M() for _ in range(64)]
         self.acc = [M() for _ in range(4)]
@@ -267,7 +279,11 @@ class Kernel:
                 # arc of e^{i theta x} over the box (endpoints + delta)
                 p1, p2 = T[15], T[16]
                 MUL(BR(p1.x), BR(rec["th"].x), BR(xlo_m.x), RNDD)
-                MUL(BR(p2.x), BR(rec["th"].x), BR(xhi_m.x), RNDD)
+                # The second endpoint is the upper side of the product
+                # enclosure.  Using RNDD here leaves the exact endpoint
+                # outside the angle interval at a point box, which is
+                # visible only at cancellation-scale imaginary parts.
+                MUL(BR(p2.x), BR(rec["th"].x), BR(xhi_m.x), RNDU)
                 thmin, thmax = T[17], T[18]
                 imin(thmin, p1, p2)
                 imax(thmax, p1, p2)
@@ -358,25 +374,17 @@ class Kernel:
                 prL, prH = T[46], T[47]
                 iprod(prL, prH, g2lo, g2hi, f4L, f4H, T)
                 P_lo, P_hi = T[48], T[49]
-                MUL(BR(P_lo.x), BR(rec["s2a2"].x), BR(prL.x), RNDD)
-                MUL(BR(P_hi.x), BR(rec["s2a2"].x), BR(prH.x), RNDU)
-                MUL(BR(tq.x), BR(rec["t2"].x), BR(phihi.x), RNDU)
-                SUB(BR(P_lo.x), BR(P_lo.x), BR(tq.x), RNDD)
-                MUL(BR(tq.x), BR(rec["t2"].x), BR(philo.x), RNDD)
-                SUB(BR(P_hi.x), BR(P_hi.x), BR(tq.x), RNDU)
+                iprod(P_lo, P_hi, rec["s2a2_lo"], rec["s2a2_hi"],
+                      prL, prH, T)
+                iprod(q2, q4, rec["t2_lo"], rec["t2_hi"],
+                      philo, phihi, T)
+                SUB(BR(P_lo.x), BR(P_lo.x), BR(q2.x), RNDD)
+                SUB(BR(P_hi.x), BR(P_hi.x), BR(q4.x), RNDU)
                 rl_, rh_ = T[50], T[51]
                 iprod(rl_, rh_, u_lo, u_hi, f2L, f2H, T)
                 Q_lo, Q_hi = T[46], T[47]
-                sgn = rec["fq_sgn"]
-                if sgn == 0:
-                    SET(BR(Q_lo.x), BR(ZERO.x), RNDN)
-                    SET(BR(Q_hi.x), BR(ZERO.x), RNDN)
-                elif sgn > 0:
-                    MUL(BR(Q_lo.x), BR(rec["fq"].x), BR(rl_.x), RNDD)
-                    MUL(BR(Q_hi.x), BR(rec["fq"].x), BR(rh_.x), RNDU)
-                else:
-                    MUL(BR(Q_lo.x), BR(rec["fq"].x), BR(rh_.x), RNDD)
-                    MUL(BR(Q_hi.x), BR(rec["fq"].x), BR(rl_.x), RNDU)
+                iprod(Q_lo, Q_hi, rec["fq_lo"], rec["fq_hi"],
+                      rl_, rh_, T)
                 reL, reH, imL, imH = T[38], T[39], T[40], T[41]
                 ciprod(reL, reH, imL, imH, cLo, cHi, sLo, sHi,
                        P_lo, P_hi, Q_lo, Q_hi, T)
@@ -387,13 +395,24 @@ class Kernel:
             ADD(BR(acc[1].x), BR(acc[1].x), BR(trh.x), RNDU)
             ADD(BR(acc[2].x), BR(acc[2].x), BR(til.x), RNDD)
             ADD(BR(acc[3].x), BR(acc[3].x), BR(tih.x), RNDU)
-        for o in acc:
+        # Preserve the hull direction: lower endpoints move downward and
+        # upper endpoints move upward.  Moving every accumulator below can
+        # narrow the returned box at cancellation-scale values.
+        for o in (acc[0], acc[2]):
             for _ in range(NOZERO_ULPS):
                 lib.mpfr_nextbelow(o.x)
-        lo_r = acc[0].get_d(RNDD)
-        hi_r = acc[1].get_d(RNDU)
-        lo_i = acc[2].get_d(RNDD)
-        hi_i = acc[3].get_d(RNDU)
+        for o in (acc[1], acc[3]):
+            for _ in range(NOZERO_ULPS):
+                lib.mpfr_nextabove(o.x)
+        # The public evaluator returns binary64 endpoints.  MPFR ulps are
+        # far finer than a binary64 ulp at cancellation-scale values, so the
+        # directed MPFR-to-float conversion needs one explicit outward step
+        # after get_d; otherwise the rounded double can still undercut the
+        # exact high-precision value by a few 1e-33.
+        lo_r = float(np.nextafter(acc[0].get_d(RNDD), -np.inf))
+        hi_r = float(np.nextafter(acc[1].get_d(RNDU), np.inf))
+        lo_i = float(np.nextafter(acc[2].get_d(RNDD), -np.inf))
+        hi_i = float(np.nextafter(acc[3].get_d(RNDU), np.inf))
         ok = (icmp(acc[0], ZERO) > 0 or icmp(acc[1], ZERO) < 0
               or icmp(acc[2], ZERO) > 0 or icmp(acc[3], ZERO) < 0)
         # floor: distance of the hull to the origin (lower bound of |h|)

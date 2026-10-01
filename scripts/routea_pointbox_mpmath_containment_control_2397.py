@@ -11,6 +11,7 @@ from __future__ import annotations
 import hashlib
 import importlib.util
 import json
+import argparse
 from fractions import Fraction
 from pathlib import Path
 
@@ -67,15 +68,17 @@ def reference_value(families, coefficients, order: int, x: float) -> mp.mpc:
     return total
 
 
-def main() -> dict:
+def main(allow_evaluator_revision: bool = False,
+         output_name: str = "2397_pointbox_mpmath_containment_control.json") -> dict:
     worker_path = ROOT / "scripts/routea_nodal_interval_fullgrid_2359.py"
     evaluator_path = ROOT / "scripts/routea_weighted_zero_zero_count_certificate_2242.py"
     artifact = json.loads(
         (ROOT / "results/2385_shared_geometry_776611.json").read_text())
     require(artifact["source_sha256"] == sha256(worker_path),
             "2359 source hash mismatch")
-    require(artifact["evaluator_source_sha256"] == sha256(evaluator_path),
-            "2242 evaluator source hash mismatch")
+    evaluator_hash_matches = artifact["evaluator_source_sha256"] == sha256(evaluator_path)
+    if not allow_evaluator_revision:
+        require(evaluator_hash_matches, "2242 evaluator source hash mismatch")
 
     evaluator = load("containment_control_2397", evaluator_path)
     strip = load("strip_containment_control_2397",
@@ -123,13 +126,18 @@ def main() -> dict:
                                      str(violation), str(re), str(im),
                                      [str(rlo), str(rhi), str(ilo), str(ihi)],
                                      [float(float_value.real), float(float_value.imag)]])
-    status = ("POINTBOX_MPMATH_CONTAINMENT_CONTROL_PASS"
-              if not failures else
-              "POINTBOX_MPMATH_CONTAINMENT_CONTROL_FAIL")
+    status_prefix = ("POINTBOX_MPMATH_CONTAINMENT_REPAIRED_PROBE"
+                     if allow_evaluator_revision else
+                     "POINTBOX_MPMATH_CONTAINMENT_CONTROL")
+    status = (status_prefix + "_PASS"
+              if not failures else status_prefix + "_FAIL")
     result = {
-        "record": 2397,
+        "record": 2398 if allow_evaluator_revision else 2397,
         "status": status,
-        "source_hashes_match": True,
+        "source_hashes_match": evaluator_hash_matches,
+        "evaluator_revision_probe": allow_evaluator_revision,
+        "artifact_evaluator_source_sha256": artifact["evaluator_source_sha256"],
+        "current_evaluator_source_sha256": sha256(evaluator_path),
         "nodes": nodes,
         "channels": 4,
         "checked_point_channel_values": checked,
@@ -144,11 +152,15 @@ def main() -> dict:
         "producer_go": False,
         "rh_claim": False,
     }
-    output = ROOT / "results/2397_pointbox_mpmath_containment_control.json"
+    output = ROOT / "results" / output_name
     output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
     print(json.dumps(result, indent=2, sort_keys=True))
     return result
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--allow-evaluator-revision", action="store_true")
+    parser.add_argument("--output", default="2397_pointbox_mpmath_containment_control.json")
+    args = parser.parse_args()
+    main(args.allow_evaluator_revision, args.output)
