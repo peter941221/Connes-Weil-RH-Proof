@@ -4,6 +4,9 @@ import ConnesWeilRH.Dev.C1RouteAWeightedChordPanel
 namespace ConnesWeilRH.Dev
 
 open scoped BigOperators
+open ConnesWeilRH.Dev.C1RouteAOwnerScaleAudit
+
+noncomputable section
 
 def compositeCellUpper2387 (nodeUpper : ℕ → ℝ) (step : ℝ) (index : ℕ) : ℝ :=
   step * ((nodeUpper index + nodeUpper (index + 1)) / 2)
@@ -37,12 +40,19 @@ theorem compositeNodeUpper_add_constant2359
     compositeNodeUpper2347 (fun index => nodeUpper index + charge) step cells =
       compositeNodeUpper2347 nodeUpper step cells + charge * (cells : ℝ) * step := by
   unfold compositeNodeUpper2347
-  rw [Finset.sum_congr rfl]
-  · rw [Finset.sum_add_distrib]
-    simp only [Finset.sum_const, Finset.card_range, nsmul_eq_mul]
-    ring
-  · intro index hindex
-    ring
+  calc
+    (∑ index ∈ Finset.range cells,
+        step / 2 * ((nodeUpper index + charge) + (nodeUpper (index + 1) + charge))) =
+      ∑ index ∈ Finset.range cells,
+        (step / 2 * (nodeUpper index + nodeUpper (index + 1)) + step * charge) := by
+      apply Finset.sum_congr rfl
+      intro index hindex
+      ring
+    _ = compositeNodeUpper2347 nodeUpper step cells + charge * (cells : ℝ) * step := by
+      unfold compositeNodeUpper2347
+      rw [Finset.sum_add_distrib]
+      simp only [Finset.sum_const, Finset.card_range, nsmul_eq_mul]
+      ring
 
 theorem compositeNodeUpper_add_coordinate_charge2359
     (nodeUpper : ℕ → ℝ) (step charge : ℝ) (cells : ℕ)
@@ -103,7 +113,8 @@ theorem correctedPhysical_stripNorm_le_of_actual_coordinate_charge2359
             (-(storedWidth 4 ^ 2) + index * step)‖ ≤
         actualUpper index + charge := by
     intro index hindex
-    exact (htransfer index hindex).trans (add_le_add_right (hactual index hindex) _)
+    exact (htransfer index hindex).trans
+      (add_le_add (hactual index hindex) (le_refl _))
   have hpanel := correctedPhysical_stripNorm_le_nodeUpper_from_budget2350
     coefficients modulations sigma step cells
     (fun index => actualUpper index + charge) hstep hgrid hideal
@@ -128,7 +139,7 @@ theorem correctedPhysical_stripNorm_le_of_nodeUpper_scalar2389
           (ownerDerivativeBudget2350 2 coefficients modulations) / 12 := by
   have hpanel := correctedPhysical_stripNorm_le_nodeUpper_from_budget2350
     coefficients modulations sigma step cells nodeUpper hstep hgrid hnodes
-  exact hpanel.trans (add_le_add_right hscalar _)
+  exact hpanel.trans (add_le_add hscalar (le_refl _))
 
 theorem correctedPhysical_stripNorm_le_of_actual_coordinate_charge_scalar2390
     (coefficients : Fin 30 → ℂ) (modulations : Fin 30 → ℝ)
@@ -161,7 +172,8 @@ theorem correctedPhysical_stripNorm_le_of_actual_coordinate_charge_scalar2390
             (-(storedWidth 4 ^ 2) + index * step)‖ ≤
         actualUpper index + charge := by
     intro index hindex
-    exact (htransfer index hindex).trans (add_le_add_right (hactual index hindex) _)
+    exact (htransfer index hindex).trans
+      (add_le_add (hactual index hindex) (le_refl _))
   have hnodeScalar : compositeNodeUpper2347 (fun index => actualUpper index + charge)
       step cells ≤ scalar := by
     rw [compositeNodeUpper_add_coordinate_charge2359 actualUpper step charge cells hcharge]
@@ -169,5 +181,7 @@ theorem correctedPhysical_stripNorm_le_of_actual_coordinate_charge_scalar2390
   exact correctedPhysical_stripNorm_le_of_nodeUpper_scalar2389
     coefficients modulations sigma step scalar cells
     (fun index => actualUpper index + charge) hstep hgrid hideal hnodeScalar
+
+end
 
 end ConnesWeilRH.Dev

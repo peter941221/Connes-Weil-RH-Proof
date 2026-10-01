@@ -22,26 +22,27 @@ theorem norm_value_le_of_deriv_bound2359
   calc
     ‖f x‖ = ‖(f x - f a) + f a‖ := by rw [sub_add_cancel]
     _ ≤ ‖f x - f a‖ + ‖f a‖ := norm_add_le _ _
-    _ ≤ C * (x - a) + ‖f a‖ := add_le_add_right (hnormdiff x hx) _
+    _ ≤ C * (x - a) + ‖f a‖ := add_le_add_left (hnormdiff x hx) _
     _ = ‖f a‖ + C * (x - a) := by ring
 
 theorem norm_value_at_left_le_of_deriv_bound2359
     {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
     {f f' : ℝ → E} {a b C : ℝ}
+    (hab : a ≤ b)
     (hderiv : ∀ x ∈ Set.Icc a b, HasDerivWithinAt f (f' x) (Set.Icc a b) x)
     (hbound : ∀ x ∈ Set.Ico a b, ‖f' x‖ ≤ C) :
     ‖f a‖ ≤ ‖f b‖ + C * (b - a) := by
   have hnormdiff : ‖f b - f a‖ ≤ C * (b - a) :=
-    (norm_image_sub_le_of_norm_deriv_le_segment' hderiv hbound) b right_mem_Icc
+    (norm_image_sub_le_of_norm_deriv_le_segment' hderiv hbound) b ⟨hab, le_rfl⟩
   calc
     ‖f a‖ = ‖(f a - f b) + f b‖ := by rw [sub_add_cancel]
     _ ≤ ‖f a - f b‖ + ‖f b‖ := norm_add_le _ _
-    _ ≤ C * (b - a) + ‖f b‖ := add_le_add_right (by simpa [norm_sub_rev] using hnormdiff) _
+    _ ≤ C * (b - a) + ‖f b‖ := add_le_add_left (by simpa [norm_sub_rev] using hnormdiff) _
     _ = ‖f b‖ + C * (b - a) := by ring
 
 theorem weightedFunction2348_norm_le_of_coordinate_segment2359
     (sigma : ℝ) (function : ℝ → ℂ)
-    (hsmooth : ContDiff ℝ (2 : ℕ∞ω) function)
+    (hsmooth : ContDiff ℝ (2 : WithTop (WithTop ℕ)) function)
     (radius a b zeroBound firstBound : ℝ)
     (hradius : ∀ x ∈ Set.Icc a b, |x| ≤ radius)
     (hzeroBound : 0 ≤ zeroBound) (hfirstBound : 0 ≤ firstBound)
@@ -80,20 +81,21 @@ theorem weightedFunction2348_norm_le_of_coordinate_segment2359
              (hradius x hxIcc) (abs_nonneg sigma)
     have hnormZero : ‖(sigma : ℂ) * function x‖ ≤ |sigma| * zeroBound := by
       rw [norm_mul, Complex.norm_real, Real.norm_eq_abs]
-      exact mul_le_mul (le_abs_self sigma) (hzero x hxIcc)
-        (norm_nonneg _) hzeroBound
+      exact mul_le_mul (le_refl _) (hzero x hxIcc)
+        (norm_nonneg _) (abs_nonneg sigma)
     have hnorm : ‖(sigma : ℂ) * function x + deriv function x‖ ≤
         |sigma| * zeroBound + firstBound :=
       (norm_add_le _ _).trans (add_le_add (hnormZero.trans_eq (by ring))
         (hfirst x hxIcc))
     exact mul_le_mul (Real.exp_le_exp.mpr hphase) hnorm
-      (Real.exp_nonneg _) (by positivity)
+      (norm_nonneg _) (Real.exp_nonneg _)
   exact norm_value_le_of_deriv_bound2359 hderiv hbound
 
 theorem weightedFunction2348_norm_at_left_le_of_coordinate_segment2359
     (sigma : ℝ) (function : ℝ → ℂ)
-    (hsmooth : ContDiff ℝ (2 : ℕ∞ω) function)
+    (hsmooth : ContDiff ℝ (2 : WithTop (WithTop ℕ)) function)
     (radius a b zeroBound firstBound : ℝ)
+    (hab : a ≤ b)
     (hradius : ∀ x ∈ Set.Icc a b, |x| ≤ radius)
     (hzeroBound : 0 ≤ zeroBound) (hfirstBound : 0 ≤ firstBound)
     (hzero : ∀ x ∈ Set.Icc a b, ‖function x‖ ≤ zeroBound)
@@ -130,15 +132,15 @@ theorem weightedFunction2348_norm_at_left_le_of_coordinate_segment2359
              (hradius x hxIcc) (abs_nonneg sigma)
     have hnormZero : ‖(sigma : ℂ) * function x‖ ≤ |sigma| * zeroBound := by
       rw [norm_mul, Complex.norm_real, Real.norm_eq_abs]
-      exact mul_le_mul (le_abs_self sigma) (hzero x hxIcc)
-        (norm_nonneg _) hzeroBound
+      exact mul_le_mul (le_refl _) (hzero x hxIcc)
+        (norm_nonneg _) (abs_nonneg sigma)
     have hnorm : ‖(sigma : ℂ) * function x + deriv function x‖ ≤
         |sigma| * zeroBound + firstBound :=
       (norm_add_le _ _).trans (add_le_add (hnormZero.trans_eq (by ring))
         (hfirst x hxIcc))
     exact mul_le_mul (Real.exp_le_exp.mpr hphase) hnorm
-      (Real.exp_nonneg _) (by positivity)
-  exact norm_value_at_left_le_of_deriv_bound2359 hderiv hbound
+      (norm_nonneg _) (Real.exp_nonneg _)
+  exact norm_value_at_left_le_of_deriv_bound2359 hab hderiv hbound
 
 theorem nodeUpper_of_coordinate_charge2359
     {cells : ℕ} {actualValue idealValue nodeUpper finalUpper charge : ℕ → ℝ}
@@ -147,7 +149,7 @@ theorem nodeUpper_of_coordinate_charge2359
     (hfinal : ∀ index ≤ cells, nodeUpper index + charge index ≤ finalUpper index) :
     ∀ index ≤ cells, idealValue index ≤ finalUpper index := by
   intro index hindex
-  exact (hideal index hindex).trans ((add_le_add_right (hactual index hindex) _).trans
+  exact (hideal index hindex).trans ((add_le_add_left (hactual index hindex) _).trans
     (hfinal index hindex))
 
 theorem nodeUpper_of_lipschitz_coordinate_charge2359
@@ -162,7 +164,7 @@ theorem nodeUpper_of_lipschitz_coordinate_charge2359
     ∀ index ≤ cells, idealValue index ≤ finalUpper index := by
   apply nodeUpper_of_coordinate_charge2359 hactual
   · intro index hindex
-    exact (hideal index hindex).trans_le (add_le_add_left
+    exact (hideal index hindex).trans (add_le_add_right
       (mul_le_mul_of_nonneg_left (hcoord index hindex) hlipschitz) _)
   · exact hfinal
 
