@@ -1,0 +1,28 @@
+{
+  "coordinate_identity_proved": false,
+  "evaluator_source_sha256": "62f5c35fefdbac87e246352f6eff418ab6628da4506ad0698f9a82b8e7c8fdd2",
+  "full_grid_nodal_upper_proved": false,
+  "interval_integrals": [
+    2.6906382318515814,
+    8606.225861740026,
+    90.7869637295159,
+    125446.96411783129
+  ],
+  "interval_min_product": 337532.39772515034,
+  "lean_imported": false,
+  "nodes": 1001,
+  "producer_go": false,
+  "radius": 6.553600000000003,
+  "record": 2358,
+  "rh_claim": false,
+  "sigma": -0.5,
+  "source_sha256": "5f82caf08229ae25dbb294be67a09aa673ee3608d5e1a0dc014a3c89df700728",
+  "status": "DIRECTED_NODE_INTERVAL_SMOKE_NOT_CERTIFICATE",
+  "stored_B_point": 2644542.851480454,
+  "stored_point": {
+    "base_D2": 8606.214397650692,
+    "base_M0": 2.6867143296475327,
+    "corr_D2": 125446.71132157775,
+    "corr_M0": 90.78788225375557
+  }
+}

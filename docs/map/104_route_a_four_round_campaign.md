@@ -3406,3 +3406,13 @@ This makes 2340, not a raised pin, the valid next object. Its directed nodal
 upper theorem and coordinate identity remain open before Lean/producer import.
 Evidence: docs/proofs/2357_recomposed_transfer_direction_correction.md and
 results/2357_recomposed_transfer_direction_correction.json.
+
+Record 2358 (2026-10-01): a directed MPFR interval smoke on zero-width boxes
+at the binding sigma=-0.5, using 1001 points, remains finite and gives
+channel integrals 2.69063823185, 8606.22586174, 90.7869637295, and
+125446.9641178. The interval min-product is 337532.3977. This rejects an
+immediate natural-interval explosion and supports pursuing the full nodal-upper
+bridge. It is explicitly not a certificate: the 240001-node order, directed
+accumulation/remainder, coordinate identity, and Lean import remain open.
+Evidence: docs/proofs/2358_directed_nodal_interval_smoke.md and
+results/2358_nodal_interval_smoke.json.
