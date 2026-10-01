@@ -3385,3 +3385,14 @@ environmental verification boundary, not a pass and not a new source failure.
 The consumer remains UNVERIFIED; the scalar-only 2354 scope and the selected
 physical-kernel gate remain binding. Evidence: docs/proofs/2355_same_owner_consumer_integration_audit.md
 and results/2355_same_owner_consumer_integration_audit.json.
+
+Record 2356 (2026-10-01): replaying 2337/2339 with the available Arb
+environment confirms that the marked-square sign remains numerical only: all
+eight mandatory source values miss their nominal targets by imaginary residuals
+of roughly 3e-9 to 7e-9. More importantly, the 2339 replay fails the old pin
+at node j=-50: the maximum upper bound is 2644543.1669421422 versus the old
+2644542.8515 pin. The old owner margin is therefore not transferable to the
+live producer. The next admissible target is a same-run certified budget
+reconstruction before complete-prime-book signed readback. Evidence:
+docs/proofs/2356_actual_owner_replay_budget_boundary.md and
+results/2356_actual_owner_replay_budget_boundary.json.

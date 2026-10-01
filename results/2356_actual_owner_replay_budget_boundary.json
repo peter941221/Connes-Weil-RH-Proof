@@ -1,0 +1,27 @@
+{
+  "record": 2356,
+  "status": "ACTUAL_OWNER_REPLAY_BUDGET_BOUNDARY",
+  "environment": "WSL /home/peter/rh/.venv-flint",
+  "record_2337": {
+    "replay_completed": true,
+    "mandatory_node_count": 8,
+    "all_source_values_contain_nominal_targets": false,
+    "source_imaginary_residual_scale": "3e-9..7e-9",
+    "exact_interpolation_established": false,
+    "marked_sign_only": true
+  },
+  "record_2339": {
+    "replay_completed": true,
+    "all_nodes_fit_existing_pin": false,
+    "failed_nodes": [-50],
+    "maximum_min_product_upper": 2644543.1669421422,
+    "existing_pin": 2644542.8515,
+    "unweighted_full_line_upper": 3.601401704384307,
+    "signed_kernel_repair_charge_priced": false
+  },
+  "project_source_modified": false,
+  "mathlib_worktree_modified": false,
+  "healthy_detector_instantiated": false,
+  "producer_go": false,
+  "rh_claim": false
+}
