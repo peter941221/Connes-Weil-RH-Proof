@@ -3374,3 +3374,14 @@ minimal scalar build explicitly does not establish consumer integration.
 Complete zero prefix, source-zero identity, numerical import and full
 signed gate remain open. No healthy detector, map103 reopening, GO or RH.
 Evidence: docs/proofs/2354_same_owner_tail_acceptance.md and its validation.
+
+Record 2355 (2026-10-01): HEAD f9809767 applies the intended reverse
+`Finset.sum_sdiff` rewrite and unfolds `spectralWeilValue` before the shell
+split, addressing the two 2354 consumer-shape failures. A WSL replay found
+the pinned Lean toolchain but could not reach a theorem result because the
+existing `.lake/packages/mathlib` checkout has local changes; a direct Lean
+fallback lacked the cached `C1HealthyYoshidaClosedPrefix.olean`. This is an
+environmental verification boundary, not a pass and not a new source failure.
+The consumer remains UNVERIFIED; the scalar-only 2354 scope and the selected
+physical-kernel gate remain binding. Evidence: docs/proofs/2355_same_owner_consumer_integration_audit.md
+and results/2355_same_owner_consumer_integration_audit.json.

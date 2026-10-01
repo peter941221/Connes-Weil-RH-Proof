@@ -1,0 +1,15 @@
+{
+  "record": 2355,
+  "status": "CONSUMER_INTEGRATION_UNVERIFIED",
+  "head": "f9809767",
+  "repair_sites": [371, 385],
+  "wsl_found_lake": true,
+  "full_consumer_build_completed": false,
+  "blocker": "mathlib checkout has pre-existing local changes",
+  "direct_lean_fallback_completed": false,
+  "direct_lean_fallback_blocker": "cached project dependency C1HealthyYoshidaClosedPrefix.olean is absent",
+  "project_source_modified_by_replay": false,
+  "mathlib_worktree_modified": false,
+  "producer_go": false,
+  "rh_claim": false
+}
