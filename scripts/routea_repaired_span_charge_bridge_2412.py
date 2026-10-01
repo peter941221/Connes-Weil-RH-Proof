@@ -24,14 +24,18 @@ def main(span_path: Path = SPAN, output_path: Path | None = None,
     values = [sum(row[channel] for row in
                   span["directed_term_binary64_roundup_span_integrals"])
               for channel in range(4)]
+    current_parent = span["directed_term_binary64_roundup_integrals"]
+    legacy_parent = [row["actual_node_composite"] for row in old["rows"]]
     rows = []
-    for old_row, value in zip(old["rows"], values):
+    for channel, (old_row, value, parent) in enumerate(
+            zip(old["rows"], values, current_parent)):
         coordinate_charge = old_row["coordinate_charge"]
         panel_remainder = old_row["panel_remainder"]
         rows.append({
             "channel": old_row["channel"],
             "span_sum_node_composite": value,
-            "parent_roundup_node_composite": old_row["actual_node_composite"],
+            "parent_roundup_node_composite": parent,
+            "legacy_parent_roundup_node_composite": legacy_parent[channel],
             "coordinate_charge": coordinate_charge,
             "ideal_node_composite_upper": value + coordinate_charge,
             "panel_remainder": panel_remainder,

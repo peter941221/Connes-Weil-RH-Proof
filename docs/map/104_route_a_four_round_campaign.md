@@ -3818,3 +3818,25 @@ stale and must be regenerated.  Evidence:
 `docs/proofs/2421_geometry_cache_outward_repair.md`,
 `scripts/routea_pointbox_failure_localizer_2421.py`, and
 `results/2421_pointbox_mpmath_control_20001_cache_repair.json`.
+
+Record 2422 (2026-10-02): the 776611-node replay was regenerated after the
+cache repair.  The 39-span current-source readback passes, with the expected
+`38×20001+16573` partition.  Evidence:
+`docs/proofs/2422_cached_geometry_fullgrid_replay.md`,
+`results/2422_repaired_shared_geometry_776611.json`, and
+`results/2422_span_witness_audit.json`.
+
+Record 2423 (2026-10-02): the current cached evaluator passed the independent
+90-digit mpmath control at 20001 uniform nodes and all four channels:
+80004/80004 contained, zero failures, matching source hashes.  This is still
+sampled control only.  Evidence:
+`docs/proofs/2423_cached_geometry_mpmath_control.md` and
+`results/2423_pointbox_mpmath_control_20001.json`.
+
+Record 2424 (2026-10-02): the composite bridge was corrected to read the
+current parent total from the current 2422 artifact, while retaining the old
+2408 value only as a legacy comparison.  The current largest assembled upper
+is `137991.35871664502` on `corr_D2`; the bridge remains interface-only.
+Evidence: `docs/proofs/2424_current_span_composite_bridge.md`,
+`scripts/routea_repaired_span_charge_bridge_2412.py`, and
+`results/2424_repaired_span_composite_bridge.json`.
