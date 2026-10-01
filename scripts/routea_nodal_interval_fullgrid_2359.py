@@ -72,6 +72,13 @@ def worker_span(task):
             interval.Kernel(corrected, correction, 0),
             interval.Kernel(corrected, correction, 2),
         )
+        geometry_signature = [
+            [(rec["a"].get_d(0), rec["th"].get_d(0)) for rec in kernel.recs]
+            for kernel in _WORKER
+        ]
+        if not all(signature == geometry_signature[0]
+                   for signature in geometry_signature[1:]):
+            raise ValueError("channel geometry records are not aligned")
         _WORKER_GRID = np.linspace(-radius, radius, nodes)
         _WORKER_DIRECTED_ACC = [interval.M() for _ in range(4)]
         _WORKER_DIRECTED_FLOAT_ACC = [interval.M() for _ in range(4)]

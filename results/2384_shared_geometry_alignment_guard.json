@@ -1,0 +1,9 @@
+{
+  "record": 2384,
+  "status": "SHARED_GEOMETRY_ALIGNMENT_GUARDED",
+  "channel_record_counts": [30, 30, 30, 30],
+  "channel_signatures_equal": true,
+  "cache_index_reuse_allowed_for_current_owner": true,
+  "producer_go": false,
+  "rh_claim": false
+}

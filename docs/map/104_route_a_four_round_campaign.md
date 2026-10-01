@@ -3602,3 +3602,9 @@ passes, and the 5001-node/16-worker benchmark improves from 38.24 s to
 32.74 s without tightening the enclosure. The full-grid certificate remains
 open. Evidence: docs/proofs/2383_shared_geometry_cache.md and
 results/2383_shared_geometry_cache.json.
+
+Record 2384 (2026-10-02): the shared cache now fails closed unless all four
+channel `Kernel.recs` `(a, theta)` signatures are identical. The current
+owner passes with 30 aligned records per channel. Evidence:
+docs/proofs/2384_shared_geometry_alignment_guard.md and
+results/2384_shared_geometry_alignment_guard.json.
