@@ -1,0 +1,18 @@
+{
+  "record": 2382,
+  "status": "EVALUATOR_RUNTIME_BENCHMARK",
+  "nodes": 5001,
+  "workers": 16,
+  "span": 20001,
+  "elapsed_seconds": 38.24,
+  "interval_integrals": [
+    2.6866909568515447,
+    8606.213464597946,
+    90.78788437656883,
+    125446.71132173201
+  ],
+  "interval_min_product": 337036.5448748637,
+  "memory_or_cpu_blocker": "cpu_bound_per_node_evaluator",
+  "producer_go": false,
+  "rh_claim": false
+}

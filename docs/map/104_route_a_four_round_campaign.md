@@ -3588,3 +3588,10 @@ same-expression control at 1001 nodes and preserve the prior directed values;
 the 776611-node bounded 300-second replay produced no artifact. Evidence:
 docs/proofs/2381_same_expression_directed_roundup.md and
 results/2381_same_expression_directed_roundup.json.
+
+Record 2382 (2026-10-02): a 5001-node, 16-worker benchmark of the corrected
+same-expression path completes in 38.24 seconds with the directed controls
+preserved. WSL exposes 16 CPUs and ample memory; the remaining full-grid
+obstacle is per-node evaluator cost. Evidence:
+docs/proofs/2382_evaluator_runtime_benchmark.md and
+results/2382_evaluator_runtime_benchmark.json.
