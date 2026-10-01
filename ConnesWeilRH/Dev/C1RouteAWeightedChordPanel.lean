@@ -24,14 +24,15 @@ theorem weightedExp2348_hasDerivAt (sigma position : ℝ) :
     (((hasDerivAt_id position).const_mul sigma).exp).ofReal_comp
 
 theorem weightedFunction2348_contDiff (sigma : ℝ) (function : ℝ → ℂ)
-    (hsmooth : ContDiff ℝ (2 : ℕ∞ω) function) :
-    ContDiff ℝ (2 : ℕ∞ω) (weightedFunction2348 sigma function) := by
-  have hexp : ContDiff ℝ (2 : ℕ∞ω) (fun position : ℝ => Real.exp (sigma * position)) :=
+    (hsmooth : ContDiff ℝ (2 : WithTop (WithTop ℕ)) function) :
+    ContDiff ℝ (2 : WithTop (WithTop ℕ)) (weightedFunction2348 sigma function) := by
+  have hexp : ContDiff ℝ (2 : WithTop (WithTop ℕ))
+      (fun position : ℝ => Real.exp (sigma * position)) :=
     Real.contDiff_exp.comp (contDiff_const.mul contDiff_id)
   exact (Complex.ofRealCLM.contDiff.comp hexp).mul hsmooth
 
 theorem weightedFunction2348_deriv (sigma : ℝ) (function : ℝ → ℂ)
-    (hsmooth : ContDiff ℝ (2 : ℕ∞ω) function) :
+    (hsmooth : ContDiff ℝ (2 : WithTop (WithTop ℕ)) function) :
     deriv (weightedFunction2348 sigma function) = weightedFirst2348 sigma function := by
   funext position
   have hfunction := (hsmooth.differentiable (by decide) position).hasDerivAt
@@ -40,12 +41,13 @@ theorem weightedFunction2348_deriv (sigma : ℝ) (function : ℝ → ℂ)
   ring
 
 theorem weightedFunction2348_secondDerivative (sigma : ℝ) (function : ℝ → ℂ)
-    (hsmooth : ContDiff ℝ (2 : ℕ∞ω) function) (position : ℝ) :
+    (hsmooth : ContDiff ℝ (2 : WithTop (WithTop ℕ)) function) (position : ℝ) :
     deriv (deriv (weightedFunction2348 sigma function)) position =
       weightedExp2348 sigma position * (deriv (deriv function) position +
         2 * (sigma : ℂ) * deriv function position + (sigma : ℂ) ^ 2 * function position) := by
   rw [weightedFunction2348_deriv sigma function hsmooth]
-  have hsmoothFirst : ContDiff ℝ (1 : ℕ∞ω) (deriv function) := ContDiff.deriv' hsmooth
+  have hsmoothFirst : ContDiff ℝ (1 : WithTop (WithTop ℕ)) (deriv function) :=
+    ContDiff.deriv' hsmooth
   have hfunction := (hsmooth.differentiable (by decide) position).hasDerivAt
   have hfirst := (hsmoothFirst.differentiable (by decide) position).hasDerivAt
   have hfactor := (hfunction.const_mul (sigma : ℂ)).add hfirst
@@ -60,7 +62,7 @@ theorem weightedFunction2348_norm (sigma : ℝ) (function : ℝ → ℂ) (positi
     Complex.norm_real, Real.norm_eq_abs, abs_of_pos (Real.exp_pos _)]
 
 theorem weightedFunction2348_curvature_bound (sigma : ℝ) (function : ℝ → ℂ)
-    (hsmooth : ContDiff ℝ (2 : ℕ∞ω) function)
+    (hsmooth : ContDiff ℝ (2 : WithTop (WithTop ℕ)) function)
     (radius position zeroBound firstBound secondBound : ℝ) (hposition : |position| ≤ radius)
     (hzero : ‖function position‖ ≤ zeroBound)
     (hfirst : ‖deriv function position‖ ≤ firstBound)
@@ -113,7 +115,7 @@ theorem weightedStripNorm2348_eq_interval (sigma : ℝ) (function : ℝ → ℂ)
   exact (weightedFunction2348_norm sigma function position).symm
 
 theorem stripNorm_le_nodeUpper2348 (sigma : ℝ) (function : ℝ → ℂ)
-    (hsmooth : ContDiff ℝ (2 : ℕ∞ω) function)
+    (hsmooth : ContDiff ℝ (2 : WithTop (WithTop ℕ)) function)
     (radius step zeroBound firstBound secondBound : ℝ) (cells : ℕ) (nodeUpper : ℕ → ℝ)
     (hradius : 0 ≤ radius) (hstep : 0 < step) (hgrid : (cells : ℝ) * step = 2 * radius)
     (hsupport : Function.support function ⊆ Set.Icc (-radius) radius)
@@ -167,7 +169,8 @@ theorem correctedPhysical_stripNorm_le_nodeUpper2348
       compositeNodeUpper2347 nodeUpper step cells + step ^ 2 * (2 * storedWidth 4 ^ 2) *
         weightedCurvature2348 sigma (storedWidth 4 ^ 2) zeroBound firstBound secondBound / 12 := by
   exact stripNorm_le_nodeUpper2348 sigma (correctedPhysical coefficients modulations)
-    ((correctedPhysical_contDiff coefficients modulations).of_le (by decide : (2 : ℕ∞ω) ≤ ∞))
+    ((correctedPhysical_contDiff coefficients modulations).of_le
+      (by decide))
     (storedWidth 4 ^ 2) step zeroBound firstBound secondBound cells nodeUpper (sq_nonneg _)
     hstep hgrid ((subset_tsupport _).trans
       (correctedPhysical_tsupport_subset_four coefficients modulations)) hzero hfirst hsecond hnodes
@@ -190,11 +193,14 @@ theorem correctedPhysical_stripSecondNorm_le_nodeUpper2348
     stripSecondNorm sigma (correctedPhysical coefficients modulations) ≤
       compositeNodeUpper2347 nodeUpper step cells + step ^ 2 * (2 * storedWidth 4 ^ 2) *
         weightedCurvature2348 sigma (storedWidth 4 ^ 2) zeroBound firstBound secondBound / 12 := by
-  have hsmooth : ContDiff ℝ (4 : ℕ∞ω) (correctedPhysical coefficients modulations) :=
-    (correctedPhysical_contDiff coefficients modulations).of_le (by decide : (4 : ℕ∞ω) ≤ ∞)
-  have hsmoothFirst : ContDiff ℝ (3 : ℕ∞ω) (deriv (correctedPhysical coefficients modulations)) :=
+  have hsmooth : ContDiff ℝ (4 : WithTop (WithTop ℕ))
+      (correctedPhysical coefficients modulations) :=
+    (correctedPhysical_contDiff coefficients modulations).of_le
+      (by decide)
+  have hsmoothFirst : ContDiff ℝ (3 : WithTop (WithTop ℕ))
+      (deriv (correctedPhysical coefficients modulations)) :=
     ContDiff.deriv' hsmooth
-  have hsmoothSecond : ContDiff ℝ (2 : ℕ∞ω)
+  have hsmoothSecond : ContDiff ℝ (2 : WithTop (WithTop ℕ))
       (deriv (deriv (correctedPhysical coefficients modulations))) := ContDiff.deriv' hsmoothFirst
   have hsupport : Function.support (deriv (deriv (correctedPhysical coefficients modulations))) ⊆
       Set.Icc (-(storedWidth 4 ^ 2)) (storedWidth 4 ^ 2) :=
