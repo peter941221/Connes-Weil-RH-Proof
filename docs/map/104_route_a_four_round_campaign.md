@@ -3480,3 +3480,12 @@ closed interval containment is proved in Lean by order convexity. This leaves
 only the actual/ideal endpoint facts and the numeric displacement/accumulation
 certificates to be supplied. Evidence: docs/proofs/2365_endpoint_window_reduction.md
 and results/2365_endpoint_window_reduction.json.
+
+Record 2366/2367 (2026-10-02): the coordinate replay exposed a real radius
+rounding boundary. Actual binary64 `linspace` endpoints do not lie in the
+exact `storedWidth 4²` window, while the ideal affine endpoints do; all actual
+points lie in the existing outer `stripRadius2303 = 6.5536001` pin. The owner
+coordinate bridge is generalized to arbitrary radius and now consumes this
+outer pin with global derivative budgets. This correction is binding; no exact
+owner-window identity is claimed. Evidence: docs/proofs/2366_coordinate_pair_endpoint_certificate.md,
+docs/proofs/2367_outer_pin_radius_correction.md, and the associated results.

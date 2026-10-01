@@ -1,0 +1,13 @@
+{
+  "record": 2367,
+  "status": "OUTER_PIN_CORRECTED_ANALYTIC_BRIDGE",
+  "lean_audit_checked": true,
+  "actual_exact_owner_window": false,
+  "actual_outer_pin_window": true,
+  "ideal_exact_owner_window": true,
+  "outer_radius": "65536001/10000000",
+  "source_record": 2366,
+  "directed_accumulation_theorem_proved": false,
+  "producer_go": false,
+  "rh_claim": false
+}

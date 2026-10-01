@@ -1,0 +1,29 @@
+{
+  "actual_endpoint_fractions": [
+    "-461168601842739/70368744177664",
+    "461168601842739/70368744177664"
+  ],
+  "actual_endpoints_in_owner_window": false,
+  "actual_endpoints_in_strip_window": true,
+  "all_actual_points_in_owner_window": false,
+  "all_actual_points_in_strip_window": true,
+  "all_ideal_points_in_owner_window": true,
+  "coordinate_difference_count": 240000,
+  "coordinate_max_float_gap": 1.283428900933359e-15,
+  "coordinate_max_fraction_gap": "16269394166184291457/12676506002282294014967032053760000",
+  "ideal_endpoint_fractions": [
+    "-2076918743413931858457251756481/316912650057057350374175801344",
+    "2076918743413931858457251756481/316912650057057350374175801344"
+  ],
+  "ideal_endpoints_in_owner_window": true,
+  "lean_imported": false,
+  "nodes": 240001,
+  "owner_radius_exact": "2076918743413931858457251756481/316912650057057350374175801344",
+  "owner_radius_float": "6.553600000000003",
+  "producer_go": false,
+  "record": 2366,
+  "rh_claim": false,
+  "source_sha256": "b622fbb0aba3f7ee4243a10ad669d72699ccb1735b6fae028ddec0539418d69d",
+  "status": "COORDINATE_PAIR_ENDPOINT_CERTIFICATE_REPLAY",
+  "strip_radius_exact": "65536001/10000000"
+}

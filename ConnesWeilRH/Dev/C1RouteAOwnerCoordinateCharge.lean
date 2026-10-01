@@ -115,4 +115,58 @@ theorem correctedPhysical_weighted_coordinate_transfer_of_endpoint_window2359
   exact correctedPhysical_weighted_coordinate_transfer2359 coefficients modulations sigma actual ideal
     (owner_coordinate_segment_mem_window2359 hactual hideal)
 
+theorem correctedPhysical_weighted_coordinate_segment_of_radius2359
+    (coefficients : Fin 30 → ℂ) (modulations : Fin 30 → ℝ)
+    (sigma radius a b : ℝ)
+    (hsegment : ∀ x ∈ Set.Icc a b, x ∈ Set.Icc (-radius) radius) :
+    ∀ x ∈ Set.Icc a b,
+      ‖weightedFunction2348 sigma (correctedPhysical coefficients modulations) x‖ ≤
+        ‖weightedFunction2348 sigma (correctedPhysical coefficients modulations) a‖ +
+          Real.exp (|sigma| * radius) *
+            (|sigma| * ownerDerivativeBudget2350 0 coefficients modulations +
+              ownerDerivativeBudget2350 1 coefficients modulations) * (x - a) := by
+  apply weightedFunction2348_norm_le_of_coordinate_segment2359 sigma
+    (correctedPhysical coefficients modulations)
+    ((correctedPhysical_contDiff coefficients modulations).of_le (by decide))
+    radius a b
+    (ownerDerivativeBudget2350 0 coefficients modulations)
+    (ownerDerivativeBudget2350 1 coefficients modulations)
+  · exact fun x hx => abs_le.mpr (hsegment x hx)
+  · exact ownerDerivativeBudget2350_nonneg 0 coefficients modulations
+  · exact ownerDerivativeBudget2350_nonneg 1 coefficients modulations
+  · intro x hx
+    exact (correctedPhysical_iteratedDeriv_budget2350 0 (by decide) coefficients modulations x).trans
+      (le_refl _)
+  · intro x hx
+    exact (correctedPhysical_iteratedDeriv_budget2350 1 (by decide) coefficients modulations x).trans
+      (le_refl _)
+
+theorem correctedPhysical_weighted_coordinate_transfer_of_endpoint_radius2359
+    (coefficients : Fin 30 → ℂ) (modulations : Fin 30 → ℝ)
+    (sigma radius actual ideal : ℝ)
+    (hactual : actual ∈ Set.Icc (-radius) radius)
+    (hideal : ideal ∈ Set.Icc (-radius) radius) :
+    ‖weightedFunction2348 sigma (correctedPhysical coefficients modulations) ideal‖ ≤
+      ‖weightedFunction2348 sigma (correctedPhysical coefficients modulations) actual‖ +
+        Real.exp (|sigma| * radius) *
+          (|sigma| * ownerDerivativeBudget2350 0 coefficients modulations +
+            ownerDerivativeBudget2350 1 coefficients modulations) * |ideal - actual| := by
+  have hsegment := owner_coordinate_segment_mem_window2359 hactual hideal
+  rcases le_total actual ideal with horder | horder
+  · have h := correctedPhysical_weighted_coordinate_segment_of_radius2359 coefficients modulations
+      sigma radius actual ideal (by simpa [min_eq_left horder, max_eq_right horder] using hsegment)
+    simpa [abs_of_nonneg (sub_nonneg.mpr horder)] using h ideal ⟨le_rfl, horder⟩
+  · have h := weightedFunction2348_norm_at_left_le_of_coordinate_segment2359 sigma
+      (correctedPhysical coefficients modulations)
+      ((correctedPhysical_contDiff coefficients modulations).of_le (by decide))
+      radius ideal actual
+      (ownerDerivativeBudget2350 0 coefficients modulations)
+      (ownerDerivativeBudget2350 1 coefficients modulations)
+      (by simpa [min_eq_right horder, max_eq_left horder] using hsegment)
+      (ownerDerivativeBudget2350_nonneg 0 coefficients modulations)
+      (ownerDerivativeBudget2350_nonneg 1 coefficients modulations)
+      (fun x _ => correctedPhysical_iteratedDeriv_budget2350 0 (by decide) coefficients modulations x)
+      (fun x _ => correctedPhysical_iteratedDeriv_budget2350 1 (by decide) coefficients modulations x)
+    simpa [abs_of_nonneg (sub_nonneg.mpr horder)] using h
+
 end ConnesWeilRH.Dev
