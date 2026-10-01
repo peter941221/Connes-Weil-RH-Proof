@@ -3840,3 +3840,11 @@ is `137991.35871664502` on `corr_D2`; the bridge remains interface-only.
 Evidence: `docs/proofs/2424_current_span_composite_bridge.md`,
 `scripts/routea_repaired_span_charge_bridge_2412.py`, and
 `results/2424_repaired_span_composite_bridge.json`.
+
+Record 2425 (2026-10-02): after the evaluator repair, the 2271 manifest was
+refreshed and validated over 126 files, and the Linux integration control
+passed all 22 tests.  The current manifest hash is
+`a5dd93e89503e526ff62113db8c187478f59676da6a9fbbc553fc36e09146ce5`.
+This remains provenance/control evidence only.  Evidence:
+`docs/proofs/2425_strip_manifest_refresh_and_integration.md` and
+`results/2425_strip_manifest_refresh_and_integration.json`.
