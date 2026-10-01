@@ -1,4 +1,5 @@
 import Mathlib.Algebra.Order.BigOperators.Group.Finset
+import Mathlib.Data.Real.Basic
 
 namespace ConnesWeilRH.Dev
 
@@ -18,7 +19,7 @@ theorem finite_sum_le_of_termwise_upper2391
     hterm index (Finset.mem_range.mp hindex)).trans hupper
 
 theorem finite_span_sum_le_of_termwise_upper2391
-    (term upper spanUpper : ℕ → ℕ → ℝ)
+    (term upper : ℕ → ℕ → ℝ) (spanUpper : ℕ → ℝ)
     (spans cells : ℕ) (scalar : ℝ)
     (hterm : ∀ span < spans, ∀ index < cells,
       term span index ≤ upper span index)

@@ -1,11 +1,12 @@
 {
   "record": 2391,
-  "status": "DIRECTED_ACCUMULATION_ORDER_LEMMA_DRAFT",
+  "status": "DIRECTED_ACCUMULATION_ORDER_LEMMA_AUDITED",
   "theorems": [
     "finite_sum_le_of_termwise_upper2391",
     "finite_span_sum_le_of_termwise_upper2391"
   ],
-  "lean_audit_passed": false,
+  "lean_audit_passed": true,
+  "axioms": ["propext", "Classical.choice", "Quot.sound"],
   "numeric_term_dominance_imported": false,
   "numeric_span_accumulation_imported": false,
   "producer_go": false,

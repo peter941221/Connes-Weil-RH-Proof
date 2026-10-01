@@ -3652,16 +3652,15 @@ The theorem is audited; all numerical hypotheses remain explicit and
 unimported. Evidence: docs/proofs/2390_actual_coordinate_scalar_consumer.md
 and results/2390_actual_coordinate_scalar_consumer.json.
 
-Record 2391 (2026-10-02): a candidate finite-sum and nested-span interface
-for directed accumulation is recorded. The Lean audit is pending because the
-current WSL invocation hangs even on the existing 2390 audit. The intended
-remaining numerical obligation is explicit: prove that the stored directed
-terms and span accumulators dominate the corresponding mathematical
-quantities. No numeric value is imported. Evidence:
+Record 2391 (2026-10-02): the finite-sum and nested-span order interface for
+directed accumulation is audited in a WSL-native build copy. Both declarations
+have only `[propext, Classical.choice, Quot.sound]`. The remaining numerical
+obligation is explicit: prove that the stored directed terms and span
+accumulators dominate the corresponding mathematical quantities. No numeric
+value is imported. Evidence:
 docs/proofs/2391_directed_accumulation_order.md and
 results/2391_directed_accumulation_order.json.
-The required Mathlib brick inventory was also rerun; it does not replace the
-pending source audit.
+The required Mathlib brick inventory was also rerun as a prerequisite.
 
 Record 2392 (2026-10-02): an independent artifact readback checks the 2385
 source hashes, four-channel directed-roundup dominance, channel alignment,
