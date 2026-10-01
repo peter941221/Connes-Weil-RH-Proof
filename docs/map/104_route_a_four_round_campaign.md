@@ -3526,3 +3526,10 @@ nodes would only target a 0.1 ratio under the same crude curvature bound;
 this is a planning no-close, not a producer-family impossibility result.
 Evidence: docs/proofs/2372_corr_d2_panel_binding_price.md and
 results/2372_corr_d2_panel_binding_price.json.
+
+Record 2373 (2026-10-02): same-owner refinement at 347311 nodes completed
+with the unchanged evaluator and directed pointwise path. Readings remain
+stable, while the priced `corr_D2` panel remainder falls to half the directed
+reading as predicted by the `h²` law. This is controlled refinement evidence,
+not a trapezoid theorem or producer GO. Evidence: docs/proofs/2373_same_owner_refinement_347311.md
+and results/2373_same_owner_refinement_347311.json.
