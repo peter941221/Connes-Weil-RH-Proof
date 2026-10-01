@@ -65,6 +65,12 @@ def main(record=2375, refinement_name="2374_nodal_interval_refinement.json",
         "lean_bridge_audited": True,
         "nodewise_numeric_import_proved": False,
         "directed_accumulation_theorem_proved": refinement["directed_accumulation_theorem_proved"],
+        # The symbolic composite-trapezoid remainder is proved by the audited
+        # Lean theorem `normIntegralCompositeUpper_of_nodeBounds2347`.  The
+        # concrete node/curvature hypotheses are still numerical imports and
+        # remain open below.
+        "analytic_trapezoid_remainder_theorem_proved": True,
+        "numeric_trapezoid_remainder_imported": False,
         "trapezoid_remainder_proved": refinement["trapezoid_remainder_proved"],
         "producer_go": False,
         "rh_claim": False,

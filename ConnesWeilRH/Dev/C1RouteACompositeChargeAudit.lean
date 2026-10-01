@@ -2,6 +2,8 @@ import ConnesWeilRH.Dev.C1RouteACompositeCharge
 
 open ConnesWeilRH.Dev
 
+#print axioms normIntegralCompositeUpper2347
+#print axioms normIntegralCompositeUpper_of_nodeBounds2347
 #print axioms compositeNodeUpper_eq_sum_cellUpper2387
 #print axioms compositeNodeUpper_mono2387
 #print axioms compositeNodeUpper_add_constant2359

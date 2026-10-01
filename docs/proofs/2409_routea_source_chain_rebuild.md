@@ -34,6 +34,12 @@ The directed accumulation and composite-charge audit modules both compiled;
 their audited declarations depend only on
 `[propext, Classical.choice, Quot.sound]`.
 
+The same audit now includes the symbolic composite-trapezoid bounds
+`normIntegralCompositeUpper2347` and
+`normIntegralCompositeUpper_of_nodeBounds2347`.  Thus the analytic remainder
+inequality itself is formally present; the numerical curvature and node
+hypotheses have not been imported, so the producer bridge remains open.
+
 The source repairs were structural only: explicit owner-scale imports/opens,
 the current `WithTop (WithTop ℕ)` smoothness type, interval endpoint order,
 `deriv`/`iteratedDeriv` normalization, and the finite trapezoid constant-term
@@ -43,6 +49,7 @@ this exposed and repaired the same hidden metavariable issue in the endpoint
 strip and strip-transfer consumers.  No numerical conclusion was inserted
 into Lean and no RH claim is made here.
 
-The remaining bridge obligations are unchanged: a mathematical nodewise term
-dominance theorem, a proved trapezoid remainder bound, and a certified import
-of the selected-detector signed kernel/C3' budget.
+The remaining bridge obligations are: a mathematical nodewise term dominance
+theorem, a certified numerical import of the curvature/node hypotheses for
+the trapezoid inequality, and a certified import of the selected-detector
+signed kernel/C3' budget.

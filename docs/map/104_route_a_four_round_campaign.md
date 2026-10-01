@@ -3741,7 +3741,9 @@ results/2392_directed_accumulation_artifact_audit.json.
 Record 2409 (2026-10-02): the repaired coordinate-charge source chain was
 rebuilt from Lean source through the composite consumer. The directed and
 composite audit leaves retain the exact allowed axiom set
-`[propext, Classical.choice, Quot.sound]`. This repairs source/build
-integrity only; the 2408 bridge remains interface-only because nodewise
-numeric import and the trapezoid remainder theorem are still open. Evidence:
-docs/proofs/2409_routea_source_chain_rebuild.md and commit `7b1e8243`.
+`[propext, Classical.choice, Quot.sound]`. The audit also confirms that the
+symbolic composite-trapezoid remainder inequality is present with the same
+axiom set; its numerical curvature/node hypotheses remain unimported. This
+repairs source/build integrity only; the 2408 bridge remains interface-only.
+Evidence: docs/proofs/2409_routea_source_chain_rebuild.md and commit
+`18784ceb`.
