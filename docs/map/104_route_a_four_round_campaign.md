@@ -3396,3 +3396,13 @@ live producer. The next admissible target is a same-run certified budget
 reconstruction before complete-prime-book signed readback. Evidence:
 docs/proofs/2356_actual_owner_replay_budget_boundary.md and
 results/2356_actual_owner_replay_budget_boundary.json.
+
+Record 2357 (2026-10-01): direction correction. The 2339 pin failure is an
+overcharged additive ledger: it retains old coefficient inflation while adding
+the repair cost. The same-owner recomposed transfer in 2340 removes that
+double charge and replays 101/101 nodes under the unchanged pin, with maximum
+706456.1761485816 at j=-50; 2340 and 2341 selftests pass 9/9 and 11/11.
+This makes 2340, not a raised pin, the valid next object. Its directed nodal
+upper theorem and coordinate identity remain open before Lean/producer import.
+Evidence: docs/proofs/2357_recomposed_transfer_direction_correction.md and
+results/2357_recomposed_transfer_direction_correction.json.

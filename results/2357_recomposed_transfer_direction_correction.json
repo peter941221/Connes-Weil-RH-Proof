@@ -1,0 +1,25 @@
+{
+  "record": 2357,
+  "status": "RECOMPOSED_TRANSFER_IS_VALID_NEXT_OBJECT",
+  "replay_environment": "WSL /home/peter/rh/.venv-flint",
+  "record_2339": {
+    "failed_node": -50,
+    "failure_type": "overcharged_additive_norm_ledger"
+  },
+  "record_2340": {
+    "all_nodes_fit_existing_pin": true,
+    "failed_nodes": [],
+    "maximum_node": -50,
+    "maximum_min_product_upper": 706456.1761485816,
+    "existing_pin": 2644542.8515,
+    "old_inflation_reused": false,
+    "owner_transfer_to_live_consumer": false
+  },
+  "record_2340_selftests": 9,
+  "record_2341_selftests": 11,
+  "nodal_upper_theorem_proved": false,
+  "coordinate_identity_proved": false,
+  "lean_imported": false,
+  "producer_go": false,
+  "rh_claim": false
+}
