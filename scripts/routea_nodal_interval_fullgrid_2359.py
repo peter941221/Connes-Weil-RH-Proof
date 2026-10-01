@@ -20,7 +20,9 @@ ROOT = Path(__file__).resolve().parents[1]
 _WORKER = None
 _WORKER_GRID = None
 _WORKER_DIRECTED_ACC = None
+_WORKER_DIRECTED_FLOAT_ACC = None
 _WORKER_DIRECTED_TERM = None
+_WORKER_DIRECTED_FLOAT_TERM = None
 _WORKER_INTERVAL = None
 _WORKER_POINT_RMAX = None
 _WORKER_POINT_IMAX = None
@@ -51,7 +53,8 @@ def interval_abs_upper(bounds):
 
 
 def worker_span(task):
-    global _WORKER, _WORKER_GRID, _WORKER_DIRECTED_ACC, _WORKER_DIRECTED_TERM, _WORKER_INTERVAL
+    global _WORKER, _WORKER_GRID, _WORKER_DIRECTED_ACC, _WORKER_DIRECTED_FLOAT_ACC
+    global _WORKER_DIRECTED_TERM, _WORKER_DIRECTED_FLOAT_TERM, _WORKER_INTERVAL
     global _WORKER_POINT_RMAX, _WORKER_POINT_IMAX, _WORKER_POINT_SQUARE_R
     global _WORKER_POINT_SQUARE_I, _WORKER_POINT_SQUARE, _WORKER_POINT_NORM
     global _WORKER_POINT_SIGMA, _WORKER_POINT_X, _WORKER_POINT_EXPONENT
@@ -71,9 +74,13 @@ def worker_span(task):
         )
         _WORKER_GRID = np.linspace(-radius, radius, nodes)
         _WORKER_DIRECTED_ACC = [interval.M() for _ in range(4)]
+        _WORKER_DIRECTED_FLOAT_ACC = [interval.M() for _ in range(4)]
         for accumulator in _WORKER_DIRECTED_ACC:
             accumulator.set_d(0.0)
+        for accumulator in _WORKER_DIRECTED_FLOAT_ACC:
+            accumulator.set_d(0.0)
         _WORKER_DIRECTED_TERM = interval.M()
+        _WORKER_DIRECTED_FLOAT_TERM = interval.M()
         point_objects = [interval.M() for _ in range(12)]
         (_WORKER_POINT_RMAX, _WORKER_POINT_IMAX, _WORKER_POINT_SQUARE_R,
          _WORKER_POINT_SQUARE_I, _WORKER_POINT_SQUARE, _WORKER_POINT_NORM,
@@ -83,6 +90,8 @@ def worker_span(task):
         # A fork worker services multiple spans; every span must have its own
         # directed accumulator or the parent would double-count prior spans.
         for accumulator in _WORKER_DIRECTED_ACC:
+            accumulator.set_d(0.0)
+        for accumulator in _WORKER_DIRECTED_FLOAT_ACC:
             accumulator.set_d(0.0)
     sums = np.zeros(4, dtype=float)
     exact_sums = [Fraction(0) for _ in range(4)] if exact_audit else None
@@ -154,9 +163,19 @@ def worker_span(task):
                 _WORKER_INTERVAL.BR(_WORKER_POINT_TERM.x),
                 _WORKER_INTERVAL.RNDU,
             )
+            _WORKER_DIRECTED_FLOAT_TERM.set_d(
+                _WORKER_POINT_TERM.get_d(_WORKER_INTERVAL.RNDU))
+            _WORKER_INTERVAL.ADD(
+                _WORKER_INTERVAL.BR(_WORKER_DIRECTED_FLOAT_ACC[channel].x),
+                _WORKER_INTERVAL.BR(_WORKER_DIRECTED_FLOAT_ACC[channel].x),
+                _WORKER_INTERVAL.BR(_WORKER_DIRECTED_FLOAT_TERM.x),
+                _WORKER_INTERVAL.RNDU,
+            )
     return (start, sums.tolist(),
             [str(value) for value in exact_sums] if exact_audit else None,
-            [accumulator.get_d(_WORKER_INTERVAL.RNDU) for accumulator in _WORKER_DIRECTED_ACC])
+            [accumulator.get_d(_WORKER_INTERVAL.RNDU) for accumulator in _WORKER_DIRECTED_ACC],
+            [accumulator.get_d(_WORKER_INTERVAL.RNDU)
+             for accumulator in _WORKER_DIRECTED_FLOAT_ACC])
 
 
 def run(nodes=240001, sigma=-0.5, workers=1, span=20001, exact_audit=True):
@@ -200,10 +219,14 @@ def run(nodes=240001, sigma=-0.5, workers=1, span=20001, exact_audit=True):
     ] if exact_audit else None)
     interval_main = load("interval2359main_acc", "routea_weighted_zero_zero_count_certificate_2242.py")
     directed_total = [interval_main.M() for _ in range(4)]
+    directed_float_total = [interval_main.M() for _ in range(4)]
     directed_span = interval_main.M()
+    directed_float_span = interval_main.M()
     directed_dx = interval_main.M()
     directed_integral = interval_main.M()
     for accumulator in directed_total:
+        accumulator.set_d(0.0)
+    for accumulator in directed_float_total:
         accumulator.set_d(0.0)
     for part in parts:
         for channel in range(4):
@@ -214,8 +237,16 @@ def run(nodes=240001, sigma=-0.5, workers=1, span=20001, exact_audit=True):
                 interval_main.BR(directed_span.x),
                 interval_main.RNDU,
             )
+            directed_float_span.set_d(part[4][channel])
+            interval_main.ADD(
+                interval_main.BR(directed_float_total[channel].x),
+                interval_main.BR(directed_float_total[channel].x),
+                interval_main.BR(directed_float_span.x),
+                interval_main.RNDU,
+            )
     directed_dx.set_d(dx)
     directed_integrals = []
+    directed_float_integrals = []
     for accumulator in directed_total:
         interval_main.MUL(
             interval_main.BR(directed_integral.x),
@@ -224,6 +255,14 @@ def run(nodes=240001, sigma=-0.5, workers=1, span=20001, exact_audit=True):
             interval_main.RNDU,
         )
         directed_integrals.append(directed_integral.get_d(interval_main.RNDU))
+    for accumulator in directed_float_total:
+        interval_main.MUL(
+            interval_main.BR(directed_integral.x),
+            interval_main.BR(accumulator.x),
+            interval_main.BR(directed_dx.x),
+            interval_main.RNDU,
+        )
+        directed_float_integrals.append(directed_integral.get_d(interval_main.RNDU))
     directed_integral_dominates_exact = ([
         Fraction.from_float(directed_integrals[channel]) >= exact_integrals[channel]
         for channel in range(4)
@@ -250,6 +289,11 @@ def run(nodes=240001, sigma=-0.5, workers=1, span=20001, exact_audit=True):
         "exact_binary64_audit_enabled": exact_audit,
         "accumulation_is_directed_mpfr": False,
         "directed_mpfr_term_accumulation_integrals": directed_integrals,
+        "directed_term_binary64_roundup_integrals": directed_float_integrals,
+        "directed_term_binary64_roundup_dominates_mpfr": [
+            directed_float_integrals[channel] >= directed_integrals[channel]
+            for channel in range(4)
+        ],
         "directed_mpfr_term_accumulation": True,
         "directed_span_dominates_exact_binary64_sum": span_dominates_exact,
         "directed_integral_dominates_exact_binary64_integral":

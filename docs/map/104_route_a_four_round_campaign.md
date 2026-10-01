@@ -3580,3 +3580,11 @@ into the existing corrected-physical stripNorm/curvature theorem. The
 analytic interface is audited, but no numerical node import is claimed.
 Evidence: docs/proofs/2380_owner_coordinate_charge_strip_bridge.md and
 results/2380_owner_coordinate_charge_strip_bridge.json.
+
+Record 2381 (2026-10-02): after the 2378 expression mismatch, the evaluator
+adds an RNDU binary64 roundup of each already-directed MPFR term and sums it
+through an independent directed accumulator. All four channels pass this
+same-expression control at 1001 nodes and preserve the prior directed values;
+the 776611-node bounded 300-second replay produced no artifact. Evidence:
+docs/proofs/2381_same_expression_directed_roundup.md and
+results/2381_same_expression_directed_roundup.json.

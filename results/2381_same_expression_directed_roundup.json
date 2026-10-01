@@ -1,0 +1,26 @@
+{
+  "record": 2381,
+  "status": "SAME_EXPRESSION_DIRECTED_ROUNDUP_LOCAL_CONTROL",
+  "control_nodes": 1001,
+  "directed_mpfr_term_accumulation_integrals": [
+    2.690638231851582,
+    8606.225861740028,
+    90.7869637295159,
+    125446.96411783129
+  ],
+  "directed_term_binary64_roundup_integrals": [
+    2.690638231851582,
+    8606.22586174003,
+    90.7869637295159,
+    125446.96411783129
+  ],
+  "roundup_dominates_all_channels": true,
+  "full_grid_nodes": 776611,
+  "full_grid_bounded_seconds": 300,
+  "full_grid_artifact_produced": false,
+  "source_sha256": "2d49993f1d4e77857664351ea781836633e8221ae11cbe4cb00f0bbf9808b58a",
+  "directed_accumulation_theorem_proved": false,
+  "nodewise_numeric_import_proved": false,
+  "producer_go": false,
+  "rh_claim": false
+}
