@@ -1,0 +1,22 @@
+{
+  "contiguous_no_overlap": true,
+  "first_span": [
+    0,
+    20001
+  ],
+  "full_coverage": true,
+  "last_span": [
+    760038,
+    776611
+  ],
+  "lean_partition_imported": false,
+  "nodes": 776611,
+  "numeric_term_dominance_imported": false,
+  "producer_go": false,
+  "record": 2394,
+  "rh_claim": false,
+  "source_hash_matches": true,
+  "span": 20001,
+  "span_count": 39,
+  "status": "DIRECTED_SPAN_PARTITION_AUDIT_PASS"
+}

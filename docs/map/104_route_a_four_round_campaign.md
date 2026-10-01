@@ -3669,6 +3669,14 @@ uniform nested-range interface. Term dominance and the actual partition are
 still unimported. Evidence: docs/proofs/2393_directed_span_partition_interface.md
 and results/2393_directed_span_partition_interface.json.
 
+Record 2394 (2026-10-02): the 2385 ordered replay partition is independently
+audited from the recorded node/span parameters and source hash. Its 39 slices
+are contiguous and cover the full node range with no overlap. This closes the
+index partition obligation only; pointwise directed dominance remains open.
+Evidence: scripts/routea_directed_span_partition_audit_2394.py,
+docs/proofs/2394_directed_span_partition_audit.md, and
+results/2394_directed_span_partition_audit.json.
+
 Record 2392 (2026-10-02): an independent artifact readback checks the 2385
 source hashes, four-channel directed-roundup dominance, channel alignment,
 and exact 2386 bridge readback. These controls pass, while Lean numeric import
