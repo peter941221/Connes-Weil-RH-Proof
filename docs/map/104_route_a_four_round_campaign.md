@@ -3767,3 +3767,11 @@ it does not prove pointwise mathematical-term dominance or Lean import.
 Evidence: `scripts/routea_nodal_interval_fullgrid_2359.py`,
 `scripts/routea_repaired_span_witness_audit_2411.py`,
 `docs/proofs/2411_span_witness_export.md`, and the two 2411 result artifacts.
+
+Record 2412 (2026-10-02): a same-source composite ledger re-reads the
+assembled charge from the retained span-sum witnesses and keeps the parent-
+reduction totals side by side.  This supplies the correct numerical object
+for the formal span consumer without claiming pointwise mathematical-term
+dominance or Lean import. Evidence: `scripts/routea_repaired_span_charge_bridge_2412.py`,
+`docs/proofs/2412_repaired_span_composite_bridge.md`, and
+`results/2412_repaired_span_composite_bridge.json`.
