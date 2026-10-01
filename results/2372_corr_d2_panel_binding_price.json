@@ -1,0 +1,15 @@
+{
+  "record": 2372,
+  "status": "CURRENT_GRID_PANEL_BOUND_NOT_CLOSING",
+  "corr_D2_panel_remainder": 131353.39607658036,
+  "corr_D2_directed_pointwise_reading": 125446.71132157759,
+  "panel_to_reading_ratio": 1.0470852100686898,
+  "required_nodes_for_remainder_ratio": {
+    "0.5": 347311,
+    "0.1": 776610,
+    "0.01": 2455854
+  },
+  "certificate": false,
+  "producer_go": false,
+  "rh_claim": false
+}

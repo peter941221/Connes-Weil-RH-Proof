@@ -1,0 +1,75 @@
+{
+  "record": 2371,
+  "status": "COORDINATE_AND_PANEL_REMAINDER_PRICE_NOT_CERTIFICATE",
+  "nodes": 240001,
+  "sigma": -0.5,
+  "radius": 6.553600000000003,
+  "outer_radius": 6.5536001,
+  "coordinate_max_float_gap": 1.283428900933359e-15,
+  "rows": [
+    {
+      "channel": "base_M0",
+      "derivative_order": 0,
+      "budgets": [
+        69.19328406543639,
+        4115.313210533059,
+        261991.64202914273
+      ],
+      "coordinate_lipschitz": 109934.71193631667,
+      "coordinate_charge": 1.8493392357274732e-09,
+      "panel_remainder": 0.022967127731035562,
+      "coordinate_plus_panel": 0.0229671295803748
+    },
+    {
+      "channel": "base_D2",
+      "derivative_order": 2,
+      "budgets": [
+        261991.64202914273,
+        17507958.9179586,
+        1225144134.161877
+      ],
+      "coordinate_lipschitz": 467271212.3825605,
+      "coordinate_charge": 7.86051076647745e-06,
+      "panel_remainder": 107.2493516242811,
+      "coordinate_plus_panel": 107.24935948479187
+    },
+    {
+      "channel": "corr_M0",
+      "derivative_order": 0,
+      "budgets": [
+        108311.66261216762,
+        6543283.217530376,
+        397883911.07208794
+      ],
+      "coordinate_lipschitz": 174771883.5152088,
+      "coordinate_charge": 2.940040463960999e-06,
+      "panel_remainder": 34.90532263337289,
+      "coordinate_plus_panel": 34.90532557341336
+    },
+    {
+      "channel": "corr_D2",
+      "derivative_order": 2,
+      "budgets": [
+        397883911.07208794,
+        24342528787.137505,
+        1497573503998.1223
+      ],
+      "coordinate_lipschitz": 650124849078.6577,
+      "coordinate_charge": 0.010936503769792353,
+      "panel_remainder": 131353.39607658036,
+      "coordinate_plus_panel": 131353.40701308413
+    }
+  ],
+  "corr_D2_panel_to_directed_value": 1.0470852100686898,
+  "required_nodes_for_corr_D2_remainder_ratio": {
+    "0.5": 347311,
+    "0.1": 776610,
+    "0.01": 2455854
+  },
+  "theorem_shape": "step^2 * (2*radius) * weightedCurvature / 12",
+  "stored_float_operands": true,
+  "pointwise_interval_certificate": false,
+  "directed_accumulation_certificate": false,
+  "producer_go": false,
+  "rh_claim": false
+}

@@ -3512,3 +3512,17 @@ to displayed precision. This is conditional on the 2242 rectangle bounds;
 the point-box function identity and trapezoid remainder remain open. Evidence:
 docs/proofs/2370_directed_pointwise_norm_exp_accumulation.md and
 results/2370_directed_pointwise_norm_exp_accumulation.json.
+
+Record 2371 (2026-10-02): the existing 2348 panel remainder and the outer-pin
+coordinate charge are now priced together at the binding sigma. This is a
+stored-operand planning price only; it does not certify the pointwise bounds
+or import the producer. Evidence: docs/proofs/2371_coordinate_panel_price.md,
+scripts/routea_coordinate_panel_price_2371.py, and its result.
+
+Record 2372 (2026-10-02): the four-channel price identifies `corr_D2` as the
+binding obstruction at 240001 nodes: the simple panel remainder is
+`1.0470852x` its directed pointwise reading. A refinement to roughly 776610
+nodes would only target a 0.1 ratio under the same crude curvature bound;
+this is a planning no-close, not a producer-family impossibility result.
+Evidence: docs/proofs/2372_corr_d2_panel_binding_price.md and
+results/2372_corr_d2_panel_binding_price.json.
