@@ -1,0 +1,20 @@
+{
+  "record": 2374,
+  "status": "SAME_OWNER_REFINEMENT_0_1_PRICE_CONTROLLED",
+  "nodes": 776611,
+  "workers": 12,
+  "span": 20001,
+  "directed_integrals": [
+    2.6867143296475287,
+    8606.21439765068,
+    90.78788225375546,
+    125446.71132157759
+  ],
+  "corr_D2_panel_remainder_price": 12544.629302232996,
+  "corr_D2_panel_to_reading_ratio": 0.099999666552241,
+  "same_evaluator_source_hash": "4d05a1ec9a54cd38454f1df18f7072562d5970cd318c5b29696f8b62ee8c4c86",
+  "pointwise_interval_certificate": false,
+  "trapezoid_remainder_proved": false,
+  "producer_go": false,
+  "rh_claim": false
+}

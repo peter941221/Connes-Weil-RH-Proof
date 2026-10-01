@@ -3533,3 +3533,10 @@ stable, while the priced `corr_D2` panel remainder falls to half the directed
 reading as predicted by the `h²` law. This is controlled refinement evidence,
 not a trapezoid theorem or producer GO. Evidence: docs/proofs/2373_same_owner_refinement_347311.md
 and results/2373_same_owner_refinement_347311.json.
+
+Record 2374 (2026-10-02): same-owner refinement at 776611 nodes reaches the
+pre-registered `corr_D2` panel ratio target: approximately `0.0999996666` of
+the directed reading, with stable four-channel values. This is controlled
+price evidence, not yet a Lean node import or producer GO. Evidence:
+docs/proofs/2374_same_owner_refinement_776611.md and
+results/2374_same_owner_refinement_776611.json.
