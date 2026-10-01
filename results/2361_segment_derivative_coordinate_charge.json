@@ -1,0 +1,11 @@
+{
+  "record": 2361,
+  "status": "ANALYTIC_BRIDGE_ONLY",
+  "theorem": "norm_value_le_of_deriv_bound2359",
+  "lean_audit_checked": true,
+  "weighted_physical_application": false,
+  "coordinate_orientation_split": false,
+  "directed_accumulation_theorem_proved": false,
+  "producer_go": false,
+  "rh_claim": false
+}
