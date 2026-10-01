@@ -3660,3 +3660,11 @@ terms and span accumulators dominate the corresponding mathematical
 quantities. No numeric value is imported. Evidence:
 docs/proofs/2391_directed_accumulation_order.md and
 results/2391_directed_accumulation_order.json.
+
+Record 2392 (2026-10-02): an independent artifact readback checks the 2385
+source hashes, four-channel directed-roundup dominance, channel alignment,
+and exact 2386 bridge readback. These controls pass, while Lean numeric import
+and the mathematical term-dominance theorem remain open. Evidence:
+scripts/routea_directed_accumulation_audit_2392.py,
+docs/proofs/2392_directed_accumulation_artifact_audit.md, and
+results/2392_directed_accumulation_artifact_audit.json.

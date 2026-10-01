@@ -1,0 +1,15 @@
+{
+  "bridge_readback_matches_roundup": true,
+  "bridge_record": 2386,
+  "corr_D2_assembled_upper": 137991.3586630174,
+  "directed_accumulation_theorem_proved": false,
+  "four_channel_shape": true,
+  "fullgrid_record": 2359,
+  "lean_numeric_imported": false,
+  "producer_go": false,
+  "record": 2392,
+  "rh_claim": false,
+  "roundup_dominates_mpfr": true,
+  "source_hashes_match": true,
+  "status": "DIRECTED_ACCUMULATION_ARTIFACT_INVARIANTS_PASS"
+}
