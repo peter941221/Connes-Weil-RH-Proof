@@ -1,0 +1,12 @@
+{
+  "record": 2387,
+  "status": "COMPOSITE_NODE_MONOTONICITY_AUDITED",
+  "theorems": [
+    "compositeNodeUpper_eq_sum_cellUpper2387",
+    "compositeNodeUpper_mono2387"
+  ],
+  "lean_audit_passed": true,
+  "numeric_node_import_proved": false,
+  "producer_go": false,
+  "rh_claim": false
+}

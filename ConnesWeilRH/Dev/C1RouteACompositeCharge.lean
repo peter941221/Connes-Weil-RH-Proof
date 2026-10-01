@@ -5,6 +5,33 @@ namespace ConnesWeilRH.Dev
 
 open scoped BigOperators
 
+def compositeCellUpper2387 (nodeUpper : ℕ → ℝ) (step : ℝ) (index : ℕ) : ℝ :=
+  step * ((nodeUpper index + nodeUpper (index + 1)) / 2)
+
+theorem compositeNodeUpper_eq_sum_cellUpper2387
+    (nodeUpper : ℕ → ℝ) (step : ℝ) (cells : ℕ) :
+    compositeNodeUpper2347 nodeUpper step cells =
+      ∑ index ∈ Finset.range cells, compositeCellUpper2387 nodeUpper step index := by
+  unfold compositeNodeUpper2347 compositeCellUpper2387
+  apply Finset.sum_congr rfl
+  intro index hindex
+  ring
+
+theorem compositeNodeUpper_mono2387
+    (actualUpper finalUpper : ℕ → ℝ) (step : ℝ) (cells : ℕ)
+    (hstep : 0 ≤ step)
+    (hnodes : ∀ index ≤ cells, actualUpper index ≤ finalUpper index) :
+    compositeNodeUpper2347 actualUpper step cells ≤
+      compositeNodeUpper2347 finalUpper step cells := by
+  unfold compositeNodeUpper2347
+  apply Finset.sum_le_sum
+  intro index hindex
+  apply mul_le_mul_of_nonneg_left _ (div_nonneg hstep (by norm_num))
+  have hleft := hnodes index (Nat.le_of_lt (Finset.mem_range.mp hindex))
+  have hright := hnodes (index + 1)
+    (Nat.succ_le_of_lt (Finset.mem_range.mp hindex))
+  exact add_le_add hleft hright
+
 theorem compositeNodeUpper_add_constant2359
     (nodeUpper : ℕ → ℝ) (step charge : ℝ) (cells : ℕ) :
     compositeNodeUpper2347 (fun index => nodeUpper index + charge) step cells =

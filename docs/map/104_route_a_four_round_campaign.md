@@ -3623,3 +3623,10 @@ upper is `137991.3586630174`; this is connected to the audited Lean bridge but
 not imported as a Lean numerical certificate. Evidence:
 docs/proofs/2386_fullgrid_composite_charge_bridge.md and
 results/2386_fullgrid_composite_charge_bridge.json.
+
+Record 2387 (2026-10-02): the Lean composite layer now has an explicit
+per-cell identity and pointwise node-upper monotonicity theorem. These are
+the formal consumers needed before importing the 2385 directed node values;
+the independent Lean audit passes. Evidence:
+docs/proofs/2387_composite_node_monotonicity.md and
+results/2387_composite_node_monotonicity.json.
