@@ -60,7 +60,7 @@ theorem scalarChordUpper2347 (function first second : ℝ → ℝ)
 
 theorem normChordUpper2347 {Space : Type*} [NormedAddCommGroup Space]
     [NormedSpace ℝ Space] (function : ℝ → Space)
-    (hsmooth : ContDiff ℝ (2 : ℕ∞ω) function)
+    (hsmooth : ContDiff ℝ (2 : WithTop (WithTop ℕ)) function)
     {left right position curvature : ℝ} (horder : left < right)
     (hposition : position ∈ Set.Icc left right)
     (hcurvature : ∀ coordinate ∈ Set.Icc left right,
@@ -70,7 +70,8 @@ theorem normChordUpper2347 {Space : Type*} [NormedAddCommGroup Space]
       curvature / 2 * (position - left) * (right - position) := by
   obtain ⟨projection, hprojection, hnorm⟩ := exists_dual_vector'' ℝ (function position)
   have hdiff := hsmooth.differentiable (by decide)
-  have hsmoothFirst : ContDiff ℝ (1 : ℕ∞ω) (deriv function) := ContDiff.deriv' hsmooth
+  have hsmoothFirst : ContDiff ℝ (1 : WithTop (WithTop ℕ)) (deriv function) :=
+    ContDiff.deriv' hsmooth
   have hdiffFirst := hsmoothFirst.differentiable (by decide)
   have hfirst (coordinate : ℝ) :
       HasDerivAt (fun argument => projection (function argument))
@@ -146,7 +147,7 @@ theorem chordDensity2347_integral (left right leftValue rightValue curvature : �
 
 theorem normIntegralChordUpper2347 {Space : Type*} [NormedAddCommGroup Space]
     [NormedSpace ℝ Space] (function : ℝ → Space)
-    (hsmooth : ContDiff ℝ (2 : ℕ∞ω) function)
+    (hsmooth : ContDiff ℝ (2 : WithTop (WithTop ℕ)) function)
     {left right curvature : ℝ} (horder : left < right)
     (hcurvature : ∀ coordinate ∈ Set.Icc left right,
       ‖deriv (deriv function) coordinate‖ ≤ curvature) :
@@ -175,7 +176,7 @@ noncomputable def compositeTrap2347 {Space : Type*} [NormedAddCommGroup Space]
 
 theorem normIntegralCompositeUpper2347 {Space : Type*} [NormedAddCommGroup Space]
     [NormedSpace ℝ Space] (function : ℝ → Space)
-    (hsmooth : ContDiff ℝ (2 : ℕ∞ω) function)
+    (hsmooth : ContDiff ℝ (2 : WithTop (WithTop ℕ)) function)
     (left step curvature : ℝ) (cells : ℕ) (hstep : 0 < step)
     (hcurvature : ∀ coordinate ∈ Set.Icc left (left + cells * step),
       ‖deriv (deriv function) coordinate‖ ≤ curvature) :
@@ -226,7 +227,8 @@ noncomputable def compositeNodeUpper2347 (nodeUpper : ℕ → ℝ) (step : ℝ) 
 
 theorem normIntegralCompositeUpper_of_nodeBounds2347
     {Space : Type*} [NormedAddCommGroup Space] [NormedSpace ℝ Space]
-    (function : ℝ → Space) (hsmooth : ContDiff ℝ (2 : ℕ∞ω) function)
+    (function : ℝ → Space)
+    (hsmooth : ContDiff ℝ (2 : WithTop (WithTop ℕ)) function)
     (left step curvature : ℝ) (cells : ℕ) (nodeUpper : ℕ → ℝ) (hstep : 0 < step)
     (hcurvature : ∀ coordinate ∈ Set.Icc left (left + cells * step),
       ‖deriv (deriv function) coordinate‖ ≤ curvature)

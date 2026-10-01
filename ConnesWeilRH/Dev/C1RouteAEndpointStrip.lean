@@ -111,14 +111,20 @@ theorem frozenStripHypothesis_of_compact_endpoint_bounds (base correction : Comp
     (hcorrectionSecond : ∀ endpoint ∈ ({-(1 / 2), 1 / 2} : Set ℝ),
       stripSecondNorm endpoint (correction.test : ℝ → ℂ) ≤ correctionSecondUpper2343) :
     FrozenStripHypothesis base correction := by
+  have hbSmooth2 : ContDiff ℝ (2 : WithTop (WithTop ℕ))
+      (base.test : ℝ → ℂ) :=
+    (base.test.smooth ⊤).of_le (by decide)
+  have hbSmoothFirst : ContDiff ℝ (1 : WithTop (WithTop ℕ))
+      (deriv (base.test : ℝ → ℂ)) := ContDiff.deriv' hbSmooth2
   have hb2 : Continuous (deriv (deriv (base.test : ℝ → ℂ))) :=
-    (ContDiff.deriv'
-      ((base.test.smooth ⊤).of_le (by decide : (2 : ℕ∞ω) ≤ ∞))).continuous_deriv
-      (by decide : (1 : ℕ∞ω) ≤ 1)
+    hbSmoothFirst.continuous_deriv (by decide)
+  have hcSmooth2 : ContDiff ℝ (2 : WithTop (WithTop ℕ))
+      (correction.test : ℝ → ℂ) :=
+    (correction.test.smooth ⊤).of_le (by decide)
+  have hcSmoothFirst : ContDiff ℝ (1 : WithTop (WithTop ℕ))
+      (deriv (correction.test : ℝ → ℂ)) := ContDiff.deriv' hcSmooth2
   have hc2 : Continuous (deriv (deriv (correction.test : ℝ → ℂ))) :=
-    (ContDiff.deriv'
-      ((correction.test.smooth ⊤).of_le (by decide : (2 : ℕ∞ω) ≤ ∞))).continuous_deriv
-      (by decide : (1 : ℕ∞ω) ≤ 1)
+    hcSmoothFirst.continuous_deriv (by decide)
   have hbs := (subset_tsupport (base.test : ℝ → ℂ)).trans hsuppBase
   have hcs := (subset_tsupport (correction.test : ℝ → ℂ)).trans hsuppCorrection
   have hbs2 := ((support_deriv_subset (f := deriv (base.test : ℝ → ℂ))).trans

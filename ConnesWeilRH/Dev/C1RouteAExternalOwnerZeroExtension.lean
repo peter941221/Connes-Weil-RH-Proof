@@ -40,7 +40,8 @@ theorem externalFamilyValue2344_secondDerivative_outside
   let second := deriv (deriv (externalFamilyValue2344 coefficient modulation radius))
   have hcontinuous : Continuous second :=
     (ContDiff.deriv' ((externalFamilyValue2344_contDiff coefficient modulation radius hradius).of_le
-      (by decide : (2 : ℕ∞ω) ≤ ∞))).continuous_deriv (by decide : (1 : ℕ∞ω) ≤ 1)
+      (by decide : (2 : WithTop (WithTop ℕ)) ≤ ∞))).continuous_deriv
+      (by decide : (1 : WithTop (WithTop ℕ)) ≤ (1 : WithTop (WithTop ℕ)))
   have hclosed : IsClosed {coordinate | second coordinate = 0} :=
     isClosed_eq hcontinuous continuous_const
   have hright : Set.Ici radius ⊆ {coordinate | second coordinate = 0} := by
@@ -83,8 +84,9 @@ theorem externalPhysical2344_secondDerivative_global
     externalFamilyValue2344 (coefficients index) (modulations index) (storedWidth index ^ 2)
   have hsmooth : ∀ index, ContDiff ℝ ∞ (family index) := fun index =>
     externalFamilyValue2344_contDiff _ _ _ (pow_pos (storedWidth_pos index) 2)
-  have hderivSmooth : ∀ index, ContDiff ℝ (1 : ℕ∞ω) (deriv (family index)) := fun index =>
-    ContDiff.deriv' ((hsmooth index).of_le (by decide : (1 + 1 : ℕ∞ω) ≤ ∞))
+  have hderivSmooth : ∀ index, ContDiff ℝ (1 : WithTop (WithTop ℕ)) (deriv (family index)) :=
+    fun index => ContDiff.deriv' ((hsmooth index).of_le
+      (by decide : (1 + 1 : WithTop (WithTop ℕ)) ≤ ∞))
   have hfirst : deriv (externalPhysical2344 coefficients modulations) =
       fun coordinate => ∑ index : Fin 30, deriv (family index) coordinate := by
     funext coordinate

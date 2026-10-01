@@ -257,14 +257,16 @@ theorem test_t_sq_mul_norm_le_stripSecond (f : CompactLogTest)
   have hdiff : Differentiable ℝ (f.test : ℝ → ℂ) :=
     (f.test.smooth ⊤).differentiable (by decide)
   have hderiv_diff : Differentiable ℝ (deriv (f.test : ℝ → ℂ)) :=
-    ((f.test.smooth ⊤).of_le (by decide : (2 : ℕ∞ω) ≤ ∞)).differentiable_deriv_two
+    ((f.test.smooth ⊤).of_le (by decide)).differentiable_deriv_two
   have hcont : Continuous (f.test : ℝ → ℂ) := (f.test.smooth ⊤).continuous
   have hderiv_cont : Continuous (deriv (f.test : ℝ → ℂ)) :=
-    (f.test.smooth ⊤).continuous_deriv (by decide : (1 : ℕ∞ω) ≤ ∞)
+    (f.test.smooth ⊤).continuous_deriv (by decide)
+  have hsmooth2 : ContDiff ℝ (2 : WithTop (WithTop ℕ)) (f.test : ℝ → ℂ) :=
+    (f.test.smooth ⊤).of_le (by decide)
+  have hsmoothFirst : ContDiff ℝ (1 : WithTop (WithTop ℕ))
+      (deriv (f.test : ℝ → ℂ)) := ContDiff.deriv' hsmooth2
   have hderiv2_cont : Continuous (deriv (deriv (f.test : ℝ → ℂ))) :=
-    (ContDiff.deriv'
-      ((f.test.smooth ⊤).of_le (by decide : (2 : ℕ∞ω) ≤ ∞))).continuous_deriv
-      (by decide : (1 : ℕ∞ω) ≤ 1)
+    hsmoothFirst.continuous_deriv (by decide)
   have h := t_sq_mul_norm_exp_integral_le (sigma := sigma) (t := t)
     (f := (f.test : ℝ → ℂ)) (f' := deriv (f.test : ℝ → ℂ))
     (f'' := deriv (deriv (f.test : ℝ → ℂ)))

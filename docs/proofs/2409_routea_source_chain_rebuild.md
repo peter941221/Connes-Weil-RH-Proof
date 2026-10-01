@@ -23,6 +23,11 @@ C1RouteAOwnerDerivativeBudget
 C1RouteAOwnerCoordinateCharge
 C1RouteACompositeCharge
 C1RouteAWeightedChordPanel
+C1RouteAChordPanel
+C1RouteAExternalOwnerZeroExtension
+C1RouteAEndpointStrip
+C1RouteAStripTransfer
+C1RouteADirectProductDecay
 ```
 
 The directed accumulation and composite-charge audit modules both compiled;
@@ -32,9 +37,11 @@ their audited declarations depend only on
 The source repairs were structural only: explicit owner-scale imports/opens,
 the current `WithTop (WithTop ℕ)` smoothness type, interval endpoint order,
 `deriv`/`iteratedDeriv` normalization, and the finite trapezoid constant-term
-identity.  The weighted chord-panel consumer was also rebuilt after replacing
-its stale `ℕ∞ω` annotations; this exposed no new proof failure.  No numerical
-conclusion was inserted into Lean and no RH claim is made here.
+identity.  The expanded dependency closure was rebuilt after replacing stale
+`ℕ∞ω` annotations and making second-derivative smoothness orders explicit;
+this exposed and repaired the same hidden metavariable issue in the endpoint
+strip and strip-transfer consumers.  No numerical conclusion was inserted
+into Lean and no RH claim is made here.
 
 The remaining bridge obligations are unchanged: a mathematical nodewise term
 dominance theorem, a proved trapezoid remainder bound, and a certified import

@@ -230,14 +230,20 @@ theorem frozenStripHypothesis_of_certified_grid (b c : CompactLogTest)
     FrozenStripHypothesis b c := by
   have hb_cont : Continuous (b.test : ℝ → ℂ) := (b.test.smooth ⊤).continuous
   have hc_cont : Continuous (c.test : ℝ → ℂ) := (c.test.smooth ⊤).continuous
+  have hb_smooth2 : ContDiff ℝ (2 : WithTop (WithTop ℕ))
+      (b.test : ℝ → ℂ) :=
+    (b.test.smooth ⊤).of_le (by decide)
+  have hb_smoothFirst : ContDiff ℝ (1 : WithTop (WithTop ℕ))
+      (deriv (b.test : ℝ → ℂ)) := ContDiff.deriv' hb_smooth2
   have hb2_cont : Continuous (deriv (deriv (b.test : ℝ → ℂ))) :=
-    (ContDiff.deriv'
-      ((b.test.smooth ⊤).of_le (by decide : (2 : ℕ∞ω) ≤ ∞))).continuous_deriv
-      (by decide : (1 : ℕ∞ω) ≤ 1)
+    hb_smoothFirst.continuous_deriv (by decide)
+  have hc_smooth2 : ContDiff ℝ (2 : WithTop (WithTop ℕ))
+      (c.test : ℝ → ℂ) :=
+    (c.test.smooth ⊤).of_le (by decide)
+  have hc_smoothFirst : ContDiff ℝ (1 : WithTop (WithTop ℕ))
+      (deriv (c.test : ℝ → ℂ)) := ContDiff.deriv' hc_smooth2
   have hc2_cont : Continuous (deriv (deriv (c.test : ℝ → ℂ))) :=
-    (ContDiff.deriv'
-      ((c.test.smooth ⊤).of_le (by decide : (2 : ℕ∞ω) ≤ ∞))).continuous_deriv
-      (by decide : (1 : ℕ∞ω) ≤ 1)
+    hc_smoothFirst.continuous_deriv (by decide)
   have hsuppb : Function.support (b.test : ℝ → ℂ) ⊆ Set.Icc (-R) R :=
     (subset_tsupport _).trans htsupp_b
   have hsuppc : Function.support (c.test : ℝ → ℂ) ⊆ Set.Icc (-R) R :=
