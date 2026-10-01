@@ -47,4 +47,40 @@ theorem compositeNodeUpper_le_of_nodewise_coordinate_charge2359
         (cells : ℝ) * step * charge := by
       rw [compositeNodeUpper_add_coordinate_charge2359 _ _ _ _ hcharge]
 
+theorem correctedPhysical_stripNorm_le_of_actual_coordinate_charge2359
+    (coefficients : Fin 30 → ℂ) (modulations : Fin 30 → ℝ)
+    (sigma step : ℝ) (cells : ℕ) (actualCoordinate actualUpper : ℕ → ℝ)
+    (charge : ℝ) (hstep : 0 < step)
+    (hgrid : (cells : ℝ) * step = 2 * storedWidth 4 ^ 2)
+    (hcharge : 0 ≤ charge)
+    (hactual : ∀ index ≤ cells,
+      Real.exp (sigma * (actualCoordinate index)) *
+        ‖correctedPhysical coefficients modulations (actualCoordinate index)‖ ≤
+          actualUpper index)
+    (htransfer : ∀ index ≤ cells,
+      Real.exp (sigma * (-(storedWidth 4 ^ 2) + index * step)) *
+          ‖correctedPhysical coefficients modulations
+            (-(storedWidth 4 ^ 2) + index * step)‖ ≤
+        Real.exp (sigma * (actualCoordinate index)) *
+            ‖correctedPhysical coefficients modulations (actualCoordinate index)‖ + charge) :
+    stripNorm sigma (correctedPhysical coefficients modulations) ≤
+      compositeNodeUpper2347 actualUpper step cells + (cells : ℝ) * step * charge +
+        step ^ 2 * (2 * storedWidth 4 ^ 2) *
+          weightedCurvature2348 sigma (storedWidth 4 ^ 2)
+            (ownerDerivativeBudget2350 0 coefficients modulations)
+            (ownerDerivativeBudget2350 1 coefficients modulations)
+            (ownerDerivativeBudget2350 2 coefficients modulations) / 12 := by
+  have hideal : ∀ index ≤ cells,
+      Real.exp (sigma * (-(storedWidth 4 ^ 2) + index * step)) *
+          ‖correctedPhysical coefficients modulations
+            (-(storedWidth 4 ^ 2) + index * step)‖ ≤
+        actualUpper index + charge := by
+    intro index hindex
+    exact (htransfer index hindex).trans (add_le_add_right (hactual index hindex) _)
+  have hpanel := correctedPhysical_stripNorm_le_nodeUpper_from_budget2350
+    coefficients modulations sigma step cells
+    (fun index => actualUpper index + charge) hstep hgrid hideal
+  rw [compositeNodeUpper_add_coordinate_charge2359 actualUpper step charge cells hcharge] at hpanel
+  exact hpanel
+
 end ConnesWeilRH.Dev

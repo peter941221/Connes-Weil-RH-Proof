@@ -3573,3 +3573,10 @@ recomputed MPFR directed path; global dominance is not accepted as a repair.
 The directed certificate path remains open. Evidence:
 docs/proofs/2378_fullgrid_span_control_failure.md and
 results/2378_fullgrid_span_control_failure.json.
+
+Record 2380 (2026-10-02): the owner-level Lean bridge now consumes actual
+coordinate node upper bounds plus a transfer charge and feeds them directly
+into the existing corrected-physical stripNorm/curvature theorem. The
+analytic interface is audited, but no numerical node import is claimed.
+Evidence: docs/proofs/2380_owner_coordinate_charge_strip_bridge.md and
+results/2380_owner_coordinate_charge_strip_bridge.json.
