@@ -1,0 +1,9 @@
+{
+  "record": 2389,
+  "status": "NODE_UPPER_SCALAR_CONSUMER_AUDITED",
+  "theorem": "correctedPhysical_stripNorm_le_of_nodeUpper_scalar2389",
+  "lean_audit_passed": true,
+  "numeric_scalar_hypothesis_imported": false,
+  "producer_go": false,
+  "rh_claim": false
+}

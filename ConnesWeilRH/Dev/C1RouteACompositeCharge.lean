@@ -110,4 +110,24 @@ theorem correctedPhysical_stripNorm_le_of_actual_coordinate_charge2359
   rw [compositeNodeUpper_add_coordinate_charge2359 actualUpper step charge cells hcharge] at hpanel
   exact hpanel
 
+theorem correctedPhysical_stripNorm_le_of_nodeUpper_scalar2389
+    (coefficients : Fin 30 → ℂ) (modulations : Fin 30 → ℝ)
+    (sigma step scalar : ℝ) (cells : ℕ) (nodeUpper : ℕ → ℝ)
+    (hstep : 0 < step)
+    (hgrid : (cells : ℝ) * step = 2 * storedWidth 4 ^ 2)
+    (hnodes : ∀ index ≤ cells,
+      Real.exp (sigma * (-(storedWidth 4 ^ 2) + index * step)) *
+        ‖correctedPhysical coefficients modulations
+          (-(storedWidth 4 ^ 2) + index * step)‖ ≤ nodeUpper index)
+    (hscalar : compositeNodeUpper2347 nodeUpper step cells ≤ scalar) :
+    stripNorm sigma (correctedPhysical coefficients modulations) ≤
+      scalar + step ^ 2 * (2 * storedWidth 4 ^ 2) *
+        weightedCurvature2348 sigma (storedWidth 4 ^ 2)
+          (ownerDerivativeBudget2350 0 coefficients modulations)
+          (ownerDerivativeBudget2350 1 coefficients modulations)
+          (ownerDerivativeBudget2350 2 coefficients modulations) / 12 := by
+  have hpanel := correctedPhysical_stripNorm_le_nodeUpper_from_budget2350
+    coefficients modulations sigma step cells nodeUpper hstep hgrid hnodes
+  exact hpanel.trans (add_le_add_right hscalar _)
+
 end ConnesWeilRH.Dev

@@ -8,3 +8,4 @@ open ConnesWeilRH.Dev
 #print axioms compositeNodeUpper_add_coordinate_charge2359
 #print axioms compositeNodeUpper_le_of_nodewise_coordinate_charge2359
 #print axioms correctedPhysical_stripNorm_le_of_actual_coordinate_charge2359
+#print axioms correctedPhysical_stripNorm_le_of_nodeUpper_scalar2389

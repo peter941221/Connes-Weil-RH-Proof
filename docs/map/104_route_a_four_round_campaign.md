@@ -3637,3 +3637,10 @@ Linux integration control passed all 22 tests in 3.218 s. This is provenance
 and fail-closed control evidence only, not an analytic strip proof.
 Evidence: docs/proofs/2388_strip_manifest_refresh_and_integration.md and
 results/2388_strip_manifest_refresh_and_integration.json.
+
+Record 2389 (2026-10-02): the Lean consumer now turns explicit nodewise
+upper bounds plus a scalar composite bound into the final owner stripNorm
+bound with curvature remainder. The theorem is audited, but its numeric
+scalar hypothesis is not imported. Evidence:
+docs/proofs/2389_node_upper_scalar_consumer.md and
+results/2389_node_upper_scalar_consumer.json.
