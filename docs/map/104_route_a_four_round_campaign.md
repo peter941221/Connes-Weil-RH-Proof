@@ -3449,3 +3449,11 @@ corrected physical function, orientation split, and directed accumulation
 remain open; no numerical value or producer premise is imported.
 Evidence: docs/proofs/2361_segment_derivative_coordinate_charge.md and
 results/2361_segment_derivative_coordinate_charge.json.
+
+Record 2362 (2026-10-01): the coordinate bridge reaches the weighted owner.
+`weightedFunction2348_norm_le_of_coordinate_segment2359` derives the transfer
+charge `exp(|sigma| radius) (|sigma| zeroBound + firstBound)` from a first
+derivative bound on an ordered coordinate segment. The corrected-physical
+specialization, mixed coordinate orientation, directed accumulation, and
+trapezoid remainder remain open. Evidence: docs/proofs/2362_weighted_coordinate_transfer.md
+and results/2362_weighted_coordinate_transfer.json.

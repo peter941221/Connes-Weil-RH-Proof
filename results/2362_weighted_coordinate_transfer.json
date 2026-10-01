@@ -1,0 +1,11 @@
+{
+  "record": 2362,
+  "status": "WEIGHTED_ANALYTIC_BRIDGE_ONLY",
+  "theorem": "weightedFunction2348_norm_le_of_coordinate_segment2359",
+  "lean_audit_checked": true,
+  "corrected_physical_instantiated": false,
+  "coordinate_orientation_split": false,
+  "directed_accumulation_theorem_proved": false,
+  "producer_go": false,
+  "rh_claim": false
+}
