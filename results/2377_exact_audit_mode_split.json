@@ -1,0 +1,20 @@
+{
+  "record": 2377,
+  "status": "EXACT_AUDIT_SPLIT_RUNTIME_DIAGNOSTIC",
+  "control_nodes": 1001,
+  "identical_fields": [
+    "interval_integrals",
+    "directed_mpfr_term_accumulation_integrals",
+    "interval_min_product"
+  ],
+  "identical_fields_verified": true,
+  "exact_audit_default": true,
+  "skip_exact_audit_flag": "--skip-exact-audit",
+  "full_grid_nodes": 776611,
+  "full_grid_bounded_seconds": 180,
+  "full_grid_artifact_produced": false,
+  "directed_accumulation_theorem_proved": false,
+  "nodewise_numeric_import_proved": false,
+  "producer_go": false,
+  "rh_claim": false
+}

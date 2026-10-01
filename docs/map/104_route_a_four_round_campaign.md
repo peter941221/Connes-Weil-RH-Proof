@@ -3556,3 +3556,11 @@ an artifact. This is therefore a control improvement, not a full-grid
 certificate or producer GO. Evidence:
 docs/proofs/2376_directed_accumulation_controls.md and
 results/2376_directed_accumulation_control_1001.json.
+
+Record 2377 (2026-10-02): exact binary64 `Fraction` auditing is now an
+explicit optional mode. The 1001-node full-audit and skip-audit paths agree
+on all evaluator fields, while the 776611-node replay still exceeds the
+bounded 180-second run even with the audit disabled. This isolates, but does
+not solve, the remaining runtime bottleneck. Evidence:
+docs/proofs/2377_exact_audit_mode_split.md and
+results/2377_exact_audit_mode_split.json.
