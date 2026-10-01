@@ -276,6 +276,19 @@ def run(nodes=240001, sigma=-0.5, workers=1, span=20001, exact_audit=True):
     directed_dx.set_d(dx)
     directed_integrals = []
     directed_float_integrals = []
+    directed_float_span_integrals = []
+    for part in parts:
+        span_row = []
+        for channel in range(4):
+            directed_float_span.set_d(part[4][channel])
+            interval_main.MUL(
+                interval_main.BR(directed_integral.x),
+                interval_main.BR(directed_float_span.x),
+                interval_main.BR(directed_dx.x),
+                interval_main.RNDU,
+            )
+            span_row.append(directed_integral.get_d(interval_main.RNDU))
+        directed_float_span_integrals.append(span_row)
     for accumulator in directed_total:
         interval_main.MUL(
             interval_main.BR(directed_integral.x),
@@ -319,6 +332,11 @@ def run(nodes=240001, sigma=-0.5, workers=1, span=20001, exact_audit=True):
         "accumulation_is_directed_mpfr": False,
         "directed_mpfr_term_accumulation_integrals": directed_integrals,
         "directed_term_binary64_roundup_integrals": directed_float_integrals,
+        # Keep the ordered span witnesses instead of discarding them after
+        # the parent reduction.  This is certificate data for the later
+        # finite-span Lean import; it is not itself a theorem.
+        "directed_term_binary64_roundup_span_integrals":
+            directed_float_span_integrals,
         "directed_term_binary64_roundup_dominates_mpfr": [
             directed_float_integrals[channel] >= directed_integrals[channel]
             for channel in range(4)

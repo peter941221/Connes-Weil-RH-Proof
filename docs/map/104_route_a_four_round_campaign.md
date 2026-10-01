@@ -3756,3 +3756,12 @@ coverage, and specializes it to the recorded 39-span, 776611-node replay in
 `[propext, Classical.choice, Quot.sound]`.  The pointwise MPFR-to-
 mathematical-term dominance remains open. Evidence:
 `ConnesWeilRH/Dev/C1RouteADirectedAccumulation.lean` and its audit.
+
+Record 2411 (2026-10-02): the full-grid evaluator now retains the ordered
+directed span witnesses instead of discarding them after parent reduction.
+The Linux MPFR 1001-node control passes with the new field.  A fresh
+776611-node replay is required because the source hash changed; this is
+certificate-data retention only and does not prove pointwise mathematical-term
+dominance. Evidence: `scripts/routea_nodal_interval_fullgrid_2359.py`,
+`docs/proofs/2411_span_witness_export.md`, and
+`results/2411_span_control_1001.json`.
