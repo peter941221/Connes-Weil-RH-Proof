@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1RouteACompositeCharge
+
+open ConnesWeilRH.Dev
+
+#print axioms compositeNodeUpper_add_constant2359
+#print axioms compositeNodeUpper_add_coordinate_charge2359
