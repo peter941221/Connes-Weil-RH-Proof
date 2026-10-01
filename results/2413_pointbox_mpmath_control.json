@@ -1,0 +1,20 @@
+{
+  "artifact": "results/2411_repaired_shared_geometry_776611.json",
+  "channels": 4,
+  "checked_point_channel_values": 20004,
+  "containment_failures": 0,
+  "evaluator_revision_probe": true,
+  "first_failure": null,
+  "full_real_domain_enclosure_proved": false,
+  "lean_numeric_imported": false,
+  "mpmath_dps": 90,
+  "nodes": 5001,
+  "producer_go": false,
+  "record": 2413,
+  "rh_claim": false,
+  "source_hashes_match": false,
+  "status": "POINTBOX_MPMATH_5001_CONTROL_PASS",
+  "stored_operands_converted_exactly": true,
+  "worst_relative_violation": 0.0,
+  "worst_row": null
+}

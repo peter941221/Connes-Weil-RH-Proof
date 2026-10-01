@@ -3775,3 +3775,14 @@ for the formal span consumer without claiming pointwise mathematical-term
 dominance or Lean import. Evidence: `scripts/routea_repaired_span_charge_bridge_2412.py`,
 `docs/proofs/2412_repaired_span_composite_bridge.md`, and
 `results/2412_repaired_span_composite_bridge.json`.
+
+Record 2413 (2026-10-02): an independent exact-rational-operand, 90-digit
+mpmath control is extended from the repaired 1001-node sample to 5001 nodes
+over all four channels.  The old one-ulp public endpoint margin has three
+tiny escapes; the named four-ulp probe contains all 20004 values.  This is an
+enclosure decision control only; the 2411 full-grid artifact predates this
+source revision and must be regenerated, and no Lean import is claimed.
+Evidence:
+`scripts/routea_pointbox_mpmath_control_2413.py`,
+`docs/proofs/2413_pointbox_mpmath_control.md`, and
+`results/2413_pointbox_mpmath_control.json`.

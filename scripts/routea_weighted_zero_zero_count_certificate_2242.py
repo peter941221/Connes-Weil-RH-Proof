@@ -103,6 +103,10 @@ EXP, SIN, COS = lib.mpfr_exp, lib.mpfr_sin, lib.mpfr_cos
 CMP = lib.mpfr_cmp
 BR = C.byref
 NOZERO_ULPS = 32
+# Public binary64 endpoints need a separately priced outward margin.  This is
+# intentionally a named knob: the mpmath containment control is allowed to
+# decide whether the current margin is sufficient.
+PUBLIC_HULL_ULPS = 4
 
 
 def mk(v):
@@ -409,10 +413,15 @@ class Kernel:
         # directed MPFR-to-float conversion needs one explicit outward step
         # after get_d; otherwise the rounded double can still undercut the
         # exact high-precision value by a few 1e-33.
-        lo_r = float(np.nextafter(acc[0].get_d(RNDD), -np.inf))
-        hi_r = float(np.nextafter(acc[1].get_d(RNDU), np.inf))
-        lo_i = float(np.nextafter(acc[2].get_d(RNDD), -np.inf))
-        hi_i = float(np.nextafter(acc[3].get_d(RNDU), np.inf))
+        lo_r = acc[0].get_d(RNDD)
+        hi_r = acc[1].get_d(RNDU)
+        lo_i = acc[2].get_d(RNDD)
+        hi_i = acc[3].get_d(RNDU)
+        for _ in range(PUBLIC_HULL_ULPS):
+            lo_r = float(np.nextafter(lo_r, -np.inf))
+            hi_r = float(np.nextafter(hi_r, np.inf))
+            lo_i = float(np.nextafter(lo_i, -np.inf))
+            hi_i = float(np.nextafter(hi_i, np.inf))
         ok = (icmp(acc[0], ZERO) > 0 or icmp(acc[1], ZERO) < 0
               or icmp(acc[2], ZERO) > 0 or icmp(acc[3], ZERO) < 0)
         # floor: distance of the hull to the origin (lower bound of |h|)
