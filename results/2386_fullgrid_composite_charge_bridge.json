@@ -1,0 +1,16 @@
+{
+  "record": 2386,
+  "status": "FULLGRID_COMPOSITE_CHARGE_BRIDGE_INTERFACE_ONLY",
+  "nodes": 776611,
+  "corr_D2": {
+    "actual_node_composite": 125446.71133496995,
+    "coordinate_charge": 0.018025814446196477,
+    "panel_remainder": 12544.629302232996,
+    "assembled_upper": 137991.3586630174
+  },
+  "lean_bridge_audited": true,
+  "nodewise_numeric_import_proved": false,
+  "directed_accumulation_theorem_proved": false,
+  "producer_go": false,
+  "rh_claim": false
+}

@@ -1,0 +1,55 @@
+{
+  "coordinate_delta": 2.1153790745275684e-15,
+  "coordinate_delta_ratio_to_2371": 1.6482245903837627,
+  "directed_accumulation_theorem_proved": false,
+  "input_hashes": {
+    "price": "caa550a00674356a7e343762573a17c02c5fcc0098b708e5b457c16d70b794fb",
+    "refinement": "7bf2467f342a7e2ae7c35bc94a97477c26699350f0e37b3b3e556060e70561cc",
+    "summary": "7bf2467f342a7e2ae7c35bc94a97477c26699350f0e37b3b3e556060e70561cc"
+  },
+  "lean_bridge_audited": true,
+  "lean_bridge_theorem": "compositeNodeUpper_le_of_nodewise_coordinate_charge2359",
+  "nodes": 776611,
+  "nodewise_numeric_import_proved": false,
+  "old_price_nodes": 240001,
+  "panel_mesh_ratio_squared_to_2371": 0.09550289278336853,
+  "producer_go": false,
+  "record": 2386,
+  "rh_claim": false,
+  "rows": [
+    {
+      "actual_node_composite": 2.686714329647529,
+      "assembled_upper": 2.6889077598328943,
+      "channel": "base_M0",
+      "coordinate_charge": 3.048126404287535e-09,
+      "ideal_node_composite_upper": 2.6867143326956553,
+      "panel_remainder": 0.0021934271372390196
+    },
+    {
+      "actual_node_composite": 8606.21439765138,
+      "assembled_upper": 8616.457033936525,
+      "channel": "base_D2",
+      "coordinate_charge": 1.2955887138284451e-05,
+      "ideal_node_composite_upper": 8606.214410607266,
+      "panel_remainder": 10.24262332925951
+    },
+    {
+      "actual_node_composite": 90.78788225377055,
+      "assembled_upper": 94.12144638464143,
+      "channel": "corr_M0",
+      "coordinate_charge": 4.845846989423805e-06,
+      "ideal_node_composite_upper": 90.78788709961754,
+      "panel_remainder": 3.333559285023898
+    },
+    {
+      "actual_node_composite": 125446.71133496995,
+      "assembled_upper": 137991.3586630174,
+      "channel": "corr_D2",
+      "coordinate_charge": 0.018025814446196477,
+      "ideal_node_composite_upper": 125446.72936078439,
+      "panel_remainder": 12544.629302232996
+    }
+  ],
+  "status": "COMPOSITE_COORDINATE_BRIDGE_INTERFACE_ONLY",
+  "trapezoid_remainder_proved": false
+}

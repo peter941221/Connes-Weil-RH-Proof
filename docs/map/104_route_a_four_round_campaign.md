@@ -3616,3 +3616,10 @@ ratio is `0.09999966654156531`, below the registered 0.1 target, but the
 analytic/numerical import obligations remain open. Evidence:
 docs/proofs/2385_shared_geometry_fullgrid.md and
 results/2385_shared_geometry_fullgrid.json.
+
+Record 2386 (2026-10-02): the composite-charge ledger is parameterized and
+re-read against the 2385 full-grid artifact. The resulting `corr_D2` assembled
+upper is `137991.3586630174`; this is connected to the audited Lean bridge but
+not imported as a Lean numerical certificate. Evidence:
+docs/proofs/2386_fullgrid_composite_charge_bridge.md and
+results/2386_fullgrid_composite_charge_bridge.json.

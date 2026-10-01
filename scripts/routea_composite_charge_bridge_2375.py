@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import argparse
 from fractions import Fraction
 from pathlib import Path
 
@@ -16,9 +17,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def main() -> dict:
-    refinement_path = ROOT / "results/2374_nodal_interval_refinement.json"
-    summary_path = ROOT / "results/2374_same_owner_refinement_776611.json"
+def main(record=2375, refinement_name="2374_nodal_interval_refinement.json",
+         summary_name="2374_same_owner_refinement_776611.json",
+         output_name="2375_composite_charge_bridge.json") -> dict:
+    refinement_path = ROOT / "results" / refinement_name
+    summary_path = ROOT / "results" / summary_name
     price_path = ROOT / "results/2371_coordinate_panel_price.json"
     refinement = json.loads(refinement_path.read_text())
     summary = json.loads(summary_path.read_text())
@@ -30,7 +33,9 @@ def main() -> dict:
     delta_old = price["coordinate_max_float_gap"]
     delta_new = float(Fraction(refinement["coordinate_max_fraction_gap"]))
     delta_ratio = delta_new / delta_old
-    directed = summary["directed_integrals"]
+    directed = (summary["directed_integrals"]
+                if "directed_integrals" in summary
+                else summary["directed_term_binary64_roundup_integrals"])
 
     rows = []
     for channel, value in zip(price["rows"], directed):
@@ -48,7 +53,7 @@ def main() -> dict:
         )
 
     result = {
-        "record": 2375,
+        "record": record,
         "status": "COMPOSITE_COORDINATE_BRIDGE_INTERFACE_ONLY",
         "nodes": new_nodes,
         "old_price_nodes": old_nodes,
@@ -69,11 +74,17 @@ def main() -> dict:
             "price": hashlib.sha256(price_path.read_bytes()).hexdigest(),
         },
     }
-    output = ROOT / "results/2375_composite_charge_bridge.json"
+    output = ROOT / "results" / output_name
     output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
     print(json.dumps({"status": result["status"], "rows": rows}, indent=2))
     return result
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--record", type=int, default=2375)
+    parser.add_argument("--refinement", default="2374_nodal_interval_refinement.json")
+    parser.add_argument("--summary", default="2374_same_owner_refinement_776611.json")
+    parser.add_argument("--output", default="2375_composite_charge_bridge.json")
+    args = parser.parse_args()
+    main(args.record, args.refinement, args.summary, args.output)
