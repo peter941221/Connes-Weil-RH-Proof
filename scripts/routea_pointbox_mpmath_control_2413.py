@@ -66,7 +66,7 @@ def reference_value(families, coefficients, order: int, x: float) -> mp.mpc:
 
 def main(nodes: int = 5001, allow_evaluator_revision: bool = False,
          artifact_path: Path = ARTIFACT, output_path: Path | None = None,
-         record: int = 2413) -> dict:
+         record: int = 2413, public_hull_ulps: int | None = None) -> dict:
     artifact = json.loads(artifact_path.read_text())
     evaluator_hash_matches = artifact["evaluator_source_sha256"] == sha256(EVALUATOR)
     require = lambda condition, message: (_ for _ in ()).throw(
@@ -76,6 +76,10 @@ def main(nodes: int = 5001, allow_evaluator_revision: bool = False,
             "evaluator hash mismatch")
 
     evaluator = load("containment_2413", EVALUATOR)
+    if public_hull_ulps is not None:
+        if public_hull_ulps < 0:
+            raise ValueError("public_hull_ulps must be nonnegative")
+        evaluator.PUBLIC_HULL_ULPS = public_hull_ulps
     strip = load("strip_2413", STRIP)
     families, base, correction, _ = strip.load_owner()
     families = strip.corrected_fam(families)
@@ -125,8 +129,8 @@ def main(nodes: int = 5001, allow_evaluator_revision: bool = False,
 
     result = {
         "record": record,
-        "status": "POINTBOX_MPMATH_5001_CONTROL_PASS" if not failures
-                  else "POINTBOX_MPMATH_5001_CONTROL_FAIL",
+        "status": (f"POINTBOX_MPMATH_{nodes}_CONTROL_PASS" if not failures
+                    else f"POINTBOX_MPMATH_{nodes}_CONTROL_FAIL"),
         "artifact": str(artifact_path.relative_to(ROOT)),
         "source_hashes_match": evaluator_hash_matches,
         "evaluator_revision_probe": allow_evaluator_revision,
@@ -135,7 +139,8 @@ def main(nodes: int = 5001, allow_evaluator_revision: bool = False,
         "checked_point_channel_values": checked,
         "mpmath_dps": 90,
         "stored_operands_converted_exactly": True,
-        "public_hull_ulp_margin": 4,
+        "public_hull_ulp_margin": evaluator.PUBLIC_HULL_ULPS,
+        "public_hull_ulp_override": public_hull_ulps,
         "containment_failures": len(failures),
         "first_failure": failures[0] if failures else None,
         "worst_relative_violation": float(worst),
@@ -159,7 +164,9 @@ if __name__ == "__main__":
     parser.add_argument("--artifact", type=Path, default=ARTIFACT)
     parser.add_argument("--output", type=Path)
     parser.add_argument("--record", type=int, default=2413)
+    parser.add_argument("--public-hull-ulps", type=int)
     args = parser.parse_args()
     artifact = args.artifact if args.artifact.is_absolute() else ROOT / args.artifact
     output = args.output if args.output is None or args.output.is_absolute() else ROOT / args.output
-    main(args.nodes, args.allow_evaluator_revision, artifact, output, args.record)
+    main(args.nodes, args.allow_evaluator_revision, artifact, output, args.record,
+         args.public_hull_ulps)

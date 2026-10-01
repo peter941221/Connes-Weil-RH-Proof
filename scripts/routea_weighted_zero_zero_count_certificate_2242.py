@@ -107,6 +107,12 @@ NOZERO_ULPS = 32
 # intentionally a named knob: the mpmath containment control is allowed to
 # decide whether the current margin is sufficient.
 PUBLIC_HULL_ULPS = 4
+# Geometry is cached as binary64 for the shared four-channel replay.  A
+# binary64 round-trip can be harmless in ordinary panels but becomes visible
+# after cancellation.  Keep a separately named outward margin for every
+# cached interval endpoint; this is part of the evaluator contract and is
+# independently tested, not folded into the public-hull margin.
+GEOMETRY_CACHE_ULPS = 4
 
 
 def mk(v):
@@ -319,12 +325,26 @@ class Kernel:
                 SUB(BR(sLo.x), BR(sLo_p.x), BR(dlt.x), RNDD)
                 ADD(BR(sHi.x), BR(sHi_p.x), BR(dlt.x), RNDU)
                 if geometry_cache is not None:
+                    def cache_lo(value):
+                        result = value.get_d(RNDD)
+                        if result != 0.0:
+                            for _ in range(GEOMETRY_CACHE_ULPS):
+                                result = float(np.nextafter(result, -np.inf))
+                        return result
+
+                    def cache_hi(value):
+                        result = value.get_d(RNDU)
+                        if result != 0.0:
+                            for _ in range(GEOMETRY_CACHE_ULPS):
+                                result = float(np.nextafter(result, np.inf))
+                        return result
+
                     geometry_cache[rec_index] = (
-                        u_lo.get_d(RNDD), u_hi.get_d(RNDU),
-                        qL.get_d(RNDD), qH.get_d(RNDU),
-                        philo.get_d(RNDD), phihi.get_d(RNDU),
-                        cLo.get_d(RNDD), cHi.get_d(RNDU),
-                        sLo.get_d(RNDD), sHi.get_d(RNDU))
+                        cache_lo(u_lo), cache_hi(u_hi),
+                        cache_lo(qL), cache_hi(qH),
+                        cache_lo(philo), cache_hi(phihi),
+                        cache_lo(cLo), cache_hi(cHi),
+                        cache_lo(sLo), cache_hi(sHi))
             else:
                 (u_lo_v, u_hi_v, qL_v, qH_v, philo_v, phihi_v,
                  cLo_v, cHi_v, sLo_v, sHi_v) = cached

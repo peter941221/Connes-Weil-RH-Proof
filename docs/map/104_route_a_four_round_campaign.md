@@ -3807,3 +3807,14 @@ matching.  This is sampled control only, not full-domain enclosure or Lean
 numeric import.  Evidence:
 `docs/proofs/2416_current_pointbox_mpmath_control.md`,
 `results/2416_pointbox_mpmath_control.json`.
+
+Record 2421 (2026-10-02): the 20001-node control found a real cached-path
+escape in `base_D2`; public margins 4, 8, 16, and 32 did not remove it.  A
+localizer showed that the fresh geometry path contained the mpmath value but
+the binary64 geometry cache did not.  The cache now receives a separately
+named four-ULP outward margin on every nonzero endpoint.  The revised current
+source passed 80004/80004 values at 20001 nodes, but the old 2414 replay is
+stale and must be regenerated.  Evidence:
+`docs/proofs/2421_geometry_cache_outward_repair.md`,
+`scripts/routea_pointbox_failure_localizer_2421.py`, and
+`results/2421_pointbox_mpmath_control_20001_cache_repair.json`.
