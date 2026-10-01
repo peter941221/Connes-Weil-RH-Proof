@@ -81,4 +81,36 @@ theorem finite_span_partition_le_of_termwise_upper2393
       exact hspan span (Finset.mem_range.mp hspan')
     _ ≤ scalar := hglobal
 
+/-
+The replay's spans are contiguous slices.  This lemma proves the exact
+partition equality from that index invariant, leaving only the numerical
+term/upper inequalities to the certificate layer.
+-/
+theorem finite_sum_eq_contiguous_partition2394
+    (term : ℕ → ℝ) (spanStart spanLength : ℕ → ℕ)
+    (spans cells : ℕ)
+    (hstart : spanStart 0 = 0)
+    (hstep : ∀ span < spans,
+      spanStart (span + 1) = spanStart span + spanLength span)
+    (hend : spanStart spans = cells) :
+    ∑ index ∈ Finset.range cells, term index =
+      ∑ span ∈ Finset.range spans,
+        ∑ index ∈ Finset.range (spanLength span),
+          term (spanStart span + index) := by
+  have hprefix : ∀ n ≤ spans,
+      (∑ index ∈ Finset.range (spanStart n), term index) =
+        ∑ span ∈ Finset.range n,
+          ∑ index ∈ Finset.range (spanLength span),
+            term (spanStart span + index) := by
+    intro n hn
+    induction n with
+    | zero => simp [hstart]
+    | succ n ih =>
+        have hnlt : n < spans := Nat.lt_of_succ_le hn
+        rw [hstep n hnlt, Finset.sum_range_add,
+          ih (Nat.le_of_lt hnlt)]
+        rw [Finset.sum_range_succ]
+  rw [← hend]
+  exact hprefix spans le_rfl
+
 end ConnesWeilRH.Dev

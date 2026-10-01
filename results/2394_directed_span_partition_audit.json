@@ -10,6 +10,8 @@
     776611
   ],
   "lean_partition_imported": false,
+  "analytic_partition_equality_theorem_proved": true,
+  "replay_partition_instantiated_in_lean": false,
   "nodes": 776611,
   "numeric_term_dominance_imported": false,
   "producer_go": false,

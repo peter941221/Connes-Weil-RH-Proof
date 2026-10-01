@@ -3747,3 +3747,11 @@ axiom set; its numerical curvature/node hypotheses remain unimported. This
 repairs source/build integrity only; the 2408 bridge remains interface-only.
 Evidence: docs/proofs/2409_routea_source_chain_rebuild.md and commit
 `18784ceb`.
+
+Record 2410 (2026-10-02): the directed-accumulation source now proves the
+contiguous finite-sum partition identity
+`finite_sum_eq_contiguous_partition2394` from span-start recurrence and final
+coverage.  Its audit uses only `[propext, Classical.choice, Quot.sound]`.
+The concrete 39-span replay has not yet been instantiated in Lean, and the
+pointwise MPFR-to-mathematical-term dominance remains open. Evidence:
+`ConnesWeilRH/Dev/C1RouteADirectedAccumulation.lean` and its audit.

@@ -16,3 +16,9 @@ terms, and it does not import any numeric value into Lean.
 The required Mathlib brick check was rerun on 2026-10-02 and completed with
 its existing result artifact at `results/2049_mathlib_brick_check.json`.  That
 check is a library inventory, not a replacement for the source audit.
+
+The partition equality is now also proved in Lean by
+`finite_sum_eq_contiguous_partition2394`: contiguous span starts, lengths,
+and endpoint coverage imply the exact finite-sum decomposition.  This closes
+the analytic/index identity; it does not prove the stored MPFR terms dominate
+the mathematical terms.
