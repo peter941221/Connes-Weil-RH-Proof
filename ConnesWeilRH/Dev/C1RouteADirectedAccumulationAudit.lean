@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1RouteADirectedAccumulation
+
+open ConnesWeilRH.Dev
+
+#print axioms finite_sum_le_of_termwise_upper2391
+#print axioms finite_span_sum_le_of_termwise_upper2391
