@@ -3440,3 +3440,12 @@ feeding the exact-grid hypothesis to the existing weighted chord-panel bound.
 The 2359 evaluator remains numerical-only: no Lipschitz estimate, directed
 accumulation bound, or producer import is asserted. Evidence:
 ConnesWeilRH/Dev/C1RouteACoordinateCharge.lean and its audit module.
+
+Record 2361 (2026-10-01): the coordinate-charge file now also contains a
+generic segment theorem, `norm_value_le_of_deriv_bound2359`, turning a
+derivative-norm bound into the one-sided value transfer needed by the 2359
+stored-grid replay. The Lean audit passes. Its application to the weighted
+corrected physical function, orientation split, and directed accumulation
+remain open; no numerical value or producer premise is imported.
+Evidence: docs/proofs/2361_segment_derivative_coordinate_charge.md and
+results/2361_segment_derivative_coordinate_charge.json.
