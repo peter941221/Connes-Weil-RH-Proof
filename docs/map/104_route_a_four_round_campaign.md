@@ -3644,3 +3644,10 @@ bound with curvature remainder. The theorem is audited, but its numeric
 scalar hypothesis is not imported. Evidence:
 docs/proofs/2389_node_upper_scalar_consumer.md and
 results/2389_node_upper_scalar_consumer.json.
+
+Record 2390 (2026-10-02): the Lean consumer now matches the 2386 ledger
+directly, combining actual-coordinate node bounds, transfer charge, and
+actual composite scalar bound into the final stripNorm scalar inequality.
+The theorem is audited; all numerical hypotheses remain explicit and
+unimported. Evidence: docs/proofs/2390_actual_coordinate_scalar_consumer.md
+and results/2390_actual_coordinate_scalar_consumer.json.

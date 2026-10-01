@@ -1,0 +1,10 @@
+{
+  "record": 2390,
+  "status": "ACTUAL_COORDINATE_SCALAR_CONSUMER_AUDITED",
+  "theorem": "correctedPhysical_stripNorm_le_of_actual_coordinate_charge_scalar2390",
+  "lean_audit_passed": true,
+  "numeric_node_imported": false,
+  "numeric_scalar_imported": false,
+  "producer_go": false,
+  "rh_claim": false
+}
