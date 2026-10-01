@@ -51,14 +51,17 @@ def worker_span(task):
         )
         _WORKER_GRID = np.linspace(-radius, radius, nodes)
     sums = np.zeros(4, dtype=float)
+    exact_sums = [Fraction(0) for _ in range(4)]
     for index in range(start, stop):
         point = float(_WORKER_GRID[index])
         factor = math.exp(sigma * point)
         cell_weight = 0.5 if index == 0 or index == nodes - 1 else 1.0
         for channel, kernel in enumerate(_WORKER):
             _ok, bounds, _floor = kernel.eval_box(point, point)
-            sums[channel] += cell_weight * interval_abs_upper(bounds) * factor
-    return start, sums.tolist()
+            term = cell_weight * interval_abs_upper(bounds) * factor
+            sums[channel] += term
+            exact_sums[channel] += Fraction.from_float(term)
+    return start, sums.tolist(), [str(value) for value in exact_sums]
 
 
 def run(nodes=240001, sigma=-0.5, workers=1, span=20001):
@@ -85,8 +88,16 @@ def run(nodes=240001, sigma=-0.5, workers=1, span=20001):
             parts = list(pool.imap(worker_span, tasks, chunksize=1))
     parts.sort(key=lambda item: item[0])
     total = np.sum(np.asarray([part[1] for part in parts], dtype=float), axis=0)
+    exact_total = [sum((Fraction(part[2][channel]) for part in parts), Fraction(0))
+                   for channel in range(4)]
     dx = 2.0 * radius / (nodes - 1)
     integrals = (dx * total).tolist()
+    exact_dx = Fraction.from_float(dx)
+    exact_integrals = [exact_dx * value for value in exact_total]
+    accumulation_float_gap = [
+        abs(Fraction.from_float(float(value)) - exact_integrals[channel])
+        for channel, value in enumerate(integrals)
+    ]
     minimum = min(integrals[1] * integrals[2], integrals[3] * integrals[0])
     return {
         "record": 2359,
@@ -99,6 +110,11 @@ def run(nodes=240001, sigma=-0.5, workers=1, span=20001):
         "coordinate_difference_count": sum(gap != 0 for gap in coordinate_gaps),
         "coordinate_max_fraction_gap": str(max(coordinate_gaps)),
         "interval_integrals": integrals,
+        "exact_binary64_term_integrals": [str(value) for value in exact_integrals],
+        "accumulation_float_gap": [str(value) for value in accumulation_float_gap],
+        "accumulation_float_gap_max": str(max(accumulation_float_gap)),
+        "accumulation_is_exact_term_sum": True,
+        "accumulation_is_directed_mpfr": False,
         "interval_min_product": minimum,
         "source_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
         "evaluator_source_sha256": hashlib.sha256(

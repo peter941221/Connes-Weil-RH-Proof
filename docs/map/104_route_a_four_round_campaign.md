@@ -3489,3 +3489,11 @@ coordinate bridge is generalized to arbitrary radius and now consumes this
 outer pin with global derivative budgets. This correction is binding; no exact
 owner-window identity is claimed. Evidence: docs/proofs/2366_coordinate_pair_endpoint_certificate.md,
 docs/proofs/2367_outer_pin_radius_correction.md, and the associated results.
+
+Record 2368 (2026-10-02): the 2359 full-grid run now carries exact
+`Fraction.from_float` sums of the generated binary64 terms. The NumPy-versus-
+exact-term maximum gap is `3.058588208835539e-10` on channel 3. This quantifies
+the ordered accumulation gap but is not a directed MPFR theorem; pointwise
+interval conversion and trapezoid remainder remain open. Evidence:
+docs/proofs/2368_exact_binary64_accumulation_audit.md and
+results/2368_exact_binary64_accumulation_audit.json.

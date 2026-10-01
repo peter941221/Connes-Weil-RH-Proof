@@ -1,0 +1,19 @@
+{
+  "record": 2368,
+  "status": "EXACT_BINARY64_TERM_SUM_ONLY",
+  "nodes": 240001,
+  "span": 20001,
+  "workers": 12,
+  "channel_float_gap": [
+    6.232997826164216e-15,
+    9.889454429752544e-12,
+    3.8934460025857024e-13,
+    3.058588208835539e-10
+  ],
+  "max_float_gap": 3.058588208835539e-10,
+  "exact_binary64_term_sum": true,
+  "directed_mpfr_accumulation": false,
+  "trapezoid_remainder_proved": false,
+  "producer_go": false,
+  "rh_claim": false
+}
