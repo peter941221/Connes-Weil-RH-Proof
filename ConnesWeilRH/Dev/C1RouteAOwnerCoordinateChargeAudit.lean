@@ -6,3 +6,5 @@ open ConnesWeilRH.Dev
 #print axioms ownerDerivativeBudget2350_nonneg
 #print axioms correctedPhysical_weighted_coordinate_segment2359
 #print axioms correctedPhysical_weighted_coordinate_transfer2359
+#print axioms owner_coordinate_segment_mem_window2359
+#print axioms correctedPhysical_weighted_coordinate_transfer_of_endpoint_window2359

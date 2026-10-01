@@ -92,4 +92,27 @@ theorem correctedPhysical_weighted_coordinate_transfer2359
       (ownerDerivativeBudget2350_nonneg 1 coefficients modulations) hzero hfirst
     simpa [abs_of_nonneg (sub_nonneg.mpr hideal)] using h
 
+theorem owner_coordinate_segment_mem_window2359
+    {radius actual ideal : ℝ}
+    (hactual : actual ∈ Set.Icc (-radius) radius)
+    (hideal : ideal ∈ Set.Icc (-radius) radius) :
+    ∀ x ∈ Set.Icc (min actual ideal) (max actual ideal),
+      x ∈ Set.Icc (-radius) radius := by
+  intro x hx
+  exact ⟨(le_min hactual.1 hideal.1).trans hx.1,
+    hx.2.trans (max_le hactual.2 hideal.2)⟩
+
+theorem correctedPhysical_weighted_coordinate_transfer_of_endpoint_window2359
+    (coefficients : Fin 30 → ℂ) (modulations : Fin 30 → ℝ)
+    (sigma actual ideal : ℝ)
+    (hactual : actual ∈ Set.Icc (-(storedWidth 4 ^ 2)) (storedWidth 4 ^ 2))
+    (hideal : ideal ∈ Set.Icc (-(storedWidth 4 ^ 2)) (storedWidth 4 ^ 2)) :
+    ‖weightedFunction2348 sigma (correctedPhysical coefficients modulations) ideal‖ ≤
+      ‖weightedFunction2348 sigma (correctedPhysical coefficients modulations) actual‖ +
+        Real.exp (|sigma| * storedWidth 4 ^ 2) *
+          (|sigma| * ownerDerivativeBudget2350 0 coefficients modulations +
+            ownerDerivativeBudget2350 1 coefficients modulations) * |ideal - actual| := by
+  exact correctedPhysical_weighted_coordinate_transfer2359 coefficients modulations sigma actual ideal
+    (owner_coordinate_segment_mem_window2359 hactual hideal)
+
 end ConnesWeilRH.Dev

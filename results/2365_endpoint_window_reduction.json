@@ -1,0 +1,11 @@
+{
+  "record": 2365,
+  "status": "ENDPOINT_REDUCED_OWNER_BRIDGE_ONLY",
+  "theorem": "correctedPhysical_weighted_coordinate_transfer_of_endpoint_window2359",
+  "lean_audit_checked": true,
+  "segment_containment_reduced_to_endpoints": true,
+  "stored_grid_endpoint_facts_imported": false,
+  "directed_accumulation_theorem_proved": false,
+  "producer_go": false,
+  "rh_claim": false
+}

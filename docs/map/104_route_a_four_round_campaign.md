@@ -3473,3 +3473,10 @@ the stored and affine coordinates; it only assumes the connecting interval is
 inside the owner window. The full coordinate-pair data, directed accumulation,
 and trapezoid remainder remain open. Evidence: docs/proofs/2364_symmetric_coordinate_charge.md
 and results/2364_symmetric_coordinate_charge.json.
+
+Record 2365 (2026-10-02): endpoint reduction. A new owner wrapper derives
+the mixed-orientation coordinate charge from endpoint membership alone; the
+closed interval containment is proved in Lean by order convexity. This leaves
+only the actual/ideal endpoint facts and the numeric displacement/accumulation
+certificates to be supplied. Evidence: docs/proofs/2365_endpoint_window_reduction.md
+and results/2365_endpoint_window_reduction.json.
