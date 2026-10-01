@@ -3759,9 +3759,11 @@ mathematical-term dominance remains open. Evidence:
 
 Record 2411 (2026-10-02): the full-grid evaluator now retains the ordered
 directed span witnesses instead of discarding them after parent reduction.
-The Linux MPFR 1001-node control passes with the new field.  A fresh
-776611-node replay is required because the source hash changed; this is
-certificate-data retention only and does not prove pointwise mathematical-term
-dominance. Evidence: `scripts/routea_nodal_interval_fullgrid_2359.py`,
-`docs/proofs/2411_span_witness_export.md`, and
-`results/2411_span_control_1001.json`.
+The Linux MPFR 1001-node control and the fresh 776611-node replay both pass
+the independent readback: 39 finite nonnegative witnesses with the expected
+partition and matching source hashes.  The readback records the small
+rounding difference between per-span-`dx` and parent-total-`dx` accumulation;
+it does not prove pointwise mathematical-term dominance or Lean import.
+Evidence: `scripts/routea_nodal_interval_fullgrid_2359.py`,
+`scripts/routea_repaired_span_witness_audit_2411.py`,
+`docs/proofs/2411_span_witness_export.md`, and the two 2411 result artifacts.

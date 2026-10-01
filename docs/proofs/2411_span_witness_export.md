@@ -15,6 +15,11 @@ numerical conclusion.
 
 The Linux MPFR 1001-node control passed with one span (the configured span
 length exceeds the control grid), and the retained span value agrees with the
-parent total to the displayed precision.  The 776611-node artifact must be
-replayed under the new source hash before it can be used; the result remains
-non-Lean data until pointwise mathematical-term dominance is established.
+parent total to the displayed precision.  The 776611-node replay under the
+new source hash also completed: its independent readback found 39 finite
+nonnegative witnesses with the expected `38×20001+16573` lengths and matching
+source hashes.  The exact sum of serialized span floats differs slightly
+from the parent-reduction total in some channels because the two `dx`
+accumulation orders differ; both are retained and must not be conflated.  The
+result remains non-Lean data until pointwise mathematical-term dominance is
+established.
