@@ -116,16 +116,16 @@
       "bytes": 17595
     },
     "ConnesWeilRH/Dev/C1RouteAItem5Arithmetic.lean": {
-      "sha256": "c041dc6ed2ca185d1092cb5b98b84e24fe7431ec4765315b9b3ddc7542954585",
-      "bytes": 8900
+      "sha256": "af2490f4fe5135879934beec91b20c5a5362dd8864ae4878c194e07d108315ce",
+      "bytes": 14608
     },
     "ConnesWeilRH/Dev/C1RouteAMultiplicityBound.lean": {
       "sha256": "fc5adfc6cf6bb0a389639d5c4e3804f4b99c92dd55072fb182aca550f89e788c",
       "bytes": 5611
     },
     "ConnesWeilRH/Dev/C1RouteAProducerWired.lean": {
-      "sha256": "771e6333b00fe4d9710ead60b5f897a67fe038e0c8bb35b133e5764b0f63233c",
-      "bytes": 13043
+      "sha256": "9c8847621ec583a22f102c24ca5f36b9b94accc55018a54af291ca93ba9e2e4d",
+      "bytes": 17960
     },
     "ConnesWeilRH/Dev/C1SpectralSummability.lean": {
       "sha256": "38ba7d7271e8f7b00b6ffa330bb75ea086c9818c9202e298e119dc9c34f8bd1a",

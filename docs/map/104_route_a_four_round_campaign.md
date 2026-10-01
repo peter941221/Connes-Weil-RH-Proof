@@ -3630,3 +3630,10 @@ the formal consumers needed before importing the 2385 directed node values;
 the independent Lean audit passes. Evidence:
 docs/proofs/2387_composite_node_monotonicity.md and
 results/2387_composite_node_monotonicity.json.
+
+Record 2388 (2026-10-02): after the strip evaluator change, the required
+2271 provenance manifest was refreshed and validated over 126 files. The
+Linux integration control passed all 22 tests in 3.218 s. This is provenance
+and fail-closed control evidence only, not an analytic strip proof.
+Evidence: docs/proofs/2388_strip_manifest_refresh_and_integration.md and
+results/2388_strip_manifest_refresh_and_integration.json.

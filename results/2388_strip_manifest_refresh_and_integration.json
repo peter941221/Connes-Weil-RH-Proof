@@ -1,0 +1,13 @@
+{
+  "record": 2388,
+  "status": "STRIP_MANIFEST_REFRESHED_INTEGRATION_PASS",
+  "manifest": "results/2271_strip_replay_manifest.json",
+  "files_checked": 126,
+  "manifest_sha256": "e00d1efdfebcca83c3f630e953cb4df9cd1c1a454aa3bce961b71f799e265f2a",
+  "integration_tests": 22,
+  "integration_elapsed_seconds": 3.218,
+  "integration_passed": true,
+  "analytic_strip_proved": false,
+  "producer_go": false,
+  "rh_claim": false
+}
