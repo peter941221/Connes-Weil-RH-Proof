@@ -1,0 +1,15 @@
+{
+  "all_rndu_ge_rndd": true,
+  "all_terms_finite_nonnegative": true,
+  "captured_terms": 4004,
+  "channels": 4,
+  "expected_terms": 4004,
+  "lean_numeric_imported": false,
+  "nodes": 1001,
+  "numeric_term_dominance_theorem_proved": false,
+  "producer_go": false,
+  "record": 2396,
+  "rh_claim": false,
+  "source_hashes_match": true,
+  "status": "DIRECTED_TERM_CONVERSION_CONTROL_PASS"
+}

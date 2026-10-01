@@ -3686,6 +3686,14 @@ scripts/routea_directed_term_path_audit_2395.py,
 docs/proofs/2395_directed_term_path_audit.md, and
 results/2395_directed_term_path_audit.json.
 
+Record 2396 (2026-10-02): a source-hash-bound 1001-node sequential control
+captured all 4004 MPFR point/channel term conversions. Every RNDU conversion
+was finite, nonnegative, and at least its RNDD counterpart. This is conversion
+evidence only; full-grid mathematical term dominance and Lean import remain
+open. Evidence: scripts/routea_directed_term_conversion_control_2396.py,
+docs/proofs/2396_directed_term_conversion_control.md, and
+results/2396_directed_term_conversion_control.json.
+
 Record 2392 (2026-10-02): an independent artifact readback checks the 2385
 source hashes, four-channel directed-roundup dominance, channel alignment,
 and exact 2386 bridge readback. These controls pass, while Lean numeric import
