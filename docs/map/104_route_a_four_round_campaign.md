@@ -3457,3 +3457,11 @@ derivative bound on an ordered coordinate segment. The corrected-physical
 specialization, mixed coordinate orientation, directed accumulation, and
 trapezoid remainder remain open. Evidence: docs/proofs/2362_weighted_coordinate_transfer.md
 and results/2362_weighted_coordinate_transfer.json.
+
+Record 2363 (2026-10-02): the weighted transfer is instantiated for the live
+`correctedPhysical` owner using the existing `ownerDerivativeBudget2350`.
+Nonnegativity of the owner budgets is proved from their defining positive
+sums, and the segment theorem passes Lean audit. The all-node coordinate
+orientation split, directed accumulation, and trapezoid remainder remain
+open; no producer GO is claimed. Evidence: docs/proofs/2363_owner_weighted_coordinate_charge.md
+and results/2363_owner_weighted_coordinate_charge.json.

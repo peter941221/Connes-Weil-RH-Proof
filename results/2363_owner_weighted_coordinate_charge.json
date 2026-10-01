@@ -1,0 +1,11 @@
+{
+  "record": 2363,
+  "status": "OWNER_ANALYTIC_BRIDGE_ONLY",
+  "theorem": "correctedPhysical_weighted_coordinate_segment2359",
+  "lean_audit_checked": true,
+  "owner_derivative_budget_nonneg_proved": true,
+  "all_coordinate_pairs_imported": false,
+  "directed_accumulation_theorem_proved": false,
+  "producer_go": false,
+  "rh_claim": false
+}
