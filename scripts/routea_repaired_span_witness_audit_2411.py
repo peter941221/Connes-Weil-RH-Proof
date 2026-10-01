@@ -11,6 +11,7 @@ from __future__ import annotations
 import hashlib
 import json
 import math
+import argparse
 from fractions import Fraction
 from pathlib import Path
 
@@ -28,14 +29,15 @@ def require(condition: bool, message: str) -> None:
         raise AssertionError(message)
 
 
-def main() -> dict:
-    artifact = json.loads(ARTIFACT.read_text())
+def main(artifact_path: Path = ARTIFACT, output_path: Path | None = None,
+         record: int = 2411) -> dict:
+    artifact = json.loads(artifact_path.read_text())
     source = ROOT / "scripts/routea_nodal_interval_fullgrid_2359.py"
     evaluator = ROOT / "scripts/routea_weighted_zero_zero_count_certificate_2242.py"
     require(artifact["source_sha256"] == sha256(source),
-            "2411 source hash mismatch")
+            f"{record} source hash mismatch")
     require(artifact["evaluator_source_sha256"] == sha256(evaluator),
-            "2411 evaluator hash mismatch")
+            f"{record} evaluator hash mismatch")
     require(artifact["nodes"] == 776611 and artifact["span"] == 20001,
             "unexpected replay dimensions")
 
@@ -61,7 +63,7 @@ def main() -> dict:
         for channel in range(4)
     ]
     result = {
-        "record": 2411,
+        "record": record,
         "status": "REPAIRED_SPAN_WITNESS_READBACK_PASS",
         "source_hashes_match": True,
         "nodes": artifact["nodes"],
@@ -78,11 +80,18 @@ def main() -> dict:
         "producer_go": False,
         "rh_claim": False,
     }
-    output = ROOT / "results/2411_span_witness_audit.json"
+    output = output_path or (ROOT / f"results/{record}_span_witness_audit.json")
     output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
     print(json.dumps(result, indent=2, sort_keys=True))
     return result
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--artifact", type=Path, default=ARTIFACT)
+    parser.add_argument("--output", type=Path)
+    parser.add_argument("--record", type=int, default=2411)
+    args = parser.parse_args()
+    main(args.artifact if args.artifact.is_absolute() else ROOT / args.artifact,
+         args.output if args.output is None or args.output.is_absolute() else ROOT / args.output,
+         args.record)

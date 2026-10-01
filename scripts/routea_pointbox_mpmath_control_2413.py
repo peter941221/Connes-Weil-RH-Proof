@@ -64,8 +64,10 @@ def reference_value(families, coefficients, order: int, x: float) -> mp.mpc:
     return total
 
 
-def main(nodes: int = 5001, allow_evaluator_revision: bool = False) -> dict:
-    artifact = json.loads(ARTIFACT.read_text())
+def main(nodes: int = 5001, allow_evaluator_revision: bool = False,
+         artifact_path: Path = ARTIFACT, output_path: Path | None = None,
+         record: int = 2413) -> dict:
+    artifact = json.loads(artifact_path.read_text())
     evaluator_hash_matches = artifact["evaluator_source_sha256"] == sha256(EVALUATOR)
     require = lambda condition, message: (_ for _ in ()).throw(
         AssertionError(message)) if not condition else None
@@ -122,10 +124,10 @@ def main(nodes: int = 5001, allow_evaluator_revision: bool = False) -> dict:
                     })
 
     result = {
-        "record": 2413,
+        "record": record,
         "status": "POINTBOX_MPMATH_5001_CONTROL_PASS" if not failures
                   else "POINTBOX_MPMATH_5001_CONTROL_FAIL",
-        "artifact": str(ARTIFACT.relative_to(ROOT)),
+        "artifact": str(artifact_path.relative_to(ROOT)),
         "source_hashes_match": evaluator_hash_matches,
         "evaluator_revision_probe": allow_evaluator_revision,
         "nodes": nodes,
@@ -143,7 +145,7 @@ def main(nodes: int = 5001, allow_evaluator_revision: bool = False) -> dict:
         "producer_go": False,
         "rh_claim": False,
     }
-    output = ROOT / "results/2413_pointbox_mpmath_control.json"
+    output = output_path or (ROOT / f"results/{record}_pointbox_mpmath_control.json")
     output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
     print(json.dumps(result, indent=2, sort_keys=True))
     return result
@@ -154,5 +156,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--allow-evaluator-revision", action="store_true")
     parser.add_argument("--nodes", type=int, default=5001)
+    parser.add_argument("--artifact", type=Path, default=ARTIFACT)
+    parser.add_argument("--output", type=Path)
+    parser.add_argument("--record", type=int, default=2413)
     args = parser.parse_args()
-    main(args.nodes, args.allow_evaluator_revision)
+    artifact = args.artifact if args.artifact.is_absolute() else ROOT / args.artifact
+    output = args.output if args.output is None or args.output.is_absolute() else ROOT / args.output
+    main(args.nodes, args.allow_evaluator_revision, artifact, output, args.record)
