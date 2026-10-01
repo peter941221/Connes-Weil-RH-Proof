@@ -3416,3 +3416,14 @@ bridge. It is explicitly not a certificate: the 240001-node order, directed
 accumulation/remainder, coordinate identity, and Lean import remain open.
 Evidence: docs/proofs/2358_directed_nodal_interval_smoke.md and
 results/2358_nodal_interval_smoke.json.
+
+Record 2359 (2026-10-01): the 2242 directed MPFR point-box evaluator completed
+the full 240001-node producer grid at sigma=-0.5, with fixed 20001-node spans
+and ordered parent accumulation. It gives min-product 337039.47691483964,
+matching the stored 2303 point row 337039.47691484215 at displayed precision.
+A 1001-node sequential/12-worker control is equal in all four integrals and
+the min-product. This is a strong evaluator control, not yet a theorem:
+directed accumulation, trapezoid remainder, coordinate identity, and Lean
+import remain open. Evidence: scripts/routea_nodal_interval_fullgrid_2359.py,
+docs/proofs/2359_fullgrid_nodal_interval_replay.md, and
+results/2359_nodal_interval_fullgrid.json.

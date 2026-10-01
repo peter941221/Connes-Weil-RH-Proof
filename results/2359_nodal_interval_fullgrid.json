@@ -1,0 +1,32 @@
+{
+  "coordinate_identity_proved": false,
+  "directed_accumulation_theorem_proved": false,
+  "evaluator_source_sha256": "62f5c35fefdbac87e246352f6eff418ab6628da4506ad0698f9a82b8e7c8fdd2",
+  "interval_integrals": [
+    2.6867143296475375,
+    8606.21439765069,
+    90.78788225375501,
+    125446.71132157727
+  ],
+  "interval_min_product": 337039.47691483964,
+  "stored_2303_point_min_product": 337039.47691484215,
+  "ordered_parallel_control": {
+    "nodes": 1001,
+    "workers_sequential": 1,
+    "workers_parallel": 12,
+    "interval_integrals_equal": true,
+    "interval_min_product_equal": true
+  },
+  "lean_imported": false,
+  "nodes": 240001,
+  "producer_go": false,
+  "radius": 6.553600000000003,
+  "record": 2359,
+  "rh_claim": false,
+  "sigma": -0.5,
+  "source_sha256": "18b250ee59683fb99bcba08be94e4caa2077e2c7bfc3dd5c36711f8310ca7e15",
+  "span": 20001,
+  "status": "DIRECTED_NODE_INTERVAL_FULL_GRID_SMOKE_NOT_CERTIFICATE",
+  "trapezoid_remainder_proved": false,
+  "workers": 12
+}
