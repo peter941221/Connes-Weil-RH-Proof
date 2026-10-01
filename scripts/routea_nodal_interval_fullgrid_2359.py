@@ -19,6 +19,9 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 _WORKER = None
 _WORKER_GRID = None
+_WORKER_DIRECTED_ACC = None
+_WORKER_DIRECTED_TERM = None
+_WORKER_INTERVAL = None
 
 
 def load(name, filename):
@@ -36,11 +39,12 @@ def interval_abs_upper(bounds):
 
 
 def worker_span(task):
-    global _WORKER, _WORKER_GRID
+    global _WORKER, _WORKER_GRID, _WORKER_DIRECTED_ACC, _WORKER_DIRECTED_TERM, _WORKER_INTERVAL
     start, stop, nodes, sigma, radius = task
     if _WORKER is None:
         strip = load("strip2359", "routea_corrected_strip_envelope_2303.py")
         interval = load("interval2359", "routea_weighted_zero_zero_count_certificate_2242.py")
+        _WORKER_INTERVAL = interval
         families, base, correction, _ = strip.load_owner()
         corrected = strip.corrected_fam(families)
         _WORKER = (
@@ -50,6 +54,15 @@ def worker_span(task):
             interval.Kernel(corrected, correction, 2),
         )
         _WORKER_GRID = np.linspace(-radius, radius, nodes)
+        _WORKER_DIRECTED_ACC = [interval.M() for _ in range(4)]
+        for accumulator in _WORKER_DIRECTED_ACC:
+            accumulator.set_d(0.0)
+        _WORKER_DIRECTED_TERM = interval.M()
+    else:
+        # A fork worker services multiple spans; every span must have its own
+        # directed accumulator or the parent would double-count prior spans.
+        for accumulator in _WORKER_DIRECTED_ACC:
+            accumulator.set_d(0.0)
     sums = np.zeros(4, dtype=float)
     exact_sums = [Fraction(0) for _ in range(4)]
     for index in range(start, stop):
@@ -61,7 +74,15 @@ def worker_span(task):
             term = cell_weight * interval_abs_upper(bounds) * factor
             sums[channel] += term
             exact_sums[channel] += Fraction.from_float(term)
-    return start, sums.tolist(), [str(value) for value in exact_sums]
+            _WORKER_DIRECTED_TERM.set_d(term)
+            _WORKER_INTERVAL.ADD(
+                _WORKER_INTERVAL.BR(_WORKER_DIRECTED_ACC[channel].x),
+                _WORKER_INTERVAL.BR(_WORKER_DIRECTED_ACC[channel].x),
+                _WORKER_INTERVAL.BR(_WORKER_DIRECTED_TERM.x),
+                _WORKER_INTERVAL.RNDU,
+            )
+    return (start, sums.tolist(), [str(value) for value in exact_sums],
+            [accumulator.get_d(_WORKER_INTERVAL.RNDU) for accumulator in _WORKER_DIRECTED_ACC])
 
 
 def run(nodes=240001, sigma=-0.5, workers=1, span=20001):
@@ -98,6 +119,32 @@ def run(nodes=240001, sigma=-0.5, workers=1, span=20001):
         abs(Fraction.from_float(float(value)) - exact_integrals[channel])
         for channel, value in enumerate(integrals)
     ]
+    interval_main = load("interval2359main_acc", "routea_weighted_zero_zero_count_certificate_2242.py")
+    directed_total = [interval_main.M() for _ in range(4)]
+    directed_span = interval_main.M()
+    directed_dx = interval_main.M()
+    directed_integral = interval_main.M()
+    for accumulator in directed_total:
+        accumulator.set_d(0.0)
+    for part in parts:
+        for channel in range(4):
+            directed_span.set_d(part[3][channel])
+            interval_main.ADD(
+                interval_main.BR(directed_total[channel].x),
+                interval_main.BR(directed_total[channel].x),
+                interval_main.BR(directed_span.x),
+                interval_main.RNDU,
+            )
+    directed_dx.set_d(dx)
+    directed_integrals = []
+    for accumulator in directed_total:
+        interval_main.MUL(
+            interval_main.BR(directed_integral.x),
+            interval_main.BR(accumulator.x),
+            interval_main.BR(directed_dx.x),
+            interval_main.RNDU,
+        )
+        directed_integrals.append(directed_integral.get_d(interval_main.RNDU))
     minimum = min(integrals[1] * integrals[2], integrals[3] * integrals[0])
     return {
         "record": 2359,
@@ -115,6 +162,8 @@ def run(nodes=240001, sigma=-0.5, workers=1, span=20001):
         "accumulation_float_gap_max": str(max(accumulation_float_gap)),
         "accumulation_is_exact_term_sum": True,
         "accumulation_is_directed_mpfr": False,
+        "directed_mpfr_term_accumulation_integrals": directed_integrals,
+        "directed_mpfr_term_accumulation": True,
         "interval_min_product": minimum,
         "source_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
         "evaluator_source_sha256": hashlib.sha256(

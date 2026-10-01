@@ -3497,3 +3497,10 @@ the ordered accumulation gap but is not a directed MPFR theorem; pointwise
 interval conversion and trapezoid remainder remain open. Evidence:
 docs/proofs/2368_exact_binary64_accumulation_audit.md and
 results/2368_exact_binary64_accumulation_audit.json.
+
+Record 2369 (2026-10-02): the full grid now has a 256-bit MPFR `RNDU` upper
+accumulation for the generated binary64 point terms, with per-span reset and
+ordered parent reduction. This closes only the term-accumulation layer;
+pointwise interval construction and trapezoid remainder remain open. Evidence:
+docs/proofs/2369_directed_binary64_term_accumulation.md and
+results/2369_directed_binary64_term_accumulation.json.

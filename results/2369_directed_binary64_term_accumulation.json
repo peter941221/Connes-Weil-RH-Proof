@@ -1,0 +1,21 @@
+{
+  "record": 2369,
+  "status": "DIRECTED_BINARY64_TERM_ACCUMULATION_ONLY",
+  "nodes": 240001,
+  "workers": 12,
+  "span": 20001,
+  "sigma": -0.5,
+  "directed_mpfr_term_accumulation_integrals": [
+    2.6867143296475287,
+    8606.214397650678,
+    90.78788225375544,
+    125446.71132157759
+  ],
+  "directed_precision_bits": 256,
+  "rounding_mode": "RNDU",
+  "worker_span_reset_controlled": true,
+  "pointwise_interval_upper_certified": false,
+  "trapezoid_remainder_proved": false,
+  "producer_go": false,
+  "rh_claim": false
+}

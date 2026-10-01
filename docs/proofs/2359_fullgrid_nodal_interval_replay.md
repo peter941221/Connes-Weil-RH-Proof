@@ -42,6 +42,11 @@ generated binary64 terms. The maximum gap from the existing NumPy accumulation
 is `3.058588208835539e-10` on channel 3. This is an exact-term-sum audit only;
 it does not turn the pointwise float conversion into directed MPFR arithmetic.
 
+Record 2369 adds a 256-bit MPFR `RNDU` accumulation over those same terms,
+with per-span reset and ordered parent reduction. The resulting directed
+term-accumulation values are recorded separately; pointwise interval-upper
+construction and the trapezoid remainder remain open.
+
 The actual `np.linspace` coordinate array differs from the exact arithmetic
 grid at 239923 of 240001 nodes; the maximum exact-fraction gap is
 `4757/2814749767106560000`. This is the same coordinate-displacement issue
