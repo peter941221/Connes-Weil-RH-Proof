@@ -1,0 +1,23 @@
+{
+  "record": 2378,
+  "status": "FULLGRID_SPAN_CONTROL_EXPRESSION_MISMATCH",
+  "nodes": 776611,
+  "workers": 12,
+  "span": 20001,
+  "source_sha256": "11fcda96fce3badb9e7fcc3be8c2c319b0e4d383feb58ee022efb5824212e7e0",
+  "evaluator_source_sha256": "62f5c35fefdbac87e246352f6eff418ab6628da4506ad0698a9f82b8e7c8fdd2",
+  "directed_integrals": [
+    2.6867143296475287,
+    8606.21439765068,
+    90.78788225375546,
+    125446.71132157759
+  ],
+  "span_dominates_exact_binary64_sum": [false, true, true, false],
+  "final_dominates_exact_binary64_integral": [true, true, true, true],
+  "failure_channels": ["base_M0", "corr_D2"],
+  "global_dominance_is_certificate": false,
+  "directed_accumulation_theorem_proved": false,
+  "nodewise_numeric_import_proved": false,
+  "producer_go": false,
+  "rh_claim": false
+}

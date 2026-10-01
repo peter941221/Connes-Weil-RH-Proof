@@ -3564,3 +3564,12 @@ bounded 180-second run even with the audit disabled. This isolates, but does
 not solve, the remaining runtime bottleneck. Evidence:
 docs/proofs/2377_exact_audit_mode_split.md and
 results/2377_exact_audit_mode_split.json.
+
+Record 2378 (2026-10-02): the delayed 776611-node replay artifact shows the
+new span dominance test fails for `base_M0` and `corr_D2`, while a final
+global comparison passes all four channels. This is diagnosed as a
+cross-expression comparison between nearest-float terms and a separately
+recomputed MPFR directed path; global dominance is not accepted as a repair.
+The directed certificate path remains open. Evidence:
+docs/proofs/2378_fullgrid_span_control_failure.md and
+results/2378_fullgrid_span_control_failure.json.
