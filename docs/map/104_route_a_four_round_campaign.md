@@ -3325,3 +3325,52 @@ under an explicit actual determinant-unit premise. Numeric integral bounds,
 actual invertibility and coefficient-box membership remain external/unimported.
 No new norm price, full-grid node computation, health, signed budget GO or RH.
 Evidence: docs/proofs/2351_analytic_moment_witness.md.
+
+Record 2352 (2026-10-01): the same-owner audit rules out transferring another
+base's T=28,q=2^-14 contraction to the repaired 2338/2351 all-node base.
+Exact unit targets within the source slab force T strictly above captured
+node 29's height 2791435723263659/35184372088832. Two Lean leaves prove
+this necessary condition for actual Laplace values and the actual moment
+solution, keeping the determinant premise explicit; focused build 3717 jobs,
+permitted axioms only, no new-source warnings. The all-node and mandatory-only
+constraints both require at least height-shell N=6 once the consumer's doubled
+rho height is retained; dropping extra base constraints therefore does not
+buy a first-shell shortcut and would change the owner. T=128 is NOT certified.
+Same-run parent witness verification and exact n=0,1,2 support composition
+perform no gate scan, node quadrature or prime enumeration. Complete source-zero
+prefix semantics, numeric integral import, accepted tail and full signed budget
+remain open. No map103 reopening, producer GO or RH claim. Evidence:
+docs/proofs/2352_same_owner_premise_audit.md and its validation artifact.
+
+Record 2353 (2026-10-01): same repaired base now has an external conditional
+uniform contraction supplier at T=128, q=2^-14; outward upper
+1.718203766281698e-16 for all sigma in [0,1], both signs and infinite height
+tail. Rectangle deformation charges both connectors and both real-edge
+slices, with exact-rational interval-sup cells. Delta=1/8 improves the
+same-run delta=1/64 baseline; physical owner and coefficient boxes do not
+change. Four Lean contour leaves pass 3716 plan jobs with only permitted
+axioms and no new-source warnings. 86 tests pass; the 384-bit control
+overlaps all 28 scalar point components and retains the registered q.
+Point controls do not establish uniformity. Actual numerical coefficient
+membership and aggregate supplier remain unimported. The q/D4/D2 supplier
+must still be paired with the same owner's accepted tail inequality and
+actual gate coefficient; N>=6 is only a necessary shell floor. Complete
+zero prefix, source-zero identity and full signed budget remain open.
+No map103 reopening, healthy detector, producer GO or RH claim. Evidence:
+docs/proofs/2353_same_owner_tail_supplier.md and its validation artifact.
+
+Record 2354 (2026-10-01): the same 2353 analytic upper contains q=2^-52.
+Exact Fraction pricing of the FULL lambda-dependent acceptance formula,
+with epsilon^2=(3/2)A and the proven K<=128.65 cap, yields conditional
+lanes at N=6: n=2 with lambda>=256 (ratio<=0.7603893268553), or n=3
+with lambda>=1e-13 (ratio<=0.2456614834776). These are scalar acceptance
+intervals, not gate-selected coefficients or fixed-lambda branches. The
+moment witness is rechecked in the same run; no coefficient/owner change
+or new gate/prime scan occurs. Five scalar Lean leaves pass 3569 jobs with
+permitted axioms and no new-source warnings; 18 new tests and exact replay
+pass. The initial FULL consumer dependency probe fails at the unchanged
+C1HealthyYoshidaSpectralNegativity sum rewrites (371/385); the successful
+minimal scalar build explicitly does not establish consumer integration.
+Complete zero prefix, source-zero identity, numerical import and full
+signed gate remain open. No healthy detector, map103 reopening, GO or RH.
+Evidence: docs/proofs/2354_same_owner_tail_acceptance.md and its validation.

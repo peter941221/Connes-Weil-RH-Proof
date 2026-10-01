@@ -1,0 +1,45 @@
+{
+  "record": 2353,
+  "status": "PASS_EXTERNAL_ANALYTIC_TAIL_VALIDATION",
+  "artifact_sha256": "348444e5144254bac76c296adc87857c0b5552323fd9f9a58cb4c36d784341b5",
+  "precision_artifact_sha256": "80ca57e2aef47db56b9cccfdc7eaee34b03f9d8e4f4b8856547f59b59aef263d",
+  "fresh_linux_mirror_replay_byte_identical": true,
+  "fresh_mirror_replay_log": "build-logs/2353_tail_mirror_replay.log",
+  "focused_build_plan_jobs": 3716,
+  "audited_leaves": [
+    {"theorem": "tailContourIntegrand2353_differentiableAt", "axioms": ["propext", "Classical.choice", "Quot.sound"]},
+    {"theorem": "tailContour_norm_eq2353", "axioms": ["propext", "Classical.choice", "Quot.sound"]},
+    {"theorem": "weightedFamily_eq_tailContour2353", "axioms": ["propext", "Classical.choice", "Quot.sound"]},
+    {"theorem": "tailContour_rectangle_eq_zero2353", "axioms": ["propext", "Classical.choice", "Quot.sound"]}
+  ],
+  "new_source_warnings": false,
+  "existing_import_warnings_preserved": true,
+  "test_suites": [
+    {"record": 2353, "tests": 18, "status": "PASS"},
+    {"record": 2352, "tests": 14, "status": "PASS"},
+    {"record": 2351, "tests": 17, "status": "PASS"},
+    {"record": 2349, "tests": 12, "status": "PASS"},
+    {"record": 2342, "tests": 15, "status": "PASS"},
+    {"record": "integrator", "tests": 10, "status": "PASS"}
+  ],
+  "test_count": 86,
+  "separate_256_bit_replay_byte_identical": true,
+  "precision_384_control": {"same_coordinates": true, "registered_bound_remains_true": true, "real_imag_rectangle_overlap_components": 28},
+  "source_and_input_hashes_verified": true,
+  "linux_windows_lean_mirrors_identical": true,
+  "scope": {
+    "actual_numeric_coefficients_imported_in_lean": false,
+    "tail_supplier_imported_in_lean": false,
+    "actual_gate_row_paired": false,
+    "fourth_order_spectral_tail_instantiated": false,
+    "rho_is_source_zero_proved": false,
+    "complete_zero_prefix_instantiated": false,
+    "full_signed_kernel_priced": false,
+    "healthy_detector_instantiated": false,
+    "owner_changed": false,
+    "map103_reopened": false,
+    "producer_go": false,
+    "rh_claim": false
+  },
+  "evidence": ["docs/proofs/2353_same_owner_tail_supplier.md", "results/2353_same_owner_tail_supplier.json", "results/2353_same_owner_tail_precision384.json", "build-logs/2353_contour_full_build.log", "build-logs/2353_tail_selftest_final.log", "build-logs/2353_tail_replay.log", "build-logs/2353_tail_precision384.log"]
+}

@@ -1,0 +1,11 @@
+import ConnesWeilRH.Dev.C1RouteATailAcceptance
+
+namespace ConnesWeilRH.Dev
+
+#print axioms angular_tail_normalization2354
+#print axioms tailAcceptanceRatio2354_eq_scaled_budget
+#print axioms tailAcceptanceRatio2354_lambda_monotone
+#print axioms tailAcceptanceRatio2354_n2_lane
+#print axioms tailAcceptanceRatio2354_n3_lane
+
+end ConnesWeilRH.Dev

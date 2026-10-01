@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1RouteAContractionCutoff
+
+open ConnesWeilRH.Dev
+
+#print axioms laplaceAt_one_forces_contraction_cutoff2352
+#print axioms ownerMomentSolution_forces_contraction_cutoff2352

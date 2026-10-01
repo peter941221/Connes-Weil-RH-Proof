@@ -368,7 +368,7 @@ theorem spectralWeilValue_neg_of_finite_prefix_residual_and_tail
       (∑ z ∈ spectralHeightShellPrefix N, spectralTerm F z) =
         (∑ z ∈ S, spectralTerm F z) +
           (∑ z ∈ spectralHeightShellPrefix N \ S, spectralTerm F z) := by
-    rw [Finset.sum_sdiff hS]
+    rw [← Finset.sum_sdiff hS]
     ring
   have hprefixShell :
       (∑ m ∈ Finset.range N, ∑' z : spectralHeightShell m,
@@ -382,6 +382,8 @@ theorem spectralWeilValue_neg_of_finite_prefix_residual_and_tail
         spectralTerm F z.1).re <
         (xiMultiplicity rho : Real) - delta := by
     exact (spectralHeightShellTail_re_le_normTail F N).trans_lt htail
+  unfold spectralWeilValue
+  rw [← spectralHeightShellSum_eq_source_tsum F]
   rw [spectralHeightShellSum_split F N, Complex.add_re]
   linarith
 

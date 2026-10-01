@@ -1,0 +1,232 @@
+{
+  "record": 2352,
+  "status": "EXACT_PREMISE_AUDIT_CONDITIONAL_CUTOFF_OBSTRUCTION",
+  "arithmetic": "Python Fraction; no new quadrature, float solve, gate scan or kernel pricing",
+  "input_sha256": {
+    "results/2351_moment_matrix_witness.json": "c8737256f4daeddfec9fa2bbab0ee54b0643acce69c87aeb46983696b61581ea"
+  },
+  "source_sha256": {
+    "scripts/routea_same_owner_premise_audit_2352.py": "d052cc09033959c4c5ccea0e5734f1bb03c615d07a7b02a31c1480e41b61b3aa",
+    "scripts/routea_moment_matrix_exact_check_2351.py": "77792e601c572c3a20d3e779bf1ee9b3c1955b55a45a7969e845bf6ea7fdea47",
+    "scripts/routea_same_owner_premise_selftest_2352.py": "4e72abaaf3972261a93ebb15100c5771851303c96809e35bd21bbb8621bd5cdf",
+    "ConnesWeilRH/Dev/C1RouteAAnalyticMomentSystem.lean": "fdb09bd77726f20db2b325b4e324bf683c4808573ed1edefc34df3ab9cb0772e",
+    "ConnesWeilRH/Dev/C1RouteAContractionCutoff.lean": "f816bda10b8b0a7b7bb4bdb90db16a812e2e3e3e55b3571e8c5b59cf8642a633",
+    "ConnesWeilRH/Dev/C1RouteAContractionCutoffAudit.lean": "b559a3a81d5e15249ff1d0915dd45cc8b65ab3d14c2b1a7080eb1dc9c136f3fb",
+    "ConnesWeilRH/Dev/C1HealthyYoshidaUnscaledOrbit.lean": "1e251ad087001b2d2fd21b15a3574485009984748283598b7bfd64bb4455d544",
+    "ConnesWeilRH/Dev/C1FourPointHighShellTail.lean": "39b60ce789446dda40af0cecbf2242eaeafc9aada7a28e13229642eb96bb2b85",
+    "ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativity.lean": "56e7ca88fe1920d01f2c01f80fa78092648be2b7105d3fe354c4275589bdabdd"
+  },
+  "parent_witness_rechecked_in_same_run": true,
+  "original_coefficient_boxes_unchanged": true,
+  "mandatory_targets": {
+    "rho_real_exact": "4255901647865119/4503599627370496",
+    "rho_imag_exact": "5524291025718029/140737488355328",
+    "mandatory_node_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "mandatory_raw_targets_match": true,
+    "raw_moment_indices": [
+      5,
+      6,
+      7
+    ],
+    "marked_square_real_values_exact": [
+      "-1",
+      "-1",
+      "0",
+      "0"
+    ],
+    "marked_square_imag_values_exact": [
+      "0",
+      "0",
+      "0",
+      "0"
+    ],
+    "marked_orbit_sum_exact": "-2",
+    "interpretation": "exact prescribed values; realization conditional on actual matrix invertibility"
+  },
+  "captured_node_count": 30,
+  "extra_base_unit_constraints_beyond_mandatory_indices": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29
+  ],
+  "extra_node_source_zero_semantics_proved": false,
+  "contraction_floor": {
+    "threshold_strictly_greater_than_exact": "2791435723263659/35184372088832",
+    "attaining_node_indices": [
+      29
+    ],
+    "minimum_height_shell_index_for_threshold_le_two_pow_succ": 6,
+    "shell_ceiling_exact": "128",
+    "scope": "necessary condition for the uniform base contraction supplier, not for every possible tail proof",
+    "conditional_on_exact_base_realization": true
+  },
+  "cutoff_controls": [
+    {
+      "threshold_exact": "28",
+      "bound_exact": "1/16384",
+      "excluded_conditional_on_exact_base_realization": true,
+      "forced_unit_value_node_indices": [
+        0,
+        1,
+        2,
+        3,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "not_excluded_does_not_certify_contraction": true
+    },
+    {
+      "threshold_exact": "64",
+      "bound_exact": "1/2",
+      "excluded_conditional_on_exact_base_realization": true,
+      "forced_unit_value_node_indices": [
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "not_excluded_does_not_certify_contraction": true
+    },
+    {
+      "threshold_exact": "2791435723263659/35184372088832",
+      "bound_exact": "1/2",
+      "excluded_conditional_on_exact_base_realization": true,
+      "forced_unit_value_node_indices": [
+        29
+      ],
+      "not_excluded_does_not_certify_contraction": true
+    },
+    {
+      "threshold_exact": "128",
+      "bound_exact": "1/2",
+      "excluded_conditional_on_exact_base_realization": false,
+      "forced_unit_value_node_indices": [],
+      "not_excluded_does_not_certify_contraction": true
+    }
+  ],
+  "mandatory_target_only_contraction_floor": {
+    "threshold_strictly_greater_than_exact": "5524291025718029/140737488355328",
+    "attaining_node_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "minimum_height_shell_index_for_threshold_le_two_pow_succ": 5,
+    "shell_ceiling_exact": "64",
+    "scope": "necessary condition for the uniform base contraction supplier, not for every possible tail proof",
+    "conditional_on_exact_base_realization": true
+  },
+  "height_shell_floor_all_nodes": {
+    "minimum_shell_index": 6,
+    "ceiling_exact": "128",
+    "rho_double_height_exact": "5524291025718029/70368744177664",
+    "conditions": "T > forced-node floor, T <= 2^(N+1), 2*abs(Im rho) <= 2^(N+1)",
+    "necessary_only": true
+  },
+  "height_shell_floor_mandatory_targets_only": {
+    "minimum_shell_index": 6,
+    "ceiling_exact": "128",
+    "rho_double_height_exact": "5524291025718029/70368744177664",
+    "conditions": "T > forced-node floor, T <= 2^(N+1), 2*abs(Im rho) <= 2^(N+1)",
+    "necessary_only": true
+  },
+  "removing_extra_base_constraints_improves_first_healthy_height_shell": false,
+  "support_covers": [
+    {
+      "iterate": 0,
+      "factor_radius_exact": "2076918743413931858457251756481/316912650057057350374175801344",
+      "source_radius_cover_exact": "2076918743413931858457251756481/158456325028528675187087900672",
+      "square_radius_cover_exact": "2076918743413931858457251756481/79228162514264337593543950336",
+      "single_factor_square_radius_exact": "2076918743413931858457251756481/158456325028528675187087900672",
+      "exact_nonzero_prime_set_identified": false,
+      "complete_covering_prime_book_enumerated": false,
+      "larger_cover_does_not_prove_missing_nonzero_terms": true
+    },
+    {
+      "iterate": 1,
+      "factor_radius_exact": "2076918743413931858457251756481/316912650057057350374175801344",
+      "source_radius_cover_exact": "6230756230241795575371755269443/316912650057057350374175801344",
+      "square_radius_cover_exact": "6230756230241795575371755269443/158456325028528675187087900672",
+      "single_factor_square_radius_exact": "2076918743413931858457251756481/158456325028528675187087900672",
+      "exact_nonzero_prime_set_identified": false,
+      "complete_covering_prime_book_enumerated": false,
+      "larger_cover_does_not_prove_missing_nonzero_terms": true
+    },
+    {
+      "iterate": 2,
+      "factor_radius_exact": "2076918743413931858457251756481/316912650057057350374175801344",
+      "source_radius_cover_exact": "2076918743413931858457251756481/79228162514264337593543950336",
+      "square_radius_cover_exact": "2076918743413931858457251756481/39614081257132168796771975168",
+      "single_factor_square_radius_exact": "2076918743413931858457251756481/158456325028528675187087900672",
+      "exact_nonzero_prime_set_identified": false,
+      "complete_covering_prime_book_enumerated": false,
+      "larger_cover_does_not_prove_missing_nonzero_terms": true
+    }
+  ],
+  "open_obligations": [
+    "actual analytic matrix integral enclosure import",
+    "actual numeric matrix invertibility and solution-box import",
+    "complete required source-zero prefix identification or parametric construction",
+    "same-owner uniform tail constants and accepted tail budget",
+    "complete-support signed physical-kernel budget"
+  ],
+  "all_node_base_interpolation_required_by_healthy_target_api": false,
+  "removing_extra_constraints_changes_owner": true,
+  "legacy_T28_q_bound_transferred": false,
+  "uniform_tail_at_T128_certified": false,
+  "actual_numeric_invertibility_instantiated_in_lean": false,
+  "healthy_detector_instantiated": false,
+  "complete_signed_kernel_priced": false,
+  "map103_reopened": false,
+  "global_tail_impossibility_claim": false,
+  "producer_go": false,
+  "rh_claim": false
+}

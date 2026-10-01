@@ -1,0 +1,67 @@
+{
+  "record": 2352,
+  "date": "2026-10-01",
+  "status": "PASS_SAME_OWNER_CONDITIONAL_CONTRACTION_CUTOFF_AUDIT",
+  "focused_build_plan_jobs": 3717,
+  "audited_leaves": [
+    {
+      "theorem": "ConnesWeilRH.Dev.laplaceAt_one_forces_contraction_cutoff2352",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "ConnesWeilRH.Dev.ownerMomentSolution_forces_contraction_cutoff2352",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "new_source_warnings": false,
+  "existing_import_warnings_preserved": true,
+  "linux_windows_lean_mirrors_identical": true,
+  "separate_command_artifact_replay_byte_identical": true,
+  "parent_witness_rechecked_same_run": true,
+  "test_suites": [
+    {
+      "record": 2352,
+      "tests": 14,
+      "status": "PASS"
+    },
+    {
+      "record": 2351,
+      "tests": 17,
+      "status": "PASS"
+    },
+    {
+      "record": 2349,
+      "tests": 12,
+      "status": "PASS"
+    },
+    {
+      "record": 2342,
+      "tests": 15,
+      "status": "PASS"
+    }
+  ],
+  "test_count": 58,
+  "source_and_input_hashes_verified": true,
+  "artifact_sha256": "1588d30d28bfc1d07419c95cea34fbc58563bea6b324953a547c604407b4914b",
+  "contraction_cutoff_floor_exact": "2791435723263659/35184372088832",
+  "contraction_obstruction_conditional_on_exact_realization": true,
+  "actual_moment_solution_cutoff_theorem_keeps_hdet": true,
+  "uniform_tail_at_T128_certified": false,
+  "owner_changed": false,
+  "new_quadrature": false,
+  "new_gate_scan": false,
+  "numeric_integral_import_completed": false,
+  "healthy_detector_instantiated": false,
+  "full_signed_kernel_priced": false,
+  "map103_reopened": false,
+  "producer_go": false,
+  "rh_claim": false
+}

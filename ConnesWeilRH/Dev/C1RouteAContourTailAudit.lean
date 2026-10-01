@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteAContourTail
+
+open ConnesWeilRH.Dev
+
+#print axioms tailContourIntegrand2353_differentiableAt
+#print axioms tailContour_norm_eq2353
+#print axioms weightedFamily_eq_tailContour2353
+#print axioms tailContour_rectangle_eq_zero2353

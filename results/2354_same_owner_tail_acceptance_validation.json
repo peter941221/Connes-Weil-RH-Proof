@@ -1,0 +1,92 @@
+{
+  "record": 2354,
+  "date": "2026-10-01",
+  "status": "PASS_CONDITIONAL_SCALAR_LANES_ONLY_CONSUMER_INTEGRATION_OPEN",
+  "focused_build_plan_jobs": 3569,
+  "audited_leaves": [
+    {
+      "theorem": "angular_tail_normalization2354",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "tailAcceptanceRatio2354_eq_scaled_budget",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "tailAcceptanceRatio2354_lambda_monotone",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "tailAcceptanceRatio2354_n2_lane",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "tailAcceptanceRatio2354_n3_lane",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "new_source_warnings": false,
+  "existing_import_warnings_preserved": true,
+  "new_tests": 18,
+  "test_log": "build-logs/2354_acceptance_selftest_verified.log",
+  "prerequisite_validation": "results/2353_same_owner_tail_validation.json",
+  "prerequisite_tests": 86,
+  "recorded_total_tests": 104,
+  "separate_command_replay_byte_identical": true,
+  "linux_windows_lean_mirrors_identical": true,
+  "source_and_input_hashes_verified": true,
+  "artifact_sha256": "40f329e446aa89f655477772735b3924c2d6e7939212988278fae6a6a0c01374",
+  "scope": {
+    "actual_gate_row_paired": false,
+    "tail_supplier_imported_in_lean": false,
+    "actual_numeric_coefficients_imported_in_lean": false,
+    "fourth_order_spectral_tail_instantiated": false,
+    "complete_zero_prefix_instantiated": false,
+    "rho_is_source_zero_proved": false,
+    "full_signed_kernel_priced": false,
+    "healthy_detector_instantiated": false,
+    "owner_changed": false,
+    "map103_reopened": false,
+    "producer_go": false,
+    "rh_claim": false
+  },
+  "consumer_dependency_probe": {
+    "passed": false,
+    "windows_linux_failure_source_identical": true,
+    "file": "ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativity.lean",
+    "failed_lines": [
+      371,
+      385
+    ],
+    "log": "build-logs/2354_acceptance_build.log",
+    "failure_source_modified": false,
+    "narrowed_import_means_scalar_build_only": true
+  },
+  "evidence": [
+    "docs/proofs/2354_same_owner_tail_acceptance.md",
+    "results/2354_same_owner_tail_acceptance.json",
+    "build-logs/2354_acceptance_build_verified.log",
+    "build-logs/2354_acceptance_numeric_verified.log",
+    "build-logs/2354_acceptance_replay_verified.log"
+  ]
+}
