@@ -3660,6 +3660,8 @@ terms and span accumulators dominate the corresponding mathematical
 quantities. No numeric value is imported. Evidence:
 docs/proofs/2391_directed_accumulation_order.md and
 results/2391_directed_accumulation_order.json.
+The required Mathlib brick inventory was also rerun; it does not replace the
+pending source audit.
 
 Record 2392 (2026-10-02): an independent artifact readback checks the 2385
 source hashes, four-channel directed-roundup dominance, channel alignment,

@@ -11,3 +11,8 @@ The audit is pending because the current WSL Lean invocation hangs even on the
 existing 2390 audit.  This does not certify that the
 MPFR/binary64 values stored by the replay are the corresponding mathematical
 terms, and it does not import any numeric value into Lean.
+
+The required Mathlib brick check was rerun on 2026-10-02 and completed with
+its existing result artifact at `results/2049_mathlib_brick_check.json`.  That
+check is a library inventory, not a proof of this candidate file; the direct
+Lean audit therefore remains pending.
