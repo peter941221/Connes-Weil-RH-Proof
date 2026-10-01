@@ -3504,3 +3504,11 @@ ordered parent reduction. This closes only the term-accumulation layer;
 pointwise interval construction and trapezoid remainder remain open. Evidence:
 docs/proofs/2369_directed_binary64_term_accumulation.md and
 results/2369_directed_binary64_term_accumulation.json.
+
+Record 2370 (2026-10-02): the directed path is upgraded to construct each
+pointwise rectangle norm, exponential weight, endpoint half-weight, and span
+sum directly with 256-bit MPFR `RNDU`. The full-grid readings remain stable
+to displayed precision. This is conditional on the 2242 rectangle bounds;
+the point-box function identity and trapezoid remainder remain open. Evidence:
+docs/proofs/2370_directed_pointwise_norm_exp_accumulation.md and
+results/2370_directed_pointwise_norm_exp_accumulation.json.
