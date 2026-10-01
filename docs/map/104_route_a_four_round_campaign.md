@@ -3595,3 +3595,10 @@ preserved. WSL exposes 16 CPUs and ample memory; the remaining full-grid
 obstacle is per-node evaluator cost. Evidence:
 docs/proofs/2382_evaluator_runtime_benchmark.md and
 results/2382_evaluator_runtime_benchmark.json.
+
+Record 2383 (2026-10-02): the evaluator now shares per-family outward
+geometry bounds across the four channels. The 1001-node exact-audit control
+passes, and the 5001-node/16-worker benchmark improves from 38.24 s to
+32.74 s without tightening the enclosure. The full-grid certificate remains
+open. Evidence: docs/proofs/2383_shared_geometry_cache.md and
+results/2383_shared_geometry_cache.json.

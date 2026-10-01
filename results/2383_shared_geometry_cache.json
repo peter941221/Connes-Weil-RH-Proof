@@ -1,0 +1,16 @@
+{
+  "record": 2383,
+  "status": "SHARED_OUTWARD_GEOMETRY_CACHE_CONTROLLED",
+  "exact_control_nodes": 1001,
+  "exact_dominance_all_channels": true,
+  "benchmark_nodes": 5001,
+  "benchmark_workers": 16,
+  "benchmark_elapsed_seconds": 32.74,
+  "previous_elapsed_seconds": 38.24,
+  "runtime_ratio": 0.85617,
+  "cache_is_outward": true,
+  "full_grid_nodes": 776611,
+  "full_grid_certificate": false,
+  "producer_go": false,
+  "rh_claim": false
+}

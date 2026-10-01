@@ -100,7 +100,10 @@ def worker_span(task):
         factor = math.exp(sigma * point)
         cell_weight = 0.5 if index == 0 or index == nodes - 1 else 1.0
         for channel, kernel in enumerate(_WORKER):
-            _ok, bounds, _floor = kernel.eval_box(point, point)
+            if channel == 0:
+                _WORKER_GEOMETRY_CACHE = [None] * len(kernel.recs)
+            _ok, bounds, _floor = kernel.eval_box(
+                point, point, _WORKER_GEOMETRY_CACHE)
             term = cell_weight * interval_abs_upper(bounds) * factor
             sums[channel] += term
             if exact_audit:

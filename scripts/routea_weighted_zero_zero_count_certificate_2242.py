@@ -204,7 +204,7 @@ class Kernel:
         self.T = [M() for _ in range(64)]
         self.acc = [M() for _ in range(4)]
 
-    def eval_box(self, xlo, xhi):
+    def eval_box(self, xlo, xhi, geometry_cache=None):
         """Return (no_zero, (rlo, rhi, ilo, ihi) as floats, floor)."""
         T = self.T
         acc = self.acc
@@ -220,6 +220,7 @@ class Kernel:
         smax, smin = T[8], T[9]
         tq, qL, qH = T[10], T[11], T[12]
         philo, phihi = T[13], T[14]
+        cLo, cHi, sLo, sHi = T[34], T[35], T[36], T[37]
         # |endpoints|
         if xlo < 0.0:
             NEG(BR(absl.x), BR(xlo_m.x), RNDN)
@@ -231,68 +232,92 @@ class Kernel:
             SET(BR(absh.x), BR(xhi_m.x), RNDN)
         imax(amax_, absl, absh)
         imin(amin_, absl, absh)
-        for rec in self.recs:
-            if xlo >= 0.0:
-                MUL(BR(u_lo.x), BR(xlo_m.x), BR(rec["inv_d"].x), RNDD)
+        for rec_index, rec in enumerate(self.recs):
+            cached = (geometry_cache[rec_index]
+                      if geometry_cache is not None else None)
+            if cached is None:
+                if xlo >= 0.0:
+                    MUL(BR(u_lo.x), BR(xlo_m.x), BR(rec["inv_d"].x), RNDD)
+                else:
+                    MUL(BR(u_lo.x), BR(xlo_m.x), BR(rec["inv_u"].x), RNDD)
+                if xhi >= 0.0:
+                    MUL(BR(u_hi.x), BR(xhi_m.x), BR(rec["inv_u"].x), RNDU)
+                else:
+                    MUL(BR(u_hi.x), BR(xhi_m.x), BR(rec["inv_d"].x), RNDU)
+                MUL(BR(smax.x), BR(amax_.x), BR(rec["inv_u"].x), RNDU)
+                MUL(BR(smin.x), BR(amin_.x), BR(rec["inv_d"].x), RNDD)
+                MUL(BR(tq.x), BR(smax.x), BR(smax.x), RNDU)
+                SUB(BR(qL.x), BR(ONE.x), BR(tq.x), RNDD)
+                if xlo <= 0.0 <= xhi:
+                    SET(BR(qH.x), BR(ONE.x), RNDN)
+                else:
+                    MUL(BR(tq.x), BR(smin.x), BR(smin.x), RNDD)
+                    SUB(BR(qH.x), BR(ONE.x), BR(tq.x), RNDU)
+                if icmp(qH, ZERO) <= 0:
+                    if geometry_cache is not None:
+                        geometry_cache[rec_index] = None
+                    continue
+                DIV(BR(tq.x), BR(MK30.x), BR(qH.x), RNDU)
+                EXP(BR(phihi.x), BR(tq.x), RNDU)
+                if icmp(qL, ZERO) > 0:
+                    DIV(BR(tq.x), BR(MK30.x), BR(qL.x), RNDD)
+                    EXP(BR(philo.x), BR(tq.x), RNDD)
+                else:
+                    SET(BR(philo.x), BR(ZERO.x), RNDN)
+                # arc of e^{i theta x} over the box (endpoints + delta)
+                p1, p2 = T[15], T[16]
+                MUL(BR(p1.x), BR(rec["th"].x), BR(xlo_m.x), RNDD)
+                MUL(BR(p2.x), BR(rec["th"].x), BR(xhi_m.x), RNDD)
+                thmin, thmax = T[17], T[18]
+                imin(thmin, p1, p2)
+                imax(thmax, p1, p2)
+                c1d, c2d, c1u, c2u = T[19], T[20], T[21], T[22]
+                s1d, s2d, s1u, s2u = T[23], T[24], T[25], T[26]
+                COS(BR(c1d.x), BR(thmin.x), RNDD)
+                COS(BR(c2d.x), BR(thmax.x), RNDD)
+                COS(BR(c1u.x), BR(thmin.x), RNDU)
+                COS(BR(c2u.x), BR(thmax.x), RNDU)
+                SIN(BR(s1d.x), BR(thmin.x), RNDD)
+                SIN(BR(s2d.x), BR(thmax.x), RNDD)
+                SIN(BR(s1u.x), BR(thmin.x), RNDU)
+                SIN(BR(s2u.x), BR(thmax.x), RNDU)
+                cLo_p, cHi_p = T[27], T[28]
+                sLo_p, sHi_p = T[29], T[30]
+                imin(cLo_p, c1d, c2d)
+                imax(cHi_p, c1u, c2u)
+                imin(sLo_p, s1d, s2d)
+                imax(sHi_p, s1u, s2u)
+                xw, tw, dlt = T[31], T[32], T[33]
+                SUB(BR(xw.x), BR(xhi_m.x), BR(xlo_m.x), RNDU)
+                MUL(BR(tw.x), BR(rec["th_abs"].x), BR(xw.x), RNDU)
+                MUL(BR(dlt.x), BR(tw.x), BR(tw.x), RNDU)
+                MUL(BR(dlt.x), BR(dlt.x), BR(EIGHTH.x), RNDU)
+                MUL(BR(dlt.x), BR(dlt.x), BR(ONE_P.x), RNDU)
+                ADD(BR(dlt.x), BR(dlt.x), BR(EPS200.x), RNDU)
+                SUB(BR(cLo.x), BR(cLo_p.x), BR(dlt.x), RNDD)
+                ADD(BR(cHi.x), BR(cHi_p.x), BR(dlt.x), RNDU)
+                SUB(BR(sLo.x), BR(sLo_p.x), BR(dlt.x), RNDD)
+                ADD(BR(sHi.x), BR(sHi_p.x), BR(dlt.x), RNDU)
+                if geometry_cache is not None:
+                    geometry_cache[rec_index] = (
+                        u_lo.get_d(RNDD), u_hi.get_d(RNDU),
+                        qL.get_d(RNDD), qH.get_d(RNDU),
+                        philo.get_d(RNDD), phihi.get_d(RNDU),
+                        cLo.get_d(RNDD), cHi.get_d(RNDU),
+                        sLo.get_d(RNDD), sHi.get_d(RNDU))
             else:
-                MUL(BR(u_lo.x), BR(xlo_m.x), BR(rec["inv_u"].x), RNDD)
-            if xhi >= 0.0:
-                MUL(BR(u_hi.x), BR(xhi_m.x), BR(rec["inv_u"].x), RNDU)
-            else:
-                MUL(BR(u_hi.x), BR(xhi_m.x), BR(rec["inv_d"].x), RNDU)
-            MUL(BR(smax.x), BR(amax_.x), BR(rec["inv_u"].x), RNDU)
-            MUL(BR(smin.x), BR(amin_.x), BR(rec["inv_d"].x), RNDD)
-            MUL(BR(tq.x), BR(smax.x), BR(smax.x), RNDU)
-            SUB(BR(qL.x), BR(ONE.x), BR(tq.x), RNDD)
-            if xlo <= 0.0 <= xhi:
-                SET(BR(qH.x), BR(ONE.x), RNDN)
-            else:
-                MUL(BR(tq.x), BR(smin.x), BR(smin.x), RNDD)
-                SUB(BR(qH.x), BR(ONE.x), BR(tq.x), RNDU)
-            if icmp(qH, ZERO) <= 0:
-                continue
-            DIV(BR(tq.x), BR(MK30.x), BR(qH.x), RNDU)
-            EXP(BR(phihi.x), BR(tq.x), RNDU)
-            if icmp(qL, ZERO) > 0:
-                DIV(BR(tq.x), BR(MK30.x), BR(qL.x), RNDD)
-                EXP(BR(philo.x), BR(tq.x), RNDD)
-            else:
-                SET(BR(philo.x), BR(ZERO.x), RNDN)
-            # arc of e^{i theta x} over the box (endpoints + delta)
-            p1, p2 = T[15], T[16]
-            MUL(BR(p1.x), BR(rec["th"].x), BR(xlo_m.x), RNDD)
-            MUL(BR(p2.x), BR(rec["th"].x), BR(xhi_m.x), RNDD)
-            thmin, thmax = T[17], T[18]
-            imin(thmin, p1, p2)
-            imax(thmax, p1, p2)
-            c1d, c2d, c1u, c2u = T[19], T[20], T[21], T[22]
-            s1d, s2d, s1u, s2u = T[23], T[24], T[25], T[26]
-            COS(BR(c1d.x), BR(thmin.x), RNDD)
-            COS(BR(c2d.x), BR(thmax.x), RNDD)
-            COS(BR(c1u.x), BR(thmin.x), RNDU)
-            COS(BR(c2u.x), BR(thmax.x), RNDU)
-            SIN(BR(s1d.x), BR(thmin.x), RNDD)
-            SIN(BR(s2d.x), BR(thmax.x), RNDD)
-            SIN(BR(s1u.x), BR(thmin.x), RNDU)
-            SIN(BR(s2u.x), BR(thmax.x), RNDU)
-            cLo_p, cHi_p = T[27], T[28]
-            sLo_p, sHi_p = T[29], T[30]
-            imin(cLo_p, c1d, c2d)
-            imax(cHi_p, c1u, c2u)
-            imin(sLo_p, s1d, s2d)
-            imax(sHi_p, s1u, s2u)
-            xw, tw, dlt = T[31], T[32], T[33]
-            SUB(BR(xw.x), BR(xhi_m.x), BR(xlo_m.x), RNDU)
-            MUL(BR(tw.x), BR(rec["th_abs"].x), BR(xw.x), RNDU)
-            MUL(BR(dlt.x), BR(tw.x), BR(tw.x), RNDU)
-            MUL(BR(dlt.x), BR(dlt.x), BR(EIGHTH.x), RNDU)
-            MUL(BR(dlt.x), BR(dlt.x), BR(ONE_P.x), RNDU)
-            ADD(BR(dlt.x), BR(dlt.x), BR(EPS200.x), RNDU)
-            cLo, cHi, sLo, sHi = T[34], T[35], T[36], T[37]
-            SUB(BR(cLo.x), BR(cLo_p.x), BR(dlt.x), RNDD)
-            ADD(BR(cHi.x), BR(cHi_p.x), BR(dlt.x), RNDU)
-            SUB(BR(sLo.x), BR(sLo_p.x), BR(dlt.x), RNDD)
-            ADD(BR(sHi.x), BR(sHi_p.x), BR(dlt.x), RNDU)
+                (u_lo_v, u_hi_v, qL_v, qH_v, philo_v, phihi_v,
+                 cLo_v, cHi_v, sLo_v, sHi_v) = cached
+                u_lo.set_d(u_lo_v)
+                u_hi.set_d(u_hi_v)
+                qL.set_d(qL_v)
+                qH.set_d(qH_v)
+                philo.set_d(philo_v)
+                phihi.set_d(phihi_v)
+                cLo.set_d(cLo_v)
+                cHi.set_d(cHi_v)
+                sLo.set_d(sLo_v)
+                sHi.set_d(sHi_v)
             if k == 0:
                 reL, reH, imL, imH = T[38], T[39], T[40], T[41]
                 iprod(reL, reH, cLo, cHi, philo, phihi, T)

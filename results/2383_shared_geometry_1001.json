@@ -1,0 +1,53 @@
+{
+  "accumulation_float_gap": null,
+  "accumulation_float_gap_max": null,
+  "accumulation_is_directed_mpfr": false,
+  "accumulation_is_exact_term_sum": false,
+  "coordinate_difference_count": 992,
+  "coordinate_identity_proved": false,
+  "coordinate_max_fraction_gap": "89/70368744177664000",
+  "directed_accumulation_theorem_proved": false,
+  "directed_integral_dominates_exact_binary64_integral": null,
+  "directed_mpfr_term_accumulation": true,
+  "directed_mpfr_term_accumulation_integrals": [
+    2.690638231851582,
+    8606.225862268846,
+    90.7869637295309,
+    125446.97449544868
+  ],
+  "directed_span_dominates_exact_binary64_sum": null,
+  "directed_term_binary64_roundup_dominates_mpfr": [
+    true,
+    true,
+    true,
+    true
+  ],
+  "directed_term_binary64_roundup_integrals": [
+    2.690638231851582,
+    8606.225862268846,
+    90.7869637295309,
+    125446.97449544868
+  ],
+  "evaluator_source_sha256": "f88fd190123375ae0fae38521d65ae1fb86095f2d60179a448d04fac30152200",
+  "exact_binary64_audit_enabled": false,
+  "exact_binary64_term_integrals": null,
+  "interval_integrals": [
+    2.6906382318515805,
+    8606.22586226885,
+    90.7869637295308,
+    125446.97449544855
+  ],
+  "interval_min_product": 337532.425647564,
+  "lean_imported": false,
+  "nodes": 1001,
+  "producer_go": false,
+  "radius": 6.553600000000003,
+  "record": 2359,
+  "rh_claim": false,
+  "sigma": -0.5,
+  "source_sha256": "df94e8eba56e0bdb8a7898337d4a7ecbec323f4358501bb4c6b3d5c7ffb19b59",
+  "span": 20001,
+  "status": "DIRECTED_NODE_INTERVAL_FULL_GRID_SMOKE_NOT_CERTIFICATE",
+  "trapezoid_remainder_proved": false,
+  "workers": 1
+}
