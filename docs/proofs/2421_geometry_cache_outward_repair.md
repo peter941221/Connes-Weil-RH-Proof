@@ -18,3 +18,6 @@ margin at four ULPs.  The current-source 20001-node control then checked all
 This is still a sampled control.  The full-domain enclosure, Lean numeric
 import, producer gate, and RH claim remain false.  A fresh full-grid replay is
 required because the previous 2414 artifact predates this evaluator change.
+
+The failed margin probes are retained in `results/2417_*` through
+`results/2420_*`; they are negative controls, not certificate inputs.
