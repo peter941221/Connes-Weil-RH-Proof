@@ -3430,3 +3430,13 @@ directed accumulation, trapezoid remainder, coordinate charge, and Lean import
 remain open. Evidence: scripts/routea_nodal_interval_fullgrid_2359.py,
 docs/proofs/2359_fullgrid_nodal_interval_replay.md, and
 results/2359_nodal_interval_fullgrid.json.
+
+Record 2360 (2026-10-01): the coordinate mismatch is now isolated in a Lean
+interface. `nodeUpper_of_coordinate_charge2359` composes actual-grid node
+uppers, an analytic transfer charge, and final charged uppers; its Lipschitz
+specialization takes the coordinate displacement and nonnegative Lipschitz
+constant explicitly. This is only the theorem-shaped bridge needed before
+feeding the exact-grid hypothesis to the existing weighted chord-panel bound.
+The 2359 evaluator remains numerical-only: no Lipschitz estimate, directed
+accumulation bound, or producer import is asserted. Evidence:
+ConnesWeilRH/Dev/C1RouteACoordinateCharge.lean and its audit module.

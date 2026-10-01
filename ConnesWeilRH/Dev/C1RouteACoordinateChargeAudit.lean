@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1RouteACoordinateCharge
+
+open ConnesWeilRH.Dev
+
+#print axioms nodeUpper_of_coordinate_charge2359
+#print axioms nodeUpper_of_lipschitz_coordinate_charge2359

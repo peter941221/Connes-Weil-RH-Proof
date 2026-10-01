@@ -1,0 +1,12 @@
+{
+  "record": 2360,
+  "status": "INTERFACE_ONLY",
+  "theorem": "nodeUpper_of_coordinate_charge2359",
+  "lipschitz_specialization": "nodeUpper_of_lipschitz_coordinate_charge2359",
+  "lean_imported": false,
+  "numeric_hypotheses_imported": false,
+  "coordinate_identity_proved": false,
+  "directed_accumulation_theorem_proved": false,
+  "producer_go": false,
+  "rh_claim": false
+}
