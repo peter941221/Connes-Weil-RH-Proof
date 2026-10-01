@@ -3465,3 +3465,11 @@ sums, and the segment theorem passes Lean audit. The all-node coordinate
 orientation split, directed accumulation, and trapezoid remainder remain
 open; no producer GO is claimed. Evidence: docs/proofs/2363_owner_weighted_coordinate_charge.md
 and results/2363_owner_weighted_coordinate_charge.json.
+
+Record 2364 (2026-10-02): the owner coordinate bridge now handles both
+coordinate orientations. `correctedPhysical_weighted_coordinate_transfer2359`
+returns a single absolute-displacement charge after splitting on the order of
+the stored and affine coordinates; it only assumes the connecting interval is
+inside the owner window. The full coordinate-pair data, directed accumulation,
+and trapezoid remainder remain open. Evidence: docs/proofs/2364_symmetric_coordinate_charge.md
+and results/2364_symmetric_coordinate_charge.json.

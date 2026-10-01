@@ -49,4 +49,47 @@ theorem correctedPhysical_weighted_coordinate_segment2359
     simpa only [iteratedDeriv_succ, iteratedDeriv_zero] using
       correctedPhysical_iteratedDeriv_budget2350 1 (by decide) coefficients modulations x
 
+theorem correctedPhysical_weighted_coordinate_transfer2359
+    (coefficients : Fin 30 → ℂ) (modulations : Fin 30 → ℝ)
+    (sigma actual ideal : ℝ)
+    (hsegment : ∀ x ∈ Set.Icc (min actual ideal) (max actual),
+      x ∈ Set.Icc (-(storedWidth 4 ^ 2)) (storedWidth 4 ^ 2)) :
+    ‖weightedFunction2348 sigma (correctedPhysical coefficients modulations) ideal‖ ≤
+      ‖weightedFunction2348 sigma (correctedPhysical coefficients modulations) actual‖ +
+        Real.exp (|sigma| * storedWidth 4 ^ 2) *
+          (|sigma| * ownerDerivativeBudget2350 0 coefficients modulations +
+            ownerDerivativeBudget2350 1 coefficients modulations) * |ideal - actual| := by
+  have hsmooth := (correctedPhysical_contDiff coefficients modulations).of_le
+    (by decide : (2 : ℕ∞ω) ≤ ∞)
+  have hzero : ∀ x ∈ Set.Icc (-(storedWidth 4 ^ 2)) (storedWidth 4 ^ 2),
+      ‖correctedPhysical coefficients modulations x‖ ≤
+        ownerDerivativeBudget2350 0 coefficients modulations := by
+    intro x hx
+    simpa only [iteratedDeriv_zero] using
+      correctedPhysical_iteratedDeriv_budget2350 0 (by decide) coefficients modulations x
+  have hfirst : ∀ x ∈ Set.Icc (-(storedWidth 4 ^ 2)) (storedWidth 4 ^ 2),
+      ‖deriv (correctedPhysical coefficients modulations) x‖ ≤
+        ownerDerivativeBudget2350 1 coefficients modulations := by
+    intro x hx
+    simpa only [iteratedDeriv_succ, iteratedDeriv_zero] using
+      correctedPhysical_iteratedDeriv_budget2350 1 (by decide) coefficients modulations x
+  rcases le_total actual ideal with hactual | hideal
+  · have h := correctedPhysical_weighted_coordinate_segment2359 coefficients modulations
+      sigma actual ideal (by
+        intro x hx
+        simpa [min_eq_left hactual, max_eq_right hactual] using hsegment x hx)
+    have hpoint := h ideal ⟨le_rfl, hactual⟩
+    simpa [abs_of_nonneg (sub_nonneg.mpr hactual)] using hpoint
+  · have h := weightedFunction2348_norm_at_left_le_of_coordinate_segment2359 sigma
+      (correctedPhysical coefficients modulations) hsmooth
+      (storedWidth 4 ^ 2) ideal actual
+      (ownerDerivativeBudget2350 0 coefficients modulations)
+      (ownerDerivativeBudget2350 1 coefficients modulations)
+      (by
+        intro x hx
+        simpa [min_eq_right hideal, max_eq_left hideal] using hsegment x hx)
+      (ownerDerivativeBudget2350_nonneg 0 coefficients modulations)
+      (ownerDerivativeBudget2350_nonneg 1 coefficients modulations) hzero hfirst
+    simpa [abs_of_nonneg (sub_nonneg.mpr hideal)] using h
+
 end ConnesWeilRH.Dev

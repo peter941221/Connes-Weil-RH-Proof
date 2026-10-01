@@ -6,3 +6,4 @@ open ConnesWeilRH.Dev
 #print axioms nodeUpper_of_lipschitz_coordinate_charge2359
 #print axioms norm_value_le_of_deriv_bound2359
 #print axioms weightedFunction2348_norm_le_of_coordinate_segment2359
+#print axioms weightedFunction2348_norm_at_left_le_of_coordinate_segment2359

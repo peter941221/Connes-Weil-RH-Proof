@@ -5,3 +5,4 @@ open ConnesWeilRH.Dev
 #print axioms familyDerivativeBudget2350_nonneg
 #print axioms ownerDerivativeBudget2350_nonneg
 #print axioms correctedPhysical_weighted_coordinate_segment2359
+#print axioms correctedPhysical_weighted_coordinate_transfer2359

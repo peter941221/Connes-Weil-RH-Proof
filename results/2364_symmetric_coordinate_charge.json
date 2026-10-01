@@ -1,0 +1,11 @@
+{
+  "record": 2364,
+  "status": "SYMMETRIC_OWNER_ANALYTIC_BRIDGE_ONLY",
+  "theorem": "correctedPhysical_weighted_coordinate_transfer2359",
+  "lean_audit_checked": true,
+  "mixed_orientation_handled": true,
+  "coordinate_pair_data_imported": false,
+  "directed_accumulation_theorem_proved": false,
+  "producer_go": false,
+  "rh_claim": false
+}
