@@ -3694,6 +3694,17 @@ open. Evidence: scripts/routea_directed_term_conversion_control_2396.py,
 docs/proofs/2396_directed_term_conversion_control.md, and
 results/2396_directed_term_conversion_control.json.
 
+Record 2397 (2026-10-02): the independent 90-digit mpmath reference, built
+from exact rational conversions of stored binary64 operands, found two escapes
+from the 2242 hulls among 4004 values on 1001 points. The first is in
+`base_D2` at `x=5.669356830720005`, with imaginary shortfall about `2.65e-55`.
+This is a scoped enclosure-control failure, not a full-domain no-go; the
+missing outward margin/formula term must be identified before any numeric
+import. Evidence:
+scripts/routea_pointbox_mpmath_containment_control_2397.py,
+docs/proofs/2397_pointbox_mpmath_containment_control.md, and
+results/2397_pointbox_mpmath_containment_control.json.
+
 Record 2392 (2026-10-02): an independent artifact readback checks the 2385
 source hashes, four-channel directed-roundup dominance, channel alignment,
 and exact 2386 bridge readback. These controls pass, while Lean numeric import
