@@ -3540,3 +3540,11 @@ the directed reading, with stable four-channel values. This is controlled
 price evidence, not yet a Lean node import or producer GO. Evidence:
 docs/proofs/2374_same_owner_refinement_776611.md and
 results/2374_same_owner_refinement_776611.json.
+
+Record 2375 (2026-10-02): the Lean finite-sum bridge
+`compositeNodeUpper_le_of_nodewise_coordinate_charge2359` and its interface
+ledger assemble the 2374 node reading with the coordinate and panel prices.
+This is not yet a numerical certificate: nodewise import, directed
+accumulation, and trapezoid remainder proof remain open. Evidence:
+docs/proofs/2375_composite_charge_bridge.md and
+results/2375_composite_charge_bridge.json.
