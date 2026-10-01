@@ -1,0 +1,11 @@
+{
+  "record": 2393,
+  "status": "DIRECTED_SPAN_PARTITION_INTERFACE_AUDITED",
+  "theorem": "finite_span_partition_le_of_termwise_upper2393",
+  "lean_audit_passed": true,
+  "axioms": ["propext", "Classical.choice", "Quot.sound"],
+  "numeric_term_dominance_imported": false,
+  "numeric_partition_imported": false,
+  "producer_go": false,
+  "rh_claim": false
+}

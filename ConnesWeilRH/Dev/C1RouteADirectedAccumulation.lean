@@ -45,4 +45,40 @@ theorem finite_span_sum_le_of_termwise_upper2391
       exact hspan span (Finset.mem_range.mp hspan')
     _ ≤ scalar := hglobal
 
+theorem finite_span_partition_le_of_termwise_upper2393
+    (term upper : ℕ → ℝ) (spanUpper : ℕ → ℝ)
+    (spanStart spanLength : ℕ → ℕ)
+    (spans cells : ℕ) (scalar : ℝ)
+    (hterm : ∀ span < spans, ∀ index < spanLength span,
+      term (spanStart span + index) ≤ upper (spanStart span + index))
+    (hspan : ∀ span < spans,
+      (∑ index ∈ Finset.range (spanLength span),
+        upper (spanStart span + index)) ≤ spanUpper span)
+    (hpartition :
+      (∑ index ∈ Finset.range cells, term index) =
+        ∑ span ∈ Finset.range spans,
+          ∑ index ∈ Finset.range (spanLength span),
+            term (spanStart span + index))
+    (hglobal : ∑ span ∈ Finset.range spans, spanUpper span ≤ scalar) :
+    ∑ index ∈ Finset.range cells, term index ≤ scalar := by
+  calc
+    (∑ index ∈ Finset.range cells, term index) =
+        ∑ span ∈ Finset.range spans,
+          ∑ index ∈ Finset.range (spanLength span),
+            term (spanStart span + index) := hpartition
+    _ ≤ ∑ span ∈ Finset.range spans,
+          ∑ index ∈ Finset.range (spanLength span),
+            upper (spanStart span + index) := by
+      apply Finset.sum_le_sum
+      intro span hspan'
+      apply Finset.sum_le_sum
+      intro index hindex
+      exact hterm span (Finset.mem_range.mp hspan') index
+        (Finset.mem_range.mp hindex)
+    _ ≤ ∑ span ∈ Finset.range spans, spanUpper span := by
+      apply Finset.sum_le_sum
+      intro span hspan'
+      exact hspan span (Finset.mem_range.mp hspan')
+    _ ≤ scalar := hglobal
+
 end ConnesWeilRH.Dev

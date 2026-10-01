@@ -3662,6 +3662,13 @@ docs/proofs/2391_directed_accumulation_order.md and
 results/2391_directed_accumulation_order.json.
 The required Mathlib brick inventory was also rerun as a prerequisite.
 
+Record 2393 (2026-10-02): the directed accumulation consumer now has an
+audited slice-shaped theorem with explicit span starts, lengths, and a
+partition equality. This matches the ordered replay more faithfully than the
+uniform nested-range interface. Term dominance and the actual partition are
+still unimported. Evidence: docs/proofs/2393_directed_span_partition_interface.md
+and results/2393_directed_span_partition_interface.json.
+
 Record 2392 (2026-10-02): an independent artifact readback checks the 2385
 source hashes, four-channel directed-roundup dominance, channel alignment,
 and exact 2386 bridge readback. These controls pass, while Lean numeric import
