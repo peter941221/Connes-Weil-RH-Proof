@@ -22,6 +22,18 @@ _WORKER_GRID = None
 _WORKER_DIRECTED_ACC = None
 _WORKER_DIRECTED_TERM = None
 _WORKER_INTERVAL = None
+_WORKER_POINT_RMAX = None
+_WORKER_POINT_IMAX = None
+_WORKER_POINT_SQUARE_R = None
+_WORKER_POINT_SQUARE_I = None
+_WORKER_POINT_SQUARE = None
+_WORKER_POINT_NORM = None
+_WORKER_POINT_SIGMA = None
+_WORKER_POINT_X = None
+_WORKER_POINT_EXPONENT = None
+_WORKER_POINT_EXP = None
+_WORKER_POINT_WEIGHT = None
+_WORKER_POINT_TERM = None
 
 
 def load(name, filename):
@@ -40,6 +52,10 @@ def interval_abs_upper(bounds):
 
 def worker_span(task):
     global _WORKER, _WORKER_GRID, _WORKER_DIRECTED_ACC, _WORKER_DIRECTED_TERM, _WORKER_INTERVAL
+    global _WORKER_POINT_RMAX, _WORKER_POINT_IMAX, _WORKER_POINT_SQUARE_R
+    global _WORKER_POINT_SQUARE_I, _WORKER_POINT_SQUARE, _WORKER_POINT_NORM
+    global _WORKER_POINT_SIGMA, _WORKER_POINT_X, _WORKER_POINT_EXPONENT
+    global _WORKER_POINT_EXP, _WORKER_POINT_WEIGHT, _WORKER_POINT_TERM
     start, stop, nodes, sigma, radius = task
     if _WORKER is None:
         strip = load("strip2359", "routea_corrected_strip_envelope_2303.py")
@@ -58,6 +74,11 @@ def worker_span(task):
         for accumulator in _WORKER_DIRECTED_ACC:
             accumulator.set_d(0.0)
         _WORKER_DIRECTED_TERM = interval.M()
+        point_objects = [interval.M() for _ in range(12)]
+        (_WORKER_POINT_RMAX, _WORKER_POINT_IMAX, _WORKER_POINT_SQUARE_R,
+         _WORKER_POINT_SQUARE_I, _WORKER_POINT_SQUARE, _WORKER_POINT_NORM,
+         _WORKER_POINT_SIGMA, _WORKER_POINT_X, _WORKER_POINT_EXPONENT,
+         _WORKER_POINT_EXP, _WORKER_POINT_WEIGHT, _WORKER_POINT_TERM) = point_objects
     else:
         # A fork worker services multiple spans; every span must have its own
         # directed accumulator or the parent would double-count prior spans.
@@ -74,11 +95,62 @@ def worker_span(task):
             term = cell_weight * interval_abs_upper(bounds) * factor
             sums[channel] += term
             exact_sums[channel] += Fraction.from_float(term)
-            _WORKER_DIRECTED_TERM.set_d(term)
+            rlo, rhi, ilo, ihi = bounds
+            _WORKER_POINT_RMAX.set_d(max(abs(rlo), abs(rhi)))
+            _WORKER_POINT_IMAX.set_d(max(abs(ilo), abs(ihi)))
+            _WORKER_INTERVAL.MUL(
+                _WORKER_INTERVAL.BR(_WORKER_POINT_SQUARE_R.x),
+                _WORKER_INTERVAL.BR(_WORKER_POINT_RMAX.x),
+                _WORKER_INTERVAL.BR(_WORKER_POINT_RMAX.x),
+                _WORKER_INTERVAL.RNDU,
+            )
+            _WORKER_INTERVAL.MUL(
+                _WORKER_INTERVAL.BR(_WORKER_POINT_SQUARE_I.x),
+                _WORKER_INTERVAL.BR(_WORKER_POINT_IMAX.x),
+                _WORKER_INTERVAL.BR(_WORKER_POINT_IMAX.x),
+                _WORKER_INTERVAL.RNDU,
+            )
+            _WORKER_INTERVAL.ADD(
+                _WORKER_INTERVAL.BR(_WORKER_POINT_SQUARE.x),
+                _WORKER_INTERVAL.BR(_WORKER_POINT_SQUARE_R.x),
+                _WORKER_INTERVAL.BR(_WORKER_POINT_SQUARE_I.x),
+                _WORKER_INTERVAL.RNDU,
+            )
+            _WORKER_INTERVAL.SQRT(
+                _WORKER_INTERVAL.BR(_WORKER_POINT_NORM.x),
+                _WORKER_INTERVAL.BR(_WORKER_POINT_SQUARE.x),
+                _WORKER_INTERVAL.RNDU,
+            )
+            _WORKER_POINT_SIGMA.set_d(sigma)
+            _WORKER_POINT_X.set_d(point)
+            _WORKER_INTERVAL.MUL(
+                _WORKER_INTERVAL.BR(_WORKER_POINT_EXPONENT.x),
+                _WORKER_INTERVAL.BR(_WORKER_POINT_SIGMA.x),
+                _WORKER_INTERVAL.BR(_WORKER_POINT_X.x),
+                _WORKER_INTERVAL.RNDU,
+            )
+            _WORKER_INTERVAL.EXP(
+                _WORKER_INTERVAL.BR(_WORKER_POINT_EXP.x),
+                _WORKER_INTERVAL.BR(_WORKER_POINT_EXPONENT.x),
+                _WORKER_INTERVAL.RNDU,
+            )
+            _WORKER_POINT_WEIGHT.set_d(cell_weight)
+            _WORKER_INTERVAL.MUL(
+                _WORKER_INTERVAL.BR(_WORKER_POINT_TERM.x),
+                _WORKER_INTERVAL.BR(_WORKER_POINT_NORM.x),
+                _WORKER_INTERVAL.BR(_WORKER_POINT_EXP.x),
+                _WORKER_INTERVAL.RNDU,
+            )
+            _WORKER_INTERVAL.MUL(
+                _WORKER_INTERVAL.BR(_WORKER_POINT_TERM.x),
+                _WORKER_INTERVAL.BR(_WORKER_POINT_TERM.x),
+                _WORKER_INTERVAL.BR(_WORKER_POINT_WEIGHT.x),
+                _WORKER_INTERVAL.RNDU,
+            )
             _WORKER_INTERVAL.ADD(
                 _WORKER_INTERVAL.BR(_WORKER_DIRECTED_ACC[channel].x),
                 _WORKER_INTERVAL.BR(_WORKER_DIRECTED_ACC[channel].x),
-                _WORKER_INTERVAL.BR(_WORKER_DIRECTED_TERM.x),
+                _WORKER_INTERVAL.BR(_WORKER_POINT_TERM.x),
                 _WORKER_INTERVAL.RNDU,
             )
     return (start, sums.tolist(), [str(value) for value in exact_sums],

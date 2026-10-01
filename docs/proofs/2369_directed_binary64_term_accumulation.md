@@ -22,3 +22,6 @@ not include the composite-trapezoid remainder. Therefore it remains a
 conditional numerical bridge, not a nodal producer certificate or GO.
 
 Status: `DIRECTED_BINARY64_TERM_ACCUMULATION_ONLY`; producer GO: `false`.
+
+This layer is superseded for the live replay by record 2370, which performs
+the rectangle norm and exponential construction in MPFR before accumulation.

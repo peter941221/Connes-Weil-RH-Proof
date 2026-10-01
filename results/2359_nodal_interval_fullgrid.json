@@ -40,7 +40,7 @@
   "record": 2359,
   "rh_claim": false,
   "sigma": -0.5,
-  "source_sha256": "84b1f66cd99260aabe573b26925cc329af467d639f718d598cc08542e89ae648",
+  "source_sha256": "4d05a1ec9a54cd38454f1df18f7072562d5970cd318c5b29696f8b62ee8c4c86",
   "span": 20001,
   "status": "DIRECTED_NODE_INTERVAL_FULL_GRID_SMOKE_NOT_CERTIFICATE",
   "trapezoid_remainder_proved": false,

@@ -1,0 +1,23 @@
+{
+  "record": 2370,
+  "status": "DIRECTED_POINTWISE_NORM_EXP_ACCUMULATION_ONLY",
+  "nodes": 240001,
+  "workers": 12,
+  "span": 20001,
+  "sigma": -0.5,
+  "integrals": [
+    2.6867143296475287,
+    8606.214397650678,
+    90.78788225375544,
+    125446.71132157759
+  ],
+  "precision_bits": 256,
+  "rounding_mode": "RNDU",
+  "script_source_sha256": "4d05a1ec9a54cd38454f1df18f7072562d5970cd318c5b29696f8b62ee8c4c86",
+  "rectangle_norm_exp_weight_directed": true,
+  "depends_on_2242_rectangle_bounds": true,
+  "point_box_function_identity_proved": false,
+  "trapezoid_remainder_proved": false,
+  "producer_go": false,
+  "rh_claim": false
+}
