@@ -3608,3 +3608,11 @@ channel `Kernel.recs` `(a, theta)` signatures are identical. The current
 owner passes with 30 aligned records per channel. Evidence:
 docs/proofs/2384_shared_geometry_alignment_guard.md and
 results/2384_shared_geometry_alignment_guard.json.
+
+Record 2385 (2026-10-02): the shared outward-geometry evaluator completed the
+776611-node/16-worker replay. Same-expression RNDU roundup dominates the MPFR
+term accumulator in all four channels. The updated `corr_D2` panel/readout
+ratio is `0.09999966654156531`, below the registered 0.1 target, but the
+analytic/numerical import obligations remain open. Evidence:
+docs/proofs/2385_shared_geometry_fullgrid.md and
+results/2385_shared_geometry_fullgrid.json.

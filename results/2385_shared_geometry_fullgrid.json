@@ -1,0 +1,29 @@
+{
+  "record": 2385,
+  "status": "SHARED_GEOMETRY_FULLGRID_ROUNDUP_CONTROLLED",
+  "nodes": 776611,
+  "workers": 16,
+  "span": 20001,
+  "source_sha256": "8ab0dd525624fcaa06a835bbce3e7f6f854053f1957c816f99a1d29d67d92180",
+  "directed_mpfr_term_accumulation_integrals": [
+    2.6867143296475287,
+    8606.21439765138,
+    90.78788225377053,
+    125446.71133496994
+  ],
+  "directed_term_binary64_roundup_integrals": [
+    2.686714329647529,
+    8606.21439765138,
+    90.78788225377055,
+    125446.71133496995
+  ],
+  "roundup_dominates_all_channels": true,
+  "corr_D2_panel_remainder_price": 12544.629302232996,
+  "corr_D2_panel_to_roundup_ratio": 0.09999966654156531,
+  "coordinate_charge": 0.018025814446196477,
+  "directed_accumulation_theorem_proved": false,
+  "nodewise_numeric_import_proved": false,
+  "trapezoid_remainder_proved": false,
+  "producer_go": false,
+  "rh_claim": false
+}
