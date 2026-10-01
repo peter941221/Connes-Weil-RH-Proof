@@ -1,0 +1,33 @@
+{
+  "gl16_p160_minus_gl8_p160_abs_sum": 2.5796921254693446e+17,
+  "gl16_p160_minus_gl8_p160_signed": 6784198795136442.0,
+  "gl16_p320_minus_gl16_p160_abs_sum": 37439132203619.5,
+  "gl16_p320_minus_gl16_p160_signed": -242895755753.96948,
+  "gl16_p640_minus_gl16_p320_abs_sum": 125366.98629332276,
+  "gl16_p640_minus_gl16_p320_signed": -17322.155219525815,
+  "prime_count": 41084,
+  "record": 2325,
+  "runs": {
+    "gl16_p160": {
+      "abs_sum": 37439752958686.23,
+      "count": 41084,
+      "signed": 243051231960.7467
+    },
+    "gl16_p320": {
+      "abs_sum": 621655564.5142268,
+      "count": 41084,
+      "signed": 155476206.7778551
+    },
+    "gl16_p640": {
+      "abs_sum": 621591632.2442418,
+      "count": 41084,
+      "signed": 155458884.6226356
+    },
+    "gl8_p160": {
+      "abs_sum": 2.5798253792799258e+17,
+      "count": 41084,
+      "signed": -6783955743904487.0
+    }
+  },
+  "status": "INDEPENDENT_QUADRATURE_DIAGNOSTIC_NOT_CERTIFICATE"
+}

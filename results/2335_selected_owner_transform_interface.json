@@ -1,0 +1,59 @@
+{
+  "record": 2335,
+  "date": "2026-10-01",
+  "status": "TRANSFORM_IDENTITIES_VERIFIED_ONLY",
+  "focused_build_exit": 0,
+  "build_plan_jobs": 3498,
+  "axiom_audit": [
+    {
+      "theorem": "selectedOwner_sourceTransform_eq_power_mul",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "selectedOwner_squareTransform_eq_paired_power_mul",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "selectedOwner_squareTransform_eq_normSq_of_self_pair",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "selectedOwner_squareTransform_criticalLine",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "path": "ConnesWeilRH/Dev/C1RouteASelectedOwnerFourierInterface.lean",
+      "sha256": "9066c53f853ba8d2583ec9145333f04f7012d240da97e14c009eb283928476b1",
+      "mirror_identical": true
+    },
+    {
+      "path": "ConnesWeilRH/Dev/C1RouteASelectedOwnerFourierInterfaceAudit.lean",
+      "sha256": "b8eea112bc31135f6205662e0af6927e83e5a894b7727f7091085053d365abae",
+      "mirror_identical": true
+    }
+  ],
+  "build_log_sha256": "1a555652869b37268bd66a0a2db1754c314bc07a132a3f96172980563e094a5a",
+  "numerical_repricing_performed": false,
+  "fourier_inversion_proved": false,
+  "actual_detector_instantiated": false,
+  "producer_go": false,
+  "rh_claim": false
+}

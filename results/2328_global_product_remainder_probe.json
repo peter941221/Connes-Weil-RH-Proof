@@ -1,0 +1,16 @@
+{
+  "caveats": [
+    "sampled polynomial derivative maxima",
+    "stored float coefficient bounds",
+    "global rather than panel-local majorant"
+  ],
+  "derivative_order": 32,
+  "gl_product_remainder_majorant": 9.235602894507312e+23,
+  "owner_weight_derivative_0": 6.286225205841127e+32,
+  "owner_weight_derivative_32": 5.144962228215622e+74,
+  "panel_width": 0.25,
+  "prime_count": 41084,
+  "record": 2328,
+  "remainder_over_margin": 551248936895.7521,
+  "status": "GLOBAL_PRODUCT_MAJORANT_PROBE_NOT_CERTIFICATE"
+}

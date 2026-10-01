@@ -1,0 +1,79 @@
+{
+  "records": [
+    2337,
+    2338
+  ],
+  "date": "2026-10-01",
+  "status": "EXTERNAL_ARITHMETIC_CERTIFICATES_ONLY",
+  "source_hashes": [
+    {
+      "path": "scripts/routea_marked_sign_arb_certificate_2337.py",
+      "sha256": "67b7057d850c35dd74772b320e8198da4eba6661dae30254e1cf78761346715a"
+    },
+    {
+      "path": "scripts/routea_marked_sign_arb_selftest_2337.py",
+      "sha256": "52fd1cb078efcf136cf9bb9f21826ac6474736ba2a84e3f8ba7336715b1ad316"
+    },
+    {
+      "path": "scripts/routea_marked_sign_rational_check_2337.py",
+      "sha256": "6b386d55316f5330f524fa640d7733b5602357bfca98acb8a49cfc24c5504539"
+    },
+    {
+      "path": "scripts/routea_marked_sign_rational_selftest_2337.py",
+      "sha256": "d4e8b73f9bb8a59576343c36837aca918bb27930409f315551be63affce6b3f8"
+    },
+    {
+      "path": "scripts/routea_exact_interpolation_repair_2338.py",
+      "sha256": "c24a13fa76af8c66b10e8d3d034d55e3e799319d1d1f6645b0efdd4e02990c64"
+    },
+    {
+      "path": "scripts/routea_exact_interpolation_repair_selftest_2338.py",
+      "sha256": "b8e4f2b828650f860f9163dfa1f0c193a00cbf547d72272ca02e87bbb009bf01"
+    }
+  ],
+  "tests": {
+    "arb_sign": 10,
+    "rational_mutations": 6,
+    "analytic_repair": 6,
+    "total": 22,
+    "all_pass": true
+  },
+  "independent_rational_postprocess_pass": true,
+  "outward_pin_checks": [
+    {
+      "field": "inverse_infinity_upper",
+      "pin": "678000000000000000",
+      "upper_endpoint_below_pin": true
+    },
+    {
+      "field": "global_coefficient_repair_upper",
+      "pin": "4758000000",
+      "upper_endpoint_below_pin": true
+    },
+    {
+      "field": "base_transform_change_strip_upper",
+      "pin": "0.000000126",
+      "upper_endpoint_below_pin": true
+    },
+    {
+      "field": "correction_transform_change_strip_upper",
+      "pin": "0.000163",
+      "upper_endpoint_below_pin": true
+    }
+  ],
+  "repair_numeric_replay_bitwise": true,
+  "source_target_exclusions": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "live_owner_replaced": false,
+  "lean_certificate_imported": false,
+  "producer_go": false,
+  "rh_claim": false
+}

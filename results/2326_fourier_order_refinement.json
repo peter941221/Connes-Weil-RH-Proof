@@ -1,0 +1,13 @@
+{
+  "gl16_abs_sum": 621655564.5142268,
+  "gl16_signed": 155476206.7778551,
+  "gl32_abs_sum": 621602548.253576,
+  "gl32_minus_gl16_abs_sum": 125423.66103003918,
+  "gl32_minus_gl16_signed": -17521.112743901107,
+  "gl32_signed": 155458685.66511124,
+  "panel_count": 320,
+  "panel_width": 0.25,
+  "prime_count": 41084,
+  "record": 2326,
+  "status": "SAME_PANEL_ORDER_DIAGNOSTIC_NOT_CERTIFICATE"
+}

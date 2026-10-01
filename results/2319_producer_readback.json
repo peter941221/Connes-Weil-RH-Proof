@@ -1,0 +1,133 @@
+{
+  "record": 2319,
+  "date": "2026-10-01",
+  "verdict": "P-ONLY-DIRECT-DETECTOR-IDENTIFICATION-NO-GO",
+  "growth_verdict": "MARKED-GAIN-ZERO; ACTUAL-OWNER-GROWTH-NOT-INSTANTIATED",
+  "scope": "exact P-only multiplier, no meromorphic cancellation or nonzero span shift",
+  "source_checks": {
+    "counterpart_roots_ast": true,
+    "polynomial_imaginary_argument": true,
+    "polynomial_root_product": true,
+    "screen_half_density": true,
+    "screen_p_squared": true,
+    "screen_legacy_support": true,
+    "enclosure_p_squared": true,
+    "enclosure_legacy_support": true,
+    "counterpart_has_no_gain_shift": true,
+    "formal_source_four_factor_multiplier": true
+  },
+  "captured_rho_exact": [
+    "4255901647865119/4503599627370496",
+    "5524291025718029/140737488355328"
+  ],
+  "stored_orbit_matches_exact": true,
+  "orbit_polynomial_values": [
+    [
+      "0",
+      "0"
+    ],
+    [
+      "0",
+      "0"
+    ],
+    [
+      "0",
+      "0"
+    ],
+    [
+      "0",
+      "0"
+    ]
+  ],
+  "orbit_square_values": [
+    [
+      "0",
+      "0"
+    ],
+    [
+      "0",
+      "0"
+    ],
+    [
+      "0",
+      "0"
+    ],
+    [
+      "0",
+      "0"
+    ]
+  ],
+  "prescribed_pair_square_value": [
+    "-1",
+    "0"
+  ],
+  "prescribed_values_are_not_a_certified_float_solve": true,
+  "shifted_root_control_nonzero": [
+    "61093660866686700134803683196912073735705068407/11417981541647679048466287755595961091061972992",
+    "-22114911625561921543718318210192646112734509517/365375409332725729550921208179070754913983135744"
+  ],
+  "growth_controls": [
+    {
+      "cutoff": 0,
+      "fixed_coefficient_tail": "4",
+      "growing_coefficient_tail": "4",
+      "p_only_marked_gain": "0",
+      "tail_over_marked_gain": null
+    },
+    {
+      "cutoff": 1,
+      "fixed_coefficient_tail": "3",
+      "growing_coefficient_tail": "4",
+      "p_only_marked_gain": "0",
+      "tail_over_marked_gain": null
+    },
+    {
+      "cutoff": 2,
+      "fixed_coefficient_tail": "9/4",
+      "growing_coefficient_tail": "4",
+      "p_only_marked_gain": "0",
+      "tail_over_marked_gain": null
+    },
+    {
+      "cutoff": 4,
+      "fixed_coefficient_tail": "81/64",
+      "growing_coefficient_tail": "4",
+      "p_only_marked_gain": "0",
+      "tail_over_marked_gain": null
+    },
+    {
+      "cutoff": 8,
+      "fixed_coefficient_tail": "6561/16384",
+      "growing_coefficient_tail": "4",
+      "p_only_marked_gain": "0",
+      "tail_over_marked_gain": null
+    },
+    {
+      "cutoff": 16,
+      "fixed_coefficient_tail": "43046721/1073741824",
+      "growing_coefficient_tail": "4",
+      "p_only_marked_gain": "0",
+      "tail_over_marked_gain": null
+    }
+  ],
+  "nonclaims": [
+    "No assertion that the captured rho is a source zero.",
+    "No formal identification of the numeric integral with an exact Weil gate.",
+    "No lower bound on a kernel-book change and no invalidation of local certificates.",
+    "The growing coefficient sequence is an algebra control, not the actual owner.",
+    "No actual selected-owner growth bound, producer GO, or RH claim."
+  ],
+  "provenance_sha256": {
+    "results/2275_gap_owner_audit.json": "743fe372bef89b5730c38274d5a5517ac9ea4d3421989d46c49d4af3e78b5e74",
+    "results/2249_l1_enclosure.json": "82dee70f7298dab43aefc650c7da38118b070c269442cd564cf5ba2c8ef42981",
+    "scripts/fourpoint_owner_completion_1980.py": "52595ca7269c5de8d4c699dc79ed136fa7da62404d7e08c9315094aae7a2bf1e",
+    "scripts/fourpoint_owner_density_1959.py": "b53006160a6ea8423eaee91289f8c7889908bae12e07751db40291af536669a6",
+    "scripts/routea_full_known_prefix_direct_owner_grid_m6400_2103.py": "2e3e9b1c538c86e6afc415bbc077c723f2bb79be7d0f4ac1426cfb6fdd0321e0",
+    "scripts/routea_weighted_zero_l1_enclosure_2249.py": "81a15b3309b7b8d0c4fc8d4ff591e0b9588c0edb406bafbec34b199801394542",
+    "ConnesWeilRH/Dev/C1RouteAProducerReadback.lean": "19407db40a598f7bd950c6ae3a34b6c00aeb4dd8cbc5afb74d19974d277db45a",
+    "ConnesWeilRH/Dev/C1RouteAProducerReadbackAudit.lean": "3995d91f2b36a094a1fc06288ca84f0e9eb4cc9cb904579c32d6cd25b7f1dc79",
+    "ConnesWeilRH/Dev/C1FourPointSpectralPrefixTransport.lean": "8595a5b0704b709e0fbab8f99901cd69b71e65100a94184224e315e916b7b15e",
+    "scripts/routea_producer_readback_2319.py": "9963485d4717c12db978f6f3d785bf50ea82ed436bf3e033802d15fcdfd6f89a",
+    "scripts/routea_producer_readback_selftest_2319.py": "6b9323e053a2d1a82517838e7c70c6d28e3ace6b6e5e5f0e199e3ce359c57588"
+  }
+}

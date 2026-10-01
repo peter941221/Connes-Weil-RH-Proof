@@ -1,0 +1,18 @@
+{
+  "caveats": [
+    "center and endpoint samples only",
+    "no certified panel interval radius",
+    "frequency product bound is intentionally crude"
+  ],
+  "derivative_order": 33,
+  "global_probe_remainder": 9.235602894507e+23,
+  "local_remainder_proxy": 2521425.8707214384,
+  "local_weight_derivative32_max": 1.1632397848113831e+59,
+  "local_weight_derivative32_mean": 6.216504448697223e+56,
+  "panel_count": 320,
+  "panel_width": 0.25,
+  "proxy_over_margin": 1.5049730337835052e-06,
+  "record": 2331,
+  "sample_point_count": 641,
+  "status": "PANEL_LIPSCHITZ_DIAGNOSTIC_NOT_CERTIFICATE"
+}

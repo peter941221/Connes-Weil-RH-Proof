@@ -1,0 +1,18 @@
+import ConnesWeilRH.Dev.C1RouteAProducerReadback
+
+namespace ConnesWeilRH.Dev.C1RouteAProducerReadback
+
+#print axioms recordedQuartic_target_eq_zero
+#print axioms recordedQuartic_companion_eq_zero
+#print axioms recordedQuartic_eq_source_order
+#print axioms recordedRootProduct_target_eq_zero
+#print axioms recordedRootProduct_companion_eq_zero
+#print axioms recordedRootProduct_pair_readback_eq_zero
+#print axioms recordedHermitian_target_eq_zero
+#print axioms not_nonnegativeTail_lt_recordedPairGain
+#print axioms selected_square_target_eq_neg_one
+#print axioms recordedHermitian_ne_selectedSquareTransform
+#print axioms geometricTailBudget_succ
+#print axioms geometricTailBudget_growing_coefficient
+
+end ConnesWeilRH.Dev.C1RouteAProducerReadback

@@ -1,0 +1,19 @@
+{
+  "record": 2339,
+  "precision_bits": 320,
+  "tests_passed": 12,
+  "wsl_resource_runner": true,
+  "full_replay_byte_identical": true,
+  "exact_rational_readback_pass": true,
+  "output_sha256": "bfe9283c188fd24386dfa348589adcc28c3e8c353c84ccb7768b441a75f6b2be",
+  "source_sha256": "59d8c228f4a305c256deca446d18a99005f704469ab3756d0800a0f7e9ecbec9",
+  "selftest_sha256": "fe875c4b0cd4ab1c8b3e5e9980eb7c84cf1e13657bd5ff957f64fdb2ac078ae6",
+  "tail_strictly_positive": true,
+  "unweighted_full_line_pin": "3.602",
+  "failed_sufficient_bound_nodes": [
+    -50
+  ],
+  "owner_transfer_to_live_consumer": false,
+  "producer_go": false,
+  "rh_claim": false
+}

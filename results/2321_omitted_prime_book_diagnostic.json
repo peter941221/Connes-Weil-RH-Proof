@@ -1,0 +1,33 @@
+{
+  "absolute_omitted_charge": 2.2255769099881892e+16,
+  "block_signed_integral_abs_sum": {
+    "0.1": 3487650791595810.0,
+    "0.2": 1422194499883994.2,
+    "0.5": 751638066673426.9,
+    "1.0": 276754617362198.44,
+    "2.0": 15049294611348.379
+  },
+  "delta_over_abs_full": 13285.1079615535,
+  "family_count": 30,
+  "fourier_term_abs_sum": 621617311.893427,
+  "fourier_term_signed": 155458253.5574064,
+  "frequency_group_abs_sum": {
+    "0.5": 579269048.157427,
+    "1.0": 263454487.8445763,
+    "2.0": 155496479.39961848,
+    "4.0": 155464644.73486668,
+    "8.0": 155463051.78370062
+  },
+  "full_cutoff": 492467,
+  "full_prime_count": 41136,
+  "full_value": -1675241869639.9817,
+  "grid_points": 4001,
+  "grid_step": 0.02,
+  "owner_family_digest": "2c64f0e863e5ec483350667e7f86e4d554f02c2a1349bc0656e26b44f5afcce3",
+  "record": 2321,
+  "short_cutoff": 167,
+  "short_prime_count": 52,
+  "short_value": -1675397327895.0732,
+  "signed_omitted_delta": 155458254.28725412,
+  "status": "DIAGNOSTIC_NOT_CERTIFICATE"
+}

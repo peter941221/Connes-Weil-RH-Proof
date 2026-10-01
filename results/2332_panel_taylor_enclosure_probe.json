@@ -1,0 +1,16 @@
+{
+  "caveats": [
+    "stored float arithmetic",
+    "absolute tail uses basis triangle",
+    "no directed interval implementation"
+  ],
+  "local_taylor_remainder_proxy": 11331337.705790658,
+  "panel_count": 320,
+  "panel_width": 0.25,
+  "proxy_over_margin": 6.763378563665577e-06,
+  "radius": 0.125,
+  "record": 2332,
+  "status": "PANEL_TAYLOR_FEASIBILITY_DIAGNOSTIC_NOT_CERTIFICATE",
+  "tail_order": 34,
+  "weight_sup_order32": 9.77512809491171e+61
+}

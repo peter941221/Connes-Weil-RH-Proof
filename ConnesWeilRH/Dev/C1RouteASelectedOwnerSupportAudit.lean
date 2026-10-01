@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1RouteASelectedOwnerSupport
+
+namespace ConnesWeilRH.Source.C1RouteASelectedOwnerSupport
+
+#print axioms selectedOwner_source_support_composed
+#print axioms selectedOwner_square_support_composed
+#print axioms capturedFactor_support_open_pin
+#print axioms capturedSelectedOwner_square_support_pin
+
+end ConnesWeilRH.Source.C1RouteASelectedOwnerSupport

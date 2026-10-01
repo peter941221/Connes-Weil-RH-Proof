@@ -1,0 +1,18 @@
+{
+  "caveats": [
+    "center jets only",
+    "no panel interval radius",
+    "frequency product bound is intentionally crude"
+  ],
+  "derivative_order": 32,
+  "global_probe_remainder": 9.235602894507e+23,
+  "local_remainder_proxy": 1004522.9803223314,
+  "local_weight_derivative32_max": 5.774005272317969e+57,
+  "local_weight_derivative32_mean": 4.329799638485032e+55,
+  "panel_count": 320,
+  "panel_width": 0.25,
+  "proxy_over_margin": 5.995734456267763e-07,
+  "record": 2330,
+  "sample_point_count": 641,
+  "status": "PANEL_RADIUS_FEASIBILITY_DIAGNOSTIC_NOT_CERTIFICATE"
+}

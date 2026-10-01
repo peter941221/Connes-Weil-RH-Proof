@@ -1,0 +1,23 @@
+{
+  "cutoff_2249": 167,
+  "cutoff_2308": 492475,
+  "first_number_2249": 2,
+  "first_number_2308": 2,
+  "last_number_2249": 167,
+  "last_number_2308": 492467,
+  "owner_family_count_2249": 30,
+  "owner_family_count_2308": 30,
+  "owner_family_digest_2249": "2c64f0e863e5ec483350667e7f86e4d554f02c2a1349bc0656e26b44f5afcce3",
+  "owner_family_digest_2308": "2c64f0e863e5ec483350667e7f86e4d554f02c2a1349bc0656e26b44f5afcce3",
+  "owner_family_equal": true,
+  "prime_count_2249": 52,
+  "prime_count_2308": 41136,
+  "prime_numbers_digest_2249": "d04b35990a41b9939cec9cf2be47ef83ea90bbf2a1dcda1f96bef15645e15aa7",
+  "prime_numbers_digest_2308": "16f48409f13bada99f22188d75cd0fc5a936b8f547a8f996eb379aef037d523c",
+  "prime_numbers_equal": false,
+  "prime_weights_equal": false,
+  "record": 2320,
+  "support_2249": 5.120000000000001,
+  "support_2308": 13.107200000000006,
+  "verdict": "SCOPE_MISMATCH"
+}

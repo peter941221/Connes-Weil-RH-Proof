@@ -1,0 +1,74 @@
+{
+  "record": 2336,
+  "date": "2026-10-01",
+  "status": "COMPOSED_SUPPORT_VERIFIED_ONLY",
+  "focused_build_exit": 0,
+  "build_plan_jobs": 3683,
+  "axiom_audit": [
+    {
+      "theorem": "selectedOwner_source_support_composed",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "selectedOwner_square_support_composed",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "capturedFactor_support_open_pin",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "capturedSelectedOwner_square_support_pin",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "path": "ConnesWeilRH/Dev/C1RouteASelectedOwnerSupport.lean",
+      "sha256": "915bf337aebfa4f12c2f440f42ce42d13171dc070c431b1849cb8fe81fa0fe48",
+      "mirror_identical": true
+    },
+    {
+      "path": "ConnesWeilRH/Dev/C1RouteASelectedOwnerSupportAudit.lean",
+      "sha256": "18e8777cbb600c21747e9600318a5d5f9e80da27a8c1ede24c7997af27bde76f",
+      "mirror_identical": true
+    },
+    {
+      "path": "scripts/routea_actual_owner_marked_support_probe_2336.py",
+      "sha256": "1de181bb16535aaa58ce6a5e374f28c2fce9f2ca0ed58e08bc6d295ddf5f6900",
+      "mirror_identical": true
+    },
+    {
+      "path": "scripts/routea_actual_owner_marked_support_selftest_2336.py",
+      "sha256": "321876580bdba323515634584048daefa1bd2cdf7e82a2d81a1981ad9049a6f4",
+      "mirror_identical": true
+    }
+  ],
+  "selftests": {
+    "count": 8,
+    "exit_code": 0
+  },
+  "probe_previous_readings_replayed_bitwise": true,
+  "marked_values_certified": false,
+  "complete_nonzero_prime_set_proved": false,
+  "healthy_detector_instantiated": false,
+  "producer_go": false,
+  "rh_claim": false,
+  "build_log_sha256": "ac5997f5baf97af76ace2518cdf7f2be527c0f7a003cf7b874d9205bcf4871e1"
+}

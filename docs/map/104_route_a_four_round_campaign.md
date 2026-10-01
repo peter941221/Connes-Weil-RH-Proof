@@ -2919,3 +2919,274 @@ discharged by the certified enclosure; residual inputs are hnode (2316
 table), hq (this enclosure), hcharge (the 2109 ledger), and the gap split
 trio; the remaining unwired lane is hcharge-rest (the non-tail charge).
 No producer GO, no gate sign change, no RH claim.
+
+### Record 2319: P-only direct detector readback is obstructed
+
+The producer audit of records 2318/2249 distinguishes the sampled functional
+from the actual selected-square sign consumer. The committed four-point
+annihilator multiplier vanishes at the marked centered pair; its P-only
+Hermitian readback is zero, while the selected square with raw 1/-1 values
+reads -1 at that same point. This is a scoped no-go for direct identification,
+not a rejection of the local strip or hgap certificates. Record 1914 already
+proved orbit annihilation; 2319 adds the producer-facing incompatibility audit.
+
+The growth check gives zero marked gain for the P-only shape at every cutoff.
+The exact coefficient-growth control also shows that (4/3)^N cancels the
+fixed-owner (3/4)^N tail factor. It is not a measured law for the actual owner,
+whose coefficient-to-gain ratio remains uninstantiated. Do not replace that
+gain by the sampled negative functional magnitude. The 2249 52-term kernel
+and 2308 41136-term convention also need a proved kernel/owner transfer before
+their certificates can be composed as facts about one functional.
+
+The binding next obligation is an actual selected-square physical-kernel
+readback retaining the nonzero marked pair, then a joint signed margin for
+that same object. The map-103 four-point family remains frozen; this record
+does not reopen its gate or fixed-lambda branches. No producer GO or RH claim.
+
+Evidence: docs/proofs/2319_routea_producer_readback_no_go.md,
+ConnesWeilRH/Dev/C1RouteAProducerReadback.lean and paired Audit,
+scripts/routea_producer_readback_2319.py, results/2319_producer_readback.json.
+
+### Record 2320: 2249 and 2308 are not the same kernel owner scope
+
+Scope clarification 2336: neither convention here has been proved to be the
+actual assembled detector complete prime book. The composed-source support
+cover uses 4R at n=0, not the 2308 2R convention; exact nonzero indices remain
+uninstantiated.
+
+The first live scope audit confirms that the 2249 and 2308 owner families
+are bitwise identical, but their support-derived prime books are not. Record
+2249 uses `2 * max(width)` and stops at prime power 167 (52 terms); record
+2308 uses `2 * max(width^2)` and reaches 492475 (41136 terms). Therefore the
+2249 signed L1 margin cannot be applied to the actual selected-square physical
+kernel by coefficient or family hash alone. The omitted prime-power interval
+`167 < n <= 492475` must be explicitly evaluated and enclosed on the actual
+selected owner. No producer GO and no RH claim.
+
+Evidence: `scripts/routea_kernel_owner_scope_audit_2320.py`,
+`results/2320_kernel_owner_scope_audit.json`, and
+`docs/proofs/2320_kernel_owner_scope_mismatch.md`.
+
+### Record 2321: omitted prime-book contribution is cancellation-dominated
+
+Scope correction 2334: records 2321-2333 below are historical P-only auxiliary
+diagnostics. Their selected-owner wording and producer-margin interpretations
+are withdrawn. The numbers remain as diagnostics, not actual-owner evidence.
+
+On the same 2249 owner and grid, replacing the 52-term book through 167 by
+the 41136-term book through 492475 changes the signed functional by only
+`+1.554582542873e8`, while the direct absolute-value charge is
+`2.225576909988e16` (about `1.3285e4` times the full signed value). The
+termwise triangle route is therefore too loose by construction. The next
+binding mechanism must preserve prime-power cancellation through grouped
+summation or a certified oscillatory evaluator. This is a diagnostic, not a
+certificate and does not transfer the 2249 margin.
+
+Evidence: `scripts/routea_omitted_prime_book_diagnostic_2321.py`,
+`results/2321_omitted_prime_book_diagnostic.json`, and
+`docs/proofs/2321_omitted_prime_book_diagnostic.md`.
+
+The 2321 follow-up grouped the omitted integrand in xi panels before taking
+absolute values. Width 2.0 reduces the absolute panel sum to `1.5049e13`, but
+that remains about nine times the existing `1.6754e12` margin. Fixed-width
+panel grouping is therefore not sufficient; the next mechanism must use the
+actual oscillation scale and a certified quadrature remainder.
+
+### Record 2322: Fourier-side decomposition is the viable omitted-book interface
+
+The omitted prime-book contribution was re-expressed by integrating the owner
+weight against each prime-power cosine before summing. The sampled sum of
+absolute Fourier terms is `6.2162e8`, versus `2.2256e16` for the pointwise
+product envelope and `1.5546e8` for the signed total. This is below the
+existing `1.6754e12` margin by about 2695x, so the next certified mechanism
+should bound the Fourier coefficients of the actual selected owner, not the
+pointwise omitted kernel. This is still diagnostic and not a producer
+certificate.
+
+### Record 2323: Fourier coefficient refinement is stable but must be charged
+
+The same owner was recomputed at `dx=0.02` and `dx=0.01`. The signed omitted
+contribution moved by about `607`, while the sum of absolute Fourier terms moved
+by about `23986` (relative `3.9e-5`). Both remain far below the current margin,
+but refinement agreement is only a control. The certified route must carry the
+coefficient-level quadrature remainder explicitly.
+
+### Record 2324: owner-weight forward error fits inside the margin
+
+The 2249 operation-level forward-error shadows were propagated into every
+omitted prime-power Fourier coefficient. The accumulated owner-weight error is
+`1.179864458159e9`, versus the `1.675396046388e12` margin; the remaining
+binding term is the coefficient quadrature/finite-window remainder. This is a
+budget diagnostic, not yet a full certificate.
+
+### Record 2325: quadrature trust horizon and aliasing control
+
+Independent composite Gauss-Legendre evaluation shows that GL order alone is
+not an accuracy guarantee. `GL16 x 160` is alias-dominated (`3.7439e13`
+absolute-term movement when refined to `GL16 x 320`), while `GL16 x 320` to
+`GL16 x 640` moves only `1.2537e5`. The current trust horizon is panel width
+`0.25`; the next certified remainder must be built at or below that width and
+must include finite-window endpoint terms.
+
+### Record 2326: same-panel order control agrees with spatial refinement
+
+At fixed panel width `0.25` and 320 panels, GL16 to GL32 moves the Fourier
+absolute-term sum by `1.2542e5` and the signed total by `-1.7521e4`. This agrees
+with the independent GL16 x 320 to GL16 x 640 movement. The trust horizon is
+now supported by both order and geometry refinement, but the analytic
+quadrature remainder is still required for a certificate.
+
+### Record 2327: cosine-only quadrature remainder has large headroom
+
+The GL16 remainder prefactor at panel width `0.25` gives a cosine-only bound
+of `3.2513e4`, or `1.94e-8` of the current margin. This does not include the
+product derivatives of the selected-owner weight, endpoint correction, or
+full-line tail. The next analytic task is an owner-weight derivative majorant;
+the cosine-only reading is not a certificate.
+
+### Record 2328: global product-derivative triangle is a scoped no-go
+
+After correcting an initial double-GL-weight implementation error, the global
+product-derivative majorant reads `9.2356e23`, or `5.5125e11` times the current
+margin. The failure is structural: absolute basis derivative moments are taken
+before the selected-owner coefficients are combined, destroying cancellation in
+`L_base` and `L_corr`. The Fourier interface is retained, but the global
+triangle majorant is frozen as a no-go; only panel-local or interval-jet
+cancellation-preserving mechanisms remain admissible.
+
+### Record 2329: panel-local owner-cancelling jets are numerically viable
+
+The panel-local jet probe combines all 30 basis derivatives with the selected
+owner coefficients before taking norms, then includes the complete Leibniz
+sum for `W * cos(phi xi)`. The corrected proxy is `7.4722e5`, only
+`4.46e-7` of margin, versus `9.2356e23` for the global triangle majorant.
+Center jets are not yet interval enclosures; the next obligation is to inflate
+them over each panel with a certified radius.
+
+### Record 2330: panel radius samples do not consume the budget
+
+Sampling the cancellation-preserving jet at all 320 panel centers and 640
+endpoints raises the product proxy from `7.4722e5` to `1.0045e6`, or
+`5.996e-7` of margin. This supports the local-jet route, but sampled endpoints
+are not a certified interval supremum; local radius inflation remains to be
+proved.
+
+### Record 2331: first-order panel-radius inflation remains cheap
+
+Extending the local jet to order 33 and applying a sampled Lipschitz inflation
+raises the product proxy to `2.5214e6`, or `1.505e-6` of margin. This supports
+the local interval strategy, but the sampled maxima must still be replaced by a
+proved local radius before the remainder can be certified.
+
+### Record 2332: local Taylor radius inflation remains inside budget
+
+A panel-local Taylor enclosure probe uses cancellation-preserving center jets
+through order 34 and an order-34 absolute tail over radius `0.125`. The full
+product remainder proxy is `1.1331e7`, or `6.763e-6` of margin. This is closer
+to the required proof shape than endpoint sampling, but still uses stored
+floating arithmetic and no directed interval implementation.
+
+### Record 2333: forward-shadow tail budget is stable
+
+A usable directed-tail candidate reuses the 2249 forward shadows for the
+positive order-34 basis tail and accumulates with `math.fsum` plus
+`SUMCHARGE`. Its Taylor-tail proxy remains `1.1331e7` (`6.763e-6` of margin),
+matching 2332. The scalar mpmath interval implementation was an engineering
+no-go and produced no artifact; it is not evidence. Center-jet intervalization,
+coefficient casts, endpoints, and full-line tail remain open.
+
+### Record 2334: Fourier object-scope correction
+
+Records 2321-2333 used the 2249 `P_from_nodes(counterpart_nodes(rho))^2`
+construction. That is the P-only auxiliary functional, not the actual
+`selectedOwner.convolutionSquare`. Record 2319 independently shows why this
+distinction is binding: the P-only marked-pair readback is zero while the
+selected square readback is `-1`.
+
+Therefore 2321-2333 are downgraded to auxiliary P-only cancellation and
+quadrature diagnostics. Their numbers are removed from the selected-owner
+producer margin. The live numerical obligation is now an object-identity
+probe for the actual selected owner: source transform, convolution-square
+profile, and support-derived prime set. Fourier/local-Taylor pricing may be
+restarted only after that probe passes.
+
+### Record 2335: actual selected-owner transform factorization
+
+The new narrow-import leaf factors the actual source transform as
+`H(z) = B(z)^(n+1) C(z)` and the selected square as
+`conjugate(H(1-conjugate(z))) H(z)`. Only on `Re(z)=1/2` does this become
+`|H(z)|^2`; no extra P-only polynomial is inserted. The iterate index counts
+`n+1` copies of base. This resolves the transform-expression ambiguity, not
+the owner-instantiation, support/prime-book, or Fourier-inversion obligations.
+No numerical repricing, producer GO, or RH claim is made.
+
+### Record 2336: marked-source probe and composed support
+
+The stored coefficients retain the intended marked pair in a three-rule
+physical quadrature diagnostic (n=0 square real part -0.9999999998664919,
+orbit sum -1.9999999997329838; rule movement 1.1384e-10). This is not exact
+interpolation, a source-zero witness, or finite-node completeness. No P factor
+is inserted and no coefficients are solved anew.
+
+Four Lean support leaves establish source radius (n+1) R_b + R_c and
+square radius 2 ((n+1) R_b + R_c), including the packaged captured family at
+the outward pin. At n=0 the support-cover expression is 4R, about 26.2144,
+not the 2308 2R = 13.1072 convention. This does not prove a specific omitted
+term is nonzero or that the larger bound is minimal. Prime-book transfer
+requires a support reduction or signed remaining-book treatment. Eight
+negative/edge selftests pass. No gate sign, producer GO, or RH claim.
+
+### Record 2337: marked sign certified; captured exact targets excluded
+
+Arb integration of the exact binary64 physical source plus analytic endpoint
+charges certifies Re(marked square) < -0.99 and Re(four-point sum) < -1.9
+at n=0. Exact-rational postprocessing independently rechecks those signs.
+All eight mandatory target values are excluded by the same source enclosures;
+in particular the three nominal zero moments are nonzero. The captured
+coefficients cannot instantiate an exact healthy finite-node realization.
+Sixteen adversarial/mutation tests pass. No full spectral sign or RH claim.
+
+### Record 2338: actual analytic finite-node repair enclosed
+
+All 900 entries of the actual 30-node analytic moment matrix are enclosed.
+A rigorous solve gives the unique ideal coefficient pair, with an independent
+Neumann defect check eta ~4.5323e-38 < 1/2. The coefficients are not cast to
+float or transferred to the live owner. Certified strip transform-change
+pins are 1.26e-7 for base and 1.63e-4 for correction. These are uniform
+pointwise bounds, not integrable tails or signed-kernel charges. Finite-node
+completeness, the source-zero premise, and the complete-owner signed budget
+remain open. Six solve/norm tests pass. No producer GO or RH claim.
+
+
+### Record 2339: additive norm transfer and integrable repair
+
+The 2338 exact analytic repair now has explicit coefficient, phase, radius
+rounding and exact-sigma weight charges. Full published 2303 norms are
+retained, without reserve subtraction. The unchanged node pin passes at
+100/101 nodes; j=-50 has sufficient upper 2644543.166942142 against
+2644542.8515. This is a failed sufficient estimate, not an actual lower
+bound or family no-go. Prove any directed baseline reserve reassignment
+before retrying; do not loosen the pin.
+
+At n=0 the pure coefficient repair has a two-sided unweighted Fourier
+square-change integral upper <3.602. The analytic t^-8 tail beyond
+|t|=65536 is positive and <1.425e-19. This removes the non-integrability
+obstruction of the 2338 uniform bounds, but not the full kernel charge.
+The 2336 composed support/complete-prime-book guard still applies.
+Twelve adversarial tests pass and full replay is byte-identical. No
+owner transfer, detector instantiation, Lean certificate import, signed
+margin, producer GO or RH claim. Evidence: proof record 2339 and paired
+transfer/validation artifacts.
+
+### Record 2340: recomposed point-panel transfer
+
+The 2339 pin failure came from adding the exact repair on top of the already
+inflated 2303 full norms. Record 2340 recomposes from the certified continuous
+`point + panel` base, adds the exact-radius and coefficient-function
+differences, and does not reuse the old coefficient inflation. The resulting
+upper bound passes all 101 nodes; the maximum is j=-50 at
+706456.1761485816... versus pin 2644542.8515. This is a transfer probe, not
+a completed proof: the directed point sum, Euler-Maclaurin panel remainder,
+and zero-count premises still need an explicit proof bridge. No owner transfer,
+signed kernel charge, producer GO, or RH claim. Evidence: proof record 2340,
+the recomposed transfer artifact, and its four-test selftest.

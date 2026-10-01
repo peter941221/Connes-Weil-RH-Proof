@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1RouteASelectedOwnerFourierInterface
+
+namespace ConnesWeilRH.Source.C1RouteASelectedOwnerFourierInterface
+
+#print axioms selectedOwner_sourceTransform_eq_power_mul
+#print axioms selectedOwner_squareTransform_eq_paired_power_mul
+#print axioms selectedOwner_squareTransform_eq_normSq_of_self_pair
+#print axioms selectedOwner_squareTransform_criticalLine
+
+end ConnesWeilRH.Source.C1RouteASelectedOwnerFourierInterface

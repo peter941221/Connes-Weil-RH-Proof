@@ -1,0 +1,17 @@
+{
+  "cos_only_bound_over_margin": 1.9406167331678682e-08,
+  "cos_only_remainder_bound": 32513.016023038428,
+  "gauss_legendre_remainder_prefactor": 4.3198580896920426e-75,
+  "omitted_terms": [
+    "derivatives of owner weight W",
+    "endpoint correction",
+    "finite-window/full-line tail"
+  ],
+  "order": 16,
+  "owner_weight_max_sampled": 804097961238330.6,
+  "panel_width": 0.25,
+  "prime_count": 41084,
+  "record": 2327,
+  "status": "PARTIAL_REMAINDER_NOT_CERTIFICATE",
+  "weighted_phi_32_sum": 9.360063970837339e+63
+}
