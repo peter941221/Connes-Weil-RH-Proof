@@ -11,12 +11,14 @@ import importlib.util
 import json
 import math
 import multiprocessing as mp
+from fractions import Fraction
 from pathlib import Path
 
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 _WORKER = None
+_WORKER_GRID = None
 
 
 def load(name, filename):
@@ -34,7 +36,8 @@ def interval_abs_upper(bounds):
 
 
 def worker_span(task):
-    global _WORKER
+    global _WORKER, _WORKER_GRID
+    start, stop, nodes, sigma, radius = task
     if _WORKER is None:
         strip = load("strip2359", "routea_corrected_strip_envelope_2303.py")
         interval = load("interval2359", "routea_weighted_zero_zero_count_certificate_2242.py")
@@ -46,10 +49,10 @@ def worker_span(task):
             interval.Kernel(corrected, correction, 0),
             interval.Kernel(corrected, correction, 2),
         )
-    start, stop, nodes, sigma, radius = task
+        _WORKER_GRID = np.linspace(-radius, radius, nodes)
     sums = np.zeros(4, dtype=float)
     for index in range(start, stop):
-        point = -radius + (2.0 * radius) * index / (nodes - 1)
+        point = float(_WORKER_GRID[index])
         factor = math.exp(sigma * point)
         cell_weight = 0.5 if index == 0 or index == nodes - 1 else 1.0
         for channel, kernel in enumerate(_WORKER):
@@ -66,6 +69,12 @@ def run(nodes=240001, sigma=-0.5, workers=1, span=20001):
     strip = load("strip2359main", "routea_corrected_strip_envelope_2303.py")
     families, _base, _correction, _ = strip.load_owner()
     radius = max(a * a for a, _ in families)
+    grid = np.linspace(-radius, radius, nodes)
+    coordinate_gaps = [
+        abs(Fraction(float(point)) -
+            (Fraction(-radius) + Fraction(2.0 * radius) * index / (nodes - 1)))
+        for index, point in enumerate(grid)
+    ]
     tasks = [(start, min(start + span, nodes), nodes, sigma, radius)
              for start in range(0, nodes, span)]
     if workers == 1:
@@ -87,6 +96,8 @@ def run(nodes=240001, sigma=-0.5, workers=1, span=20001):
         "workers": workers,
         "span": span,
         "radius": radius,
+        "coordinate_difference_count": sum(gap != 0 for gap in coordinate_gaps),
+        "coordinate_max_fraction_gap": str(max(coordinate_gaps)),
         "interval_integrals": integrals,
         "interval_min_product": minimum,
         "source_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),

@@ -3419,11 +3419,14 @@ results/2358_nodal_interval_smoke.json.
 
 Record 2359 (2026-10-01): the 2242 directed MPFR point-box evaluator completed
 the full 240001-node producer grid at sigma=-0.5, with fixed 20001-node spans
-and ordered parent accumulation. It gives min-product 337039.47691483964,
+and ordered parent accumulation. It gives min-product 337039.47691483924,
 matching the stored 2303 point row 337039.47691484215 at displayed precision.
 A 1001-node sequential/12-worker control is equal in all four integrals and
-the min-product. This is a strong evaluator control, not yet a theorem:
-directed accumulation, trapezoid remainder, coordinate identity, and Lean
-import remain open. Evidence: scripts/routea_nodal_interval_fullgrid_2359.py,
+the min-product. The actual `np.linspace` array differs from the exact
+arithmetic grid at 239923/240001 nodes, with maximum exact-fraction gap
+4757/2814749767106560000; this is the 2341 coordinate-charge obligation, not
+an identity claim. This is a strong evaluator control, not yet a theorem:
+directed accumulation, trapezoid remainder, coordinate charge, and Lean import
+remain open. Evidence: scripts/routea_nodal_interval_fullgrid_2359.py,
 docs/proofs/2359_fullgrid_nodal_interval_replay.md, and
 results/2359_nodal_interval_fullgrid.json.
