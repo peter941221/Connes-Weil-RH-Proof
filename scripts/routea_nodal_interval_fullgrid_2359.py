@@ -141,6 +141,11 @@ def worker_span(task):
                 _WORKER_INTERVAL.BR(_WORKER_POINT_SQUARE.x),
                 _WORKER_INTERVAL.RNDU,
             )
+            # The exact-audit term below uses the public binary64 norm.  Lift
+            # that same rounded value into MPFR before the directed product;
+            # recomputing hypot at higher precision can sit just below a
+            # correctly-rounded binary64 hypot result.
+            _WORKER_POINT_NORM.set_d(interval_abs_upper(bounds))
             _WORKER_POINT_SIGMA.set_d(sigma)
             _WORKER_POINT_X.set_d(point)
             _WORKER_INTERVAL.MUL(
@@ -154,17 +159,22 @@ def worker_span(task):
                 _WORKER_INTERVAL.BR(_WORKER_POINT_EXPONENT.x),
                 _WORKER_INTERVAL.RNDU,
             )
+            # Likewise, the exact-audit term uses Python's binary64 exp.
+            # Lift that exact operand so the subsequent RNDU chain proves the
+            # same expression rather than a nearby high-precision one.
+            _WORKER_POINT_EXP.set_d(factor)
             _WORKER_POINT_WEIGHT.set_d(cell_weight)
             _WORKER_INTERVAL.MUL(
                 _WORKER_INTERVAL.BR(_WORKER_POINT_TERM.x),
                 _WORKER_INTERVAL.BR(_WORKER_POINT_NORM.x),
-                _WORKER_INTERVAL.BR(_WORKER_POINT_EXP.x),
+                _WORKER_INTERVAL.BR(_WORKER_POINT_WEIGHT.x),
                 _WORKER_INTERVAL.RNDU,
             )
+            # Match the exact binary64 expression below: norm * weight * exp.
             _WORKER_INTERVAL.MUL(
                 _WORKER_INTERVAL.BR(_WORKER_POINT_TERM.x),
                 _WORKER_INTERVAL.BR(_WORKER_POINT_TERM.x),
-                _WORKER_INTERVAL.BR(_WORKER_POINT_WEIGHT.x),
+                _WORKER_INTERVAL.BR(_WORKER_POINT_EXP.x),
                 _WORKER_INTERVAL.RNDU,
             )
             _WORKER_INTERVAL.ADD(
@@ -218,8 +228,17 @@ def run(nodes=240001, sigma=-0.5, workers=1, span=20001, exact_audit=True):
     integrals = (dx * total).tolist()
     exact_dx = Fraction.from_float(dx)
     exact_integrals = [exact_dx * value for value in exact_total] if exact_audit else None
-    span_dominates_exact = ([
+    mpfr_span_dominates_exact = ([
         all(Fraction.from_float(part[3][channel]) >= Fraction(part[2][channel])
+            for part in parts)
+        for channel in range(4)
+    ] if exact_audit else None)
+    # The exact audit is over the public binary64 term expression.  Its
+    # matching directed witness is the per-term binary64 roundup accumulator
+    # (part[4]); part[3] is the separate high-precision MPFR-term path and is
+    # retained as a diagnostic, not confused with this same-expression gate.
+    span_dominates_exact = ([
+        all(Fraction.from_float(part[4][channel]) >= Fraction(part[2][channel])
             for part in parts)
         for channel in range(4)
     ] if exact_audit else None)
@@ -306,6 +325,7 @@ def run(nodes=240001, sigma=-0.5, workers=1, span=20001, exact_audit=True):
         ],
         "directed_mpfr_term_accumulation": True,
         "directed_span_dominates_exact_binary64_sum": span_dominates_exact,
+        "mpfr_span_dominates_exact_binary64_sum": mpfr_span_dominates_exact,
         "directed_integral_dominates_exact_binary64_integral":
             directed_integral_dominates_exact,
         "interval_min_product": minimum,

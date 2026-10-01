@@ -3717,6 +3717,19 @@ scripts/routea_pointbox_mpmath_containment_control_2397.py,
 docs/proofs/2398_pointbox_mpmath_containment_repaired_probe.md, and
 results/2398_pointbox_mpmath_containment_repaired_probe.json.
 
+Record 2407 (2026-10-02): the repaired evaluator was replayed on the full
+776611-point grid as 2406. An independent readback passed the source hashes,
+39-span contiguous partition, same-expression binary64 span and integral
+dominance in all four channels, and term-roundup dominance. The old 2386
+bridge was not reused because its node totals belong to the superseded
+evaluator revision; fresh interface-only bridge 2408 was regenerated and read
+back successfully. This is still a diagnostic artifact, not Lean import or
+producer closure. Evidence:
+scripts/routea_repaired_fullgrid_audit_2407.py,
+docs/proofs/2407_repaired_fullgrid_audit.md, and
+results/2407_repaired_fullgrid_audit.json and
+results/2408_repaired_composite_charge_bridge.json.
+
 Record 2392 (2026-10-02): an independent artifact readback checks the 2385
 source hashes, four-channel directed-roundup dominance, channel alignment,
 and exact 2386 bridge readback. These controls pass, while Lean numeric import

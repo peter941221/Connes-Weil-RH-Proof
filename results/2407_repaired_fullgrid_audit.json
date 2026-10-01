@@ -1,0 +1,18 @@
+{
+  "artifact": "results\\2406_repaired_shared_geometry_776611.json",
+  "lean_numeric_imported": false,
+  "nodes": 776611,
+  "partition_contiguous_full_coverage": true,
+  "producer_go": false,
+  "record": 2407,
+  "repaired_bridge_2408_readback": true,
+  "rh_claim": false,
+  "same_expression_integral_dominance": true,
+  "same_expression_span_dominance": true,
+  "source_hashes_match": true,
+  "span": 20001,
+  "span_count": 39,
+  "status": "REPAIRED_FULL_GRID_SAME_EXPRESSION_AUDIT_PASS",
+  "term_roundup_dominance": true,
+  "workers": 16
+}
