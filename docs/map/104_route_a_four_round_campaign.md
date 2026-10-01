@@ -3848,3 +3848,11 @@ passed all 22 tests.  The current manifest hash is
 This remains provenance/control evidence only.  Evidence:
 `docs/proofs/2425_strip_manifest_refresh_and_integration.md` and
 `results/2425_strip_manifest_refresh_and_integration.json`.
+
+Record 2426 (2026-10-02): a current-source full-grid audit verifies all four
+same-expression dominance controls, the 39-span partition, finite/nonnegative
+witnesses, and exact parent/span consistency with the current bridge.  It does
+not prove mathematical pointwise dominance or Lean import.  Evidence:
+`scripts/routea_current_fullgrid_audit_2426.py`,
+`docs/proofs/2426_current_fullgrid_interface_audit.md`, and
+`results/2426_current_fullgrid_audit.json`.

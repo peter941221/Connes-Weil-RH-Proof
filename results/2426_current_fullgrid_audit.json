@@ -1,0 +1,16 @@
+{
+  "artifact": "results\\2422_repaired_shared_geometry_776611.json",
+  "bridge": "results\\2424_repaired_span_composite_bridge.json",
+  "current_parent_and_span_bridge_match": true,
+  "lean_numeric_imported": false,
+  "nodes": 776611,
+  "pointwise_mathematical_term_dominance_proved": false,
+  "producer_go": false,
+  "record": 2426,
+  "rh_claim": false,
+  "same_expression_controls_pass": true,
+  "source_hashes_match": true,
+  "span": 20001,
+  "span_count": 39,
+  "status": "CURRENT_FULLGRID_INTERFACE_AUDIT_PASS"
+}
