@@ -3548,3 +3548,11 @@ This is not yet a numerical certificate: nodewise import, directed
 accumulation, and trapezoid remainder proof remain open. Evidence:
 docs/proofs/2375_composite_charge_bridge.md and
 results/2375_composite_charge_bridge.json.
+
+Record 2376 (2026-10-02): the evaluator now emits explicit span and final
+directed-rounding dominance controls. They are all true on the 1001-node
+sequential regression, but the bounded 776611-node replay timed out without
+an artifact. This is therefore a control improvement, not a full-grid
+certificate or producer GO. Evidence:
+docs/proofs/2376_directed_accumulation_controls.md and
+results/2376_directed_accumulation_control_1001.json.

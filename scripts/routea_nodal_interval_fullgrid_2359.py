@@ -187,6 +187,11 @@ def run(nodes=240001, sigma=-0.5, workers=1, span=20001):
     integrals = (dx * total).tolist()
     exact_dx = Fraction.from_float(dx)
     exact_integrals = [exact_dx * value for value in exact_total]
+    span_dominates_exact = [
+        all(Fraction.from_float(part[3][channel]) >= Fraction(part[2][channel])
+            for part in parts)
+        for channel in range(4)
+    ]
     accumulation_float_gap = [
         abs(Fraction.from_float(float(value)) - exact_integrals[channel])
         for channel, value in enumerate(integrals)
@@ -217,6 +222,10 @@ def run(nodes=240001, sigma=-0.5, workers=1, span=20001):
             interval_main.RNDU,
         )
         directed_integrals.append(directed_integral.get_d(interval_main.RNDU))
+    directed_integral_dominates_exact = [
+        Fraction.from_float(directed_integrals[channel]) >= exact_integrals[channel]
+        for channel in range(4)
+    ]
     minimum = min(integrals[1] * integrals[2], integrals[3] * integrals[0])
     return {
         "record": 2359,
@@ -236,6 +245,9 @@ def run(nodes=240001, sigma=-0.5, workers=1, span=20001):
         "accumulation_is_directed_mpfr": False,
         "directed_mpfr_term_accumulation_integrals": directed_integrals,
         "directed_mpfr_term_accumulation": True,
+        "directed_span_dominates_exact_binary64_sum": span_dominates_exact,
+        "directed_integral_dominates_exact_binary64_integral":
+            directed_integral_dominates_exact,
         "interval_min_product": minimum,
         "source_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
         "evaluator_source_sha256": hashlib.sha256(
