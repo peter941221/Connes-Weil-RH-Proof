@@ -1,0 +1,79 @@
+{
+  "record": 2347,
+  "status": "GENERIC_CHORD_PANEL_INTEGRAL_CERTIFIED_ACTUAL_ENDPOINTS_EXTERNAL",
+  "focused_target": "ConnesWeilRH.Dev.C1RouteAChordPanelAudit",
+  "build_exit": 0,
+  "build_jobs": 3711,
+  "audited_theorems": [
+    {
+      "name": "scalarChordUpper2347",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "normChordUpper2347",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "chordDensity2347_integral",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "normIntegralChordUpper2347",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "normIntegralCompositeUpper2347",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "normIntegralCompositeUpper_of_nodeBounds2347",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "source_sha256": {
+    "ConnesWeilRH/Dev/C1RouteAChordPanel.lean": "cbfcbfe7ba7d9c73a4928fba7ee11ac92a1bb1e7a32b10f7f38173e1c1cf72f0",
+    "ConnesWeilRH/Dev/C1RouteAChordPanelAudit.lean": "1030c0aa3637a0d3bb4bd6c68d18fe3cf3f6769d493e53398fb248a2101b092a"
+  },
+  "windows_wsl_sources_identical": true,
+  "new_source_warnings": [],
+  "regression_tests": 11,
+  "regression_log": "build-logs/2347_panel_regression.log",
+  "log": "build-logs/2347_chord_panel_build_final.log",
+  "pointwise_chord_bound_proved": true,
+  "cell_integral_one_twelfth_constant_proved": true,
+  "uniform_grid_assembly_proved": true,
+  "finite_node_upper_bound_interface_proved": true,
+  "modulus_second_derivative_used": false,
+  "zero_exclusion_used": false,
+  "actual_weighted_owner_curvature_instantiated": false,
+  "python_evaluator_semantics_proved": false,
+  "ideal_coefficient_realization_imported": false,
+  "endpoint_numeric_facts_imported": false,
+  "owner_transfer_to_live_consumer": false,
+  "producer_go": false,
+  "rh_claim": false
+}

@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1RouteAExternalOwnerIdentity
+
+open ConnesWeilRH.Dev
+
+#print axioms externalFamilyValue2344_eq_familyTerm
+#print axioms externalPhysical2344_eq_correctedPhysical
+#print axioms externalPhysical2344_secondDerivative_eq
+#print axioms externalPhysical2344_stripNorm_eq
+#print axioms externalPhysical2344_stripSecondNorm_eq
+#print axioms frozenStripHypothesis_of_external_endpoint_bounds

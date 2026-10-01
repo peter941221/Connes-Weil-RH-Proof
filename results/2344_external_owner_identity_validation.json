@@ -1,0 +1,76 @@
+{
+  "record": 2344,
+  "status": "SYMBOLIC_OWNER_IDENTITY_CERTIFIED_NUMERICAL_ENDPOINTS_EXTERNAL",
+  "focused_target": "ConnesWeilRH.Dev.C1RouteAExternalOwnerIdentityAudit",
+  "build_exit": 0,
+  "build_jobs": 3708,
+  "audited_theorems": [
+    {
+      "name": "externalFamilyValue2344_eq_familyTerm",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "externalPhysical2344_eq_correctedPhysical",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "externalPhysical2344_secondDerivative_eq",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "externalPhysical2344_stripNorm_eq",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "externalPhysical2344_stripSecondNorm_eq",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "frozenStripHypothesis_of_external_endpoint_bounds",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "source_sha256": {
+    "ConnesWeilRH/Dev/C1RouteAExternalOwnerIdentity.lean": "dc188bc2999f24537a8560a5962c4227860614f38aade683395795b561e3f3e7",
+    "ConnesWeilRH/Dev/C1RouteAExternalOwnerIdentityAudit.lean": "8d08b756d6cedc80c2153c9a65260882c3a0731345670472733774d07b6a69fd",
+    "scripts/routea_external_owner_binding_2344.py": "bd20df0142b6f76bd294a1518ffab1a86bd6e419a4b2b5d20170aa3a79dbdb2b",
+    "scripts/routea_external_owner_binding_selftest_2344.py": "73dcf069811c1978d57d8ded48168aadd97ccf33698a346bb04aff3cbbe9bb01"
+  },
+  "windows_wsl_sources_identical": true,
+  "exact_width_entries": 30,
+  "outward_endpoint_constants": 4,
+  "selftests": 8,
+  "executed_evaluator_semantics_proved": false,
+  "derivative_formula_proved_in_lean": false,
+  "ideal_coefficient_realization_imported": false,
+  "endpoint_numeric_facts_imported": false,
+  "owner_transfer_to_live_consumer": false,
+  "producer_go": false,
+  "rh_claim": false,
+  "log": "build-logs/2344_external_owner_identity_build.log",
+  "selftest_log": "build-logs/2344_external_owner_binding_selftest.log"
+}

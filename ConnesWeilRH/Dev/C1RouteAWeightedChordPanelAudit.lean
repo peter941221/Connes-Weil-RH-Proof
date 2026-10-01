@@ -1,0 +1,14 @@
+import ConnesWeilRH.Dev.C1RouteAWeightedChordPanel
+
+open ConnesWeilRH.Dev
+
+#print axioms weightedExp2348_hasDerivAt
+#print axioms weightedFunction2348_contDiff
+#print axioms weightedFunction2348_deriv
+#print axioms weightedFunction2348_secondDerivative
+#print axioms weightedFunction2348_norm
+#print axioms weightedFunction2348_curvature_bound
+#print axioms weightedStripNorm2348_eq_interval
+#print axioms stripNorm_le_nodeUpper2348
+#print axioms correctedPhysical_stripNorm_le_nodeUpper2348
+#print axioms correctedPhysical_stripSecondNorm_le_nodeUpper2348

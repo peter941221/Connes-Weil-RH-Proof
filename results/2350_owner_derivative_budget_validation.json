@@ -1,0 +1,233 @@
+{
+  "record": 2350,
+  "date": "2026-10-01",
+  "status": "PASS_ACTUAL_SYMBOLIC_OWNER_DERIVATIVE_BUDGET",
+  "focused_build_plan_jobs": 3716,
+  "audit_leaf_count": 21,
+  "audited_leaves": [
+    {
+      "theorem": "bumpNumerator2350_hasDerivAt",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "bumpNumerator2350_recurrence",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "bumpJet2350_hasDerivAt",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "normalizedBumpJet2350_hasDerivAt",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "scaledBumpJet2350_hasDerivAt",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "widthBump_iteratedDeriv_inside2350",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "widthBump_iteratedDeriv_strictOutside2350",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "widthBump_iteratedDeriv_outside2350",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "widthBump_iteratedDeriv_global2350",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "bumpNumerator2350_abs_le",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "bumpJet2350_abs_le",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "scaledBumpJet2350_abs_le",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "widthBump_iteratedDeriv_abs_le2350",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "phaseCarrier2350_hasDerivAt",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "phaseCarrier2350_iteratedDeriv",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "phaseCarrier2350_iteratedDeriv_norm",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "widthBump_ofReal_iteratedDeriv2350",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "externalFamilyValue2344_iteratedDeriv_budget2350",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "correctedPhysical_iteratedDeriv_budget2350",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "correctedPhysical_stripNorm_le_nodeUpper_from_budget2350",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "correctedPhysical_stripSecondNorm_le_nodeUpper_from_budget2350",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "new_source_warnings": false,
+  "linux_windows_mirrors_identical": true,
+  "source_sha256": {
+    "ConnesWeilRH/Dev/C1RouteABumpDerivativeLadder.lean": "c3890be287bb916656383846ef0289b643a29c706f982f877fde80e446aa2fb6",
+    "ConnesWeilRH/Dev/C1RouteABumpDerivativeLadderAudit.lean": "fea8a35a6743bef00b922cda9e1f5182fdaf366c08683e533bd0fa0e3750a670",
+    "ConnesWeilRH/Dev/C1RouteAOwnerDerivativeBudget.lean": "6ec48c76a324f82dc55127572e75c9e8a31ef5745abc91dcbc6b6fc52f1891f4",
+    "ConnesWeilRH/Dev/C1RouteAOwnerDerivativeBudgetAudit.lean": "1915cc2134a04dd839b32bfa50101fff128610e755bd052fb24a6fe531ca12d9"
+  },
+  "log_sha256": {
+    "build-logs/2350_owner_derivative_budget_build_clean.log": "4bc4844e9e536ea5b3b7e5ebbff10fea0d833281cf4826b00672f154a1f947f4",
+    "build-logs/2350_derivative_ladder_regression.log": "23c2ed405cafa313d90458f3b0359ceebfbdc662b59822f8fabee0956cb72f45",
+    "build-logs/2350_direct_ideal_regression.log": "54d0272a038a5351a5c1af95a494f12e8c8f163a30fda6dac892cd0146407847"
+  },
+  "unchanged_2349_regression_tests_passed": 12,
+  "unchanged_2342_regression_tests_passed": 15,
+  "verified_constants": [
+    1,
+    60,
+    3720,
+    236160,
+    15130080
+  ],
+  "actual_widthBump_derivatives_orders_0_to_4_proved": true,
+  "both_support_edges_and_exterior_proved": true,
+  "actual_complex_family_derivative_budget_proved": true,
+  "actual_correctedPhysical_derivative_budget_proved": true,
+  "actual_owner_parameter_scope": "arbitrary coefficient and modulation vectors; exact storedWidth-squared radii",
+  "panel_derivative_hypotheses_discharged": {
+    "stripNorm": [
+      0,
+      1,
+      2
+    ],
+    "stripSecondNorm": [
+      2,
+      3,
+      4
+    ]
+  },
+  "retained_panel_premises": [
+    "positive step",
+    "exact cells*step=2*storedWidth(4)^2",
+    "actual finite-node upper bounds"
+  ],
+  "numerical_ideal_coefficients_instantiated": false,
+  "evaluator_semantics_proved": false,
+  "finite_node_certificate_imported": false,
+  "endpoint_numeric_inequalities_imported": false,
+  "nodes_recomputed": false,
+  "new_numerical_price": false,
+  "healthy_detector_instantiated": false,
+  "complete_signed_kernel_priced": false,
+  "owner_transfer_to_live_consumer": false,
+  "producer_go": false,
+  "rh_claim": false
+}
+

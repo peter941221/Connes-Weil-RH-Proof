@@ -1,0 +1,17 @@
+import ConnesWeilRH.Dev.C1RouteABumpDerivativeLadder
+
+open ConnesWeilRH.Dev
+
+#print axioms bumpNumerator2350_hasDerivAt
+#print axioms bumpNumerator2350_recurrence
+#print axioms bumpJet2350_hasDerivAt
+#print axioms normalizedBumpJet2350_hasDerivAt
+#print axioms scaledBumpJet2350_hasDerivAt
+#print axioms widthBump_iteratedDeriv_inside2350
+#print axioms widthBump_iteratedDeriv_strictOutside2350
+#print axioms widthBump_iteratedDeriv_outside2350
+#print axioms widthBump_iteratedDeriv_global2350
+#print axioms bumpNumerator2350_abs_le
+#print axioms bumpJet2350_abs_le
+#print axioms scaledBumpJet2350_abs_le
+#print axioms widthBump_iteratedDeriv_abs_le2350

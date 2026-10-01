@@ -1,0 +1,63 @@
+{
+  "record": 2349,
+  "date": "2026-10-01",
+  "status": "PASS_SCALAR_ENVELOPE_AND_EXTERNAL_REPRICE_ONLY",
+  "new_tests_passed": 12,
+  "unchanged_2342_regression_tests_passed": 15,
+  "focused_build_plan_jobs": 2943,
+  "audited_leaves": [
+    {
+      "theorem": "powerExpUpper2349",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "polynomialAbsUpper2349",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "theorem": "polynomialExpUpper2349",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "no_new_lean_source_warnings": true,
+  "linux_windows_mirrors_identical": true,
+  "separate_panel_only_replay_byte_identical": true,
+  "same_run_old_panels_and_totals_exact": true,
+  "unchanged_120001_node_sums_reused": true,
+  "node_sums_recomputed": false,
+  "source_sha256": {
+    "scripts/routea_derivative_ladder_2349.py": "fabb06a29caf7ba19385094a4390a00d42867a6bd518bd87ca4e0ee20ed7bf9a",
+    "scripts/routea_derivative_ladder_selftest_2349.py": "1c4610cfbac811a5a87fae572d6bb8b140f4ed015045fcbc3bcd4bf4367f76e2",
+    "ConnesWeilRH/Dev/C1RouteABumpEnvelope.lean": "5c91dba23f5c6f67052b381d75ea5773a3ab9f94dad25d53aff9eb5133812c42",
+    "ConnesWeilRH/Dev/C1RouteABumpEnvelopeAudit.lean": "09d2faae84119d861537a3f91b0e55e1ee18db85ce2d6f1efb337b919b5e786c",
+    "results/2349_derivative_ladder.json": "40c63c55f11db460c18112ea81ccccc08710acfcadb242ec679534c75768e705"
+  },
+  "log_sha256": {
+    "build-logs/2349_derivative_ladder_fixed.log": "1a1a1020c787e669a9ae1fcda692ae87cf902a2b61d544b89c028c4f7336856c",
+    "build-logs/2349_selftest.log": "dfec128c5a3861e61689988e3277010572fcc28a154c7bdefd379c05a05a3134",
+    "build-logs/2349_regression.log": "231198bb3c356571ae3f5e02bdae5f9ab427822240305e1fbb69ee71420b22c6",
+    "build-logs/2349_bump_envelope_build.log": "654fd104b88ef0673969e8e783e3a0756808ceab564f254aa566863a35dd21d5"
+  },
+  "initial_script_run_failed_before_artifact": "unterminated docstring; fixed and rerun successfully",
+  "scalar_envelope_formalized_in_lean": true,
+  "complete_derivative_recurrence_formalized_in_lean": false,
+  "concrete_derivative_majorants_instantiated_in_lean": false,
+  "lean_numeric_certificate_imported": false,
+  "healthy_detector_instantiated": false,
+  "complete_signed_kernel_priced": false,
+  "producer_go": false,
+  "rh_claim": false
+}
+

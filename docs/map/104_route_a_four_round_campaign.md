@@ -3190,3 +3190,138 @@ a completed proof: the directed point sum, Euler-Maclaurin panel remainder,
 and zero-count premises still need an explicit proof bridge. No owner transfer,
 signed kernel charge, producer GO, or RH claim. Evidence: proof record 2340,
 the recomposed transfer artifact, and its four-test selftest.
+
+### Record 2341: single-sided panel replacement and coordinate charge
+
+The repaired 2340 source now adds stored point/panel operands only after
+lifting them separately, and its nine-test replay binds the corrected source.
+Record 2341 replaces the unproved absolute modulus-curvature reading with
+a vector chord upper: integral |V| <= trapezoid + (h^2/12)(2R) sup|V''|.
+This needs no zero-count premise. Directed panel top-ups and exact rational
+linspace displacement charges retain the frozen node pin at all 101 nodes;
+the maximum j=-50 is 706456.2163439568. Eleven new tests and twelve 2339
+tests pass, and full replay is byte-identical. The 2303 nodal-upper theorem
+and original coordinate identity remain open; MPFR round-to-nearest plus
+slack is not automatically a directed chain. No Lean import, signed kernel
+charge, live-owner handoff, producer GO or RH claim.
+
+### Record 2342: independent exact-grid ideal-source strip certificate
+
+The direct Arb/Acb chain evaluates the 2338 ideal coefficient rectangles at
+120001 exact rational nodes, with exact width-squared radii, complex sums
+before modulus and outward weighted trapezoid accumulation. It does not
+use the 2303 point sums or reconstructed linspace. The 2341 chord allowance
+and convex endpoint domination cover every sigma in [-1/2,1/2]; the raw
+min-product upper is 1852190.2152630097, 0.700382 of the unchanged pin.
+Fifteen controls pass, including an independent mpmath evaluation of the
+actual 30-family midpoint source at five nodes. Full 192-bit replay is
+byte-identical; a full 256-bit run stays under the pin with all 40 control
+components overlapping. This replaces two legacy numerical premises for
+the captured ideal source only. The analytic source/readback identity and
+Lean certificate import, healthy detector and complete signed-kernel
+budget remain open. No producer GO or RH claim.
+
+### Record 2343: endpoint strip bridge formalized
+
+The new Lean endpoint theorem reduces the full centered strip norm obligation to
+four endpoint inequalities for the same owner: base/correction, function/second
+ derivative. Convexity of exp proves the reduction directly under compact support;
+no zero-count or modulus differentiation is used. The rounded-up 2342 constants
+satisfy the existing frozen arithmetic inequality by exact rational checking.
+Focused Lake build completes 3707 jobs and the six audited leaves have exactly
+[propext, Classical.choice, Quot.sound]. The numeric endpoint facts and the
+external-to-Lean function identity are still open, so no producer GO or RH claim.
+
+Record 2344: symbolic owner identity, with external numeric boundary retained
+
+Lean proves externalPhysical2344 = correctedPhysical for arbitrary coefficient
+and modulation vectors at exact storedWidth^2 radii. Six audited leaves pass
+with exactly [propext, Classical.choice, Quot.sound]; focused build: 3708 jobs.
+The exact checker matches all 30 captured widths and four outward constants;
+eight mutation/control selftests pass. The Python evaluator semantics, explicit
+derivative formula, repaired coefficient realization and numeric endpoint
+integrals remain unimported. Norm supplier only; no producer GO or RH claim.
+Evidence: docs/proofs/2344_external_owner_identity.md.
+
+Record 2345: interior derivative formula formalized
+
+Lean proves the explicit first- and second-derivative chain for every strictly interior point of the external owner. The focused build has 3709 jobs and ten audit leaves with exactly [propext, Classical.choice, Quot.sound]. This validates the algebraic derivative factor used by the 2342 evaluator in the interior only. The support-boundary/zero-branch formula, whole-program evaluator semantics, endpoint facts and signed kernel budget remain open. No producer GO or RH claim.
+Evidence: docs/proofs/2345_external_owner_derivatives.md.
+
+Record 2346 (2026-10-01): closed the boundary and zero-extension derivative
+gap. Local zero on each strict exterior gives zero second derivative; smoothness
+makes its zero set closed and extends zero to both boundary points. The resulting
+piecewise family formula sums across all 30 exact storedWidth-squared families
+and applies directly to correctedPhysical for arbitrary coefficient/modulation
+vectors. The Python execution semantics, coefficient realization and endpoint
+integral inequalities remain separate obligations. No producer GO or RH claim.
+Evidence: docs/proofs/2346_external_owner_zero_extension.md.
+
+Record 2347 (2026-10-01): formalized the one-sided chord-panel inequality.
+A norming real functional from Mathlib Hahn-Banach projects the value without
+increasing norm; adding M*x^2/2 makes the projection convex. This proves the
+pointwise chord bound, exact cell integral M*h^3/12, uniform-grid assembly
+M*h^2*(n*h)/12, and a finite-node-upper replacement interface. No modulus
+second derivative or zero exclusion is used. Focused Linux build: 3711 jobs,
+six audit leaves exactly [propext, Classical.choice, Quot.sound], no new-source
+warnings; both Lean files match the mirror. Eleven unchanged 2341 regression
+tests pass. Actual weighted-owner curvature, repaired coefficient realization,
+program semantics and endpoint numerical facts are not instantiated/imported.
+No producer GO or RH claim. Evidence: docs/proofs/2347_chord_panel_integral.md
+and results/2347_chord_panel_validation.json.
+
+Record 2348 (2026-10-01): derived the real-exponential weighted first/second
+derivatives and the curvature implication exp(|sigma|R)*(m2+2|sigma|m1+sigma^2*m0).
+Restricted the whole-line strip norm to exact support and applied the 2347
+finite-node quadrature theorem. Specialized both stripNorm and stripSecondNorm
+to correctedPhysical at exact storedWidth 4 squared radius; smoothness and
+support are discharged for arbitrary coefficient/modulation vectors. Orders
+0/1/2 feed the first channel; orders 2/3/4 feed the second. Ten audit leaves
+have exactly [propext, Classical.choice, Quot.sound], focused build 3712 jobs.
+Actual derivative ladder constants, ideal coefficient realization, program
+semantics and finite numeric node facts remain explicit open obligations.
+No endpoint import, healthy detector, live handoff, producer GO or RH claim.
+Evidence: docs/proofs/2348_weighted_chord_panel.md.
+
+Record 2349 (2026-10-01): exact integer recurrence reduces the bump derivative
+ceilings to [1,60,3720,236160,15130080], all below the legacy constants.
+The coarser third-order 272160 does not refute legacy 245160: substituting the
+actual inverse-deficit relation gives 236160. Three Lean envelope leaves
+build in 2943 jobs with exactly the permitted axioms; full derivative
+recurrence/owner instantiation remains external. Same-run reproduction of
+2342's original panels/totals precedes a same-node-sum reprice to
+1808469.1730280858 = 0.6838494494 of the frozen pin, 2.3605% below 2342.
+Twelve new controls and fifteen unchanged 2342 regressions pass, with cheap
+replay byte-identical. No numeric import, healthy detector, full signed budget,
+producer GO or RH claim. Next formalize the actual derivative recurrence and
+coefficient realization; do not spend further grid refinement on this margin.
+Evidence: docs/proofs/2349_derivative_ladder.md.
+
+Record 2350 (2026-10-01): proved actual widthBump derivatives through order
+four, both support edges/exterior, and concrete ceilings
+[1,60,3720,236160,15130080] in Lean. Phase derivative/norm transport and
+Leibniz now supply the actual 30-family correctedPhysical derivative budget
+at exact storedWidth-square radii, for arbitrary coefficient/modulation
+vectors. Two strip panel consumers remove the six derivative hypotheses
+formerly supplied externally. Positive step, exact grid and finite node
+bounds remain explicit; numeric ideal coefficient realization and program
+semantics/import remain open. Clean Linux build 3716 jobs, 21 leaves exactly
+[propext, Classical.choice, Quot.sound], no new-source warnings, four mirror
+files identical; 12 + 15 unchanged numerical regressions pass. No new price,
+node replay, healthy detector, signed-kernel closure, producer GO or RH claim.
+Evidence: docs/proofs/2350_owner_derivative_budget.md.
+
+Record 2351 (2026-10-01): exported the original 2338 900-entry analytic
+matrix and exact candidate inverse with same-run parent reproduction except
+elapsed. Independent Fraction-only complex rectangle arithmetic yields
+eta = 5.873158307277732e-38 and fixed-box containment of the ORIGINAL
+base/correction coefficient rectangles at all 120 components. Tightest ratios
+0.9999999438559326/0.999999941431241; no widening. Parent matrix digest,
+coefficients, captured nodes/targets, exact width-square radii and modulations
+are bound with mutation controls; 17 tests pass and checker replay is exact.
+Lean now binds actual correctedPhysicalCompactLogTest Laplace values to the
+actual analytic matrix mulVec, and proves unique inverse-defined coefficients
+under an explicit actual determinant-unit premise. Numeric integral bounds,
+actual invertibility and coefficient-box membership remain external/unimported.
+No new norm price, full-grid node computation, health, signed budget GO or RH.
+Evidence: docs/proofs/2351_analytic_moment_witness.md.

@@ -1,0 +1,75 @@
+{
+  "record": 2346,
+  "status": "GLOBAL_SECOND_DERIVATIVE_CERTIFIED_NUMERICAL_ENDPOINTS_EXTERNAL",
+  "focused_target": "ConnesWeilRH.Dev.C1RouteAExternalOwnerZeroExtensionAudit",
+  "build_exit": 0,
+  "build_jobs": 3710,
+  "audited_theorems": [
+    {
+      "name": "externalFamilyValue2344_contDiff",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "externalFamilyValue2344_secondDerivative_strictOutside",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "externalFamilyValue2344_secondDerivative_outside",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "externalFamilyValue2344_secondDerivative_global",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "externalPhysical2344_secondDerivative_global",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "correctedPhysical_secondDerivative_global2346",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "source_sha256": {
+    "ConnesWeilRH/Dev/C1RouteAExternalOwnerZeroExtension.lean": "d553603a50b93e9a12c61ae6743dc288e606e00ac801a66b333c7252ed6426c7",
+    "ConnesWeilRH/Dev/C1RouteAExternalOwnerZeroExtensionAudit.lean": "0b92fc00317d109338214a60b603cf89c96a437fa3ba361f0ea79a0713210760"
+  },
+  "windows_wsl_sources_identical": true,
+  "new_source_warnings": [],
+  "regression_tests": 15,
+  "regression_log": "build-logs/2346_direct_ideal_strip_regression.log",
+  "log": "build-logs/2346_external_owner_zero_extension_build_final.log",
+  "boundary_and_zero_extension_proved": true,
+  "full_30_family_second_derivative_proved": true,
+  "arbitrary_coefficients_and_modulations": true,
+  "python_evaluator_semantics_proved": false,
+  "ideal_coefficient_realization_imported": false,
+  "endpoint_numeric_facts_imported": false,
+  "owner_transfer_to_live_consumer": false,
+  "producer_go": false,
+  "rh_claim": false
+}

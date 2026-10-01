@@ -1,0 +1,15 @@
+import ConnesWeilRH.Dev.C1RouteAExternalOwnerDerivatives
+
+open ConnesWeilRH.Dev
+
+#print axioms familyDeficit2345_pos
+#print axioms familyDeficit2345_hasDerivAt
+#print axioms familyLog2345_hasDerivAt
+#print axioms familyLogFirst2345_hasDerivAt
+#print axioms familyInterior2345_hasDerivAt
+#print axioms familyFirstFactor2345_hasDerivAt
+#print axioms familySecondFactor2345_eq
+#print axioms familyInterior2345_firstProduct_hasDerivAt
+#print axioms externalFamilyValue2344_hasDerivAt_inside
+#print axioms externalFamilyValue2344_secondDerivative_inside
+

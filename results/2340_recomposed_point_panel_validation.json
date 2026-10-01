@@ -1,16 +1,19 @@
 {
   "record": 2340,
   "precision_bits": 320,
-  "tests_passed": 4,
+  "tests_passed": 9,
   "all_nodes_fit_existing_pin": true,
   "failed_nodes": [],
   "maximum_node": -50,
-  "maximum_upper_display": "706456.17614858163108773959222057627309136399675195",
+  "maximum_upper_display": "[706456.17614858161209331975065795197949443268495330 +/- 7.93e-46]",
   "existing_pin": "2644542.8515",
-  "source_sha256": "d6900e05f34ea3a853a46eb10c8c47809f5991f1aaefd33feaf65a66d88ac01d",
-  "output_sha256": "abfd56a999dde0cdc583a37cc8969e3c5fd9e976c81eab5d6ebee00efa424662",
-  "wsl_resource_runner": true,
+  "source_sha256": "3505f85285b882b86c1836a8c5d22e017a8f25f23de25dd56daaf008ad313c42",
+  "output_sha256": "92edbf1d08aa870ae4833c4f112152cb6ca2c637ce0e8250c2b41e03cefbce6b",
+  "wsl_resource_runner": false,
   "owner_transfer_to_live_consumer": false,
   "producer_go": false,
-  "rh_claim": false
+  "rh_claim": false,
+  "baseline_contract_checked": true,
+  "baseline_zero_free_gate": true,
+  "baseline_sigma_rows_complete": true
 }

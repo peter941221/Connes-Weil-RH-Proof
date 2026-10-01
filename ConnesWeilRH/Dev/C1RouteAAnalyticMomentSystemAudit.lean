@@ -1,0 +1,12 @@
+import ConnesWeilRH.Dev.C1RouteAAnalyticMomentSystem
+
+open ConnesWeilRH.Dev
+
+#print axioms momentFamily2351_hasCompactSupport
+#print axioms momentIntegrand2351_integrable
+#print axioms correctedPhysical_laplaceAt_mulVec2351
+#print axioms ownerMomentSolution2351_mulVec
+#print axioms ownerMomentSolution2351_realizes
+#print axioms ownerMomentSolution2351_unique
+#print axioms existsUnique_actualOwnerMomentCoefficients2351
+

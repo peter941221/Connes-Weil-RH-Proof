@@ -1,0 +1,26 @@
+{
+  "record": 2341,
+  "status": "ONE_SIDED_PANEL_TRANSFER_CONDITIONAL_ON_NODE_UPPERS",
+  "precision_bits": 320,
+  "tests_passed": 11,
+  "parent_2339_tests_passed": 12,
+  "source_sha256": "0866a45127c8ceeea804d931d6cc9316aebc04d62fcdee3beeb15cdf8039c713",
+  "output_sha256": "660ed0121fbaa3578cb28fc70b2b8b1abd1c5b5d52e84ed061388707dae5fdd3",
+  "selftest_sha256": "06c63b53f74dd24ce50e71685cc70946b5457ac06b057f1dffb8be85eb33d181",
+  "all_nodes_fit_existing_pin": true,
+  "maximum_node": -50,
+  "maximum_min_product_upper": {
+    "lower_exact": "1439076728397778948101075382626184968929843543643250171179959011121671849486756597151185666290815/2037035976334486086268445688409378161051468393665936250636140449354381299763336706183397376",
+    "upper_exact": "1439076728397778948101075382626184968929843543643250171179959011121671849486756597151185666290815/2037035976334486086268445688409378161051468393665936250636140449354381299763336706183397376",
+    "display": "[706456.21634395679086237744510505871428280667134298 +/- 3.26e-45]"
+  },
+  "coordinate_gap_exact": "4757/2814749767106560000",
+  "wsl_resource_runner": true,
+  "full_replay_bitwise_identical": true,
+  "point_node_upper_theorem_proved": false,
+  "coordinate_grid_identity_with_original_run_proved": false,
+  "transfer_theorem_imported_in_lean": false,
+  "owner_transfer_to_live_consumer": false,
+  "producer_go": false,
+  "rh_claim": false
+}

@@ -1,0 +1,12 @@
+import ConnesWeilRH.Dev.C1RouteAOwnerDerivativeBudget
+
+open ConnesWeilRH.Dev
+
+#print axioms phaseCarrier2350_hasDerivAt
+#print axioms phaseCarrier2350_iteratedDeriv
+#print axioms phaseCarrier2350_iteratedDeriv_norm
+#print axioms widthBump_ofReal_iteratedDeriv2350
+#print axioms externalFamilyValue2344_iteratedDeriv_budget2350
+#print axioms correctedPhysical_iteratedDeriv_budget2350
+#print axioms correctedPhysical_stripNorm_le_nodeUpper_from_budget2350
+#print axioms correctedPhysical_stripSecondNorm_le_nodeUpper_from_budget2350

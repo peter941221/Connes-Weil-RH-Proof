@@ -1,0 +1,124 @@
+{
+  "record": 2348,
+  "status": "ACTUAL_OWNER_WEIGHTED_QUADRATURE_IMPLICATION_CERTIFIED_NUMERIC_PREMISES_EXTERNAL",
+  "focused_target": "ConnesWeilRH.Dev.C1RouteAWeightedChordPanelAudit",
+  "build_exit": 0,
+  "build_jobs": 3712,
+  "audited_theorems": [
+    {
+      "name": "weightedExp2348_hasDerivAt",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "weightedFunction2348_contDiff",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "weightedFunction2348_deriv",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "weightedFunction2348_secondDerivative",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "weightedFunction2348_norm",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "weightedFunction2348_curvature_bound",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "weightedStripNorm2348_eq_interval",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "stripNorm_le_nodeUpper2348",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "correctedPhysical_stripNorm_le_nodeUpper2348",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "correctedPhysical_stripSecondNorm_le_nodeUpper2348",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "source_sha256": {
+    "ConnesWeilRH/Dev/C1RouteAWeightedChordPanel.lean": "35b4bebc131a30518de6747d9c9b69af884890b215c641756c8b2df5e117948f",
+    "ConnesWeilRH/Dev/C1RouteAWeightedChordPanelAudit.lean": "56ca88eec24784c66735c042c1739b9713e7bfb0e65fd7745d74ab26251f9b73"
+  },
+  "windows_wsl_sources_identical": true,
+  "new_source_warnings": [],
+  "regression_tests": {
+    "build-logs/2348_panel_regression.log": 11,
+    "build-logs/2348_direct_strip_regression.log": 15
+  },
+  "log": "build-logs/2348_weighted_chord_panel_build_clean.log",
+  "real_exponential_weight_second_derivative_proved": true,
+  "weighted_curvature_algebra_proved": true,
+  "whole_line_to_support_interval_proved": true,
+  "actual_corrected_physical_norm_channels_specialized": true,
+  "owner_radius": "exact storedWidth 4 squared",
+  "ordinary_channel_derivative_orders": [
+    0,
+    1,
+    2
+  ],
+  "second_channel_derivative_orders": [
+    2,
+    3,
+    4
+  ],
+  "numeric_derivative_ladder_constants_proved": false,
+  "python_evaluator_semantics_proved": false,
+  "ideal_coefficient_realization_imported": false,
+  "finite_numeric_node_facts_imported": false,
+  "endpoint_numeric_facts_imported": false,
+  "owner_transfer_to_live_consumer": false,
+  "healthy_detector_instantiated": false,
+  "producer_go": false,
+  "rh_claim": false
+}

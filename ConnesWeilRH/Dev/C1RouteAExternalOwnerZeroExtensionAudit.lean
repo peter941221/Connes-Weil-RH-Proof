@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1RouteAExternalOwnerZeroExtension
+
+open ConnesWeilRH.Dev
+
+#print axioms externalFamilyValue2344_contDiff
+#print axioms externalFamilyValue2344_secondDerivative_strictOutside
+#print axioms externalFamilyValue2344_secondDerivative_outside
+#print axioms externalFamilyValue2344_secondDerivative_global
+#print axioms externalPhysical2344_secondDerivative_global
+#print axioms correctedPhysical_secondDerivative_global2346

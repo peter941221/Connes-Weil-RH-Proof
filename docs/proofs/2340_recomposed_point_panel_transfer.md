@@ -24,6 +24,12 @@ panel majorant 作为诊断字段，但最终上界仍以旧的连续 `point + p
 加显式函数差额构成。下一步需要把这一步写成逐项 directed-rounding 证明，不能
 把诊断字段当成已完成的证明。
 
+本轮修复了基础值合并的舍入边界：旧实现先用 binary64 做 `point + panel`，再把
+结果提升到 Arb；这可能向内舍入。现在两个已存储的 binary64 操作数分别提升为
+Arb 区间后再相加，并由测试检查结果不低于精确操作数和。这个修复只消除了一个
+浮点实现缺口，不等于完成 point-sum、Euler--Maclaurin remainder 和 zero-count
+条件的数学转移证明。
+
 ```text
 +--------------------------------+-------------------------+
 | Quantity                       | Reading                 |
@@ -40,9 +46,14 @@ panel majorant 作为诊断字段，但最终上界仍以旧的连续 `point + p
 
 ## 验证
 
-WSL resource runner 执行了完整计算。四项 2340 自测通过，包含严格 pin 回读、
-S3 analytic ladder 常数、非零 panel 诊断和 owner-transfer guard。结果文件由
-Windows 工作树回读。
+原始计算使用 WSL resource runner。本轮修复后在 WSL 直接重算，九项 2340
+自测通过，包含严格 pin 回读、导数常数、全节点加法、极端尺度和来源哈希。
+结果文件由 Windows 工作树回读。验证摘要不将本轮直接执行冒称为资源调度执行。
+
+运行时还检查 2303 的基础证书契约（baseline contract）：这里的契约是输入
+必须满足的结构条件，不是数学证明。要求 corrected-owner 状态、zero-free
+标签、连续范围 covered 标签及 -50..50 的完整 101 行。记录 2341 进一步给出
+无需零点排除的单边面板界；2303 标签本身不能证明逐节点数值确实向外包围。
 
 ## 下一步
 

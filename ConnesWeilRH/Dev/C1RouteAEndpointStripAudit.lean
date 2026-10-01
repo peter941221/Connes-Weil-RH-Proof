@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1RouteAEndpointStrip
+
+open ConnesWeilRH.Dev
+
+#print axioms expWeightedIntegral_le_of_endpoint_bounds
+#print axioms stripNorm_le_of_endpoint_bounds
+#print axioms stripSecondNorm_le_of_endpoint_bounds
+#print axioms endpoint_min_product_le_frozen
+#print axioms frozenStripHypothesis_of_compact_endpoint_bounds
+#print axioms frozenStripHypothesis_of_owner_endpoint_bounds

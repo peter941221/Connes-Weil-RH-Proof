@@ -1,0 +1,103 @@
+{
+  "record": 2345,
+  "status": "INTERIOR_SECOND_DERIVATIVE_CERTIFIED_ZERO_EXTENSION_OPEN",
+  "focused_target": "ConnesWeilRH.Dev.C1RouteAExternalOwnerDerivativesAudit",
+  "build_exit": 0,
+  "build_jobs": 3709,
+  "audited_theorems": [
+    {
+      "name": "familyDeficit2345_pos",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "familyDeficit2345_hasDerivAt",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "familyLog2345_hasDerivAt",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "familyLogFirst2345_hasDerivAt",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "familyInterior2345_hasDerivAt",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "familyFirstFactor2345_hasDerivAt",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "familySecondFactor2345_eq",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "familyInterior2345_firstProduct_hasDerivAt",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "externalFamilyValue2344_hasDerivAt_inside",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "externalFamilyValue2344_secondDerivative_inside",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "source_sha256": {
+    "ConnesWeilRH/Dev/C1RouteAExternalOwnerDerivatives.lean": "74dd3b2371cd6be70506197db8488c16b5ec8b3a590cebc80c09b7b2bd2b244c",
+    "ConnesWeilRH/Dev/C1RouteAExternalOwnerDerivativesAudit.lean": "d125d1aa3f318b465ae47cf8786bebcc6e73c7f66901f0c4b7caedca5f2f677f"
+  },
+  "log": "build-logs/2345_external_owner_derivatives_build_v2.log",
+  "new_source_lint_warnings": 4,
+  "new_source_ring_hint": true,
+  "interior_formula_proved": true,
+  "boundary_and_zero_extension_proved": false,
+  "python_evaluator_semantics_proved": false,
+  "endpoint_numeric_facts_imported": false,
+  "owner_transfer_to_live_consumer": false,
+  "producer_go": false,
+  "rh_claim": false
+}

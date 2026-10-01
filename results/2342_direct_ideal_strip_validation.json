@@ -1,0 +1,23 @@
+{
+  "record": 2342,
+  "tests_passed": 14,
+  "wsl_resource_runner": true,
+  "full_replay_bitwise_identical": true,
+  "full_precision256_control_passed": true,
+  "precision_control_components_overlapping": 40,
+  "precision_control_product_difference_exact": "947889007494314822692859502218154906574888208869547219694777995558359299266908796393151881419087105/49947976805055875702105555676690660891977570282639538413746511354005947821116249921924897649015871538557230897942505966327167610868612564900642816",
+  "continuum_product_upper_display": "[1852190.2152630097130567675516051363046929301088847 +/- 3.47e-44]",
+  "ratio_to_frozen_pin_display": "[0.700382001453459795849622121960 +/- 1.68e-31]",
+  "source_sha256": "257f90ff45e4513b7c9a3f844a04739dc7a8f9e36c12414f1ac7464264f5c71e",
+  "output_sha256": "4812d01de8777facf4d361fd9ebcafa30a16e659810886a1246237fca95962a3",
+  "selftest_sha256": "9afca80b08012e316092c5eb7424f5fea352f39cab549c64b438a80a38231c6e",
+  "precision256_output_sha256": "1771c697728c8dfaf5fc3bf5702e944421150992b93f4482afcbfe70c567ba48",
+  "legacy_2303_point_sums_used": false,
+  "coordinates_exact_uniform": true,
+  "lean_certificate_imported": false,
+  "healthy_detector_instantiated": false,
+  "complete_signed_kernel_priced": false,
+  "owner_transfer_to_live_consumer": false,
+  "producer_go": false,
+  "rh_claim": false
+}

@@ -1,0 +1,30 @@
+{
+  "record": 2343,
+  "status": "LOGICAL-BRIDGE-CERTIFIED_NUMERICAL-ENDPOINTS-EXTERNAL",
+  "focused_target": "ConnesWeilRH.Dev.C1RouteAEndpointStripAudit",
+  "build_jobs": 3707,
+  "build_exit": 0,
+  "source_sha256": {
+    "ConnesWeilRH/Dev/C1RouteAEndpointStrip.lean": "f8e494a7e4e6f3e9d68ac2e48e9f2cf6e5dd524406b6ba766c811d0c34f9e561",
+    "ConnesWeilRH/Dev/C1RouteAEndpointStripAudit.lean": "7fed74134ee80463740053abaed12b0d5de9057d4f543e9f65d55cc12bcec922"
+  },
+  "audited_theorems": [
+    "expWeightedIntegral_le_of_endpoint_bounds",
+    "stripNorm_le_of_endpoint_bounds",
+    "stripSecondNorm_le_of_endpoint_bounds",
+    "endpoint_min_product_le_frozen",
+    "frozenStripHypothesis_of_compact_endpoint_bounds",
+    "frozenStripHypothesis_of_owner_endpoint_bounds"
+  ],
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "endpoint_numeric_facts_imported": false,
+  "external_source_identity_proved": false,
+  "owner_transfer_to_live_consumer": false,
+  "producer_go": false,
+  "rh_claim": false,
+  "log": "build-logs/2343_endpoint_strip_build.log"
+}
