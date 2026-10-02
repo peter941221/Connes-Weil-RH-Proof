@@ -4308,3 +4308,12 @@ new numerical premise. Both declarations audit to [propext, Classical.choice,
 Quot.sound]. The derivative/zeta and weighted node-sum certificate remain
 open. Evidence: `docs/proofs/2467_owner_panel_norm_bridge.md` and
 `ConnesWeilRH/Dev/C1RouteAOwnerPanelNormBridge2467.lean`.
+
+Record 2468 (2026-10-02): the derivative-budget attachment is now owner-
+specific. The exact 2460 radius/coefficient/modulation arrays feed the
+single-family order-≤4 budget, and finite-sum differentiation proves the
+actual owner sum's order-2 norm bound. The result audits to [propext,
+Classical.choice, Quot.sound]. Numerical budget evaluation, weighted node
+sum, trapezoid assembly, and strip attachment remain open. Evidence:
+`docs/proofs/2468_owner_derivative_budget.md` and
+`ConnesWeilRH/Dev/C1RouteAOwnerDerivativeBudget2468.lean`.
