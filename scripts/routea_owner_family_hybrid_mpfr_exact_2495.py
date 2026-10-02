@@ -48,6 +48,13 @@ def abs_iv(value):
     return (0.0, max(abs(value[0]), abs(value[1])))
 
 
+def float_payload(value):
+    value = float(value)
+    numerator, denominator = value.as_integer_ratio()
+    return {"hex": value.hex(), "numerator": str(numerator),
+            "denominator": str(denominator)}
+
+
 def bump_bound(order, radius, left, right, step):
     constants = (1, 60, 3720)
     global_bound = mpfr.mul(iv(Fraction(constants[order])),
@@ -161,7 +168,9 @@ def main():
         baseline = float(factor * sum((Fraction.from_float(x) for x in baseline_cells), Fraction(0)))
         hybrid = float(factor * sum((Fraction.from_float(x) for x in hybrid_cells), Fraction(0)))
         rows.append({"sigma": float(sigma), "baseline_remainder": baseline,
-                     "hybrid_remainder": hybrid, "hybrid_to_baseline": hybrid / baseline})
+                     "hybrid_remainder": hybrid, "hybrid_to_baseline": hybrid / baseline,
+                     "baseline_cell_upper_bounds": [float_payload(x) for x in baseline_cells],
+                     "hybrid_cell_upper_bounds": [float_payload(x) for x in hybrid_cells]})
     old = json.loads(OLD.read_text(encoding="utf-8"))
     old_summary = [{"sigma": row["sigma"],
                     "baseline_remainder": row["baseline_remainder"],

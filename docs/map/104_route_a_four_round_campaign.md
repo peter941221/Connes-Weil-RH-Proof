@@ -4377,3 +4377,16 @@ regenerated before the 2494 bridge can be supplied. No Lean certificate,
 producer GO, or RH claim is made.
 Evidence: `docs/proofs/2495_owner_family_hybrid_mpfr_exact_inputs.md` and
 `results/2495_owner_family_hybrid_mpfr_exact.json`.
+
+Record 2496 (2026-10-03): the corrected 2495 per-cell payloads are now
+regenerated as exact rational literals in a fresh Lean table, with artifact
+SHA256 recorded and an audited consumer bridge. The bridge again leaves only
+the per-cell analytic `hybrid curvature <= table payload` premise; the table
+itself is imported data, not a proof of that premise. The corrected price is
+baseline `635.575993091222`, hybrid `433.0933155503201`, ratio
+`0.6814186191078487`, for both sigma signs. This is a binding/interface
+milestone only; the analytic enclosure and selected-detector producer margin
+remain open, with no producer GO or RH claim.
+Evidence: `docs/proofs/2496_owner_family_hybrid_corrected_rational_binding.md`,
+`scripts/routea_owner_family_hybrid_table_2496.py`, and
+`ConnesWeilRH/Dev/C1RouteAOwnerFamilyHybridTableBridge2496.lean`.
