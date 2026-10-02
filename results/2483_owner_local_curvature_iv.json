@@ -1,0 +1,6442 @@
+{
+  "record": 2477,
+  "status": "MPMATH_IV_STRUCTURE_SMOKE_NOT_PROJECT_CERTIFICATE",
+  "cells": 40,
+  "subdiv": 16,
+  "effective_cells": 640,
+  "step": 0.02048000000000001,
+  "rows": [
+    {
+      "sigma": "-0.5",
+      "max_cell": 7049861.980456904,
+      "binding_index": 0,
+      "cell_upper_bounds": [
+        {
+          "hex": "0x1.ae4a17ebfce50p+22",
+          "numerator": "473108228865253",
+          "denominator": "67108864"
+        },
+        {
+          "hex": "0x1.a9e7df0135dccp+22",
+          "numerator": "1873153282594675",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.a59114ea4b0afp+22",
+          "numerator": "7416280263209135",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.a1459bd5e1f61p+22",
+          "numerator": "7340725056184161",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.9d055640646a7p+22",
+          "numerator": "7265939586696871",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.98d026f335a8bp+22",
+          "numerator": "7191916012853899",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.94a5f103e9a41p+22",
+          "numerator": "7118646572653121",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.908697d37e4d8p+22",
+          "numerator": "880765447896219",
+          "denominator": "134217728"
+        },
+        {
+          "hex": "0x1.8c71ff0d96e40p+22",
+          "numerator": "108974053746105",
+          "denominator": "16777216"
+        },
+        {
+          "hex": "0x1.88680aa7b9465p+22",
+          "numerator": "6903286615217253",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.84689ee08d40bp+22",
+          "numerator": "6832957659075595",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.8073a03f1dd0ep+22",
+          "numerator": "3381672598367879",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.7c88f3921c5aep+22",
+          "numerator": "3347220964369111",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.78a87def25cbdp+22",
+          "numerator": "6626240629988541",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.74d224b209a2ap+22",
+          "numerator": "3279367074499861",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.7105cd7c12dbap+22",
+          "numerator": "3245957703571165",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.6d435e3352b9bp+22",
+          "numerator": "6425777397902235",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.698abd01ed67fp+22",
+          "numerator": "6360313186145919",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.65dbd055686f6p+22",
+          "numerator": "3147757953696635",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.62367eddfafb4p+22",
+          "numerator": "1557844691774445",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.5e9aaf8ddfe80p+22",
+          "numerator": "48186679999485",
+          "denominator": "8388608"
+        },
+        {
+          "hex": "0x1.5b084998a997cp+22",
+          "numerator": "1526264517273183",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.577f347297880p+22",
+          "numerator": "47209853637361",
+          "denominator": "8388608"
+        },
+        {
+          "hex": "0x1.53ff57cfeda38p+22",
+          "numerator": "747662263442247",
+          "denominator": "134217728"
+        },
+        {
+          "hex": "0x1.50889ba44d4c2p+22",
+          "numerator": "2960181069769313",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.4d1ae82210188p+22",
+          "numerator": "732505871491121",
+          "denominator": "134217728"
+        },
+        {
+          "hex": "0x1.49b625b9a4400p+22",
+          "numerator": "5664400664209",
+          "denominator": "1048576"
+        },
+        {
+          "hex": "0x1.465a3d18eab24p+22",
+          "numerator": "1435313451018953",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.4307172a96d41p+22",
+          "numerator": "5682763347356993",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.3fbc9d158fdeap+22",
+          "numerator": "2812434388385525",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.3c7ab83c53dcfp+22",
+          "numerator": "5567564021579215",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.3941523c5c418p+22",
+          "numerator": "688855384111235",
+          "denominator": "134217728"
+        },
+        {
+          "hex": "0x1.361054ed8412dp+22",
+          "numerator": "5454699983028525",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.32e7aa616fa82p+22",
+          "numerator": "2699564432457025",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.2fc73ce2f5f35p+22",
+          "numerator": "5344123891441461",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.2caef6f58b547p+22",
+          "numerator": "5289679294870855",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.299ec354adf17p+22",
+          "numerator": "5235789366222615",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.26968cf3538fep+22",
+          "numerator": "2591224227339391",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.23963efb58eb4p+22",
+          "numerator": "1282412741747629",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.209dc4ccf284bp+22",
+          "numerator": "5077391366891595",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.1dad09fe1ee85p+22",
+          "numerator": "5025664174517893",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.1ac3fa5a1a63dp+22",
+          "numerator": "4974463965832765",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.17e281e0d42bbp+22",
+          "numerator": "4923785372058299",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.15088cc664e97p+22",
+          "numerator": "4873623079112343",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.1236077286b17p+22",
+          "numerator": "4823971827051287",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.0f6ade800e5aep+22",
+          "numerator": "2387413204759255",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.0ca6febc66371p+22",
+          "numerator": "4726181673198449",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.09ea55270a243p+22",
+          "numerator": "4678032517276227",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.0734cef104f8dp+22",
+          "numerator": "4630373892902797",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.0486597c6f431p+22",
+          "numerator": "4583200802665521",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.01dee25bef58fp+22",
+          "numerator": "4536508300064143",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.fe7caea475702p+21",
+          "numerator": "4490291488992129",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.f9494ca331588p+21",
+          "numerator": "1111136380805809",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.f4237af6cc816p+21",
+          "numerator": "4399265605903371",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.ef0b163f36e47p+21",
+          "numerator": "8708893978095175",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.e9fffb78a3459p+21",
+          "numerator": "8620169946084441",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.e50207fa9693dp+21",
+          "numerator": "8532349812304189",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.e0111976f9bd2p+21",
+          "numerator": "4222712184032745",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.db2d0df92df05p+21",
+          "numerator": "8359384498495237",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.d655c3e523450p+21",
+          "numerator": "517138823848773",
+          "denominator": "134217728"
+        },
+        {
+          "hex": "0x1.d18b19f671c46p+21",
+          "numerator": "4094962743610915",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.ccccef3f74cc9p+21",
+          "numerator": "8106488576298185",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.c81b232868c82p+21",
+          "numerator": "4011950849869377",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.c375956e8b334p+21",
+          "numerator": "1985539049401549",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.bedc26233cea0p+21",
+          "numerator": "245663859318389",
+          "denominator": "67108864"
+        },
+        {
+          "hex": "0x1.ba4eb5ab26b7cp+21",
+          "numerator": "1945288779274975",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.b5cd24bd60240p+21",
+          "numerator": "120341916506121",
+          "denominator": "33554432"
+        },
+        {
+          "hex": "0x1.b157546298747p+21",
+          "numerator": "7623417803671367",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.aced25f441e13p+21",
+          "numerator": "7545752331230739",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.a88e7b1bbef1dp+21",
+          "numerator": "7468878095183645",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.a43b35d192036p+21",
+          "numerator": "3696393517305883",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.9ff3385c8ee92p+21",
+          "numerator": "3658735585359689",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.9bb665510ead2p+21",
+          "numerator": "3621461302998377",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.97849f90255ffp+21",
+          "numerator": "7169133523391999",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.935dca46d9fc5p+21",
+          "numerator": "7096096185491397",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.8f41c8ed60521p+21",
+          "numerator": "7023802933708065",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.8b307f4654f64p+21",
+          "numerator": "1738061546869721",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.8729d15dfb331p+21",
+          "numerator": "6881418443469617",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.832da3897cf14p+21",
+          "numerator": "1702828068697029",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.7f3bda662c971p+21",
+          "numerator": "6741920330205553",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.7b545ad8c8d69p+21",
+          "numerator": "6673235333385577",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.77770a0cc2676p+21",
+          "numerator": "3302625041060667",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.73a3cd7383a57p+21",
+          "numerator": "6537957447580247",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.6fda8ac3ba117p+21",
+          "numerator": "6471350373556503",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.6c1b27f8a1accp+21",
+          "numerator": "1601355468932787",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.68658b51522c8p+21",
+          "numerator": "792520630117465",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.64b99b500dff2p+21",
+          "numerator": "3137786513223673",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.61173eb9931fcp+21",
+          "numerator": "1552909764807807",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.5d7e5c946db10p+21",
+          "numerator": "384272277204401",
+          "denominator": "134217728"
+        },
+        {
+          "hex": "0x1.59eedc284c5f4p+21",
+          "numerator": "1521429629710717",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.5668a4fd567d9p+21",
+          "numerator": "6023718741829593",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.52eb9edb83e39p+21",
+          "numerator": "5962350603025977",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.4f77b1c9f67bfp+21",
+          "numerator": "5901607667460031",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.4c0cc60e5589dp+21",
+          "numerator": "5841483565717661",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.48aac42c2a98dp+21",
+          "numerator": "5781971993274765",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.455194e44017fp+21",
+          "numerator": "5723066709836159",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.4201213401983p+21",
+          "numerator": "5664761538681219",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.3eb95254ddad0p+21",
+          "numerator": "350440647876013",
+          "denominator": "134217728"
+        },
+        {
+          "hex": "0x1.3b7a11bba9685p+21",
+          "numerator": "5549927140333189",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.38434918056f1p+21",
+          "numerator": "5493385871775473",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.3514e253c4a1ap+21",
+          "numerator": "2718710315754765",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.31eec79254549p+21",
+          "numerator": "5382025551103305",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.2ed0e33026149p+21",
+          "numerator": "5327194821910857",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.2bbb1fc21af2fp+21",
+          "numerator": "5272922694463279",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.28ad6814f0555p+21",
+          "numerator": "5219203477865813",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.25a7a72cae451p+21",
+          "numerator": "5166031539201105",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.22a9c844173cap+21",
+          "numerator": "2556700651469285",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.1fb3b6cc19692p+21",
+          "numerator": "2530653625174857",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.1cc55e6b4164cp+21",
+          "numerator": "1252435979732371",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.19deaafd2e5d6p+21",
+          "numerator": "2479352950911723",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.16ff889207abdp+21",
+          "numerator": "4908187847260861",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.1427e36df3d04p+21",
+          "numerator": "1214546114498369",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.1157a80890d7bp+21",
+          "numerator": "4808690490740091",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.0e8ec30c6e1f9p+21",
+          "numerator": "4759700755636729",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.0bcd2156877aep+21",
+          "numerator": "2355605057846231",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.0912aff5c1ae7p+21",
+          "numerator": "4663213486250727",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.065f5c2a68472p+21",
+          "numerator": "2307852917228089",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.03b31365acc18p+21",
+          "numerator": "571085272340867",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.010dc34927028p+21",
+          "numerator": "565267198529029",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.fcdeb34cae38dp+20",
+          "numerator": "8952134364750733",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.f7af88fc50ba4p+20",
+          "numerator": "2215233065140969",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.f28de400eb448p+20",
+          "numerator": "1096332412573321",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.ed79a1171ddf6p+20",
+          "numerator": "4340653009465083",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.e8729d57808b6p+20",
+          "numerator": "4296431523071067",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.e378b635b3652p+20",
+          "numerator": "4252660554111785",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.de8bc97f713b4p+20",
+          "numerator": "2104667756414189",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.d9abb55ba48e4p+20",
+          "numerator": "2083225928110649",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.d4d858497ef6cp+20",
+          "numerator": "2062002543786971",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.d011911f92e93p+20",
+          "numerator": "8163981511962259",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.cb573f0aefd29p+20",
+          "numerator": "8080808911764777",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.c6a9418e40872p+20",
+          "numerator": "3999241826599993",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.c2077880ebfdfp+20",
+          "numerator": "7916997103763423",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.bd71c40e38521p+20",
+          "numerator": "7836340718896417",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.b8e804b470050p+20",
+          "numerator": "484781627568133",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.b46a1b44097a2p+20",
+          "numerator": "3838742349499345",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.aff7e8ded0a8bp+20",
+          "numerator": "7599268406561419",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.ab914ef712fb9p+20",
+          "numerator": "7521848962133945",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.a7362f4ecd5a1p+20",
+          "numerator": "7445218247628193",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.a2e66bf6dc555p+20",
+          "numerator": "7369368227661141",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.9ea1e74e2e72cp+20",
+          "numerator": "1823572737178059",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.9a688400f88fbp+20",
+          "numerator": "7219978538289403",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.963a2507ec579p+20",
+          "numerator": "7146423204103545",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.9216ada770c81p+20",
+          "numerator": "7073617233251457",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.8dfe016edcbd4p+20",
+          "numerator": "1750388247851765",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.89f00437b380cp+20",
+          "numerator": "1732555730505219",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.85ec9a24e3573p+20",
+          "numerator": "6859619545527667",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.81f3a7a206051p+20",
+          "numerator": "6789735458562129",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.7e051162a3482p+20",
+          "numerator": "3360281666591297",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.7a20bc61753e4p+20",
+          "numerator": "1663023979025657",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.76468ddfaeb5ep+20",
+          "numerator": "3292163013965231",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.72766b6443630p+20",
+          "numerator": "407327910151011",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.6eb03abb31f31p+20",
+          "numerator": "6450850485706545",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.6af3e1f4cffb7p+20",
+          "numerator": "6385130835607479",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.6741476517bdcp+20",
+          "numerator": "1580020180213495",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.639851a2f7bcap+20",
+          "numerator": "3127846660193765",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.5ff8e787a41d4p+20",
+          "numerator": "1547990470660213",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.5c62f02de9cf8p+20",
+          "numerator": "766109965603743",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.58d652f183797p+20",
+          "numerator": "6066440232253335",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.5552f76e7020ep+20",
+          "numerator": "3002318428799239",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.51d8c5804b8e6p+20",
+          "numerator": "2971731560127603",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.4e67a541a865cp+20",
+          "numerator": "1470728151409047",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.4aff7f0b6beecp+20",
+          "numerator": "1455744741126075",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.47a03b742b8adp+20",
+          "numerator": "5763655912306861",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.4449c34f8bd1dp+20",
+          "numerator": "5704937228516637",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.40fbffada152fp+20",
+          "numerator": "5646816755979567",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.3db6d9da52f52p+20",
+          "numerator": "2794644200134569",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.3a7a3b5cbdf1ep+20",
+          "numerator": "2766173064523663",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.37460df69b67bp+20",
+          "numerator": "5475983971432059",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.341a3ba3a77ebp+20",
+          "numerator": "5420196017371115",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.30f6ae990a1c8p+20",
+          "numerator": "670622052127801",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.2ddb5144c121ep+20",
+          "numerator": "2655159690070287",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.2ac80e4d0c300p+20",
+          "numerator": "20532106154179",
+          "denominator": "16777216"
+        },
+        {
+          "hex": "0x1.27bcd08fd9ef7p+20",
+          "numerator": "5202670130142967",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.24b9832236d63p+20",
+          "numerator": "5149666629086563",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.21be114fbd684p+20",
+          "numerator": "1274300778608033",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.1eca669a07efbp+20",
+          "numerator": "5045274084933371",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.1bde6eb823a70p+20",
+          "numerator": "312117130961831",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.18fa159605533p+20",
+          "numerator": "4942997756073267",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.161d4753ff497p+20",
+          "numerator": "4892639732167831",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.1347f04638dc6p+20",
+          "numerator": "2421397371602659",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.1079fcf4272e0p+20",
+          "numerator": "149795548828567",
+          "denominator": "134217728"
+        },
+        {
+          "hex": "0x1.0db35a1807619p+20",
+          "numerator": "4744623016670745",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.0af3f49e5a2acp+20",
+          "numerator": "1174071496239275",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.083bb9a560b69p+20",
+          "numerator": "4648441398823785",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.058a967c9ae95p+20",
+          "numerator": "4601084241358485",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.02e078a446efep+20",
+          "numerator": "2277104773379967",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.003d4dcce21f6p+20",
+          "numerator": "2253906199908603",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.fb4207ad56417p+19",
+          "numerator": "8923775870788631",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.f61711a24ac7bp+19",
+          "numerator": "8832862675840123",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.f0f995f53bb0dp+19",
+          "numerator": "8742875681766157",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.ebe9717f61cf3p+19",
+          "numerator": "8653805452664051",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.e6e68175a358cp+19",
+          "numerator": "2141410662190435",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.e1f0a367a4cd2p+19",
+          "numerator": "4239189012719209",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.dd07b53edc4b6p+19",
+          "numerator": "4196001216127579",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.d82b953da751bp+19",
+          "numerator": "8306506811995419",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.d35c21fe62df0p+19",
+          "numerator": "513867637482207",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.ce993a7285f25p+19",
+          "numerator": "8138119721803557",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.c9e2bde1be5f7p+19",
+          "numerator": "8055210595050999",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.c5388be90ff58p+19",
+          "numerator": "996643265716203",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.c09a8479f5eecp+19",
+          "numerator": "1972979427170235",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.bc0887d986a59p+19",
+          "numerator": "7811516826413657",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.b782769f9987ap+19",
+          "numerator": "3865967524105277",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.b30831b5ef420p+19",
+          "numerator": "239161375913889",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.ae999a575c1fdp+19",
+          "numerator": "7575195509703165",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.aa36920ef4966p+19",
+          "numerator": "3749010656961715",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.a5defab73bf8ep+19",
+          "numerator": "3710816674766791",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.a192b679554d4p+19",
+          "numerator": "1836505901651253",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.9d51a7cc363ebp+19",
+          "numerator": "7271184156812267",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.991bb173dc24cp+19",
+          "numerator": "1799276788150419",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.94f0b680831ecp+19",
+          "numerator": "1780946206592123",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.90d09a4ddf388p+19",
+          "numerator": "881401186205297",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.8cbb408257974p+19",
+          "numerator": "1744843383070301",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.88b08d0e43a6fp+19",
+          "numerator": "6908269421673071",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.84b0642b2a447p+19",
+          "numerator": "6837889701946439",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.80baaa5b02de3p+19",
+          "numerator": "6768226993188323",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.7ccf44677886bp+19",
+          "numerator": "6699273990670443",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.78ee17612ef3fp+19",
+          "numerator": "6631023464083263",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.7517089f09667p+19",
+          "numerator": "6563468256777831",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.7149fdbd7372fp+19",
+          "numerator": "6496601285015343",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.6d86dc9dabaa2p+19",
+          "numerator": "3215207768612177",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.69cd8b6510190p+19",
+          "numerator": "397806504579097",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.661df07c6c9dcp+19",
+          "numerator": "1575015005926007",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.6277f28f4b0bdp+19",
+          "numerator": "6235876589088957",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.5edb788b451a9p+19",
+          "numerator": "6172347039240617",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.5b48699f5819fp+19",
+          "numerator": "6109464712544671",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.57bead3b3a68ap+19",
+          "numerator": "3023611507626821",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.543e2b0eb2a71p+19",
+          "numerator": "5985615420795505",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.50c6cb08f0a22p+19",
+          "numerator": "2962317734544657",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.4d587557e7f20p+19",
+          "numerator": "183258648933369",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.49f31267ac48fp+19",
+          "numerator": "5804532982006927",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.46968ae1cf6b9p+19",
+          "numerator": "5745397852862137",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.4342c7acc0d12p+19",
+          "numerator": "2843432588805769",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.3ff7b1eb2ee53p+19",
+          "numerator": "5628928818605651",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.3cb532fb69e79p+19",
+          "numerator": "5571582700723833",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.397b3476c8660p+19",
+          "numerator": "172338150335539",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.3649a0310d4bdp+19",
+          "numerator": "5458637196678333",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.33206037cf827p+19",
+          "numerator": "5403025967216679",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.2fff5ed1e31fdp+19",
+          "numerator": "5347981291041277",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.2ce6867ec41e0p+19",
+          "numerator": "165421793632783",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.29d5c1f60297ep+19",
+          "numerator": "2619784284869823",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.26ccfc26b087ep+19",
+          "numerator": "2593094578308159",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.23cc2036d1032p+19",
+          "numerator": "2566676779796505",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.20d31982c8ef7p+19",
+          "numerator": "5081056238407415",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.1de1d39cd12dbp+19",
+          "numerator": "5029291709240027",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.1af83a4c6a374p+19",
+          "numerator": "1244513636034781",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.1816398dd128ap+19",
+          "numerator": "2463669685225797",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.153bbd9176376p+19",
+          "numerator": "2438570435129787",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.1268b2bb748e1p+19",
+          "numerator": "4827453779822817",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.0f9d05a30b8b1p+19",
+          "numerator": "4778272889026737",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.0cd8a31219604p+19",
+          "numerator": "1182398260209025",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.0a1b7804970ccp+19",
+          "numerator": "1170352282688563",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.076571a815b03p+19",
+          "numerator": "4633716106287875",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.04b67d5b3d322p+19",
+          "numerator": "2293254483208593",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.020e88ad4c3b7p+19",
+          "numerator": "4539782761071543",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.fedb02bb32f9bp+18",
+          "numerator": "8987065181220763",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.f9a6aab62c814p+18",
+          "numerator": "2223876802654725",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.f47fe587a4865p+18",
+          "numerator": "8804882009704549",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.ef668fc9019e5p+18",
+          "numerator": "8715180075653605",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.ea5a866ffe356p+18",
+          "numerator": "4313196001227179",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.e55ba6cdb7c27p+18",
+          "numerator": "8538508479921191",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.e069ce8dc06f6p+18",
+          "numerator": "4225760146359163",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.db84dbb5332f2p+18",
+          "numerator": "4182709159696761",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.d6acaca1ca3a7p+18",
+          "numerator": "8280193531421607",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.d1e12008f7ee7p+18",
+          "numerator": "8195836992257767",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.cd2214f702054p+18",
+          "numerator": "2028084964100117",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.c86f6ace1f23bp+18",
+          "numerator": "8029693368463931",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.c3c9014596b5cp+18",
+          "numerator": "1986972215565015",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.bf2eb868e312ap+18",
+          "numerator": "3933458879944853",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.baa07096d5e4fp+18",
+          "numerator": "7786771570843215",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.b61e0a80bece9p+18",
+          "numerator": "7707441891110121",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.b1a7672994437p+18",
+          "numerator": "7628920402297911",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.ad3c67e51e95ep+18",
+          "numerator": "3775599435379887",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.a8dcee57252dfp+18",
+          "numerator": "7474269146731231",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.a488dc729de6cp+18",
+          "numerator": "1849530790868891",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.a0401478de8bdp+18",
+          "numerator": "7322752936437949",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.9c0278f8d0710p+18",
+          "numerator": "453009410150513",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.97cfecce261fcp+18",
+          "numerator": "1793577054673023",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.93a8532093138p+18",
+          "numerator": "887652270286375",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.8f8b8f6305812p+18",
+          "numerator": "3514436364545033",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.8b798552e2228p+18",
+          "numerator": "869658041631813",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.877218f74202bp+18",
+          "numerator": "6886385465434155",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.83752ea03243ep+18",
+          "numerator": "3408114346988063",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.7f82aae5f5db0p+18",
+          "numerator": "421674166384091",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.7b9a72a8493b9p+18",
+          "numerator": "6678052088353721",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.77bc6b0da7ee9p+18",
+          "numerator": "6610017765195497",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.73e87982940fbp+18",
+          "numerator": "6542676558692603",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.701e83b8dfabcp+18",
+          "numerator": "1619005351886511",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.6c5e6fa6f7facp+18",
+          "numerator": "1602511330598891",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.68a8238732730p+18",
+          "numerator": "396546336567923",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.64fb85d71bad5p+18",
+          "numerator": "6280102747945685",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.61587d56c8179p+18",
+          "numerator": "6216122633060729",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.5dbef10826711p+18",
+          "numerator": "6152794331571985",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.5a2ec82e540a7p+18",
+          "numerator": "6090111202967719",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.56a7ea4cf2c69p+18",
+          "numerator": "6028066674388073",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.532a3f2780d5ep+18",
+          "numerator": "2983327119967919",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.4fb5aec0b228fp+18",
+          "numerator": "5905867459994255",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.4c4a2159cb95dp+18",
+          "numerator": "5845699960551773",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.48e77f71ffaa8p+18",
+          "numerator": "723268179066709",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.458db1c5cd29cp+18",
+          "numerator": "1431799407785127",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.423ca14e5f2cap+18",
+          "numerator": "2834425187596645",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.3ef43740eee53p+18",
+          "numerator": "5611097546485331",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.3bb45d0e26fdfp+18",
+          "numerator": "5553933089140703",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.387cfc6188919p+18",
+          "numerator": "5497351008979225",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.354dff20d1b76p+18",
+          "numerator": "2720672686443963",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.32274f6b659f5p+18",
+          "numerator": "5385910308198901",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.2f08d799b63afp+18",
+          "numerator": "5331040002073519",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.2bf2823caf6dfp+18",
+          "numerator": "5276728700892895",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.28e43a1d23c26p+18",
+          "numerator": "2611485354827283",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.25ddea3b3a9e8p+18",
+          "numerator": "646220048921917",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.22df7dcddff55p+18",
+          "numerator": "5117092166500181",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.1fe8e04235701p+18",
+          "numerator": "5064960512317185",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.1cf9fd3b050c8p+18",
+          "numerator": "626669995297305",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.1a12c090352bbp+18",
+          "numerator": "4962285105926843",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.1733164e3e0d6p+18",
+          "numerator": "2455865293664363",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.145aeab5a0b58p+18",
+          "numerator": "607711388189035",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.118a2a3a5f366p+18",
+          "numerator": "2406080706705843",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.0ec0c183765d9p+18",
+          "numerator": "4763136317416921",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.0bfe9d6a58be5p+18",
+          "numerator": "4714610676829157",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.0943aafa6b17bp+18",
+          "numerator": "4666579403321723",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.068fd77082110p+18",
+          "numerator": "288689841275409",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.03e3103a614abp+18",
+          "numerator": "4571979862906027",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.013d42f63bbedp+18",
+          "numerator": "4525401676430317",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.fd3cbae46ade7p+17",
+          "numerator": "8958596033719783",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.f80c9b57ccb8bp+17",
+          "numerator": "8867328099666827",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.f2ea039fbd851p+17",
+          "numerator": "8776989980481617",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.edd4d0725934bp+17",
+          "numerator": "8687572203443019",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.e8ccdee1c4aedp+17",
+          "numerator": "8599065392335597",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.e3d20c5b3dc9fp+17",
+          "numerator": "8511460266466463",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.dee436a62db46p+17",
+          "numerator": "4212373819846051",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.da033be33dc97p+17",
+          "numerator": "8338918419455127",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.d52efa8b6ecc6p+17",
+          "numerator": "4126981802915427",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.d067516f32818p+17",
+          "numerator": "1021234286322947",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.cbac1fb587a10p+17",
+          "numerator": "505415103514529",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.c6fd44db181bdp+17",
+          "numerator": "8004256975126973",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.c25aa0b159ae1p+17",
+          "numerator": "7922711608531681",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.bdc4135db0b77p+17",
+          "numerator": "7841997005720439",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.b9397d589554bp+17",
+          "numerator": "7762104703079755",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.b4babf6cbab40p+17",
+          "numerator": "120047286300333",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.b047bab6389ecp+17",
+          "numerator": "1901188393525883",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.abe050a1b731dp+17",
+          "numerator": "7527278248162077",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.a78462eb9cc06p+17",
+          "numerator": "3725296110724611",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.a333d39f3dda4p+17",
+          "numerator": "1843671863195497",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.9eee85160f70bp+17",
+          "numerator": "7299555982898955",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.9ab459f6db143p+17",
+          "numerator": "7225189933625667",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.96853534f5459p+17",
+          "numerator": "7151581507048537",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.9260fa0f75d54p+17",
+          "numerator": "1769680746174293",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.8e478c10724a7p+17",
+          "numerator": "7006606726735015",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.8a38cf0c3a4f6p+17",
+          "numerator": "3467612585579131",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.8634a72096199p+17",
+          "numerator": "6864570833002905",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.823af8b406cc6p+17",
+          "numerator": "3397318151779939",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.7e4ba87508cedp+17",
+          "numerator": "6725414249598189",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.7a669b59580fdp+17",
+          "numerator": "6656897412595965",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.768bb69d3634dp+17",
+          "numerator": "6589078607979341",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.72badfc2b2ac1p+17",
+          "numerator": "6521950724369089",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.6ef3fc90f49f6p+17",
+          "numerator": "3227753361417467",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.6b36f31386c15p+17",
+          "numerator": "6389739636157461",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.6783a999a4f06p+17",
+          "numerator": "3162321284048771",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.63da06b58bab6p+17",
+          "numerator": "3130104346336603",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.6039f13bc9528p+17",
+          "numerator": "774553906680485",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.5ca35042912fbp+17",
+          "numerator": "6133303562801915",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.59160b2110428p+17",
+          "numerator": "758852375158917",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.5592096ec3ca2p+17",
+          "numerator": "3004485508406865",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.52173302d189ep+17",
+          "numerator": "2973876562070607",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.4ea56ff361c2ap+17",
+          "numerator": "2943579452018197",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.4b3ca894fadd7p+17",
+          "numerator": "5827182002679255",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.47dcc579dec31p+17",
+          "numerator": "5767816130980913",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.4485af7169dacp+17",
+          "numerator": "1427263765981035",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.41374f8773aeap+17",
+          "numerator": "2825446319955317",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.3df18f03b12ddp+17",
+          "numerator": "5593322760114909",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.3ab45769188b6p+17",
+          "numerator": "2768169693922395",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.377f927546b38p+17",
+          "numerator": "684992068488551",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.34532a1fe6546p+17",
+          "numerator": "2712054162993827",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.312f089a1875dp+17",
+          "numerator": "5368848868018013",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.2e13184dde9b8p+17",
+          "numerator": "664269047446839",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.2aff43dd866e8p+17",
+          "numerator": "657501640658141",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.27f3762316e96p+17",
+          "numerator": "2603212714063691",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.24ef9a2fbf037p+17",
+          "numerator": "5153383669035063",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.21f39b4b45d6dp+17",
+          "numerator": "5100882286108013",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.1eff64f37c3dcp+17",
+          "numerator": "1262228943532279",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.1c12e2dbafe36p+17",
+          "numerator": "2498739341983515",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.192e00ec1fc40p+17",
+          "numerator": "77290087843825",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.1650ab4172193p+17",
+          "numerator": "4896171249574291",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.137ace2c2badep+17",
+          "numerator": "2423145141198191",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.10ac56302896fp+17",
+          "numerator": "4796917490026863",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.0de53004164d3p+17",
+          "numerator": "4748047695307987",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.0b254890ef230p+17",
+          "numerator": "293729735864099",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.086c8cf17715cp+17",
+          "numerator": "1162949163342935",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.05baea71b9f3ep+17",
+          "numerator": "2302202656706463",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.03104e8e8ad5ep+17",
+          "numerator": "2278748392281775",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.006ca6f504e6cp+17",
+          "numerator": "1127766537016219",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.fb9fc3041af07p+16",
+          "numerator": "8930217070538503",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.f673d883aebe5p+16",
+          "numerator": "8839238254259173",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.f1556adecf2b6p+16",
+          "numerator": "4374593153694043",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.ec4456e8363acp+16",
+          "numerator": "2165012946802923",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.e74079ce5c458p+16",
+          "numerator": "1071478168402059",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.e249b11a88b1ap+16",
+          "numerator": "4242248868054413",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.dd5fdaafe51d9p+16",
+          "numerator": "8398059796845017",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.d882d4ca92f57p+16",
+          "numerator": "8312502465670999",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.d3b27dfec3674p+16",
+          "numerator": "2056954192792989",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.ceeeb537d1bacp+16",
+          "numerator": "2035998458332907",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.ca3759b75ff97p+16",
+          "numerator": "8061024862601111",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.c58c4b1475ee3p+16",
+          "numerator": "7978901158977251",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.c0ed693aa2692p+16",
+          "numerator": "3948807055545161",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.bc5a94691ecf3p+16",
+          "numerator": "7817155195301107",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.b7d3ad31f4e14p+16",
+          "numerator": "1934378993701765",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.b358947926c44p+16",
+          "numerator": "1914672024689425",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.aee92b73d9348p+16",
+          "numerator": "947582912672361",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.aa8553a77feeap+16",
+          "numerator": "3751716700553077",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.a62ceee90c38bp+16",
+          "numerator": "7426990299726731",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.a1dfdf5c1d94bp+16",
+          "numerator": "7351325981530443",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.9d9e077234891p+16",
+          "numerator": "7276432512469137",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.996749e9e786dp+16",
+          "numerator": "7202302039324781",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.953b89ce19db4p+16",
+          "numerator": "1782231697221485",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.911aaa7534b3fp+16",
+          "numerator": "7056299067132735",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.8d048f8062240p+16",
+          "numerator": "109131425912969",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.88f91cdaca2f4p+16",
+          "numerator": "1728313956182205",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.84f836b8d1d15p+16",
+          "numerator": "6842825304775957",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.8101c1975bf89p+16",
+          "numerator": "6773112313331593",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.7d15a23b0c78cp+16",
+          "numerator": "1676027385098723",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.7933bdaf8ce50p+16",
+          "numerator": "414738109402341",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.755bf946d3573p+16",
+          "numerator": "6568205781644659",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.718e3a986b155p+16",
+          "numerator": "6501290545164629",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.6dca6780bf1a5p+16",
+          "numerator": "6435057024364965",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.6a10662066729p+16",
+          "numerator": "6369498274096937",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.66601cdb7272bp+16",
+          "numerator": "6304607419967275",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.62b97258beb86p+16",
+          "numerator": "3120188828808643",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.5f1c4d8142fb8p+16",
+          "numerator": "772100281501175",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.5b88957f66a07p+16",
+          "numerator": "6113874536720903",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.57fe31be56116p+16",
+          "numerator": "3025793956622475",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.547d09e959cf1p+16",
+          "numerator": "5989935850298609",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.510505eb2f3fep+16",
+          "numerator": "2964455941569023",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.4d960ded632d4p+16",
+          "numerator": "1467127403220149",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.4a300a57adf69p+16",
+          "numerator": "5808722705833833",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.46d2e3cf51695p+16",
+          "numerator": "5749544892831381",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.437e83367845fp+16",
+          "numerator": "5690969968575583",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.4032d1ab97623p+16",
+          "numerator": "5632991790986787",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.3cefb888d06cep+16",
+          "numerator": "2787802140279655",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.39b52163564bep+16",
+          "numerator": "2759400709861983",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.3682f60ad30cfp+16",
+          "numerator": "5462577252217039",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.33592088cf6ccp+16",
+          "numerator": "1351731470613939",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.30378b201be6ep+16",
+          "numerator": "2675920737460023",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.2d1e204c3b543p+16",
+          "numerator": "5297318253540675",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.2a0ccac0cf0a2p+16",
+          "numerator": "2621675250546769",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.2703756904804p+16",
+          "numerator": "1297483139650049",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.24020b67046f1p+16",
+          "numerator": "5137058824734449",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.21087813636d0p+16",
+          "numerator": "317795234702189",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.1e16a6fc93fcep+16",
+          "numerator": "2516460931162087",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.1b2c83e65a138p+16",
+          "numerator": "622705964266535",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.1849fac940065p+16",
+          "numerator": "4930895934128229",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.156ef7d20cea2p+16",
+          "numerator": "2440330600277841",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.129b67613c53bp+16",
+          "numerator": "4830938245875003",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.0fcf360a77805p+16",
+          "numerator": "4781721856210949",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.0d0a50940fd9ap+16",
+          "numerator": "2366503435402957",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.0a4ca3f67ada2p+16",
+          "numerator": "2342394090739409",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.07961d5bcf45fp+16",
+          "numerator": "4637060732089439",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.04e6aa1f43bb2p+16",
+          "numerator": "2294909759004121",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.023e37ccae947p+16",
+          "numerator": "4543059585591623",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.ff3968400e2cep+15",
+          "numerator": "4496776031662439",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.fa041a09cfd82p+15",
+          "numerator": "4450964002995905",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.f4dc612c25ccap+15",
+          "numerator": "4405618695810661",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.efc21a39ec078p+15",
+          "numerator": "1090183838816271",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.eab522226369ep+15",
+          "numerator": "4316309274958671",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.e5b5563040c4cp+15",
+          "numerator": "2136167898219283",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.e0c29408be511p+15",
+          "numerator": "8457620617422097",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.dbdcb9aaaf9dep+15",
+          "numerator": "4185728247758063",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.d703a56d97decp+15",
+          "numerator": "2071542548029307",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.d2373600c2a28p+15",
+          "numerator": "1025219095528773",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.cd774a6a5ede9p+15",
+          "numerator": "8118195359968745",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.c8c3c2069c564p+15",
+          "numerator": "2008872304406873",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.c41c7c86cb49fp+15",
+          "numerator": "7953625664763039",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.bf8159f07e766p+15",
+          "numerator": "3936298058642355",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.baf23a9caf502p+15",
+          "numerator": "3896196039277185",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.b66eff36e482dp+15",
+          "numerator": "7713005138495533",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.b1f788bc5aa16p+15",
+          "numerator": "3817213486355723",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.ad8bb87b2f0c4p+15",
+          "numerator": "1889162335403057",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.a92b70118d032p+15",
+          "numerator": "3739832044775449",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.a4d6916cdcd88p+15",
+          "numerator": "925432892996017",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.a08cfec8f54c8p+15",
+          "numerator": "916004814318233",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.9c4e9aaf4efbap+15",
+          "numerator": "3626691146184669",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.981b47f639e9cp+15",
+          "numerator": "1794871662274471",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.93f2e9c015169p+15",
+          "numerator": "7106343836143977",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.8fd5637a88235p+15",
+          "numerator": "7033946183860789",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.8bc298ddbef73p+15",
+          "numerator": "6962286100737907",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.87ba6deba76a8p+15",
+          "numerator": "861419509075669",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.83bcc6ef30e64p+15",
+          "numerator": "1705287165461401",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.7fc9887b8dff8p+15",
+          "numerator": "843957063326719",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.7be0976b77fd6p+15",
+          "numerator": "3341436160032747",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.7801d8e07450ap+15",
+          "numerator": "3307394444796549",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.742d32421bebcp+15",
+          "numerator": "1636849769017263",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.7062893d64825p+15",
+          "numerator": "6480695813097509",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.6ca1c3c3eb9f8p+15",
+          "numerator": "801834013284159",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.68eac80b439a3p+15",
+          "numerator": "6349321032448419",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.653d7c8c4255ap+15",
+          "numerator": "3142317869503149",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.6199c80251d75p+15",
+          "numerator": "6220609443143029",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.5dff916ac29fap+15",
+          "numerator": "3078617715578109",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.5a6ec0041fcc2p+15",
+          "numerator": "3047253528870497",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.56e73b4d84f94p+15",
+          "numerator": "1508104436323301",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.5368eb05f5dcap+15",
+          "numerator": "2985480491609829",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.4ff3b72bb79bap+15",
+          "numerator": "2955065163627741",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.4c8787fbabcf0p+15",
+          "numerator": "365619962424271",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.492445f0ad3aap+15",
+          "numerator": "2895160942094805",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.45c9d9c2ee294p+15",
+          "numerator": "1432832883538085",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.42782c6758735p+15",
+          "numerator": "5672942163035957",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.3f2f270eef21dp+15",
+          "numerator": "5615147648217629",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.3beeb32631b38p+15",
+          "numerator": "694742741181287",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.38b6ba5480f54p+15",
+          "numerator": "1375329752056789",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.3587267b85748p+15",
+          "numerator": "680659118394089",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.325fe1b6977d4p+15",
+          "numerator": "1347449467330037",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.2f40d65a28a93p+15",
+          "numerator": "5334887957695123",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.2c29eef32ef25p+15",
+          "numerator": "5280537454505765",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.291b1646914f3p+15",
+          "numerator": "5226740660638963",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.2614375095ca1p+15",
+          "numerator": "5173491935042721",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.23153d44511a2p+15",
+          "numerator": "2560392847067345",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.201e138b17b07p+15",
+          "numerator": "5068616411216647",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.1d2ea5c3f03c9p+15",
+          "numerator": "5016978615894985",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.1a46dfc307a29p+15",
+          "numerator": "4965866893507113",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.1766ad91265b1p+15",
+          "numerator": "4915275884553649",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.148dfb6b27412p+15",
+          "numerator": "2432600142068233",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.11bcb5c16fc1bp+15",
+          "numerator": "4815634841402395",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.0ef2c93769716p+15",
+          "numerator": "2383287179496331",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.0c3022a2fcfc9p+15",
+          "numerator": "4718013692497865",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.0974af0c0e770p+15",
+          "numerator": "291871734369911",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.06c05babfafe4p+15",
+          "numerator": "1155592872782841",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.041315ed17b4dp+15",
+          "numerator": "4575279927360333",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.016ccb6a3208fp+15",
+          "numerator": "4528668120653967",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.fd9ad3dc229b2p+14",
+          "numerator": "4482531183367385",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.f869bee5f32fap+14",
+          "numerator": "4436864277649789",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.f34634445fcf5p+14",
+          "numerator": "8783325229874421",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.ee3010a6ff1ecp+14",
+          "numerator": "2173460727725179",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.e927311981bcep+14",
+          "numerator": "4302636107697639",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.e42b7302c20aap+14",
+          "numerator": "4258801927983189",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.df3cb423d66c0p+14",
+          "numerator": "131731697497499",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.da5ad29725eefp+14",
+          "numerator": "8344937467895535",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.d585accf7f5bdp+14",
+          "numerator": "8259921333712317",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.d0bd219732a5fp+14",
+          "numerator": "8175771322624607",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.cc01100f2cb0dp+14",
+          "numerator": "8092478610787085",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.c75157ae156f3p+14",
+          "numerator": "8010034464249587",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.c2add83f70481p+14",
+          "numerator": "7928430238041217",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.be1671e2beca5p+14",
+          "numerator": "7847657375263909",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.b98b050aa59a0p+14",
+          "numerator": "242740856443597",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.b50b727c13a04p+14",
+          "numerator": "1922142986849921",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.b0979b4d6b69ap+14",
+          "numerator": "3805121350425421",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.ac2f60e5aebb2p+14",
+          "numerator": "3766355726530009",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.a7d2a4fbac4a8p+14",
+          "numerator": "931996259276949",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.a38149952fa17p+14",
+          "numerator": "7380010517330455",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.9f3b310633194p+14",
+          "numerator": "1826206204349541",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.9b003df013f60p+14",
+          "numerator": "225950159079931",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.96d05340c88f5p+14",
+          "numerator": "7156743533267189",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.92ab5432188ddp+14",
+          "numerator": "7083832421484765",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.8e912448d72b2p+14",
+          "numerator": "3505832054929753",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.8a81a7541f7c3p+14",
+          "numerator": "6940231030929347",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.867cc16c92b37p+14",
+          "numerator": "6869525694327607",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.828256f39862ap+14",
+          "numerator": "3399770342998805",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.7e924c92a0ab0p+14",
+          "numerator": "420641791713451",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.7aac873a68604p+14",
+          "numerator": "1665425593704833",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.76d0ec223f156p+14",
+          "numerator": "3296917309225131",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.72ff60c74f0b0p+14",
+          "numerator": "407916142612235",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.6f37caebe7030p+14",
+          "numerator": "403760395052803",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.6b7a1096c5e99p+14",
+          "numerator": "6394351763349145",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.67c61812685a8p+14",
+          "numerator": "791150963511477",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.641bc7ec57f1fp+14",
+          "numerator": "6264727324163871",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.607b06f47c700p+14",
+          "numerator": "24222280665031",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.5ce3bc3c6e9e5p+14",
+          "numerator": "6137730593909221",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.5955cf16ccff1p+14",
+          "numerator": "6075200930893809",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.55d1271692355p+14",
+          "numerator": "6013308304434005",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.5255ac0e6d2c9p+14",
+          "numerator": "5952046224560841",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.4ee346101af13p+14",
+          "numerator": "5891408267423507",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.4b79dd6bc23f7p+14",
+          "numerator": "5831388074615799",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.48195aaf50b9fp+14",
+          "numerator": "5771979352509343",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.44c1a6a5d9ce1p+14",
+          "numerator": "5713175871593697",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.4172aa56f7371p+14",
+          "numerator": "5654971465823089",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.3e2c4f062b26ep+14",
+          "numerator": "2798680015984951",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.3aee7e3244051p+14",
+          "numerator": "5540335528984657",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.37b92194c1c8ep+14",
+          "numerator": "2741945988681287",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.348c23213ce6dp+14",
+          "numerator": "5428023458516589",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.31676d04cec9bp+14",
+          "numerator": "5372724114156699",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.2e4ae9a57bdc2p+14",
+          "numerator": "2658994072837857",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.2b3683a19f140p+14",
+          "numerator": "82247028336581",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.282a25cf5705cp+14",
+          "numerator": "1302545859173399",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.2525bb3bf4729p+14",
+          "numerator": "5157103391950633",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.22292f2b6a560p+14",
+          "numerator": "159517628544299",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.1f346d17bf671p+14",
+          "numerator": "5052560091903601",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.1c4760b08110dp+14",
+          "numerator": "5001085874344205",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.1961f5da37d6bp+14",
+          "numerator": "4950136063229291",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.168418addd297p+14",
+          "numerator": "4899705316037271",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.13adb578529fcp+14",
+          "numerator": "1212447086168703",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.10deb8b9da981p+14",
+          "numerator": "4800379914922369",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.0e170f2592373p+14",
+          "numerator": "4751474845885299",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.0b56a5a0ecc88p+14",
+          "numerator": "587883501181329",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.089d694330744p+14",
+          "numerator": "1163788582437329",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.05eb4754f44fdp+14",
+          "numerator": "4607728782623997",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.03402d4f9fbd5p+14",
+          "numerator": "4560786395102165",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.009c08dceb1d8p+14",
+          "numerator": "564290280609339",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.fbfd8facc39a2p+13",
+          "numerator": "4468331459779793",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.f6d0b089cad12p+13",
+          "numerator": "4422809217291913",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.f1b150c064b28p+13",
+          "numerator": "1094437686004069",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.ec9f4d1ccb3fbp+13",
+          "numerator": "8666302630376443",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.e79a82c707c40p+13",
+          "numerator": "134031445443057",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.e2a2cf42035edp+13",
+          "numerator": "8490621863998957",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.ddb8106a9a059p+13",
+          "numerator": "8404121533653081",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.d8da2476afe8dp+13",
+          "numerator": "8318502447021709",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.d408e9f449445p+13",
+          "numerator": "8233755626214469",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.cf443fc8a4852p+13",
+          "numerator": "4074936092402729",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.ca8c052f56cedp+13",
+          "numerator": "8066843326901485",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.c5e019b96aca8p+13",
+          "numerator": "998082543277461",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.c1405d4c81c8bp+13",
+          "numerator": "7903314625174667",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.bcacb021f7209p+13",
+          "numerator": "7822797633974793",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.b824f2c605d6ap+13",
+          "numerator": "3871550464863925",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.b3a90616f0750p+13",
+          "numerator": "479013509722229",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.af38cb442b1f4p+13",
+          "numerator": "1896533759929469",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.aad423cd87cc3p+13",
+          "numerator": "7508849394744515",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.a67af18264affp+13",
+          "numerator": "7432351116577535",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.a22d1680dcc19p+13",
+          "numerator": "7356632183720985",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.9dea7534fa621p+13",
+          "numerator": "7281684656399905",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.99b2f057ec1b3p+13",
+          "numerator": "7207500675727795",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.95866aef3b6c4p+13",
+          "numerator": "1783518115720625",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.9164c84c05a95p+13",
+          "numerator": "7061392318290581",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.8d4dec0a36dbep+13",
+          "numerator": "3494726310409951",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.8941ba0fc6abap+13",
+          "numerator": "3459122913490269",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.8540168bf73dfp+13",
+          "numerator": "6847764470133727",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.8148e5f696132p+13",
+          "numerator": "3389000579854489",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.7d5c0d0f3ed03p+13",
+          "numerator": "6708948580429059",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.797970dc9ffbdp+13",
+          "numerator": "6640599491542973",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.75a0f6abc19e4p+13",
+          "numerator": "1643236681516665",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.71d2840f4dca4p+13",
+          "numerator": "1626495797507881",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.6e0dfededafe8p+13",
+          "numerator": "804962732717565",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.6a534d363866fp+13",
+          "numerator": "6374095791031919",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.66a25574bbecep+13",
+          "numerator": "3154579049275239",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.62fafe3c921ccp+13",
+          "numerator": "1561220493756531",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.5f5d2e720fd1fp+13",
+          "numerator": "6181260680559903",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.5bc8cd3b05ae5p+13",
+          "numerator": "6118287543917285",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.583dc1fe154f0p+13",
+          "numerator": "378497247614287",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.54bbf4620841dp+13",
+          "numerator": "5994259398296605",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.51434c4d28b37p+13",
+          "numerator": "5933191383911223",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.4dd3b1e49bcf0p+13",
+          "numerator": "367046594698191",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.4a6d0d8bbdd25p+13",
+          "numerator": "5812915453812005",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.470f47e37fc85p+13",
+          "numerator": "5753694926142597",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.43ba49c9c6f03p+13",
+          "numerator": "5695077722386179",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.406dfc58cdc1fp+13",
+          "numerator": "5637057696029727",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.3d2a48e68696fp+13",
+          "numerator": "5579628763179375",
+          "denominator": "549755813888"
+        }
+      ],
+      "remainder": 494.64276183565795,
+      "cells": 40,
+      "subdiv": 16,
+      "effective_cells": 640
+    },
+    {
+      "sigma": "0.5",
+      "max_cell": 7049861.980456904,
+      "binding_index": 639,
+      "cell_upper_bounds": [
+        {
+          "hex": "0x1.3d2a48e68696cp+13",
+          "numerator": "1394907190794843",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.406dfc58cdc1fp+13",
+          "numerator": "5637057696029727",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.43ba49c9c6f01p+13",
+          "numerator": "5695077722386177",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.470f47e37fc85p+13",
+          "numerator": "5753694926142597",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.4a6d0d8bbdd22p+13",
+          "numerator": "2906457726906001",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.4dd3b1e49bcf0p+13",
+          "numerator": "367046594698191",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.51434c4d28b34p+13",
+          "numerator": "1483297845977805",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.54bbf4620841dp+13",
+          "numerator": "5994259398296605",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.583dc1fe154eep+13",
+          "numerator": "3027977980914295",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.5bc8cd3b05ae5p+13",
+          "numerator": "6118287543917285",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.5f5d2e720fd1fp+13",
+          "numerator": "6181260680559903",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.62fafe3c921cap+13",
+          "numerator": "3122440987513061",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.66a25574bbecep+13",
+          "numerator": "3154579049275239",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.6a534d363866dp+13",
+          "numerator": "6374095791031917",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.6e0dfededafe8p+13",
+          "numerator": "804962732717565",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.71d2840f4dca1p+13",
+          "numerator": "6505983190031521",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.75a0f6abc19e4p+13",
+          "numerator": "1643236681516665",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.797970dc9ffbap+13",
+          "numerator": "3320299745771485",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.7d5c0d0f3ed03p+13",
+          "numerator": "6708948580429059",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.8148e5f69612fp+13",
+          "numerator": "6778001159708975",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.8540168bf73dfp+13",
+          "numerator": "6847764470133727",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.8941ba0fc6ab7p+13",
+          "numerator": "6918245826980535",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.8d4dec0a36dbep+13",
+          "numerator": "3494726310409951",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.9164c84c05a92p+13",
+          "numerator": "3530696159145289",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.95866aef3b6c4p+13",
+          "numerator": "1783518115720625",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.99b2f057ec1b0p+13",
+          "numerator": "450468792232987",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.9dea7534fa621p+13",
+          "numerator": "7281684656399905",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.a22d1680dcc16p+13",
+          "numerator": "3678316091860491",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.a67af18264affp+13",
+          "numerator": "7432351116577535",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.aad423cd87cc3p+13",
+          "numerator": "7508849394744515",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.af38cb442b1f0p+13",
+          "numerator": "474133439982367",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.b3a90616f0750p+13",
+          "numerator": "479013509722229",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.b824f2c605d66p+13",
+          "numerator": "3871550464863923",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.bcacb021f7209p+13",
+          "numerator": "7822797633974793",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.c1405d4c81c87p+13",
+          "numerator": "7903314625174663",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.c5e019b96aca8p+13",
+          "numerator": "998082543277461",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.ca8c052f56ce9p+13",
+          "numerator": "8066843326901481",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.cf443fc8a4852p+13",
+          "numerator": "4074936092402729",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.d408e9f449441p+13",
+          "numerator": "8233755626214465",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.d8da2476afe8dp+13",
+          "numerator": "8318502447021709",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.ddb8106a9a055p+13",
+          "numerator": "8404121533653077",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.e2a2cf42035edp+13",
+          "numerator": "8490621863998957",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.e79a82c707c3dp+13",
+          "numerator": "8578012508355645",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.ec9f4d1ccb3fbp+13",
+          "numerator": "8666302630376443",
+          "denominator": "549755813888"
+        },
+        {
+          "hex": "0x1.f1b150c064b24p+13",
+          "numerator": "2188875372008137",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.f6d0b089cad12p+13",
+          "numerator": "4422809217291913",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.fbfd8facc399ep+13",
+          "numerator": "4468331459779791",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.009c08dceb1d8p+14",
+          "numerator": "564290280609339",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.03402d4f9fbd1p+14",
+          "numerator": "4560786395102161",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.05eb4754f44fdp+14",
+          "numerator": "4607728782623997",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.089d694330744p+14",
+          "numerator": "1163788582437329",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.0b56a5a0ecc86p+14",
+          "numerator": "2351534004725315",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.0e170f2592373p+14",
+          "numerator": "4751474845885299",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.10deb8b9da97fp+14",
+          "numerator": "4800379914922367",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.13adb578529fcp+14",
+          "numerator": "1212447086168703",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.168418addd295p+14",
+          "numerator": "4899705316037269",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.1961f5da37d6bp+14",
+          "numerator": "4950136063229291",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.1c4760b08110bp+14",
+          "numerator": "5001085874344203",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.1f346d17bf671p+14",
+          "numerator": "5052560091903601",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.22292f2b6a55ep+14",
+          "numerator": "2552282056708783",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.2525bb3bf4729p+14",
+          "numerator": "5157103391950633",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.282a25cf5705ap+14",
+          "numerator": "2605091718346797",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.2b3683a19f140p+14",
+          "numerator": "82247028336581",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.2e4ae9a57bdc0p+14",
+          "numerator": "83093564776183",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.31676d04cec9bp+14",
+          "numerator": "5372724114156699",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.348c23213ce6bp+14",
+          "numerator": "5428023458516587",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.37b92194c1c8ep+14",
+          "numerator": "2741945988681287",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.3aee7e324404cp+14",
+          "numerator": "1385083882246163",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.3e2c4f062b26ep+14",
+          "numerator": "2798680015984951",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.4172aa56f7371p+14",
+          "numerator": "5654971465823089",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.44c1a6a5d9ce1p+14",
+          "numerator": "5713175871593697",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.48195aaf50b9fp+14",
+          "numerator": "5771979352509343",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.4b79dd6bc23f4p+14",
+          "numerator": "1457847018653949",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.4ee346101af13p+14",
+          "numerator": "5891408267423507",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.5255ac0e6d2c6p+14",
+          "numerator": "2976023112280419",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.55d1271692355p+14",
+          "numerator": "6013308304434005",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.5955cf16ccfefp+14",
+          "numerator": "6075200930893807",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.5ce3bc3c6e9e5p+14",
+          "numerator": "6137730593909221",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.607b06f47c6fdp+14",
+          "numerator": "6200903850247933",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.641bc7ec57f1fp+14",
+          "numerator": "6264727324163871",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.67c61812685a5p+14",
+          "numerator": "6329207708091813",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.6b7a1096c5e99p+14",
+          "numerator": "6394351763349145",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.6f37caebe702dp+14",
+          "numerator": "6460166320844845",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.72ff60c74f0b0p+14",
+          "numerator": "407916142612235",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.76d0ec223f153p+14",
+          "numerator": "6593834618450259",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.7aac873a68604p+14",
+          "numerator": "1665425593704833",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.7e924c92a0aaap+14",
+          "numerator": "3365134333707605",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.828256f39862ap+14",
+          "numerator": "3399770342998805",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.867cc16c92b37p+14",
+          "numerator": "6869525694327607",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.8a81a7541f7c3p+14",
+          "numerator": "6940231030929347",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.8e912448d72b2p+14",
+          "numerator": "3505832054929753",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.92ab5432188d9p+14",
+          "numerator": "7083832421484761",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.96d05340c88f5p+14",
+          "numerator": "7156743533267189",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.9b003df013f5dp+14",
+          "numerator": "7230405090557789",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.9f3b310633194p+14",
+          "numerator": "1826206204349541",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.a38149952fa14p+14",
+          "numerator": "1845002629332613",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.a7d2a4fbac4a8p+14",
+          "numerator": "931996259276949",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.ac2f60e5aebafp+14",
+          "numerator": "7532711453060015",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.b0979b4d6b69ap+14",
+          "numerator": "3805121350425421",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.b50b727c13a01p+14",
+          "numerator": "7688571947399681",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.b98b050aa59a0p+14",
+          "numerator": "242740856443597",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.be1671e2beca2p+14",
+          "numerator": "3923828687631953",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.c2add83f70481p+14",
+          "numerator": "7928430238041217",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.c75157ae156ecp+14",
+          "numerator": "2002508616062395",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.cc01100f2cb0dp+14",
+          "numerator": "8092478610787085",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.d0bd219732a58p+14",
+          "numerator": "1021971415328075",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.d585accf7f5bdp+14",
+          "numerator": "8259921333712317",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.da5ad29725ee8p+14",
+          "numerator": "1043117183486941",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.df3cb423d66c0p+14",
+          "numerator": "131731697497499",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.e42b7302c20aap+14",
+          "numerator": "4258801927983189",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.e927311981bcep+14",
+          "numerator": "4302636107697639",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.ee3010a6ff1ecp+14",
+          "numerator": "2173460727725179",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.f34634445fcf5p+14",
+          "numerator": "8783325229874421",
+          "denominator": "274877906944"
+        },
+        {
+          "hex": "0x1.f869bee5f32fap+14",
+          "numerator": "4436864277649789",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.fd9ad3dc229aep+14",
+          "numerator": "4482531183367383",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.016ccb6a3208fp+15",
+          "numerator": "4528668120653967",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.041315ed17b4bp+15",
+          "numerator": "4575279927360331",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.06c05babfafe4p+15",
+          "numerator": "1155592872782841",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.0974af0c0e76ep+15",
+          "numerator": "2334973874959287",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.0c3022a2fcfc9p+15",
+          "numerator": "4718013692497865",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.0ef2c93769714p+15",
+          "numerator": "1191643589748165",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.11bcb5c16fc1bp+15",
+          "numerator": "4815634841402395",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.148dfb6b27410p+15",
+          "numerator": "304075017758529",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.1766ad91265b1p+15",
+          "numerator": "4915275884553649",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.1a46dfc307a26p+15",
+          "numerator": "2482933446753555",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.1d2ea5c3f03c8p+15",
+          "numerator": "627122326986873",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.201e138b17b04p+15",
+          "numerator": "1267154102804161",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.23153d44511a1p+15",
+          "numerator": "5120785694134689",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.2614375095ca2p+15",
+          "numerator": "2586745967521361",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.291b1646914f1p+15",
+          "numerator": "5226740660638961",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.2c29eef32ef26p+15",
+          "numerator": "2640268727252883",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.2f40d65a28a91p+15",
+          "numerator": "5334887957695121",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.325fe1b6977d4p+15",
+          "numerator": "1347449467330037",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.3587267b85746p+15",
+          "numerator": "2722636473576355",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.38b6ba5480f54p+15",
+          "numerator": "1375329752056789",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.3beeb32631b36p+15",
+          "numerator": "2778970964725147",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.3f2f270eef21dp+15",
+          "numerator": "5615147648217629",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.42782c6758732p+15",
+          "numerator": "2836471081517977",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.45c9d9c2ee294p+15",
+          "numerator": "1432832883538085",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.492445f0ad3a8p+15",
+          "numerator": "723790235523701",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.4c8787fbabcf0p+15",
+          "numerator": "365619962424271",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.4ff3b72bb79b7p+15",
+          "numerator": "5910130327255479",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.5368eb05f5dc9p+15",
+          "numerator": "5970960983219657",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.56e73b4d84f90p+15",
+          "numerator": "377026109080825",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.5a6ec0041fcc1p+15",
+          "numerator": "6094507057740993",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.5dff916ac29f6p+15",
+          "numerator": "3078617715578107",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.6199c80251d73p+15",
+          "numerator": "6220609443143027",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.653d7c8c4255cp+15",
+          "numerator": "1571158934751575",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.68eac80b439a1p+15",
+          "numerator": "6349321032448417",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.6ca1c3c3eb9fap+15",
+          "numerator": "3207336053136637",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.7062893d64823p+15",
+          "numerator": "6480695813097507",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.742d32421bebdp+15",
+          "numerator": "6547399076069053",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.7801d8e074507p+15",
+          "numerator": "6614788889593095",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.7be0976b77fd6p+15",
+          "numerator": "3341436160032747",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.7fc9887b8dff5p+15",
+          "numerator": "6751656506613749",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.83bcc6ef30e64p+15",
+          "numerator": "1705287165461401",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.87ba6deba76a5p+15",
+          "numerator": "6891356072605349",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.8bc298ddbef73p+15",
+          "numerator": "6962286100737907",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.8fd5637a88232p+15",
+          "numerator": "3516973091930393",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.93f2e9c015169p+15",
+          "numerator": "7106343836143977",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.981b47f639e99p+15",
+          "numerator": "7179486649097881",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.9c4e9aaf4efbap+15",
+          "numerator": "3626691146184669",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.a08cfec8f54c3p+15",
+          "numerator": "7328038514545859",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.a4d6916cdcd86p+15",
+          "numerator": "3701731571984067",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.a92b70118d02dp+15",
+          "numerator": "7479664089550893",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.ad8bb87b2f0c2p+15",
+          "numerator": "3778324670806113",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.b1f788bc5aa11p+15",
+          "numerator": "7634426972711441",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.b66eff36e482bp+15",
+          "numerator": "7713005138495531",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.baf23a9caf503p+15",
+          "numerator": "7792392078554371",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.bf8159f07e764p+15",
+          "numerator": "1968149029321177",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.c41c7c86cb4a0p+15",
+          "numerator": "248550802023845",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.c8c3c2069c562p+15",
+          "numerator": "4017744608813745",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.cd774a6a5ede9p+15",
+          "numerator": "8118195359968745",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.d2373600c2a24p+15",
+          "numerator": "2050438191057545",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.d703a56d97decp+15",
+          "numerator": "2071542548029307",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.dbdcb9aaaf9dbp+15",
+          "numerator": "8371456495516123",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.e0c29408be511p+15",
+          "numerator": "8457620617422097",
+          "denominator": "137438953472"
+        },
+        {
+          "hex": "0x1.e5b5563040c48p+15",
+          "numerator": "1068083949109641",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.eab522226369ep+15",
+          "numerator": "4316309274958671",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.efc21a39ec074p+15",
+          "numerator": "2180367677632541",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.f4dc612c25ccap+15",
+          "numerator": "4405618695810661",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.fa041a09cfd7ep+15",
+          "numerator": "4450964002995903",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.ff3968400e2ccp+15",
+          "numerator": "2248388015831219",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.023e37ccae944p+16",
+          "numerator": "1135764896397905",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.04e6aa1f43bb1p+16",
+          "numerator": "4589819518008241",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.07961d5bcf45bp+16",
+          "numerator": "4637060732089435",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.0a4ca3f67ada1p+16",
+          "numerator": "4684788181478817",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.0d0a50940fd9bp+16",
+          "numerator": "4733006870805915",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.0fcf360a77804p+16",
+          "numerator": "1195430464052737",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.129b67613c53dp+16",
+          "numerator": "4830938245875005",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.156ef7d20cea1p+16",
+          "numerator": "4880661200555681",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.1849fac940065p+16",
+          "numerator": "4930895934128229",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.1b2c83e65a136p+16",
+          "numerator": "2490823857066139",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.1e16a6fc93fcep+16",
+          "numerator": "2516460931162087",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.21087813636cep+16",
+          "numerator": "2542361877617511",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.24020b67046f1p+16",
+          "numerator": "5137058824734449",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.2703756904802p+16",
+          "numerator": "2594966279300097",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.2a0ccac0cf0a2p+16",
+          "numerator": "2621675250546769",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.2d1e204c3b541p+16",
+          "numerator": "5297318253540673",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.30378b201be6ep+16",
+          "numerator": "2675920737460023",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.33592088cf6cap+16",
+          "numerator": "2703462941227877",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.3682f60ad30cfp+16",
+          "numerator": "5462577252217039",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.39b52163564bcp+16",
+          "numerator": "1379700354930991",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.3cefb888d06cep+16",
+          "numerator": "2787802140279655",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.4032d1ab97621p+16",
+          "numerator": "5632991790986785",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.437e83367845fp+16",
+          "numerator": "5690969968575583",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.46d2e3cf51695p+16",
+          "numerator": "5749544892831381",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.4a300a57adf66p+16",
+          "numerator": "2904361352916915",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.4d960ded632d4p+16",
+          "numerator": "1467127403220149",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.510505eb2f3fbp+16",
+          "numerator": "5928911883138043",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.547d09e959cf1p+16",
+          "numerator": "5989935850298609",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.57fe31be56113p+16",
+          "numerator": "6051587913244947",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.5b88957f66a07p+16",
+          "numerator": "6113874536720903",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.5f1c4d8142fb5p+16",
+          "numerator": "6176802252009397",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.62b97258beb86p+16",
+          "numerator": "3120188828808643",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.66601cdb72728p+16",
+          "numerator": "788075927495909",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.6a10662066729p+16",
+          "numerator": "6369498274096937",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.6dca6780bf1a2p+16",
+          "numerator": "3217528512182481",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.718e3a986b155p+16",
+          "numerator": "6501290545164629",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.755bf946d3570p+16",
+          "numerator": "410512861352791",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.7933bdaf8ce50p+16",
+          "numerator": "414738109402341",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.7d15a23b0c78ap+16",
+          "numerator": "3352054770197445",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.8101c1975bf89p+16",
+          "numerator": "6773112313331593",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.84f836b8d1d12p+16",
+          "numerator": "3421412652387977",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.88f91cdaca2f4p+16",
+          "numerator": "1728313956182205",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.8d048f806223dp+16",
+          "numerator": "6984411258430013",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.911aaa7534b3cp+16",
+          "numerator": "1764074766783183",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.953b89ce19db4p+16",
+          "numerator": "1782231697221485",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.996749e9e786ap+16",
+          "numerator": "3601151019662389",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.9d9e077234891p+16",
+          "numerator": "7276432512469137",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.a1dfdf5c1d948p+16",
+          "numerator": "918915747691305",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.a62ceee90c38bp+16",
+          "numerator": "7426990299726731",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.aa8553a77fee7p+16",
+          "numerator": "7503433401106151",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.aee92b73d9348p+16",
+          "numerator": "947582912672361",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.b358947926c40p+16",
+          "numerator": "119667001543089",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.b7d3ad31f4e14p+16",
+          "numerator": "1934378993701765",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.bc5a94691ecefp+16",
+          "numerator": "7817155195301103",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.c0ed693aa2692p+16",
+          "numerator": "3948807055545161",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.c58c4b1475edfp+16",
+          "numerator": "7978901158977247",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.ca3759b75ff97p+16",
+          "numerator": "8061024862601111",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.ceeeb537d1ba9p+16",
+          "numerator": "8143993833331625",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.d3b27dfec3674p+16",
+          "numerator": "2056954192792989",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.d882d4ca92f53p+16",
+          "numerator": "8312502465670995",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.dd5fdaafe51d9p+16",
+          "numerator": "8398059796845017",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.e249b11a88b16p+16",
+          "numerator": "4242248868054411",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.e74079ce5c458p+16",
+          "numerator": "1071478168402059",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.ec4456e8363acp+16",
+          "numerator": "2165012946802923",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.f1556adecf2b2p+16",
+          "numerator": "4374593153694041",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.f673d883aebe5p+16",
+          "numerator": "8839238254259173",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.fb9fc3041af03p+16",
+          "numerator": "8930217070538499",
+          "denominator": "68719476736"
+        },
+        {
+          "hex": "0x1.006ca6f504e6ap+17",
+          "numerator": "2255533074032437",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.03104e8e8ad5cp+17",
+          "numerator": "1139374196140887",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.05baea71b9f3cp+17",
+          "numerator": "1151101328353231",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.086c8cf17715ap+17",
+          "numerator": "2325898326685869",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.0b254890ef22ep+17",
+          "numerator": "2349837886912791",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.0de53004164d1p+17",
+          "numerator": "4748047695307985",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.10ac56302896fp+17",
+          "numerator": "4796917490026863",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.137ace2c2badep+17",
+          "numerator": "2423145141198191",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.1650ab4172193p+17",
+          "numerator": "4896171249574291",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.192e00ec1fc40p+17",
+          "numerator": "77290087843825",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.1c12e2dbafe36p+17",
+          "numerator": "2498739341983515",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.1eff64f37c3dcp+17",
+          "numerator": "1262228943532279",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.21f39b4b45d6dp+17",
+          "numerator": "5100882286108013",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.24ef9a2fbf037p+17",
+          "numerator": "5153383669035063",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.27f3762316e96p+17",
+          "numerator": "2603212714063691",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.2aff43dd866e5p+17",
+          "numerator": "5260013125265125",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.2e13184dde9b5p+17",
+          "numerator": "5314152379574709",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.312f089a1875bp+17",
+          "numerator": "5368848868018011",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.34532a1fe6544p+17",
+          "numerator": "1356027081496913",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.377f927546b36p+17",
+          "numerator": "2739968273954203",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.3ab45769188b4p+17",
+          "numerator": "1384084846961197",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.3df18f03b12dbp+17",
+          "numerator": "5593322760114907",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.41374f8773ae7p+17",
+          "numerator": "5650892639910631",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.4485af7169daap+17",
+          "numerator": "2854527531962069",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.47dcc579dec2ep+17",
+          "numerator": "2883908065490455",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.4b3ca894fadd7p+17",
+          "numerator": "5827182002679255",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.4ea56ff361c2ap+17",
+          "numerator": "2943579452018197",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.52173302d189ep+17",
+          "numerator": "2973876562070607",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.5592096ec3ca2p+17",
+          "numerator": "3004485508406865",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.59160b2110428p+17",
+          "numerator": "758852375158917",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.5ca35042912fbp+17",
+          "numerator": "6133303562801915",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.6039f13bc9528p+17",
+          "numerator": "774553906680485",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.63da06b58bab6p+17",
+          "numerator": "3130104346336603",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.6783a999a4f06p+17",
+          "numerator": "3162321284048771",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.6b36f31386c15p+17",
+          "numerator": "6389739636157461",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.6ef3fc90f49f4p+17",
+          "numerator": "1613876680708733",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.72badfc2b2abep+17",
+          "numerator": "3260975362184543",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.768bb69d3634ap+17",
+          "numerator": "3294539303989669",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.7a669b59580fap+17",
+          "numerator": "3328448706297981",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.7e4ba87508ceap+17",
+          "numerator": "3362707124799093",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.823af8b406cc3p+17",
+          "numerator": "6794636303559875",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.8634a72096196p+17",
+          "numerator": "3432285416501451",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.8a38cf0c3a4f3p+17",
+          "numerator": "6935225171158259",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.8e478c10724a4p+17",
+          "numerator": "1751651681683753",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.9260fa0f75d51p+17",
+          "numerator": "7078722984697169",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.96853534f5459p+17",
+          "numerator": "7151581507048537",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.9ab459f6db143p+17",
+          "numerator": "7225189933625667",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.9eee85160f70bp+17",
+          "numerator": "7299555982898955",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.a333d39f3dda4p+17",
+          "numerator": "1843671863195497",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.a78462eb9cc06p+17",
+          "numerator": "3725296110724611",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.abe050a1b731dp+17",
+          "numerator": "7527278248162077",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.b047bab6389ecp+17",
+          "numerator": "1901188393525883",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.b4babf6cbab40p+17",
+          "numerator": "120047286300333",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.b9397d589554bp+17",
+          "numerator": "7762104703079755",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.bdc4135db0b77p+17",
+          "numerator": "7841997005720439",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.c25aa0b159adep+17",
+          "numerator": "3961355804265839",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.c6fd44db181bap+17",
+          "numerator": "4002128487563485",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.cbac1fb587a0cp+17",
+          "numerator": "2021660414058115",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.d067516f32815p+17",
+          "numerator": "8169874290583573",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.d52efa8b6ecc2p+17",
+          "numerator": "4126981802915425",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.da033be33dc93p+17",
+          "numerator": "8338918419455123",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.dee436a62db42p+17",
+          "numerator": "4212373819846049",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.e3d20c5b3dc9cp+17",
+          "numerator": "2127865066616615",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.e8ccdee1c4aeap+17",
+          "numerator": "4299532696167797",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.edd4d07259348p+17",
+          "numerator": "1085946525430377",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.f2ea039fbd851p+17",
+          "numerator": "8776989980481617",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.f80c9b57ccb8bp+17",
+          "numerator": "8867328099666827",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.fd3cbae46ade7p+17",
+          "numerator": "8958596033719783",
+          "denominator": "34359738368"
+        },
+        {
+          "hex": "0x1.013d42f63bbedp+18",
+          "numerator": "4525401676430317",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.03e3103a614abp+18",
+          "numerator": "4571979862906027",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.068fd77082110p+18",
+          "numerator": "288689841275409",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.0943aafa6b17bp+18",
+          "numerator": "4666579403321723",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.0bfe9d6a58be5p+18",
+          "numerator": "4714610676829157",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.0ec0c183765d9p+18",
+          "numerator": "4763136317416921",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.118a2a3a5f364p+18",
+          "numerator": "1203040353352921",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.145aeab5a0b56p+18",
+          "numerator": "2430845552756139",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.1733164e3e0d4p+18",
+          "numerator": "1227932646832181",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.1a12c090352b9p+18",
+          "numerator": "4962285105926841",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.1cf9fd3b050c6p+18",
+          "numerator": "2506679981189219",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.1fe8e042356fep+18",
+          "numerator": "2532480256158591",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.22df7dcddff52p+18",
+          "numerator": "2558546083250089",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.25ddea3b3a9e6p+18",
+          "numerator": "2584880195687667",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.28e43a1d23c24p+18",
+          "numerator": "1305742677413641",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.2bf2823caf6ddp+18",
+          "numerator": "5276728700892893",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.2f08d799b63afp+18",
+          "numerator": "5331040002073519",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.32274f6b659f5p+18",
+          "numerator": "5385910308198901",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.354dff20d1b76p+18",
+          "numerator": "2720672686443963",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.387cfc6188919p+18",
+          "numerator": "5497351008979225",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.3bb45d0e26fdfp+18",
+          "numerator": "5553933089140703",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.3ef43740eee53p+18",
+          "numerator": "5611097546485331",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.423ca14e5f2cap+18",
+          "numerator": "2834425187596645",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.458db1c5cd29cp+18",
+          "numerator": "1431799407785127",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.48e77f71ffaa8p+18",
+          "numerator": "723268179066709",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.4c4a2159cb95dp+18",
+          "numerator": "5845699960551773",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.4fb5aec0b228cp+18",
+          "numerator": "1476466864998563",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.532a3f2780d5bp+18",
+          "numerator": "5966654239935835",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.56a7ea4cf2c67p+18",
+          "numerator": "6028066674388071",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.5a2ec82e540a5p+18",
+          "numerator": "6090111202967717",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.5dbef1082670ep+18",
+          "numerator": "3076397165785991",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.61587d56c8176p+18",
+          "numerator": "3108061316530363",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.64fb85d71bad2p+18",
+          "numerator": "3140051373972841",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.68a823873272dp+18",
+          "numerator": "6344741385086765",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.6c5e6fa6f7fa9p+18",
+          "numerator": "6410045322395561",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.701e83b8dfab9p+18",
+          "numerator": "6476021407546041",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.73e87982940fbp+18",
+          "numerator": "6542676558692603",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.77bc6b0da7ee9p+18",
+          "numerator": "6610017765195497",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.7b9a72a8493b9p+18",
+          "numerator": "6678052088353721",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.7f82aae5f5db0p+18",
+          "numerator": "421674166384091",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.83752ea03243ep+18",
+          "numerator": "3408114346988063",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.877218f74202bp+18",
+          "numerator": "6886385465434155",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.8b798552e2228p+18",
+          "numerator": "869658041631813",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.8f8b8f6305812p+18",
+          "numerator": "3514436364545033",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.93a8532093138p+18",
+          "numerator": "887652270286375",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.97cfecce261fcp+18",
+          "numerator": "1793577054673023",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.9c0278f8d070dp+18",
+          "numerator": "7248150562408205",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.a0401478de8bap+18",
+          "numerator": "3661376468218973",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.a488dc729de69p+18",
+          "numerator": "7398123163475561",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.a8dcee57252dcp+18",
+          "numerator": "1868567286682807",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.ad3c67e51e95bp+18",
+          "numerator": "7551198870759771",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.b1a7672994434p+18",
+          "numerator": "1907230100574477",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.b61e0a80bece6p+18",
+          "numerator": "3853720945555059",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.baa07096d5e4cp+18",
+          "numerator": "1946692892710803",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.bf2eb868e3126p+18",
+          "numerator": "3933458879944851",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.c3c9014596b59p+18",
+          "numerator": "7947888862260057",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.c86f6ace1f23bp+18",
+          "numerator": "8029693368463931",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.cd2214f702054p+18",
+          "numerator": "2028084964100117",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.d1e12008f7ee7p+18",
+          "numerator": "8195836992257767",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.d6acaca1ca3a7p+18",
+          "numerator": "8280193531421607",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.db84dbb5332f2p+18",
+          "numerator": "4182709159696761",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.e069ce8dc06f6p+18",
+          "numerator": "4225760146359163",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.e55ba6cdb7c27p+18",
+          "numerator": "8538508479921191",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.ea5a866ffe356p+18",
+          "numerator": "4313196001227179",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.ef668fc9019e5p+18",
+          "numerator": "8715180075653605",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.f47fe587a4861p+18",
+          "numerator": "8804882009704545",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.f9a6aab62c810p+18",
+          "numerator": "555969200663681",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.fedb02bb32f97p+18",
+          "numerator": "8987065181220759",
+          "denominator": "17179869184"
+        },
+        {
+          "hex": "0x1.020e88ad4c3b5p+19",
+          "numerator": "4539782761071541",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.04b67d5b3d320p+19",
+          "numerator": "143328405200537",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.076571a815b01p+19",
+          "numerator": "4633716106287873",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.0a1b7804970cap+19",
+          "numerator": "2340704565377125",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.0cd8a31219604p+19",
+          "numerator": "1182398260209025",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.0f9d05a30b8afp+19",
+          "numerator": "4778272889026735",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.1268b2bb748e1p+19",
+          "numerator": "4827453779822817",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.153bbd9176376p+19",
+          "numerator": "2438570435129787",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.1816398dd1288p+19",
+          "numerator": "615917421306449",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.1af83a4c6a374p+19",
+          "numerator": "1244513636034781",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.1de1d39cd12d9p+19",
+          "numerator": "5029291709240025",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.20d31982c8ef7p+19",
+          "numerator": "5081056238407415",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.23cc2036d1030p+19",
+          "numerator": "320834597474563",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.26ccfc26b087ep+19",
+          "numerator": "2593094578308159",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.29d5c1f60297cp+19",
+          "numerator": "1309892142434911",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.2ce6867ec41e0p+19",
+          "numerator": "165421793632783",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.2fff5ed1e31fbp+19",
+          "numerator": "5347981291041275",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.33206037cf827p+19",
+          "numerator": "5403025967216679",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.3649a0310d4bap+19",
+          "numerator": "2729318598339165",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.397b3476c8660p+19",
+          "numerator": "172338150335539",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.3cb532fb69e76p+19",
+          "numerator": "2785791350361915",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.3ff7b1eb2ee53p+19",
+          "numerator": "5628928818605651",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.4342c7acc0d10p+19",
+          "numerator": "355429073600721",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.46968ae1cf6b9p+19",
+          "numerator": "5745397852862137",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.49f31267ac48cp+19",
+          "numerator": "1451133245501731",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.4d587557e7f20p+19",
+          "numerator": "183258648933369",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.50c6cb08f0a20p+19",
+          "numerator": "185144858409041",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.543e2b0eb2a6ep+19",
+          "numerator": "2992807710397751",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.57bead3b3a68ap+19",
+          "numerator": "3023611507626821",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.5b48699f5819cp+19",
+          "numerator": "1527366178136167",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.5edb788b451a9p+19",
+          "numerator": "6172347039240617",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.6277f28f4b0bbp+19",
+          "numerator": "6235876589088955",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.661df07c6c9dcp+19",
+          "numerator": "1575015005926007",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.69cd8b651018dp+19",
+          "numerator": "6364904073265549",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.6d86dc9dabaa2p+19",
+          "numerator": "3215207768612177",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.7149fdbd7372cp+19",
+          "numerator": "1624150321253835",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.7517089f09667p+19",
+          "numerator": "6563468256777831",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.78ee17612ef3cp+19",
+          "numerator": "1657755866020815",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.7ccf44677886bp+19",
+          "numerator": "6699273990670443",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.80baaa5b02de0p+19",
+          "numerator": "211507093537135",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.84b0642b2a447p+19",
+          "numerator": "6837889701946439",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.88b08d0e43a6cp+19",
+          "numerator": "1727067355418267",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.8cbb408257974p+19",
+          "numerator": "1744843383070301",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.90d09a4ddf385p+19",
+          "numerator": "7051209489642373",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.94f0b680831ecp+19",
+          "numerator": "1780946206592123",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.991bb173dc249p+19",
+          "numerator": "7197107152601673",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.9d51a7cc363ebp+19",
+          "numerator": "7271184156812267",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.a192b679554d4p+19",
+          "numerator": "1836505901651253",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.a5defab73bf8ap+19",
+          "numerator": "3710816674766789",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.aa36920ef4966p+19",
+          "numerator": "3749010656961715",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.ae999a575c1f9p+19",
+          "numerator": "7575195509703161",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.b30831b5ef420p+19",
+          "numerator": "239161375913889",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.b782769f99877p+19",
+          "numerator": "7731935048210551",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.bc0887d986a59p+19",
+          "numerator": "7811516826413657",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.c09a8479f5ee8p+19",
+          "numerator": "986489713585117",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.c5388be90ff58p+19",
+          "numerator": "996643265716203",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.c9e2bde1be5f4p+19",
+          "numerator": "2013802648762749",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.ce993a7285f25p+19",
+          "numerator": "8138119721803557",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.d35c21fe62dedp+19",
+          "numerator": "8221882199715309",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.d82b953da751bp+19",
+          "numerator": "8306506811995419",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.dd07b53edc4b2p+19",
+          "numerator": "4196001216127577",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.e1f0a367a4cd2p+19",
+          "numerator": "4239189012719209",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.e6e68175a358ap+19",
+          "numerator": "4282821324380869",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.ebe9717f61cf5p+19",
+          "numerator": "8653805452664053",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.f0f995f53bb0bp+19",
+          "numerator": "8742875681766155",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.f61711a24ac7dp+19",
+          "numerator": "8832862675840125",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.fb4207ad56415p+19",
+          "numerator": "8923775870788629",
+          "denominator": "8589934592"
+        },
+        {
+          "hex": "0x1.003d4dcce21f3p+20",
+          "numerator": "4507812399817203",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.02e078a446efdp+20",
+          "numerator": "4554209546759933",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.058a967c9ae92p+20",
+          "numerator": "2300542120679241",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.083bb9a560b68p+20",
+          "numerator": "581055174852973",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.0af3f49e5a2aap+20",
+          "numerator": "2348142992478549",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.0db35a1807619p+20",
+          "numerator": "4744623016670745",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.1079fcf4272dep+20",
+          "numerator": "2396728781257071",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.1347f04638dc6p+20",
+          "numerator": "2421397371602659",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.161d4753ff495p+20",
+          "numerator": "4892639732167829",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.18fa159605533p+20",
+          "numerator": "4942997756073267",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.1bde6eb823a6ep+20",
+          "numerator": "2496937047694647",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.1eca669a07efbp+20",
+          "numerator": "5045274084933371",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.21be114fbd682p+20",
+          "numerator": "2548601557216065",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.24b9832236d63p+20",
+          "numerator": "5149666629086563",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.27bcd08fd9ef6p+20",
+          "numerator": "2601335065071483",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.2ac80e4d0c302p+20",
+          "numerator": "2628109587734913",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.2ddb5144c121dp+20",
+          "numerator": "5310319380140573",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.30f6ae990a1c9p+20",
+          "numerator": "5364976417022409",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.341a3ba3a77eap+20",
+          "numerator": "2710098008685557",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.37460df69b677p+20",
+          "numerator": "5475983971432055",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.3a7a3b5cbdf1dp+20",
+          "numerator": "5532346129047325",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.3db6d9da52f4ep+20",
+          "numerator": "2794644200134567",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.40fbffada152ep+20",
+          "numerator": "2823408377989783",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.4449c34f8bd19p+20",
+          "numerator": "5704937228516633",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.47a03b742b8adp+20",
+          "numerator": "5763655912306861",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.4aff7f0b6beeap+20",
+          "numerator": "2911489482252149",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.4e67a541a865cp+20",
+          "numerator": "1470728151409047",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.51d8c5804b8e4p+20",
+          "numerator": "1485865780063801",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.5552f76e7020ep+20",
+          "numerator": "3002318428799239",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.58d652f183795p+20",
+          "numerator": "6066440232253333",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.5c62f02de9cf8p+20",
+          "numerator": "766109965603743",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.5ff8e787a41d1p+20",
+          "numerator": "6191961882640849",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.639851a2f7bcap+20",
+          "numerator": "3127846660193765",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.6741476517bd9p+20",
+          "numerator": "6320080720853977",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.6af3e1f4cffb8p+20",
+          "numerator": "798141354450935",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.6eb03abb31f30p+20",
+          "numerator": "403178155356659",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.72766b6443632p+20",
+          "numerator": "3258623281208089",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.76468ddfaeb5dp+20",
+          "numerator": "6584326027930461",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.7a20bc61753e5p+20",
+          "numerator": "6652095916102629",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.7e051162a3481p+20",
+          "numerator": "6720563333182593",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.81f3a7a20604dp+20",
+          "numerator": "6789735458562125",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.85ec9a24e3571p+20",
+          "numerator": "6859619545527665",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.89f00437b3808p+20",
+          "numerator": "866277865252609",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.8dfe016edcbd2p+20",
+          "numerator": "3500776495703529",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.9216ada770c7dp+20",
+          "numerator": "7073617233251453",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.963a2507ec579p+20",
+          "numerator": "7146423204103545",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.9a688400f88f8p+20",
+          "numerator": "902497317286175",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.9ea1e74e2e72cp+20",
+          "numerator": "1823572737178059",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.a2e66bf6dc551p+20",
+          "numerator": "7369368227661137",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.a7362f4ecd5a1p+20",
+          "numerator": "7445218247628193",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.ab914ef712fb5p+20",
+          "numerator": "7521848962133941",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.aff7e8ded0a8bp+20",
+          "numerator": "7599268406561419",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.b46a1b440979ep+20",
+          "numerator": "3838742349499343",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.b8e804b470050p+20",
+          "numerator": "484781627568133",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.bd71c40e38520p+20",
+          "numerator": "244885647465513",
+          "denominator": "134217728"
+        },
+        {
+          "hex": "0x1.c2077880ebfe0p+20",
+          "numerator": "247406159492607",
+          "denominator": "134217728"
+        },
+        {
+          "hex": "0x1.c6a9418e40870p+20",
+          "numerator": "499905228324999",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.cb573f0aefd2bp+20",
+          "numerator": "8080808911764779",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.d011911f92e92p+20",
+          "numerator": "4081990755981129",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.d4d858497ef67p+20",
+          "numerator": "8248010175147879",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.d9abb55ba48e2p+20",
+          "numerator": "4166451856221297",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.de8bc97f713aep+20",
+          "numerator": "4209335512828375",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.e378b635b3652p+20",
+          "numerator": "4252660554111785",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.e8729d57808b2p+20",
+          "numerator": "4296431523071065",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.ed79a1171ddf6p+20",
+          "numerator": "4340653009465083",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.f28de400eb444p+20",
+          "numerator": "2192664825146641",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.f7af88fc50ba4p+20",
+          "numerator": "2215233065140969",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.fcdeb34cae389p+20",
+          "numerator": "8952134364750729",
+          "denominator": "4294967296"
+        },
+        {
+          "hex": "0x1.010dc34927028p+21",
+          "numerator": "565267198529029",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.03b31365acc16p+21",
+          "numerator": "2284341089363467",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.065f5c2a68472p+21",
+          "numerator": "2307852917228089",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.0912aff5c1ae5p+21",
+          "numerator": "4663213486250725",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.0bcd2156877aep+21",
+          "numerator": "2355605057846231",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.0e8ec30c6e1f9p+21",
+          "numerator": "4759700755636729",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.1157a80890d7bp+21",
+          "numerator": "4808690490740091",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.1427e36df3d04p+21",
+          "numerator": "1214546114498369",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.16ff889207abdp+21",
+          "numerator": "4908187847260861",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.19deaafd2e5d6p+21",
+          "numerator": "2479352950911723",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.1cc55e6b41648p+21",
+          "numerator": "626217989866185",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.1fb3b6cc19692p+21",
+          "numerator": "2530653625174857",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.22a9c844173c6p+21",
+          "numerator": "2556700651469283",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.25a7a72cae451p+21",
+          "numerator": "5166031539201105",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.28ad6814f0550p+21",
+          "numerator": "326200217366613",
+          "denominator": "134217728"
+        },
+        {
+          "hex": "0x1.2bbb1fc21af2fp+21",
+          "numerator": "5272922694463279",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.2ed0e33026147p+21",
+          "numerator": "5327194821910855",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.31eec79254549p+21",
+          "numerator": "5382025551103305",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.3514e253c4a18p+21",
+          "numerator": "679677578938691",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.38434918056f1p+21",
+          "numerator": "5493385871775473",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.3b7a11bba9683p+21",
+          "numerator": "5549927140333187",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.3eb95254ddad0p+21",
+          "numerator": "350440647876013",
+          "denominator": "134217728"
+        },
+        {
+          "hex": "0x1.4201213401980p+21",
+          "numerator": "44255949520947",
+          "denominator": "16777216"
+        },
+        {
+          "hex": "0x1.455194e44017fp+21",
+          "numerator": "5723066709836159",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.48aac42c2a98bp+21",
+          "numerator": "5781971993274763",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.4c0cc60e5589dp+21",
+          "numerator": "5841483565717661",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.4f77b1c9f67bdp+21",
+          "numerator": "5901607667460029",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.52eb9edb83e39p+21",
+          "numerator": "5962350603025977",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.5668a4fd567d9p+21",
+          "numerator": "6023718741829593",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.59eedc284c5f4p+21",
+          "numerator": "1521429629710717",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.5d7e5c946db10p+21",
+          "numerator": "384272277204401",
+          "denominator": "134217728"
+        },
+        {
+          "hex": "0x1.61173eb9931f7p+21",
+          "numerator": "6211639059231223",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.64b99b500dff2p+21",
+          "numerator": "3137786513223673",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.68658b51522c5p+21",
+          "numerator": "6340165040939717",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.6c1b27f8a1accp+21",
+          "numerator": "1601355468932787",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.6fda8ac3ba114p+21",
+          "numerator": "1617837593389125",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.73a3cd7383a57p+21",
+          "numerator": "6537957447580247",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.77770a0cc2673p+21",
+          "numerator": "6605250082121331",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.7b545ad8c8d69p+21",
+          "numerator": "6673235333385577",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.7f3bda662c96ep+21",
+          "numerator": "3370960165102775",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.832da3897cf14p+21",
+          "numerator": "1702828068697029",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.8729d15dfb32ep+21",
+          "numerator": "3440709221734807",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.8b307f4654f64p+21",
+          "numerator": "1738061546869721",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.8f41c8ed6051ep+21",
+          "numerator": "3511901466854031",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.935dca46d9fc5p+21",
+          "numerator": "7096096185491397",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.97849f90255fcp+21",
+          "numerator": "1792283380847999",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.9bb665510ead2p+21",
+          "numerator": "3621461302998377",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.9ff3385c8ee92p+21",
+          "numerator": "3658735585359689",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.a43b35d192036p+21",
+          "numerator": "3696393517305883",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.a88e7b1bbef1dp+21",
+          "numerator": "7468878095183645",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.aced25f441e0cp+21",
+          "numerator": "1886438082807683",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.b157546298747p+21",
+          "numerator": "7623417803671367",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.b5cd24bd6023cp+21",
+          "numerator": "1925470664097935",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.ba4eb5ab26b7cp+21",
+          "numerator": "1945288779274975",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.bedc26233ce9cp+21",
+          "numerator": "1965310874547111",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.c375956e8b334p+21",
+          "numerator": "1985539049401549",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.c81b232868c7ep+21",
+          "numerator": "4011950849869375",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.ccccef3f74cc9p+21",
+          "numerator": "8106488576298185",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.d18b19f671c42p+21",
+          "numerator": "4094962743610913",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.d655c3e523450p+21",
+          "numerator": "517138823848773",
+          "denominator": "134217728"
+        },
+        {
+          "hex": "0x1.db2d0df92df02p+21",
+          "numerator": "4179692249247617",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.e0111976f9bd2p+21",
+          "numerator": "4222712184032745",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.e50207fa96939p+21",
+          "numerator": "8532349812304185",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.e9fffb78a3459p+21",
+          "numerator": "8620169946084441",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.ef0b163f36e43p+21",
+          "numerator": "8708893978095171",
+          "denominator": "2147483648"
+        },
+        {
+          "hex": "0x1.f4237af6cc816p+21",
+          "numerator": "4399265605903371",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.f9494ca331584p+21",
+          "numerator": "2222272761611617",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.fe7caea475702p+21",
+          "numerator": "4490291488992129",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.01dee25bef58fp+22",
+          "numerator": "4536508300064143",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.0486597c6f42dp+22",
+          "numerator": "4583200802665517",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.0734cef104f8dp+22",
+          "numerator": "4630373892902797",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.09ea55270a241p+22",
+          "numerator": "4678032517276225",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.0ca6febc66371p+22",
+          "numerator": "4726181673198449",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.0f6ade800e5acp+22",
+          "numerator": "1193706602379627",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.1236077286b17p+22",
+          "numerator": "4823971827051287",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.15088cc664e95p+22",
+          "numerator": "4873623079112341",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.17e281e0d42bbp+22",
+          "numerator": "4923785372058299",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.1ac3fa5a1a63bp+22",
+          "numerator": "4974463965832763",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.1dad09fe1ee85p+22",
+          "numerator": "5025664174517893",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.209dc4ccf2849p+22",
+          "numerator": "5077391366891593",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.23963efb58eb4p+22",
+          "numerator": "1282412741747629",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.26968cf3538fcp+22",
+          "numerator": "1295612113669695",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.299ec354adf17p+22",
+          "numerator": "5235789366222615",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.2caef6f58b545p+22",
+          "numerator": "5289679294870853",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.2fc73ce2f5f35p+22",
+          "numerator": "5344123891441461",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.32e7aa616fa7fp+22",
+          "numerator": "5399128864914047",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.361054ed8412dp+22",
+          "numerator": "5454699983028525",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.3941523c5c415p+22",
+          "numerator": "5510843072889877",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.3c7ab83c53dcfp+22",
+          "numerator": "5567564021579215",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.3fbc9d158fdeap+22",
+          "numerator": "2812434388385525",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.4307172a96d3ep+22",
+          "numerator": "2841381673678495",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.465a3d18eab24p+22",
+          "numerator": "1435313451018953",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.49b625b9a43fep+22",
+          "numerator": "2900173140075007",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.4d1ae82210188p+22",
+          "numerator": "732505871491121",
+          "denominator": "134217728"
+        },
+        {
+          "hex": "0x1.50889ba44d4c0p+22",
+          "numerator": "92505658430291",
+          "denominator": "16777216"
+        },
+        {
+          "hex": "0x1.53ff57cfeda38p+22",
+          "numerator": "747662263442247",
+          "denominator": "134217728"
+        },
+        {
+          "hex": "0x1.577f34729787ep+22",
+          "numerator": "3021430632791103",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.5b084998a997cp+22",
+          "numerator": "1526264517273183",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.5e9aaf8ddfe7dp+22",
+          "numerator": "6167895039934077",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.62367eddfafb4p+22",
+          "numerator": "1557844691774445",
+          "denominator": "268435456"
+        },
+        {
+          "hex": "0x1.65dbd055686f3p+22",
+          "numerator": "6295515907393267",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.698abd01ed67fp+22",
+          "numerator": "6360313186145919",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.6d435e3352b98p+22",
+          "numerator": "803222174737779",
+          "denominator": "134217728"
+        },
+        {
+          "hex": "0x1.7105cd7c12dbap+22",
+          "numerator": "3245957703571165",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.74d224b209a27p+22",
+          "numerator": "6558734148999719",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.78a87def25cbdp+22",
+          "numerator": "6626240629988541",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.7c88f3921c5abp+22",
+          "numerator": "6694441928738219",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.8073a03f1dd0ep+22",
+          "numerator": "3381672598367879",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.84689ee08d40bp+22",
+          "numerator": "6832957659075595",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.88680aa7b9462p+22",
+          "numerator": "3451643307608625",
+          "denominator": "536870912"
+        },
+        {
+          "hex": "0x1.8c71ff0d96e40p+22",
+          "numerator": "108974053746105",
+          "denominator": "16777216"
+        },
+        {
+          "hex": "0x1.908697d37e4d5p+22",
+          "numerator": "7046123583169749",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.94a5f103e9a41p+22",
+          "numerator": "7118646572653121",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.98d026f335a87p+22",
+          "numerator": "7191916012853895",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.9d055640646a7p+22",
+          "numerator": "7265939586696871",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.a1459bd5e1f5dp+22",
+          "numerator": "7340725056184157",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.a59114ea4b0afp+22",
+          "numerator": "7416280263209135",
+          "denominator": "1073741824"
+        },
+        {
+          "hex": "0x1.a9e7df0135dc8p+22",
+          "numerator": "936576641297337",
+          "denominator": "134217728"
+        },
+        {
+          "hex": "0x1.ae4a17ebfce50p+22",
+          "numerator": "473108228865253",
+          "denominator": "67108864"
+        }
+      ],
+      "remainder": 494.64276183565784,
+      "cells": 40,
+      "subdiv": 16,
+      "effective_cells": 640
+    }
+  ],
+  "edge_modes": [
+    "core+edge",
+    "edge-global"
+  ],
+  "nonclaims": [
+    "not Arb/MPFR",
+    "not Lean literal",
+    "no producer GO",
+    "no RH"
+  ]
+}

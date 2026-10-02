@@ -7,6 +7,7 @@ touches a support edge; it prevents the naive interval 0/0 explosion.
 """
 import json
 import math
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -16,7 +17,8 @@ import mpmath as mp
 ROOT = Path(__file__).resolve().parents[1]
 REPAIR = ROOT / "results/2338_exact_interpolation_repair.json"
 CAPTURE = ROOT / "results/2275_gap_owner_audit.json"
-OUT = ROOT / "results/2477_owner_local_curvature_iv.json"
+OUT = Path(os.environ.get(
+    "ROUTEA_2477_OUT", str(ROOT / "results/2477_owner_local_curvature_iv.json")))
 mp.iv.dps = 80
 
 
@@ -27,6 +29,13 @@ def frac(s):
 
 def hi(x):
     return float(x.b)
+
+
+def float_payload(value):
+    value = float(value)
+    numerator, denominator = value.as_integer_ratio()
+    return {"hex": value.hex(), "numerator": str(numerator),
+            "denominator": str(denominator)}
 
 
 def bump_bound_iv(order, rad, xlo, xhi, step):
@@ -94,6 +103,7 @@ def main():
             values.append(hi(total))
         rows.append({"sigma": str(sigma), "max_cell": max(values),
                      "binding_index": values.index(max(values)),
+                     "cell_upper_bounds": [float_payload(value) for value in values],
                      "remainder": substep ** 3 / 12 * sum(values),
                      "cells": cells, "subdiv": subdiv,
                      "effective_cells": cells * subdiv})
