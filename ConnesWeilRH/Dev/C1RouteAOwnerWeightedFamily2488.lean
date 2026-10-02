@@ -22,7 +22,7 @@ set_option maxRecDepth 32768
    them in a precomputed familyBound. -/
 
 theorem weightedExternalFamilySecondDeriv_le_of_local_bounds2488
-    (sigma x coefficient modulation radius zeroBound firstBound secondBound : ℝ)
+    (sigma x modulation radius zeroBound firstBound secondBound : ℝ)
     (hcoeff : ℂ)
     (hradius : 0 < radius) (hinside : |x| < radius)
     (hzero : ‖externalFamilyValue2344 hcoeff modulation radius x‖ ≤ zeroBound)
@@ -42,6 +42,7 @@ theorem weightedExternalFamilySecondDeriv_le_of_local_bounds2488
 
 theorem externalFamilyValue2344_secondDerivative_norm_le_of_factor_bounds2488
     (coefficient : ℂ) (modulation radius position : ℝ)
+    (valueBound factorBound : ℝ)
     (hradius : 0 < radius) (hinside : |position| < radius)
     (hvalue : ‖externalFamilyValue2344 coefficient modulation radius position‖ ≤ valueBound)
     (hfactor : ‖familySecondFactor2345 modulation radius position‖ ≤ factorBound) :
@@ -49,6 +50,45 @@ theorem externalFamilyValue2344_secondDerivative_norm_le_of_factor_bounds2488
       valueBound * factorBound := by
   rw [externalFamilyValue2344_secondDerivative_inside coefficient modulation hradius hinside]
   exact (norm_mul _ _).trans (mul_le_mul hvalue hfactor (norm_nonneg _) (by positivity))
+
+theorem externalFamilyValue2344_firstDerivative_norm_le_of_factor_bounds2488
+    (coefficient : ℂ) (modulation radius position : ℝ)
+    (valueBound factorBound : ℝ)
+    (hradius : 0 < radius) (hinside : |position| < radius)
+    (hvalue : ‖externalFamilyValue2344 coefficient modulation radius position‖ ≤ valueBound)
+    (hfactor : ‖familyFirstFactor2345 modulation radius position‖ ≤ factorBound) :
+    ‖deriv (externalFamilyValue2344 coefficient modulation radius) position‖ ≤
+      valueBound * factorBound := by
+  have hderiv := (externalFamilyValue2344_hasDerivAt_inside
+    coefficient modulation hradius hinside).deriv
+  rw [hderiv]
+  have hinterior :
+      familyInterior2345 coefficient modulation radius position =
+        externalFamilyValue2344 coefficient modulation radius position := by
+    simp only [externalFamilyValue2344, familyInterior2345, familyLog2345,
+      familyDeficit2345, if_pos hinside]
+  rw [hinterior]
+  exact (norm_mul _ _).trans (mul_le_mul hvalue hfactor (norm_nonneg _) (by positivity))
+
+theorem weightedExternalFamilySecondDeriv_le_of_factor_bounds2488
+    (sigma position modulation radius valueBound firstFactorBound secondFactorBound : ℝ)
+    (coefficient : ℂ) (hradius : 0 < radius) (hinside : |position| < radius)
+    (hvalue : ‖externalFamilyValue2344 coefficient modulation radius position‖ ≤ valueBound)
+    (hfirstFactor : ‖familyFirstFactor2345 modulation radius position‖ ≤ firstFactorBound)
+    (hsecondFactor : ‖familySecondFactor2345 modulation radius position‖ ≤ secondFactorBound) :
+    ‖deriv (deriv (weightedFunction2348 sigma
+      (externalFamilyValue2344 coefficient modulation radius))) position‖ ≤
+      weightedCurvature2348 sigma radius valueBound
+        (valueBound * firstFactorBound) (valueBound * secondFactorBound) := by
+  apply weightedExternalFamilySecondDeriv_le_of_local_bounds2488 sigma position modulation radius
+    valueBound (valueBound * firstFactorBound) (valueBound * secondFactorBound) coefficient
+    hradius hinside hvalue
+  · exact externalFamilyValue2344_firstDerivative_norm_le_of_factor_bounds2488
+      coefficient modulation radius position valueBound firstFactorBound hradius hinside
+      hvalue hfirstFactor
+  · exact externalFamilyValue2344_secondDerivative_norm_le_of_factor_bounds2488
+      coefficient modulation radius position valueBound secondFactorBound hradius hinside
+      hvalue hsecondFactor
 
 theorem ownerPanelWeightedSecondDeriv_le_sumFamilyBound2488
     (sigma x : ℝ) (familyBound : Fin 30 → ℝ)
