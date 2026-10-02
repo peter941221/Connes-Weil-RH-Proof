@@ -4252,3 +4252,12 @@ sum, zeta attachment, and 2351 owner instantiation remain open. Evidence:
 `docs/proofs/2461_owner_panel_coverage.md`,
 `scripts/routea_owner_panel_coverage_2461.py`, and
 `results/2461_owner_panel_coverage.json`.
+
+Record 2462 (2026-10-02): the exact-radius correction is formally rebuilt
+in a fresh ext4 mirror. Mathlib TrapezoidalRule, 2457, 2459, 2460, and the
+2460 audit all build successfully (2676, 2678, 3711, 3712, 3713 jobs).
+The audit reports exactly [propext, Classical.choice, Quot.sound] for all
+33 sample declarations and no sorryAx. This closes the verification concern
+introduced by replacing the decimal stand-in radius, but does not promote
+the one-panel sample to a full producer certificate. Evidence:
+`docs/proofs/2462_exact_radius_rebuild.md`.
