@@ -3995,3 +3995,9 @@ open.  Evidence:
 `ConnesWeilRH/Dev/C1RouteAQBounds.lean`,
 `ConnesWeilRH/Dev/C1RouteAQBoundsAudit.lean`, and
 `docs/proofs/2443_routea_q_bounds.md`.
+### Record 2444 — narrow phase rectangle interface
+
+The phase layer now has a direct endpoint interface: certified inequalities for
+`cos t` and `sin t` imply membership of `exp (t I)` in the matching complex
+rectangle. This is an interface theorem only; it does not yet import the
+MPFR endpoint certificate. The broad `[-1,1]` fallback remains separate.
