@@ -16,6 +16,40 @@ open scoped BigOperators ContDiff
 set_option linter.style.longLine false
 set_option maxRecDepth 32768
 
+/- A single-family adapter for the weighted chord estimate.  Keeping the
+   three derivative bounds explicit is intentional: the eventual interval
+   proof must discharge them from the local bump interface, rather than hide
+   them in a precomputed familyBound. -/
+
+theorem weightedExternalFamilySecondDeriv_le_of_local_bounds2488
+    (sigma x coefficient modulation radius zeroBound firstBound secondBound : ℝ)
+    (hcoeff : ℂ)
+    (hradius : 0 < radius) (hinside : |x| < radius)
+    (hzero : ‖externalFamilyValue2344 hcoeff modulation radius x‖ ≤ zeroBound)
+    (hfirst : ‖deriv (externalFamilyValue2344 hcoeff modulation radius) x‖ ≤ firstBound)
+    (hsecond : ‖deriv (deriv (externalFamilyValue2344 hcoeff modulation radius)) x‖ ≤
+      secondBound) :
+    ‖deriv (deriv (weightedFunction2348 sigma
+      (externalFamilyValue2344 hcoeff modulation radius))) x‖ ≤
+      weightedCurvature2348 sigma radius zeroBound firstBound secondBound := by
+  have hsmooth : ContDiff ℝ (2 : WithTop (WithTop ℕ))
+      (externalFamilyValue2344 hcoeff modulation radius) :=
+    (externalFamilyValue2344_contDiff hcoeff modulation radius hradius).of_le
+      (by decide)
+  exact weightedFunction2348_curvature_bound sigma
+    (externalFamilyValue2344 hcoeff modulation radius) hsmooth radius x
+    zeroBound firstBound secondBound (le_of_lt (abs_lt.mp hinside)) hzero hfirst hsecond
+
+theorem externalFamilyValue2344_secondDerivative_norm_le_of_factor_bounds2488
+    (coefficient : ℂ) (modulation radius position : ℝ)
+    (hradius : 0 < radius) (hinside : |position| < radius)
+    (hvalue : ‖externalFamilyValue2344 coefficient modulation radius position‖ ≤ valueBound)
+    (hfactor : ‖familySecondFactor2345 modulation radius position‖ ≤ factorBound) :
+    ‖deriv (deriv (externalFamilyValue2344 coefficient modulation radius)) position‖ ≤
+      valueBound * factorBound := by
+  rw [externalFamilyValue2344_secondDerivative_inside coefficient modulation hradius hinside]
+  exact (norm_mul _ _).trans (mul_le_mul hvalue hfactor (norm_nonneg _) (by positivity))
+
 theorem ownerPanelWeightedSecondDeriv_le_sumFamilyBound2488
     (sigma x : ℝ) (familyBound : Fin 30 → ℝ)
     (hfamily : ∀ i : Fin 30,
