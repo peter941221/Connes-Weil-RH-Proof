@@ -1,0 +1,4 @@
+import ConnesWeilRH.Dev.C1RouteAOwnerPanelNodeUpper2471
+
+#print axioms ConnesWeilRH.Dev.ownerPanelNodeUpper2471_bound
+#print axioms ConnesWeilRH.Dev.ownerPanelStripNorm_le_panelNodeUpper_2471
