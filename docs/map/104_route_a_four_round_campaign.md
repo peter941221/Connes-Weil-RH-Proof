@@ -4334,3 +4334,12 @@ minimum is transported through the local remainder with the nonnegative
 `step^3 / 12` weight. This is a budget-shrink interface only; the directed
 numeric import and selected-detector signed producer inequality remain open.
 Evidence: `docs/proofs/2490_owner_family_hybrid_monotonicity.md`.
+
+Record 2491 (2026-10-03): an independent directed-MPFR replay of the
+per-family hybrid price on the 640-cell production grid gives baseline
+`635.5759930912202`, hybrid `433.0933619523697`, and ratio `0.6814186921`
+for both sigma signs. The baseline agrees with record 2489 at about `2e-12`.
+This is still external pricing evidence; the next obligation is directed
+rational binding/import, followed by the selected-detector producer margin.
+Evidence: `docs/proofs/2491_owner_family_hybrid_mpfr_price.md` and
+`results/2491_owner_family_hybrid_mpfr.json`.
