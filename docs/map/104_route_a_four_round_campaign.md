@@ -3931,3 +3931,11 @@ enclosure proof.  Evidence:
 `scripts/routea_mpfr_rounding_contract_audit_2435.py`,
 `docs/proofs/2435_mpfr_rounding_contract_audit.md`, and
 `results/2435_mpfr_rounding_contract_audit.json`.
+
+Record 2436 (2026-10-02): the Lean owner bridge proves that per-family
+rectangles for the 30 `externalFamilyValue2344` terms sum to a rectangle
+containing the actual `correctedPhysical` value, using the existing owner
+identity.  The per-family MPFR rectangle hypotheses remain open.  Evidence:
+`ConnesWeilRH/Dev/C1RouteAOwnerTermInterface.lean`,
+`ConnesWeilRH/Dev/C1RouteAOwnerTermInterfaceAudit.lean`, and
+`docs/proofs/2436_routea_owner_term_interface.md`.

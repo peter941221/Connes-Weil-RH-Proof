@@ -197,6 +197,13 @@ def ComplexRect2427.sum (rect : ℕ → ComplexRect2427) (n : ℕ) : ComplexRect
     imLo := ∑ i ∈ Finset.range n, (rect i).imLo
     imHi := ∑ i ∈ Finset.range n, (rect i).imHi }
 
+def ComplexRect2427.sumFinset {α : Type*}
+    (rect : α → ComplexRect2427) (s : Finset α) : ComplexRect2427 :=
+  { reLo := ∑ i ∈ s, (rect i).reLo
+    reHi := ∑ i ∈ s, (rect i).reHi
+    imLo := ∑ i ∈ s, (rect i).imLo
+    imHi := ∑ i ∈ s, (rect i).imHi }
+
 theorem ComplexRect2427.mem_sum {term : ℕ → ℂ}
     {rect : ℕ → ComplexRect2427} {n : ℕ}
     (hterm : ∀ i < n, (rect i).Mem (term i)) :
@@ -216,5 +223,25 @@ theorem ComplexRect2427.mem_sum {term : ℕ → ℂ}
   · simpa [ComplexRect2427.sum] using
       (Finset.sum_le_sum (s := Finset.range n)
         (fun i hi => (hterm i (Finset.mem_range.mp hi)).2.2.2))
+
+theorem ComplexRect2427.mem_sumFinset {α : Type*} {term : α → ℂ}
+    {rect : α → ComplexRect2427} {s : Finset α}
+    (hterm : ∀ i ∈ s, (rect i).Mem (term i)) :
+    (ComplexRect2427.sumFinset rect s).Mem (∑ i ∈ s, term i) := by
+  constructor
+  · simpa [ComplexRect2427.sumFinset] using
+      (Finset.sum_le_sum (s := s)
+        (fun i hi => (hterm i hi).1))
+  constructor
+  · simpa [ComplexRect2427.sumFinset] using
+      (Finset.sum_le_sum (s := s)
+        (fun i hi => (hterm i hi).2.1))
+  constructor
+  · simpa [ComplexRect2427.sumFinset] using
+      (Finset.sum_le_sum (s := s)
+        (fun i hi => (hterm i hi).2.2.1))
+  · simpa [ComplexRect2427.sumFinset] using
+      (Finset.sum_le_sum (s := s)
+        (fun i hi => (hterm i hi).2.2.2))
 
 end ConnesWeilRH.Dev
