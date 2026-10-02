@@ -31,4 +31,20 @@ theorem ownerCellExpSplitUpper_auto2506
           expTaylor20Error) := by
   exact ownerExpSplitUpper_auto2506 (30 / (1 - a ^ 2)) hx
 
+theorem ownerCellExpSplitUpper_auto_of_abs_lt_one2506
+    {a : ℝ} (ha : |a| < 1) :
+    Real.exp (-(30 / (1 - a ^ 2))) ≤
+      expNegOneUpper2498 ^
+          (⌊30 / (1 - a ^ 2)⌋₊ : ℕ) *
+        (expTaylor20
+            (30 / (1 - a ^ 2) - (⌊30 / (1 - a ^ 2)⌋₊ : ℕ)) +
+          expTaylor20Error) := by
+  have ha' : -1 < a ∧ a < 1 := (abs_lt.mp ha)
+  have hleft : 0 ≤ 1 - a := by linarith [ha'.2]
+  have hright : 0 ≤ 1 + a := by linarith [ha'.1]
+  have hprod : 0 ≤ (1 - a) * (1 + a) := mul_nonneg hleft hright
+  have hden : 0 < 1 - a ^ 2 := by nlinarith [hprod]
+  apply ownerCellExpSplitUpper_auto2506
+  exact (div_nonneg (by norm_num) hden.le)
+
 end ConnesWeilRH.Dev

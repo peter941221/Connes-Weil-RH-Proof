@@ -8,3 +8,6 @@ exponential envelope from record 2498.
 This closes only the integer-selection interface.  It does not prove the
 cellwise lower-ratio bound, the 2501 numerical table, hcell, or the producer
 margin.
+
+The owner-specialized theorem also proves the required nonnegativity from
+`|a| < 1`, by factoring `1-a^2 = (1-a)(1+a)`.
