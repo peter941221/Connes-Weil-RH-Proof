@@ -546,4 +546,24 @@ theorem ownerCoefficientL1Bound2488 (i : Fin 30) :
     ‖ownerCoef_2463 i‖ ≤ |(ownerCoef_2463 i).re| + |(ownerCoef_2463 i).im| := by
   exact Complex.norm_le_abs_re_add_abs_im _
 
+theorem abs_le_max_abs_endpoints_of_mem_Icc2488
+    {left right coordinate : ℝ} (hcoordinate : coordinate ∈ Set.Icc left right) :
+    |coordinate| ≤ max |left| |right| := by
+  apply abs_le.mpr
+  constructor
+  · exact (neg_le_neg (le_max_left |left| |right|)).trans
+      (neg_abs_le left) |>.trans hcoordinate.1
+  · exact hcoordinate.2.trans (le_abs_self right) |>.trans
+      (le_max_right |left| |right|)
+
+theorem abs_div_le_of_mem_Icc_of_endpointBound2488
+    {left right coordinate radius t : ℝ}
+    (hradius : 0 < radius)
+    (hcoordinate : coordinate ∈ Set.Icc left right)
+    (hendpoint : max |left| |right| ≤ t * radius) :
+    |coordinate / radius| ≤ t := by
+  rw [abs_div, abs_of_pos hradius]
+  exact (div_le_iff₀ hradius).2
+    (le_trans (abs_le_max_abs_endpoints_of_mem_Icc2488 hcoordinate) hendpoint)
+
 end ConnesWeilRH.Dev

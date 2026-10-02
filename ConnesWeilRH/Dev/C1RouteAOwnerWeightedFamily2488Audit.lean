@@ -18,5 +18,7 @@ namespace ConnesWeilRH.Dev
 #print axioms ownerPanelStripNorm_le_intervalCurvature2488
 #print axioms ownerCoefficientL1Bound2488
 #print axioms ownerPanelWeightedSecondDeriv_le_sumIntervalZeroLowerBound2488
+#print axioms abs_le_max_abs_endpoints_of_mem_Icc2488
+#print axioms abs_div_le_of_mem_Icc_of_endpointBound2488
 
 end ConnesWeilRH.Dev
