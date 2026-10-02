@@ -1,0 +1,27 @@
+{
+  "record": 2449,
+  "date": "2026-10-02",
+  "status": "EXACT_STORED_INPUT_POINT_BOX_REPLAY_PASS",
+  "checked_terms": 540,
+  "containment_failure_count": 0,
+  "exact_support_branch_mismatches": 0,
+  "tests_passed": 10,
+  "position_convention": "exact stored binary64, not decimal-string reconstruction",
+  "windows_linux_files_match": true,
+  "source_and_artifact_sha256": {
+    "scripts/routea_family_endpoint_certificate_2445.py": "dc406f41194552361943f3ca89daf9fb47dcb076f6df578b37ac9a9bd950418c",
+    "scripts/routea_family_endpoint_certificate_selftest_2445.py": "6f42730ad413c2bf32385609a7a16a4e735e19e6adca46bd4f5442e0a7ffe832",
+    "scripts/routea_family_endpoint_independent_replay_2445.py": "e974d11192153b4bca4ecab4c9930a1c95987d6674822b0a9b940de2a4c304b8",
+    "scripts/routea_family_endpoint_independent_replay_selftest_2445.py": "b087211a26ad2ddbeb575c3b032e1c70354c5a4639882b2db7f0aa70e4448724",
+    "scripts/routea_mpfr_owner_atom_preflight_2286.py": "c3941bc43124539b945b16fdfefee3523c3738cab75378fb4642bfad3b5dc61f",
+    "results/2275_gap_owner_audit.json": "743fe372bef89b5730c38274d5a5517ac9ea4d3421989d46c49d4af3e78b5e74",
+    "results/2445_routea_family_endpoint_certificate.json": "bf77e1291ac67a0e62dcf909fcae0439e2a20b45e43fe656eda39981ac51e966",
+    "results/2445_routea_family_endpoint_independent_replay.json": "d122285adbefa0651d30f65dbc4bd95d18dec4d2eca642978b12cdcd00406796"
+  },
+  "test_log_sha256": "2d407504d003cfe404f23be48347e686ae1f67393860d4067d9a0bf06b1ddd60",
+  "numeric_lean_imported": false,
+  "continuum_certified": false,
+  "quadrature_certified": false,
+  "producer_go": false,
+  "rh_claim": false
+}

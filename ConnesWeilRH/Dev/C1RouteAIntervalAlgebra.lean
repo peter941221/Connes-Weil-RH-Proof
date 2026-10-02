@@ -1,11 +1,12 @@
 import Mathlib.Algebra.Order.BigOperators.Group.Finset
 import Mathlib.Algebra.Order.Group.Pointwise.Interval
-import Mathlib.Data.Complex.Basic
+import Mathlib.Data.Complex.BigOperators
 import Mathlib.Data.Real.Basic
 
 namespace ConnesWeilRH.Dev
 
 open scoped BigOperators
+open scoped Complex.SMul
 open Set
 
 structure RealInterval2429 where
@@ -44,8 +45,8 @@ theorem RealInterval2429.mem_mul {a b : RealInterval2429} {x y : ℝ}
   rcases ha with ⟨hax, hxb⟩
   rcases hb with ⟨hby, hyb⟩
   have hyu : y ∈ uIcc b.lo b.hi := by
-    rw [uIcc_of_le hby.le.trans hyb]
-    exact hb
+    rw [uIcc_of_le (hby.trans hyb)]
+    exact ⟨hby, hyb⟩
   have hay : a.lo * y ∈ uIcc (a.lo * b.lo) (a.lo * b.hi) := by
     have h := image_mul_const_uIcc a.lo b.lo b.hi
     have hm : y * a.lo ∈ (fun t : ℝ => t * a.lo) '' uIcc b.lo b.hi :=
@@ -58,24 +59,22 @@ theorem RealInterval2429.mem_mul {a b : RealInterval2429} {x y : ℝ}
       ⟨y, hyu, rfl⟩
     rw [h] at hm
     simpa [mul_comm] using hm
-  rcases mem_uIcc.mp hay with ⟨hayl, hayh⟩
-  rcases mem_uIcc.mp hby' with ⟨hbyl, hbyh⟩
   by_cases hy0 : 0 ≤ y
   · have hlow : a.lo * y ≤ x * y :=
       mul_le_mul_of_nonneg_right hax hy0
     have hhigh : x * y ≤ a.hi * y :=
       mul_le_mul_of_nonneg_right hxb hy0
     constructor
-    · exact (min_le_min hayl hbyl).trans (hayl.trans hlow)
-    · exact hhigh.trans (max_le_max hayh hbyh)
+    · exact (min_le_left _ _).trans (hay.1.trans hlow)
+    · exact hhigh.trans (hby'.2.trans (le_max_right _ _))
   · have hy0' : y ≤ 0 := le_of_not_ge hy0
     have hlow : a.hi * y ≤ x * y :=
       mul_le_mul_of_nonpos_right hxb hy0'
     have hhigh : x * y ≤ a.lo * y :=
       mul_le_mul_of_nonpos_right hax hy0'
     constructor
-    · exact (min_le_min hayl hbyl).trans (hbyl.trans hlow)
-    · exact hhigh.trans (max_le_max hayh hbyh)
+    · exact (min_le_right _ _).trans (hby'.1.trans hlow)
+    · exact hhigh.trans (hay.2.trans (le_max_left _ _))
 
 /-- A closed axis-aligned rectangle in `ℂ`, used only as the logical target of
 the directed interval evaluator.  The numerical construction of its endpoints
@@ -148,10 +147,10 @@ theorem ComplexRect2427.mem_mul {z w : ℂ} {a b : ComplexRect2427}
   let ai : RealInterval2429 := ⟨a.imLo, a.imHi⟩
   let br : RealInterval2429 := ⟨b.reLo, b.reHi⟩
   let bi : RealInterval2429 := ⟨b.imLo, b.imHi⟩
-  have har : ar.Mem z.re := hz.1
-  have hai : ai.Mem z.im := hz.2.2.1
-  have hbr : br.Mem w.re := hw.1
-  have hbi : bi.Mem w.im := hw.2.2.1
+  have har : ar.Mem z.re := ⟨hz.1, hz.2.1⟩
+  have hai : ai.Mem z.im := ⟨hz.2.2.1, hz.2.2.2⟩
+  have hbr : br.Mem w.re := ⟨hw.1, hw.2.1⟩
+  have hbi : bi.Mem w.im := ⟨hw.2.2.1, hw.2.2.2⟩
   have hrr : (ar.mul br).Mem (z.re * w.re) :=
     RealInterval2429.mem_mul har hbr
   have hii : (ai.mul bi).Mem (z.im * w.im) :=

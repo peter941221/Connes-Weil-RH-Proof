@@ -1,4 +1,5 @@
 import ConnesWeilRH.Dev.C1RouteAIntervalAlgebra
+import Mathlib.Analysis.Complex.Trigonometric
 
 namespace ConnesWeilRH.Dev
 
@@ -18,24 +19,14 @@ theorem phase_mem_of_sin_cos_bounds2444
     (hsHi : Real.sin t ≤ sHi) :
     (phaseRectOfBounds2444 cLo cHi sLo sHi).Mem
       (Complex.exp ((t : ℂ) * Complex.I)) := by
-  rw [Complex.exp_ofReal_mul_I]
-  constructor
-  · exact hcLo
-  constructor
-  · exact hcHi
-  constructor
-  · exact hsLo
-  · exact hsHi
+  simpa only [ComplexRect2427.Mem, phaseRectOfBounds2444,
+    Complex.exp_ofReal_mul_I_re, Complex.exp_ofReal_mul_I_im] using
+    (show cLo ≤ Real.cos t ∧ Real.cos t ≤ cHi ∧
+      sLo ≤ Real.sin t ∧ Real.sin t ≤ sHi from ⟨hcLo, hcHi, hsLo, hsHi⟩)
 
 theorem phase_mem_phaseRect2441 (t : ℝ) :
     phaseRect2441.Mem (Complex.exp ((t : ℂ) * Complex.I)) := by
-  rw [Complex.exp_ofReal_mul_I]
-  constructor
-  · exact neg_one_le_cos t
-  constructor
-  · exact cos_le_one t
-  constructor
-  · exact neg_one_le_sin t
-  · exact sin_le_one t
+  exact phase_mem_of_sin_cos_bounds2444 (Real.neg_one_le_cos t)
+    (Real.cos_le_one t) (Real.neg_one_le_sin t) (Real.sin_le_one t)
 
 end ConnesWeilRH.Dev

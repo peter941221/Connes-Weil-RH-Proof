@@ -1,9 +1,10 @@
 import ConnesWeilRH.Dev.C1RouteAExternalOwnerIdentity
-import ConnesWeilRH.Dev.C1RouteAIntervalAlgebra
+import ConnesWeilRH.Dev.C1RouteAMPFRInterface
 
 namespace ConnesWeilRH.Dev
 
 open scoped BigOperators
+open ConnesWeilRH.Dev.C1RouteAOwnerScaleAudit
 
 theorem correctedPhysical_mem_of_family_rect2436
     (coefficients : Fin 30 → ℂ) (modulations : Fin 30 → ℝ)

@@ -1,0 +1,20 @@
+{
+  "record": 2445,
+  "status": "INDEPENDENT-MPMATH-CONTAINMENT-REPLAY",
+  "precision_digits": 80,
+  "checked_terms": 540,
+  "failure_count": 0,
+  "failures": [],
+  "position_convention": "exact stored binary64, not decimal-string reconstruction",
+  "source_hashes_verified": true,
+  "replay_source_sha256": "e974d11192153b4bca4ecab4c9930a1c95987d6674822b0a9b940de2a4c304b8",
+  "artifact_sha256": "bf77e1291ac67a0e62dcf909fcae0439e2a20b45e43fe656eda39981ac51e966",
+  "capture_sha256": "743fe372bef89b5730c38274d5a5517ac9ea4d3421989d46c49d4af3e78b5e74",
+  "nonclaims": [
+    "finite point-box control only",
+    "no continuum transfer",
+    "no quadrature enclosure",
+    "no Lean numeric import",
+    "no producer GO"
+  ]
+}

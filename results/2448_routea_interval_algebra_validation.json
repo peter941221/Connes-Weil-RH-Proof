@@ -1,0 +1,207 @@
+{
+  "record": 2448,
+  "date": "2026-10-02",
+  "status": "INTERVAL_ALGEBRA_AND_DIRECT_CONSUMER_AUDITS_PASS",
+  "toolchain": "leanprover/lean4:v4.30.0",
+  "build_footer": "Build completed successfully (3716 jobs).",
+  "error_lines": 0,
+  "regression_examples": 6,
+  "audited_declarations": [
+    {
+      "name": "ConnesWeilRH.Dev.ComplexRect2427.mem_add",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "ConnesWeilRH.Dev.ComplexRect2427.mem_sub",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "ConnesWeilRH.Dev.ComplexRect2427.mem_mul",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "ConnesWeilRH.Dev.ComplexRect2427.mem_scale",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "ConnesWeilRH.Dev.ComplexRect2427.mem_sum",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "ConnesWeilRH.Dev.ComplexRect2427.mem_sumFinset",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "ConnesWeilRH.Dev.RealInterval2429.mem_add",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "ConnesWeilRH.Dev.RealInterval2429.mem_sub",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "ConnesWeilRH.Dev.RealInterval2429.mem_mul",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "ConnesWeilRH.Dev.DirectedRealValue2433.product",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "ConnesWeilRH.Dev.DirectedRealValue2433.sum",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "ConnesWeilRH.Dev.DirectedRealValue2433.difference",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "ConnesWeilRH.Dev.DirectedComplexValue2433.product",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "ConnesWeilRH.Dev.DirectedComplexValue2433.sum",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "ConnesWeilRH.Dev.DirectedComplexValue2433.difference",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "ConnesWeilRH.Dev.DirectedComplexValue2433.sumFamily",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "ConnesWeilRH.Dev.correctedPhysical_mem_of_family_rect2436",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "ConnesWeilRH.Dev.externalFamilyValue_mem_of_factor_cert2437",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "ConnesWeilRH.Dev.ComplexRect2427.point_mem",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "ConnesWeilRH.Dev.phase_mem_phaseRect2441",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "ConnesWeilRH.Dev.phase_mem_of_sin_cos_bounds2444",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "ConnesWeilRH.Dev.phase_mem_phaseRect2441",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "source_sha256": {
+    "ConnesWeilRH/Dev/C1RouteAIntervalAlgebra.lean": "23ee06fba3c2c8d60730abbf7e5b2fbb0678725b57d60c7f57c369d35e5f3cfe",
+    "ConnesWeilRH/Dev/C1RouteAIntervalAlgebraAudit.lean": "1d16d3d7a6e4f816655bd190ccef0bb327767ba2c72e73ec3f85e3a9ca23c61c",
+    "ConnesWeilRH/Dev/C1RouteAMPFRInterface.lean": "d60cbaecd05397cc9f950695d8012f77b7c21bc240e5a1a6861647c1dd68b070",
+    "ConnesWeilRH/Dev/C1RouteAMPFRInterfaceAudit.lean": "40c9e5e25a1cf217c6a24aaa699f8a6c069f7333f77bf3e801ffa3f1614755fc",
+    "ConnesWeilRH/Dev/C1RouteAOwnerTermInterface.lean": "b54dac66448106e55b3d6fefacb150838cbd50dfb40ef4a4cb20e033130a368a",
+    "ConnesWeilRH/Dev/C1RouteAOwnerTermInterfaceAudit.lean": "fb0507c6e591b8f5770b873dc56b51ab0e4d1b29535ffa4ffbe0c7395c206da6",
+    "ConnesWeilRH/Dev/C1RouteAPhaseBounds.lean": "5b3cbda6d3b0073abca3e7aeae440ee4e3f92789d83d52135e35bb8bb665ea1f",
+    "ConnesWeilRH/Dev/C1RouteAPhaseBoundsAudit.lean": "93aafb2f560a7142ff3483f0ce73679810e726097435bb00ab83f53ca72c6fc3",
+    "ConnesWeilRH/Dev/C1RouteAPhaseBoundsNarrowAudit.lean": "05214bcc33d9052a75370943b0d23f455cafd5e5b6a69c7c9e7ece37d335e9ca"
+  },
+  "windows_linux_source_match": true,
+  "build_log": "build-logs/2448_route_batch_final.log",
+  "build_log_sha256": "8d4a67d51ac4771ef9dade560a4b30620e398a1a8d44f53dfb0cbdbcf138885d",
+  "numeric_endpoint_imported": false,
+  "continuum_certified": false,
+  "quadrature_certified": false,
+  "selected_detector_signed_budget_closed": false,
+  "producer_go": false,
+  "rh_claim": false
+}

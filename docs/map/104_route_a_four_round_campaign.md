@@ -4001,3 +4001,45 @@ The phase layer now has a direct endpoint interface: certified inequalities for
 `cos t` and `sin t` imply membership of `exp (t I)` in the matching complex
 rectangle. This is an interface theorem only; it does not yet import the
 MPFR endpoint certificate. The broad `[-1,1]` fallback remains separate.
+
+Record 2445 (2026-10-02): external directed-MPFR family point-box preflight
+covers 30 terms, two coefficient vectors and nine positions. After correcting
+interval subtraction and the real bump embedding, the independent 80-digit
+mpmath replay reports 540 checked terms and zero containment failures. This
+is finite point-box evidence only, not continuum, quadrature or Lean endpoint
+certification. Evidence: `docs/proofs/2445_routea_family_endpoint_certificate.md`
+and `results/2445_routea_family_endpoint_independent_replay.json`.
+
+Record 2446 (2026-10-02): the directed evaluator box smoke reports
+337532.3977251508 at sigma=-0.5 (1001 nodes), 337034.6206096492 at sigma=-0.5
+(2001 nodes), and 268842.55655457673 at sigma=+0.5 (1001 nodes). The largest
+is approximately 28.2 times below frozen bUpper2243=9506275.102584327. These
+are smoke readings, not certified integrals or signed producer acceptance.
+Evidence: `docs/proofs/2446_routea_box_smoke.md`.
+
+Record 2447 (2026-10-02): the interval algebra source failed a formal build.
+The unordered-interval proof, complex membership projections, scalar action,
+and finite-sum readback blocked numeric endpoint import. The diagnostic source
+was restored before record 2448. Evidence:
+`docs/proofs/2447_routea_interval_algebra_build_failure.md`.
+
+Record 2448 (2026-10-02): the real/complex interval algebra and its direct
+MPFR-value, owner-term and phase consumers now build in the WSL ext4 mirror.
+The five-target audit batch passes 3716 jobs, zero error lines, six exact
+regression examples, and 22 audited declarations with only the permitted
+three axioms. The interval definitions and theorem APIs are unchanged.
+Actual endpoint certification, continuum/quadrature transfer and the selected
+detector signed budget remain open. Evidence:
+`docs/proofs/2448_routea_interval_algebra_repair.md` and
+`results/2448_routea_interval_algebra_validation.json`.
+
+Record 2449 (2026-10-02): the 2445 replay now uses the exact stored binary64
+positions rather than their decimal display strings, and verifies the full
+capture/producer/reused-MPFR source manifest. The producer's support decision
+uses exact stored fractions; an unresolved positive-q interval is refused,
+not reclassified as zero. Regenerated artifacts pass all 540 containment
+checks and 10 tests, including source/capture mutations and a rounded-square
+boundary fixture. This strengthens external input fidelity, not numeric
+Lean import or signed producer acceptance. Evidence:
+`docs/proofs/2449_routea_family_exact_input_replay.md` and
+`results/2449_routea_family_input_validation.json`.
