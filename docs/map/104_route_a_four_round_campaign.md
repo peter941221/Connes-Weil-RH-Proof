@@ -4272,3 +4272,13 @@ only the positive-half-line indexed panel layer; negative/cross-zero geometry,
 weighted node sum, zeta attachment, strip norm, GO, and RH remain open.
 Evidence: `docs/proofs/2463_owner_indexed_panel.md` and
 `ConnesWeilRH/Dev/C1RouteAOwnerIndexedPanel2463.lean`.
+
+Record 2464 (2026-10-02): the indexed owner-panel theorem is now also
+formalized for `x0 <= x1 <= 0`. The left endpoint geometry is replaced by
+the right-endpoint bump maximum and the exact 2459 left-half-line
+monotonicity theorem; the 30-family sum remains composed before modulus.
+The fresh ext4 build and audit pass with only [propext, Classical.choice,
+Quot.sound]. Cross-zero geometry, weighted node sum, zeta attachment,
+strip norm, GO, and RH remain open. Evidence:
+`docs/proofs/2464_owner_indexed_panel_left.md` and
+`ConnesWeilRH/Dev/C1RouteAOwnerIndexedPanel2464.lean`.
