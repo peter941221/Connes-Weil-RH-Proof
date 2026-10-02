@@ -1,22 +1,28 @@
 {
   "record": 2477,
   "status": "MPMATH_IV_STRUCTURE_SMOKE_NOT_PROJECT_CERTIFICATE",
-  "cells": 80,
-  "step": 0.16384000000000007,
+  "cells": 40,
+  "subdiv": 64,
+  "effective_cells": 2560,
+  "step": 0.005120000000000002,
   "rows": [
     {
       "sigma": "-0.5",
       "max_cell": 7049861.980456904,
       "binding_index": 0,
-      "remainder": 32803.27564308723,
-      "cells": 80
+      "remainder": 30.796812135167464,
+      "cells": 40,
+      "subdiv": 64,
+      "effective_cells": 2560
     },
     {
       "sigma": "0.5",
       "max_cell": 7049861.980456904,
-      "binding_index": 79,
-      "remainder": 32803.275643087225,
-      "cells": 80
+      "binding_index": 2559,
+      "remainder": 30.796812135167457,
+      "cells": 40,
+      "subdiv": 64,
+      "effective_cells": 2560
     }
   ],
   "edge_modes": [

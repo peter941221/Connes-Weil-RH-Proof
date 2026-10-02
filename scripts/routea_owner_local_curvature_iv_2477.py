@@ -52,6 +52,7 @@ def bump_bound_iv(order, rad, xlo, xhi, step):
 
 def main():
     cells = int(sys.argv[1]) if len(sys.argv) > 1 else 40
+    subdiv = int(sys.argv[2]) if len(sys.argv) > 2 else 1
     repair = json.loads(REPAIR.read_text())
     capture = json.loads(CAPTURE.read_text())["owner_capture"]
     fam = []
@@ -66,16 +67,17 @@ def main():
     radius = mp.mpf(2076918743413931858457251756481) / mp.mpf(
         316912650057057350374175801344)
     step = float(2 * radius / cells)
+    substep = step / subdiv
     rows = []
     edge_modes = set()
     for sigma in (-mp.mpf("0.5"), mp.mpf("0.5")):
         values = []
-        for index in range(cells):
-            left = float(-radius + index * step)
-            right = float(-radius + (index + 1) * step)
+        for index in range(cells * subdiv):
+            left = float(-radius + index * substep)
+            right = float(-radius + (index + 1) * substep)
             total = mp.iv.mpf(0)
             for coef, rad, mod in fam:
-                bump = [bump_bound_iv(order, rad, left, right, step)
+                bump = [bump_bound_iv(order, rad, left, right, substep)
                         for order in range(3)]
                 edge_modes.update(mode for _, mode in bump)
                 ext = []
@@ -92,11 +94,13 @@ def main():
             values.append(hi(total))
         rows.append({"sigma": str(sigma), "max_cell": max(values),
                      "binding_index": values.index(max(values)),
-                     "remainder": step ** 3 / 12 * sum(values),
-                     "cells": cells})
+                     "remainder": substep ** 3 / 12 * sum(values),
+                     "cells": cells, "subdiv": subdiv,
+                     "effective_cells": cells * subdiv})
     result = {"record": 2477,
               "status": "MPMATH_IV_STRUCTURE_SMOKE_NOT_PROJECT_CERTIFICATE",
-              "cells": cells, "step": step, "rows": rows,
+              "cells": cells, "subdiv": subdiv,
+              "effective_cells": cells * subdiv, "step": substep, "rows": rows,
               "edge_modes": sorted(edge_modes),
               "nonclaims": ["not Arb/MPFR", "not Lean literal", "no producer GO", "no RH"]}
     OUT.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")

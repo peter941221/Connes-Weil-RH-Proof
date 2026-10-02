@@ -19,3 +19,10 @@ the summed remainder, versus `1.539e3` in the 2476 sampled price.  The gap is
 an interval-dependency failure mode, not evidence against the local method;
 the next implementation must split the polynomial/deficit dependence or use
 a Taylor enclosure with an explicit remainder.
+
+Subdividing each of the 40 cells before applying the same interval formula
+changes the smoke remainder to approximately `8.04e3` (4 subcells),
+`4.95e2` (16), and `30.8` (64).  The edge cell remains the pointwise binding
+interval, but its contribution now carries the subcell `h³` factor.  This
+supports promoting the split structure to the project Arb/MPFR path; it is
+not itself a certificate because the current smoke still uses `mpmath.iv`.
