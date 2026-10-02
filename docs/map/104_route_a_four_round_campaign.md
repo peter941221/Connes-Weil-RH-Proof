@@ -4291,3 +4291,12 @@ Classical.choice, Quot.sound]. This completes the indexed panel geometry,
 but not the weighted node sum, zeta attachment, strip norm, GO, or RH.
 Evidence: `docs/proofs/2465_owner_indexed_panel_cross_zero.md` and
 `ConnesWeilRH/Dev/C1RouteAOwnerIndexedPanel2465.lean`.
+
+Record 2466 (2026-10-02): a universal dispatcher now selects the positive,
+negative, or cross-zero rectangle family for every panel `x0 <= x1`, and
+proves the corresponding composed 30-family sum containment through one
+interface. The fresh ext4 build and audit use only [propext,
+Classical.choice, Quot.sound]. The next obligation is weighted node-sum /
+quadrature attachment; no GO or RH claim. Evidence:
+`docs/proofs/2466_owner_indexed_panel_dispatch.md` and
+`ConnesWeilRH/Dev/C1RouteAOwnerIndexedPanel2466.lean`.
