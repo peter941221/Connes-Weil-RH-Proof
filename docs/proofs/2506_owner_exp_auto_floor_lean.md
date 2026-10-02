@@ -11,3 +11,7 @@ margin.
 
 The owner-specialized theorem also proves the required nonnegativity from
 `|a| < 1`, by factoring `1-a^2 = (1-a)(1+a)`.
+
+The lower-ratio consumer now uses the previously proved nonnegativity of
+`ownerCellLowerRatio2501`; its only remaining local domain premise is that
+the ratio is strictly below one.

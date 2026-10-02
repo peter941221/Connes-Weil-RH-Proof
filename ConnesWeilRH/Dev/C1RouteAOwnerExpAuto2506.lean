@@ -47,4 +47,24 @@ theorem ownerCellExpSplitUpper_auto_of_abs_lt_one2506
   apply ownerCellExpSplitUpper_auto2506
   exact (div_nonneg (by norm_num) hden.le)
 
+theorem ownerCellExpSplitUpper_auto_of_lowerRatio2506
+    {radius step : ℝ} {index : ℕ} (i : Fin 30)
+    (hupper : ownerCellLowerRatio2501 radius step index i < 1) :
+    Real.exp (-(30 /
+      (1 - (ownerCellLowerRatio2501 radius step index i) ^ 2))) ≤
+      expNegOneUpper2498 ^
+          (⌊30 /
+            (1 - (ownerCellLowerRatio2501 radius step index i) ^ 2)⌋₊ : ℕ) *
+        (expTaylor20
+            (30 /
+              (1 - (ownerCellLowerRatio2501 radius step index i) ^ 2) -
+              (⌊30 /
+                (1 - (ownerCellLowerRatio2501 radius step index i) ^ 2)⌋₊ : ℕ)) +
+          expTaylor20Error) := by
+  have hnonneg := ownerCellLowerRatio_nonneg2501 radius step index i
+  have habs : |ownerCellLowerRatio2501 radius step index i| < 1 := by
+    rw [abs_of_nonneg hnonneg]
+    exact hupper
+  exact ownerCellExpSplitUpper_auto_of_abs_lt_one2506 habs
+
 end ConnesWeilRH.Dev
