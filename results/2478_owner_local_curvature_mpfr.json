@@ -1,0 +1,44 @@
+{
+  "record": 2478,
+  "status": "PROJECT_MPFR_DIRECTED_SMOKE_NOT_LEAN_CERTIFICATE",
+  "backend": {
+    "library": "libmpfr.so.6",
+    "precision_bits": 256,
+    "rounding": "RNDD/RNDU"
+  },
+  "cells": 40,
+  "subdiv": 16,
+  "step": 0.02048000000000001,
+  "rows": [
+    {
+      "sigma": -0.5,
+      "max_cell": 7049861.98045692,
+      "binding_index": 0,
+      "remainder": 494.6427618356592,
+      "cells": 40,
+      "subdiv": 16,
+      "effective_cells": 640
+    },
+    {
+      "sigma": 0.5,
+      "max_cell": 7049861.98045692,
+      "binding_index": 639,
+      "remainder": 494.64276183565914,
+      "cells": 40,
+      "subdiv": 16,
+      "effective_cells": 640
+    }
+  ],
+  "edge_modes": [
+    "core+edge",
+    "edge-global"
+  ],
+  "repair_sha256": "7efde152db5e18c2d312cae16309172154044b443477bca75b9619b3070eb258",
+  "capture_sha256": "743fe372bef89b5730c38274d5a5517ac9ea4d3421989d46c49d4af3e78b5e74",
+  "nonclaims": [
+    "temporary float binding of exact coefficient norm",
+    "no Lean literal import",
+    "no producer GO",
+    "no RH"
+  ]
+}
