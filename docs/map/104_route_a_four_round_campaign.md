@@ -4126,7 +4126,10 @@ en route: a stale module generation whose artifact sha claimed complete
 without ever building (producer edits must be followed by regenerate +
 re-pin), and a doubled mem_add head prefix that turned the finished
 chain into a partial application (exact {chain}, not exact head
-{chain}). Next consumer: the 2343 endpoint strip reduction. Scope:
+{chain}). Next consumer: the quadrature import - the per-node N plus
+certified node spacing bound the endpoint strip integrals, whose
+constants are the external hypotheses of the 2343 strip bridge (the
+pointwise N do not feed 2343 directly). Scope:
 norm bounds at 11 positions only; no strip norm, no quadrature import,
 no producer GO, no RH claim. Evidence:
 `docs/proofs/2454_owner_node_norm_bound.md`,

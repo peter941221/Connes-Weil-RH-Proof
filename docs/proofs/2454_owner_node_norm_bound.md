@@ -115,8 +115,11 @@ Eleven positions, norm bounds only. The bump and phase fields remain
 hypotheses by design; the hulls are import-side containers, not
 endpoint strip norms; no quadrature import, no signed
 selected-detector budget, no producer GO and no RH claim follows.
-The next consumer step is the 2343 endpoint strip reduction, which
-consumes exactly these per-position norms.
+The next consumer step is the quadrature import: the per-node norms N
+plus certified node spacing bound the endpoint strip integrals
+(stripNorm at sigma = +-1/2), and those integral constants - not the
+pointwise N directly - are the external hypotheses of the 2343
+endpoint strip bridge.
 
 Evidence:
 
