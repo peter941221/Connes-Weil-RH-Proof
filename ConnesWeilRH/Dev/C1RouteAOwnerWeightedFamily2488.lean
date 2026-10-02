@@ -32,6 +32,51 @@ theorem weightedExternalFamilySecondDeriv_zero_outside2488
   rw [heq.deriv.deriv_eq]
   simp
 
+theorem weightedExternalFamilySecondDeriv_zero_of_outside2488
+    (sigma : ℝ) (coefficient : ℂ) (modulation radius position : ℝ)
+    (hradius : 0 < radius) (houtside : radius ≤ |position|) :
+    deriv (deriv (weightedFunction2348 sigma
+      (externalFamilyValue2344 coefficient modulation radius))) position = 0 := by
+  let second := deriv (deriv (weightedFunction2348 sigma
+    (externalFamilyValue2344 coefficient modulation radius)))
+  have hfamily : ContDiff ℝ (2 : WithTop (WithTop ℕ))
+      (externalFamilyValue2344 coefficient modulation radius) :=
+    (externalFamilyValue2344_contDiff coefficient modulation radius hradius).of_le
+      (by decide)
+  have hweighted : ContDiff ℝ (2 : WithTop (WithTop ℕ))
+      (weightedFunction2348 sigma
+        (externalFamilyValue2344 coefficient modulation radius)) :=
+    weightedFunction2348_contDiff sigma _ hfamily
+  have hweightedFirst : ContDiff ℝ (1 : WithTop (WithTop ℕ))
+      (deriv (weightedFunction2348 sigma
+        (externalFamilyValue2344 coefficient modulation radius))) :=
+    ContDiff.deriv' hweighted
+  have hcontinuous : Continuous second :=
+    hweightedFirst.continuous_deriv (by decide)
+  have hclosed : IsClosed {coordinate | second coordinate = 0} :=
+    isClosed_eq hcontinuous continuous_const
+  have hright : Set.Ici radius ⊆ {coordinate | second coordinate = 0} := by
+    rw [← closure_Ioi]
+    apply closure_minimal _ hclosed
+    intro coordinate hcoordinate
+    exact weightedExternalFamilySecondDeriv_zero_outside2488 sigma coefficient
+      modulation radius coordinate (lt_of_lt_of_le hcoordinate (le_abs_self coordinate))
+  have hleft : Set.Iic (-radius) ⊆ {coordinate | second coordinate = 0} := by
+    rw [← closure_Iio]
+    apply closure_minimal _ hclosed
+    intro coordinate hcoordinate
+    apply weightedExternalFamilySecondDeriv_zero_outside2488 sigma coefficient
+      modulation radius coordinate
+    change coordinate < -radius at hcoordinate
+    have habs := neg_le_abs coordinate
+    linarith
+  change second position = 0
+  rcases le_abs.mp houtside with hposition | hposition
+  · exact hright hposition
+  · apply hleft
+    change position ≤ -radius
+    linarith
+
 /- A single-family adapter for the weighted chord estimate.  Keeping the
    three derivative bounds explicit is intentional: the eventual interval
    proof must discharge them from the local bump interface, rather than hide

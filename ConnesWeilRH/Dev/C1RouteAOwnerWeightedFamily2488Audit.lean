@@ -3,6 +3,7 @@ import ConnesWeilRH.Dev.C1RouteAOwnerWeightedFamily2488
 namespace ConnesWeilRH.Dev
 
 #print axioms weightedExternalFamilySecondDeriv_zero_outside2488
+#print axioms weightedExternalFamilySecondDeriv_zero_of_outside2488
 
 #print axioms ownerPanelWeightedSecondDeriv_le_sumFamilyBound2488
 #print axioms weightedExternalFamilySecondDeriv_le_of_local_bounds2488
