@@ -4201,3 +4201,22 @@ computation. Probe only, on capture vectors per the 2456 ruling as
 mechanism validation: no Lean module, no certificate, no GO, no RH
 claim. Evidence: `docs/proofs/2458_panel_envelope_micro.md` and
 `results/2458_panel_envelope_micro.json`.
+
+Record 2459 (2026-10-02): the W-C attachment layer landed - ten Lean
+theorems, all on the standard three axioms. Box shapes: widthBump
+half-line monotonicity (antitone right / monotone left) and cos/sin
+1-Lipschitz with midpoint boxes (the producer's rho = halfwidth +
+DELTA phase box, certified once). Doors: familyPanelMem_2459 (bump box
+straddling zero + cos/sin boxes => composed 2454 hull contains
+externalFamilyValue2344 at every panel point, inside and outside the
+support alike) and sumPanelMem_2459 (30-family sum hull, one line via
+mem_sumFinset). Attachment/glue: panelQuadrature_le_of_trapLe_2459
+(trapezoid upper bound T turns 2457 into the discharge shape) and
+stripNorm_eq_interval_2459 (supported integrand => stripNorm equals
+the interval integral - the 2343 seam). Producer-shape datapoint:
+monolithic norm_num on a List rat sum costs ~4.5 ms/term at N=1000, so
+the 1e5-node producer must go per-node balls + Finset.sum_le_sum, not
+one giant computation. Generic layer only: no owner data instantiated,
+no strip norm discharged, no GO, no RH claim. Evidence:
+`docs/proofs/2459_quadrature_attachment_wc.md` and
+`build-logs/2459_quadrature_attachment_audit.log`.
