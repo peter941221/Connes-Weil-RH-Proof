@@ -1172,6 +1172,30 @@ theorem ownerPanelStripNorm_le_productionHybridCurvature2488
   · norm_num [stripRadius2303]
   · norm_num [stripRadius2303]
 
+theorem ownerPanelStripNorm_le_productionFamilyHybridCurvature2488
+    (sigma : ℝ) :
+    stripNorm sigma ownerPanelSumValue_2467 ≤
+      compositeNodeUpper2347
+        (ownerPanelNodeUpper2471 sigma stripRadius2303
+          (stripRadius2303 / 320)) (stripRadius2303 / 320) 640 +
+      localCurvatureRemainder2474
+        (fun index => ownerFamilyHybridCurvature2488 sigma stripRadius2303
+          (stripRadius2303 / 320) index)
+        (stripRadius2303 / 320) 640 := by
+  apply ownerPanelStripNorm_le_familyHybridCurvature2488 sigma
+    stripRadius2303 (stripRadius2303 / 320) 640
+  · norm_num [stripRadius2303]
+  · intro i
+    fin_cases i <;> norm_num [ownerRad_2463, rad0_2460, rad1_2460, rad2_2460,
+      rad3_2460, rad4_2460, rad5_2460, rad6_2460, rad7_2460, rad8_2460,
+      rad9_2460, rad10_2460, rad11_2460, rad12_2460, rad13_2460,
+      rad14_2460, rad15_2460, rad16_2460, rad17_2460, rad18_2460,
+      rad19_2460, rad20_2460, rad21_2460, rad22_2460, rad23_2460,
+      rad24_2460, rad25_2460, rad26_2460, rad27_2460, rad28_2460,
+      rad29_2460, stripRadius2303]
+  · norm_num [stripRadius2303]
+  · norm_num [stripRadius2303]
+
 theorem ownerPanelWeightedSecondDeriv_le_ownerIntervalCurvatureZero2488
     (sigma x : ℝ) (t coefficientBound : Fin 30 → ℝ)
     (hinside : ∀ i : Fin 30, |x| < ownerRad_2463 i)
