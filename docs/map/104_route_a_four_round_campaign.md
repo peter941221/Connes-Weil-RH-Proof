@@ -3864,3 +3864,12 @@ mathematical enclosure proof.  Evidence:
 `scripts/routea_geometry_cache_source_audit_2427.py`,
 `docs/proofs/2427_geometry_cache_source_audit.md`, and
 `results/2427_geometry_cache_source_audit.json`.
+
+Record 2428 (2026-10-02): the Lean-side interface was narrowed to a proved
+complex-rectangle algebra layer.  `mem_add` and finite `mem_sum` are checked
+without numerical hypotheses or stored conclusions.  The next obligation is
+the actual per-summand enclosure for `Kernel.eval_box`; no numeric import or
+producer verdict is claimed.  Evidence:
+`ConnesWeilRH/Dev/C1RouteAIntervalAlgebra.lean`,
+`ConnesWeilRH/Dev/C1RouteAIntervalAlgebraAudit.lean`, and
+`docs/proofs/2428_routea_interval_algebra.md`.
