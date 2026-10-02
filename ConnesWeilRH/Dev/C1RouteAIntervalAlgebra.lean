@@ -1,10 +1,63 @@
 import Mathlib.Algebra.Order.BigOperators.Group.Finset
+import Mathlib.Algebra.Order.Group.Pointwise.Interval
 import Mathlib.Data.Complex.Basic
 import Mathlib.Data.Real.Basic
 
 namespace ConnesWeilRH.Dev
 
 open scoped BigOperators
+open Set
+
+structure RealInterval2429 where
+  lo : ℝ
+  hi : ℝ
+
+def RealInterval2429.Mem (x : ℝ) (r : RealInterval2429) : Prop :=
+  r.lo ≤ x ∧ x ≤ r.hi
+
+def RealInterval2429.mul (a b : RealInterval2429) : RealInterval2429 :=
+  { lo := min (min (a.lo * b.lo) (a.lo * b.hi))
+      (min (a.hi * b.lo) (a.hi * b.hi))
+    hi := max (max (a.lo * b.lo) (a.lo * b.hi))
+      (max (a.hi * b.lo) (a.hi * b.hi)) }
+
+theorem RealInterval2429.mem_mul {a b : RealInterval2429} {x y : ℝ}
+    (ha : a.Mem x) (hb : b.Mem y) : (a.mul b).Mem (x * y) := by
+  rcases ha with ⟨hax, hxb⟩
+  rcases hb with ⟨hby, hyb⟩
+  have hyu : y ∈ uIcc b.lo b.hi := by
+    rw [uIcc_of_le hby.le.trans hyb]
+    exact hb
+  have hay : a.lo * y ∈ uIcc (a.lo * b.lo) (a.lo * b.hi) := by
+    have h := image_mul_const_uIcc a.lo b.lo b.hi
+    have hm : y * a.lo ∈ (fun t : ℝ => t * a.lo) '' uIcc b.lo b.hi :=
+      ⟨y, hyu, rfl⟩
+    rw [h] at hm
+    simpa [mul_comm] using hm
+  have hby' : a.hi * y ∈ uIcc (a.hi * b.lo) (a.hi * b.hi) := by
+    have h := image_mul_const_uIcc a.hi b.lo b.hi
+    have hm : y * a.hi ∈ (fun t : ℝ => t * a.hi) '' uIcc b.lo b.hi :=
+      ⟨y, hyu, rfl⟩
+    rw [h] at hm
+    simpa [mul_comm] using hm
+  rcases mem_uIcc.mp hay with ⟨hayl, hayh⟩
+  rcases mem_uIcc.mp hby' with ⟨hbyl, hbyh⟩
+  by_cases hy0 : 0 ≤ y
+  · have hlow : a.lo * y ≤ x * y :=
+      mul_le_mul_of_nonneg_right hax hy0
+    have hhigh : x * y ≤ a.hi * y :=
+      mul_le_mul_of_nonneg_right hxb hy0
+    constructor
+    · exact (min_le_min hayl hbyl).trans (hayl.trans hlow)
+    · exact hhigh.trans (max_le_max hayh hbyh)
+  · have hy0' : y ≤ 0 := le_of_not_ge hy0
+    have hlow : a.hi * y ≤ x * y :=
+      mul_le_mul_of_nonpos_right hxb hy0'
+    have hhigh : x * y ≤ a.lo * y :=
+      mul_le_mul_of_nonpos_right hax hy0'
+    constructor
+    · exact (min_le_min hayl hbyl).trans (hbyl.trans hlow)
+    · exact hhigh.trans (max_le_max hayh hbyh)
 
 /-- A closed axis-aligned rectangle in `ℂ`, used only as the logical target of
 the directed interval evaluator.  The numerical construction of its endpoints

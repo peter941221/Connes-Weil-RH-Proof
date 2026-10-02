@@ -3880,3 +3880,12 @@ the evaluator.  Signed interval products and the owner-formula bridge remain
 open; this is still no numeric import or producer verdict.  Evidence:
 `ConnesWeilRH/Dev/C1RouteAIntervalAlgebra.lean` and
 `docs/proofs/2429_routea_interval_arithmetic.md`.
+
+Record 2430 (2026-10-02): `RealInterval2429.mem_mul` proves the exact
+four-corner signed real interval product used by `iprod`, including
+zero-crossing intervals.  It is compiled independently and does not import
+numeric data.  The next arithmetic obligation is the complex product
+composition `ciprod`.  Evidence:
+`ConnesWeilRH/Dev/C1RouteAIntervalAlgebra.lean`,
+`ConnesWeilRH/Dev/C1RouteAIntervalAlgebraAudit.lean`, and
+`docs/proofs/2430_routea_signed_interval_product.md`.
