@@ -1,0 +1,3 @@
+import ConnesWeilRH.Dev.C1RouteALocalCurvature2474
+
+#print axioms ConnesWeilRH.Dev.stripNorm_le_localCurvature2474

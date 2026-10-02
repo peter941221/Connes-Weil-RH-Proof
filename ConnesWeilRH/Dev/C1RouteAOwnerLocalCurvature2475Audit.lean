@@ -1,0 +1,3 @@
+import ConnesWeilRH.Dev.C1RouteAOwnerLocalCurvature2475
+
+#print axioms ConnesWeilRH.Dev.ownerPanelStripNorm_le_localCurvature2475
