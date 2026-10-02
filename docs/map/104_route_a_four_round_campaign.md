@@ -3971,3 +3971,11 @@ stored value and the phase factor remain open.  Evidence:
 `ConnesWeilRH/Dev/C1RouteABumpBounds.lean`,
 `ConnesWeilRH/Dev/C1RouteABumpBoundsAudit.lean`, and
 `docs/proofs/2440_routea_bump_bounds.md`.
+
+Record 2441 (2026-10-02): Lean proves the global phase rectangle
+`[-1,1] + i[-1,1]` for every `exp((t : ℂ) * I)`.  This is an analytic fallback
+bound; the narrow directed phase interval required by the cancellation-scale
+evaluator remains open.  Evidence:
+`ConnesWeilRH/Dev/C1RouteAPhaseBounds.lean`,
+`ConnesWeilRH/Dev/C1RouteAPhaseBoundsAudit.lean`, and
+`docs/proofs/2441_routea_phase_bounds.md`.
