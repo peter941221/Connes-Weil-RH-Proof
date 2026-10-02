@@ -4161,3 +4161,43 @@ must be settled by the owner chain first. Screen only: no Lean module,
 no strip norm discharged, no quadrature imported, no producer GO, no
 RH claim. Evidence: `docs/proofs/2455_quadrature_import_obligations.md`
 and `results/2455_quadrature_import_screen.json`.
+
+Record 2456 (2026-10-02): ownership target ruling - the strip import
+binds the 2338 exact interpolation balls, not the 2275 capture vectors.
+Forced by three committed records: 2337 excludes the captured
+coefficients as an exact realization (residuals ~1e-9 are nonzero, not
+uncertainty), 2338 encloses the unique exact interpolation solution
+with certified invertibility (eta < 1/2), 2351 proves the Lean-conditional
+existence form. 2342's four endpoint constants were computed on exactly
+those balls and are already aimed at the admissible target; the
+2452-2454 lane stands as auxiliary mechanism validation. Two import
+prerequisites, in order: (a) discharge path (coefficient balls + strip
+machinery into Lean), (b) instantiation path (invertibility import,
+2351's open item). Routing note only: no producer, no GO, no RH claim.
+Evidence: `docs/proofs/2456_ownership_target_ruling.md`.
+
+Record 2457 (2026-10-02): obligation W-A of 2455 discharged - the
+one-sided panel quadrature bound is a Lean theorem on the standard
+three axioms. Discovery: Mathlib already carries the trapezoidal error
+theorem (TrapezoidalRule, v4.30 layout Mathlib/MeasureTheory/Integral/
+IntervalIntegral/), so the module is a single-sided corollary
+(panelQuadrature_le_2457: integral <= trapezoidal sum +
+(b-a)^3 zeta/(12 N^2) for C^2 integrands with bounded second
+derivative) plus the strip-shaped exp(sigma x)|F x| instance. Node
+values and zeta stay hypotheses (that is W-C); support glue from
+interval to full-line integrals still open. Build 2678 jobs green;
+audit clean. No owner data, no strip norm discharged, no GO, no RH
+claim. Evidence: `docs/proofs/2457_wa_panel_quadrature.md` and
+`build-logs/2457_panel_quadrature.log`.
+
+Record 2458 (2026-10-02): obligation W-C shape probed at production
+grid spacing - the analytic per-family panel envelope (monotone bump
+box + Lipschitz phase box + composed 2454 hull arithmetic, complex sum
+composed before the modulus) contains 15/15 exact sample points on
+three panels of the h = 2R/(N-1), N = 120001 grid drawn from the 2275
+capture, and the full-grid producer cost extrapolates to ~0.93 hours,
+so the 1e5-scale attachment is bounded by Lean-side design, not
+computation. Probe only, on capture vectors per the 2456 ruling as
+mechanism validation: no Lean module, no certificate, no GO, no RH
+claim. Evidence: `docs/proofs/2458_panel_envelope_micro.md` and
+`results/2458_panel_envelope_micro.json`.

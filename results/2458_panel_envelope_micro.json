@@ -1,0 +1,76 @@
+{
+  "containment_all": true,
+  "full_grid_producer_hours_estimate": 0.93,
+  "grid_spacing_h": "128/1171875",
+  "panels": {
+    "family_edge": {
+      "containment": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "im_box_display": [
+        "-1.346463e-07",
+        "-1.318333e-07"
+      ],
+      "max_width_display": "2.813029e-09",
+      "re_box_display": [
+        "3.732447e-07",
+        "3.760395e-07"
+      ],
+      "seconds_per_panel": 2.254,
+      "x0": "18405962196760237313115947740896220619/5942112188569825319515796275200000000",
+      "x1": "18406611233867554166569514052937373131/5942112188569825319515796275200000000"
+    },
+    "global_edge": {
+      "containment": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "im_box_display": [
+        "-3.058425e-46",
+        "3.058425e-46"
+      ],
+      "max_width_display": "7.421255e-46",
+      "re_box_display": [
+        "-3.710627e-46",
+        "3.710627e-46"
+      ],
+      "seconds_per_panel": 7.303,
+      "x0": "2559936/390625",
+      "x1": "7679936/1171875"
+    },
+    "interior": {
+      "containment": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "im_box_display": [
+        "-1.920747e-01",
+        "8.916477e-02"
+      ],
+      "max_width_display": "2.854283e-01",
+      "re_box_display": [
+        "5.330069e-01",
+        "8.184352e-01"
+      ],
+      "seconds_per_panel": 0.007,
+      "x0": "1/4",
+      "x1": "1172387/4687500"
+    }
+  },
+  "producer_go": false,
+  "record": 2458,
+  "rh_claim": false,
+  "scope": "W-C envelope shape validation on 2275 capture panels; diagnostic only, no Lean import, no GO, no RH claim",
+  "seconds_per_panel_interior": 0.007,
+  "verdict": "PANEL-ENVELOPE-SHAPE-PROBED"
+}
