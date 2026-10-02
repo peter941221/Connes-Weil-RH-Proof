@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.C1RouteAOwnerL1CoefficientBound2479
+
+namespace ConnesWeilRH.Dev
+
+#print axioms familyDerivativeBudget2350_le_l1_2479
+#print axioms ownerDerivativeBudget_2468_le_l1_2479
+#print axioms ownerPanelIteratedDerivBudgetL1_2479
+
+end ConnesWeilRH.Dev
