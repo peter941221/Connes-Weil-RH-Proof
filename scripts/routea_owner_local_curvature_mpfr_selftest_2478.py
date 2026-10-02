@@ -1,4 +1,4 @@
-"""Self-tests for the exact-rational coefficient binding in 2478."""
+"""Self-tests for the exact-rational and per-cell bindings in 2478."""
 import importlib.util
 import json
 from fractions import Fraction
@@ -29,8 +29,29 @@ def main():
         assert Fraction.from_float(lo) <= target <= Fraction.from_float(hi)
         assert price.decimal_bound(target, 220, False) != price.decimal_bound(target, 220, True)
         checked += 1
+    artifact = json.loads(price.OUT.read_text())
+    cells_checked = 0
+    for row in artifact["rows"]:
+        payloads = row["cell_upper_bounds"]
+        values = []
+        for payload in payloads:
+            value = float.fromhex(payload["hex"])
+            numerator, denominator = value.as_integer_ratio()
+            assert payload["numerator"] == str(numerator)
+            assert payload["denominator"] == str(denominator)
+            assert value >= 0.0
+            values.append(Fraction(numerator, denominator))
+            cells_checked += 1
+        exact_remainder = Fraction.from_float(float(artifact["step"])) ** 3
+        exact_remainder *= sum(values, Fraction(0))
+        exact_remainder /= 12
+        stored = Fraction(int(row["remainder_binary64_exact"]["numerator"]),
+                          int(row["remainder_binary64_exact"]["denominator"]))
+        assert stored == exact_remainder
+        assert row["binding_index"] == max(range(len(values)), key=values.__getitem__)
     print({"record": 2478, "checked": checked,
-           "verdict": "EXACT_RATIONAL_BINDINGS_CONTAINED"})
+           "cells_checked": cells_checked,
+           "verdict": "EXACT_RATIONAL_AND_CELL_BINDINGS_REPLAYED"})
 
 
 if __name__ == "__main__":

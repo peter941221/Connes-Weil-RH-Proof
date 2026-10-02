@@ -71,6 +71,17 @@ def abs_iv(x):
     return (0.0, max(abs(x[0]), abs(x[1])))
 
 
+def float_payload(value):
+    """Exact, language-independent payload for the returned binary64 bound."""
+    value = float(value)
+    numerator, denominator = value.as_integer_ratio()
+    return {
+        "hex": value.hex(),
+        "numerator": str(numerator),
+        "denominator": str(denominator),
+    }
+
+
 def bump_bound(order, rad, left, right, step):
     constants = (1, 60, 3720)
     global_bound = mpfr.mul(outward(constants[order]),
@@ -146,9 +157,17 @@ def main():
                                                           (outward(left)[0], outward(right)[1])))
                 total = mpfr.add(total, mpfr.mul(coef, mpfr.mul(weight, weighted)))
             values.append(total[1])
+        exact_substep = Fraction.from_float(substep)
+        exact_remainder = exact_substep ** 3 * sum(
+            (Fraction.from_float(value) for value in values), Fraction(0)) / 12
         rows.append({"sigma": sigma, "max_cell": max(values),
                      "binding_index": values.index(max(values)),
                      "remainder": substep ** 3 / 12 * sum(values),
+                     "remainder_binary64_exact": {
+                         "numerator": str(exact_remainder.numerator),
+                         "denominator": str(exact_remainder.denominator),
+                     },
+                     "cell_upper_bounds": [float_payload(value) for value in values],
                      "cells": cells, "subdiv": subdiv,
                      "effective_cells": cells * subdiv})
     result = {
@@ -161,6 +180,7 @@ def main():
         "repair_sha256": hashlib.sha256(REPAIR.read_bytes()).hexdigest(),
         "capture_sha256": hashlib.sha256(CAPTURE.read_bytes()).hexdigest(),
         "coefficient_binding": "exact rational abs(Re(mid))+abs(Im(mid)), outward MPFR decimal enclosure",
+        "cell_bound_encoding": "binary64 RNDU endpoint as exact hex plus integer ratio",
         "nonclaims": ["no Lean literal import", "no producer GO", "no RH"],
     }
     OUT.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
