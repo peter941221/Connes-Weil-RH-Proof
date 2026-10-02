@@ -4282,3 +4282,12 @@ Quot.sound]. Cross-zero geometry, weighted node sum, zeta attachment,
 strip norm, GO, and RH remain open. Evidence:
 `docs/proofs/2464_owner_indexed_panel_left.md` and
 `ConnesWeilRH/Dev/C1RouteAOwnerIndexedPanel2464.lean`.
+
+Record 2465 (2026-10-02): the cross-zero indexed panel theorem is now
+formalized for `x0 <= 0 <= x1`. The bump is bounded by its exact zero value
+`exp(-30)`, and the composed 30-family sum passes through the same 2459
+sum door. The fresh ext4 build and audit use only [propext,
+Classical.choice, Quot.sound]. This completes the indexed panel geometry,
+but not the weighted node sum, zeta attachment, strip norm, GO, or RH.
+Evidence: `docs/proofs/2465_owner_indexed_panel_cross_zero.md` and
+`ConnesWeilRH/Dev/C1RouteAOwnerIndexedPanel2465.lean`.
