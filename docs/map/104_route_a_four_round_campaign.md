@@ -3963,3 +3963,11 @@ pointwise family certificate remain open.  Evidence:
 `scripts/routea_stored_owner_four_identity_audit_2439.py`,
 `docs/proofs/2439_stored_owner_four_identity.md`, and
 `results/2439_stored_owner_four_identity_audit.json`.
+
+Record 2440 (2026-10-02): Lean proves the exact owner bounds
+`0 ≤ widthBump radius position ≤ 1` for every positive radius.  This closes
+the analytic bump-factor bound, while directed numerical enclosure of its
+stored value and the phase factor remain open.  Evidence:
+`ConnesWeilRH/Dev/C1RouteABumpBounds.lean`,
+`ConnesWeilRH/Dev/C1RouteABumpBoundsAudit.lean`, and
+`docs/proofs/2440_routea_bump_bounds.md`.
