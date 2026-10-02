@@ -4240,3 +4240,14 @@ no strip norm discharged, no GO, no RH claim.  Evidence:
 `docs/proofs/2460_owner_panel_producer_sample.md`,
 `results/2460_owner_panel_sample.json`, and
 `build-logs/2460_owner_panel_sample_audit.log`.
+
+Record 2461 (2026-10-02): the exact-radius panel envelope was replayed on
+19 distinct production-grid panels covering negative and positive interior,
+the zero panel, both sides of every family support edge, and both global
+endpoint panels.  All family boxes and the composed 30-family sum contain
+five exact-mpf sample values on every panel.  This is a diagnostic coverage
+pass, not a Lean certificate; the generic indexed Lean theorem, full node
+sum, zeta attachment, and 2351 owner instantiation remain open. Evidence:
+`docs/proofs/2461_owner_panel_coverage.md`,
+`scripts/routea_owner_panel_coverage_2461.py`, and
+`results/2461_owner_panel_coverage.json`.
