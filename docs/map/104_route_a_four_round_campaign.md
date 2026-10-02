@@ -4043,3 +4043,28 @@ boundary fixture. This strengthens external input fidelity, not numeric
 Lean import or signed producer acceptance. Evidence:
 `docs/proofs/2449_routea_family_exact_input_replay.md` and
 `results/2449_routea_family_input_validation.json`.
+
+Record 2450 (2026-10-02): the directed full-grid re-run at 240001 nodes
+(twelve spans of 20001) reproduces the parent roundup integrals channel by
+channel, and the interface composite bridge assembles span sums with the
+2371 coordinate and panel prices, all priced on exactly this grid. The
+assembled min product is 695846.74 = 0.2631x pin `stripGridMax2303`,
+headroom 3.80x (776611 gave 7.13x); the corr_D2 channel grows 1.86x, the
+expected h^2-law price of the coarser grid. Interface ledger only: no
+pointwise term dominance, no Lean import, no producer GO. Evidence:
+`docs/proofs/2450_grid240001_reprice.md` and
+`results/2450_grid240001_composite_bridge.json`.
+
+Record 2451 (2026-10-02): the omitted prime-book corner probe prices the
+`(e^(2rmax), e^(4rmax)]` band that the 4R cutoff opened: the cos-transform
+weight of the owner proxy is a convolution of autocorrelations supported in
+[-4rmax, 4rmax], so the band is a corner region. Band density proxy
+9.277e-07, whole band 9.338e-07, noise-inflated whole-band bound 9.215e-04
+= 9.2e-11x the 1e7 gap budget; calibration exact/density 1.0067, beyond
+support 0.0, corner slope -322 vs -393 predicted. Six instrument incidents
+found and fixed en route (missing h factor, density weight sign, Hermitian
+not real, deep-spot dps, C00 modulation factor, kernel-mass limit). The 4R
+book cliff dissolves numerically; the budget frame does not move.
+Diagnostic only: no certificate, no producer GO, no RH claim. Evidence:
+`docs/proofs/2451_book_corner_probe.md` and
+`results/2451_book_corner_probe.json`.

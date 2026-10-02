@@ -1,0 +1,69 @@
+{
+  "assembled_min_product_240001": 695846.7418612284,
+  "assembled_min_product_776611": 371046.03524307144,
+  "evaluator_source_sha256": "539ed1b4238e9edd3583042132421f06ada4c3e723d86d9ced3ed1642dd90d07",
+  "grid_artifact_sha256": "30e6105319d30fae19a522dce9c82c63c5dd827f88624533a9e8c4dde14c0eb0",
+  "headroom_776611_over_pin": 7.127263466829839,
+  "lean_imported": false,
+  "min_product_channel_d2b_mc": 1095223.215936966,
+  "min_product_channel_d2c_mb": 695846.7418612284,
+  "min_product_headroom_over_pin": 3.800467390889066,
+  "min_product_over_pin": 0.26312553092741153,
+  "nodes": 240001,
+  "pin_strip_grid_max_2311": 2644542.8515,
+  "pointwise_mathematical_term_dominance_proved": false,
+  "price_artifact_sha256": "caa550a00674356a7e343762573a17c02c5fcc0098b708e5b457c16d70b794fb",
+  "price_scope_note": "2371 coordinate and panel prices were computed at exactly this grid; the curvature budget is operand-driven (2348 derivative ceilings) and is not moved by the evaluator repair margins",
+  "producer_go": false,
+  "record": 2450,
+  "rh_claim": false,
+  "rows": [
+    {
+      "assembled_ratio_240001_over_776611": 1.0077257017534513,
+      "assembled_upper_240001": 2.7096814592279053,
+      "assembled_upper_776611": 2.6889077598328956,
+      "channel": "base_M0",
+      "coordinate_charge_2371": 1.8493392357274732e-09,
+      "panel_remainder_2371": 0.022967127731035562,
+      "parent_roundup_node_composite": 2.6867143296475304,
+      "span_over_parent_ratio": 1.0,
+      "span_sum_node_composite": 2.6867143296475304
+    },
+    {
+      "assembled_ratio_240001_over_776611": 1.0112583121714536,
+      "assembled_upper_240001": 8713.463797039389,
+      "assembled_upper_776611": 8616.457033939383,
+      "channel": "base_D2",
+      "coordinate_charge_2371": 7.86051076647745e-06,
+      "panel_remainder_2371": 107.2493516242811,
+      "parent_roundup_node_composite": 8606.214437554598,
+      "span_over_parent_ratio": 1.0,
+      "span_sum_node_composite": 8606.214437554598
+    },
+    {
+      "assembled_ratio_240001_over_776611": 1.335436424483738,
+      "assembled_upper_240001": 125.69320782730455,
+      "assembled_upper_776611": 94.1214463847621,
+      "channel": "corr_M0",
+      "coordinate_charge_2371": 2.940040463960999e-06,
+      "panel_remainder_2371": 34.90532263337289,
+      "parent_roundup_node_composite": 90.78788225389118,
+      "span_over_parent_ratio": 1.0000000000000002,
+      "span_sum_node_composite": 90.7878822538912
+    },
+    {
+      "assembled_ratio_240001_over_776611": 1.860987548998695,
+      "assembled_upper_240001": 256800.2004410889,
+      "assembled_upper_776611": 137991.35871664502,
+      "channel": "corr_D2",
+      "coordinate_charge_2371": 0.010936503769792353,
+      "panel_remainder_2371": 131353.39607658036,
+      "parent_roundup_node_composite": 125446.79342800478,
+      "span_over_parent_ratio": 1.0,
+      "span_sum_node_composite": 125446.79342800478
+    }
+  ],
+  "sigma": -0.5,
+  "status": "GRID240001_COMPOSITE_BRIDGE_INTERFACE_ONLY",
+  "trapezoid_remainder_imported": false
+}
