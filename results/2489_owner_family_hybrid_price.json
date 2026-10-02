@@ -1,0 +1,41 @@
+{
+  "record": 2489,
+  "status": "HYBRID_PRICE_PROBE_NOT_A_CERTIFICATE",
+  "grid": {
+    "cells": 640,
+    "step": 0.02048000000000001,
+    "radius": 6.553600000000003
+  },
+  "rows": [
+    {
+      "sigma": -0.5,
+      "baseline_remainder": 635.575993091218,
+      "hybrid_remainder": 447.75991733917397,
+      "hybrid_to_baseline": 0.7044946980477146,
+      "baseline_max_cell": 1387327.1958972705,
+      "hybrid_max_cell": 1387327.1958972705,
+      "safe_family_slots": 9994,
+      "safe_family_slots_total": 19200,
+      "safe_families_min_per_cell": 0,
+      "safe_families_max_per_cell": 30
+    },
+    {
+      "sigma": 0.5,
+      "baseline_remainder": 635.575993091218,
+      "hybrid_remainder": 447.75991733917397,
+      "hybrid_to_baseline": 0.7044946980477146,
+      "baseline_max_cell": 1387327.1958972705,
+      "hybrid_max_cell": 1387327.1958972705,
+      "safe_family_slots": 9994,
+      "safe_family_slots_total": 19200,
+      "safe_families_min_per_cell": 0,
+      "safe_families_max_per_cell": 30
+    }
+  ],
+  "decision": "price_same-grid_per-family_hybrid_before_directed_enclosure",
+  "nonclaims": [
+    "no Lean numeric certificate",
+    "no producer GO",
+    "no RH"
+  ]
+}

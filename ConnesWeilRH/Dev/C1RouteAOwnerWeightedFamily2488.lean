@@ -1056,7 +1056,7 @@ noncomputable def ownerCellFamilySafe2488
 noncomputable def ownerFamilyHybridCurvature2488
     (sigma radius step : ℝ) (index : ℕ) : ℝ :=
   ∑ i : Fin 30, if ownerCellFamilySafe2488 radius step index i = true then
-    weightedCurvature2348 sigma (ownerRad_2463 i)
+    min (weightedCurvature2348 sigma (ownerRad_2463 i)
       ((|(ownerCoef_2463 i).re| + |(ownerCoef_2463 i).im|) *
         Real.exp (-30))
       (((|(ownerCoef_2463 i).re| + |(ownerCoef_2463 i).im|) *
@@ -1076,7 +1076,8 @@ noncomputable def ownerFamilyHybridCurvature2488
         2 * |ownerMod_2463 i| *
           (60 * ownerCellEndpointRatio2488 radius step index i *
             (1 - (ownerCellEndpointRatio2488 radius step index i) ^ 2)⁻¹ ^ 2 /
-              ownerRad_2463 i)))
+              ownerRad_2463 i))))
+      (ownerFamilyWeightedCurvatureL1_2488 sigma i)
   else ownerFamilyWeightedCurvatureL1_2488 sigma i
 
 theorem ownerPanelStripNorm_le_familyHybridCurvature2488
@@ -1120,7 +1121,9 @@ theorem ownerPanelStripNorm_le_familyHybridCurvature2488
           radius step index j) i)
       (by norm_num) (by norm_num) (by
         exact abs_nonneg _) (Complex.norm_le_abs_re_add_abs_im _)
-    convert hbound using 1 <;> norm_num
+    apply le_min
+    · convert hbound using 1 <;> norm_num
+    · exact ownerFamilyWeightedSecondDerivBoundL1_2488 sigma coordinate i
   · rw [if_neg hsafe]
     by_cases houtside : ownerRad_2463 i ≤ |coordinate|
     · rw [weightedExternalFamilySecondDeriv_zero_of_outside2488 sigma
