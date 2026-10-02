@@ -958,6 +958,190 @@ theorem ownerPanelStripNorm_le_constructedHybridCurvature2488
   · intro index hindex i
     exact Complex.norm_le_abs_re_add_abs_im _
 
+noncomputable def ownerFamilyWeightedCurvatureL1_2488
+    (sigma : ℝ) (i : Fin 30) : ℝ :=
+  weightedCurvature2348 sigma (ownerRad_2463 i)
+    (familyDerivativeBudgetL1_2479 0 (ownerCoef_2463 i)
+      (ownerMod_2463 i) (ownerRad_2463 i))
+    (familyDerivativeBudgetL1_2479 1 (ownerCoef_2463 i)
+      (ownerMod_2463 i) (ownerRad_2463 i))
+    (familyDerivativeBudgetL1_2479 2 (ownerCoef_2463 i)
+      (ownerMod_2463 i) (ownerRad_2463 i))
+
+theorem familyDerivativeBudgetL1_nonneg2488
+    (order : ℕ) (coefficient : ℂ) (modulation radius : ℝ)
+    (hradius : 0 < radius) :
+    0 ≤ familyDerivativeBudgetL1_2479 order coefficient modulation radius := by
+  unfold familyDerivativeBudgetL1_2479
+  apply mul_nonneg
+  · positivity
+  · apply Finset.sum_nonneg
+    intro j hj
+    have hc : 0 ≤ (bumpConstant2350 (order - j) : ℝ) := Nat.cast_nonneg _
+    positivity
+
+theorem weightedCurvature2348_nonneg2488
+    (sigma radius zeroBound firstBound secondBound : ℝ)
+    (hzero : 0 ≤ zeroBound) (hfirst : 0 ≤ firstBound)
+    (hsecond : 0 ≤ secondBound) :
+    0 ≤ weightedCurvature2348 sigma radius zeroBound firstBound secondBound := by
+  unfold weightedCurvature2348
+  positivity
+
+theorem ownerFamilyWeightedSecondDerivBoundL1_2488
+    (sigma x : ℝ) (i : Fin 30) :
+    ‖deriv (deriv (weightedFunction2348 sigma
+      (externalFamilyValue2344 (ownerCoef_2463 i) (ownerMod_2463 i)
+        (ownerRad_2463 i)))) x‖ ≤ ownerFamilyWeightedCurvatureL1_2488 sigma i := by
+  have hsmooth : ContDiff ℝ (2 : WithTop (WithTop ℕ))
+      (externalFamilyValue2344 (ownerCoef_2463 i) (ownerMod_2463 i)
+        (ownerRad_2463 i)) :=
+    (externalFamilyValue2344_contDiff _ _ _ (ownerRadPos_2465 i)).of_le
+      (by decide)
+  have horder (order : ℕ) (horder : order ≤ 4) :
+      ‖iteratedDeriv order
+          (externalFamilyValue2344 (ownerCoef_2463 i) (ownerMod_2463 i)
+            (ownerRad_2463 i)) x‖ ≤
+        familyDerivativeBudgetL1_2479 order (ownerCoef_2463 i)
+          (ownerMod_2463 i) (ownerRad_2463 i) := by
+    exact (externalFamilyValue2344_iteratedDeriv_budget2350 order horder
+      (ownerCoef_2463 i) (ownerMod_2463 i) (ownerRadPos_2465 i)).trans
+      (familyDerivativeBudget2350_le_l1_2479 order (ownerCoef_2463 i)
+        (ownerMod_2463 i) (ownerRad_2463 i) (ownerRadPos_2465 i))
+  have hzero := horder 0 (by decide)
+  have hfirst := horder 1 (by decide)
+  have hsecond := horder 2 (by decide)
+  by_cases houtside : ownerRad_2463 i ≤ |x|
+  · rw [weightedExternalFamilySecondDeriv_zero_of_outside2488 sigma
+      (ownerCoef_2463 i) (ownerMod_2463 i) (ownerRad_2463 i) x
+      (ownerRadPos_2465 i) houtside]
+    simpa [ownerFamilyWeightedCurvatureL1_2488] using
+      weightedCurvature2348_nonneg2488 sigma (ownerRad_2463 i)
+      (familyDerivativeBudgetL1_2479 0 (ownerCoef_2463 i)
+        (ownerMod_2463 i) (ownerRad_2463 i))
+      (familyDerivativeBudgetL1_2479 1 (ownerCoef_2463 i)
+        (ownerMod_2463 i) (ownerRad_2463 i))
+      (familyDerivativeBudgetL1_2479 2 (ownerCoef_2463 i)
+        (ownerMod_2463 i) (ownerRad_2463 i))
+      (familyDerivativeBudgetL1_nonneg2488 0 _ _ _ (ownerRadPos_2465 i))
+      (familyDerivativeBudgetL1_nonneg2488 1 _ _ _ (ownerRadPos_2465 i))
+      (familyDerivativeBudgetL1_nonneg2488 2 _ _ _ (ownerRadPos_2465 i))
+  · have hcoordinate : |x| ≤ ownerRad_2463 i := le_of_lt (lt_of_not_ge houtside)
+    have hfirst' : ‖deriv (externalFamilyValue2344 (ownerCoef_2463 i)
+        (ownerMod_2463 i) (ownerRad_2463 i)) x‖ ≤
+        familyDerivativeBudgetL1_2479 1 (ownerCoef_2463 i)
+          (ownerMod_2463 i) (ownerRad_2463 i) := by
+      simpa only [iteratedDeriv_succ, iteratedDeriv_zero] using hfirst
+    have hsecond' : ‖deriv (deriv (externalFamilyValue2344 (ownerCoef_2463 i)
+        (ownerMod_2463 i) (ownerRad_2463 i))) x‖ ≤
+        familyDerivativeBudgetL1_2479 2 (ownerCoef_2463 i)
+          (ownerMod_2463 i) (ownerRad_2463 i) := by
+      simpa only [iteratedDeriv_succ, iteratedDeriv_zero] using hsecond
+    unfold ownerFamilyWeightedCurvatureL1_2488
+    exact weightedFunction2348_curvature_bound sigma
+      (externalFamilyValue2344 (ownerCoef_2463 i) (ownerMod_2463 i)
+        (ownerRad_2463 i)) hsmooth (ownerRad_2463 i) x
+      (familyDerivativeBudgetL1_2479 0 (ownerCoef_2463 i)
+        (ownerMod_2463 i) (ownerRad_2463 i))
+      (familyDerivativeBudgetL1_2479 1 (ownerCoef_2463 i)
+        (ownerMod_2463 i) (ownerRad_2463 i))
+      (familyDerivativeBudgetL1_2479 2 (ownerCoef_2463 i)
+        (ownerMod_2463 i) (ownerRad_2463 i)) hcoordinate hzero hfirst' hsecond'
+
+noncomputable def ownerCellFamilySafe2488
+    (radius step : ℝ) (index : ℕ) (i : Fin 30) : Bool :=
+  decide (max |(-radius + index * step)|
+    |(-radius + (index + 1) * step)| < ownerRad_2463 i)
+
+noncomputable def ownerFamilyHybridCurvature2488
+    (sigma radius step : ℝ) (index : ℕ) : ℝ :=
+  ∑ i : Fin 30, if ownerCellFamilySafe2488 radius step index i = true then
+    weightedCurvature2348 sigma (ownerRad_2463 i)
+      ((|(ownerCoef_2463 i).re| + |(ownerCoef_2463 i).im|) *
+        Real.exp (-30))
+      (((|(ownerCoef_2463 i).re| + |(ownerCoef_2463 i).im|) *
+        Real.exp (-30)) *
+        (60 * ownerCellEndpointRatio2488 radius step index i *
+          (1 - (ownerCellEndpointRatio2488 radius step index i) ^ 2)⁻¹ ^ 2 /
+            ownerRad_2463 i + |ownerMod_2463 i|))
+      (((|(ownerCoef_2463 i).re| + |(ownerCoef_2463 i).im|) *
+        Real.exp (-30)) *
+        ((60 * ((1 - (ownerCellEndpointRatio2488 radius step index i) ^ 2)⁻¹ ^ 2 +
+          4 * (ownerCellEndpointRatio2488 radius step index i) ^ 2 *
+            (1 - (ownerCellEndpointRatio2488 radius step index i) ^ 2)⁻¹ ^ 3) /
+          (ownerRad_2463 i) ^ 2) +
+        (60 * ownerCellEndpointRatio2488 radius step index i *
+          (1 - (ownerCellEndpointRatio2488 radius step index i) ^ 2)⁻¹ ^ 2 /
+            ownerRad_2463 i) ^ 2 + (ownerMod_2463 i) ^ 2 +
+        2 * |ownerMod_2463 i| *
+          (60 * ownerCellEndpointRatio2488 radius step index i *
+            (1 - (ownerCellEndpointRatio2488 radius step index i) ^ 2)⁻¹ ^ 2 /
+              ownerRad_2463 i)))
+  else ownerFamilyWeightedCurvatureL1_2488 sigma i
+
+theorem ownerPanelStripNorm_le_familyHybridCurvature2488
+    (sigma radius step : ℝ) (cells : ℕ)
+    (hradius : 0 ≤ radius)
+    (hR : ∀ i : Fin 30, ownerRad_2463 i ≤ radius)
+    (hstep : 0 < step)
+    (hgrid : (cells : ℝ) * step = 2 * radius) :
+    stripNorm sigma ownerPanelSumValue_2467 ≤
+      compositeNodeUpper2347
+        (ownerPanelNodeUpper2471 sigma radius step) step cells +
+      localCurvatureRemainder2474
+        (fun index => ownerFamilyHybridCurvature2488 sigma radius step index)
+        step cells := by
+  apply ownerPanelStripNorm_le_localCurvature2475 sigma radius step cells
+    (fun index => ownerFamilyHybridCurvature2488 sigma radius step index)
+    hradius hR hstep hgrid
+  intro index hindex coordinate hcoordinate
+  unfold ownerFamilyHybridCurvature2488
+  apply ownerPanelWeightedSecondDeriv_le_sumFamilyBound2488 sigma coordinate
+  intro i
+  by_cases hsafe : ownerCellFamilySafe2488 radius step index i = true
+  · rw [if_pos hsafe]
+    have hend : max |(-radius + index * step)|
+        |(-radius + (index + 1) * step)| < ownerRad_2463 i := by
+      simpa [ownerCellFamilySafe2488] using hsafe
+    have hinside : |coordinate| < ownerRad_2463 i :=
+      lt_of_le_of_lt (abs_le_max_abs_endpoints_of_mem_Icc2488 hcoordinate) hend
+    have hratio := ownerCellEndpointRatio_lt_one2488 radius step index i
+      (lt_of_le_of_lt (le_max_left _ _) hend)
+      (lt_of_le_of_lt (le_max_right _ _) hend)
+    have hbound := weightedExternalFamilySecondDeriv_le_of_interval_bounds2488 sigma coordinate
+      (ownerMod_2463 i) (ownerRad_2463 i)
+      (ownerCellEndpointRatio2488 radius step index i) 0
+      (|(ownerCoef_2463 i).re| + |(ownerCoef_2463 i).im|)
+      (ownerCoef_2463 i) (ownerRadPos_2465 i) hinside
+      (ownerCellEndpointRatio_nonneg2488 radius step index i) hratio
+      (ownerCoordinateNormalizedBound_of_endpointBound2488
+        (fun j => ownerCellEndpointRatio2488 radius step index j)
+        hcoordinate (fun j => ownerCellEndpointRatio_endpointBound2488
+          radius step index j) i)
+      (by norm_num) (by norm_num) (by
+        exact abs_nonneg _) (Complex.norm_le_abs_re_add_abs_im _)
+    convert hbound using 1 <;> norm_num
+  · rw [if_neg hsafe]
+    by_cases houtside : ownerRad_2463 i ≤ |coordinate|
+    · rw [weightedExternalFamilySecondDeriv_zero_of_outside2488 sigma
+        (ownerCoef_2463 i) (ownerMod_2463 i) (ownerRad_2463 i) coordinate
+        (ownerRadPos_2465 i) houtside]
+      simpa [ownerFamilyWeightedCurvatureL1_2488] using
+        weightedCurvature2348_nonneg2488 sigma (ownerRad_2463 i)
+        (familyDerivativeBudgetL1_2479 0 (ownerCoef_2463 i)
+          (ownerMod_2463 i) (ownerRad_2463 i))
+        (familyDerivativeBudgetL1_2479 1 (ownerCoef_2463 i)
+          (ownerMod_2463 i) (ownerRad_2463 i))
+        (familyDerivativeBudgetL1_2479 2 (ownerCoef_2463 i)
+          (ownerMod_2463 i) (ownerRad_2463 i))
+        (familyDerivativeBudgetL1_nonneg2488 0 _ _ _ (ownerRadPos_2465 i))
+        (familyDerivativeBudgetL1_nonneg2488 1 _ _ _ (ownerRadPos_2465 i))
+        (familyDerivativeBudgetL1_nonneg2488 2 _ _ _ (ownerRadPos_2465 i))
+    · have hinside : |coordinate| < ownerRad_2463 i := lt_of_not_ge houtside
+      have hbase := ownerFamilyWeightedSecondDerivBoundL1_2488 sigma coordinate i
+      exact hbase
+
+
 theorem ownerPanelStripNorm_le_productionHybridCurvature2488
     (sigma : ℝ) :
     stripNorm sigma ownerPanelSumValue_2467 ≤
