@@ -1,5 +1,6 @@
 import ConnesWeilRH.Dev.C1RouteALocalBumpFactors2487
 import ConnesWeilRH.Dev.C1RouteAOwnerLocalCurvature2475
+import ConnesWeilRH.Dev.C1RouteAExternalOwnerZeroExtension
 
 /-  2488: weighted finite-family composition for the actual owner.
 
@@ -11,11 +12,25 @@ analytic bounds; no table entry is promoted to a proof premise here.
 
 namespace ConnesWeilRH.Dev
 
-open scoped BigOperators ContDiff
+open scoped Topology BigOperators ContDiff
 open ConnesWeilRH.Dev.C1RouteAOwnerScaleAudit
 
 set_option linter.style.longLine false
 set_option maxRecDepth 32768
+
+theorem weightedExternalFamilySecondDeriv_zero_outside2488
+    (sigma : ℝ) (coefficient : ℂ) (modulation radius position : ℝ)
+    (houtside : radius < |position|) :
+    deriv (deriv (weightedFunction2348 sigma
+      (externalFamilyValue2344 coefficient modulation radius))) position = 0 := by
+  have heq : weightedFunction2348 sigma
+      (externalFamilyValue2344 coefficient modulation radius) =ᶠ[𝓝 position]
+      (fun _ => (0 : ℂ)) := by
+    filter_upwards [IsOpen.mem_nhds
+      (isOpen_lt continuous_const continuous_abs) houtside] with coordinate hcoordinate
+    simp [weightedFunction2348, externalFamilyValue2344, not_lt.mpr hcoordinate.le]
+  rw [heq.deriv.deriv_eq]
+  simp
 
 /- A single-family adapter for the weighted chord estimate.  Keeping the
    three derivative bounds explicit is intentional: the eventual interval
