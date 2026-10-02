@@ -4472,3 +4472,9 @@ specialization to the 2501 lower cell ratio.  Rational table premises and the
 hcell inequality remain open.
 Evidence: `docs/proofs/2504_owner_exp_bridge_lean.md`,
 `ConnesWeilRH/Dev/C1RouteAOwnerExpBridge2501.lean`.
+
+Record 2506 (2026-10-03): replaced the unverified stored split index with an
+automatic `Nat.floor` selection for every nonnegative owner exponent.  The
+floor bounds are proved in Lean and feed the 2498 exponential envelope.
+Evidence: `docs/proofs/2506_owner_exp_auto_floor_lean.md`,
+`ConnesWeilRH/Dev/C1RouteAOwnerExpAuto2506.lean`.
