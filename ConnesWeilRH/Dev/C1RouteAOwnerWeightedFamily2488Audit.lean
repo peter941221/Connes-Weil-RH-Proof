@@ -9,5 +9,6 @@ namespace ConnesWeilRH.Dev
 #print axioms weightedExternalFamilySecondDeriv_le_of_factor_bounds2488
 #print axioms externalFamilyValue2344_norm_le_of_scaledBump_bound2488
 #print axioms ownerPanelWeightedSecondDeriv_le_sumFactorBound2488
+#print axioms familyLogFirst2345_abs_le_of_interval2488
 
 end ConnesWeilRH.Dev

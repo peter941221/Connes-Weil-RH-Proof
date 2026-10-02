@@ -92,6 +92,38 @@ theorem externalFamilyValue2344_norm_le_of_scaledBump_bound2488
   rw [norm_mul, norm_mul, hphase]
   exact mul_le_mul hcoefficient hwidth (abs_nonneg _) (by positivity)
 
+theorem familyLogFirst2345_abs_le_of_interval2488
+    (radius position t : ℝ) (hradius : 0 < radius) (hinside : |position| < radius)
+    (ht : 0 ≤ t) (htone : t < 1) (hcoord : |position / radius| ≤ t) :
+    |familyLogFirst2345 radius position| ≤
+      60 * t * (1 - t ^ 2)⁻¹ ^ 2 / radius := by
+  have hbase : 0 < 1 - t ^ 2 := by
+    nlinarith [sq_nonneg t]
+  have hdef : 0 < familyDeficit2345 radius position :=
+    familyDeficit2345_pos hradius hinside
+  have hlower : 1 - t ^ 2 ≤ familyDeficit2345 radius position := by
+    dsimp [familyDeficit2345]
+    have hsq : (position / radius) ^ 2 ≤ t ^ 2 := by
+      have h := (sq_le_sq₀ (abs_nonneg (position / radius)) ht).2 hcoord
+      simpa [sq_abs] using h
+    linarith
+  have hinv : (familyDeficit2345 radius position)⁻¹ ≤ (1 - t ^ 2)⁻¹ :=
+    (inv_le_inv₀ hbase hdef).2 hlower
+  have hinvpow : (familyDeficit2345 radius position)⁻¹ ^ 2 ≤
+      (1 - t ^ 2)⁻¹ ^ 2 :=
+    pow_le_pow_left₀ (by positivity) hinv 2
+  calc
+    |familyLogFirst2345 radius position| =
+        60 * |position / radius| * (familyDeficit2345 radius position)⁻¹ ^ 2 /
+          radius := by
+      simp only [familyLogFirst2345, abs_div, abs_mul, abs_neg, abs_ofNat,
+        abs_of_pos hradius, abs_of_nonneg (sq_nonneg _)]
+      ring
+    _ ≤ 60 * t * (familyDeficit2345 radius position)⁻¹ ^ 2 / radius := by
+      gcongr
+    _ ≤ 60 * t * (1 - t ^ 2)⁻¹ ^ 2 / radius := by
+      gcongr
+
 theorem weightedExternalFamilySecondDeriv_le_of_factor_bounds2488
     (sigma position modulation radius valueBound firstFactorBound secondFactorBound : ℝ)
     (coefficient : ℂ) (hradius : 0 < radius) (hinside : |position| < radius)
