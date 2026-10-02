@@ -7,8 +7,11 @@ The 2477 edge-split/subcell algorithm was ported to the repository's existing
 keeps the actual 2460 owner family data, the 2475 order-0/1/2 ladder, and
 subcell `h³` accumulation.
 
-This is a backend smoke rather than a Lean certificate: coefficient norms are
-temporarily outward-rounded from binary floating conversion, and no exact
-rational binding/pin has been emitted.  The next promotion step is to replace
-that one binding with exact owner-rational operands and add an independent
-containment/mutation pin before feeding the array to 2475.
+The coefficient binding has now been promoted to an exact rational
+`abs(Re(mid))+abs(Im(mid))` upper bound, converted through a 220-decimal
+outward MPFR interval.  An independent self-test checks containment for all 30
+rows.  This is slightly looser than the Euclidean norm but safe and exact at
+the rational-input level.
+
+The result is still not a Lean numeric import: the cell enclosure and its
+source/mutation pin remain to be formalized before feeding the array to 2475.

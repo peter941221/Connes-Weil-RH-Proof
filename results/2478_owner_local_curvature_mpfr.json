@@ -1,6 +1,6 @@
 {
   "record": 2478,
-  "status": "PROJECT_MPFR_DIRECTED_SMOKE_NOT_LEAN_CERTIFICATE",
+  "status": "PROJECT_MPFR_DIRECTED_EXACT_OWNER_BINDING_NOT_LEAN_CERTIFICATE",
   "backend": {
     "library": "libmpfr.so.6",
     "precision_bits": 256,
@@ -12,18 +12,18 @@
   "rows": [
     {
       "sigma": -0.5,
-      "max_cell": 7049861.98045692,
+      "max_cell": 8261510.618254914,
       "binding_index": 0,
-      "remainder": 494.6427618356592,
+      "remainder": 579.6562316363786,
       "cells": 40,
       "subdiv": 16,
       "effective_cells": 640
     },
     {
       "sigma": 0.5,
-      "max_cell": 7049861.98045692,
+      "max_cell": 8261510.618254914,
       "binding_index": 639,
-      "remainder": 494.64276183565914,
+      "remainder": 579.6562316363785,
       "cells": 40,
       "subdiv": 16,
       "effective_cells": 640
@@ -35,8 +35,8 @@
   ],
   "repair_sha256": "7efde152db5e18c2d312cae16309172154044b443477bca75b9619b3070eb258",
   "capture_sha256": "743fe372bef89b5730c38274d5a5517ac9ea4d3421989d46c49d4af3e78b5e74",
+  "coefficient_binding": "exact rational abs(Re(mid))+abs(Im(mid)), outward MPFR decimal enclosure",
   "nonclaims": [
-    "temporary float binding of exact coefficient norm",
     "no Lean literal import",
     "no producer GO",
     "no RH"

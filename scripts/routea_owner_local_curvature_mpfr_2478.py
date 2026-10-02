@@ -10,6 +10,7 @@ import importlib.util
 import json
 import math
 import sys
+from fractions import Fraction
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -21,11 +22,44 @@ spec = importlib.util.spec_from_file_location(
     "routea_mpfr_2286", ROOT / "scripts/routea_mpfr_owner_atom_preflight_2286.py")
 mpfr = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(mpfr)
+mpfr.lib.mpfr_set_str.argtypes = [mpfr.P, mpfr.C.c_char_p, mpfr.C.c_int, mpfr.C.c_int]
+mpfr.lib.mpfr_set_str.restype = mpfr.C.c_int
 
 
 def frac(s):
     p = s.split("/")
     return float(p[0]) / float(p[1]) if len(p) == 2 else float(p[0])
+
+
+def exact_frac(s):
+    p = s.split("/")
+    return Fraction(int(p[0]), int(p[1])) if len(p) == 2 else Fraction(int(p[0]))
+
+
+def decimal_bound(value, digits, upper):
+    scale = 10 ** digits
+    numerator = value.numerator * scale
+    quotient = numerator // value.denominator
+    if upper and numerator % value.denominator:
+        quotient += 1
+    sign = "-" if quotient < 0 else ""
+    body = str(abs(quotient)).rjust(digits + 1, "0")
+    return f"{sign}{body[:-digits]}.{body[-digits:]}".encode()
+
+
+def exact_rational_interval(value):
+    digits = 220
+    lo, hi = mpfr.M(), mpfr.M()
+    mpfr.lib.mpfr_init2(mpfr.C.byref(lo), mpfr.PREC)
+    mpfr.lib.mpfr_init2(mpfr.C.byref(hi), mpfr.PREC)
+    try:
+        mpfr.lib.mpfr_set_str(mpfr.C.byref(lo), decimal_bound(value, digits, False), 10, mpfr.RNDD)
+        mpfr.lib.mpfr_set_str(mpfr.C.byref(hi), decimal_bound(value, digits, True), 10, mpfr.RNDU)
+        return (mpfr.lib.mpfr_get_d(mpfr.C.byref(lo), mpfr.RNDD),
+                mpfr.lib.mpfr_get_d(mpfr.C.byref(hi), mpfr.RNDU))
+    finally:
+        mpfr.lib.mpfr_clear(mpfr.C.byref(lo))
+        mpfr.lib.mpfr_clear(mpfr.C.byref(hi))
 
 
 def outward(v):
@@ -77,13 +111,12 @@ def main():
     capture = json.loads(CAPTURE.read_text())["owner_capture"]
     fam = []
     for row, pair in zip(repair["coefficient_rows"], capture["families_hex"]):
-        re = (frac(row["ideal_base_coefficient"]["real"]["lower_exact"]) +
-              frac(row["ideal_base_coefficient"]["real"]["upper_exact"])) / 2
-        im = (frac(row["ideal_base_coefficient"]["imag"]["lower_exact"]) +
-              frac(row["ideal_base_coefficient"]["imag"]["upper_exact"])) / 2
-        # Outward float norm is a temporary binding; exact rational norm is
-        # the required next pin step.
-        coef = outward(math.hypot(re, im))[1]
+        re = (exact_frac(row["ideal_base_coefficient"]["real"]["lower_exact"]) +
+              exact_frac(row["ideal_base_coefficient"]["real"]["upper_exact"])) / 2
+        im = (exact_frac(row["ideal_base_coefficient"]["imag"]["lower_exact"]) +
+              exact_frac(row["ideal_base_coefficient"]["imag"]["upper_exact"])) / 2
+        # Exact rational L1 norm safely dominates Complex.norm.
+        coef = exact_rational_interval(abs(re) + abs(im))
         fam.append((coef, float.fromhex(pair[0]) ** 2, float.fromhex(pair[1])))
     radius = 2076918743413931858457251756481 / 316912650057057350374175801344
     step = 2 * radius / cells
@@ -93,7 +126,7 @@ def main():
         values = []
         for index in range(cells * subdiv):
             left, right = -radius + index * substep, -radius + (index + 1) * substep
-            total = 0.0
+            total = (0.0, 0.0)
             for coef, rad, mod in fam:
                 bump = [bump_bound(order, rad, left, right, substep)
                         for order in range(3)]
@@ -111,8 +144,8 @@ def main():
                     mpfr.mul(outward(sigma ** 2), ext[0])))
                 weight = mpfr.unary("mpfr_exp", mpfr.mul(outward(sigma),
                                                           (outward(left)[0], outward(right)[1])))
-                total += coef * mpfr.mul(weight, weighted)[1]
-            values.append(total)
+                total = mpfr.add(total, mpfr.mul(coef, mpfr.mul(weight, weighted)))
+            values.append(total[1])
         rows.append({"sigma": sigma, "max_cell": max(values),
                      "binding_index": values.index(max(values)),
                      "remainder": substep ** 3 / 12 * sum(values),
@@ -120,15 +153,15 @@ def main():
                      "effective_cells": cells * subdiv})
     result = {
         "record": 2478,
-        "status": "PROJECT_MPFR_DIRECTED_SMOKE_NOT_LEAN_CERTIFICATE",
+        "status": "PROJECT_MPFR_DIRECTED_EXACT_OWNER_BINDING_NOT_LEAN_CERTIFICATE",
         "backend": {"library": "libmpfr.so.6", "precision_bits": mpfr.PREC,
                     "rounding": "RNDD/RNDU"},
         "cells": cells, "subdiv": subdiv, "step": substep, "rows": rows,
         "edge_modes": sorted(modes),
         "repair_sha256": hashlib.sha256(REPAIR.read_bytes()).hexdigest(),
         "capture_sha256": hashlib.sha256(CAPTURE.read_bytes()).hexdigest(),
-        "nonclaims": ["temporary float binding of exact coefficient norm",
-                       "no Lean literal import", "no producer GO", "no RH"],
+        "coefficient_binding": "exact rational abs(Re(mid))+abs(Im(mid)), outward MPFR decimal enclosure",
+        "nonclaims": ["no Lean literal import", "no producer GO", "no RH"],
     }
     OUT.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(result, indent=2))
