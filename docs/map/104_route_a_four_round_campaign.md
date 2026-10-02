@@ -3947,3 +3947,11 @@ provided.  Factor endpoint certificates remain open.  Evidence:
 `ConnesWeilRH/Dev/C1RouteAOwnerTermInterface.lean`,
 `ConnesWeilRH/Dev/C1RouteAOwnerTermInterfaceAudit.lean`, and
 `docs/proofs/2437_routea_family_factor_interface.md`.
+
+Record 2438 (2026-10-02): an exact point rectangle for a Lean complex
+coefficient is now proved.  This removes coefficient interval uncertainty once
+the stored-value identity is supplied, while keeping stored binary64
+provenance and bump/phase endpoint certificates explicit.  Evidence:
+`ConnesWeilRH/Dev/C1RouteAIntervalAlgebra.lean`,
+`ConnesWeilRH/Dev/C1RouteAOwnerTermInterfaceAudit.lean`, and
+`docs/proofs/2438_routea_point_coefficient_rect.md`.

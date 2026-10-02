@@ -90,6 +90,13 @@ def ComplexRect2427.Mem (z : ℂ) (r : ComplexRect2427) : Prop :=
   r.reLo ≤ z.re ∧ z.re ≤ r.reHi ∧
   r.imLo ≤ z.im ∧ z.im ≤ r.imHi
 
+def ComplexRect2427.point (z : ℂ) : ComplexRect2427 :=
+  { reLo := z.re, reHi := z.re, imLo := z.im, imHi := z.im }
+
+theorem ComplexRect2427.point_mem (z : ℂ) :
+    (ComplexRect2427.point z).Mem z := by
+  simp [ComplexRect2427.point, ComplexRect2427.Mem]
+
 def ComplexRect2427.add (a b : ComplexRect2427) : ComplexRect2427 :=
   { reLo := a.reLo + b.reLo
     reHi := a.reHi + b.reHi
