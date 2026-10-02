@@ -3873,3 +3873,10 @@ producer verdict is claimed.  Evidence:
 `ConnesWeilRH/Dev/C1RouteAIntervalAlgebra.lean`,
 `ConnesWeilRH/Dev/C1RouteAIntervalAlgebraAudit.lean`, and
 `docs/proofs/2428_routea_interval_algebra.md`.
+
+Record 2429 (2026-10-02): the same Lean interface now proves rectangle
+subtraction and nonnegative-real scaling, matching two directed operations in
+the evaluator.  Signed interval products and the owner-formula bridge remain
+open; this is still no numeric import or producer verdict.  Evidence:
+`ConnesWeilRH/Dev/C1RouteAIntervalAlgebra.lean` and
+`docs/proofs/2429_routea_interval_arithmetic.md`.

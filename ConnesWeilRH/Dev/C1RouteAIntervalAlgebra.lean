@@ -25,6 +25,12 @@ def ComplexRect2427.add (a b : ComplexRect2427) : ComplexRect2427 :=
     imLo := a.imLo + b.imLo
     imHi := a.imHi + b.imHi }
 
+def ComplexRect2427.sub (a b : ComplexRect2427) : ComplexRect2427 :=
+  { reLo := a.reLo - b.reHi
+    reHi := a.reHi - b.reLo
+    imLo := a.imLo - b.imHi
+    imHi := a.imHi - b.imLo }
+
 theorem ComplexRect2427.mem_add {z w : ℂ} {a b : ComplexRect2427}
     (hz : a.Mem z) (hw : b.Mem w) : (a.add b).Mem (z + w) := by
   rcases hz with ⟨hzrl, hzrh, hzil, hzir⟩
@@ -36,6 +42,39 @@ theorem ComplexRect2427.mem_add {z w : ℂ} {a b : ComplexRect2427}
   constructor
   · simpa [ComplexRect2427.add] using add_le_add hzil hwil
   · simpa [ComplexRect2427.add] using add_le_add hzir hwir
+
+theorem ComplexRect2427.mem_sub {z w : ℂ} {a b : ComplexRect2427}
+    (hz : a.Mem z) (hw : b.Mem w) : (a.sub b).Mem (z - w) := by
+  rcases hz with ⟨hzrl, hzrh, hzil, hzir⟩
+  rcases hw with ⟨hwrl, hwrh, hwil, hwir⟩
+  constructor
+  · simpa [ComplexRect2427.sub] using sub_le_sub hzrl hwrh
+  constructor
+  · simpa [ComplexRect2427.sub] using sub_le_sub hzrh hwrl
+  constructor
+  · simpa [ComplexRect2427.sub] using sub_le_sub hzil hwir
+  · simpa [ComplexRect2427.sub] using sub_le_sub hzir hwil
+
+def ComplexRect2427.scale (r : ℝ) (a : ComplexRect2427) : ComplexRect2427 :=
+  { reLo := r * a.reLo
+    reHi := r * a.reHi
+    imLo := r * a.imLo
+    imHi := r * a.imHi }
+
+theorem ComplexRect2427.mem_scale {r : ℝ} {z : ℂ} {a : ComplexRect2427}
+    (hr : 0 ≤ r) (hz : a.Mem z) : (a.scale r).Mem (r • z) := by
+  rcases hz with ⟨hzrl, hzrh, hzil, hzir⟩
+  constructor
+  · simpa [ComplexRect2427.scale, Complex.smul_re] using
+      mul_le_mul_of_nonneg_left hzrl hr
+  constructor
+  · simpa [ComplexRect2427.scale, Complex.smul_re] using
+      mul_le_mul_of_nonneg_left hzrh hr
+  constructor
+  · simpa [ComplexRect2427.scale, Complex.smul_im] using
+      mul_le_mul_of_nonneg_left hzil hr
+  · simpa [ComplexRect2427.scale, Complex.smul_im] using
+      mul_le_mul_of_nonneg_left hzir hr
 
 def ComplexRect2427.zero : ComplexRect2427 :=
   { reLo := 0, reHi := 0, imLo := 0, imHi := 0 }
