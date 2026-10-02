@@ -30,6 +30,13 @@ def exact_frac(text):
     return Fraction(int(parts[0]), int(parts[1])) if len(parts) == 2 else Fraction(int(parts[0]))
 
 
+def float_payload(value):
+    value = float(value)
+    numerator, denominator = value.as_integer_ratio()
+    return {"hex": value.hex(), "numerator": str(numerator),
+            "denominator": str(denominator)}
+
+
 def family_l1_curvature(sigma, radius, coefficient, modulation):
     constants = (1, 60, 3720)
     bounds = []
@@ -130,6 +137,10 @@ def main():
             "hybrid_to_baseline": float(hybrid_remainder / baseline_remainder),
             "baseline_max_cell": max(baseline_cells),
             "hybrid_max_cell": max(hybrid_cells),
+            "baseline_cell_upper_bounds": [float_payload(value)
+                                           for value in baseline_cells],
+            "hybrid_cell_upper_bounds": [float_payload(value)
+                                         for value in hybrid_cells],
             "safe_family_slots": safe_slots,
             "safe_family_slots_total": cells * subdiv * len(families),
             "safe_families_min_per_cell": min(safe_counts),

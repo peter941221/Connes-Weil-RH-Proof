@@ -4343,3 +4343,11 @@ This is still external pricing evidence; the next obligation is directed
 rational binding/import, followed by the selected-detector producer margin.
 Evidence: `docs/proofs/2491_owner_family_hybrid_mpfr_price.md` and
 `results/2491_owner_family_hybrid_mpfr.json`.
+
+Record 2492 (2026-10-03): the 2491 directed-MPFR baseline and hybrid cell
+endpoints are now bound as exact rational payloads in a generated Lean data
+module, with per-payload binary64 ratio checks and an artifact SHA256. This
+is data binding only; the analytic directed enclosure remains an explicit
+premise and no producer GO or RH claim is made.
+Evidence: `docs/proofs/2492_owner_family_hybrid_rational_binding.md` and
+`ConnesWeilRH/Dev/C1RouteAOwnerFamilyHybridTable2492.lean`.
