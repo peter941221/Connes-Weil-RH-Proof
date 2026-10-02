@@ -4327,3 +4327,10 @@ Classical.choice, Quot.sound]; numeric nodeUpper/margin certification and
 the producer gate remain open. Evidence:
 `docs/proofs/2469_owner_strip_attachment.md` and
 `ConnesWeilRH/Dev/C1RouteAOwnerStripAttachment2469.lean`.
+
+Record 2490 (2026-10-03): the per-family hybrid curvature is now formally
+monotone against the corresponding 30-family L1 baseline. The pointwise
+minimum is transported through the local remainder with the nonnegative
+`step^3 / 12` weight. This is a budget-shrink interface only; the directed
+numeric import and selected-detector signed producer inequality remain open.
+Evidence: `docs/proofs/2490_owner_family_hybrid_monotonicity.md`.

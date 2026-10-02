@@ -12,6 +12,8 @@ namespace ConnesWeilRH.Dev
 #print axioms familyDerivativeBudgetL1_nonneg2488
 #print axioms weightedCurvature2348_nonneg2488
 #print axioms ownerFamilyWeightedSecondDerivBoundL1_2488
+#print axioms ownerFamilyHybridCurvature_le_familyL1Sum2488
+#print axioms localCurvatureRemainder_familyHybrid_le_familyL1Sum2488
 #print axioms ownerPanelStripNorm_le_familyHybridCurvature2488
 #print axioms ownerPanelStripNorm_le_productionFamilyHybridCurvature2488
 #print axioms weightedExternalFamilySecondDeriv_le_of_local_bounds2488

@@ -1080,6 +1080,44 @@ noncomputable def ownerFamilyHybridCurvature2488
       (ownerFamilyWeightedCurvatureL1_2488 sigma i)
   else ownerFamilyWeightedCurvatureL1_2488 sigma i
 
+noncomputable def ownerFamilyL1SumCurvature2488
+    (sigma : ℝ) : ℝ :=
+  ∑ i : Fin 30, ownerFamilyWeightedCurvatureL1_2488 sigma i
+
+theorem ownerFamilyHybridCurvature_le_familyL1Sum2488
+    (sigma radius step : ℝ) (index : ℕ) :
+    ownerFamilyHybridCurvature2488 sigma radius step index ≤
+      ownerFamilyL1SumCurvature2488 sigma := by
+  unfold ownerFamilyHybridCurvature2488 ownerFamilyL1SumCurvature2488
+  apply Finset.sum_le_sum
+  intro i _hi
+  by_cases hsafe : ownerCellFamilySafe2488 radius step index i = true
+  · rw [if_pos hsafe]
+    exact min_le_right _ _
+  · rw [if_neg hsafe]
+
+theorem localCurvatureRemainder_familyHybrid_le_familyL1Sum2488
+    (sigma radius step : ℝ) (cells : ℕ) (hstep : 0 ≤ step) :
+    localCurvatureRemainder2474
+        (fun index => ownerFamilyHybridCurvature2488 sigma radius step index)
+        step cells ≤
+      localCurvatureRemainder2474
+        (fun _ => ownerFamilyL1SumCurvature2488 sigma)
+        step cells := by
+  unfold localCurvatureRemainder2474
+  apply Finset.sum_le_sum
+  intro index hindex
+  have hpoint := ownerFamilyHybridCurvature_le_familyL1Sum2488
+    sigma radius step index
+  have hscale : 0 ≤ step ^ 3 / 12 := by positivity
+  calc
+    ownerFamilyHybridCurvature2488 sigma radius step index * step ^ 3 / 12 =
+        ownerFamilyHybridCurvature2488 sigma radius step index *
+          (step ^ 3 / 12) := by ring
+    _ ≤ ownerFamilyL1SumCurvature2488 sigma * (step ^ 3 / 12) :=
+      mul_le_mul_of_nonneg_right hpoint hscale
+    _ = ownerFamilyL1SumCurvature2488 sigma * step ^ 3 / 12 := by ring
+
 theorem ownerPanelStripNorm_le_familyHybridCurvature2488
     (sigma radius step : ℝ) (cells : ℕ)
     (hradius : 0 ≤ radius)
