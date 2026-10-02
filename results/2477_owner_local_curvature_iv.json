@@ -1,0 +1,32 @@
+{
+  "record": 2477,
+  "status": "MPMATH_IV_STRUCTURE_SMOKE_NOT_PROJECT_CERTIFICATE",
+  "cells": 80,
+  "step": 0.16384000000000007,
+  "rows": [
+    {
+      "sigma": "-0.5",
+      "max_cell": 7049861.980456904,
+      "binding_index": 0,
+      "remainder": 32803.27564308723,
+      "cells": 80
+    },
+    {
+      "sigma": "0.5",
+      "max_cell": 7049861.980456904,
+      "binding_index": 79,
+      "remainder": 32803.275643087225,
+      "cells": 80
+    }
+  ],
+  "edge_modes": [
+    "core+edge",
+    "edge-global"
+  ],
+  "nonclaims": [
+    "not Arb/MPFR",
+    "not Lean literal",
+    "no producer GO",
+    "no RH"
+  ]
+}
