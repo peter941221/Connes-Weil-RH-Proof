@@ -4220,3 +4220,23 @@ one giant computation. Generic layer only: no owner data instantiated,
 no strip norm discharged, no GO, no RH claim. Evidence:
 `docs/proofs/2459_quadrature_attachment_wc.md` and
 `build-logs/2459_quadrature_attachment_audit.log`.
+
+Record 2460 (2026-10-02): first producer instantiation with actual
+owner data - one-panel end-to-end sample through the 2459 doors, all
+green.  Per family k = 0..29 the generated module carries the 2338
+ball as coefRectK (exact 200-digit [lo, hi] rationals, midpoint
+frozen), a closed-form bump box [0, exp(-30/q(X0))], and an oriented
+midpoint phase box, and proves famPanelK: for EVERY x in the 2455
+production-grid panel [292864/1171875, 97664/390625] (contains 1/4,
+all 30 families alive) the composed hull contains
+externalFamilyValue2344; sumPanelSample_2460 closes the 30-family sum
+door for all panel points.  33 declarations audited on the standard
+three axioms; module builds in 5.7 s wall; Python truth containment
+5x30 + sum 5/5 PASS; hypothesis-free (closed-form box ends, no delta
+rounding).  Structural win: the doors are forall over panel points,
+so the trapezoid brick reuses one theorem per panel instead of
+per-node Lean work.  Sample grade only: no trapezoid sum T, no zeta,
+no strip norm discharged, no GO, no RH claim.  Evidence:
+`docs/proofs/2460_owner_panel_producer_sample.md`,
+`results/2460_owner_panel_sample.json`, and
+`build-logs/2460_owner_panel_sample_audit.log`.
