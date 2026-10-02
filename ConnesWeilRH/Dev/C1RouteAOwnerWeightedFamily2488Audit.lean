@@ -27,5 +27,6 @@ namespace ConnesWeilRH.Dev
 #print axioms ownerCellEndpointRatio_lt_one2488
 #print axioms ownerCellEndpointRatio_endpointBound2488
 #print axioms ownerPanelStripNorm_le_constructedEndpointCurvatureZero2488
+#print axioms ownerPanelStripNorm_le_constructedEndpointCurvatureL1_2488
 
 end ConnesWeilRH.Dev

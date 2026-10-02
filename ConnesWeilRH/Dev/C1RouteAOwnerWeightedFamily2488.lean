@@ -716,4 +716,26 @@ theorem ownerCoefficientL1Bound2488 (i : Fin 30) :
     ‖ownerCoef_2463 i‖ ≤ |(ownerCoef_2463 i).re| + |(ownerCoef_2463 i).im| := by
   exact Complex.norm_le_abs_re_add_abs_im _
 
+theorem ownerPanelStripNorm_le_constructedEndpointCurvatureL1_2488
+    (sigma radius step : ℝ) (cells : ℕ)
+    (hradius : 0 ≤ radius)
+    (hR : ∀ i : Fin 30, ownerRad_2463 i ≤ radius)
+    (hstep : 0 < step)
+    (hgrid : (cells : ℝ) * step = 2 * radius)
+    (hinside : ∀ index ∈ Finset.range cells, ∀ coordinate ∈
+      Set.Icc (-radius + index * step) (-radius + (index + 1) * step),
+      ∀ i : Fin 30, |coordinate| < ownerRad_2463 i) :
+    stripNorm sigma ownerPanelSumValue_2467 ≤
+      compositeNodeUpper2347
+        (ownerPanelNodeUpper2471 sigma radius step) step cells +
+      localCurvatureRemainder2474
+      (fun index => ownerIntervalCurvatureZero2488 sigma
+          (fun i => ownerCellEndpointRatio2488 radius step index i)
+          (fun i => |(ownerCoef_2463 i).re| + |(ownerCoef_2463 i).im|)) step cells := by
+  apply ownerPanelStripNorm_le_constructedEndpointCurvatureZero2488 sigma radius step cells
+    (fun _ i => |(ownerCoef_2463 i).re| + |(ownerCoef_2463 i).im|)
+    hradius hR hstep hgrid hinside
+  intro index hindex i
+  exact ownerCoefficientL1Bound2488 i
+
 end ConnesWeilRH.Dev
