@@ -3897,3 +3897,11 @@ bridge remain open; no numeric import or producer verdict is claimed.
 Evidence: `ConnesWeilRH/Dev/C1RouteAIntervalAlgebra.lean`,
 `ConnesWeilRH/Dev/C1RouteAIntervalAlgebraAudit.lean`, and
 `docs/proofs/2431_routea_complex_interval_product.md`.
+
+Record 2432 (2026-10-02): a current-source AST audit locks the correspondence
+between the Lean interval algebra and the Python `iprod`/`ciprod` operation
+shape, including directed-rounding order.  It is a structural guard only;
+MPFR containment and the owner-formula bridge remain open.  Evidence:
+`scripts/routea_interval_kernel_shape_audit_2432.py`,
+`docs/proofs/2432_routea_interval_kernel_shape_audit.md`, and
+`results/2432_interval_kernel_shape_audit.json`.
