@@ -1,0 +1,23 @@
+{
+  "record": 2502,
+  "status": "CORRECTED_FORMAL_EXP_SPLIT_EXTERNAL_PRICE_NOT_A_CERTIFICATE",
+  "samples": 9856,
+  "binary64_underflowed_samples": 138,
+  "ratio_min": 0.8571428571428571,
+  "ratio_median": 1.0000000000000056,
+  "ratio_max": 1.000000000000138,
+  "worst": {
+    "ratio": 1.000000000000138,
+    "cell": 128,
+    "family": 6,
+    "n": 686,
+    "remainder": 0.9315504034218601
+  },
+  "decision": "price_split_before_weighted_curvature_propagation",
+  "nonclaims": [
+    "no hcell proof",
+    "no producer GO",
+    "no RH"
+  ],
+  "input_record": 2501
+}

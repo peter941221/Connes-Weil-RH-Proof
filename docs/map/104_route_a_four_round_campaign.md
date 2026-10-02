@@ -4439,3 +4439,21 @@ only; no hcell proof, producer GO, or RH claim.
 Evidence: `docs/proofs/2500_owner_exp_split_price.md`,
 `scripts/diag_owner_exp_split_price_2500.py`, and
 `results/2500_owner_exp_split_price.json`.
+
+Record 2501 correction (2026-10-03): the 2499 exponent inputs used the
+maximum endpoint ratio, which is the wrong direction for an exponential upper
+bound.  The corrected inputs use the minimum cell ratio (zero across cells
+crossing zero, nearer endpoint otherwise).  Record 2499 is historical and
+superseded for this input direction; the corrected artifact is still only
+input data, not an hcell proof.
+Evidence: `docs/proofs/2501_owner_exp_split_inputs_correction.md`,
+`scripts/routea_owner_exp_split_inputs_2501.py`, and
+`results/2501_owner_exp_split_inputs.json`.
+
+Record 2502 (2026-10-03): the 2500 price was re-run against corrected 2501
+inputs.  Among 9,856 finite readings (138 binary64 underflows), the maximum
+remains `1.000000000000138`; this is routing evidence only and does not close
+hcell.
+Evidence: `docs/proofs/2502_owner_exp_split_price_correction.md`,
+`scripts/diag_owner_exp_split_price_2502.py`, and
+`results/2502_owner_exp_split_price.json`.
