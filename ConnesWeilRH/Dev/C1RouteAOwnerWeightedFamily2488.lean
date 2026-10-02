@@ -855,6 +855,78 @@ theorem ownerCellEndpointRatio_endpointBound2488
   unfold ownerCellEndpointRatio2488
   exact le_of_eq (div_mul_cancel₀ _ (ne_of_gt (ownerRadPos_2465 i))).symm
 
+noncomputable def ownerCellSafeEndpoint2488
+    (radius step : ℝ) (index : ℕ) : Bool := by
+  classical
+  by_cases h : ∀ i : Fin 30,
+      |(-radius + index * step)| < ownerRad_2463 i ∧
+        |(-radius + (index + 1) * step)| < ownerRad_2463 i
+  · exact true
+  · exact false
+
+theorem ownerCellSafeEndpoint_true_iff2488
+    (radius step : ℝ) (index : ℕ) :
+    ownerCellSafeEndpoint2488 radius step index = true ↔
+      ∀ i : Fin 30,
+        |(-radius + index * step)| < ownerRad_2463 i ∧
+          |(-radius + (index + 1) * step)| < ownerRad_2463 i := by
+  classical
+  unfold ownerCellSafeEndpoint2488
+  split <;> simp_all
+
+theorem ownerPanelStripNorm_le_constructedHybridCurvature2488
+    (sigma radius step : ℝ) (cells : ℕ)
+    (hradius : 0 ≤ radius)
+    (hR : ∀ i : Fin 30, ownerRad_2463 i ≤ radius)
+    (hstep : 0 < step)
+    (hgrid : (cells : ℝ) * step = 2 * radius) :
+    stripNorm sigma ownerPanelSumValue_2467 ≤
+      compositeNodeUpper2347
+        (ownerPanelNodeUpper2471 sigma radius step) step cells +
+      localCurvatureRemainder2474
+        (fun index => if ownerCellSafeEndpoint2488 radius step index = true then
+          ownerIntervalCurvatureSum2488 sigma
+            (fun _ i => ownerCellEndpointRatio2488 radius step index i)
+            (fun _ _ => 0)
+            (fun _ i => |(ownerCoef_2463 i).re| + |(ownerCoef_2463 i).im|) index
+        else ownerWeightedCurvatureL1_2480 sigma radius) step cells := by
+  let safe := ownerCellSafeEndpoint2488 radius step
+  let t : ℕ → Fin 30 → ℝ :=
+    fun index i => ownerCellEndpointRatio2488 radius step index i
+  let a : ℕ → Fin 30 → ℝ := fun _ _ => 0
+  let coefficientBound : ℕ → Fin 30 → ℝ :=
+    fun _ i => |(ownerCoef_2463 i).re| + |(ownerCoef_2463 i).im|
+  have hcell : ∀ index ∈ Finset.range cells,
+      -radius + index * step ≤ -radius + (index + 1) * step := by
+    intro index hindex
+    have hmul : (index : ℝ) * step ≤ ((index : ℝ) + 1) * step := by
+      nlinarith [hstep]
+    nlinarith [hmul]
+  apply ownerPanelStripNorm_le_hybridIntervalCurvature2488 sigma radius step cells
+    safe t a coefficientBound hradius hR hstep hgrid
+  · intro index hindex hsafe coordinate hcoordinate i
+    have hsafe' := (ownerCellSafeEndpoint_true_iff2488 radius step index).mp hsafe
+    have hmax := abs_le_max_abs_endpoints_of_mem_Icc2488 hcoordinate
+    exact lt_of_le_of_lt hmax (max_lt (hsafe' i).1 (hsafe' i).2)
+  · intro index hindex hsafe coordinate hcoordinate i
+    exact ownerCellEndpointRatio_nonneg2488 radius step index i
+  · intro index hindex hsafe coordinate hcoordinate i
+    have hsafe' := (ownerCellSafeEndpoint_true_iff2488 radius step index).mp hsafe
+    exact ownerCellEndpointRatio_lt_one2488 radius step index i
+      (hsafe' i).1 (hsafe' i).2
+  · intro index hindex hsafe coordinate hcoordinate i
+    simpa [t] using (ownerCoordinateNormalizedBound_of_endpointBound2488
+      (fun i => ownerCellEndpointRatio2488 radius step index i) hcoordinate
+      (fun i => ownerCellEndpointRatio_endpointBound2488 radius step index i) i)
+  · intro index hindex hsafe coordinate hcoordinate i
+    norm_num [a]
+  · intro index hindex hsafe coordinate hcoordinate i
+    norm_num [a]
+  · intro index hindex hsafe coordinate hcoordinate i
+    simpa [a] using (abs_nonneg (coordinate / ownerRad_2463 i))
+  · intro index hindex i
+    exact Complex.norm_le_abs_re_add_abs_im _
+
 theorem ownerPanelWeightedSecondDeriv_le_ownerIntervalCurvatureZero2488
     (sigma x : ℝ) (t coefficientBound : Fin 30 → ℝ)
     (hinside : ∀ i : Fin 30, |x| < ownerRad_2463 i)
