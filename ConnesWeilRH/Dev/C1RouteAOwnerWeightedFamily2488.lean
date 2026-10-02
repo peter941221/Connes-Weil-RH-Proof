@@ -2,6 +2,7 @@ import ConnesWeilRH.Dev.C1RouteALocalBumpFactors2487
 import ConnesWeilRH.Dev.C1RouteAOwnerLocalCurvature2475
 import ConnesWeilRH.Dev.C1RouteAExternalOwnerZeroExtension
 import ConnesWeilRH.Dev.C1RouteAOwnerWeightedCurvature2480
+import ConnesWeilRH.Dev.C1RouteAItem5Arithmetic
 
 /-  2488: weighted finite-family composition for the actual owner.
 
@@ -15,6 +16,7 @@ namespace ConnesWeilRH.Dev
 
 open scoped Topology BigOperators ContDiff
 open ConnesWeilRH.Dev.C1RouteAOwnerScaleAudit
+open ConnesWeilRH.Source.C1RouteAItem5Arithmetic
 
 set_option linter.style.longLine false
 set_option maxRecDepth 32768
@@ -874,6 +876,35 @@ theorem ownerCellSafeEndpoint_true_iff2488
   unfold ownerCellSafeEndpoint2488
   split <;> simp_all
 
+theorem ownerCellSafeEndpoint_production2488
+    {index : ℕ} (hlo : 196 ≤ index) (hhi : index ≤ 443) :
+    ownerCellSafeEndpoint2488 stripRadius2303
+      (stripRadius2303 / 320) index = true := by
+  rw [ownerCellSafeEndpoint_true_iff2488]
+  intro i
+  have hrad : (31 / 80 : ℝ) * stripRadius2303 < ownerRad_2463 i := by
+    fin_cases i <;> norm_num [ownerRad_2463, rad0_2460, rad1_2460, rad2_2460,
+      rad3_2460, rad4_2460, rad5_2460, rad6_2460, rad7_2460, rad8_2460,
+      rad9_2460, rad10_2460, rad11_2460, rad12_2460, rad13_2460,
+      rad14_2460, rad15_2460, rad16_2460, rad17_2460, rad18_2460,
+      rad19_2460, rad20_2460, rad21_2460, rad22_2460, rad23_2460,
+      rad24_2460, rad25_2460, rad26_2460, rad27_2460, rad28_2460,
+      rad29_2460, stripRadius2303]
+  have hRpos : 0 < stripRadius2303 := by norm_num [stripRadius2303]
+  have hlo' : (196 : ℝ) ≤ index := by exact_mod_cast hlo
+  have hhi' : (index : ℝ) ≤ 443 := by exact_mod_cast hhi
+  have hleft : |(-stripRadius2303 + index * (stripRadius2303 / 320))| <
+      ownerRad_2463 i := by
+    apply lt_of_le_of_lt _ hrad
+    apply abs_le.mpr
+    constructor <;> nlinarith [hlo', hhi', hRpos]
+  have hright : |(-stripRadius2303 + (index + 1) *
+      (stripRadius2303 / 320))| < ownerRad_2463 i := by
+    apply lt_of_le_of_lt _ hrad
+    apply abs_le.mpr
+    constructor <;> nlinarith [hlo', hhi', hRpos]
+  exact ⟨hleft, hright⟩
+
 theorem ownerPanelStripNorm_le_constructedHybridCurvature2488
     (sigma radius step : ℝ) (cells : ℕ)
     (hradius : 0 ≤ radius)
@@ -926,6 +957,36 @@ theorem ownerPanelStripNorm_le_constructedHybridCurvature2488
     simpa [a] using (abs_nonneg (coordinate / ownerRad_2463 i))
   · intro index hindex i
     exact Complex.norm_le_abs_re_add_abs_im _
+
+theorem ownerPanelStripNorm_le_productionHybridCurvature2488
+    (sigma : ℝ) :
+    stripNorm sigma ownerPanelSumValue_2467 ≤
+      compositeNodeUpper2347
+        (ownerPanelNodeUpper2471 sigma stripRadius2303
+          (stripRadius2303 / 320)) (stripRadius2303 / 320) 640 +
+      localCurvatureRemainder2474
+        (fun index => if ownerCellSafeEndpoint2488 stripRadius2303
+            (stripRadius2303 / 320) index = true then
+          ownerIntervalCurvatureSum2488 sigma
+            (fun _ (i : Fin 30) => ownerCellEndpointRatio2488 stripRadius2303
+              (stripRadius2303 / 320) index i)
+            (fun _ _ => 0)
+            (fun _ i => |(ownerCoef_2463 i).re| + |(ownerCoef_2463 i).im|) index
+        else ownerWeightedCurvatureL1_2480 sigma stripRadius2303)
+        (stripRadius2303 / 320) 640 := by
+  apply ownerPanelStripNorm_le_constructedHybridCurvature2488 sigma
+    stripRadius2303 (stripRadius2303 / 320) 640
+  · norm_num [stripRadius2303]
+  · intro i
+    fin_cases i <;> norm_num [ownerRad_2463, rad0_2460, rad1_2460, rad2_2460,
+      rad3_2460, rad4_2460, rad5_2460, rad6_2460, rad7_2460, rad8_2460,
+      rad9_2460, rad10_2460, rad11_2460, rad12_2460, rad13_2460,
+      rad14_2460, rad15_2460, rad16_2460, rad17_2460, rad18_2460,
+      rad19_2460, rad20_2460, rad21_2460, rad22_2460, rad23_2460,
+      rad24_2460, rad25_2460, rad26_2460, rad27_2460, rad28_2460,
+      rad29_2460, stripRadius2303]
+  · norm_num [stripRadius2303]
+  · norm_num [stripRadius2303]
 
 theorem ownerPanelWeightedSecondDeriv_le_ownerIntervalCurvatureZero2488
     (sigma x : ℝ) (t coefficientBound : Fin 30 → ℝ)
