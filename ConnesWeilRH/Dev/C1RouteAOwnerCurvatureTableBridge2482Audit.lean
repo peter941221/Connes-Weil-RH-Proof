@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteAOwnerCurvatureTableBridge2482
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ownerPanelStripNorm_le_curvatureTableBridge2482
+
+end ConnesWeilRH.Dev
