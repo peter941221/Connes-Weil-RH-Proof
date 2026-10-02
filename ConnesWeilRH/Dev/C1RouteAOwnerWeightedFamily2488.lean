@@ -584,6 +584,35 @@ theorem ownerCoordinateNormalizedBound_of_endpointBound2488
   exact abs_div_le_of_mem_Icc_of_endpointBound2488
     (ownerRadPos_2465 i) hcoordinate (hendpoint i)
 
+noncomputable def ownerCellEndpointRatio2488
+    (radius step : ℝ) (index : ℕ) (i : Fin 30) : ℝ :=
+  max |(-radius + index * step)|
+      |(-radius + (index + 1) * step)| / ownerRad_2463 i
+
+theorem ownerCellEndpointRatio_nonneg2488
+    (radius step : ℝ) (index : ℕ) (i : Fin 30) :
+    0 ≤ ownerCellEndpointRatio2488 radius step index i := by
+  unfold ownerCellEndpointRatio2488
+  exact div_nonneg
+    ((abs_nonneg _).trans (le_max_left _ _)) (ownerRadPos_2465 i).le
+
+theorem ownerCellEndpointRatio_lt_one2488
+    (radius step : ℝ) (index : ℕ) (i : Fin 30)
+    (hleft : |(-radius + index * step)| < ownerRad_2463 i)
+    (hright : |(-radius + (index + 1) * step)| < ownerRad_2463 i) :
+    ownerCellEndpointRatio2488 radius step index i < 1 := by
+  unfold ownerCellEndpointRatio2488
+  apply (div_lt_iff₀ (ownerRadPos_2465 i)).2
+  simpa only [max_lt_iff, one_mul] using And.intro hleft hright
+
+theorem ownerCellEndpointRatio_endpointBound2488
+    (radius step : ℝ) (index : ℕ) (i : Fin 30) :
+    max |(-radius + index * step)|
+        |(-radius + (index + 1) * step)| ≤
+      ownerCellEndpointRatio2488 radius step index i * ownerRad_2463 i := by
+  unfold ownerCellEndpointRatio2488
+  exact le_of_eq (div_mul_cancel₀ _ (ne_of_gt (ownerRadPos_2465 i))).symm
+
 theorem ownerPanelWeightedSecondDeriv_le_ownerIntervalCurvatureZero2488
     (sigma x : ℝ) (t coefficientBound : Fin 30 → ℝ)
     (hinside : ∀ i : Fin 30, |x| < ownerRad_2463 i)

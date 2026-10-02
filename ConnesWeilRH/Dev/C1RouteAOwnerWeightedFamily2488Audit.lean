@@ -23,5 +23,8 @@ namespace ConnesWeilRH.Dev
 #print axioms ownerCoordinateNormalizedBound_of_endpointBound2488
 #print axioms ownerPanelWeightedSecondDeriv_le_ownerIntervalCurvatureZero2488
 #print axioms ownerPanelStripNorm_le_endpointIntervalCurvatureZero2488
+#print axioms ownerCellEndpointRatio_nonneg2488
+#print axioms ownerCellEndpointRatio_lt_one2488
+#print axioms ownerCellEndpointRatio_endpointBound2488
 
 end ConnesWeilRH.Dev
