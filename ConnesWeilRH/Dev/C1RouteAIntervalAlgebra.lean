@@ -15,11 +15,29 @@ structure RealInterval2429 where
 def RealInterval2429.Mem (x : ℝ) (r : RealInterval2429) : Prop :=
   r.lo ≤ x ∧ x ≤ r.hi
 
+def RealInterval2429.add (a b : RealInterval2429) : RealInterval2429 :=
+  { lo := a.lo + b.lo, hi := a.hi + b.hi }
+
+theorem RealInterval2429.mem_add {a b : RealInterval2429} {x y : ℝ}
+    (ha : a.Mem x) (hb : b.Mem y) : (a.add b).Mem (x + y) := by
+  constructor
+  · exact add_le_add ha.1 hb.1
+  · exact add_le_add ha.2 hb.2
+
 def RealInterval2429.mul (a b : RealInterval2429) : RealInterval2429 :=
   { lo := min (min (a.lo * b.lo) (a.lo * b.hi))
       (min (a.hi * b.lo) (a.hi * b.hi))
     hi := max (max (a.lo * b.lo) (a.lo * b.hi))
       (max (a.hi * b.lo) (a.hi * b.hi)) }
+
+def RealInterval2429.sub (a b : RealInterval2429) : RealInterval2429 :=
+  { lo := a.lo - b.hi, hi := a.hi - b.lo }
+
+theorem RealInterval2429.mem_sub {a b : RealInterval2429} {x y : ℝ}
+    (ha : a.Mem x) (hb : b.Mem y) : (a.sub b).Mem (x - y) := by
+  constructor
+  · exact sub_le_sub ha.1 hb.2
+  · exact sub_le_sub ha.2 hb.1
 
 theorem RealInterval2429.mem_mul {a b : RealInterval2429} {x y : ℝ}
     (ha : a.Mem x) (hb : b.Mem y) : (a.mul b).Mem (x * y) := by
@@ -84,6 +102,15 @@ def ComplexRect2427.sub (a b : ComplexRect2427) : ComplexRect2427 :=
     imLo := a.imLo - b.imHi
     imHi := a.imHi - b.imLo }
 
+def ComplexRect2427.mul (a b : ComplexRect2427) : ComplexRect2427 :=
+  let ar : RealInterval2429 := ⟨a.reLo, a.reHi⟩
+  let ai : RealInterval2429 := ⟨a.imLo, a.imHi⟩
+  let br : RealInterval2429 := ⟨b.reLo, b.reHi⟩
+  let bi : RealInterval2429 := ⟨b.imLo, b.imHi⟩
+  let rr := (ar.mul br).sub (ai.mul bi)
+  let ii := (ar.mul bi).add (ai.mul br)
+  { reLo := rr.lo, reHi := rr.hi, imLo := ii.lo, imHi := ii.hi }
+
 theorem ComplexRect2427.mem_add {z w : ℂ} {a b : ComplexRect2427}
     (hz : a.Mem z) (hw : b.Mem w) : (a.add b).Mem (z + w) := by
   rcases hz with ⟨hzrl, hzrh, hzil, hzir⟩
@@ -107,6 +134,38 @@ theorem ComplexRect2427.mem_sub {z w : ℂ} {a b : ComplexRect2427}
   constructor
   · simpa [ComplexRect2427.sub] using sub_le_sub hzil hwir
   · simpa [ComplexRect2427.sub] using sub_le_sub hzir hwil
+
+theorem ComplexRect2427.mem_mul {z w : ℂ} {a b : ComplexRect2427}
+    (hz : a.Mem z) (hw : b.Mem w) : (a.mul b).Mem (z * w) := by
+  let ar : RealInterval2429 := ⟨a.reLo, a.reHi⟩
+  let ai : RealInterval2429 := ⟨a.imLo, a.imHi⟩
+  let br : RealInterval2429 := ⟨b.reLo, b.reHi⟩
+  let bi : RealInterval2429 := ⟨b.imLo, b.imHi⟩
+  have har : ar.Mem z.re := hz.1
+  have hai : ai.Mem z.im := hz.2.2.1
+  have hbr : br.Mem w.re := hw.1
+  have hbi : bi.Mem w.im := hw.2.2.1
+  have hrr : (ar.mul br).Mem (z.re * w.re) :=
+    RealInterval2429.mem_mul har hbr
+  have hii : (ai.mul bi).Mem (z.im * w.im) :=
+    RealInterval2429.mem_mul hai hbi
+  have hri : (ar.mul bi).Mem (z.re * w.im) :=
+    RealInterval2429.mem_mul har hbi
+  have hir : (ai.mul br).Mem (z.im * w.re) :=
+    RealInterval2429.mem_mul hai hbr
+  have hre : ((ar.mul br).sub (ai.mul bi)).Mem
+      (z.re * w.re - z.im * w.im) :=
+    RealInterval2429.mem_sub hrr hii
+  have him : ((ar.mul bi).add (ai.mul br)).Mem
+      (z.re * w.im + z.im * w.re) :=
+    RealInterval2429.mem_add hri hir
+  constructor
+  · simpa [ComplexRect2427.mul, ar, ai, br, bi, Complex.mul_re] using hre.1
+  constructor
+  · simpa [ComplexRect2427.mul, ar, ai, br, bi, Complex.mul_re] using hre.2
+  constructor
+  · simpa [ComplexRect2427.mul, ar, ai, br, bi, Complex.mul_im] using him.1
+  · simpa [ComplexRect2427.mul, ar, ai, br, bi, Complex.mul_im] using him.2
 
 def ComplexRect2427.scale (r : ℝ) (a : ComplexRect2427) : ComplexRect2427 :=
   { reLo := r * a.reLo

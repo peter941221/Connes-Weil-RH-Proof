@@ -3889,3 +3889,11 @@ composition `ciprod`.  Evidence:
 `ConnesWeilRH/Dev/C1RouteAIntervalAlgebra.lean`,
 `ConnesWeilRH/Dev/C1RouteAIntervalAlgebraAudit.lean`, and
 `docs/proofs/2430_routea_signed_interval_product.md`.
+
+Record 2431 (2026-10-02): `ComplexRect2427.mem_mul` composes the signed real
+product, addition, and subtraction lemmas into the exact real/imaginary
+rectangle formula used by `ciprod`.  MPFR rounding and the owner-formula
+bridge remain open; no numeric import or producer verdict is claimed.
+Evidence: `ConnesWeilRH/Dev/C1RouteAIntervalAlgebra.lean`,
+`ConnesWeilRH/Dev/C1RouteAIntervalAlgebraAudit.lean`, and
+`docs/proofs/2431_routea_complex_interval_product.md`.
