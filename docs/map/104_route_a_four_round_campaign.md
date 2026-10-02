@@ -3939,3 +3939,11 @@ identity.  The per-family MPFR rectangle hypotheses remain open.  Evidence:
 `ConnesWeilRH/Dev/C1RouteAOwnerTermInterface.lean`,
 `ConnesWeilRH/Dev/C1RouteAOwnerTermInterfaceAudit.lean`, and
 `docs/proofs/2436_routea_owner_term_interface.md`.
+
+Record 2437 (2026-10-02): the family obligation is factored into directed
+coefficient, bump/amplitude, and phase rectangles.  Lean proves their product
+contains the external family term once the exact value-identification is
+provided.  Factor endpoint certificates remain open.  Evidence:
+`ConnesWeilRH/Dev/C1RouteAOwnerTermInterface.lean`,
+`ConnesWeilRH/Dev/C1RouteAOwnerTermInterfaceAudit.lean`, and
+`docs/proofs/2437_routea_family_factor_interface.md`.

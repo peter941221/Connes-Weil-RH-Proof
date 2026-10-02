@@ -19,4 +19,12 @@ theorem correctedPhysical_mem_of_family_rect2436
   intro index hindex
   exact hterm index
 
+theorem externalFamilyValue_mem_of_factor_cert2437
+    (coefficient bump phase : DirectedComplexValue2433)
+    (target : ℂ)
+    (hvalue : ((coefficient.product bump).product phase).value = target) :
+    ((coefficient.product bump).product phase).rectangle.Mem target := by
+  rw [← hvalue]
+  exact ((coefficient.product bump).product phase).contains
+
 end ConnesWeilRH.Dev
