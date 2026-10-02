@@ -1,0 +1,23 @@
+{
+  "record": 2476,
+  "status": "SAMPLED_FEASIBILITY_PROBE_NOT_A_CERTIFICATE",
+  "radius": 6.553600000000003,
+  "step": 0.32768000000000014,
+  "rows": [
+    {
+      "sigma": -0.5,
+      "max_cell": 129716.01444186372,
+      "remainder": 1539.2414150990314,
+      "cells": 40,
+      "samples_per_cell": 401
+    },
+    {
+      "sigma": 0.5,
+      "max_cell": 129716.01444186372,
+      "remainder": 1539.2414150990319,
+      "cells": 40,
+      "samples_per_cell": 401
+    }
+  ],
+  "decision": "local_price_only; directed_cell_enclosure_required"
+}
