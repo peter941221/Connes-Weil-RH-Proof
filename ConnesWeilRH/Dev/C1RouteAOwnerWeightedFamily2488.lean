@@ -424,4 +424,82 @@ theorem ownerPanelWeightedSecondDeriv_le_sumIntervalBound2488
     (coefficientBound i) (ownerCoef_2463 i) (ownerRadPos_2465 i) (hinside i)
     (ht i) (htone i) (hcoord i) (ha i) (haone i) (halower i) (hcoefficient i)
 
+theorem ownerPanelStripNorm_le_intervalCurvature2488
+    (sigma radius step : ℝ) (cells : ℕ)
+    (t a coefficientBound : ℕ → Fin 30 → ℝ)
+    (hradius : 0 ≤ radius)
+    (hR : ∀ i : Fin 30, ownerRad_2463 i ≤ radius)
+    (hstep : 0 < step)
+    (hgrid : (cells : ℝ) * step = 2 * radius)
+    (hinside : ∀ index ∈ Finset.range cells, ∀ coordinate ∈
+      Set.Icc (-radius + index * step) (-radius + (index + 1) * step),
+      ∀ i : Fin 30, |coordinate| < ownerRad_2463 i)
+    (ht : ∀ index ∈ Finset.range cells, ∀ coordinate ∈
+      Set.Icc (-radius + index * step) (-radius + (index + 1) * step),
+      ∀ i : Fin 30, 0 ≤ t index i)
+    (htone : ∀ index ∈ Finset.range cells, ∀ coordinate ∈
+      Set.Icc (-radius + index * step) (-radius + (index + 1) * step),
+      ∀ i : Fin 30, t index i < 1)
+    (hcoord : ∀ index ∈ Finset.range cells, ∀ coordinate ∈
+      Set.Icc (-radius + index * step) (-radius + (index + 1) * step),
+      ∀ i : Fin 30, |coordinate / ownerRad_2463 i| ≤ t index i)
+    (ha : ∀ index ∈ Finset.range cells, ∀ coordinate ∈
+      Set.Icc (-radius + index * step) (-radius + (index + 1) * step),
+      ∀ i : Fin 30, 0 ≤ a index i)
+    (haone : ∀ index ∈ Finset.range cells, ∀ coordinate ∈
+      Set.Icc (-radius + index * step) (-radius + (index + 1) * step),
+      ∀ i : Fin 30, a index i < 1)
+    (halower : ∀ index ∈ Finset.range cells, ∀ coordinate ∈
+      Set.Icc (-radius + index * step) (-radius + (index + 1) * step),
+      ∀ i : Fin 30, a index i ≤ |coordinate / ownerRad_2463 i|)
+    (hcoefficient : ∀ index ∈ Finset.range cells, ∀ i : Fin 30,
+      ‖ownerCoef_2463 i‖ ≤ coefficientBound index i) :
+    stripNorm sigma ownerPanelSumValue_2467 ≤
+      compositeNodeUpper2347
+        (ownerPanelNodeUpper2471 sigma radius step) step cells +
+      localCurvatureRemainder2474
+        (fun index => ∑ i : Fin 30, weightedCurvature2348 sigma
+          (ownerRad_2463 i)
+          (coefficientBound index i * Real.exp (-30 / (1 - (a index i) ^ 2)))
+          (coefficientBound index i * Real.exp (-30 / (1 - (a index i) ^ 2)) *
+            (60 * t index i * (1 - (t index i) ^ 2)⁻¹ ^ 2 /
+              ownerRad_2463 i + |ownerMod_2463 i|))
+          (coefficientBound index i * Real.exp (-30 / (1 - (a index i) ^ 2)) *
+            ((60 * ((1 - (t index i) ^ 2)⁻¹ ^ 2 +
+                4 * (t index i) ^ 2 * (1 - (t index i) ^ 2)⁻¹ ^ 3) /
+                (ownerRad_2463 i) ^ 2) +
+              (60 * t index i * (1 - (t index i) ^ 2)⁻¹ ^ 2 /
+                ownerRad_2463 i) ^ 2 + (ownerMod_2463 i) ^ 2 +
+              2 * |ownerMod_2463 i| *
+                (60 * t index i * (1 - (t index i) ^ 2)⁻¹ ^ 2 /
+                  ownerRad_2463 i)))) step cells := by
+  let curvature : ℕ → ℝ := fun index => ∑ i : Fin 30,
+    weightedCurvature2348 sigma (ownerRad_2463 i)
+      (coefficientBound index i * Real.exp (-30 / (1 - (a index i) ^ 2)))
+      (coefficientBound index i * Real.exp (-30 / (1 - (a index i) ^ 2)) *
+        (60 * t index i * (1 - (t index i) ^ 2)⁻¹ ^ 2 /
+          ownerRad_2463 i + |ownerMod_2463 i|))
+      (coefficientBound index i * Real.exp (-30 / (1 - (a index i) ^ 2)) *
+        ((60 * ((1 - (t index i) ^ 2)⁻¹ ^ 2 +
+            4 * (t index i) ^ 2 * (1 - (t index i) ^ 2)⁻¹ ^ 3) /
+            (ownerRad_2463 i) ^ 2) +
+          (60 * t index i * (1 - (t index i) ^ 2)⁻¹ ^ 2 /
+            ownerRad_2463 i) ^ 2 + (ownerMod_2463 i) ^ 2 +
+          2 * |ownerMod_2463 i| *
+            (60 * t index i * (1 - (t index i) ^ 2)⁻¹ ^ 2 /
+              ownerRad_2463 i)))
+  apply ownerPanelStripNorm_le_localCurvature2475 sigma radius step cells curvature
+    hradius hR hstep hgrid
+  intro index hindex coordinate hcoordinate
+  apply ownerPanelWeightedSecondDeriv_le_sumIntervalBound2488 sigma coordinate
+    (t index) (a index) (coefficientBound index)
+  · exact hinside index hindex coordinate hcoordinate
+  · exact ht index hindex coordinate hcoordinate
+  · exact htone index hindex coordinate hcoordinate
+  · exact hcoord index hindex coordinate hcoordinate
+  · exact ha index hindex coordinate hcoordinate
+  · exact haone index hindex coordinate hcoordinate
+  · exact halower index hindex coordinate hcoordinate
+  · exact hcoefficient index hindex
+
 end ConnesWeilRH.Dev
