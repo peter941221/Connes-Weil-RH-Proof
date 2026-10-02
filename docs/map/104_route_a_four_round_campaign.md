@@ -4465,3 +4465,10 @@ below the normalized absolute coordinate on the whole cell.  Exponential
 payload binding and hcell closure remain open.
 Evidence: `docs/proofs/2501_owner_cell_lower_ratio_lean.md`,
 `ConnesWeilRH/Dev/C1RouteAOwnerCellLowerRatio2501.lean`.
+
+Record 2504 (2026-10-03): added the Lean consumer bridge from interval bounds
+on `30/(1-a²)` to the audited 2498 rational exponential split, including the
+specialization to the 2501 lower cell ratio.  Rational table premises and the
+hcell inequality remain open.
+Evidence: `docs/proofs/2504_owner_exp_bridge_lean.md`,
+`ConnesWeilRH/Dev/C1RouteAOwnerExpBridge2501.lean`.
