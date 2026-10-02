@@ -3987,3 +3987,11 @@ matching the positive-`q` bump branch of the evaluator.  Construction of the
 `ConnesWeilRH/Dev/C1RouteAProfileExpBounds.lean`,
 `ConnesWeilRH/Dev/C1RouteAProfileExpBoundsAudit.lean`, and
 `docs/proofs/2442_routea_profile_exp_bounds.md`.
+
+Record 2443 (2026-10-02): Lean proves the analytic sign/range facts for
+`q = 1-u²`: nonnegative on `|u|≤1`, positive on `|u|<1`, and at most one
+globally.  The whole-box `u` enclosure and MPFR endpoint construction remain
+open.  Evidence:
+`ConnesWeilRH/Dev/C1RouteAQBounds.lean`,
+`ConnesWeilRH/Dev/C1RouteAQBoundsAudit.lean`, and
+`docs/proofs/2443_routea_q_bounds.md`.
