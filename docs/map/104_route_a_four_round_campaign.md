@@ -3905,3 +3905,12 @@ MPFR containment and the owner-formula bridge remain open.  Evidence:
 `scripts/routea_interval_kernel_shape_audit_2432.py`,
 `docs/proofs/2432_routea_interval_kernel_shape_audit.md`, and
 `results/2432_interval_kernel_shape_audit.json`.
+
+Record 2433 (2026-10-02): a Lean directed-endpoint interface packages exact
+real/complex values with explicit lower/upper containment hypotheses and
+transports them through sum, difference, product, and complex product.  It
+does not model MPFR and therefore leaves the endpoint inequalities as the
+honest remaining numerical obligation.  Evidence:
+`ConnesWeilRH/Dev/C1RouteAMPFRInterface.lean`,
+`ConnesWeilRH/Dev/C1RouteAMPFRInterfaceAudit.lean`, and
+`docs/proofs/2433_routea_mpfr_interface.md`.
