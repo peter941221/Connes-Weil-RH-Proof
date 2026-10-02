@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteAOwnerFamilyHybridTableBridge2494
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ownerPanelStripNorm_le_familyHybridTable2494
+
+end ConnesWeilRH.Dev

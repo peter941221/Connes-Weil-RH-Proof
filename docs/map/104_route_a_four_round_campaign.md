@@ -4359,3 +4359,11 @@ match exactly. This closes input provenance only; the MPFR analytic enclosure
 and selected-detector producer margin remain open.
 Evidence: `docs/proofs/2493_owner_family_binding.md` and
 `results/2493_owner_family_binding.json`.
+
+Record 2494 (2026-10-03): the exact 2492 hybrid payload now has a Lean
+consumer bridge. Its sole remaining premise is the per-cell analytic
+inequality `hybrid curvature <= table payload`; once supplied, the strip norm
+and `step^3/12` local remainder follow in Lean. The payload remains data, and
+no producer GO or RH claim is made.
+Evidence: `docs/proofs/2494_owner_family_hybrid_table_bridge.md` and
+`ConnesWeilRH/Dev/C1RouteAOwnerFamilyHybridTableBridge2494.lean`.
