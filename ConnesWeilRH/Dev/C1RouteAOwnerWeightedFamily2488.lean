@@ -124,6 +124,44 @@ theorem familyLogFirst2345_abs_le_of_interval2488
     _ ≤ 60 * t * (1 - t ^ 2)⁻¹ ^ 2 / radius := by
       gcongr
 
+theorem familyLogSecond2345_abs_le_of_interval2488
+    (radius position t : ℝ) (hradius : 0 < radius) (hinside : |position| < radius)
+    (ht : 0 ≤ t) (htone : t < 1) (hcoord : |position / radius| ≤ t) :
+    |familyLogSecond2345 radius position| ≤
+      60 * ((1 - t ^ 2)⁻¹ ^ 2 + 4 * t ^ 2 * (1 - t ^ 2)⁻¹ ^ 3) / radius ^ 2 := by
+  have hbase : 0 < 1 - t ^ 2 := by
+    nlinarith [sq_nonneg t]
+  have hdef : 0 < familyDeficit2345 radius position :=
+    familyDeficit2345_pos hradius hinside
+  have hlower : 1 - t ^ 2 ≤ familyDeficit2345 radius position := by
+    dsimp [familyDeficit2345]
+    have hsq : (position / radius) ^ 2 ≤ t ^ 2 := by
+      have h := (sq_le_sq₀ (abs_nonneg (position / radius)) ht).2 hcoord
+      simpa [sq_abs] using h
+    linarith
+  have hinv : (familyDeficit2345 radius position)⁻¹ ≤ (1 - t ^ 2)⁻¹ :=
+    (inv_le_inv₀ hbase hdef).2 hlower
+  have hinv2 : (familyDeficit2345 radius position)⁻¹ ^ 2 ≤
+      (1 - t ^ 2)⁻¹ ^ 2 :=
+    pow_le_pow_left₀ (by positivity) hinv 2
+  have hinv3 : (familyDeficit2345 radius position)⁻¹ ^ 3 ≤
+      (1 - t ^ 2)⁻¹ ^ 3 :=
+    pow_le_pow_left₀ (by positivity) hinv 3
+  have hsq : (position / radius) ^ 2 ≤ t ^ 2 := by
+    have h := (sq_le_sq₀ (abs_nonneg (position / radius)) ht).2 hcoord
+    simpa [sq_abs] using h
+  calc
+    |familyLogSecond2345 radius position| =
+        60 * ((familyDeficit2345 radius position)⁻¹ ^ 2 +
+          4 * (position / radius) ^ 2 *
+            (familyDeficit2345 radius position)⁻¹ ^ 3) / radius ^ 2 := by
+      simp only [familyLogSecond2345, abs_div, abs_mul, abs_neg, abs_ofNat,
+        abs_of_pos hradius, sq_abs, abs_of_nonneg (by positivity)]
+      ring
+    _ ≤ 60 * ((1 - t ^ 2)⁻¹ ^ 2 +
+          4 * t ^ 2 * (1 - t ^ 2)⁻¹ ^ 3) / radius ^ 2 := by
+      gcongr
+
 theorem weightedExternalFamilySecondDeriv_le_of_factor_bounds2488
     (sigma position modulation radius valueBound firstFactorBound secondFactorBound : ℝ)
     (coefficient : ℂ) (hradius : 0 < radius) (hinside : |position| < radius)
