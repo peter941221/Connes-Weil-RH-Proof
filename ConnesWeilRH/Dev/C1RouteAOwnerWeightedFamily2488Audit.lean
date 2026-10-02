@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteAOwnerWeightedFamily2488
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ownerPanelWeightedSecondDeriv_le_sumFamilyBound2488
+
+end ConnesWeilRH.Dev
