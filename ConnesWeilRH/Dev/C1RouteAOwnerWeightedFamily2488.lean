@@ -12,6 +12,7 @@ analytic bounds; no table entry is promoted to a proof premise here.
 namespace ConnesWeilRH.Dev
 
 open scoped BigOperators ContDiff
+open ConnesWeilRH.Dev.C1RouteAOwnerScaleAudit
 
 set_option linter.style.longLine false
 set_option maxRecDepth 32768
@@ -38,7 +39,7 @@ theorem weightedExternalFamilySecondDeriv_le_of_local_bounds2488
       (by decide)
   exact weightedFunction2348_curvature_bound sigma
     (externalFamilyValue2344 hcoeff modulation radius) hsmooth radius x
-    zeroBound firstBound secondBound (le_of_lt (abs_lt.mp hinside)) hzero hfirst hsecond
+    zeroBound firstBound secondBound (le_of_lt hinside) hzero hfirst hsecond
 
 theorem externalFamilyValue2344_secondDerivative_norm_le_of_factor_bounds2488
     (coefficient : ℂ) (modulation radius position : ℝ)
@@ -49,7 +50,15 @@ theorem externalFamilyValue2344_secondDerivative_norm_le_of_factor_bounds2488
     ‖deriv (deriv (externalFamilyValue2344 coefficient modulation radius)) position‖ ≤
       valueBound * factorBound := by
   rw [externalFamilyValue2344_secondDerivative_inside coefficient modulation hradius hinside]
-  exact (norm_mul _ _).trans (mul_le_mul hvalue hfactor (norm_nonneg _) (by positivity))
+  have hvalueBound : 0 ≤ valueBound := le_trans (norm_nonneg _) hvalue
+  have hfactorBound : 0 ≤ factorBound := le_trans (norm_nonneg _) hfactor
+  calc
+    ‖externalFamilyValue2344 coefficient modulation radius position *
+        familySecondFactor2345 modulation radius position‖ =
+      ‖externalFamilyValue2344 coefficient modulation radius position‖ *
+        ‖familySecondFactor2345 modulation radius position‖ := norm_mul _ _
+    _ ≤ valueBound * factorBound :=
+      mul_le_mul hvalue hfactor (norm_nonneg _) hvalueBound
 
 theorem externalFamilyValue2344_firstDerivative_norm_le_of_factor_bounds2488
     (coefficient : ℂ) (modulation radius position : ℝ)
@@ -68,7 +77,15 @@ theorem externalFamilyValue2344_firstDerivative_norm_le_of_factor_bounds2488
     simp only [externalFamilyValue2344, familyInterior2345, familyLog2345,
       familyDeficit2345, if_pos hinside]
   rw [hinterior]
-  exact (norm_mul _ _).trans (mul_le_mul hvalue hfactor (norm_nonneg _) (by positivity))
+  have hvalueBound : 0 ≤ valueBound := le_trans (norm_nonneg _) hvalue
+  have hfactorBound : 0 ≤ factorBound := le_trans (norm_nonneg _) hfactor
+  calc
+    ‖externalFamilyValue2344 coefficient modulation radius position *
+        familyFirstFactor2345 modulation radius position‖ =
+      ‖externalFamilyValue2344 coefficient modulation radius position‖ *
+        ‖familyFirstFactor2345 modulation radius position‖ := norm_mul _ _
+    _ ≤ valueBound * factorBound :=
+      mul_le_mul hvalue hfactor (norm_nonneg _) hvalueBound
 
 theorem externalFamilyValue2344_norm_le_of_scaledBump_bound2488
     (coefficient : ℂ) (modulation radius position coefficientBound bumpBound : ℝ)
@@ -89,8 +106,12 @@ theorem externalFamilyValue2344_norm_le_of_scaledBump_bound2488
       simpa only [iteratedDeriv_zero] using hjet
     rw [hwidthEq, Complex.norm_real, Real.norm_eq_abs]
     exact hbump
+  have hbumpBound : 0 ≤ bumpBound := le_trans (abs_nonneg _) hbump
+  have hcoefficientBound : 0 ≤ coefficientBound :=
+    le_trans (norm_nonneg _) hcoefficient
   rw [norm_mul, norm_mul, hphase]
-  exact mul_le_mul hcoefficient hwidth (abs_nonneg _) (by positivity)
+  have hmul := mul_le_mul hcoefficient hwidth (norm_nonneg _) hcoefficientBound
+  simpa only [mul_one] using hmul
 
 theorem familyLogFirst2345_abs_le_of_interval2488
     (radius position t : ℝ) (hradius : 0 < radius) (hinside : |position| < radius)
@@ -108,7 +129,7 @@ theorem familyLogFirst2345_abs_le_of_interval2488
       simpa [sq_abs] using h
     linarith
   have hinv : (familyDeficit2345 radius position)⁻¹ ≤ (1 - t ^ 2)⁻¹ :=
-    (inv_le_inv₀ hbase hdef).2 hlower
+    (inv_le_inv₀ hdef hbase).2 hlower
   have hinvpow : (familyDeficit2345 radius position)⁻¹ ^ 2 ≤
       (1 - t ^ 2)⁻¹ ^ 2 :=
     pow_le_pow_left₀ (by positivity) hinv 2
@@ -116,8 +137,8 @@ theorem familyLogFirst2345_abs_le_of_interval2488
     |familyLogFirst2345 radius position| =
         60 * |position / radius| * (familyDeficit2345 radius position)⁻¹ ^ 2 /
           radius := by
-      simp only [familyLogFirst2345, abs_div, abs_mul, abs_neg, abs_ofNat,
-        abs_of_pos hradius, abs_of_nonneg (sq_nonneg _)]
+      simp only [familyLogFirst2345, abs_div, abs_mul, abs_neg, abs_of_pos hradius]
+      rw [abs_of_nonneg (sq_nonneg (familyDeficit2345 radius position)⁻¹)]
       ring
     _ ≤ 60 * t * (familyDeficit2345 radius position)⁻¹ ^ 2 / radius := by
       gcongr
@@ -140,7 +161,7 @@ theorem familyLogSecond2345_abs_le_of_interval2488
       simpa [sq_abs] using h
     linarith
   have hinv : (familyDeficit2345 radius position)⁻¹ ≤ (1 - t ^ 2)⁻¹ :=
-    (inv_le_inv₀ hbase hdef).2 hlower
+    (inv_le_inv₀ hdef hbase).2 hlower
   have hinv2 : (familyDeficit2345 radius position)⁻¹ ^ 2 ≤
       (1 - t ^ 2)⁻¹ ^ 2 :=
     pow_le_pow_left₀ (by positivity) hinv 2
@@ -155,9 +176,12 @@ theorem familyLogSecond2345_abs_le_of_interval2488
         60 * ((familyDeficit2345 radius position)⁻¹ ^ 2 +
           4 * (position / radius) ^ 2 *
             (familyDeficit2345 radius position)⁻¹ ^ 3) / radius ^ 2 := by
-      simp only [familyLogSecond2345, abs_div, abs_mul, abs_neg, abs_ofNat,
-        abs_of_pos hradius, sq_abs, abs_of_nonneg (by positivity)]
-      ring
+      rw [familyLogSecond2345, abs_div, abs_mul]
+      have hsum : 0 ≤ (familyDeficit2345 radius position)⁻¹ ^ 2 +
+          4 * (position / radius) ^ 2 *
+            (familyDeficit2345 radius position)⁻¹ ^ 3 := by positivity
+      rw [show |(-60 : ℝ)| = 60 by norm_num, abs_of_nonneg hsum,
+        abs_of_pos (sq_pos_of_pos hradius)]
     _ ≤ 60 * ((1 - t ^ 2)⁻¹ ^ 2 +
           4 * t ^ 2 * (1 - t ^ 2)⁻¹ ^ 3) / radius ^ 2 := by
       gcongr
@@ -189,58 +213,92 @@ theorem familySecondFactor2345_norm_le_of_interval2488
           radius ^ 2) +
         (60 * t * (1 - t ^ 2)⁻¹ ^ 2 / radius) ^ 2 + modulation ^ 2 +
         2 * |modulation| * (60 * t * (1 - t ^ 2)⁻¹ ^ 2 / radius) := by
-  have hlogfirst := familyLogFirst2345_abs_le_of_interval2488 radius position t
+  let firstBound : ℝ := 60 * t * (1 - t ^ 2)⁻¹ ^ 2 / radius
+  let secondBound : ℝ :=
+    60 * ((1 - t ^ 2)⁻¹ ^ 2 + 4 * t ^ 2 * (1 - t ^ 2)⁻¹ ^ 3) / radius ^ 2
+  have hfirst := familyLogFirst2345_abs_le_of_interval2488 radius position t
     hradius hinside ht htone hcoord
-  have hlogsecond := familyLogSecond2345_abs_le_of_interval2488 radius position t
+  have hsecond := familyLogSecond2345_abs_le_of_interval2488 radius position t
     hradius hinside ht htone hcoord
-  rw [familySecondFactor2345]
-  have hreal :
-      |familyLogSecond2345 radius position + (familyLogFirst2345 radius position) ^ 2 -
-          modulation ^ 2| ≤
-        |familyLogSecond2345 radius position| +
-          |familyLogFirst2345 radius position| ^ 2 + modulation ^ 2 := by
-    calc
-      |familyLogSecond2345 radius position + (familyLogFirst2345 radius position) ^ 2 -
-          modulation ^ 2| ≤
-          |familyLogSecond2345 radius position + (familyLogFirst2345 radius position) ^ 2| +
-            |modulation ^ 2| := by
-              simpa [Real.norm_eq_abs] using
-                (norm_add_le (familyLogSecond2345 radius position +
-                  (familyLogFirst2345 radius position) ^ 2) (-modulation ^ 2))
-      _ ≤ (|familyLogSecond2345 radius position| +
-            |(familyLogFirst2345 radius position) ^ 2|) + |modulation ^ 2| := by
-              gcongr
-              simpa [Real.norm_eq_abs] using
-                (norm_add_le (familyLogSecond2345 radius position)
-                  ((familyLogFirst2345 radius position) ^ 2))
-      _ = |familyLogSecond2345 radius position| +
-          |familyLogFirst2345 radius position| ^ 2 + modulation ^ 2 := by
-            rw [abs_pow, abs_pow]
-            ring
+  rw [familySecondFactor2345_eq]
   calc
-    ‖((familyLogSecond2345 radius position +
-        (familyLogFirst2345 radius position) ^ 2 - modulation ^ 2 : ℝ) : ℂ) +
-        (2 * modulation * familyLogFirst2345 radius position : ℝ) * Complex.I‖ ≤
-        ‖((familyLogSecond2345 radius position +
-        (familyLogFirst2345 radius position) ^ 2 - modulation ^ 2 : ℝ) : ℂ)‖ +
-        ‖(2 * modulation * familyLogFirst2345 radius position : ℝ) * Complex.I‖ :=
-          norm_add_le _ _
-    _ = |familyLogSecond2345 radius position +
-          (familyLogFirst2345 radius position) ^ 2 - modulation ^ 2| +
-        |2 * modulation * familyLogFirst2345 radius position| := by
-          simp [norm_mul]
-    _ ≤ (|familyLogSecond2345 radius position| +
-          |familyLogFirst2345 radius position| ^ 2 + modulation ^ 2) +
-        2 * |modulation| * |familyLogFirst2345 radius position| := by
+    ‖(familyFirstFactor2345 modulation radius position) ^ 2 +
+        (familyLogSecond2345 radius position : ℂ)‖ ≤
+        ‖(familyFirstFactor2345 modulation radius position) ^ 2‖ +
+          ‖(familyLogSecond2345 radius position : ℂ)‖ := norm_add_le _ _
+    _ = ‖familyFirstFactor2345 modulation radius position‖ ^ 2 +
+        |familyLogSecond2345 radius position| := by
+          simp [Complex.norm_real, Real.norm_eq_abs, norm_pow]
+    _ ≤ (firstBound + |modulation|) ^ 2 + secondBound := by
           gcongr
-          · exact hreal
-          · rw [abs_mul, abs_mul]
-            ring
-    _ ≤ (60 * ((1 - t ^ 2)⁻¹ ^ 2 + 4 * t ^ 2 * (1 - t ^ 2)⁻¹ ^ 3) /
+          · exact familyFirstFactor2345_norm_le_of_interval2488 radius position t modulation
+              hradius hinside ht htone hcoord
+    _ = secondBound + firstBound ^ 2 + modulation ^ 2 +
+          2 * |modulation| * firstBound := by
+          dsimp [firstBound, secondBound]
+          calc
+            (60 * t * (1 - t ^ 2)⁻¹ ^ 2 / radius + |modulation|) ^ 2 +
+                60 * ((1 - t ^ 2)⁻¹ ^ 2 + 4 * t ^ 2 * (1 - t ^ 2)⁻¹ ^ 3) /
+                  radius ^ 2 =
+              60 * ((1 - t ^ 2)⁻¹ ^ 2 + 4 * t ^ 2 * (1 - t ^ 2)⁻¹ ^ 3) /
+                  radius ^ 2 + (60 * t * (1 - t ^ 2)⁻¹ ^ 2 / radius) ^ 2 +
+                |modulation| ^ 2 +
+                2 * |modulation| * (60 * t * (1 - t ^ 2)⁻¹ ^ 2 / radius) := by ring
+            _ = _ := by rw [sq_abs]
+
+theorem weightedExternalFamilySecondDeriv_le_of_interval_bounds2488
+    (sigma position modulation radius t a coefficientBound : ℝ) (coefficient : ℂ)
+    (hradius : 0 < radius) (hinside : |position| < radius)
+    (ht : 0 ≤ t) (htone : t < 1) (hcoord : |position / radius| ≤ t)
+    (ha : 0 ≤ a) (haone : a < 1) (halower : a ≤ |position / radius|)
+    (hcoefficient : ‖coefficient‖ ≤ coefficientBound) :
+    ‖deriv (deriv (weightedFunction2348 sigma
+      (externalFamilyValue2344 coefficient modulation radius))) position‖ ≤
+      weightedCurvature2348 sigma radius
+        (coefficientBound * Real.exp (-30 / (1 - a ^ 2)))
+        (coefficientBound * Real.exp (-30 / (1 - a ^ 2)) *
+          (60 * t * (1 - t ^ 2)⁻¹ ^ 2 / radius + |modulation|))
+        (coefficientBound * Real.exp (-30 / (1 - a ^ 2)) *
+          ((60 * ((1 - t ^ 2)⁻¹ ^ 2 + 4 * t ^ 2 * (1 - t ^ 2)⁻¹ ^ 3) /
+              radius ^ 2) +
+            (60 * t * (1 - t ^ 2)⁻¹ ^ 2 / radius) ^ 2 + modulation ^ 2 +
+            2 * |modulation| * (60 * t * (1 - t ^ 2)⁻¹ ^ 2 / radius))) := by
+  have hscaled := scaledBumpJet2350_abs_le_of_interval_factors2487 0 (by decide)
+    hradius hinside ht htone hcoord ha haone halower
+  have hbump : |scaledBumpJet2350 0 radius position| ≤
+      Real.exp (-30 / (1 - a ^ 2)) := by
+    simpa [bumpNumeratorAbsUpper2486] using hscaled
+  have hvalue : ‖externalFamilyValue2344 coefficient modulation radius position‖ ≤
+      coefficientBound * Real.exp (-30 / (1 - a ^ 2)) := by
+    exact externalFamilyValue2344_norm_le_of_scaledBump_bound2488 coefficient modulation
+      radius position coefficientBound (Real.exp (-30 / (1 - a ^ 2))) hradius hinside
+      hcoefficient hbump
+  apply weightedExternalFamilySecondDeriv_le_of_local_bounds2488 sigma position modulation
+    radius (coefficientBound * Real.exp (-30 / (1 - a ^ 2)))
+    (coefficientBound * Real.exp (-30 / (1 - a ^ 2)) *
+      (60 * t * (1 - t ^ 2)⁻¹ ^ 2 / radius + |modulation|))
+    (coefficientBound * Real.exp (-30 / (1 - a ^ 2)) *
+      ((60 * ((1 - t ^ 2)⁻¹ ^ 2 + 4 * t ^ 2 * (1 - t ^ 2)⁻¹ ^ 3) /
           radius ^ 2) +
         (60 * t * (1 - t ^ 2)⁻¹ ^ 2 / radius) ^ 2 + modulation ^ 2 +
-        2 * |modulation| * (60 * t * (1 - t ^ 2)⁻¹ ^ 2 / radius) := by
-          gcongr
+        2 * |modulation| * (60 * t * (1 - t ^ 2)⁻¹ ^ 2 / radius))) coefficient
+    hradius hinside hvalue
+  · exact externalFamilyValue2344_firstDerivative_norm_le_of_factor_bounds2488
+      coefficient modulation radius position
+      (coefficientBound * Real.exp (-30 / (1 - a ^ 2)))
+      (60 * t * (1 - t ^ 2)⁻¹ ^ 2 / radius + |modulation|) hradius hinside hvalue
+      (familyFirstFactor2345_norm_le_of_interval2488 radius position t modulation
+        hradius hinside ht htone hcoord)
+  · exact externalFamilyValue2344_secondDerivative_norm_le_of_factor_bounds2488
+      coefficient modulation radius position
+      (coefficientBound * Real.exp (-30 / (1 - a ^ 2)))
+      ((60 * ((1 - t ^ 2)⁻¹ ^ 2 + 4 * t ^ 2 * (1 - t ^ 2)⁻¹ ^ 3) /
+          radius ^ 2) +
+        (60 * t * (1 - t ^ 2)⁻¹ ^ 2 / radius) ^ 2 + modulation ^ 2 +
+        2 * |modulation| * (60 * t * (1 - t ^ 2)⁻¹ ^ 2 / radius))
+      hradius hinside hvalue
+      (familySecondFactor2345_norm_le_of_interval2488 radius position t modulation
+        hradius hinside ht htone hcoord)
 
 theorem weightedExternalFamilySecondDeriv_le_of_factor_bounds2488
     (sigma position modulation radius valueBound firstFactorBound secondFactorBound : ℝ)

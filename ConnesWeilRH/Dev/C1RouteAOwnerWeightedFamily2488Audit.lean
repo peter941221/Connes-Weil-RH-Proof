@@ -13,5 +13,6 @@ namespace ConnesWeilRH.Dev
 #print axioms familyLogSecond2345_abs_le_of_interval2488
 #print axioms familyFirstFactor2345_norm_le_of_interval2488
 #print axioms familySecondFactor2345_norm_le_of_interval2488
+#print axioms weightedExternalFamilySecondDeriv_le_of_interval_bounds2488
 
 end ConnesWeilRH.Dev
