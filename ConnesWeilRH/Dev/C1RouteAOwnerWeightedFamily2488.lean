@@ -502,6 +502,42 @@ theorem ownerPanelStripNorm_le_intervalCurvature2488
   · exact halower index hindex coordinate hcoordinate
   · exact hcoefficient index hindex
 
+theorem ownerPanelWeightedSecondDeriv_le_sumIntervalZeroLowerBound2488
+    (sigma x : ℝ) (t coefficientBound : Fin 30 → ℝ)
+    (hinside : ∀ i : Fin 30, |x| < ownerRad_2463 i)
+    (ht : ∀ i : Fin 30, 0 ≤ t i)
+    (htone : ∀ i : Fin 30, t i < 1)
+    (hcoord : ∀ i : Fin 30, |x / ownerRad_2463 i| ≤ t i)
+    (hcoefficient : ∀ i : Fin 30,
+      ‖ownerCoef_2463 i‖ ≤ coefficientBound i) :
+    ‖deriv (deriv (weightedFunction2348 sigma ownerPanelSumValue_2467)) x‖ ≤
+      ∑ i : Fin 30, weightedCurvature2348 sigma (ownerRad_2463 i)
+        (coefficientBound i * Real.exp (-30 / (1 - (0 : ℝ) ^ 2)))
+        (coefficientBound i * Real.exp (-30 / (1 - (0 : ℝ) ^ 2)) *
+          (60 * t i * (1 - (t i) ^ 2)⁻¹ ^ 2 / ownerRad_2463 i +
+            |ownerMod_2463 i|))
+        (coefficientBound i * Real.exp (-30 / (1 - (0 : ℝ) ^ 2)) *
+          ((60 * ((1 - (t i) ^ 2)⁻¹ ^ 2 +
+              4 * (t i) ^ 2 * (1 - (t i) ^ 2)⁻¹ ^ 3) /
+              (ownerRad_2463 i) ^ 2) +
+            (60 * t i * (1 - (t i) ^ 2)⁻¹ ^ 2 / ownerRad_2463 i) ^ 2 +
+            (ownerMod_2463 i) ^ 2 +
+            2 * |ownerMod_2463 i| *
+              (60 * t i * (1 - (t i) ^ 2)⁻¹ ^ 2 / ownerRad_2463 i))) := by
+  apply ownerPanelWeightedSecondDeriv_le_sumIntervalBound2488 sigma x t
+    (fun _ => 0) coefficientBound
+  · exact hinside
+  · exact ht
+  · exact htone
+  · exact hcoord
+  · intro i
+    norm_num
+  · intro i
+    norm_num
+  · intro i
+    exact abs_nonneg _
+  · exact hcoefficient
+
 /- The coefficient envelope used by the local interval consumer can be
    discharged directly from the exact complex coefficient representation.
    Keeping this as a separate interface leaves the cell geometry responsible

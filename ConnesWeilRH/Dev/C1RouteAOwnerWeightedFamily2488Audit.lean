@@ -17,5 +17,6 @@ namespace ConnesWeilRH.Dev
 #print axioms ownerPanelWeightedSecondDeriv_le_sumIntervalBound2488
 #print axioms ownerPanelStripNorm_le_intervalCurvature2488
 #print axioms ownerCoefficientL1Bound2488
+#print axioms ownerPanelWeightedSecondDeriv_le_sumIntervalZeroLowerBound2488
 
 end ConnesWeilRH.Dev
