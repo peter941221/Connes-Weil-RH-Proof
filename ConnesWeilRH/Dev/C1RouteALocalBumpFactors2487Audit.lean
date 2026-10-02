@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1RouteALocalBumpFactors2487
+
+namespace ConnesWeilRH.Dev
+
+#print axioms bumpDeficit2350_ge_one_sub_sq_of_abs_le2487
+#print axioms bumpDeficit2350_inv_pow_le_of_abs_le2487
+#print axioms bumpDeficit2350_exp_le_of_abs_lower2487
+#print axioms scaledBumpJet2350_abs_le_of_interval_factors2487
+
+end ConnesWeilRH.Dev
