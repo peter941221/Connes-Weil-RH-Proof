@@ -4136,3 +4136,28 @@ no producer GO, no RH claim. Evidence:
 `results/2454_owner_node_norm_bound.json`,
 `results/2454_owner_node_norm_bound_pin.json` and
 `build-logs/2454_owner_node_norm_bound.log`.
+
+Record 2455 (2026-10-02): the quadrature import seam is decomposed and
+priced. The consumer is pinned from source: FrozenStripHypothesis
+min(S2_b S0_c, S2_c S0_b) <= bUpper2243, discharged by 2343's four
+endpoint hypotheses (integral bounds, universal in coefficients, Lean
+constants are outward roundings of 2342's B0/B2/C0/C2). The pricing
+screen on the certified 2342 artifact recomputes the min-product
+exactly (agreement to relative 1e-12; the dyadic-rounded published
+fraction makes bitwise equality the wrong cross-check) and fixes the
+binding constraint: the correction S2 channel is 81.2% panel term, the
+h^2 law allows at most 1.224x coarsening, so the grid floor is ~98,035
+nodes (60,001 overshoots the pin 2.56x). Ledger: W-A generic one-sided
+panel-error theorem (function-independent); W-B small-scalar import
+(endpoint uppers, m_j sups, R, h); W-C attachment to the actual
+correctedPhysical - per-panel literal import is infeasible at 10^5
+scale, the recommended target is the analytic per-family envelope
+(2454 hulls lifted from points to rational panels, exp/cos/sin range
+lemmas proved once, complex sum composed before modulus per the A7
+law, one generic theorem over panels); W-D ownership blocker - 2342's
+constants are for the 2338 repaired analytic coefficients while the
+2452-2454 lane bounds the 2275 capture vectors, and the target vector
+must be settled by the owner chain first. Screen only: no Lean module,
+no strip norm discharged, no quadrature imported, no producer GO, no
+RH claim. Evidence: `docs/proofs/2455_quadrature_import_obligations.md`
+and `results/2455_quadrature_import_screen.json`.
