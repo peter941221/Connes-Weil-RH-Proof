@@ -28,5 +28,6 @@ namespace ConnesWeilRH.Dev
 #print axioms ownerCellEndpointRatio_endpointBound2488
 #print axioms ownerPanelStripNorm_le_constructedEndpointCurvatureZero2488
 #print axioms ownerPanelStripNorm_le_constructedEndpointCurvatureL1_2488
+#print axioms ownerPanelEndpointCoverage_incompatible2488
 
 end ConnesWeilRH.Dev

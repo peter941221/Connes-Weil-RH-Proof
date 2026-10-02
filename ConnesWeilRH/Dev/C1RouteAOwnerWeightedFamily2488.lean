@@ -738,4 +738,35 @@ theorem ownerPanelStripNorm_le_constructedEndpointCurvatureL1_2488
   intro index hindex i
   exact ownerCoefficientL1Bound2488 i
 
+/- The endpoint consumer above is intentionally not the production bridge yet:
+   its uniform `hinside` premise is incompatible with the owner-radius
+   ordering used by the node consumer as soon as the strip radius is positive.
+   This lemma keeps that obstruction explicit, so it cannot be mistaken for a
+   discharged numerical certificate. -/
+theorem ownerPanelEndpointCoverage_incompatible2488
+    (radius step : ℝ) (cells : ℕ)
+    (hradius : 0 < radius)
+    (hR : ∀ i : Fin 30, ownerRad_2463 i ≤ radius)
+    (hstep : 0 < step)
+    (hgrid : (cells : ℝ) * step = 2 * radius)
+    (hinside : ∀ index ∈ Finset.range cells, ∀ coordinate ∈
+      Set.Icc (-radius + index * step) (-radius + (index + 1) * step),
+      ∀ i : Fin 30, |coordinate| < ownerRad_2463 i) :
+    False := by
+  have hcells : 0 < cells := by
+    by_contra hnot
+    have hzero : cells = 0 := Nat.eq_zero_of_not_pos hnot
+    subst hzero
+    norm_num at hgrid
+    linarith
+  let i : Fin 30 := ⟨0, by decide⟩
+  have hmem : 0 ∈ Finset.range cells := Finset.mem_range.mpr hcells
+  have hleft : -radius ≤ -radius + ((0 : ℕ) + 1) * step := by
+    norm_num
+    linarith
+  have hpoint := hinside 0 hmem (-radius) ⟨by norm_num, hleft⟩ i
+  have hsmall : radius < ownerRad_2463 i := by
+    simpa [abs_of_pos hradius] using hpoint
+  exact (not_lt_of_ge (hR i)) hsmall
+
 end ConnesWeilRH.Dev
