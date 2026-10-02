@@ -4420,3 +4420,11 @@ producer GO or RH claim.
 Evidence: `docs/proofs/2499_owner_exp_split_inputs.md`,
 `scripts/routea_owner_exp_split_inputs_2499.py`, and
 `results/2499_owner_exp_split_inputs.json`.
+
+Record 2499 extension (2026-10-03): the consumer-side monotonicity theorem
+for `weightedCurvature2348` is now audited. Future local branches can supply
+separate zero/first/second upper bounds and use the monotonicity door without
+repeating the weighted product algebra. The exponential inequalities and
+table comparison remain open; no producer GO or RH claim.
+Evidence: `docs/proofs/2499_weighted_curvature_monotonicity.md` and
+`ConnesWeilRH/Dev/C1RouteAWeightedCurvatureMonotone2499.lean`.
