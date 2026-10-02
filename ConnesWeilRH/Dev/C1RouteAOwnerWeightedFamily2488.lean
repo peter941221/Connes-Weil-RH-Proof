@@ -146,4 +146,27 @@ theorem ownerPanelWeightedSecondDeriv_le_sumFamilyBound2488
       (weightedExp2348 sigma y)]
   simpa only [iteratedDeriv_succ, iteratedDeriv_zero] using hsum
 
+theorem ownerPanelWeightedSecondDeriv_le_sumFactorBound2488
+    (sigma x : ℝ) (valueBound firstFactorBound secondFactorBound : Fin 30 → ℝ)
+    (hinside : ∀ i : Fin 30, |x| < ownerRad_2463 i)
+    (hvalue : ∀ i : Fin 30,
+      ‖externalFamilyValue2344 (ownerCoef_2463 i) (ownerMod_2463 i)
+        (ownerRad_2463 i) x‖ ≤ valueBound i)
+    (hfirstFactor : ∀ i : Fin 30,
+      ‖familyFirstFactor2345 (ownerMod_2463 i) (ownerRad_2463 i) x‖ ≤ firstFactorBound i)
+    (hsecondFactor : ∀ i : Fin 30,
+      ‖familySecondFactor2345 (ownerMod_2463 i) (ownerRad_2463 i) x‖ ≤
+        secondFactorBound i) :
+    ‖deriv (deriv (weightedFunction2348 sigma ownerPanelSumValue_2467)) x‖ ≤
+      ∑ i : Fin 30, weightedCurvature2348 sigma (ownerRad_2463 i) (valueBound i)
+        (valueBound i * firstFactorBound i) (valueBound i * secondFactorBound i) := by
+  apply ownerPanelWeightedSecondDeriv_le_sumFamilyBound2488 sigma x
+    (fun i => weightedCurvature2348 sigma (ownerRad_2463 i) (valueBound i)
+      (valueBound i * firstFactorBound i) (valueBound i * secondFactorBound i))
+  intro i
+  exact weightedExternalFamilySecondDeriv_le_of_factor_bounds2488 sigma x
+    (ownerMod_2463 i) (ownerRad_2463 i) (valueBound i) (firstFactorBound i)
+    (secondFactorBound i) (ownerCoef_2463 i) (ownerRadPos_2465 i) (hinside i)
+    (hvalue i) (hfirstFactor i) (hsecondFactor i)
+
 end ConnesWeilRH.Dev
