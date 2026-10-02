@@ -4300,3 +4300,11 @@ Classical.choice, Quot.sound]. The next obligation is weighted node-sum /
 quadrature attachment; no GO or RH claim. Evidence:
 `docs/proofs/2466_owner_indexed_panel_dispatch.md` and
 `ConnesWeilRH/Dev/C1RouteAOwnerIndexedPanel2466.lean`.
+
+Record 2467 (2026-10-02): the universal panel rectangle now has a norm-facing
+consumer. The actual owner family sum and its `exp (σ*x)` weighted norm are
+bounded by the rectangle corner expression, with the 2453 norm bridge and no
+new numerical premise. Both declarations audit to [propext, Classical.choice,
+Quot.sound]. The derivative/zeta and weighted node-sum certificate remain
+open. Evidence: `docs/proofs/2467_owner_panel_norm_bridge.md` and
+`ConnesWeilRH/Dev/C1RouteAOwnerPanelNormBridge2467.lean`.
