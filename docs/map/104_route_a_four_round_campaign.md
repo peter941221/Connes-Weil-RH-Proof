@@ -4261,3 +4261,14 @@ The audit reports exactly [propext, Classical.choice, Quot.sound] for all
 introduced by replacing the decimal stand-in radius, but does not promote
 the one-panel sample to a full producer certificate. Evidence:
 `docs/proofs/2462_exact_radius_rebuild.md`.
+
+Record 2463 (2026-10-02): the actual owner data now has a Lean-indexed
+30-family panel theorem on the nonnegative half-line. For arbitrary
+`x0 <= x1`, `0 <= x0`, and `x ∈ [x0,x1]`, the exact coefficient rectangles,
+right-side bump monotonicity, midpoint phase boxes, family products, and
+the composed finite-family sum all pass containment. The fresh ext4 build
+and audit use only [propext, Classical.choice, Quot.sound]. This closes
+only the positive-half-line indexed panel layer; negative/cross-zero geometry,
+weighted node sum, zeta attachment, strip norm, GO, and RH remain open.
+Evidence: `docs/proofs/2463_owner_indexed_panel.md` and
+`ConnesWeilRH/Dev/C1RouteAOwnerIndexedPanel2463.lean`.
