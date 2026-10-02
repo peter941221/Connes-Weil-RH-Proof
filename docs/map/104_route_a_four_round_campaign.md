@@ -4317,3 +4317,13 @@ Classical.choice, Quot.sound]. Numerical budget evaluation, weighted node
 sum, trapezoid assembly, and strip attachment remain open. Evidence:
 `docs/proofs/2468_owner_derivative_budget.md` and
 `ConnesWeilRH/Dev/C1RouteAOwnerDerivativeBudget2468.lean`.
+
+Record 2469 (2026-10-02): the actual-owner strip attachment is assembled.
+Given explicit radius coverage, corner norm budget, derivative-budget
+comparisons, and weighted nodeUpper inequalities, the 2348 composite-node
+bound now yields the owner stripNorm upper bound. Support is proved from
+the exact finite owner family. The declaration audits to [propext,
+Classical.choice, Quot.sound]; numeric nodeUpper/margin certification and
+the producer gate remain open. Evidence:
+`docs/proofs/2469_owner_strip_attachment.md` and
+`ConnesWeilRH/Dev/C1RouteAOwnerStripAttachment2469.lean`.
