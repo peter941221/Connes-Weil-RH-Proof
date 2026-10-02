@@ -4390,3 +4390,13 @@ remain open, with no producer GO or RH claim.
 Evidence: `docs/proofs/2496_owner_family_hybrid_corrected_rational_binding.md`,
 `scripts/routea_owner_family_hybrid_table_2496.py`, and
 `ConnesWeilRH/Dev/C1RouteAOwnerFamilyHybridTableBridge2496.lean`.
+
+Record 2497 (2026-10-03): the first hcell formalization probe, using the
+Lean-checkable uniform bound `exp(-30) <= 10^-13`, is scoped out. Against the
+corrected table it fails in 421/640 cells for each sigma sign, with worst ratio
+`1.1470182646247215e15`. The failure identifies the required next mechanism:
+partition the endpoint-ratio exponent and price a rational Taylor enclosure;
+it does not refute the hybrid construction. No numerical certificate,
+producer GO, or RH claim is made.
+Evidence: `docs/proofs/2497_owner_hcell_uniform_exp_nogo.md` and
+`scripts/diag_owner_hcell_exp_bound_2497.py`.
