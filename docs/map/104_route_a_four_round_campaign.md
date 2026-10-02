@@ -4367,3 +4367,13 @@ and `step^3/12` local remainder follow in Lean. The payload remains data, and
 no producer GO or RH claim is made.
 Evidence: `docs/proofs/2494_owner_family_hybrid_table_bridge.md` and
 `ConnesWeilRH/Dev/C1RouteAOwnerFamilyHybridTableBridge2494.lean`.
+
+Record 2495 (2026-10-03): a corrected 640-cell replay uses exact-rational
+owner inputs and directed MPFR for `exp(-30)`. It reads baseline
+`635.575993091222` and hybrid `433.0933155503201` for both sigma signs,
+versus the old hybrid `433.0933619523697`. The discrepancy is about
+`4.64e-5`, so the 2492 table is retired for corrected pricing and must be
+regenerated before the 2494 bridge can be supplied. No Lean certificate,
+producer GO, or RH claim is made.
+Evidence: `docs/proofs/2495_owner_family_hybrid_mpfr_exact_inputs.md` and
+`results/2495_owner_family_hybrid_mpfr_exact.json`.

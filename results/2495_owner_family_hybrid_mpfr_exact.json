@@ -1,0 +1,49 @@
+{
+  "record": 2495,
+  "status": "EXACT_INPUT_DIRECTED_MPFR_PRICE_NOT_A_LEAN_CERTIFICATE",
+  "backend": {
+    "precision_bits": 256,
+    "exp_neg30": "directed MPFR"
+  },
+  "grid": {
+    "cells": 40,
+    "subdiv": 16,
+    "effective_cells": 640
+  },
+  "rows": [
+    {
+      "sigma": -0.5,
+      "baseline_remainder": 635.575993091222,
+      "hybrid_remainder": 433.0933155503201,
+      "hybrid_to_baseline": 0.6814186191078487
+    },
+    {
+      "sigma": 0.5,
+      "baseline_remainder": 635.575993091222,
+      "hybrid_remainder": 433.0933155503201,
+      "hybrid_to_baseline": 0.6814186191078487
+    }
+  ],
+  "old_2491_rows": [
+    {
+      "sigma": -0.5,
+      "baseline_remainder": 635.5759930912202,
+      "hybrid_remainder": 433.0933619523697,
+      "hybrid_to_baseline": 0.6814186921157209
+    },
+    {
+      "sigma": 0.5,
+      "baseline_remainder": 635.5759930912202,
+      "hybrid_remainder": 433.0933619523697,
+      "hybrid_to_baseline": 0.6814186921157208
+    }
+  ],
+  "repair_sha256": "7efde152db5e18c2d312cae16309172154044b443477bca75b9619b3070eb258",
+  "capture_sha256": "743fe372bef89b5730c38274d5a5517ac9ea4d3421989d46c49d4af3e78b5e74",
+  "decision": "remove_float_owner_constants_and_math_exp_from_price",
+  "nonclaims": [
+    "no Lean literal import",
+    "no producer GO",
+    "no RH"
+  ]
+}
