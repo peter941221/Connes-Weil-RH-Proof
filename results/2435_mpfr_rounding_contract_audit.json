@@ -1,0 +1,20 @@
+{
+  "all_arithmetic_rounding_args_directed": true,
+  "directed_arithmetic_calls": {
+    "ADD": 10,
+    "COS": 4,
+    "DIV": 6,
+    "EXP": 2,
+    "MUL": 26,
+    "SIN": 4,
+    "SUB": 9
+  },
+  "lean_numeric_imported": false,
+  "pointwise_mathematical_term_dominance_proved": false,
+  "producer_go": false,
+  "public_binary64_outward_steps_present": true,
+  "record": 2435,
+  "rh_claim": false,
+  "source_sha256": "539ed1b4238e9edd3583042132421f06ada4c3e723d86d9ced3ed1642dd90d07",
+  "status": "MPFR_ROUNDING_CONTRACT_AUDIT_PASS"
+}

@@ -3922,3 +3922,12 @@ directed accumulator.  The MPFR per-term endpoint certificate and the
 `ConnesWeilRH/Dev/C1RouteAMPFRInterface.lean`,
 `ConnesWeilRH/Dev/C1RouteAMPFRInterfaceAudit.lean`, and
 `docs/proofs/2434_routea_directed_sum_interface.md`.
+
+Record 2435 (2026-10-02): a current-source rounding-contract audit checks the
+directed RNDD/RNDU arguments on all `eval_box` arithmetic and transcendental
+calls, the four accumulator conversions, and the public binary64 outward
+steps.  This is a prerequisite source guard, not a pointwise mathematical
+enclosure proof.  Evidence:
+`scripts/routea_mpfr_rounding_contract_audit_2435.py`,
+`docs/proofs/2435_mpfr_rounding_contract_audit.md`, and
+`results/2435_mpfr_rounding_contract_audit.json`.
