@@ -4227,8 +4227,9 @@ green.  Per family k = 0..29 the generated module carries the 2338
 ball as coefRectK (exact 200-digit [lo, hi] rationals, midpoint
 frozen), a closed-form bump box [0, exp(-30/q(X0))], and an oriented
 midpoint phase box, and proves famPanelK: for EVERY x in the 2455
-production-grid panel [292864/1171875, 97664/390625] (contains 1/4,
-all 30 families alive) the composed hull contains
+production-grid panel with exact endpoints recorded in
+`results/2460_owner_panel_sample.json` (contains 1/4, all 30 families alive)
+the composed hull contains
 externalFamilyValue2344; sumPanelSample_2460 closes the 30-family sum
 door for all panel points.  33 declarations audited on the standard
 three axioms; module builds in 5.7 s wall; Python truth containment
