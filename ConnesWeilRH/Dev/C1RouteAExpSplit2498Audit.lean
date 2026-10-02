@@ -4,5 +4,6 @@ namespace ConnesWeilRH.Source.C1ScaledExpRationalEnvelope
 
 #print axioms exp_neg_one_le_expNegOneUpper2498
 #print axioms exp_neg_split_upper2498
+#print axioms exp_neg_nat_interval_upper2498
 
 end ConnesWeilRH.Source.C1ScaledExpRationalEnvelope

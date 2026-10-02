@@ -62,5 +62,19 @@ theorem exp_neg_split_upper2498 (n : ℕ) (r : ℝ)
     _ ≤ expNegOneUpper2498 ^ n *
         (expTaylor20 r + expTaylor20Error) := hfactor
 
+theorem exp_neg_nat_interval_upper2498 (z : ℝ) (n : ℕ)
+    (hn0 : (n : ℝ) ≤ z) (hn1 : z ≤ (n : ℝ) + 1) :
+    Real.exp (-z) ≤
+      expNegOneUpper2498 ^ n *
+        (expTaylor20 (z - (n : ℝ)) + expTaylor20Error) := by
+  have hr0 : 0 ≤ z - (n : ℝ) := by linarith
+  have hr1 : z - (n : ℝ) ≤ 1 := by linarith
+  calc
+    Real.exp (-z) =
+        Real.exp (-((n : ℝ) + (z - (n : ℝ)))) := by congr 1 <;> ring
+    _ ≤ expNegOneUpper2498 ^ n *
+        (expTaylor20 (z - (n : ℝ)) + expTaylor20Error) :=
+      exp_neg_split_upper2498 n (z - (n : ℝ)) hr0 hr1
+
 end
 end ConnesWeilRH.Source.C1ScaledExpRationalEnvelope

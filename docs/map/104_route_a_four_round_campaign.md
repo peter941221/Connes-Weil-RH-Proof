@@ -4410,3 +4410,13 @@ block; the per-family/cell decomposition, weighted-curvature propagation,
 and corrected payload reprice remain open. No producer GO or RH claim.
 Evidence: `docs/proofs/2498_owner_negative_exp_split.md` and
 `ConnesWeilRH/Dev/C1RouteAExpSplit2498.lean`.
+
+Record 2499 (2026-10-03): exact rational owner/cell exponent inputs are
+generated for the 640-cell hybrid grid. There are 9,994 support-safe local
+pairs, 9,206 baseline pairs, and the largest local integer exponent part is
+12,682. This is data preparation for the 2498 split envelope; weighted
+curvature propagation, table reprice, and the hcell proof remain open. No
+producer GO or RH claim.
+Evidence: `docs/proofs/2499_owner_exp_split_inputs.md`,
+`scripts/routea_owner_exp_split_inputs_2499.py`, and
+`results/2499_owner_exp_split_inputs.json`.
