@@ -4086,3 +4086,25 @@ strip norm, no producer GO, no RH claim. Evidence:
 `docs/proofs/2452_owner_point_import.md`,
 `results/2452_owner_point_import.json` and
 `results/2452_owner_point_import_pin.json`.
+
+Record 2453 (2026-10-02): the hypothesis-class door now admits the full
+certificate position set: the 2275 capture is bound into Lean at the
+nine exact binary64 positions of 2445/2449 plus both strip endpoints
++-1/2 (11 positions), and Lean proves the 30-family sum containment for
+both channels at every position through the 2437/2436 interface - 22
+theorems, all on the standard three axioms, the 2452 proof shape at
+scale. Cross-check: the base sum box at +1/2 is bitwise-consistent
+with the 2452 point import. New committed asset: the norm bridge
+`norm_le_of_rect_mem_2453` (rectangle containment => ||z|| <= sum of
+corner maxima, no sqrt). The node-norm bounds N are recorded per
+position in the artifact and bound by the independent pin (recomposed
+fresh, three mutation controls); the Lean-side attachment of N to the
+sumFinset term hit a simp rewrite loop (exceeds 5e7 Simp steps
+instantly) and is the registered open seam. En route the drifted ext4
+mirror was rebuilt as a clean clone with the transplanted .lake
+(offline workflow validated, 3713-job green build). Containment at 11
+positions only: no strip norm, no producer GO, no RH claim. Evidence:
+`docs/proofs/2453_owner_node_norm_import.md`,
+`results/2453_owner_node_norm_import.json`,
+`results/2453_owner_node_norm_import_pin.json` and
+`build-logs/2453_owner_node_norm_import.log`.

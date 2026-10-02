@@ -1,0 +1,33 @@
+import ConnesWeilRH.Dev.C1RouteAOwnerNodeNormImport2453
+
+set_option linter.style.longLine false
+
+namespace ConnesWeilRH.Dev
+
+open scoped BigOperators
+open ConnesWeilRH.Dev.C1RouteAOwnerScaleAudit
+
+#print axioms correctedPhysical_mem_pos2453Basep00
+#print axioms correctedPhysical_mem_pos2453Corrp00
+#print axioms correctedPhysical_mem_pos2453Basep01
+#print axioms correctedPhysical_mem_pos2453Corrp01
+#print axioms correctedPhysical_mem_pos2453Basep02
+#print axioms correctedPhysical_mem_pos2453Corrp02
+#print axioms correctedPhysical_mem_pos2453Basep03
+#print axioms correctedPhysical_mem_pos2453Corrp03
+#print axioms correctedPhysical_mem_pos2453Basep04
+#print axioms correctedPhysical_mem_pos2453Corrp04
+#print axioms correctedPhysical_mem_pos2453Basep05
+#print axioms correctedPhysical_mem_pos2453Corrp05
+#print axioms correctedPhysical_mem_pos2453Basep06
+#print axioms correctedPhysical_mem_pos2453Corrp06
+#print axioms correctedPhysical_mem_pos2453Basep07
+#print axioms correctedPhysical_mem_pos2453Corrp07
+#print axioms correctedPhysical_mem_pos2453Basep08
+#print axioms correctedPhysical_mem_pos2453Corrp08
+#print axioms correctedPhysical_mem_pos2453Basep09
+#print axioms correctedPhysical_mem_pos2453Corrp09
+#print axioms correctedPhysical_mem_pos2453Basep10
+#print axioms correctedPhysical_mem_pos2453Corrp10
+
+end ConnesWeilRH.Dev
