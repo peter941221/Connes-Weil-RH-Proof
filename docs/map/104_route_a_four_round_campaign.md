@@ -4351,3 +4351,11 @@ is data binding only; the analytic directed enclosure remains an explicit
 premise and no producer GO or RH claim is made.
 Evidence: `docs/proofs/2492_owner_family_hybrid_rational_binding.md` and
 `ConnesWeilRH/Dev/C1RouteAOwnerFamilyHybridTable2492.lean`.
+
+Record 2493 (2026-10-03): an exact `Fraction` control compares every radius,
+modulation, and real/imaginary coefficient coordinate consumed by the 2491
+external price against the generated Lean owner definitions. All 30 families
+match exactly. This closes input provenance only; the MPFR analytic enclosure
+and selected-detector producer margin remain open.
+Evidence: `docs/proofs/2493_owner_family_binding.md` and
+`results/2493_owner_family_binding.json`.

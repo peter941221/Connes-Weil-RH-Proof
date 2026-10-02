@@ -1,0 +1,323 @@
+{
+  "record": 2493,
+  "status": "EXACT_OWNER_INPUTS_MATCHED",
+  "scope": "2491 external price input ownership only",
+  "families_checked": 30,
+  "fields_checked": [
+    "radius",
+    "modulation",
+    "coefficient_real",
+    "coefficient_imag"
+  ],
+  "all_equal": true,
+  "checks": [
+    {
+      "index": 0,
+      "equal": true,
+      "fields": {
+        "rad": true,
+        "mod": true,
+        "coef_re": true,
+        "coef_im": true
+      }
+    },
+    {
+      "index": 1,
+      "equal": true,
+      "fields": {
+        "rad": true,
+        "mod": true,
+        "coef_re": true,
+        "coef_im": true
+      }
+    },
+    {
+      "index": 2,
+      "equal": true,
+      "fields": {
+        "rad": true,
+        "mod": true,
+        "coef_re": true,
+        "coef_im": true
+      }
+    },
+    {
+      "index": 3,
+      "equal": true,
+      "fields": {
+        "rad": true,
+        "mod": true,
+        "coef_re": true,
+        "coef_im": true
+      }
+    },
+    {
+      "index": 4,
+      "equal": true,
+      "fields": {
+        "rad": true,
+        "mod": true,
+        "coef_re": true,
+        "coef_im": true
+      }
+    },
+    {
+      "index": 5,
+      "equal": true,
+      "fields": {
+        "rad": true,
+        "mod": true,
+        "coef_re": true,
+        "coef_im": true
+      }
+    },
+    {
+      "index": 6,
+      "equal": true,
+      "fields": {
+        "rad": true,
+        "mod": true,
+        "coef_re": true,
+        "coef_im": true
+      }
+    },
+    {
+      "index": 7,
+      "equal": true,
+      "fields": {
+        "rad": true,
+        "mod": true,
+        "coef_re": true,
+        "coef_im": true
+      }
+    },
+    {
+      "index": 8,
+      "equal": true,
+      "fields": {
+        "rad": true,
+        "mod": true,
+        "coef_re": true,
+        "coef_im": true
+      }
+    },
+    {
+      "index": 9,
+      "equal": true,
+      "fields": {
+        "rad": true,
+        "mod": true,
+        "coef_re": true,
+        "coef_im": true
+      }
+    },
+    {
+      "index": 10,
+      "equal": true,
+      "fields": {
+        "rad": true,
+        "mod": true,
+        "coef_re": true,
+        "coef_im": true
+      }
+    },
+    {
+      "index": 11,
+      "equal": true,
+      "fields": {
+        "rad": true,
+        "mod": true,
+        "coef_re": true,
+        "coef_im": true
+      }
+    },
+    {
+      "index": 12,
+      "equal": true,
+      "fields": {
+        "rad": true,
+        "mod": true,
+        "coef_re": true,
+        "coef_im": true
+      }
+    },
+    {
+      "index": 13,
+      "equal": true,
+      "fields": {
+        "rad": true,
+        "mod": true,
+        "coef_re": true,
+        "coef_im": true
+      }
+    },
+    {
+      "index": 14,
+      "equal": true,
+      "fields": {
+        "rad": true,
+        "mod": true,
+        "coef_re": true,
+        "coef_im": true
+      }
+    },
+    {
+      "index": 15,
+      "equal": true,
+      "fields": {
+        "rad": true,
+        "mod": true,
+        "coef_re": true,
+        "coef_im": true
+      }
+    },
+    {
+      "index": 16,
+      "equal": true,
+      "fields": {
+        "rad": true,
+        "mod": true,
+        "coef_re": true,
+        "coef_im": true
+      }
+    },
+    {
+      "index": 17,
+      "equal": true,
+      "fields": {
+        "rad": true,
+        "mod": true,
+        "coef_re": true,
+        "coef_im": true
+      }
+    },
+    {
+      "index": 18,
+      "equal": true,
+      "fields": {
+        "rad": true,
+        "mod": true,
+        "coef_re": true,
+        "coef_im": true
+      }
+    },
+    {
+      "index": 19,
+      "equal": true,
+      "fields": {
+        "rad": true,
+        "mod": true,
+        "coef_re": true,
+        "coef_im": true
+      }
+    },
+    {
+      "index": 20,
+      "equal": true,
+      "fields": {
+        "rad": true,
+        "mod": true,
+        "coef_re": true,
+        "coef_im": true
+      }
+    },
+    {
+      "index": 21,
+      "equal": true,
+      "fields": {
+        "rad": true,
+        "mod": true,
+        "coef_re": true,
+        "coef_im": true
+      }
+    },
+    {
+      "index": 22,
+      "equal": true,
+      "fields": {
+        "rad": true,
+        "mod": true,
+        "coef_re": true,
+        "coef_im": true
+      }
+    },
+    {
+      "index": 23,
+      "equal": true,
+      "fields": {
+        "rad": true,
+        "mod": true,
+        "coef_re": true,
+        "coef_im": true
+      }
+    },
+    {
+      "index": 24,
+      "equal": true,
+      "fields": {
+        "rad": true,
+        "mod": true,
+        "coef_re": true,
+        "coef_im": true
+      }
+    },
+    {
+      "index": 25,
+      "equal": true,
+      "fields": {
+        "rad": true,
+        "mod": true,
+        "coef_re": true,
+        "coef_im": true
+      }
+    },
+    {
+      "index": 26,
+      "equal": true,
+      "fields": {
+        "rad": true,
+        "mod": true,
+        "coef_re": true,
+        "coef_im": true
+      }
+    },
+    {
+      "index": 27,
+      "equal": true,
+      "fields": {
+        "rad": true,
+        "mod": true,
+        "coef_re": true,
+        "coef_im": true
+      }
+    },
+    {
+      "index": 28,
+      "equal": true,
+      "fields": {
+        "rad": true,
+        "mod": true,
+        "coef_re": true,
+        "coef_im": true
+      }
+    },
+    {
+      "index": 29,
+      "equal": true,
+      "fields": {
+        "rad": true,
+        "mod": true,
+        "coef_re": true,
+        "coef_im": true
+      }
+    }
+  ],
+  "lean_sha256": "afecfa0282ea27a7e04566fc16005cd6ee94b46bf1a52e17565fedd783bd5618",
+  "repair_sha256": "7efde152db5e18c2d312cae16309172154044b443477bca75b9619b3070eb258",
+  "capture_sha256": "743fe372bef89b5730c38274d5a5517ac9ea4d3421989d46c49d4af3e78b5e74",
+  "nonclaims": [
+    "no analytic enclosure proof",
+    "no producer GO",
+    "no RH"
+  ]
+}
