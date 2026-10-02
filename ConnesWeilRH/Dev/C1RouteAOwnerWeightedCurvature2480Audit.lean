@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteAOwnerWeightedCurvature2480
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ownerPanelWeightedSecondDerivBoundL1_2480
+#print axioms ownerPanelStripNorm_le_localCurvatureL1_2480
+
+end ConnesWeilRH.Dev
