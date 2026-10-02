@@ -70,6 +70,28 @@ theorem externalFamilyValue2344_firstDerivative_norm_le_of_factor_bounds2488
   rw [hinterior]
   exact (norm_mul _ _).trans (mul_le_mul hvalue hfactor (norm_nonneg _) (by positivity))
 
+theorem externalFamilyValue2344_norm_le_of_scaledBump_bound2488
+    (coefficient : ℂ) (modulation radius position coefficientBound bumpBound : ℝ)
+    (hradius : 0 < radius) (hinside : |position| < radius)
+    (hcoefficient : ‖coefficient‖ ≤ coefficientBound)
+    (hbump : |scaledBumpJet2350 0 radius position| ≤ bumpBound) :
+    ‖externalFamilyValue2344 coefficient modulation radius position‖ ≤
+      coefficientBound * bumpBound := by
+  rw [externalFamilyValue2344_eq_familyTerm]
+  have hphase :
+      ‖Complex.exp ((modulation * position : ℝ) * Complex.I)‖ = 1 := by
+    rw [Complex.norm_exp]
+    simp
+  have hwidth :
+      ‖(widthBump radius position : ℂ)‖ ≤ bumpBound := by
+    have hjet := widthBump_iteratedDeriv_inside2350 0 (by decide) hradius hinside
+    have hwidthEq : widthBump radius position = scaledBumpJet2350 0 radius position := by
+      simpa only [iteratedDeriv_zero] using hjet
+    rw [hwidthEq, Complex.norm_real, Real.norm_eq_abs]
+    exact hbump
+  rw [norm_mul, norm_mul, hphase]
+  exact mul_le_mul hcoefficient hwidth (abs_nonneg _) (by positivity)
+
 theorem weightedExternalFamilySecondDeriv_le_of_factor_bounds2488
     (sigma position modulation radius valueBound firstFactorBound secondFactorBound : ℝ)
     (coefficient : ℂ) (hradius : 0 < radius) (hinside : |position| < radius)
