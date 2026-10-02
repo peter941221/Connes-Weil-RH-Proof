@@ -4428,3 +4428,14 @@ repeating the weighted product algebra. The exponential inequalities and
 table comparison remain open; no producer GO or RH claim.
 Evidence: `docs/proofs/2499_weighted_curvature_monotonicity.md` and
 `ConnesWeilRH/Dev/C1RouteAWeightedCurvatureMonotone2499.lean`.
+
+Record 2500 (2026-10-03): the formal 2498 exponential split was priced on
+all 9,994 local pairs before curvature propagation. Among 9,796 finite
+binary64 readings, the maximum split/direct-MPFR ratio was
+`1.000000000000138`; 198 readings underflowed and are explicitly excluded
+from the ratio statistic. The overhead is therefore budget-neutral at the
+reported precision, so the split path remains live. This is external pricing
+only; no hcell proof, producer GO, or RH claim.
+Evidence: `docs/proofs/2500_owner_exp_split_price.md`,
+`scripts/diag_owner_exp_split_price_2500.py`, and
+`results/2500_owner_exp_split_price.json`.

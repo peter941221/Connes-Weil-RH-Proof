@@ -1,0 +1,18 @@
+{
+  "record": 2500,
+  "status": "FORMAL_EXP_SPLIT_EXTERNAL_PRICE_NOT_A_CERTIFICATE",
+  "representable_samples": 9796,
+  "binary64_underflowed_samples": 198,
+  "ratio_min_representable": 0.8571428571428571,
+  "ratio_median_representable": 1.0000000000000056,
+  "ratio_max_representable": 1.000000000000138,
+  "worst": {
+    "cell": 129,
+    "family": 6,
+    "n": 686,
+    "remainder": 0.9315504034218601
+  },
+  "decision": "formal_split_is_budget_neutral_at_binary64_scale_for_routing",
+  "diagnostic_note": "The minimum ratio is not a soundness check: binary64 conversion of the external endpoint computation can under-read the comparison. The Lean theorem is the soundness anchor.",
+  "nonclaims": ["no hcell proof", "no producer GO", "no RH"]
+}
