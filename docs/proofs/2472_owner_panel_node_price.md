@@ -12,6 +12,12 @@ the composite node readings are about `8.2791e3` and `8.2762e3` for the two
 signs.  This is a routing price only: the evaluator uses high-precision
 transcendental values and is explicitly not a directed-rounding certificate.
 
+The same diagnostic evaluation of the owner-specific derivative-budget
+formula gives order 0/1/2 magnitudes approximately
+`69.19`, `4.115e3`, and `2.620e5`, respectively.  These are also diagnostic
+readings, not Lean bounds; they indicate that the curvature term, rather than
+the node trapezoid alone, is likely to dominate at this ten-cell spacing.
+
 The result therefore does not close the strip margin.  It establishes the
 next concrete task: replace this diagnostic with directed bounds (or a Lean
 literal enclosure) and combine it with the owner-specific order-1/order-2

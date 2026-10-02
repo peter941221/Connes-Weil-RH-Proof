@@ -1,0 +1,17 @@
+{
+  "record": 2473,
+  "status": "DIAGNOSTIC_ONLY_NOT_A_CERTIFICATE",
+  "owner_derivative_budget": {
+    "0": "69.1932840661115919993127825723",
+    "1": "4115.3132105732563240146065764",
+    "2": "261991.642031645472136344515642"
+  },
+  "scan": [
+    {"cells": 10, "composite_minus": "8279.0569802941636", "composite_plus": "8276.1883154496915", "curvature": "13229060"},
+    {"cells": 20, "composite_minus": "3436.6297495573900", "composite_plus": "3436.8024104664440", "curvature": "3307266"},
+    {"cells": 40, "composite_minus": "1355.1847684014419", "composite_plus": "1355.2928849431775", "curvature": "826816.6"},
+    {"cells": 80, "composite_minus": "590.5502020476357", "composite_plus": "590.5272188025687", "curvature": "206704.1"},
+    {"cells": 160, "composite_minus": "275.0485546026110", "composite_plus": "275.0026182698097", "curvature": "51676.03"}
+  ],
+  "decision": "refinement_reduces_node_sum_but_global_second_derivative_envelope_remains_binding"
+}

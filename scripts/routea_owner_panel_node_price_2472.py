@@ -7,6 +7,7 @@ kept separate from certified artifacts; no verdict may use it as a bound.
 """
 import json
 import hashlib
+import sys
 from fractions import Fraction
 from pathlib import Path
 import mpmath as mp
@@ -48,17 +49,20 @@ def main():
     capture = json.loads(CAPTURE.read_text())["owner_capture"]
     fam = []
     for row, pair in zip(repair["coefficient_rows"], capture["families_hex"]):
+        re_lo = q(row["ideal_base_coefficient"]["real"]["lower_exact"])
+        re_hi = q(row["ideal_base_coefficient"]["real"]["upper_exact"])
+        im_lo = q(row["ideal_base_coefficient"]["imag"]["lower_exact"])
+        im_hi = q(row["ideal_base_coefficient"]["imag"]["upper_exact"])
         fam.append({
             "rad": mp.mpf(float.fromhex(pair[0])) ** 2,
             "mod": mp.mpf(float.fromhex(pair[1])),
-            "re": (q(row["ideal_base_coefficient"]["real"]["lower_exact"]),
-                   q(row["ideal_base_coefficient"]["real"]["upper_exact"])),
-            "im": (q(row["ideal_base_coefficient"]["imag"]["lower_exact"]),
-                   q(row["ideal_base_coefficient"]["imag"]["upper_exact"])),
+            "re": (re_lo, re_hi), "im": (im_lo, im_hi),
+            "coef_norm": mp.sqrt(((re_lo + re_hi) / 2) ** 2 +
+                                  ((im_lo + im_hi) / 2) ** 2),
         })
     radius = mp.mpf(2076918743413931858457251756481) / mp.mpf(
         316912650057057350374175801344)
-    cells = 10
+    cells = int(sys.argv[1]) if len(sys.argv) > 1 else 10
     step = 2 * radius / cells
     rows = []
     for index in range(cells + 1):
@@ -97,6 +101,16 @@ def main():
             step / 2 * (mp.mpf(rows[i]["weighted"][s]) +
                         mp.mpf(rows[i + 1]["weighted"][s]))
             for i in range(cells))
+    constants = [1, 60, 3720, 236160, 15130080]
+    budgets = {}
+    for order in range(3):
+        total = mp.mpf("0")
+        for f in fam:
+            for k in range(order + 1):
+                choose = mp.binomial(order, k)
+                total += f["coef_norm"] * choose * abs(f["mod"]) ** k * \
+                    constants[order - k] * mp.exp(-30) / f["rad"] ** (order - k)
+        budgets[str(order)] = total
     payload = {
         "record": 2472,
         "owner_radius": mp.nstr(radius, 50),
@@ -104,6 +118,8 @@ def main():
         "step": mp.nstr(step, 50),
         "rows": rows,
         "composite_node_upper": {s: mp.nstr(v, 50) for s, v in composite.items()},
+        "owner_derivative_budget_diagnostic": {k: mp.nstr(v, 50)
+                                                for k, v in budgets.items()},
         "status": "DIAGNOSTIC_ONLY_NOT_A_CERTIFICATE",
         "repair_sha256": hashlib.sha256(REPAIR.read_bytes()).hexdigest(),
         "capture_sha256": hashlib.sha256(CAPTURE.read_bytes()).hexdigest(),
@@ -113,6 +129,7 @@ def main():
     print("max weighted node prices:",
           {s: max(mp.mpf(row["weighted"][s]) for row in rows) for s in ("-0.5", "0.5")})
     print("composite node prices:", {s: mp.nstr(v, 30) for s, v in composite.items()})
+    print("derivative budget diagnostics:", {k: mp.nstr(v, 30) for k, v in budgets.items()})
     print("artifact:", OUT)
 
 
