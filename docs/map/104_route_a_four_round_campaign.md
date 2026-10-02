@@ -3979,3 +3979,11 @@ evaluator remains open.  Evidence:
 `ConnesWeilRH/Dev/C1RouteAPhaseBounds.lean`,
 `ConnesWeilRH/Dev/C1RouteAPhaseBoundsAudit.lean`, and
 `docs/proofs/2441_routea_phase_bounds.md`.
+
+Record 2442 (2026-10-02): Lean proves the endpoint propagation
+`exp(-30/qlo) ≤ exp(-30/q) ≤ exp(-30/qhi)` for positive ordered `q` values,
+matching the positive-`q` bump branch of the evaluator.  Construction of the
+`q` interval and its MPFR endpoint certification remain open.  Evidence:
+`ConnesWeilRH/Dev/C1RouteAProfileExpBounds.lean`,
+`ConnesWeilRH/Dev/C1RouteAProfileExpBoundsAudit.lean`, and
+`docs/proofs/2442_routea_profile_exp_bounds.md`.
