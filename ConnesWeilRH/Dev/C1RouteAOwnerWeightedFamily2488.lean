@@ -502,4 +502,12 @@ theorem ownerPanelStripNorm_le_intervalCurvature2488
   · exact halower index hindex coordinate hcoordinate
   · exact hcoefficient index hindex
 
+/- The coefficient envelope used by the local interval consumer can be
+   discharged directly from the exact complex coefficient representation.
+   Keeping this as a separate interface leaves the cell geometry responsible
+   only for the support and normalized-coordinate hypotheses. -/
+theorem ownerCoefficientL1Bound2488 (i : Fin 30) :
+    ‖ownerCoef_2463 i‖ ≤ |(ownerCoef_2463 i).re| + |(ownerCoef_2463 i).im| := by
+  exact Complex.norm_le_abs_re_add_abs_im _
+
 end ConnesWeilRH.Dev
