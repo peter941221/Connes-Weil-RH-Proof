@@ -538,13 +538,21 @@ theorem ownerPanelWeightedSecondDeriv_le_sumIntervalZeroLowerBound2488
     exact abs_nonneg _
   · exact hcoefficient
 
-/- The coefficient envelope used by the local interval consumer can be
-   discharged directly from the exact complex coefficient representation.
-   Keeping this as a separate interface leaves the cell geometry responsible
-   only for the support and normalized-coordinate hypotheses. -/
-theorem ownerCoefficientL1Bound2488 (i : Fin 30) :
-    ‖ownerCoef_2463 i‖ ≤ |(ownerCoef_2463 i).re| + |(ownerCoef_2463 i).im| := by
-  exact Complex.norm_le_abs_re_add_abs_im _
+noncomputable def ownerIntervalCurvatureZero2488
+    (sigma : ℝ) (t coefficientBound : Fin 30 → ℝ) : ℝ :=
+  ∑ i : Fin 30, weightedCurvature2348 sigma (ownerRad_2463 i)
+    (coefficientBound i * Real.exp (-30 / (1 - (0 : ℝ) ^ 2)))
+    (coefficientBound i * Real.exp (-30 / (1 - (0 : ℝ) ^ 2)) *
+      (60 * t i * (1 - (t i) ^ 2)⁻¹ ^ 2 / ownerRad_2463 i +
+        |ownerMod_2463 i|))
+    (coefficientBound i * Real.exp (-30 / (1 - (0 : ℝ) ^ 2)) *
+      ((60 * ((1 - (t i) ^ 2)⁻¹ ^ 2 +
+          4 * (t i) ^ 2 * (1 - (t i) ^ 2)⁻¹ ^ 3) /
+          (ownerRad_2463 i) ^ 2) +
+        (60 * t i * (1 - (t i) ^ 2)⁻¹ ^ 2 / ownerRad_2463 i) ^ 2 +
+        (ownerMod_2463 i) ^ 2 +
+        2 * |ownerMod_2463 i| *
+          (60 * t i * (1 - (t i) ^ 2)⁻¹ ^ 2 / ownerRad_2463 i)))
 
 theorem abs_le_max_abs_endpoints_of_mem_Icc2488
     {left right coordinate : ℝ} (hcoordinate : coordinate ∈ Set.Icc left right) :
@@ -575,5 +583,68 @@ theorem ownerCoordinateNormalizedBound_of_endpointBound2488
   intro i
   exact abs_div_le_of_mem_Icc_of_endpointBound2488
     (ownerRadPos_2465 i) hcoordinate (hendpoint i)
+
+theorem ownerPanelWeightedSecondDeriv_le_ownerIntervalCurvatureZero2488
+    (sigma x : ℝ) (t coefficientBound : Fin 30 → ℝ)
+    (hinside : ∀ i : Fin 30, |x| < ownerRad_2463 i)
+    (ht : ∀ i : Fin 30, 0 ≤ t i)
+    (htone : ∀ i : Fin 30, t i < 1)
+    (hcoord : ∀ i : Fin 30, |x / ownerRad_2463 i| ≤ t i)
+    (hcoefficient : ∀ i : Fin 30,
+      ‖ownerCoef_2463 i‖ ≤ coefficientBound i) :
+    ‖deriv (deriv (weightedFunction2348 sigma ownerPanelSumValue_2467)) x‖ ≤
+      ownerIntervalCurvatureZero2488 sigma t coefficientBound := by
+  simpa only [ownerIntervalCurvatureZero2488] using
+    ownerPanelWeightedSecondDeriv_le_sumIntervalZeroLowerBound2488 sigma x t
+      coefficientBound hinside ht htone hcoord hcoefficient
+
+theorem ownerPanelStripNorm_le_endpointIntervalCurvatureZero2488
+    (sigma radius step : ℝ) (cells : ℕ)
+    (t coefficientBound : ℕ → Fin 30 → ℝ)
+    (hradius : 0 ≤ radius)
+    (hR : ∀ i : Fin 30, ownerRad_2463 i ≤ radius)
+    (hstep : 0 < step)
+    (hgrid : (cells : ℝ) * step = 2 * radius)
+    (hinside : ∀ index ∈ Finset.range cells, ∀ coordinate ∈
+      Set.Icc (-radius + index * step) (-radius + (index + 1) * step),
+      ∀ i : Fin 30, |coordinate| < ownerRad_2463 i)
+    (ht : ∀ index ∈ Finset.range cells, ∀ coordinate ∈
+      Set.Icc (-radius + index * step) (-radius + (index + 1) * step),
+      ∀ i : Fin 30, 0 ≤ t index i)
+    (htone : ∀ index ∈ Finset.range cells, ∀ coordinate ∈
+      Set.Icc (-radius + index * step) (-radius + (index + 1) * step),
+      ∀ i : Fin 30, t index i < 1)
+    (hendpoint : ∀ index ∈ Finset.range cells, ∀ i : Fin 30,
+      max |(-radius + index * step)|
+          |(-radius + (index + 1) * step)| ≤
+        t index i * ownerRad_2463 i)
+    (hcoefficient : ∀ index ∈ Finset.range cells, ∀ i : Fin 30,
+      ‖ownerCoef_2463 i‖ ≤ coefficientBound index i) :
+    stripNorm sigma ownerPanelSumValue_2467 ≤
+      compositeNodeUpper2347
+        (ownerPanelNodeUpper2471 sigma radius step) step cells +
+      localCurvatureRemainder2474
+        (fun index => ownerIntervalCurvatureZero2488 sigma
+          (t index) (coefficientBound index)) step cells := by
+  apply ownerPanelStripNorm_le_localCurvature2475 sigma radius step cells
+    (fun index => ownerIntervalCurvatureZero2488 sigma
+      (t index) (coefficientBound index)) hradius hR hstep hgrid
+  intro index hindex coordinate hcoordinate
+  apply ownerPanelWeightedSecondDeriv_le_ownerIntervalCurvatureZero2488
+    sigma coordinate (t index) (coefficientBound index)
+  · exact hinside index hindex coordinate hcoordinate
+  · exact ht index hindex coordinate hcoordinate
+  · exact htone index hindex coordinate hcoordinate
+  · exact ownerCoordinateNormalizedBound_of_endpointBound2488 (t index)
+      hcoordinate (hendpoint index hindex)
+  · exact hcoefficient index hindex
+
+/- The coefficient envelope used by the local interval consumer can be
+   discharged directly from the exact complex coefficient representation.
+   Keeping this as a separate interface leaves the cell geometry responsible
+   only for the support and normalized-coordinate hypotheses. -/
+theorem ownerCoefficientL1Bound2488 (i : Fin 30) :
+    ‖ownerCoef_2463 i‖ ≤ |(ownerCoef_2463 i).re| + |(ownerCoef_2463 i).im| := by
+  exact Complex.norm_le_abs_re_add_abs_im _
 
 end ConnesWeilRH.Dev

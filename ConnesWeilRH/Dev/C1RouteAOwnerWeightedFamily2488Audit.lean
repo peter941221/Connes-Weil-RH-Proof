@@ -21,5 +21,7 @@ namespace ConnesWeilRH.Dev
 #print axioms abs_le_max_abs_endpoints_of_mem_Icc2488
 #print axioms abs_div_le_of_mem_Icc_of_endpointBound2488
 #print axioms ownerCoordinateNormalizedBound_of_endpointBound2488
+#print axioms ownerPanelWeightedSecondDeriv_le_ownerIntervalCurvatureZero2488
+#print axioms ownerPanelStripNorm_le_endpointIntervalCurvatureZero2488
 
 end ConnesWeilRH.Dev
