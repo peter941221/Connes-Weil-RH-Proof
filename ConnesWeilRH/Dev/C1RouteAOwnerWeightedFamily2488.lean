@@ -668,6 +668,46 @@ theorem ownerPanelStripNorm_le_endpointIntervalCurvatureZero2488
       hcoordinate (hendpoint index hindex)
   · exact hcoefficient index hindex
 
+theorem ownerPanelStripNorm_le_constructedEndpointCurvatureZero2488
+    (sigma radius step : ℝ) (cells : ℕ)
+    (coefficientBound : ℕ → Fin 30 → ℝ)
+    (hradius : 0 ≤ radius)
+    (hR : ∀ i : Fin 30, ownerRad_2463 i ≤ radius)
+    (hstep : 0 < step)
+    (hgrid : (cells : ℝ) * step = 2 * radius)
+    (hinside : ∀ index ∈ Finset.range cells, ∀ coordinate ∈
+      Set.Icc (-radius + index * step) (-radius + (index + 1) * step),
+      ∀ i : Fin 30, |coordinate| < ownerRad_2463 i)
+    (hcoefficient : ∀ index ∈ Finset.range cells, ∀ i : Fin 30,
+      ‖ownerCoef_2463 i‖ ≤ coefficientBound index i) :
+    stripNorm sigma ownerPanelSumValue_2467 ≤
+      compositeNodeUpper2347
+        (ownerPanelNodeUpper2471 sigma radius step) step cells +
+      localCurvatureRemainder2474
+      (fun index => ownerIntervalCurvatureZero2488 sigma
+          (fun i => ownerCellEndpointRatio2488 radius step index i)
+          (coefficientBound index)) step cells := by
+  have hcell : ∀ index ∈ Finset.range cells,
+      -radius + index * step ≤ -radius + (index + 1) * step := by
+    intro index hindex
+    have hmul : (index : ℝ) * step ≤ ((index : ℝ) + 1) * step := by
+      nlinarith [hstep]
+    nlinarith [hmul]
+  apply ownerPanelStripNorm_le_endpointIntervalCurvatureZero2488 sigma radius step cells
+    (fun index i => ownerCellEndpointRatio2488 radius step index i)
+    coefficientBound hradius hR hstep hgrid hinside
+  · intro index hindex coordinate hcoordinate i
+    exact ownerCellEndpointRatio_nonneg2488 radius step index i
+  · intro index hindex coordinate hcoordinate i
+    apply ownerCellEndpointRatio_lt_one2488 radius step index i
+    · exact hinside index hindex
+        (-radius + index * step) ⟨le_rfl, hcell index hindex⟩ i
+    · exact hinside index hindex
+        (-radius + (index + 1) * step) ⟨hcell index hindex, le_rfl⟩ i
+  · intro index hindex i
+    exact ownerCellEndpointRatio_endpointBound2488 radius step index i
+  · exact hcoefficient
+
 /- The coefficient envelope used by the local interval consumer can be
    discharged directly from the exact complex coefficient representation.
    Keeping this as a separate interface leaves the cell geometry responsible
