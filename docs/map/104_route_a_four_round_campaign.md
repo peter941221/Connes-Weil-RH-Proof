@@ -4400,3 +4400,13 @@ it does not refute the hybrid construction. No numerical certificate,
 producer GO, or RH claim is made.
 Evidence: `docs/proofs/2497_owner_hcell_uniform_exp_nogo.md` and
 `scripts/diag_owner_hcell_exp_bound_2497.py`.
+
+Record 2498 (2026-10-03): the negative-exponential split needed for the next
+hcell proof is now formalized. For `z = n + r`, `n : Nat`, `0 <= r <= 1`, a
+rational upper bound for `exp(-1)` is raised to `n` and multiplied by the
+existing unit-interval Taylor upper for `exp(-r)`. The Lean audit builds
+3667/3667 with only the standard three axioms. This is an analytic building
+block; the per-family/cell decomposition, weighted-curvature propagation,
+and corrected payload reprice remain open. No producer GO or RH claim.
+Evidence: `docs/proofs/2498_owner_negative_exp_split.md` and
+`ConnesWeilRH/Dev/C1RouteAExpSplit2498.lean`.
