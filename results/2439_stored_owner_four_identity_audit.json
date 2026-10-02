@@ -1,0 +1,19 @@
+{
+  "all_coefficients_imported_into_lean": false,
+  "base_hex": [
+    "-0x1.30913764f5bcap+33",
+    "-0x1.5547f9d40cf0ap+29"
+  ],
+  "capture_sha256": "743fe372bef89b5730c38274d5a5517ac9ea4d3421989d46c49d4af3e78b5e74",
+  "checked_index": 4,
+  "corr_hex": [
+    "-0x1.5528b27252543p+47",
+    "-0x1.7f19cf32e8a3ep+45"
+  ],
+  "lean_numeric_imported": false,
+  "lean_source_sha256": "32fdbbc63973a2b72bc29a0614120d796c25ecd843b106d15e5b10e66fdf464b",
+  "producer_go": false,
+  "record": 2439,
+  "rh_claim": false,
+  "status": "OWNER_FOUR_COEFFICIENT_IDENTITY_PASS"
+}

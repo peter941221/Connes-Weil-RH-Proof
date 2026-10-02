@@ -3955,3 +3955,11 @@ provenance and bump/phase endpoint certificates explicit.  Evidence:
 `ConnesWeilRH/Dev/C1RouteAIntervalAlgebra.lean`,
 `ConnesWeilRH/Dev/C1RouteAOwnerTermInterfaceAudit.lean`, and
 `docs/proofs/2438_routea_point_coefficient_rect.md`.
+
+Record 2439 (2026-10-02): an exact rational readback matches the stored
+binary64 index-4 base and correction coefficients with the Lean literals used
+by the existing owner nonzero guard.  The full 30-coefficient Lean import and
+pointwise family certificate remain open.  Evidence:
+`scripts/routea_stored_owner_four_identity_audit_2439.py`,
+`docs/proofs/2439_stored_owner_four_identity.md`, and
+`results/2439_stored_owner_four_identity_audit.json`.
