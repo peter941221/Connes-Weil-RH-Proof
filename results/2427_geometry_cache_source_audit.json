@@ -1,0 +1,12 @@
+{
+  "all_five_geometry_endpoints_padded": true,
+  "geometry_cache_ulp_margin": 4,
+  "lean_numeric_imported": false,
+  "pointwise_mathematical_term_dominance_proved": false,
+  "producer_go": false,
+  "public_hull_ulp_margin": 4,
+  "record": 2427,
+  "rh_claim": false,
+  "source_sha256": "539ed1b4238e9edd3583042132421f06ada4c3e723d86d9ced3ed1642dd90d07",
+  "status": "GEOMETRY_CACHE_SOURCE_AUDIT_PASS"
+}

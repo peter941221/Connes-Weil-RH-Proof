@@ -3856,3 +3856,11 @@ not prove mathematical pointwise dominance or Lean import.  Evidence:
 `scripts/routea_current_fullgrid_audit_2426.py`,
 `docs/proofs/2426_current_fullgrid_interface_audit.md`, and
 `results/2426_current_fullgrid_audit.json`.
+
+Record 2427 (2026-10-02): a source regression audit locks the separate
+four-ULP geometry-cache margin, both outward directions, and all five cached
+lower/upper endpoint pairs.  This protects the 2421 repair but is not a
+mathematical enclosure proof.  Evidence:
+`scripts/routea_geometry_cache_source_audit_2427.py`,
+`docs/proofs/2427_geometry_cache_source_audit.md`, and
+`results/2427_geometry_cache_source_audit.json`.
