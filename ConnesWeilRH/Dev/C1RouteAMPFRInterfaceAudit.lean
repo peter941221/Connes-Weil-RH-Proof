@@ -8,5 +8,6 @@ namespace ConnesWeilRH.Dev
 #print axioms DirectedComplexValue2433.product
 #print axioms DirectedComplexValue2433.sum
 #print axioms DirectedComplexValue2433.difference
+#print axioms DirectedComplexValue2433.sumFamily
 
 end ConnesWeilRH.Dev

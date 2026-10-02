@@ -3914,3 +3914,11 @@ honest remaining numerical obligation.  Evidence:
 `ConnesWeilRH/Dev/C1RouteAMPFRInterface.lean`,
 `ConnesWeilRH/Dev/C1RouteAMPFRInterfaceAudit.lean`, and
 `docs/proofs/2433_routea_mpfr_interface.md`.
+
+Record 2434 (2026-10-02): the directed complex interface now transports
+per-term containment through a finite family sum, matching the kernel's
+directed accumulator.  The MPFR per-term endpoint certificate and the
+`correctedPhysical` identification remain open.  Evidence:
+`ConnesWeilRH/Dev/C1RouteAMPFRInterface.lean`,
+`ConnesWeilRH/Dev/C1RouteAMPFRInterfaceAudit.lean`, and
+`docs/proofs/2434_routea_directed_sum_interface.md`.

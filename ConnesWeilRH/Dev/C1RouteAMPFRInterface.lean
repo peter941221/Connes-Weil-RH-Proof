@@ -66,4 +66,12 @@ def DirectedComplexValue2433.difference (a b : DirectedComplexValue2433) :
     rectangle := a.rectangle.sub b.rectangle
     contains := ComplexRect2427.mem_sub a.contains b.contains }
 
+def DirectedComplexValue2433.sumFamily
+    (term : ℕ → DirectedComplexValue2433) (n : ℕ)
+    (hterm : ∀ i < n, (term i).rectangle.Mem (term i).value) :
+    DirectedComplexValue2433 :=
+  { value := ∑ i ∈ Finset.range n, (term i).value
+    rectangle := ComplexRect2427.sum (fun i => (term i).rectangle) n
+    contains := ComplexRect2427.mem_sum hterm }
+
 end ConnesWeilRH.Dev
