@@ -4068,3 +4068,21 @@ book cliff dissolves numerically; the budget frame does not move.
 Diagnostic only: no certificate, no producer GO, no RH claim. Evidence:
 `docs/proofs/2451_book_corner_probe.md` and
 `results/2451_book_corner_probe.json`.
+
+Record 2452 (2026-10-02): the first actual-owner point import passes
+through the 2433 hypothesis-class door: the 2275 capture is bound into
+Lean as exact literals at x0 = 1/2, coefficients as degenerate point
+boxes (Lean-proved `point_mem`, no arithmetic), the bump and phase
+factors as exact rational rectangles with 2^-200 outward margins,
+composed per family through the 2437 factor interface and consumed
+through the 2436 30-family sum theorem; the four new theorems sit on
+the standard three axioms. The pin re-derives every literal from the
+capture, binds bitwise (including the producer's exact division order),
+re-checks 60/60 containment and fires three mutation controls through
+the same detectors. En route: the mirror mathlib checkout carried 8729
+mode-only changes (core.fileMode false fixed), and wrapper builds need
+explicit absolute workspace paths. One point, one import exercise: no
+strip norm, no producer GO, no RH claim. Evidence:
+`docs/proofs/2452_owner_point_import.md`,
+`results/2452_owner_point_import.json` and
+`results/2452_owner_point_import_pin.json`.

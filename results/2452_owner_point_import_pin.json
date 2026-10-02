@@ -1,0 +1,22 @@
+{
+  "delta": "1/1606938044258990275541962092341162602522202993782792835301376",
+  "failures": [],
+  "lean_module_sha256": "355039b14b803f26acad1eb7c82e697e9d517d6435975244dc4cdf44f05f8276",
+  "mutation_controls": [
+    {
+      "fired": true,
+      "name": "shifted_phase_box_fires"
+    },
+    {
+      "fired": true,
+      "name": "perturbed_coefficient_fires"
+    },
+    {
+      "fired": true,
+      "name": "truncated_module_fires"
+    }
+  ],
+  "pin_source_sha256": "0618ce68f16636826f86e6efcbd3aaf5447b375a181c1e646e1dad7a85557c41",
+  "record": 2452,
+  "verdict": "PINNED-OWNER-POINT-IMPORT-VERIFIED"
+}
