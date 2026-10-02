@@ -360,6 +360,35 @@ theorem weightedExternalFamilySecondDeriv_le_of_interval_bounds2488
       (familySecondFactor2345_norm_le_of_interval2488 radius position t modulation
         hradius hinside ht htone hcoord)
 
+theorem weightedExternalFamilySecondDeriv_le_of_interval_or_zero2488
+    (sigma position modulation radius t a coefficientBound : ℝ) (coefficient : ℂ)
+    (hradius : 0 < radius)
+    (ht : 0 ≤ t) (htone : t < 1) (hcoord : |position / radius| ≤ t)
+    (ha : 0 ≤ a) (haone : a < 1) (halower : a ≤ |position / radius|)
+    (hcoefficient : ‖coefficient‖ ≤ coefficientBound) :
+    ‖deriv (deriv (weightedFunction2348 sigma
+      (externalFamilyValue2344 coefficient modulation radius))) position‖ ≤
+      if radius ≤ |position| then 0 else
+        weightedCurvature2348 sigma radius
+          (coefficientBound * Real.exp (-30 / (1 - a ^ 2)))
+          (coefficientBound * Real.exp (-30 / (1 - a ^ 2)) *
+            (60 * t * (1 - t ^ 2)⁻¹ ^ 2 / radius + |modulation|))
+          (coefficientBound * Real.exp (-30 / (1 - a ^ 2)) *
+            ((60 * ((1 - t ^ 2)⁻¹ ^ 2 + 4 * t ^ 2 * (1 - t ^ 2)⁻¹ ^ 3) /
+                radius ^ 2) +
+              (60 * t * (1 - t ^ 2)⁻¹ ^ 2 / radius) ^ 2 + modulation ^ 2 +
+              2 * |modulation| *
+                (60 * t * (1 - t ^ 2)⁻¹ ^ 2 / radius))) := by
+  by_cases houtside : radius ≤ |position|
+  · rw [if_pos houtside]
+    rw [weightedExternalFamilySecondDeriv_zero_of_outside2488 sigma coefficient
+      modulation radius position hradius houtside]
+    simp
+  · rw [if_neg houtside]
+    exact weightedExternalFamilySecondDeriv_le_of_interval_bounds2488 sigma position
+      modulation radius t a coefficientBound coefficient hradius (lt_of_not_ge houtside)
+      ht htone hcoord ha haone halower hcoefficient
+
 theorem weightedExternalFamilySecondDeriv_le_of_factor_bounds2488
     (sigma position modulation radius valueBound firstFactorBound secondFactorBound : ℝ)
     (coefficient : ℂ) (hradius : 0 < radius) (hinside : |position| < radius)
