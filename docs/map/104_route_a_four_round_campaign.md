@@ -4108,3 +4108,28 @@ positions only: no strip norm, no producer GO, no RH claim. Evidence:
 `results/2453_owner_node_norm_import.json`,
 `results/2453_owner_node_norm_import_pin.json` and
 `build-logs/2453_owner_node_norm_import.log`.
+
+Record 2454 (2026-10-02): the 2453 open seam is closed - the
+per-position node-norm bounds are Lean theorems. For each of the 11
+import positions and both channels, nodeNorm2454 proves
+||correctedPhysical|| <= N through the 2453 norm bridge, with N the
+exact rational corner maximum of a literal outer-hull array (same
+capture, same arithmetic order, 2^-200 margins; N bitwise-equal to the
+2453 artifact). New committed bridge lemmas: mem_of_rect_subset_2454
+(corner-wise covering transports containment) and
+fin30_sum_univ_chain_2454 (the 30-term sum is the right-associated
+numeral chain; closure needs add_zero plus a default-transparency rfl
+after the succ-chain simp). All 23 audited declarations sit on the
+standard three axioms; the pin re-derives and binds every literal
+bitwise and fires three mutation controls. Two build incidents caught
+en route: a stale module generation whose artifact sha claimed complete
+without ever building (producer edits must be followed by regenerate +
+re-pin), and a doubled mem_add head prefix that turned the finished
+chain into a partial application (exact {chain}, not exact head
+{chain}). Next consumer: the 2343 endpoint strip reduction. Scope:
+norm bounds at 11 positions only; no strip norm, no quadrature import,
+no producer GO, no RH claim. Evidence:
+`docs/proofs/2454_owner_node_norm_bound.md`,
+`results/2454_owner_node_norm_bound.json`,
+`results/2454_owner_node_norm_bound_pin.json` and
+`build-logs/2454_owner_node_norm_bound.log`.

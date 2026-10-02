@@ -1,0 +1,23 @@
+{
+  "delta": "1/1606938044258990275541962092341162602522202993782792835301376",
+  "failures": [],
+  "lean_module_sha256": "c1b0b0e8e1bfb18ea240b66bf990f303df85c4c2f8b6faa561ea8b84b60452d8",
+  "mutation_controls": [
+    {
+      "fired": true,
+      "name": "shifted_hull_corner_fires"
+    },
+    {
+      "fired": true,
+      "name": "perturbed_norm_record_fires"
+    },
+    {
+      "fired": true,
+      "name": "truncated_module_fires"
+    }
+  ],
+  "pin_source_sha256": "275a4d1e2de996ff00a60aa1ea0d2e72f67f2ba07080e9eefe64601f66220e8b",
+  "positions": 11,
+  "record": 2454,
+  "verdict": "PINNED-OWNER-NODE-NORM-BOUND-VERIFIED"
+}
