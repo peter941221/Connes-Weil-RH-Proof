@@ -5,7 +5,8 @@ data, per the 2456 ruling: coefficient BALLS from the 2338 exact
 interpolation repair (midpoint frozen, [lo, hi] box kept), family
 parameters (width -> radius, modulation) from the frozen 2275 capture
 (same source the 2342/2343 protocol pins), on the production-grid
-panel of the 2455 floor (N = 120001, R = 65536/10000) containing
+panel of the 2455 floor (N = 120001, with the exact owner radius)
+containing
 x = 1/4.
 
 Key design point: the sample is HYPOTHESIS-FREE.  Every box endpoint
@@ -38,7 +39,13 @@ OUT_LEAN = ROOT / "ConnesWeilRH/Dev/C1RouteAOwnerPanelSample2460.lean"
 DPS = 90
 FAMILIES = 30
 N_GRID = 120001
-RADIUS_R = Fraction(65536, 10000)   # exact stand-in for the ~6.5536 owner R
+# Exact owner radius pinned by the 2338/2342/2351 artifacts.  Do not replace
+# this with the decimal-looking 65536/10000: it differs in the last bits and
+# would generate a formally different production grid.
+RADIUS_R = Fraction(
+    2076918743413931858457251756481,
+    316912650057057350374175801344,
+)
 X_TARGET = Fraction(1, 4)
 SAMPLES = 5
 

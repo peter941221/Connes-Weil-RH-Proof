@@ -35,8 +35,12 @@ architecture the producer needs is validated end to end on one panel.
 
 Hypothesis-free by design: every box endpoint is a closed-form Lean
 expression (no delta rounding, no transcendental certificates); the
-panel is X0 = 292864/1171875, X1 = 97664/390625 (grid N = 120001,
-R = 65536/10000, contains 1/4), all 30 families alive on it.
+panel is X0 = 98999793436064085253129000392261 /
+396140812571321687967719751680000, X1 =
+1584689001224830008002883090195003 /
+6338253001141147007483516026880000 (grid N = 120001,
+R = 2076918743413931858457251756481 /
+316912650057057350374175801344, contains 1/4), all 30 families alive on it.
 
 Python side (`results/2460_owner_panel_sample.json`): verdict
 OWNER-PANEL-SAMPLE-COMPLETE; truth containment of the composed hulls
