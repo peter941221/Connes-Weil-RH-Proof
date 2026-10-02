@@ -566,4 +566,14 @@ theorem abs_div_le_of_mem_Icc_of_endpointBound2488
   exact (div_le_iff₀ hradius).2
     (le_trans (abs_le_max_abs_endpoints_of_mem_Icc2488 hcoordinate) hendpoint)
 
+theorem ownerCoordinateNormalizedBound_of_endpointBound2488
+    {left right coordinate : ℝ} (t : Fin 30 → ℝ)
+    (hcoordinate : coordinate ∈ Set.Icc left right)
+    (hendpoint : ∀ i : Fin 30,
+      max |left| |right| ≤ t i * ownerRad_2463 i) :
+    ∀ i : Fin 30, |coordinate / ownerRad_2463 i| ≤ t i := by
+  intro i
+  exact abs_div_le_of_mem_Icc_of_endpointBound2488
+    (ownerRadPos_2465 i) hcoordinate (hendpoint i)
+
 end ConnesWeilRH.Dev

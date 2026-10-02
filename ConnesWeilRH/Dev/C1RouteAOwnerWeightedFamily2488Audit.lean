@@ -20,5 +20,6 @@ namespace ConnesWeilRH.Dev
 #print axioms ownerPanelWeightedSecondDeriv_le_sumIntervalZeroLowerBound2488
 #print axioms abs_le_max_abs_endpoints_of_mem_Icc2488
 #print axioms abs_div_le_of_mem_Icc_of_endpointBound2488
+#print axioms ownerCoordinateNormalizedBound_of_endpointBound2488
 
 end ConnesWeilRH.Dev
