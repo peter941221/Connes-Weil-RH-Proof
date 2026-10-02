@@ -4457,3 +4457,11 @@ hcell.
 Evidence: `docs/proofs/2502_owner_exp_split_price_correction.md`,
 `scripts/diag_owner_exp_split_price_2502.py`, and
 `results/2502_owner_exp_split_price.json`.
+
+Record 2503 (2026-10-03): added and audited the Lean lower-ratio geometry
+needed by the corrected input direction.  Same-sign cells use the nearer
+endpoint; cells crossing zero use zero.  The theorem proves this ratio is
+below the normalized absolute coordinate on the whole cell.  Exponential
+payload binding and hcell closure remain open.
+Evidence: `docs/proofs/2501_owner_cell_lower_ratio_lean.md`,
+`ConnesWeilRH/Dev/C1RouteAOwnerCellLowerRatio2501.lean`.

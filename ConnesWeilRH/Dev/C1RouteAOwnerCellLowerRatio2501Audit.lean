@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.C1RouteAOwnerCellLowerRatio2501
+
+namespace ConnesWeilRH.Dev
+
+#print axioms min_abs_endpoints_le_abs_of_mem_Icc2501
+#print axioms ownerCellLowerRatio_le_normalizedAbs2501
+#print axioms ownerCellLowerRatio_nonneg2501
+
+end ConnesWeilRH.Dev
