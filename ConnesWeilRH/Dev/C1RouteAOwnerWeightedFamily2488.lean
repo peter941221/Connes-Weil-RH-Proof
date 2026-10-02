@@ -162,6 +162,24 @@ theorem familyLogSecond2345_abs_le_of_interval2488
           4 * t ^ 2 * (1 - t ^ 2)⁻¹ ^ 3) / radius ^ 2 := by
       gcongr
 
+theorem familyFirstFactor2345_norm_le_of_interval2488
+    (radius position t modulation : ℝ) (hradius : 0 < radius)
+    (hinside : |position| < radius) (ht : 0 ≤ t) (htone : t < 1)
+    (hcoord : |position / radius| ≤ t) :
+    ‖familyFirstFactor2345 modulation radius position‖ ≤
+      60 * t * (1 - t ^ 2)⁻¹ ^ 2 / radius + |modulation| := by
+  rw [familyFirstFactor2345]
+  calc
+    ‖(familyLogFirst2345 radius position : ℂ) + (modulation : ℂ) * Complex.I‖ ≤
+        ‖(familyLogFirst2345 radius position : ℂ)‖ +
+          ‖(modulation : ℂ) * Complex.I‖ := norm_add_le _ _
+    _ = |familyLogFirst2345 radius position| + |modulation| := by
+      simp [norm_mul]
+    _ ≤ 60 * t * (1 - t ^ 2)⁻¹ ^ 2 / radius + |modulation| := by
+      gcongr
+      exact familyLogFirst2345_abs_le_of_interval2488 radius position t
+        hradius hinside ht htone hcoord
+
 theorem weightedExternalFamilySecondDeriv_le_of_factor_bounds2488
     (sigma position modulation radius valueBound firstFactorBound secondFactorBound : ℝ)
     (coefficient : ℂ) (hradius : 0 < radius) (hinside : |position| < radius)
