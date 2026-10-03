@@ -4568,3 +4568,10 @@ The full 640-cell analytic inequality remains an explicit premise; this is
 table plumbing, not a margin closure.
 Evidence: `docs/proofs/2519_production_exp_table_payload_lean.md` and
 `ConnesWeilRH/Dev/C1RouteAExpProductionTable2519.lean`.
+
+Record 2520 (2026-10-03): formally bounded the archimedean factor
+`Real.exp (|sigma| * stripRadius2303)` by 64 for `sigma = ±1/2`, using a
+split Taylor remainder argument.  This isolates one missing analytic factor;
+the 640 per-cell inequalities and producer margin remain open.
+Evidence: `docs/proofs/2520_exp_weight_upper_lean.md` and
+`ConnesWeilRH/Dev/C1RouteAExpWeightUpper2520.lean`.
