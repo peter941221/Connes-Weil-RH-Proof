@@ -4552,3 +4552,10 @@ into Lean and the producer margin remains open.
 Evidence: `docs/proofs/2517_owner_production_exp_remainder_price.md`,
 `scripts/routea_owner_production_exp_remainder_2517.py`, and
 `results/2517_owner_production_exp_remainder.json`.
+
+Record 2518 (2026-10-03): added a producer-facing bridge from the 2516
+production remainder to an abstract 640-cell table.  The bridge keeps the
+per-cell inequality explicit and proves whole-table monotonicity; the
+external 2517 price is not imported as a Lean premise or conclusion.
+Evidence: `docs/proofs/2518_production_exp_table_bridge_lean.md` and
+`ConnesWeilRH/Dev/C1RouteAExpProductionTableBridge2518.lean`.
