@@ -3,5 +3,6 @@ import ConnesWeilRH.Dev.C1RouteAExpIntervalUpper2512
 namespace ConnesWeilRH.Dev
 
 #print axioms weightedExternalFamilySecondDeriv_le_of_interval_exp_upper2512
+#print axioms weightedExternalFamilySecondDeriv_le_of_interval_exp_upper_auto2513
 
 end ConnesWeilRH.Dev

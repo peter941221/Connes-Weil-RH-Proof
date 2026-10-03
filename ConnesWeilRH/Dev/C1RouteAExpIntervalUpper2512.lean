@@ -63,4 +63,36 @@ theorem weightedExternalFamilySecondDeriv_le_of_interval_exp_upper2512
       2 * |modulation| * (60 * t * (1 - t ^ 2)⁻¹ ^ 2 / radius))
     (30 / (1 - a ^ 2)) upper hc hp1 hp2 hupper')
 
+theorem weightedExternalFamilySecondDeriv_le_of_interval_exp_upper_auto2513
+    (sigma position modulation radius t a coefficientBound upper : ℝ)
+    (coefficient : ℂ) (hradius : 0 < radius) (hinside : |position| < radius)
+    (ht : 0 ≤ t) (htone : t < 1) (hcoord : |position / radius| ≤ t)
+    (ha : 0 ≤ a) (haone : a < 1) (halower : a ≤ |position / radius|)
+    (hcoefficient : ‖coefficient‖ ≤ coefficientBound)
+    (hupper : Real.exp (-30 / (1 - a ^ 2)) ≤ upper) :
+    ‖deriv (deriv (weightedFunction2348 sigma
+      (externalFamilyValue2344 coefficient modulation radius))) position‖ ≤
+      weightedCurvature2348 sigma radius
+        (coefficientBound * upper)
+        (coefficientBound * upper *
+          (60 * t * (1 - t ^ 2)⁻¹ ^ 2 / radius + |modulation|))
+        (coefficientBound * upper *
+          ((60 * ((1 - t ^ 2)⁻¹ ^ 2 +
+              4 * t ^ 2 * (1 - t ^ 2)⁻¹ ^ 3) / radius ^ 2) +
+            (60 * t * (1 - t ^ 2)⁻¹ ^ 2 / radius) ^ 2 + modulation ^ 2 +
+            2 * |modulation| *
+              (60 * t * (1 - t ^ 2)⁻¹ ^ 2 / radius))) := by
+  have hden : 0 < 1 - t ^ 2 := by nlinarith [sq_nonneg (1 - t)]
+  have hp1 : 0 ≤ 60 * t * (1 - t ^ 2)⁻¹ ^ 2 / radius + |modulation| := by
+    positivity
+  have hp2 : 0 ≤
+      (60 * ((1 - t ^ 2)⁻¹ ^ 2 + 4 * t ^ 2 * (1 - t ^ 2)⁻¹ ^ 3) /
+          radius ^ 2) +
+        (60 * t * (1 - t ^ 2)⁻¹ ^ 2 / radius) ^ 2 + modulation ^ 2 +
+        2 * |modulation| * (60 * t * (1 - t ^ 2)⁻¹ ^ 2 / radius) := by
+    positivity
+  exact weightedExternalFamilySecondDeriv_le_of_interval_exp_upper2512
+    sigma position modulation radius t a coefficientBound upper coefficient
+    hradius hinside ht htone hcoord ha haone halower hcoefficient hp1 hp2 hupper
+
 end ConnesWeilRH.Dev

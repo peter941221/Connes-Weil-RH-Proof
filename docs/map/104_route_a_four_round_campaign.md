@@ -4512,3 +4512,10 @@ interval-data contract to a certified replacement exponential upper, exposing
 the exact premises needed by the hcell comparison.
 Evidence: `docs/proofs/2512_exp_interval_upper_adapter_lean.md`,
 `ConnesWeilRH/Dev/C1RouteAExpIntervalUpper2512.lean`.
+
+Record 2513 (2026-10-03): added the automatic wrapper for the 2512 adapter.
+The two derivative-factor nonnegativity premises are now discharged from the
+geometric domain (`0 ≤ t < 1`, `0 < radius`); only the certified exponential
+upper remains as an input.  This is a premise reduction, not an hcell closure.
+Evidence: `docs/proofs/2513_exp_interval_upper_auto_lean.md` and the same
+Lean/audit pair as Record 2512.
