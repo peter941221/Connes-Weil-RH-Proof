@@ -4732,3 +4732,15 @@ Coefficient-ball membership remains a premise. Remaining cells/signs,
 exact interpolation membership, correction channels and the selected-owner
 signed margin remain open; route ruling unchanged. Evidence:
 docs/proofs/2551_boundary_cell_integral.md and results/2551_boundary_integral_readback.json.
+
+Records2552-2555: paired state replay and kernel-only evaluation now cover
+complete30-family derivative nodes2700/2701/5440/10239 at both sigma signs.
+Exact payloads and support branches are unchanged. Same-run kernel replay
+reduces node2701(-) elapsed38.11s to17.02s and node5440(+)34.47s to20.94s;
+user CPU falls58.3%/53.4%. This is verification-cost progress, not additional
+whole-cell or full-grid coverage. The exact support count still requires
+640940shared endpoint/midpoint exponentials across both signs before fourth
+and assembly costs. Next: reuse endpoint witnesses and assemble segments;
+exact coefficient membership and the complete signed budget remain open.
+Evidence: docs/proofs/2555_kernel_replay_milestone.md and
+results/2555_kernel_trial_readback.json.

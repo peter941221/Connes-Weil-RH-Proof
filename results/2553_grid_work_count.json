@@ -1,0 +1,164 @@
+{
+  "record": 2553,
+  "families": [
+    {
+      "family": 0,
+      "endpoints": 3999,
+      "midpoints": 4000
+    },
+    {
+      "family": 1,
+      "endpoints": 5289,
+      "midpoints": 5290
+    },
+    {
+      "family": 2,
+      "endpoints": 6759,
+      "midpoints": 6760
+    },
+    {
+      "family": 3,
+      "endpoints": 8409,
+      "midpoints": 8410
+    },
+    {
+      "family": 4,
+      "endpoints": 10239,
+      "midpoints": 10240
+    },
+    {
+      "family": 5,
+      "endpoints": 4409,
+      "midpoints": 4410
+    },
+    {
+      "family": 6,
+      "endpoints": 6249,
+      "midpoints": 6250
+    },
+    {
+      "family": 7,
+      "endpoints": 8409,
+      "midpoints": 8410
+    },
+    {
+      "family": 8,
+      "endpoints": 4839,
+      "midpoints": 4840
+    },
+    {
+      "family": 9,
+      "endpoints": 4839,
+      "midpoints": 4840
+    },
+    {
+      "family": 10,
+      "endpoints": 4839,
+      "midpoints": 4840
+    },
+    {
+      "family": 11,
+      "endpoints": 4839,
+      "midpoints": 4840
+    },
+    {
+      "family": 12,
+      "endpoints": 4839,
+      "midpoints": 4840
+    },
+    {
+      "family": 13,
+      "endpoints": 4839,
+      "midpoints": 4840
+    },
+    {
+      "family": 14,
+      "endpoints": 4839,
+      "midpoints": 4840
+    },
+    {
+      "family": 15,
+      "endpoints": 4839,
+      "midpoints": 4840
+    },
+    {
+      "family": 16,
+      "endpoints": 4839,
+      "midpoints": 4840
+    },
+    {
+      "family": 17,
+      "endpoints": 4839,
+      "midpoints": 4840
+    },
+    {
+      "family": 18,
+      "endpoints": 4839,
+      "midpoints": 4840
+    },
+    {
+      "family": 19,
+      "endpoints": 4839,
+      "midpoints": 4840
+    },
+    {
+      "family": 20,
+      "endpoints": 4839,
+      "midpoints": 4840
+    },
+    {
+      "family": 21,
+      "endpoints": 4839,
+      "midpoints": 4840
+    },
+    {
+      "family": 22,
+      "endpoints": 4839,
+      "midpoints": 4840
+    },
+    {
+      "family": 23,
+      "endpoints": 4839,
+      "midpoints": 4840
+    },
+    {
+      "family": 24,
+      "endpoints": 4839,
+      "midpoints": 4840
+    },
+    {
+      "family": 25,
+      "endpoints": 4839,
+      "midpoints": 4840
+    },
+    {
+      "family": 26,
+      "endpoints": 4839,
+      "midpoints": 4840
+    },
+    {
+      "family": 27,
+      "endpoints": 4839,
+      "midpoints": 4840
+    },
+    {
+      "family": 28,
+      "endpoints": 4839,
+      "midpoints": 4840
+    },
+    {
+      "family": 29,
+      "endpoints": 4839,
+      "midpoints": 4840
+    }
+  ],
+  "both_sign_active_counts": {
+    "endpoints": 320440,
+    "midpoints": 320500
+  },
+  "shared_exponential_evaluations": 640940,
+  "scope": "shared order0/order3 endpoint exponential; separate order2 midpoint exponential",
+  "excludes": "fourth-envelope exponentials, scalar bounds, signed sums, integral assembly, owner membership",
+  "independently_enumerated": true,
+  "full_grid_certificate": false
+}

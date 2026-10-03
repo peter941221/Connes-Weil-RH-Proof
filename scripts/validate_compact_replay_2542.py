@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def value(source, name):
     match = re.search(r"\bdef " + name + r"\b[^\n]*?:=(.*?)(?=\n\n)", source, re.S)
     assert match, name
-    expression = match[1].replace(": ℚ", "").replace("^", "**").strip()
+    expression = re.sub(r":\s*ℚ", "", match[1]).replace("^", "**").strip()
     tree = ast.parse(expression, mode="eval").body
 
     def read(node):

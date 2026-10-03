@@ -13,7 +13,7 @@ from validate_nonzero_node_2541 import multiply
 
 
 def check(source, *, prefix="boundary", record=2547, family_index=None,
-          grid_indices=(2700,2701), order=3, position_name="boundaryPosition2547"):
+          grid_indices=(2700,2701), order=3, position_name="boundaryPosition2547", sigma=Q(1,2)):
     i = family_index if family_index is not None else int(re.search(
         r"weightedUnitJet2539 3 \(1/2\) nodeModulation2541 ⟨(\d+),",source)[1])
     name = lambda suffix: prefix+suffix+str(record)
@@ -25,7 +25,7 @@ def check(source, *, prefix="boundary", record=2547, family_index=None,
     r = width**2
     assert abs(x) < r
     q = 1-(x/r)**2
-    a = Q(1,2)-60*x/(r**2*q**2),theta
+    a = sigma-60*x/(r**2*q**2),theta
     b = -60/(r**2*q**2)-240*x**2/(r**4*q**3)
     c = -720*x/(r**4*q**3)-1440*x**3/(r**6*q**4)
     square = multiply(a,a)
@@ -37,7 +37,7 @@ def check(source, *, prefix="boundary", record=2547, family_index=None,
         factor = square[0]+b,square[1]
     assert value(source,name("Factor")) == factor
     z = value(source,name("Input"))
-    assert z == ((x/2-30/q)/2**depth,theta*x/2**depth)
+    assert z == ((sigma*x-30/q)/2**depth,theta*x/2**depth)
     assert sum(abs(v) for v in z) <= 1
     center,error = (Q(1),Q(0)),Q(1,10**18)+19*Q(1,2**159)
     def down(v):

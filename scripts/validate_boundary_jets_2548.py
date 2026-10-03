@@ -13,8 +13,8 @@ from validate_compact_replay_2542 import value
 from validate_adaptive_nodes_2542 import scalar_def
 
 
-def check(source,side):
-    grid,order = CASES[side]
+def check(source,side, *, grid_order=None, sigma=Q(1,2)):
+    grid,order = CASES[side] if grid_order is None else grid_order
     x = scalar_def(source,f"edge{side}Position2548")
     assert x == -Q(65536001,10**7)+grid*Q(65536001,51200000000)
     raw = json.loads(CAPTURE.read_text())["owner_capture"]["families_hex"]
@@ -24,7 +24,7 @@ def check(source,side):
         p = f"edge{side}P{i:03d}"
         if abs(x) < width**2:
             check_interior(source,prefix=p,record=2548,family_index=i,grid_indices=(grid,),
-                           order=order,position_name=f"edge{side}Position2548")
+                           order=order,position_name=f"edge{side}Position2548",sigma=sigma)
             assert p+"Exterior2548" not in source
             active.append(i)
         else:

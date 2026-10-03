@@ -10,7 +10,8 @@ from routea_exp_schedule_probe_2542 import R, STEP
 from routea_derivative_pricing_2543 import multiplier
 
 
-def render(*, grid_index=None, family_index=None, order=3):
+def render(*, grid_index=None, family_index=None, order=3, sigma=Q(1,2), paired=False):
+    assert sigma in (Q(1,2), Q(-1,2))
     assert order in (2,3)
     candidates = []
     raw = json.loads(CAPTURE.read_text())["owner_capture"]["families_hex"]
@@ -25,14 +26,14 @@ def render(*, grid_index=None, family_index=None, order=3):
             radius = width**2
             if abs(x) >= radius:
                 continue
-            factor = multiplier(order,radius,theta,Q(1,2),x)
+            factor = multiplier(order,radius,theta,sigma,x)
             mag = sum(abs((Q(row["ideal_base_coefficient"][p]["lower_exact"])+
                           Q(row["ideal_base_coefficient"][p]["upper_exact"]))/2) for p in ("real","imag"))
-            error = precision_evaluate(radius,theta,x,Q(1,2),100)[1]
+            error = precision_evaluate(radius,theta,x,sigma,100)[1]
             candidates.append((mag*sum(abs(v) for v in factor)*error,index,i,x,radius,theta,factor))
     charge,index,i,x,radius,theta,factor = max(candidates)
-    center,error,depth = precision_evaluate(radius,theta,x,Q(1,2),160)
-    z = ((x/2-30/(1-(x/radius)**2))/2**depth,theta*x/2**depth)
+    center,error,depth = precision_evaluate(radius,theta,x,sigma,160)
+    z = ((sigma*x-30/(1-(x/radius)**2))/2**depth,theta*x/2**depth)
     source = f"""import ConnesWeilRH.Dev.C1RouteACompactExp1602547
 import ConnesWeilRH.Dev.C1RouteADerivativeMultiplier2543
 import ConnesWeilRH.Dev.C1RouteANonzeroNode2541
@@ -101,6 +102,19 @@ end ConnesWeilRH.Dev
 #print axioms ConnesWeilRH.Dev.boundaryBaseError2547
 #print axioms ConnesWeilRH.Dev.boundaryThirdError2547
 """
+    if sigma == Q(-1,2):
+        source = source.replace("(1/2)", "(-1/2)")
+    if paired:
+        start = source.index("  have hc :")
+        end = source.index("  have h := compactExp_error2547", start)
+        replacement = f"""  have hs : compactExp2547 boundaryInput2547 {depth} =
+      (boundaryCenter2547, {real(error).replace('ℝ','ℚ')}) := by cbv
+  have hc := congrArg Prod.fst hs
+  have he : ((compactExp2547 boundaryInput2547 {depth}).2 : ℝ) = boundaryError2547 := by
+    rw [hs]
+    norm_num [boundaryError2547]
+"""
+        source = source[:start] + replacement + source[end:]
     lines = []
     for line in source.splitlines():
         indent = len(line)-len(line.lstrip())
