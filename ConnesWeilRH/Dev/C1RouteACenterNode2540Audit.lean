@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteACenterNode2540
+
+#print axioms ConnesWeilRH.Dev.baseCoefficient_sum_norm_le2540
+#print axioms ConnesWeilRH.Dev.exp_neg_thirty_upper2540
+#print axioms ConnesWeilRH.Dev.weightedPhysical_center_eq2540
+#print axioms ConnesWeilRH.Dev.weightedPhysical_center_le2540
+#print axioms ConnesWeilRH.Dev.baseCoefficient_error_of_box2540
+#print axioms ConnesWeilRH.Dev.signedJet_center_le2540

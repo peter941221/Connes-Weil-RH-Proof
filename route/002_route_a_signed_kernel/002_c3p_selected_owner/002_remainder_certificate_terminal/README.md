@@ -109,3 +109,8 @@ Record 2539 closes the signed aggregate analytic step through the full-strip
 inequality on the exact 10240-cell grid. The remaining premises concern
 concrete numerical bounds and exact coefficient membership. The base pin,
 other endpoint channels and complete selected-owner signed margin remain open.
+
+Record 2540 supplies the first concrete node upper on this signed path:
+69/5 at x=0, including coefficient uncertainty from the imported exact 2338
+base rectangles. Nonzero-node and curvature certificates, exact coefficient
+membership and the full-grid integral remain open.

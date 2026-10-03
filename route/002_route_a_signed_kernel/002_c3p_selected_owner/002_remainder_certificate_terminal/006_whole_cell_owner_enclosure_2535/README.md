@@ -1,6 +1,6 @@
 006: whole-cell base enclosure and local bump proof
 
-Status: EXTERNAL BASE ENCLOSURE PASSES; SIGNED AGGREGATE ANALYTIC BOUND FORMAL.
+Status: EXTERNAL BASE ENCLOSURE PASSES; ANALYTIC BOUND AND CENTER NODE FORMAL.
 
 The 2338 base coefficient boxes, signed modulation, squared-width family
 radii and selected-detector target remain unchanged. The 10240-cell external
@@ -14,11 +14,15 @@ compose it with the weighted complex exponential and prove the explicit
 whole-cell third-derivative bound, with no assumed derivative magnitude.
 Record 2539 assembles the signed midpoint-second bound and cell chord
 integrals into a full-strip inequality on the 10240-cell grid. It retains
-coefficient membership as a premise; concrete numerical bounds remain open.
+coefficient membership as a premise; full-grid numerical bounds remain open.
+Record 2540 certifies the center node x=0 (grid index 5120): the signed
+midpoint-plus-error expression is at most 69/5. It imports the exact 2338
+base rectangles and proves their inclusion in radius-10^-30 balls. Membership
+of the intended interpolation coefficients in those rectangles remains open.
 
 Next steps
 
-1. Certify representative node and midpoint values in Lean, preserving
+1. Certify nonzero node and midpoint values in Lean, preserving
    signed sums and coefficient uncertainty. Completion requires concrete
    numerical inequalities, including cancellation and support-edge cases.
 
@@ -41,3 +45,5 @@ docs/proofs/2538_weighted_family_whole_cell.md
 results/2538_weighted_cell_validation.json
 docs/proofs/2539_signed_aggregate_cell.md
 results/2539_signed_aggregate_validation.json
+docs/proofs/2540_center_node_certificate.md
+results/2540_center_node_validation.json

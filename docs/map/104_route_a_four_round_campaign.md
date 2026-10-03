@@ -4654,3 +4654,15 @@ signed margin remain open. The route ruling is unchanged. Audit/root build:
 4393 jobs, eight standard-axiom leaves, 617 matching source files. Evidence:
 `docs/proofs/2539_signed_aggregate_cell.md` and
 `results/2539_signed_aggregate_validation.json`.
+
+Record 2540 (2026-10-03): imports the 120 exact base-coefficient endpoints
+from 2338 and proves the production center-node signed upper 69/5 in Lean.
+The node is index 5120 of the 10240-cell grid. The midpoint coefficients are
+unchanged; the formal uniform radius 10^-30 contains each imported rectangle
+and is charged in the node upper. The actual-box function has upper 6899/500.
+This is a concrete numerical node certificate, not a full-grid certificate:
+at zero the modulation drops out, so nonzero complex-exponential evaluation,
+curvature numerics, exact interpolation-coefficient membership and the full
+signed budget remain open. Route ruling unchanged. Evidence:
+`docs/proofs/2540_center_node_certificate.md` and
+`results/2540_center_node_validation.json`.

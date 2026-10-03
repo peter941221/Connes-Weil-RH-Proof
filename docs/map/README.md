@@ -78,8 +78,10 @@ Two equivalent attack lanes remain admissible:
   composition and the explicit whole-cell third bound. Record 2539 proves
   signed aggregate midpoint curvature, chord integration and the full-strip
   inequality on the 10240-cell grid, conditional on coefficient membership.
-  Numeric import and exact-owner transfer remain open; the signed producer
-  is unchanged.
+  Record 2540 imports the exact 2338 base rectangles and certifies the center
+  node upper 69/5, including coefficient uncertainty. Nonzero-node and
+  curvature numerics, full-grid import and exact-owner transfer remain open;
+  the signed producer is unchanged.
 
 This lane must prove an unconditional signed inequality on the actual selected
 detector and its actual finite visible-prime set. Channelwise absolute
