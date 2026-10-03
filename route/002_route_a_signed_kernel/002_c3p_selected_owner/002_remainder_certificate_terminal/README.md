@@ -114,3 +114,8 @@ Record 2540 supplies the first concrete node upper on this signed path:
 69/5 at x=0, including coefficient uncertainty from the imported exact 2338
 base rectangles. Nonzero-node and curvature certificates, exact coefficient
 membership and the full-grid integral remain open.
+
+Record 2541 certifies the first positive nonzero node at sigma=1/2 with
+upper 13.7900014901. Thirty checked complex-exponential witnesses feed a
+signed sum and its squared-norm comparison. Other nodes/signs, curvature
+certification, exact interpolation membership and the full integral remain open.

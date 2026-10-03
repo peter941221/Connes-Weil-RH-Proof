@@ -4666,3 +4666,16 @@ curvature numerics, exact interpolation-coefficient membership and the full
 signed budget remain open. Route ruling unchanged. Evidence:
 `docs/proofs/2540_center_node_certificate.md` and
 `results/2540_center_node_validation.json`.
+
+Record 2541 (2026-10-04): the first positive nonzero production node now
+has a FORMAL signed numerical certificate. At index 5121/10240, sigma=1/2,
+the same 30-family midpoint-plus-error expression is at most 13.7900014901.
+Each complex exponential uses 19 rounded Horner steps and six rounded
+squarings, with proved Taylor and propagation bounds. The signed complex sum
+precedes the norm. Exact witness readback checks 570 Horner and 180 square
+steps; the evaluation charge is about 9.97e-15 against the proved 1e-12
+allowance. Audit/root build: 4536 jobs, 36 standard-axiom leaves, 725 matching
+sources. Other nodes/signs, curvature numerics, full-grid integration, exact
+interpolation membership and the full signed budget remain open. Route ruling
+unchanged. Evidence: `docs/proofs/2541_nonzero_node_certificate.md` and
+`results/2541_nonzero_node_validation.json`.

@@ -79,9 +79,10 @@ Two equivalent attack lanes remain admissible:
   signed aggregate midpoint curvature, chord integration and the full-strip
   inequality on the 10240-cell grid, conditional on coefficient membership.
   Record 2540 imports the exact 2338 base rectangles and certifies the center
-  node upper 69/5, including coefficient uncertainty. Nonzero-node and
-  curvature numerics, full-grid import and exact-owner transfer remain open;
-  the signed producer is unchanged.
+  node upper 69/5. Record 2541 certifies the first positive nonzero node at
+  sigma=1/2 with upper 13.7900014901; both retain coefficient uncertainty.
+  Other nodes/signs, curvature numerics, full-grid import and exact-owner
+  transfer remain open; the signed producer is unchanged.
 
 This lane must prove an unconditional signed inequality on the actual selected
 detector and its actual finite visible-prime set. Channelwise absolute

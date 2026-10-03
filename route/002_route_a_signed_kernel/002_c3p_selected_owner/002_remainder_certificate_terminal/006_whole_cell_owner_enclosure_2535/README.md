@@ -1,6 +1,6 @@
 006: whole-cell base enclosure and local bump proof
 
-Status: EXTERNAL BASE ENCLOSURE PASSES; ANALYTIC BOUND AND CENTER NODE FORMAL.
+Status: EXTERNAL BASE ENCLOSURE PASSES; ANALYTIC BOUND AND TWO NODE PILOTS FORMAL.
 
 The 2338 base coefficient boxes, signed modulation, squared-width family
 radii and selected-detector target remain unchanged. The 10240-cell external
@@ -19,12 +19,16 @@ Record 2540 certifies the center node x=0 (grid index 5120): the signed
 midpoint-plus-error expression is at most 69/5. It imports the exact 2338
 base rectangles and proves their inclusion in radius-10^-30 balls. Membership
 of the intended interpolation coefficients in those rectangles remains open.
+Record 2541 certifies the first positive nonzero node, index 5121/10240 at
+sigma=1/2, with upper 13.7900014901. It retains signed modulation in all 30
+complex exponentials and includes the proved evaluation and coefficient errors.
 
 Next steps
 
-1. Certify nonzero node and midpoint values in Lean, preserving
-   signed sums and coefficient uncertainty. Completion requires concrete
-   numerical inequalities, including cancellation and support-edge cases.
+1. Extend the nonzero-node certificate to stronger phases, the other sign
+   and support-edge cases, then midpoint derivatives. Completion requires
+   concrete numerical inequalities with the scaled-argument and error gates
+   checked for each case. Price witness size before full-grid expansion.
 
 2. Certify node and midpoint values and import exact rational cell sums in segments.
    Completion requires both Lean endpoint inequalities without numeric premises.
@@ -47,3 +51,5 @@ docs/proofs/2539_signed_aggregate_cell.md
 results/2539_signed_aggregate_validation.json
 docs/proofs/2540_center_node_certificate.md
 results/2540_center_node_validation.json
+docs/proofs/2541_nonzero_node_certificate.md
+results/2541_nonzero_node_validation.json
