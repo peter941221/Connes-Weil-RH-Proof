@@ -8,12 +8,15 @@ from generate_adaptive_nodes_2542 import render as render_node
 from validate_adaptive_nodes_2542 import scalar_def
 
 
-def render():
-    right_source,right_info = render_node(5441,1)
+def render(*, cell_index=5440, sources=None, midpoint_upper=Q(997840737,400000),
+           left_upper=Q(721605217,1250000000)):
+    right_source,right_info = render_node(cell_index+1,1)
     h = Q(65536001,51200000000)
     left = (ROOT/"ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean").read_text()
     right = (ROOT/"ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean").read_text()
     fourth = (ROOT/"ConnesWeilRH/Dev/C1RouteAFourthEnvelope2545.lean").read_text()
+    if sources is not None:
+        left,right,fourth = sources
     coeffs = json.loads((ROOT/"results/2338_exact_interpolation_repair.json").read_text())["coefficient_rows"]
     def ceilq(v,scale=10**6):
         return Q(-((-v.numerator*scale)//v.denominator),scale)
@@ -62,8 +65,7 @@ theorem {p}ChargeBound2546 :
 
 """)
     total = sum(uppers)
-    curvature = ceilq(Q(997840737,400000)+total*h/2)
-    left_upper = Q(721605217,1250000000)
+    curvature = ceilq(midpoint_upper+total*h/2)
     right_upper = Q(right_info["upper"])
     integral = ceilq(h/2*(left_upper+right_upper)+curvature*h**3/12,10**12)
     parts.append("noncomputable def cellCharge2546 (i : Fin 30) : ℝ :=\n  match i.val with\n")

@@ -17,8 +17,10 @@ def polynomial(k, t):
     return sum(Q(c)*t**j for j,c in enumerate(rows[k]))
 
 
-def render(count):
-    a,b = -R+5440*STEP,-R+5441*STEP
+def render(count, *, cell_index=5440, indices=None, precision=100):
+    assert precision in (100,160)
+    a,b = -R+cell_index*STEP,-R+(cell_index+1)*STEP
+    selected = list(range(count)) if indices is None else list(indices)
     families = json.loads(CAPTURE.read_text())["owner_capture"]["families_hex"]
     parts = ["""import ConnesWeilRH.Dev.C1RouteAFactoredCellEnvelope2545
 
@@ -29,15 +31,20 @@ open ConnesWeilRH.Dev.C1RouteAOwnerScaleAudit
 
 """]
     readings = []
-    for i in range(count):
+    for i in selected:
         width,theta = (Q.from_float(float.fromhex(v)) for v in families[i])
         r = width**2
-        near,far = a/r,b/r
-        assert 0 < near < far < 1
+        near,far = min(abs(a),abs(b))/r,min(max(abs(a),abs(b)),r)/r
+        assert a*b > 0 and 0 < near < 1 and near < far <= 1
         exponent = b/2-30/(1-near**2)
         # Reuse only the proved scalar exponential algorithm: its real
-        # argument is exactly b/2 - 30/(1-(a/r)^2), with imaginary part zero.
-        ev = evaluate(r,Q(0),a,b/(2*a))
+        # argument is exactly b/2 - 30/(1-near^2), with imaginary part zero.
+        closest = near*r
+        ev = evaluate(r,Q(0),closest,b/(2*closest))
+        if precision == 160:
+            from price_boundary_precision_2547 import precision_evaluate
+            center,error,depth = precision_evaluate(r,Q(0),closest,b/(2*closest),160)
+            ev = dict(center=center,error=error,depth=depth,trace=((exponent/2**depth,Q(0)),))
         z,k = ev["trace"][0],ev["depth"]
         assert z == (exponent/2**k,0)
         exponential = sum(abs(v) for v in ev["center"])+ev["error"]
@@ -47,7 +54,7 @@ open ConnesWeilRH.Dev.C1RouteAOwnerScaleAudit
         poly = sum(comb(4,j)*frequency**j*polynomial(4-j,far)*
                    (1-near**2)**(-2*(4-j))/r**(4-j) for j in range(5))
         raw = exponential*poly
-        upper = Q(-((-raw.numerator*2**100)//raw.denominator),2**100)
+        upper = Q(-((-raw.numerator*2**precision)//raw.denominator),2**precision)
         p = f"fourthP{i:03d}"
         parts.append(f"""def {p}Input2545 : RatPair2542 := {pair(z)}
 
@@ -110,7 +117,7 @@ theorem {p}Bound2545 : fourthCellTerm2544 ⟨{i}, by omega⟩ ≤ {p}Upper2545 :
 """)
         readings.append(dict(index=i,exponential_upper=str(exponential),frequency=str(frequency),
                              upper=str(upper),upper_display=float(upper)))
-    if count == 30:
+    if selected == list(range(30)):
         parts.append("noncomputable def fourthUpper2545 (i : Fin 30) : ℝ :=\n  match i.val with\n")
         parts.extend(f"  | {i} => fourthP{i:03d}Upper2545\n" for i in range(30))
         parts.append("  | _ => 0\n\n")
@@ -119,11 +126,14 @@ theorem {p}Bound2545 : fourthCellTerm2544 ⟨{i}, by omega⟩ ≤ {p}Upper2545 :
         parts.extend(f"  · exact fourthP{i:03d}Bound2545\n" for i in range(30))
         parts.append("\n")
     parts.append("end ConnesWeilRH.Dev\n\n")
-    parts.extend(f"#print axioms ConnesWeilRH.Dev.fourthP{i:03d}Bound2545\n" for i in range(count))
-    if count == 30:
+    parts.extend(f"#print axioms ConnesWeilRH.Dev.fourthP{i:03d}Bound2545\n" for i in selected)
+    if selected == list(range(30)):
         parts.append("#print axioms ConnesWeilRH.Dev.fourthBound2545\n")
     lines = []
-    for line in "".join(parts).splitlines():
+    output = "".join(parts)
+    if precision == 160:
+        output = output.replace("compactExp2542","compactExp2547").replace("compactExp_error2542","compactExp_error2547")
+    for line in output.splitlines():
         indent = len(line)-len(line.lstrip())
         lines.extend(textwrap.wrap(line,width=98,subsequent_indent=" "*(indent+4),
                                   break_long_words=False,break_on_hyphens=False) or [""])

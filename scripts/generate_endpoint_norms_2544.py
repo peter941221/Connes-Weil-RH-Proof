@@ -9,8 +9,9 @@ from validate_compact_replay_2542 import value
 from validate_adaptive_nodes_2542 import scalar_def
 
 
-def render(side,count):
-    source = (ROOT/f"ConnesWeilRH/Dev/C1RouteAEndpoint{side}Third2544.lean").read_text()
+def render(side,count, *, source=None, bits=100):
+    if source is None:
+        source = (ROOT/f"ConnesWeilRH/Dev/C1RouteAEndpoint{side}Third2544.lean").read_text()
     parts = [f"""import ConnesWeilRH.Dev.C1RouteAEndpoint{side}Third2544
 import ConnesWeilRH.Dev.C1RouteASignedMidpoint2543
 
@@ -23,7 +24,7 @@ namespace ConnesWeilRH.Dev
         error = scalar_def(source,p+"Error2544")
         product = mul(factor,center)
         square = sum(v*v for v in product)
-        scale = 2**100
+        scale = 2**bits
         center_bound = Q(isqrt(square.numerator*scale**2//square.denominator)+1,scale)
         needed = center_bound+sum(abs(v) for v in factor)*error
         scaled = needed*scale

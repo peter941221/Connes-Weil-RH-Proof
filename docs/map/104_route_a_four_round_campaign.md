@@ -4719,3 +4719,16 @@ cell, not the grid or exact-owner transfer. Remaining cells/signs, exact
 interpolation membership, correction channels and selected-owner signed
 margin remain open; route ruling unchanged. Evidence:
 docs/proofs/2546_first_cell_integral.md and results/2546_cell_readback.json.
+
+Records2547-2551 (2026-10-04): FORMAL support-crossing cell2700 norm-integral
+upper57/500000000000=1.14e-10 at sigma+1/2 for the unchanged30-family owner.
+The named derivative-precision probe rejects blind100-bit replication on
+56/96boundary cases; a proved160-bit evaluator supplies actual endpoint and
+midpoint derivatives. Six families are active at the left,28at the right
+and midpoint, with22support crossings. Certified fourth envelopes retain
+the original geometry and support split. The coefficient-weighted third
+upper0.008746 and curvature0.000182 feed the original integral consumer.
+Coefficient-ball membership remains a premise. Remaining cells/signs,
+exact interpolation membership, correction channels and the selected-owner
+signed margin remain open; route ruling unchanged. Evidence:
+docs/proofs/2551_boundary_cell_integral.md and results/2551_boundary_integral_readback.json.

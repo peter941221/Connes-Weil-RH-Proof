@@ -10,8 +10,9 @@ from validate_compact_replay_2542 import value
 from validate_adaptive_nodes_2542 import scalar_def
 
 
-def render():
-    source = (ROOT/"ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean").read_text()
+def render(*, source=None):
+    if source is None:
+        source = (ROOT/"ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean").read_text()
     coefficients = json.loads((ROOT/"results/2338_exact_interpolation_repair.json").read_text())["coefficient_rows"]
     parts = ["""import ConnesWeilRH.Dev.C1RouteAMidpointDerivatives2543
 

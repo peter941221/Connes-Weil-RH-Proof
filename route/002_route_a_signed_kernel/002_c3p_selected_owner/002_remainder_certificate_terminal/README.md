@@ -141,3 +141,11 @@ is certified at index5441. Coefficient-ball membership remains a premise;
 remaining cells/signs, exact-owner transfer and the complete selected-owner
 signed margin remain open. Evidence: docs/proofs/2546_first_cell_integral.md
 and results/2546_cell_readback.json.
+
+Records2547-2551 complete support-crossing cell2700 at sigma+1/2 with
+norm-integral upper1.14e-10, conditional on coefficient-ball membership.
+The160-bit derivative evaluator, exact exterior zero and original fourth
+envelopes handle the22support crossings. Full-grid/other-sign coverage,
+exact coefficient membership and the full signed budget remain open.
+Evidence: docs/proofs/2551_boundary_cell_integral.md and
+results/2551_boundary_integral_readback.json.

@@ -88,7 +88,10 @@ Two equivalent attack lanes remain admissible:
   of cell 5440, sigma=+1/2. Records 2544-2546 certify its third-order
   endpoints, fourth-order envelopes and first numerical whole-cell integral
   upper 0.000758415674, conditional on coefficient-ball membership.
-  Remaining cells/signs, full-grid import and exact-owner transfer remain
+  Records2547-2551 additionally certify support-crossing cell2700 at
+  sigma=+1/2 with upper1.14e-10, using160-bit derivative evaluation and
+  exact exterior-zero branches. Remaining cells/signs, full-grid import
+  and exact-owner transfer remain
   open; the signed producer is unchanged.
 
 This lane must prove an unconditional signed inequality on the actual selected

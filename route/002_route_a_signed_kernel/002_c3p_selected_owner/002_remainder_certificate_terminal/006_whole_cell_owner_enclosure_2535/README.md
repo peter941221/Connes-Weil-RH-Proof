@@ -70,3 +70,9 @@ the first complete numerical integral upper for cell5440 at sigma=+1/2:
 0.000758415674, conditional on coefficient-ball membership. This does not
 complete the other cells/signs or exact-owner transfer. Current evidence:
 docs/proofs/2546_first_cell_integral.md and results/2546_cell_readback.json.
+
+Records2547-2551 certify a second complete cell,2700at sigma+1/2, with
+upper1.14e-10 and explicit coefficient-ball membership. This exercises
+22support crossings and160-bit derivative evaluation. Full-grid/other-sign
+coverage and exact-owner transfer remain open. Evidence:
+docs/proofs/2551_boundary_cell_integral.md and results/2551_boundary_integral_readback.json.
