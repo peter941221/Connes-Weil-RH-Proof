@@ -95,4 +95,39 @@ theorem weightedExternalFamilySecondDeriv_le_of_interval_exp_upper_auto2513
     sigma position modulation radius t a coefficientBound upper coefficient
     hradius hinside ht htone hcoord ha haone halower hcoefficient hp1 hp2 hupper
 
+theorem ownerPanelWeightedSecondDeriv_le_sumIntervalExpUpper_auto2513
+    (sigma x : ℝ) (t a coefficientBound upper : Fin 30 → ℝ)
+    (hinside : ∀ i : Fin 30, |x| < ownerRad_2463 i)
+    (ht : ∀ i : Fin 30, 0 ≤ t i)
+    (htone : ∀ i : Fin 30, t i < 1)
+    (hcoord : ∀ i : Fin 30, |x / ownerRad_2463 i| ≤ t i)
+    (ha : ∀ i : Fin 30, 0 ≤ a i)
+    (haone : ∀ i : Fin 30, a i < 1)
+    (halower : ∀ i : Fin 30, a i ≤ |x / ownerRad_2463 i|)
+    (hcoefficient : ∀ i : Fin 30,
+      ‖ownerCoef_2463 i‖ ≤ coefficientBound i)
+    (hupper : ∀ i : Fin 30,
+      Real.exp (-30 / (1 - (a i) ^ 2)) ≤ upper i) :
+    ‖deriv (deriv (weightedFunction2348 sigma ownerPanelSumValue_2467)) x‖ ≤
+      ∑ i : Fin 30, weightedCurvature2348 sigma (ownerRad_2463 i)
+        (coefficientBound i * upper i)
+        (coefficientBound i * upper i *
+          (60 * t i * (1 - (t i) ^ 2)⁻¹ ^ 2 / ownerRad_2463 i +
+            |ownerMod_2463 i|))
+        (coefficientBound i * upper i *
+          ((60 * ((1 - (t i) ^ 2)⁻¹ ^ 2 +
+              4 * (t i) ^ 2 * (1 - (t i) ^ 2)⁻¹ ^ 3) /
+              (ownerRad_2463 i) ^ 2) +
+            (60 * t i * (1 - (t i) ^ 2)⁻¹ ^ 2 / ownerRad_2463 i) ^ 2 +
+            (ownerMod_2463 i) ^ 2 +
+            2 * |ownerMod_2463 i| *
+              (60 * t i * (1 - (t i) ^ 2)⁻¹ ^ 2 / ownerRad_2463 i))) := by
+  apply ownerPanelWeightedSecondDeriv_le_sumFamilyBound2488 sigma x
+  intro i
+  exact weightedExternalFamilySecondDeriv_le_of_interval_exp_upper_auto2513
+    sigma x (ownerMod_2463 i) (ownerRad_2463 i) (t i) (a i)
+    (coefficientBound i) (upper i) (ownerCoef_2463 i)
+    (ownerRadPos_2465 i) (hinside i) (ht i) (htone i) (hcoord i)
+    (ha i) (haone i) (halower i) (hcoefficient i) (hupper i)
+
 end ConnesWeilRH.Dev

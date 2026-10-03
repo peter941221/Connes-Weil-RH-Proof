@@ -7,4 +7,6 @@ factor bounds by `positivity`.  The exponential/table comparison remains an
 explicit certified premise; this does not close the owner cell inequality.
 
 Evidence: `ConnesWeilRH/Dev/C1RouteAExpIntervalUpper2512.lean` and its audit
-file.  The audit must report only the standard three Mathlib axioms.
+file.  The same file now also provides the 30-family panel sum adapter, with
+the per-family certified exponential upper as its only replacement input.
+The audit must report only the standard three Mathlib axioms.
