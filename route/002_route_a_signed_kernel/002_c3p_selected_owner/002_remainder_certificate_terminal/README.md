@@ -98,3 +98,9 @@ node evaluations, and exact rational cell charges. Both external endpoint
 totals fit the pin. Lean proves the underlying actual bump bound through
 order four; the weighted-family composition and numerical import remain open.
 The next terminal is `006_whole_cell_owner_enclosure_2535/README.md`.
+
+Records 2537-2538 close the weighted-family analytic step: exact signed
+derivatives, the explicit fourth envelope, and the whole-cell third bound
+now apply to the existing weighted external-family function in Lean. The
+terminal's remaining work starts with the signed aggregate midpoint bound,
+then numerical certificate import and exact-owner transfer.

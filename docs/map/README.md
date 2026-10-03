@@ -74,8 +74,10 @@ Two equivalent attack lanes remain admissible:
 
   Latest base-strip evidence: records 2535-2536 in map 104 replace sampled
   third-derivative maxima with an external whole-cell enclosure and prove the
-  local order-0..4 bump bound in Lean. Weighted-family composition, numeric
-  import and exact-owner transfer remain open; the signed producer is unchanged.
+  local order-0..4 bump bound in Lean. Records 2537-2538 prove weighted-family
+  composition and the explicit whole-cell third bound. Signed aggregate
+  assembly, numeric import and exact-owner transfer remain open; the signed
+  producer is unchanged.
 
 This lane must prove an unconditional signed inequality on the actual selected
 detector and its actual finite visible-prime set. Channelwise absolute

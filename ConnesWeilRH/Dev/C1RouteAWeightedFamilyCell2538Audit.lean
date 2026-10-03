@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteAWeightedFamilyCell2538
+
+#print axioms ConnesWeilRH.Dev.weightedExternalFamily_iteratedDeriv_le_cell2538
+#print axioms ConnesWeilRH.Dev.weightedExternalFamily_iteratedDeriv_zero_outside2538
+#print axioms ConnesWeilRH.Dev.weightedExternalFamily_third_le_endpoints2538
+#print axioms ConnesWeilRH.Dev.weightedExternalFamily_third_le_cell2538
+#print axioms ConnesWeilRH.Dev.weightedFamilyCellUpper_four2538
+#print axioms ConnesWeilRH.Dev.weightedExternalFamily_third_le_coefficient_ball2538

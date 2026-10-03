@@ -4629,3 +4629,16 @@ bridge, correction-channel obligations and the full selected-owner signed
 margin remain open. The route ruling is unchanged. Evidence:
 `docs/proofs/2535_whole_cell_fourth_enclosure.md` and
 `docs/proofs/2536_coupled_bump_envelope.md`.
+
+Records 2537-2538 (2026-10-03): weighted external-family composition and
+the explicit whole-cell third-derivative bound are now FORMAL. The theorem
+weightedExternalFamily_third_le_cell2538 derives its fourth bound from
+2536, computes near/far geometry, and covers support-crossing and exterior
+cells. Its analytic inputs are only a positive radius and ordered endpoints.
+The coefficient-ball variant retains the |center|+error charge. This removes
+the weighted-family/Lipschitz analytic premises from the 2535 path, while
+signed aggregate assembly, Lean numerical import, exact-owner transfer and
+the complete signed margin remain open. The route ruling is unchanged.
+Evidence: `docs/proofs/2537_weighted_family_derivatives.md`,
+`docs/proofs/2538_weighted_family_whole_cell.md` and
+`results/2538_weighted_cell_validation.json`.

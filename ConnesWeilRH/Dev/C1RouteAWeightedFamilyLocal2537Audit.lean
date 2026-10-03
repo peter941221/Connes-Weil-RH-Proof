@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RouteAWeightedFamilyLocal2537
+
+#print axioms ConnesWeilRH.Dev.weightedExternalFamily_eq2537
+#print axioms ConnesWeilRH.Dev.weightedExternalFamily_iteratedDeriv2537
+#print axioms ConnesWeilRH.Dev.weightedExternalFamily_iteratedDeriv_le_local2537
