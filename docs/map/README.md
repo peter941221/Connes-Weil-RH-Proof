@@ -75,9 +75,11 @@ Two equivalent attack lanes remain admissible:
   Latest base-strip evidence: records 2535-2536 in map 104 replace sampled
   third-derivative maxima with an external whole-cell enclosure and prove the
   local order-0..4 bump bound in Lean. Records 2537-2538 prove weighted-family
-  composition and the explicit whole-cell third bound. Signed aggregate
-  assembly, numeric import and exact-owner transfer remain open; the signed
-  producer is unchanged.
+  composition and the explicit whole-cell third bound. Record 2539 proves
+  signed aggregate midpoint curvature, chord integration and the full-strip
+  inequality on the 10240-cell grid, conditional on coefficient membership.
+  Numeric import and exact-owner transfer remain open; the signed producer
+  is unchanged.
 
 This lane must prove an unconditional signed inequality on the actual selected
 detector and its actual finite visible-prime set. Channelwise absolute

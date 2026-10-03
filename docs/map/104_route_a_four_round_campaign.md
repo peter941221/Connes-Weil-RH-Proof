@@ -4642,3 +4642,15 @@ the complete signed margin remain open. The route ruling is unchanged.
 Evidence: `docs/proofs/2537_weighted_family_derivatives.md`,
 `docs/proofs/2538_weighted_family_whole_cell.md` and
 `results/2538_weighted_cell_validation.json`.
+
+Record 2539 (2026-10-03): the signed 30-family midpoint-second bound,
+cell chord integral, composite grid inequality and full-strip reduction are
+now FORMAL. The center sum remains inside the norm; coefficient errors and
+third-derivative variation retain their separate scalar charges. The final
+10240-cell theorem assumes coefficient membership in the chosen balls, but
+no derivative-bound premise. Concrete numerical evaluation, exact 2338
+coefficient membership, other endpoint channels and the complete selected-owner
+signed margin remain open. The route ruling is unchanged. Audit/root build:
+4393 jobs, eight standard-axiom leaves, 617 matching source files. Evidence:
+`docs/proofs/2539_signed_aggregate_cell.md` and
+`results/2539_signed_aggregate_validation.json`.

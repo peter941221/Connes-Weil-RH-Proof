@@ -1,6 +1,6 @@
 006: whole-cell base enclosure and local bump proof
 
-Status: EXTERNAL BASE ENCLOSURE PASSES; WEIGHTED-FAMILY WHOLE-CELL BOUND FORMAL.
+Status: EXTERNAL BASE ENCLOSURE PASSES; SIGNED AGGREGATE ANALYTIC BOUND FORMAL.
 
 The 2338 base coefficient boxes, signed modulation, squared-width family
 radii and selected-detector target remain unchanged. The 10240-cell external
@@ -12,13 +12,15 @@ Record 2536 proves the local order-0..4 derivative bound for the existing
 widthBump function, including its flat support boundary. Records 2537-2538
 compose it with the weighted complex exponential and prove the explicit
 whole-cell third-derivative bound, with no assumed derivative magnitude.
+Record 2539 assembles the signed midpoint-second bound and cell chord
+integrals into a full-strip inequality on the 10240-cell grid. It retains
+coefficient membership as a premise; concrete numerical bounds remain open.
 
 Next steps
 
-1. Assemble the signed aggregate's midpoint-second bound from the proved
-   familywise third bounds. Keep the midpoint complex sum before the norm
-   and add coefficient uncertainty separately. Completion requires the
-   same center-plus-error inequality used by the 2535 evaluator.
+1. Certify representative node and midpoint values in Lean, preserving
+   signed sums and coefficient uncertainty. Completion requires concrete
+   numerical inequalities, including cancellation and support-edge cases.
 
 2. Certify node and midpoint values and import exact rational cell sums in segments.
    Completion requires both Lean endpoint inequalities without numeric premises.
@@ -37,3 +39,5 @@ results/2536_coupled_bump_validation.json
 docs/proofs/2537_weighted_family_derivatives.md
 docs/proofs/2538_weighted_family_whole_cell.md
 results/2538_weighted_cell_validation.json
+docs/proofs/2539_signed_aggregate_cell.md
+results/2539_signed_aggregate_validation.json

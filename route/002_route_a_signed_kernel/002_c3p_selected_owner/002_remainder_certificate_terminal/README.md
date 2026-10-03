@@ -104,3 +104,8 @@ derivatives, the explicit fourth envelope, and the whole-cell third bound
 now apply to the existing weighted external-family function in Lean. The
 terminal's remaining work starts with the signed aggregate midpoint bound,
 then numerical certificate import and exact-owner transfer.
+
+Record 2539 closes the signed aggregate analytic step through the full-strip
+inequality on the exact 10240-cell grid. The remaining premises concern
+concrete numerical bounds and exact coefficient membership. The base pin,
+other endpoint channels and complete selected-owner signed margin remain open.

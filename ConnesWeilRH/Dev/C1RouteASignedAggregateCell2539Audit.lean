@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1RouteASignedAggregateCell2539
+
+#print axioms ConnesWeilRH.Dev.weightedPhysical2539_iteratedDeriv
+#print axioms ConnesWeilRH.Dev.weightedPhysical2539_jet_le_center_error
+#print axioms ConnesWeilRH.Dev.weightedPhysical2539_third_le_cell
+#print axioms ConnesWeilRH.Dev.weightedPhysical2539_second_le_signed_midpoint
+#print axioms ConnesWeilRH.Dev.weightedPhysical2539_norm_integral_le_signed_cell
+#print axioms ConnesWeilRH.Dev.weightedPhysical2539_norm_integral_le_signed_composite
+#print axioms ConnesWeilRH.Dev.externalPhysical2344_strip_eq_interval2539
+#print axioms ConnesWeilRH.Dev.externalPhysical2344_strip_le_signed_10240_2539
