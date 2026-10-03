@@ -36,17 +36,18 @@ open ConnesWeilRH.Dev.C1RouteAOwnerScaleAudit
         width,theta = (Q.from_float(float.fromhex(v)) for v in families[i])
         r = width**2
         near,far = min(abs(a),abs(b))/r,min(max(abs(a),abs(b)),r)/r
-        assert a*b > 0 and 0 < near < 1 and near < far <= 1
+        assert a*b >= 0 and 0 <= near < 1 and near < far <= 1
         growth = max(sigma*a,sigma*b)
         exponent = growth-30/(1-near**2)
         # Reuse only the proved scalar exponential algorithm: its real
         # argument is the maximum signed endpoint growth minus bump decay.
-        closest = near*r
-        ev = evaluate(r,Q(0),closest,growth/closest)
-        if precision == 160:
-            from price_boundary_precision_2547 import precision_evaluate
-            center,error,depth = precision_evaluate(r,Q(0),closest,growth/closest,160)
+        if precision == 160 or near == 0:
+            from price_boundary_precision_2547 import precision_exponential
+            center,error,depth = precision_exponential((exponent,Q(0)),precision)
             ev = dict(center=center,error=error,depth=depth,trace=((exponent/2**depth,Q(0)),))
+        else:
+            closest = near*r
+            ev = evaluate(r,Q(0),closest,growth/closest)
         z,k = ev["trace"][0],ev["depth"]
         assert z == (exponent/2**k,0)
         exponential = sum(abs(v) for v in ev["center"])+ev["error"]

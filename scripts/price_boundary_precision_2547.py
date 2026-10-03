@@ -19,6 +19,11 @@ def precision_evaluate(radius,theta,x,sigma,bits):
     if abs(x) >= radius:
         return (Q(0),Q(0)),Q(0),0
     w = sigma*x-30/(1-(x/radius)**2),theta*x
+    return precision_exponential(w,bits)
+
+
+def precision_exponential(w,bits):
+    """Evaluate an exact complex exponent with the existing rational replay."""
     depth = 0
     while sum(abs(v) for v in w) > 2**depth:
         depth += 1

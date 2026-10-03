@@ -4774,3 +4774,19 @@ implementation guard must be removed without changing the analytic bound,
 then larger mixed-position batches. Fullgrid/exactmembership/corrections/
 selected-owner signedbudget remain open. Evidence:
 docs/proofs/2558_both_signs_segment.md and results/2558_signed_cell_readback.json.
+
+Record2559: both signs on cells5119/5120, meeting at the exact grid origin,
+are now certified. The fourth generator evaluates its exact exponent directly
+instead of dividing growth by closest; near=0 uses the existing analytic
+bound without relaxation. The all-thirty-active aggregate is reused under
+owner-specific names. Positive segment upper0.035314964141, negative
+0.035314970373; centralBothSignsIntegralBound2559 combines them into exact
+35314967257/500000000000, retaining actual coefficient membership.
+Integration4587jobs,737standard-axiom terminal declarations,776source
+identities; forty generated node/cell modules plus segment regenerate.
+Zero-upper/opposite-sign corruption and six exponent equivalence controls
+pass; prior2557/2558readers pass. Next: align the full-grid numeric target
+with the actual selected-owner budget and price the remaining coverage before
+large formal expansion. Fullgrid/exactmembership/corrections/complete signed
+budget remain open. Evidence: docs/proofs/2559_zero_touching_cells.md and
+results/2559_central_cell_readback.json.

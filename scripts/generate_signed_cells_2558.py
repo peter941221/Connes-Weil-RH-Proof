@@ -32,58 +32,63 @@ def tag(index,sign):
     return f"N{index:05d}{'Plus' if sign > 0 else 'Minus'}"
 
 
-def endpoint(index,sign):
+def endpoint(index,sign,record=2558):
     name = tag(index,sign)
     if index in (2700,2701,5440,10239):
         return "kernel"+name,2555,"C1RouteAKernel"+name+"2555"
     if index == 2702 and sign == 1:
         return "neighborRight",2557,"C1RouteANeighborRight2557"
-    return "batch"+name,2558,"C1RouteABatch"+name+"2558"
+    if index == 2702:
+        record = 2558
+    return "batch"+name,record,"C1RouteABatch"+name+str(record)
 
 
-def endpoint_value(index,sign):
+def endpoint_value(index,sign,record=2558):
     name = tag(index,sign)
     if index in (2700,2701,5440,10239):
         return "shared"+name,2556,"C1RouteAShared"+name+"2556"
     if index == 2702 and sign == 1:
         return "neighborValueRight",2557,"C1RouteANeighborValueRight2557"
-    return "batchValue"+name,2558,"C1RouteABatchValue"+name+"2558"
+    if index == 2702:
+        record = 2558
+    return "batchValue"+name,record,"C1RouteABatchValue"+name+str(record)
 
 
-def render_endpoint(index,sign):
-    prefix,record,module = endpoint(index,sign)
-    assert record == 2558
+def render_endpoint(index,sign,record=2558):
+    prefix,owner_record,module = endpoint(index,sign,record)
+    assert owner_record == record
     source,_ = jet("Right",grid_order=(Q(index),3),sigma=Q(sign,2),paired=True)
-    source = rename(source,"edgeRight",2548,prefix).replace(":= by cbv",":= by decide +kernel")
+    source = rename(source,"edgeRight",2548,prefix,record).replace(":= by cbv",":= by decide +kernel")
     return module,wrap_source(source)
 
 
-def render_value(index,sign):
-    prefix,record,module = endpoint_value(index,sign)
-    assert record == 2558
-    source,info = value(index,sign,shared_node=True,shared_owner=endpoint(index,sign))
-    return module,wrap_source(rename(source,"adaptive"+tag(index,sign),2542,prefix)),info
+def render_value(index,sign,record=2558):
+    prefix,owner_record,module = endpoint_value(index,sign,record)
+    assert owner_record == record
+    source,info = value(index,sign,shared_node=True,shared_owner=endpoint(index,sign,record))
+    return module,wrap_source(rename(source,"adaptive"+tag(index,sign),2542,prefix,record)),info
 
 
 @dataclass(frozen=True)
 class Cell:
     index: int
     sign: int
+    record: int = 2558
 
     @property
     def prefix(self):
         return f"batchC{self.index:05d}{'Plus' if self.sign > 0 else 'Minus'}"
 
     def module(self,part):
-        return "C1RouteA"+self.prefix[0].upper()+self.prefix[1:]+part+"2558"
+        return "C1RouteA"+self.prefix[0].upper()+self.prefix[1:]+part+str(self.record)
 
     def render_midpoint(self):
         source,_ = jet("Midpoint",grid_order=(Q(2*self.index+1,2),2),sigma=Q(self.sign,2),paired=True)
-        return wrap_source(rename(source,"edgeMidpoint",2548,self.prefix+"Midpoint")
+        return wrap_source(rename(source,"edgeMidpoint",2548,self.prefix+"Midpoint",self.record)
                            .replace(":= by cbv",":= by decide +kernel"))
 
     def render_norm(self,side):
-        parent,record,module = endpoint(self.index+(side == "Right"),self.sign)
+        parent,record,module = endpoint(self.index+(side == "Right"),self.sign,self.record)
         raw = rename(read(module),parent,record,"endpoint"+side,2544)
         source = norm(side,30,source=raw,bits=160,sigma=Q(self.sign,2))
         source = source.replace("C1RouteAEndpoint"+side+"Third2544",module)
@@ -91,25 +96,25 @@ class Cell:
             suffix = m[1]
             if suffix == "Position" or re.fullmatch(r"P\d{3}(Factor|Center|Error|DerivativeError)",suffix):
                 return parent+suffix+str(record)
-            return self.prefix+side+suffix+"2558"
+            return self.prefix+side+suffix+str(self.record)
         return wrap_source(re.sub(r"\bendpoint"+side+r"(\w*)2544\b",translate,source))
 
     def render_midpoint_bounds(self):
-        raw = rename(read(self.module("Midpoint")),self.prefix+"Midpoint",2558,"midpoint",2543)
+        raw = rename(read(self.module("Midpoint")),self.prefix+"Midpoint",self.record,"midpoint",2543)
         source,upper,charge = midpoint(source=raw,sigma=Q(self.sign,2))
         source = source.replace("C1RouteAMidpointDerivatives2543",self.module("Midpoint"))
-        source = rename(source,"midpoint",2543,self.prefix+"Midpoint")
-        source = rename(source,"signedMidpoint",2543,self.prefix+"SignedMidpoint")
-        source = source.replace("weightedPhysical_second_midpoint_le2543",self.prefix+"PhysicalSecond2558")
+        source = rename(source,"midpoint",2543,self.prefix+"Midpoint",self.record)
+        source = rename(source,"signedMidpoint",2543,self.prefix+"SignedMidpoint",self.record)
+        source = source.replace("weightedPhysical_second_midpoint_le2543",self.prefix+"PhysicalSecond"+str(self.record))
         return wrap_source(source),upper,charge
 
     def render_fourth(self):
         source,_ = fourth(cell_index=self.index,sigma=Q(self.sign,2))
         for side,offset in (("Left",0),("Right",1)):
-            parent,record,module = endpoint(self.index+offset,self.sign)
+            parent,record,module = endpoint(self.index+offset,self.sign,self.record)
             source = source.replace("C1RouteABoundary"+side+"2548",module)
             source = source.replace("edge"+side+"Position2548",parent+"Position"+str(record))
-        source = rename(source,"edgeFourth",2550,self.prefix+"Fourth")
+        source = rename(source,"edgeFourth",2550,self.prefix+"Fourth",self.record)
         return wrap_source(source.replace(":= by cbv",":= by decide +kernel"))
 
     def render_assembly(self):
@@ -118,19 +123,19 @@ class Cell:
         for side in ("Left","Right","Midpoint"):
             source = source.replace("C1RouteABoundary"+side+"Bounds2549",self.module(side+"Bounds"))
         for side,offset in (("Left",0),("Right",1)):
-            parent,record,_ = endpoint(self.index+offset,self.sign)
+            parent,record,_ = endpoint(self.index+offset,self.sign,self.record)
             source = source.replace("edge"+side+"Position2548",parent+"Position"+str(record))
-        source = re.sub(r"\bedge(\w*)25(?:48|49|50)\b",lambda m:self.prefix+m[1]+"2558",source)
+        source = re.sub(r"\bedge(\w*)25(?:48|49|50)\b",lambda m:self.prefix+m[1]+str(self.record),source)
         if self.sign < 0:
             source = source.replace("(1/2)","(-1/2)")
         return wrap_source(source)
 
     def render_integral(self):
-        norms = [scalar_layout(rename(self.render_norm(side),self.prefix+side,2558,"endpoint"+side,2544))
+        norms = [scalar_layout(rename(self.render_norm(side),self.prefix+side,self.record,"endpoint"+side,2544))
                  for side in ("Left","Right")]
-        fourth_source = scalar_layout(rename(self.render_fourth(),self.prefix+"Fourth",2558,"fourth",2545))
-        lp,lr,lm = endpoint_value(self.index,self.sign)
-        rp,rr,rm = endpoint_value(self.index+1,self.sign)
+        fourth_source = scalar_layout(rename(self.render_fourth(),self.prefix+"Fourth",self.record,"fourth",2545))
+        lp,lr,lm = endpoint_value(self.index,self.sign,self.record)
+        rp,rr,rm = endpoint_value(self.index+1,self.sign,self.record)
         left_upper = scalar_def(read(lm),lp+"Upper"+str(lr))
         right_source = read(rm)
         right_info = dict(upper=str(scalar_def(right_source,rp+"Upper"+str(rr))))
@@ -141,7 +146,7 @@ class Cell:
             replacement = f"""    unfold thirdCellTerm2544
     norm_num [endpointLeftNormUpper2544, endpointRightNormUpper2544,
       endpointLeftP{i:03d}NormUpper2544, endpointRightP{i:03d}NormUpper2544,
-      {self.prefix}FourthUpper2558, fourthP{i:03d}Upper2545,
+      {self.prefix}FourthUpper{self.record}, fourthP{i:03d}Upper2545,
       endpointLeftPosition2544, endpointRightPosition2544]
 """
             pattern = r"    unfold thirdCellTerm2544\n    have h := fourthP"+f"{i:03d}"+r"Bound2545\n.*?    linarith\n"
@@ -150,20 +155,20 @@ class Cell:
         for old,new in {
             "C1RouteAFourthEnvelope2545":self.module("Assembly"),
             "C1RouteACellRight2546":rm,"C1RouteAAdaptiveN05440Plus2542":lm,
-            "thirdCellTerm2544":self.prefix+"ThirdCell2558",
-            "thirdAggregateUpper2544":self.prefix+"ThirdAggregate2558",
-            "curvature_after_endpoints2544":self.prefix+"Curvature_bound2558",
-            "signedMidpointUpper2543":self.prefix+"SignedMidpointUpper2558",
+            "thirdCellTerm2544":self.prefix+"ThirdCell"+str(self.record),
+            "thirdAggregateUpper2544":self.prefix+"ThirdAggregate"+str(self.record),
+            "curvature_after_endpoints2544":self.prefix+"Curvature_bound"+str(self.record),
+            "signedMidpointUpper2543":self.prefix+"SignedMidpointUpper"+str(self.record),
         }.items():
             source = source.replace(old,new)
         for side,offset in (("Left",0),("Right",1)):
-            parent,record,_ = endpoint(self.index+offset,self.sign)
+            parent,record,_ = endpoint(self.index+offset,self.sign,self.record)
             source = source.replace("endpoint"+side+"Position2544",parent+"Position"+str(record))
-            source = rename(source,"endpoint"+side,2544,self.prefix+side)
+            source = rename(source,"endpoint"+side,2544,self.prefix+side,self.record)
         source = rename(source,"adaptiveN05440Plus",2542,lp,lr)
         source = rename(source,"adaptiveN05441Plus",2542,rp,rr)
-        source = rename(source,"fourth",2545,self.prefix+"Fourth")
-        source = rename(source,"cell",2546,self.prefix+"Cell")
+        source = rename(source,"fourth",2545,self.prefix+"Fourth",self.record)
+        source = rename(source,"cell",2546,self.prefix+"Cell",self.record)
         return wrap_source(source),info
 
 

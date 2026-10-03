@@ -22,23 +22,23 @@ def check(cell,source):
     sides,values,jets = [],[],[]
     for side,offset in (("Left",0),("Right",1)):
         index = cell.index+offset
-        parent,record,module = endpoint(index,cell.sign)
+        parent,record,module = endpoint(index,cell.sign,cell.record)
         base = read(module)
         jets.append(check_jet(normalize(base,parent,record,"edge"+side,2548),side,
                               grid_order=(Q(index),3),sigma=Q(cell.sign,2)))
         sides.append(check_norms(
-            normalize(read(cell.module(side+"Bounds")),cell.prefix+side,2558,"endpoint"+side,2544),
+            normalize(read(cell.module(side+"Bounds")),cell.prefix+side,cell.record,"endpoint"+side,2544),
             normalize(base,parent,record,"endpoint"+side,2544),side))
-        vp,vr,vm = endpoint_value(index,cell.sign)
+        vp,vr,vm = endpoint_value(index,cell.sign,cell.record)
         values.append(check_value(normalize(read(vm),vp,vr,"adaptive"+tag(index,cell.sign),2542),
             index,cell.sign,shared_source=base,shared_prefix=parent,shared_record=record))
     raw_mid = read(cell.module("Midpoint"))
-    jets.append(check_jet(normalize(raw_mid,cell.prefix+"Midpoint",2558,"edgeMidpoint",2548),
+    jets.append(check_jet(normalize(raw_mid,cell.prefix+"Midpoint",cell.record,"edgeMidpoint",2548),
         "Midpoint",grid_order=(Q(2*cell.index+1,2),2),sigma=Q(cell.sign,2)))
-    mids = normalize(read(cell.module("MidpointBounds")),cell.prefix+"Midpoint",2558,"midpoint",2543)
-    mids = normalize(mids,cell.prefix+"SignedMidpoint",2558,"signedMidpoint",2543)
-    mid = check_signed(mids,normalize(raw_mid,cell.prefix+"Midpoint",2558,"midpoint",2543))
-    fourth = normalize(read(cell.module("Fourth")),cell.prefix+"Fourth",2558,"edgeFourth",2550)
+    mids = normalize(read(cell.module("MidpointBounds")),cell.prefix+"Midpoint",cell.record,"midpoint",2543)
+    mids = normalize(mids,cell.prefix+"SignedMidpoint",cell.record,"signedMidpoint",2543)
+    mid = check_signed(mids,normalize(raw_mid,cell.prefix+"Midpoint",cell.record,"midpoint",2543))
+    fourth = normalize(read(cell.module("Fourth")),cell.prefix+"Fourth",cell.record,"edgeFourth",2550)
     assert len(check_fourth(fourth,cell_index=cell.index,sigma=Q(cell.sign,2))) == 30
     # The opposite sign must not accept these exponent witnesses. This checks
     # the endpoint-growth choice independently of a generator's symbol labels.
@@ -55,10 +55,10 @@ def check(cell,source):
                       Q(row["ideal_base_coefficient"][p]["upper_exact"]))/2)
                  for p in ("real","imag"))+Q(1,10**30)
         term = max(sides[0][i],sides[1][i])+h/2*scalar_def(fourth,f"edgeFourthP{i:03d}Upper2550")
-        upper = scalar_def(source,cell.prefix+f"CellP{i:03d}Charge2558")
+        upper = scalar_def(source,cell.prefix+f"CellP{i:03d}Charge{cell.record}")
         assert upper >= cm*term
         total += upper
-    third,curvature,integral = (scalar_def(source,cell.prefix+"Cell"+name+"Upper2558")
+    third,curvature,integral = (scalar_def(source,cell.prefix+"Cell"+name+"Upper"+str(cell.record))
                                 for name in ("Third","Curvature","Integral"))
     assert third >= total
     assert curvature >= Q(mid["signed_upper"])+third*h/2
