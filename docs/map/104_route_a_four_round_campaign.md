@@ -4615,3 +4615,17 @@ midpoint-to-interpolant identification and the selected-detector margin
 remain open. Evidence: `docs/proofs/2523_safe_cells_reflection_certificate.md`,
 `results/2523_safe_certificate.json`, and
 `results/2523_safe_build_validation.json`.
+
+Records 2535-2536 (2026-10-03): the signed center-plus-error base-channel
+replay now uses an analytic whole-cell fourth envelope instead of a sampled
+third-derivative maximum. Arb gives 10240-cell totals 2.688398948825133 and
+2.676690127388878 at sigma = -1/2 and +1/2, below the base endpoint pin
+2.7790943782. This is EXTERNAL ENCLOSURE evidence on the fixed 2338
+coefficient-box function, with exact rational cell sums and source checks.
+The new FORMAL theorem widthBump_iteratedDeriv_abs_le_local2536 supplies
+the actual local bump derivative bound through order four, including support
+edges. Weighted-family composition, Lean numeric import, the exact-owner
+bridge, correction-channel obligations and the full selected-owner signed
+margin remain open. The route ruling is unchanged. Evidence:
+`docs/proofs/2535_whole_cell_fourth_enclosure.md` and
+`docs/proofs/2536_coupled_bump_envelope.md`.

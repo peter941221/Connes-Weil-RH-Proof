@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RouteACoupledBumpEnvelope2536
+
+#print axioms ConnesWeilRH.Dev.powerExp_le_at_lower2536
+#print axioms ConnesWeilRH.Dev.bumpNumerator_abs_le_local2536
+#print axioms ConnesWeilRH.Dev.widthBump_iteratedDeriv_abs_le_local2536
