@@ -4534,3 +4534,11 @@ the new upper sum; unsafe cells retain the audited L1 fallback.  The theorem
 is parameterized by the per-cell upper and does not claim a numerical margin.
 Evidence: `docs/proofs/2515_exp_upper_remainder_lean.md`,
 `ConnesWeilRH/Dev/C1RouteAExpUpperRemainder2515.lean`.
+
+Record 2516 (2026-10-03): instantiated the remainder interface on the full
+640-cell production strip.  The safe predicate is exactly `196..443`, where
+the 2508 exponential envelope is used; every other cell retains the existing
+L1 fallback.  This is a certified ladder inequality, but not yet a priced
+margin result.
+Evidence: `docs/proofs/2516_production_exp_remainder_lean.md`,
+`ConnesWeilRH/Dev/C1RouteAExpProductionRemainder2516.lean`.
