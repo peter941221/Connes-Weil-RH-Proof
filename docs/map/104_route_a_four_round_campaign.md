@@ -4598,3 +4598,20 @@ midpoint-to-interpolant connection and selected-detector margin remain open.
 Evidence: `docs/proofs/2522_fallback_hcell_certificate.md`,
 `results/2522_fallback_certificate.json`, and
 `results/2522_fallback_build_validation.json`.
+
+Record 2523 (2026-10-03): discharged the remaining 248 safe cell premises
+and closed the explicit 640-cell remainder gate. The certificate prices on
+the exact Lean grid `65536001/10000000` (the 2517 capture radius is a
+float artifact and differs, moving the total by 2.2e-5); 124 right-half
+cells 320..443 each carry 30 exact rational family bounds on the 1/1024
+grid, reflected through `index <-> 639 - index` to cover all 248; the
+total is evaluated by 9 peel + 10 segment lemmas after a monolithic
+640-entry norm_num timed out at whnf even at 8M heartbeats. New
+unconditional theorems: `production_hcell2523` (all 640 cells, both
+signs, no numerical premise) and `ownerPanelStripNorm_le_nodes_add_415_2523`:
+stripNorm <= nodeUpper + 415 with exact total 414.5754350875391 (margin
+0.4246). This is the remainder half only: node sum certification,
+midpoint-to-interpolant identification and the selected-detector margin
+remain open. Evidence: `docs/proofs/2523_safe_cells_reflection_certificate.md`,
+`results/2523_safe_certificate.json`, and
+`results/2523_safe_build_validation.json`.
