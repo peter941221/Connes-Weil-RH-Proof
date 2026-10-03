@@ -4484,3 +4484,8 @@ certificate into a strict `< 1` bound for the corrected 2501 minimum-endpoint
 ratio on indices `196..443`.  This feeds the automatic exponential split.
 Evidence: `docs/proofs/2507_owner_lower_ratio_production_lean.md`,
 `ConnesWeilRH/Dev/C1RouteAOwnerLowerRatioProduction2507.lean`.
+
+Record 2508 (2026-10-03): composed the 2507 production domain certificate
+with the 2506 floor-selected exponential split for `196 ≤ index ≤ 443`.
+Evidence: `docs/proofs/2508_owner_exp_production_consumer_lean.md`,
+`ConnesWeilRH/Dev/C1RouteAOwnerExpProduction2508.lean`.
