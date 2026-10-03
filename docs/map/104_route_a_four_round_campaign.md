@@ -4790,3 +4790,20 @@ with the actual selected-owner budget and price the remaining coverage before
 large formal expansion. Fullgrid/exactmembership/corrections/complete signed
 budget remain open. Evidence: docs/proofs/2559_zero_touching_cells.md and
 results/2559_central_cell_readback.json.
+
+
+Record 2560: exact production arithmetic covers all 10240 cells at both
+signs. Candidate base-norm sums 2.688485658169 (negative) and 2.676776836740
+(positive) fit the unchanged 2.7790943782 pin. Eight accepted cells reproduce,
+960 exact jet controls pass, and the reader checks all 20480 rows. This is
+external exact pricing, not full-grid Lean coverage. A separate Lean theorem
+reduces FrozenStripHypothesis to base norm and correction second-derivative
+norm at both endpoint signs. The second product of the existing pins is
+1852190.2152873266 against budget 9506275.102584327; the endpoint inputs
+remain explicit. Validation records 4378 build jobs, three standard-axiom
+declarations and 602 matching dependency sources. Next price the correction
+target exp(sigma*x)*|c''(x)| at both signs; differentiating the weighted
+function instead changes the target. Then expand formal grid coverage and
+prove actual coefficient membership. The selected-owner signed budget
+remains open. Evidence: docs/proofs/2560_grid_budget_and_two_channel_bridge.md
+and results/2560_production_grid_validation.json.
