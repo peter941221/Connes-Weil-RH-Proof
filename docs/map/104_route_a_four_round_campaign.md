@@ -4679,3 +4679,16 @@ sources. Other nodes/signs, curvature numerics, full-grid integration, exact
 interpolation membership and the full signed budget remain open. Route ruling
 unchanged. Evidence: `docs/proofs/2541_nonzero_node_certificate.md` and
 `results/2541_nonzero_node_validation.json`.
+
+Record 2542 (2026-10-04): a computable rational Horner/squaring evaluator
+has a formal analytic error bound and reproduces all 30 prior 2541 family
+outputs. Its errors re-establish the original signed-node upper. New
+same-owner cases at indices 5440 and 10239 cover both sigma signs: uppers
+766536121/2000000000 and 721605217/1250000000 at 5440, and 1/5000000000
+at 10239 for either sign. The edge cases use 17 squarings for one active
+family; 29 exterior families vanish by definition. Independent exact
+arithmetic replay checks all four payloads and rejects corrupted active
+outputs. Derivative numerics, the complete grid, exact interpolation
+membership and the selected-owner signed margin remain open. Evidence:
+docs/proofs/2542_compact_exp_progress.md and
+results/2542_compact_replay_readback.json.

@@ -119,3 +119,10 @@ Record 2541 certifies the first positive nonzero node at sigma=1/2 with
 upper 13.7900014901. Thirty checked complex-exponential witnesses feed a
 signed sum and its squared-norm comparison. Other nodes/signs, curvature
 certification, exact interpolation membership and the full integral remain open.
+
+Record 2542 certifies adaptive production nodes at indices 5440 and 10239
+for both endpoint signs, using a proved compact rational evaluator. Its
+17-square edge cases retain a positive active-family error radius and
+prove exterior families zero from their definitions. The complete grid,
+derivative numerics, exact coefficient membership and full signed budget
+remain open. Evidence: docs/proofs/2542_compact_exp_progress.md.

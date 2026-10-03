@@ -81,7 +81,10 @@ Two equivalent attack lanes remain admissible:
   Record 2540 imports the exact 2338 base rectangles and certifies the center
   node upper 69/5. Record 2541 certifies the first positive nonzero node at
   sigma=1/2 with upper 13.7900014901; both retain coefficient uncertainty.
-  Other nodes/signs, curvature numerics, full-grid import and exact-owner
+  Record 2542 replaces full-step witnesses with a proved rational evaluator,
+  replays all 30 prior families, and certifies indices 5440 and 10239 at both
+  endpoint signs, including a 17-square support-edge case. Remaining nodes,
+  curvature numerics, full-grid import and exact-owner
   transfer remain open; the signed producer is unchanged.
 
 This lane must prove an unconditional signed inequality on the actual selected
