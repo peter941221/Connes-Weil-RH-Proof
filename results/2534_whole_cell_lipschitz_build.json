@@ -1,0 +1,11 @@
+{
+  "record": 2534,
+  "status": "LEAN_SUPPORT_BUILD_PASS",
+  "module": "ConnesWeilRH.Dev.C1RouteAWholeCellLipschitz2534",
+  "audit": "ConnesWeilRH.Dev.C1RouteAWholeCellLipschitz2534Audit",
+  "build_jobs": 1490,
+  "build_environment": "WSL2 Ubuntu-24.04",
+  "axioms": ["propext", "Classical.choice", "Quot.sound"],
+  "theorem": "norm_le_endpoint_max_add_half_lipschitz2534",
+  "scope": "generic whole-cell Lipschitz transport only; no owner instantiation"
+}

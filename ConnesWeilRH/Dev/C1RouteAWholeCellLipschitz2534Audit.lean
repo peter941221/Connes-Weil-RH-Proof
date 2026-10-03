@@ -1,0 +1,3 @@
+import ConnesWeilRH.Dev.C1RouteAWholeCellLipschitz2534
+
+#print axioms ConnesWeilRH.Dev.norm_le_endpoint_max_add_half_lipschitz2534

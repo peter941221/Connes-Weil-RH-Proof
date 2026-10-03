@@ -1,0 +1,38 @@
+{
+  "record": 2532,
+  "status": "SIGNED_CURVATURE_CENTER_THIRD_FEASIBILITY_DIAGNOSTIC",
+  "cells": 2560,
+  "subnodes": 17,
+  "radius": "6.5536001",
+  "step": "0.005120000078125",
+  "representation": "signed midpoint F'' plus coefficient error plus half-cell familywise F''' sample",
+  "signs": {
+    "-0.5": {
+      "curvature_remainder_center_third": "0.0511511647478674108576360932990407553843069518688568884533517",
+      "sampled_truth_remainder": "0.0196535353945235351419554797604852204591652921699737421544323",
+      "ratio": "2.602644446460289363849549473261803653573",
+      "max_familywise_third": "6015943.80551045612552799258299161191816493650325640163922771",
+      "base_node_sum": "2.686887376406492",
+      "total_with_node": "2.73803854115435941085763609329904075538430695186885688845335",
+      "base_endpoint_margin": "0.0410558370456405891423639067009592446156930481311431115466483"
+    },
+    "0.5": {
+      "curvature_remainder_center_third": "0.0508842733825676526554617027881991634278431191901037959049067",
+      "sampled_truth_remainder": "0.0193878846141000317250364206445697219354645401880323234734463",
+      "ratio": "2.624539726503300893803893872970819722697",
+      "max_familywise_third": "6015943.80551045612552799258299161191816493650325640163922771",
+      "base_node_sum": "2.675211462945179",
+      "total_with_node": "2.72609573632774665265546170278819916342784311919010379590491",
+      "base_endpoint_margin": "0.0529986418722533473445382972118008365721568808098962040950933"
+    }
+  },
+  "repair_sha256": "7efde152db5e18c2d312cae16309172154044b443477bca75b9619b3070eb258",
+  "capture_sha256": "743fe372bef89b5730c38274d5a5517ac9ea4d3421989d46c49d4af3e78b5e74",
+  "nonclaims": [
+    "sampled third-derivative supremum is not a certificate",
+    "no Lean import",
+    "no producer GO",
+    "no SourceRH",
+    "no RH"
+  ]
+}

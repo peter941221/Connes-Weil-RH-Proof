@@ -1,0 +1,40 @@
+{
+  "cells": 2560,
+  "curvature_subnodes": 32,
+  "radius": "6.5536001",
+  "step": "0.005120000078125",
+  "signs": {
+    "-0.5": {
+      "node_sum": "2.6868873764064913231078092996584338049783689665008552215385",
+      "curvature_remainder_sampled": "0.01965354955128795",
+      "total_sampled": "2.706540925957779271751305805610022720173685042779541744976",
+      "max_curvature_sampled": "31370.91181283685",
+      "max_curvature_location": "-0.0011200000170898438",
+      "base_endpoint_margin": "0.072553452242220728248694194389977279826314957220458255024001",
+      "correction_endpoint_margin": "228.557661688142220728248694194389977279826314957220458255024"
+    },
+    "0.5": {
+      "node_sum": "2.6752114629451785617998292256615288796295340910804690880246",
+      "curvature_remainder_sampled": "0.019387894566168337",
+      "total_sampled": "2.6945993575113468989735575011636003626902516737831058067746",
+      "max_curvature_sampled": "31356.696984772538",
+      "max_curvature_location": "0.00048000000732421877",
+      "base_endpoint_margin": "0.0844950206886531010264424988363996373097483262168941932253951",
+      "correction_endpoint_margin": "228.569603256588653101026442498836399637309748326216894193225"
+    }
+  },
+  "record": 2528,
+  "status": "SIGNED_POINTWISE_CANCELLATION_FEASIBILITY_DIAGNOSTIC",
+  "coefficient_representation": "2338 box midpoint plus Euclidean radius charge",
+  "node_arithmetic": "mpmath 100 decimal digits",
+  "curvature_arithmetic": "binary64 resolved subgrid; not an enclosure",
+  "repair_sha256": "7efde152db5e18c2d312cae16309172154044b443477bca75b9619b3070eb258",
+  "capture_sha256": "743fe372bef89b5730c38274d5a5517ac9ea4d3421989d46c49d4af3e78b5e74",
+  "nonclaims": [
+    "no Lean node certificate",
+    "no certified curvature supremum",
+    "no producer GO",
+    "no SourceRH",
+    "no RH"
+  ]
+}
