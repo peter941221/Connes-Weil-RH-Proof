@@ -4506,3 +4506,9 @@ curvature uppers over all 30 owner families, yielding the panel-level hcell
 interface.
 Evidence: `docs/proofs/2511_exp_panel_upper_lean.md`,
 `ConnesWeilRH/Dev/C1RouteAExpPanelUpper2511.lean`.
+
+Record 2512 (2026-10-03): added the one-family adapter from the existing
+interval-data contract to a certified replacement exponential upper, exposing
+the exact premises needed by the hcell comparison.
+Evidence: `docs/proofs/2512_exp_interval_upper_adapter_lean.md`,
+`ConnesWeilRH/Dev/C1RouteAExpIntervalUpper2512.lean`.
