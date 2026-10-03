@@ -4519,3 +4519,11 @@ geometric domain (`0 ≤ t < 1`, `0 < radius`); only the certified exponential
 upper remains as an input.  This is a premise reduction, not an hcell closure.
 Evidence: `docs/proofs/2513_exp_interval_upper_auto_lean.md` and the same
 Lean/audit pair as Record 2512.
+
+Record 2514 (2026-10-03): connected the production 2508 floor/Taylor
+exponential envelope to the 2513 30-family panel consumer on a safe production
+cell (`196 ≤ index ≤ 443`).  Endpoint ratios control derivative factors and
+the 2501 lower ratios control the exponential payload.  This is a pointwise
+cell-panel bound; remainder-ladder assembly and margin closure remain open.
+Evidence: `docs/proofs/2514_production_exp_panel_lean.md`,
+`ConnesWeilRH/Dev/C1RouteAExpProductionPanel2514.lean`.
