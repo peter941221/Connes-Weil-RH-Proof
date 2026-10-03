@@ -4527,3 +4527,10 @@ the 2501 lower ratios control the exponential payload.  This is a pointwise
 cell-panel bound; remainder-ladder assembly and margin closure remain open.
 Evidence: `docs/proofs/2514_production_exp_panel_lean.md`,
 `ConnesWeilRH/Dev/C1RouteAExpProductionPanel2514.lean`.
+
+Record 2515 (2026-10-03): connected the certified exponential-upper panel
+consumer to the existing local-curvature remainder ladder.  Safe cells use
+the new upper sum; unsafe cells retain the audited L1 fallback.  The theorem
+is parameterized by the per-cell upper and does not claim a numerical margin.
+Evidence: `docs/proofs/2515_exp_upper_remainder_lean.md`,
+`ConnesWeilRH/Dev/C1RouteAExpUpperRemainder2515.lean`.
