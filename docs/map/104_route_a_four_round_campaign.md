@@ -4547,8 +4547,10 @@ Record 2517 (2026-10-03): directed-MPFR pricing of the 2516 production
 remainder on the corrected exact-owner 640-cell grid reproduces the L1
 baseline `635.575993091222` and prices the production-upper/fallback rule at
 `414.57518775159883`, or `0.6522826416637425` of baseline, for both sigma
-signs.  This is external routing evidence only; no numeric result is imported
-into Lean and the producer margin remains open.
+signs.  The refreshed artifact also records per-cell binary64 and nextUp
+encodings, with the safe-cell maximum at index 317; this is table-generation
+scaffolding only.  This is external routing evidence only; no numeric result
+is imported into Lean and the producer margin remains open.
 Evidence: `docs/proofs/2517_owner_production_exp_remainder_price.md`,
 `scripts/routea_owner_production_exp_remainder_2517.py`, and
 `results/2517_owner_production_exp_remainder.json`.

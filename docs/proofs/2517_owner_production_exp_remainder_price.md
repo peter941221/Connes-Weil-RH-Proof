@@ -7,6 +7,12 @@ reproduces `635.575993091222` for both sigma signs.  The 2516 rule uses the
 reads `414.57518775159883`, or `0.6522826416637425` of baseline, for both
 sigma signs.
 
+The artifact also stores the 640 per-cell upper values, their binary64 hex
+encodings, and one-ulp `nextUp` encodings.  The largest safe-cell value is
+`667249.4571825103` at index `317`; the outside-safe cells retain the L1
+fallback.  The totals above are unchanged by this decomposition.  These
+fields are audit scaffolding for a future table certificate, not Lean inputs.
+
 This is routing evidence only: the result is not imported into Lean, does not
 certify the analytic enclosure or the final producer margin, and makes no RH
 claim.

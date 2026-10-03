@@ -167,7 +167,17 @@ def main():
         production = float(factor * sum((Fraction.from_float(x) for x in production_cells), Fraction(0)))
         rows.append({"sigma": float(sigma), "baseline_remainder": baseline,
                      "production_remainder": production,
-                     "production_to_baseline": production / baseline})
+                     "production_to_baseline": production / baseline,
+                     "cell_upper": [float(x) for x in production_cells],
+                     "cell_upper_hex": [float(x).hex() for x in production_cells],
+                     "cell_upper_nextup_hex": [
+                         math.nextafter(float(x), math.inf).hex()
+                         for x in production_cells],
+                     "cell_upper_max": float(max(production_cells)),
+                     "cell_upper_max_index": production_cells.index(max(production_cells)),
+                     "cell_upper_safe_max": float(max(production_cells[196:444])),
+                     "cell_upper_safe_max_index": 196 + production_cells[196:444].index(
+                         max(production_cells[196:444]))})
     result = {"record": 2517,
               "status": "EXTERNAL_DIRECTED_MPFR_PRICE_NOT_A_LEAN_CERTIFICATE",
               "grid": {"cells": cells, "safe_range": [196, 443]},
