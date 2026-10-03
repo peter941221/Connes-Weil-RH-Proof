@@ -10,7 +10,7 @@ from generate_compact_replay_2542 import pair, rational
 from routea_exp_schedule_probe_2542 import evaluate, R, STEP
 
 
-def render(index, sign):
+def render(index, sign, *, shared_node=False, shared_owner=None):
     tag = f"N{index:05d}{'Plus' if sign > 0 else 'Minus'}"
     prefix = f"adaptive{tag}"
     x, sigma = -R + index*STEP, Q(sign, 2)
@@ -19,7 +19,12 @@ def render(index, sign):
     rows, centers = [], []
     for raw, row in zip(families, coefficients):
         width, theta = (Q.from_float(float.fromhex(v)) for v in raw)
-        rows.append(evaluate(width**2, theta, x, sigma))
+        if shared_node:
+            from price_boundary_precision_2547 import precision_evaluate
+            center,error,depth = precision_evaluate(width**2,theta,x,sigma,160)
+            rows.append(dict(center=center,error=error,depth=depth,exterior=abs(x)>=width**2))
+        else:
+            rows.append(evaluate(width**2, theta, x, sigma))
         centers.append(tuple((Q(row["ideal_base_coefficient"][p]["lower_exact"])+
                               Q(row["ideal_base_coefficient"][p]["upper_exact"]))/2
                              for p in ("real", "imag")))
@@ -34,11 +39,35 @@ open ConnesWeilRH.Source.C1RouteAItem5Arithmetic
 
 """, f"noncomputable def {prefix}Position2542 : ℝ := {real(x)}\n\n"]
     pos = f"{prefix}Position2542"
+    if shared_node:
+        owner_prefix,owner_record,owner_module = shared_owner or (f"kernel{tag}",2555,f"C1RouteAKernel{tag}2555")
+        text[0] = f"import ConnesWeilRH.Dev.{owner_module}\n" + text[0]
     for i, row in enumerate(rows):
         p = f"{prefix}P{i:03d}"
         out = p + "Output2542"
         text.append(f"def {out} : RatState2542 :=\n  ({pair(row['center'])},\n    {rational(row['error'])})\n\n")
         unit = f"weightedUnitJet2539 0 ({real(sigma)}) nodeModulation2541 ⟨{i}, by omega⟩ {pos}"
+        if shared_node:
+            shared = f"{owner_prefix}P{i:03d}"
+            text.append(f"""theorem {p}Error2542 :
+    ‖{unit} - embedPair2542 {out}.1‖ ≤ ({out}.2 : ℝ) := by
+  have h := {shared}BaseError{owner_record}
+  convert h using 1
+  all_goals norm_num [{pos}, {owner_prefix}Position{owner_record}, {out},
+    {shared}Center{owner_record}, {shared}Error{owner_record}, embedPair2542]
+
+theorem {p}Norm2542 : ‖{unit}‖ ≤ 1 := by
+  calc
+    ‖{unit}‖ = ‖({unit} - embedPair2542 {out}.1) + embedPair2542 {out}.1‖ := by
+      congr 1
+      ring
+    _ ≤ ‖{unit} - embedPair2542 {out}.1‖ + ‖embedPair2542 {out}.1‖ := norm_add_le _ _
+    _ ≤ ({out}.2 : ℝ) + (pairMagnitude2542 {out}.1 : ℝ) :=
+      add_le_add {p}Error2542 (embedPair_magnitude2542 _)
+    _ ≤ 1 := by norm_num [{out}, pairMagnitude2542]
+
+""")
+            continue
         if row["exterior"]:
             text.append(f"""theorem {p}Zero2542 : {unit} = 0 := by
   have hx : ¬ |{pos}| < storedWidth ⟨{i}, by omega⟩ ^ 2 := by

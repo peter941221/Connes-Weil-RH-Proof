@@ -4744,3 +4744,17 @@ and assembly costs. Next: reuse endpoint witnesses and assemble segments;
 exact coefficient membership and the complete signed budget remain open.
 Evidence: docs/proofs/2555_kernel_replay_milestone.md and
 results/2555_kernel_trial_readback.json.
+
+Records2556-2557: eight signed endpoint-value modules reuse the existing
+160-bit derivative evaluators with zero new exponential replays. Cell2701
+at sigma=+1/2 now has integral upper111/1000000000000 and shares node2701
+with accepted cell2700. The continuous segment2700..2702 is formally bounded
+by225/1000000000000, with the same coefficient-ball membership premise.
+Integration passes4583jobs,184terminal standard-axiom declarations and
+758segment dependency source identities. Exact arithmetic readback,
+zero-upper rejection and default-generation regressions pass. Full-grid,
+exact coefficient membership, correction channels and the selected-owner
+signed budget remain open. Next: parameterized segment batching with both
+sigma signs and a measured end-to-end cost before full-grid expansion.
+Evidence: docs/proofs/2557_neighbor_segment.md and
+results/2557_neighbor_numeric_readback.json.

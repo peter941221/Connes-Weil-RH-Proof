@@ -14,10 +14,10 @@ from validate_adaptive_nodes_2542 import scalar_def
 from validate_nonzero_node_2541 import multiply
 
 
-def check(source):
+def check(source, *, cell_index=2700):
     source = re.sub(r":\s*([ℝℚ])",r": \1",source)
     raw = json.loads(CAPTURE.read_text())["owner_capture"]["families_hex"]
-    a = -Q(65536001,10**7)+2700*Q(65536001,51200000000)
+    a = -Q(65536001,10**7)+cell_index*Q(65536001,51200000000)
     b = a+Q(65536001,51200000000)
     rows = []
     polys = bump_polynomials()

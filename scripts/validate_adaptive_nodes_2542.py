@@ -14,14 +14,15 @@ def scalar_def(source, name):
     return exact_expression(definition(source, name).split(":=", 1)[1])
 
 
-def check(source, index, sign):
+def check(source, index, sign, *, shared_source=None, shared_prefix=None, shared_record=2555):
     prefix = f"adaptiveN{index:05d}{'Plus' if sign > 0 else 'Minus'}"
     position = scalar_def(source, prefix+"Position2542")
     assert position == -Q(65536001,10**7) + index*Q(65536001,51200000000)
     capture = json.loads(CAPTURE.read_text())["owner_capture"]["families_hex"]
     coeffs = json.loads((ROOT/"results/2338_exact_interpolation_repair.json").read_text())["coefficient_rows"]
     total, charge, depths, active = (Q(0),Q(0)), Q(0), [], 0
-    delta = Q(1,2**99)
+    bits = 100 if shared_source is None else 160
+    delta = Q(1,2**(bits-1))
     for i, (raw, coeff) in enumerate(zip(capture, coeffs)):
         p = f"{prefix}P{i:03d}"
         width, theta = (Q.from_float(float.fromhex(v)) for v in raw)
@@ -30,9 +31,17 @@ def check(source, index, sign):
             assert (output,error) == ((0,0),0)
             continue
         active += 1
-        z = value(source, p+"Input2542")
-        match = re.search(r"theorem " + p + r"Compute2542\b.*?compactExp2542\s+" +
-                          p + r"Input2542\s+(\d+)\s*=", source, re.S)
+        if shared_source is None:
+            z = value(source, p+"Input2542")
+            match = re.search(r"theorem " + p + r"Compute2542\b.*?compactExp2542\s+" +
+                              p + r"Input2542\s+(\d+)\s*=", source, re.S)
+        else:
+            q = (shared_prefix or f"kernelN{index:05d}{'Plus' if sign > 0 else 'Minus'}")+f"P{i:03d}"
+            z = value(shared_source,q+"Input"+str(shared_record))
+            match = re.search(r"compactExp2547\s+"+q+r"Input"+str(shared_record)+r"\s+(\d+)",shared_source)
+            assert output == value(shared_source,q+"Center"+str(shared_record))
+            assert error == scalar_def(shared_source,q+"Error"+str(shared_record))
+            assert q+"BaseError"+str(shared_record) in source
         assert match
         k = int(match[1])
         depths.append(k)
@@ -41,14 +50,14 @@ def check(source, index, sign):
         assert z == expected and abs(z[0])+abs(z[1]) <= 1
         h = (Q(1),Q(0))
         def down(q):
-            return Q((q*2**100).numerator//(q*2**100).denominator,2**100)
+            return Q((q*2**bits).numerator//(q*2**bits).denominator,2**bits)
         for d in range(19,0,-1):
             product = multiply(z,h)
             h = (down(1+product[0]/d), down(product[1]/d))
         e = Q(1,10**18)+19*delta
         for _ in range(k):
-            bound = (e*(2*(abs(h[0])+abs(h[1]))+e)+delta)*2**140
-            e = Q(-((-bound.numerator)//bound.denominator),2**140)
+            bound = (e*(2*(abs(h[0])+abs(h[1]))+e)+delta)*2**(bits+40)
+            e = Q(-((-bound.numerator)//bound.denominator),2**(bits+40))
             h = tuple(down(q) for q in multiply(h,h))
         assert (h,e) == (output,error), (i,"computed output")
         c = tuple((Q(coeff["ideal_base_coefficient"][part]["lower_exact"])+
@@ -60,6 +69,7 @@ def check(source, index, sign):
     stored = complex_value(definition(source,prefix+"SumValue2542").split(":=",1)[1])
     assert stored == total
     upper = scalar_def(source,prefix+"Upper2542")
+    assert upper >= Q(1,10**10)
     assert sum(q*q for q in total) <= (upper-Q(1,10**10))**2
     assert charge+Q(30,10**30) <= Q(1,10**10) and charge <= Q(1,10**12)
     return dict(index=index,sign=sign,position=str(position),active_families=active,

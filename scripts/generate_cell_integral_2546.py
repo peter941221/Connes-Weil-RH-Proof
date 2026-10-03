@@ -9,8 +9,8 @@ from validate_adaptive_nodes_2542 import scalar_def
 
 
 def render(*, cell_index=5440, sources=None, midpoint_upper=Q(997840737,400000),
-           left_upper=Q(721605217,1250000000)):
-    right_source,right_info = render_node(cell_index+1,1)
+           left_upper=Q(721605217,1250000000), right_node=None):
+    right_source,right_info = render_node(cell_index+1,1) if right_node is None else right_node
     h = Q(65536001,51200000000)
     left = (ROOT/"ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean").read_text()
     right = (ROOT/"ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean").read_text()
