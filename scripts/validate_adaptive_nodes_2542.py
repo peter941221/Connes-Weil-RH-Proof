@@ -11,7 +11,8 @@ from validate_nonzero_node_2541 import complex_value, definition, multiply
 
 
 def scalar_def(source, name):
-    return exact_expression(definition(source, name).split(":=", 1)[1])
+    expression = definition(source, name).split(":=", 1)[1]
+    return exact_expression(re.sub(r":\s*ℝ", ": ℝ", expression))
 
 
 def check(source, index, sign, *, shared_source=None, shared_prefix=None, shared_record=2555):

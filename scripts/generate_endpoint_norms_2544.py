@@ -9,7 +9,8 @@ from validate_compact_replay_2542 import value
 from validate_adaptive_nodes_2542 import scalar_def
 
 
-def render(side,count, *, source=None, bits=100):
+def render(side,count, *, source=None, bits=100, sigma=Q(1,2)):
+    assert sigma in (Q(1,2),Q(-1,2))
     if source is None:
         source = (ROOT/f"ConnesWeilRH/Dev/C1RouteAEndpoint{side}Third2544.lean").read_text()
     parts = [f"""import ConnesWeilRH.Dev.C1RouteAEndpoint{side}Third2544
@@ -60,7 +61,10 @@ theorem {p}NormBound2544 :
     parts.append("\nend ConnesWeilRH.Dev\n\n")
     parts.extend(f"#print axioms ConnesWeilRH.Dev.endpoint{side}P{i:03d}NormBound2544\n" for i in range(count))
     lines = []
-    for line in "".join(parts).splitlines():
+    output = "".join(parts)
+    if sigma < 0:
+        output = output.replace("(1/2)","(-1/2)")
+    for line in output.splitlines():
         indent = len(line)-len(line.lstrip())
         lines.extend(textwrap.wrap(line,width=98,subsequent_indent=" "*(indent+4),
                                    break_long_words=False,break_on_hyphens=False) or [""])

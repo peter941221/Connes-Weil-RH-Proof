@@ -1,0 +1,2630 @@
+{
+  "record": 2558,
+  "cells": [
+    {
+      "index": 2700,
+      "sign": -1,
+      "jets": [
+        {
+          "side": "Left",
+          "order": 3,
+          "grid": "2700",
+          "active": [
+            1,
+            2,
+            3,
+            4,
+            6,
+            7
+          ],
+          "exterior": [
+            0,
+            5,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ]
+        },
+        {
+          "side": "Right",
+          "order": 3,
+          "grid": "2701",
+          "active": [
+            1,
+            2,
+            3,
+            4,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "exterior": [
+            0,
+            5
+          ]
+        },
+        {
+          "side": "Midpoint",
+          "order": 2,
+          "grid": "5401/2",
+          "active": [
+            1,
+            2,
+            3,
+            4,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "exterior": [
+            0,
+            5
+          ]
+        }
+      ],
+      "values": [
+        {
+          "index": 2700,
+          "sign": -1,
+          "position": "-7929856121/2560000000",
+          "active_families": 6,
+          "max_depth": 9,
+          "signed_upper": "19793/10000000000",
+          "evaluation_charge": "211821902204966618004932299311407564476771221353388873261960477531141219122670757553141801120487329607344491882512761120387723054103543731/27459190640522438859927603196325572869077741200573221637577853836742172733590624208490238562645818219909185245565923432148487951998866575250296113164460228608"
+        },
+        {
+          "index": 2701,
+          "sign": -1,
+          "position": "-158531586419/51200000000",
+          "active_families": 28,
+          "max_depth": 16,
+          "signed_upper": "9637/5000000000",
+          "evaluation_charge": "433232775703838510010995000820239430814425905926396708807373442955333822073858526224678852704788219376472680630700951272215267030309214199/54918381281044877719855206392651145738155482401146443275155707673484345467181248416980477125291636439818370491131846864296975903997733150500592226328920457216"
+        }
+      ],
+      "midpoint": {
+        "signed_upper": "377443/100000000",
+        "evaluation_charge": "65630362777272588978895099787957257366138748951646569627069702147010639910103649050534923566544554097191875161329957010736397/47634102635436893179040485073748265163400240214004076398607741693502376385799646303105256699577209032590132615988260237052123652332890095616",
+        "evaluation_charge_display": 1.3778020188512498e-15
+      },
+      "third": "7559/40000",
+      "curvature": "487/125000",
+      "integral": "2501/1000000000000",
+      "opposite_sign_fourth_rejected": true,
+      "zeroed_integral_rejected": true,
+      "regeneration": true
+    },
+    {
+      "index": 2701,
+      "sign": -1,
+      "jets": [
+        {
+          "side": "Left",
+          "order": 3,
+          "grid": "2701",
+          "active": [
+            1,
+            2,
+            3,
+            4,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "exterior": [
+            0,
+            5
+          ]
+        },
+        {
+          "side": "Right",
+          "order": 3,
+          "grid": "2702",
+          "active": [
+            1,
+            2,
+            3,
+            4,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "exterior": [
+            0,
+            5
+          ]
+        },
+        {
+          "side": "Midpoint",
+          "order": 2,
+          "grid": "5403/2",
+          "active": [
+            1,
+            2,
+            3,
+            4,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "exterior": [
+            0,
+            5
+          ]
+        }
+      ],
+      "values": [
+        {
+          "index": 2701,
+          "sign": -1,
+          "position": "-158531586419/51200000000",
+          "active_families": 28,
+          "max_depth": 16,
+          "signed_upper": "9637/5000000000",
+          "evaluation_charge": "433232775703838510010995000820239430814425905926396708807373442955333822073858526224678852704788219376472680630700951272215267030309214199/54918381281044877719855206392651145738155482401146443275155707673484345467181248416980477125291636439818370491131846864296975903997733150500592226328920457216"
+        },
+        {
+          "index": 2702,
+          "sign": -1,
+          "position": "-79233025209/25600000000",
+          "active_families": 28,
+          "max_depth": 15,
+          "signed_upper": "117/62500000",
+          "evaluation_charge": "221318068381026684475117424368139971221000544104955334016505465519222463708200038413708730180987218988062733007821888078304060556775101515/27459190640522438859927603196325572869077741200573221637577853836742172733590624208490238562645818219909185245565923432148487951998866575250296113164460228608"
+        }
+      ],
+      "midpoint": {
+        "signed_upper": "187703/50000000",
+        "evaluation_charge": "65309918950896215187453977117906919574302952009171957258967220445027321923744746329226476865985061395250145018374105610227279/47634102635436893179040485073748265163400240214004076398607741693502376385799646303105256699577209032590132615988260237052123652332890095616",
+        "evaluation_charge_display": 1.3710748253355271e-15
+      },
+      "third": "38347/200000",
+      "curvature": "3877/1000000",
+      "integral": "2433/1000000000000",
+      "opposite_sign_fourth_rejected": true,
+      "zeroed_integral_rejected": true,
+      "regeneration": true
+    }
+  ],
+  "full_grid_certificate": false,
+  "exact_coefficient_membership": false,
+  "rh_claim": false,
+  "endpoint_regeneration": true,
+  "positive_integral_regression": true,
+  "split_scalar_cast_regression": true,
+  "default_regressions": 6,
+  "status": "BOTH_SIGNS_SEGMENT_BUILD_AXIOM_SOURCE_PASS",
+  "audits": {
+    "batchC02700MinusFourthP001Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusFourthP002Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusFourthP003Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusFourthP004Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusFourthP006Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusFourthP007Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusFourthP008Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusFourthP009Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusFourthP010Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusFourthP011Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusFourthP012Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusFourthP013Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusFourthP014Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusFourthP015Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusFourthP016Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusFourthP017Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusFourthP018Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusFourthP019Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusFourthP020Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusFourthP021Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusFourthP022Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusFourthP023Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusFourthP024Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusFourthP025Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusFourthP026Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusFourthP027Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusFourthP028Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusFourthP029Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusFourthBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusFourthP000Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusFourthP005Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusLeftP000NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusLeftP001NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusLeftP002NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusLeftP003NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusLeftP004NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusLeftP005NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusLeftP006NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusLeftP007NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusLeftP008NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusLeftP009NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusLeftP010NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusLeftP011NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusLeftP012NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusLeftP013NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusLeftP014NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusLeftP015NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusLeftP016NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusLeftP017NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusLeftP018NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusLeftP019NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusLeftP020NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusLeftP021NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusLeftP022NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusLeftP023NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusLeftP024NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusLeftP025NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusLeftP026NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusLeftP027NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusLeftP028NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusLeftP029NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusRightP000NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusRightP001NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusRightP002NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusRightP003NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusRightP004NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusRightP005NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusRightP006NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusRightP007NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusRightP008NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusRightP009NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusRightP010NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusRightP011NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusRightP012NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusRightP013NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusRightP014NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusRightP015NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusRightP016NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusRightP017NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusRightP018NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusRightP019NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusRightP020NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusRightP021NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusRightP022NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusRightP023NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusRightP024NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusRightP025NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusRightP026NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusRightP027NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusRightP028NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusRightP029NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusMidpointP000DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusMidpointP001DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusMidpointP002DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusMidpointP003DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusMidpointP004DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusMidpointP005DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusMidpointP006DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusMidpointP007DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusMidpointP008DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusMidpointP009DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusMidpointP010DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusMidpointP011DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusMidpointP012DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusMidpointP013DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusMidpointP014DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusMidpointP015DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusMidpointP016DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusMidpointP017DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusMidpointP018DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusMidpointP019DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusMidpointP020DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusMidpointP021DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusMidpointP022DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusMidpointP023DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusMidpointP024DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusMidpointP025DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusMidpointP026DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusMidpointP027DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusMidpointP028DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusMidpointP029DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusMidpointGrid2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusSignedMidpointExpError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusSignedMidpointSum_eq2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusSignedMidpointCharge2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusSignedMidpointUpper_le2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusPhysicalSecond2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusThirdCell_bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusThirdAggregate_bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusCurvature_bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusCellChargeBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusCellThirdBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusCellCurvatureBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02700MinusCellIntegralBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchN02702MinusP000DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchN02702MinusP001DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchN02702MinusP002DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchN02702MinusP003DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchN02702MinusP004DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchN02702MinusP005DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchN02702MinusP006DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchN02702MinusP007DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchN02702MinusP008DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchN02702MinusP009DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchN02702MinusP010DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchN02702MinusP011DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchN02702MinusP012DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchN02702MinusP013DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchN02702MinusP014DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchN02702MinusP015DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchN02702MinusP016DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchN02702MinusP017DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchN02702MinusP018DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchN02702MinusP019DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchN02702MinusP020DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchN02702MinusP021DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchN02702MinusP022DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchN02702MinusP023DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchN02702MinusP024DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchN02702MinusP025DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchN02702MinusP026DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchN02702MinusP027DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchN02702MinusP028DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchN02702MinusP029DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchN02702MinusGrid2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusFourthP001Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusFourthP002Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusFourthP003Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusFourthP004Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusFourthP006Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusFourthP007Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusFourthP008Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusFourthP009Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusFourthP010Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusFourthP011Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusFourthP012Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusFourthP013Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusFourthP014Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusFourthP015Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusFourthP016Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusFourthP017Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusFourthP018Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusFourthP019Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusFourthP020Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusFourthP021Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusFourthP022Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusFourthP023Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusFourthP024Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusFourthP025Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusFourthP026Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusFourthP027Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusFourthP028Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusFourthP029Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusFourthBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusFourthP000Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusFourthP005Bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusLeftP000NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusLeftP001NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusLeftP002NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusLeftP003NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusLeftP004NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusLeftP005NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusLeftP006NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusLeftP007NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusLeftP008NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusLeftP009NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusLeftP010NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusLeftP011NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusLeftP012NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusLeftP013NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusLeftP014NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusLeftP015NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusLeftP016NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusLeftP017NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusLeftP018NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusLeftP019NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusLeftP020NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusLeftP021NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusLeftP022NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusLeftP023NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusLeftP024NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusLeftP025NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusLeftP026NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusLeftP027NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusLeftP028NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusLeftP029NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusRightP000NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusRightP001NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusRightP002NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusRightP003NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusRightP004NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusRightP005NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusRightP006NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusRightP007NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusRightP008NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusRightP009NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusRightP010NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusRightP011NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusRightP012NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusRightP013NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusRightP014NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusRightP015NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusRightP016NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusRightP017NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusRightP018NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusRightP019NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusRightP020NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusRightP021NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusRightP022NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusRightP023NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusRightP024NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusRightP025NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusRightP026NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusRightP027NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusRightP028NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusRightP029NormBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusMidpointP000DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusMidpointP001DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusMidpointP002DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusMidpointP003DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusMidpointP004DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusMidpointP005DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusMidpointP006DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusMidpointP007DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusMidpointP008DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusMidpointP009DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusMidpointP010DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusMidpointP011DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusMidpointP012DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusMidpointP013DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusMidpointP014DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusMidpointP015DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusMidpointP016DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusMidpointP017DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusMidpointP018DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusMidpointP019DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusMidpointP020DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusMidpointP021DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusMidpointP022DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusMidpointP023DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusMidpointP024DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusMidpointP025DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusMidpointP026DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusMidpointP027DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusMidpointP028DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusMidpointP029DerivativeError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusMidpointGrid2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusSignedMidpointExpError2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusSignedMidpointSum_eq2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusSignedMidpointCharge2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusSignedMidpointUpper_le2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusPhysicalSecond2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusThirdCell_bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusThirdAggregate_bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusCurvature_bound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchValueN02702MinusSigned_le2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchValueN02702MinusPhysical_le2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusCellChargeBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusCellThirdBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusCellCurvatureBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "batchC02701MinusCellIntegralBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "negativeSegmentIntegralBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "bothSignsSegmentIntegralBound2558": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_sha256": {
+    "ConnesWeilRH/Dev/C1RouteASignedSegment2558.lean": "6d55d46ae75ec2ce765a9be25d87a365e593b849becdca75060ec96ae03c204d",
+    "ConnesWeilRH/Dev/C1RouteANeighborSegment2557.lean": "0657f471dbf04ff7b3f006072ddef5308e0c7615604f8dc2bbc5c63f3a76384d",
+    "ConnesWeilRH/Dev/C1RouteANeighborIntegral2557.lean": "d3f333e55773e743bf74afb892ec274f50590ce6df4ead318e03720924684a22",
+    "ConnesWeilRH/Dev/C1RouteASharedN02701Plus2556.lean": "e7dc8a5644579d7467d9aa96474dce07561dcaae803994f91c844c44d093fb8f",
+    "ConnesWeilRH/Dev/C1RouteANonzeroNode2541.lean": "66322991ea17799e52806a37252d8d56de7a616de0979fe5ef7bdbdef10012c3",
+    "ConnesWeilRH/Dev/C1RouteACenterNode2540.lean": "8e146ec0f9ebdfb2b24859f034b7ebe7bddd93fc58293245ddd0c23c03ded8b5",
+    "ConnesWeilRH/Dev/C1RouteAExpSplit2498.lean": "259b5f1f36dd21a6ca364a54bf8f5c67e5d5d9b91e6d7a723dde4069120116be",
+    "ConnesWeilRH/Dev/C1ScaledExpRationalEnvelope.lean": "7ab91d970ea471c4887b98ca8c28667d76dc111a17b0442dda654365446ef6f9",
+    "ConnesWeilRH/Dev/C1ClassMomentSharpTailBudget.lean": "a742903ecfddfaf6922d6533fae3427dc4a979d07aecee248fe29ecb8ca177b7",
+    "ConnesWeilRH/Dev/C1ClassMomentCentralAssembly.lean": "5b1298759b21cdbdaa9151d99e04f93b8bf2957969161f6b4fcbd05ed65d503b",
+    "ConnesWeilRH/Dev/C1ClassMomentTailCertificate.lean": "3552a36fb4937c3529293aab1568f7e5e4fb2a8ff21cb1a12fe479e92a7c9a05",
+    "ConnesWeilRH/Dev/C1ClassMomentPolynomialIntegral.lean": "eb1fd3a663011c68a0a9301efcf70b6998f5e403ad98ee4b9d906530f452d6df",
+    "ConnesWeilRH/Dev/C1ClassMomentIntegralCertificate.lean": "c18eee105ced28a0ab2b4187c7615a5b931b194f09607eef5600689fc74690e3",
+    "ConnesWeilRH/Dev/C1Q28ClassGramIntervalTransfer.lean": "a0fad4640bc6dc2e9654ac6267f700be52166d48cf855ec8f597d58664ecb0f7",
+    "ConnesWeilRH/Dev/C1ClassGramMomentModel.lean": "287633d74d0f113c45bac4d179a29c6ed39e40502c0c8abb22ad06bf462fe96e",
+    "ConnesWeilRH/Dev/C1ClassGramMomentConsumer.lean": "2c1e9c95ccc6ac4c22687639d9856aec657665f356c5c91d0a01584f66498fe6",
+    "ConnesWeilRH/Dev/C1ClassGramScale.lean": "85ae3b94833965ddabcc2967fababa4e3d4a85fb15723d85b7c01ff41de6a852",
+    "ConnesWeilRH/Dev/C1ClassGramOwner.lean": "68d8b1967ffcc1076de530eb3cd3941ee720b433f438c1636b60fd64b0a978e2",
+    "ConnesWeilRH/Dev/C1HboxRationalData.lean": "ca10a6a54bd25e82fe697a3a172f6494db7ab969c34615b611bc42b74fa15076",
+    "ConnesWeilRH/Dev/C1GateLevelTransferClasses.lean": "9eda7346e28b521c3217bb4a420f8c3eed29783216f61b924bd63d9138252bc1",
+    "ConnesWeilRH/Dev/C1WindowRationalIngestQ48.lean": "b8d07c54be01c6bbb952357c357d219c6f0ef45bf5295bb1cb252c9b7ba900b9",
+    "ConnesWeilRH/Dev/C1WindowRationalIngest.lean": "72889fe74ee8fa6ecf4ce858cf8e476851e880be42fca633ed421e8f1bf7c40d",
+    "ConnesWeilRH/Dev/E0SlemmaBridge.lean": "96de155724ff2a4108b296cba58d71c54a42607dbe68cc25c35bba83fd8a096d",
+    "ConnesWeilRH/Dev/C1WindowRationalIngestQ38.lean": "fd29ab9ac3862b5157c9cb496709b870d8269c7d8c109c92514ff1e314339bbb",
+    "ConnesWeilRH/Dev/C1WindowRationalIngestQ28.lean": "1d8469dc25b569024c209d30acd5cdb394f783d730792670c31531255479075f",
+    "ConnesWeilRH/Dev/C1LocalConfigurationDomination.lean": "8004bb471e22c61d9cccb19f9e8a427c0df63a0e143096a438328941a1109b70",
+    "ConnesWeilRH/Dev/C1OrbitWindowSemiLocalGate.lean": "811e41c1980d9238a1d2e59b9559e339e92c4e80c924dbcbef19d93d7c1277d0",
+    "ConnesWeilRH/Dev/C1SameOwnerWeil.lean": "7aaf342fd7cb60e5132fa5b570a6f97c37f689453721f8a91012e86ffebfa61a",
+    "ConnesWeilRH/Source/CCM25Concrete/SelectedArchimedeanIntegrability.lean": "2274106bbf4dbc03d8e5f2fa44fdb268a0ee7a128d7c498d73163d65405a15e5",
+    "ConnesWeilRH/Source/CCM25Concrete/SelectedWeilFormula.lean": "97d5b684b04848c24d731a1518c9d595a71fe07608dcf7f84ec65c94a3d449a5",
+    "ConnesWeilRH/Source/CCM25Concrete/SelectedWeilSquare.lean": "4eacce173e15d035bb9ba5be01bba0453b1170391e04c9b38151933a99bbdd71",
+    "ConnesWeilRH/Source/CCM25Concrete/CompactLogConvolution.lean": "7fa75483b47754b5adeb8ea4cdd3347f6ac9794d0dc942c37b85dd44a3e6c078",
+    "ConnesWeilRH/Basic.lean": "1adae8575aaaab15b2c2282903e0f516eff9ba6a8210aff198f6c55e4d996d94",
+    "ConnesWeilRH/Source/CC20YoshidaConvolution.lean": "400ce149dbc7dfd0b10152dbd48d8be1805f7dd3865acb9cbc8670a5874e4a6d",
+    "ConnesWeilRH/Source/CCM25Concrete/SelectedYoshidaBridge.lean": "a79600723acd731752b93eccfa517cb33bb09e9234ce27fe2c713c7912598358",
+    "ConnesWeilRH/Source/CC20Concrete/GlobalLogHaar.lean": "5a3d81e3ceddac98f511badeaee59fd4be01e7ec229750bb8ffc7e07b6bba71b",
+    "ConnesWeilRH/Source/CC20Concrete/WindowContainment.lean": "3bcc8cb94bab790afa4e5bfa95fad951ed31e99cee3330453ed13599a859bf13",
+    "ConnesWeilRH/Source/CC20YoshidaConstruction.lean": "168e7ed75674b4cae884cef5c27afbe2e9fa9dc565a9b87b1608204f3b898434",
+    "ConnesWeilRH/Source/CC20YoshidaMellin.lean": "01468161131adc2bd5894493401c71423056b4e4f825a39399816c7f1f0d1801",
+    "ConnesWeilRH/Source/CC20YoshidaCriterion.lean": "a7f9a3e1a112a146784725fb31de482f359b740732d4bf2708128e98207f2746",
+    "ConnesWeilRH/Source/CC20TestSpace.lean": "cb37e1f3b6730c686b13ca982424f73d43904f291ec4ad8c0bf50ae6568ef879",
+    "ConnesWeilRH/Source/CC20RHExit.lean": "76056b9fb36e061779aea5dc2b545246623c57ac1dfcfb2cc553d7617b0ebba9",
+    "ConnesWeilRH/Source/RHDefinition.lean": "bb15fec3f62e7661af3dd0cf0d40b86e06a5ac8020aac6600cf147ccd07893fc",
+    "ConnesWeilRH/Source/CC20ConcreteTestSpace.lean": "7f740ae5dfd09d05f905852e2fc4e02fc3e571c2a2777789dacd0372b8fc295e",
+    "ConnesWeilRH/Source/AnalyticCoreBase.lean": "517f2d31027383f386109dff2513721e47f1feb2cbf001f873150dc724288ea3",
+    "ConnesWeilRH/Source/CC20Concrete/TraceScale.lean": "0922cc0d7e89bcf47921dae1e80d3a58b246df46d02dabd4ad7f998b1c34a9aa",
+    "ConnesWeilRH/Source/CC20TraceModel.lean": "e6d8966f87fe45cdb42377b0141011fdfff7f7b587a1acb9b987bea5430fd524",
+    "ConnesWeilRH/Source/ObjectDerivations.lean": "44b040c5d91332dc32c837c0ed798b18d14eafdee65560fe609ca6043632a199",
+    "ConnesWeilRH/Source/Objects.lean": "22435b168e12040f1241d6eb054040658b1a08ce93b6656c06e94cb63b29d177",
+    "ConnesWeilRH/Source/CCM25Concrete/FinitePrimeSourceData.lean": "40a9302cd1bfb3a94eaafa7838a681eb5c7b45eb0bee77c2d11db340261daa1c",
+    "ConnesWeilRH/Source/CCM25Concrete/Rows.lean": "b011e5f0adb2877cc9d40ea30a853312c734e6ef428d268297c1aca62a82b39a",
+    "ConnesWeilRH/Source/CCM25Concrete/FinitePrimeInterface.lean": "1710cd1b3023317781d291e6700994e74b9c02f23f1386d949ded4fd740b6e4b",
+    "ConnesWeilRH/Source/CCM25Concrete/FinitePrimeCertificate.lean": "bfeebdeaf751eabad55d47e4da298d344d853edda24a6ef03ba6063b08ce7344",
+    "ConnesWeilRH/Source/CCM25Concrete/PrimePowerTerm.lean": "d875609bd05c31d84c59695ecfa30737d1c7801a2b550c35703e927225906c7f",
+    "ConnesWeilRH/Source/CCM25Concrete/PrimePowerArithmetic.lean": "467e52e9fef61463da1d7fc1e42785043c93ec391d17eec32eb5f02490a03c3d",
+    "ConnesWeilRH/Source/CCM25Concrete/PrimePowerPairing.lean": "105517d64373e2ac23e5cc2d4c2fec994cdcc6d6f60150585cf3852915b08dec",
+    "ConnesWeilRH/Source/CCM25Concrete/PrimePowerEvaluation.lean": "83e3cf51f873b4d0052455c3c6d04944725179721693f953fb952008b601cdb2",
+    "ConnesWeilRH/Source/CCM25Concrete/PrimePowerTest.lean": "c16c79fe1e041696322c897fef2bcdbe83ca738971bf594216217915454cac14",
+    "ConnesWeilRH/Source/CCM25Concrete/CommonSourceTest.lean": "c5549e62e168a44de733ade24b5bf96944439be6b61b9151211bce541e02ee11",
+    "ConnesWeilRH/Source/CCM25Concrete/PrimePowerSupport.lean": "5d28e303c0929f0004b0ecd1576d8ce259be5751dd09e51b2258b643d219a29f",
+    "ConnesWeilRH/Source/CCM25Concrete/FinitePrimeExact.lean": "2cd4eb27953510620064ff8a6953072970d83c20c836f15de69837618d7faddc",
+    "ConnesWeilRH/Source/CCM25Concrete/FinitePrime.lean": "981d4e1c8d1fcc6467aa79fd4d0ddebf19ca14adbaa51decfef3f38e32740825",
+    "ConnesWeilRH/Source/CC20YoshidaTail.lean": "ab93dbf7a51bde5acda6081603b84b0c86b2491859e182af93daba32c0a7d174",
+    "ConnesWeilRH/Source/CC20YoshidaNearZeros.lean": "334d0cab999b81e0fd3ddbd1b985c7decf441161dd4c277891c9aff6b4f69f25",
+    "ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativity.lean": "56e7ca88fe1920d01f2c01f80fa78092648be2b7105d3fe354c4275589bdabdd",
+    "ConnesWeilRH/Dev/C1SpectralTailBound.lean": "e8d10e57c1b95513bbddded96e8e5a82606e83a70d81e4d52aeb4036e8bea051",
+    "ConnesWeilRH/Dev/C1XiGlobalZeroSum.lean": "d0b0665d316a9b4391f4ecfcfc1e4581e4c22b33f98f752e3cea8ffa0a41ce5b",
+    "ConnesWeilRH/Dev/C1SpectralSummability.lean": "38ba7d7271e8f7b00b6ffa330bb75ea086c9818c9202e298e119dc9c34f8bd1a",
+    "ConnesWeilRH/Dev/C1SpectralWeil.lean": "2843ca8ae6bc2797d415d74c447a480ac1f1b4ed5084cd7d9c153c92cbb15b1a",
+    "ConnesWeilRH/Source/CC20ZetaCounting.lean": "a44c30e8ef57b2326fe97eb4b4bc709889d3635f0fc753a60cf3d173044d4fd2",
+    "ConnesWeilRH/Dev/C1LogPositiveBridge.lean": "e608586d3759af04ddbb3681aeb0bd4e062932dba9850f8015be48e247b720ef",
+    "ConnesWeilRH/Dev/MellinConvolutionIdentity.lean": "ec418576cfd7dce4635d7b2118ec484aab5c65c6e1da1c596095bdad1dbb151c",
+    "ConnesWeilRH/Dev/MellinLogLiftProbe.lean": "3504eef925657104c43707ffa14f335b1f4fe61a2454c22c7371335320905267",
+    "ConnesWeilRH/Dev/C1XiGrowth.lean": "89dd8149d047b478039bd79402ef39f4073b05fc06759768678555e8d42554f0",
+    "ConnesWeilRH/Dev/C1HealthyYoshidaClosedPrefix.lean": "990f2e6350a3a7ecae06a1ff172b0fd70ad693ee7aa4f793cf4ab4c0e263bc2a",
+    "ConnesWeilRH/Dev/C1HealthyYoshidaSpectralPrefix.lean": "bc8963339f2487944b735edfdab7b489b9dfc4ab607bba8c3526d5df5827edc3",
+    "ConnesWeilRH/Dev/C1HealthyYoshidaUnscaledOrbit.lean": "1e251ad087001b2d2fd21b15a3574485009984748283598b7bfd64bb4455d544",
+    "ConnesWeilRH/Source/CCM25Concrete/UnscaledYoshidaSelectedOwner.lean": "45f5f32763858a9056493595d7bcb1eafe388d9e76f256c2de29bb1803236f2d",
+    "ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingOperatorBridge.lean": "fc643e5905682eff759432b87732f56a68b2c320174608826a70d317ee7fbdbc",
+    "ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingKernel.lean": "713b4e45d4ef5b062e2303d51b276d658b74b05d69bfb97763cebc1b61c6b3d5",
+    "ConnesWeilRH/Source/CCM25Concrete/SelectedSingleCrossing.lean": "ad101d7b8d499d7c9051351986a3c31b2e721e8d14cd19701c26e6dc7dfc40ed",
+    "ConnesWeilRH/Source/CC20Concrete/ContinuousKernelHilbertSchmidt.lean": "4fb313806d90a454355ef2978b0f1e34f172944400825b9aff39f148c7a7c35a",
+    "ConnesWeilRH/Source/CC20Concrete/PositiveTrace.lean": "fb21ebc1d17978b3da9d38df70858ff13ba4602579c8da383764cf67cc7e2902",
+    "ConnesWeilRH/Source/CC20Concrete/GlobalConvolutionCrossing.lean": "5aa90f9ebd182e54c78cc4d25cc4ac6490d6aae9a9ea060f4f0060270380ca18",
+    "ConnesWeilRH/Source/CC20Concrete/GlobalLogConvolution.lean": "93bb67d19a14e3857606e864dc8968848c7b1444ef600f538120b16092e18d45",
+    "ConnesWeilRH/Source/CC20Concrete/GlobalLogCrossing.lean": "6b03c75daf0a663c450fd1e0d3bc188e215942945f993ecc7b5e02a73a480e04",
+    "ConnesWeilRH/Source/CC20YoshidaFullProduct.lean": "cf83be7a30ffc1712ac699de6c99f1ab6878640d967ca69db3a45d9c78b0f8b6",
+    "ConnesWeilRH/Dev/C1HealthyYoshidaMinimalInterpolation.lean": "7e0b884e988129f423429239a3287cde726d4e2be725ffed6a8b05e49a738c8d",
+    "ConnesWeilRH/Dev/C1HealthyYoshidaInterpolation.lean": "62bb182c9585d3bb3b57e633015d715e4bd01a097ca4b336d22972fd4244da36",
+    "ConnesWeilRH/Dev/C1HealthyYoshidaDetector.lean": "e60e398e3805da370775266913984af447801c822c121ad64058f22a751112fd",
+    "ConnesWeilRH/Dev/C1CenterTwoRHExit.lean": "4a3137cbfe16fbca5449397e72ddc0c27ef10a574e6a68dd965e64d850ff9a8d",
+    "ConnesWeilRH/Source/ZetaHalfNonvanishing.lean": "23ab1255e821b564cf8072437970baa144ef7cd199cad07b33fafd645a239845",
+    "ConnesWeilRH/Source/DirichletEta.lean": "6ac540de3c107f301d8b03009abc15fbdc36b094f209fa0970ba07abd605dfac",
+    "ConnesWeilRH/Dev/C1CenterTwoCriterionBridge.lean": "25d1ad4e28064c3e9b1fcc819d7344791604b6a5b485cf226597472cde8a5bd1",
+    "ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean": "4d0549a258d4ab40351ac90601a7e9a7e7d6795363365e14b7c9050ba788ee6d",
+    "ConnesWeilRH/Dev/C1XiCenterTwoSpectralLimit.lean": "4f0ced73dc3522938d0f632d8fab68c5b9184942483865b47306cd1ed6fbe546",
+    "ConnesWeilRH/Dev/C1XiCenterTwoRectangleAssembly.lean": "ef73fdf33c4aefff7ec25f666bc6336fa025bd9f8f0c0ead1431bc34d2148330",
+    "ConnesWeilRH/Dev/C1XiCenterTwoVerticalFold.lean": "0c8d6ac7598ce99fcf61807a073dcf53f59e87a2842335d83ab521cbd705700c",
+    "ConnesWeilRH/Dev/C1XiCenterTwoFiniteRectangle.lean": "48e141d1d3a4027edaa3e919736fe0b305409ee9d85dba2a4ca4f17532c58ff0",
+    "ConnesWeilRH/Dev/C1XiFiniteRectangleSupportReindex.lean": "edbb97619a688169519c26e956b51b52eaf25a36dd433a7e905ed9adfd2348ed",
+    "ConnesWeilRH/Dev/C1XiFiniteSupportReindex.lean": "39c1c3cd0801edf80236b49bbefb50ef95767cfb645896df5486e3f8c20a7e12",
+    "ConnesWeilRH/Dev/C1XiFiniteCommonCircle.lean": "495e848df334b6b8f15a8bb582a9186b7fb2e6d543d6e72628d8748c0962cd6e",
+    "ConnesWeilRH/Dev/C1XiFiniteLocalResidue.lean": "d3263d94e78eb5001e62d4b1db0084146609d7ec2290276dc7a081776b86d4a5",
+    "ConnesWeilRH/Dev/C1XiFinitePrincipalPart.lean": "75baaac630dc32c876ffa765e175da69d2c27eb4e2f27521e1706b49416b6969",
+    "ConnesWeilRH/Dev/C1XiFiniteRegularization.lean": "a1b16250d1712bd4bf53b5e5f9537055a6d2813f8eeb5924a03dc593f97bbb0e",
+    "ConnesWeilRH/Dev/C1XiFiniteFactor.lean": "4964e5910df864578d5148d4cbf577b9b0032b0b7aeb8cebb1edbca4febf7ed1",
+    "ConnesWeilRH/Dev/C1XiResidue.lean": "7a76dafa054f8e1c9addd21a219123defdf32dacb30952b2074bfcb04e29f1d3",
+    "ConnesWeilRH/Dev/C1XiLocalPrincipalPart.lean": "5447946c94f297d8d3f8fb5d0fb087d67e9fba8f17a787f64f3746288345360b",
+    "ConnesWeilRH/Dev/C1XiVerticalFunctional.lean": "04903997269d443411ddbc1d79dee0d9ffbe6a63f937375219fa102ba55c8350",
+    "ConnesWeilRH/Dev/C1XiFiniteRectanglePrincipalPart.lean": "e586c25d5ab943f0b21899430e3d56f8351d9bf86572d06a788b59893aaa22d6",
+    "ConnesWeilRH/Dev/C1XiFiniteRectangleBoundary.lean": "10b81e291901598ac3e44a4fab14ce80354cbba650c9e1e57a9f5c4c16d71e0e",
+    "ConnesWeilRH/Dev/C1XiFiniteRegularizationCauchy.lean": "7bb20bb357b3fc817657c0f5e4ab19a7bd393e28efb7f72f27115438c955a407",
+    "ConnesWeilRH/Dev/C1XiCenterTwoHorizontalBoundary.lean": "89abc89e6ed6f4f16ead8368f9db390907a4015db8d8abab77d524197c5c30da",
+    "ConnesWeilRH/Dev/C1XiContourDecay.lean": "f6abe5699e9b6d9d600a8685ae3ff25fe09cc44cd0198f4b5b2a0f8dafefd7f9",
+    "ConnesWeilRH/Dev/C1XiCenterTwoHorizontalDecay.lean": "06ccf54a835fdfd0a703826cbbd3d3923f1b6006a2d14e0d35145b3dd60fcfe1",
+    "ConnesWeilRH/Dev/C1XiCenterTwoHorizontal.lean": "7590fafbfdf5493af420728c0cbf324989c9a75853449db600119e491b5371cf",
+    "ConnesWeilRH/Dev/C1XiHABridge.lean": "9ec1cf2083fd85d6101eac32a87dbebfc3ca573ea9557395474ac8756af16a30",
+    "ConnesWeilRH/Dev/C1XiGlobalWeightedZeroSum.lean": "7b737f5293fdd59a903313344edbc710025bf8a619d8b71f1332f24834c9cf07",
+    "ConnesWeilRH/Dev/C1XiCofactorBorel.lean": "54dd5ea23c3fd206ad7922ee9e49f3c6c56dcf88ca75286fd02cc416f9d474fc",
+    "ConnesWeilRH/Dev/C1XiQuantitativePrincipalBound.lean": "4d8d871f309c894a6805e552fd10a851976c2a0d875bf6cca58fd74cfe0ae8b7",
+    "ConnesWeilRH/Dev/C1XiQuantitativeHeight.lean": "d8702c47d0a473a53808775458cbefb6fc4ec3d22e73dedf1f4ebe0b72263a1b",
+    "ConnesWeilRH/Dev/C1XiFiniteHeightRectangle.lean": "aa71f84c72249a048977c82c498b9df6c410e12dcbb08881df7fa49ec1e45d11",
+    "ConnesWeilRH/Dev/C1XiAnalyticLog.lean": "a8bfcf3d0e3f64b8edb560f877f174c066384e2824b9e3212c3a969b715e7ca2",
+    "ConnesWeilRH/Dev/C1XiCenterTwoPole.lean": "f139b4429a7f298d2923a3e5eee6d5f8f363b9480353178163666c822eef72d1",
+    "ConnesWeilRH/Dev/C1XiCenterTwoPrimePower.lean": "da6a3576ae13d01847f7adf0776fd7e6869127754b6c534dd4d006298cb52edf",
+    "ConnesWeilRH/Dev/C1XiArithmeticPrimePowerAssembly.lean": "cd3fa15b26024a4b318105ca782d1b2b42d25e5eff31b52a5b7709841e8d2a5a",
+    "ConnesWeilRH/Dev/C1XiArithmeticPrimePowerReadback.lean": "ecc5cdb9a655990884769d1991482d41915f3e999eb1a275ce7a9eba5142038b",
+    "ConnesWeilRH/Dev/C1XiArithmeticIntervalReadback.lean": "aaafbc92c9a3b9a0628d098face3d357760191ebc5a3e07783ee951c4786551d",
+    "ConnesWeilRH/Dev/C1XiArithmeticRightLine.lean": "5cf24de6a257be941f8bac3c530c2d002744f99736630f81f59eaf4ad43ea10d",
+    "ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean": "ffd05e1d0073c3e5f8c0ba9ba85732bb5f5fbd84c76c381a5fba44c3d037ae7b",
+    "ConnesWeilRH/Dev/C1XiGammaEulerProduct.lean": "8e1f31494107e8fbc80299f8181e151502136383eb6868e137ef8ef81dcdf65e",
+    "ConnesWeilRH/Dev/C1HealthyTestSpace.lean": "e7776026b4f935ca5ab248d5722a788972fe90115efa9d697e2b852f779adc18",
+    "ConnesWeilRH/Dev/C1GateLevelTransfer.lean": "fadccfd945ee1a3cdd05e9835d297f06b4581e8845352b2d469b2d83a27aa368",
+    "ConnesWeilRH/Dev/C1ClassWindowObjects.lean": "45c1dd06ed21f00484ac5107f5bd8349b8ee51fa7e33509ee9b2f048417cd2a2",
+    "ConnesWeilRH/Dev/C1ClassGramMomentReduction.lean": "78b5788135b7bacebf8d79deac955fa8d4d57485dd7b1445698aeeb670bfbe49",
+    "ConnesWeilRH/Dev/C1ClassGramParity.lean": "5dd48e88d4a393a51bbc141d214b32d081ca99a6aa9c582368467051ac7f4a36",
+    "ConnesWeilRH/Dev/C1RouteASignedAggregateCell2539.lean": "85cb7daeb19a9580aa423c4c7a29da3de76b38ac946fcf00b378dc6576525a90",
+    "ConnesWeilRH/Dev/C1RouteAOwnerSupport.lean": "25696d3cd3781eec2761922db9bdbfb7eef5f99b4875ae5a830cebf50fcf1c56",
+    "ConnesWeilRH/Dev/C1RouteAItem5Arithmetic.lean": "af2490f4fe5135879934beec91b20c5a5362dd8864ae4878c194e07d108315ce",
+    "ConnesWeilRH/Dev/C1RouteAOwnerScaleAudit.lean": "32fdbbc63973a2b72bc29a0614120d796c25ecd843b106d15e5b10e66fdf464b",
+    "ConnesWeilRH/Dev/C1RouteAWeightedFamilyCell2538.lean": "f2f07ed80e1136397e22603b25e73e480674e5773b1402a4df8bbbd956deb234",
+    "ConnesWeilRH/Dev/C1RouteAWholeCellLipschitz2534.lean": "5b80b5d51a916a8767f09b24ed16192f6fc8e4dc74ba853a99cb5d8f702baeb7",
+    "ConnesWeilRH/Dev/C1RouteASignedCenterError2531.lean": "543db3154189301827f6ec884a1d2bb448edf6472fd73539ae249b93a08c53ce",
+    "ConnesWeilRH/Dev/C1RouteANormBridge2453.lean": "ac39e2d58e20327a3a56c0cdca8f360bd3e4e9ce4e60c2ad223a9364e0c4be7e",
+    "ConnesWeilRH/Dev/C1RouteAIntervalAlgebra.lean": "23ee06fba3c2c8d60730abbf7e5b2fbb0678725b57d60c7f57c369d35e5f3cfe",
+    "ConnesWeilRH/Dev/C1RouteAWeightedFamilyLocal2537.lean": "e3d1e7b80877ee407ab3e0792566918239d1308c9ed309a4685aea7b9e58e14c",
+    "ConnesWeilRH/Dev/C1RouteAOwnerDerivativeBudget.lean": "5f2d9ba6a569b77437bfdf0e1b8d1b8bbdf96ad4687a94d7c453a30deb880f72",
+    "ConnesWeilRH/Dev/C1RouteAWeightedChordPanel.lean": "a8e1518211bb7cf8839b4857ca2c8042bb97d54d96a08e43fc994f0fef2fc908",
+    "ConnesWeilRH/Dev/C1RouteAChordPanel.lean": "17bdbde694bb577b08cd4f75d99f38f00adfa4997463832a2d054ebf68d06947",
+    "ConnesWeilRH/Dev/C1RouteAExternalOwnerZeroExtension.lean": "da6f7d9946622b39d61c3b57bfaba3b00de22c3b01471bcc648c59cc57bc9032",
+    "ConnesWeilRH/Dev/C1RouteAExternalOwnerDerivatives.lean": "74dd3b2371cd6be70506197db8488c16b5ec8b3a590cebc80c09b7b2bd2b244c",
+    "ConnesWeilRH/Dev/C1RouteAExternalOwnerIdentity.lean": "dc188bc2999f24537a8560a5962c4227860614f38aade683395795b561e3f3e7",
+    "ConnesWeilRH/Dev/C1RouteAEndpointStrip.lean": "81ae4a1d1ad41aca525d7180dc3bccfd5090af3fae70bfc10b3a14bdc80a7fb6",
+    "ConnesWeilRH/Dev/C1RouteAStripTransfer.lean": "8a775e3a8995f94127324049fc65c5da210943049372dcb462dadddc390f8608",
+    "ConnesWeilRH/Dev/C1RouteAProducerWired.lean": "9c8847621ec583a22f102c24ca5f36b9b94accc55018a54af291ca93ba9e2e4d",
+    "ConnesWeilRH/Dev/C1RouteAMultiplicityBound.lean": "fc5adfc6cf6bb0a389639d5c4e3804f4b99c92dd55072fb182aca550f89e788c",
+    "ConnesWeilRH/Dev/C1RouteAWeightedZeroMeasure.lean": "f1ccbfe0892cfbebfea45c3a2364c178e9ecea9f0b33de2a3a3f92d12034d8f2",
+    "ConnesWeilRH/Dev/C1RouteADirectProductDecay.lean": "5a0d1079f76fa50a344ba2b8ef09ba20734ba534eaa90c278143d7603619da5e",
+    "ConnesWeilRH/Dev/C1RouteAOwnerTest.lean": "843af17add8b881a450a1bb8f0a674220c88a129d9b948961f420df6b4f3bee0",
+    "ConnesWeilRH/Dev/C1RouteABumpDerivativeLadder.lean": "c3890be287bb916656383846ef0289b643a29c706f982f877fde80e446aa2fb6",
+    "ConnesWeilRH/Dev/C1RouteABumpEnvelope.lean": "5c91dba23f5c6f67052b381d75ea5773a3ab9f94dad25d53aff9eb5133812c42",
+    "ConnesWeilRH/Dev/C1RouteACoupledBumpEnvelope2536.lean": "36e034e6ca9d7e0df28a55b970b0c0b6bd3f1f1847488c010fe591224383930d",
+    "ConnesWeilRH/Dev/C1RouteABaseCoefficientBoxes2540.lean": "2def58ca49b8b7435b8a6db319c2c55828a15906e3e694eefc3f0fdffe2653b9",
+    "ConnesWeilRH/Dev/C1RouteAExpNode2541P029.lean": "e7ccdb3556dd15a0ddfc5de4e464c3dc50945c937f4f9da5b1a54b8923300329",
+    "ConnesWeilRH/Dev/C1RouteAComplexExpBall2541.lean": "1bc70b326e52a5176d21970ef2cabd5f16b9d7a126c3242ade998599b778b32b",
+    "ConnesWeilRH/Dev/C1RouteAExpNode2541P028.lean": "331fdce50f1abefd97a835f3afd6ab6799ab20bb152456686de0ed0f04956c8a",
+    "ConnesWeilRH/Dev/C1RouteAExpNode2541P027.lean": "3c3c548a3a8fea0b203dd38a1bbd7df857034b5f0ec8eff7af768730ae5d38cd",
+    "ConnesWeilRH/Dev/C1RouteAExpNode2541P026.lean": "35b51bbef328b0e6f4bcd63cc060d8868000f14a5f766e4a04bdc93c0842265f",
+    "ConnesWeilRH/Dev/C1RouteAExpNode2541P025.lean": "46d117178caeecded18c38beaed2e1722797f20cf9804ec2717aeb92cdb70396",
+    "ConnesWeilRH/Dev/C1RouteAExpNode2541P024.lean": "23d2825480499a040654d0413cceb25e0dc8499e701c5a6f47cfdfb1d71ce270",
+    "ConnesWeilRH/Dev/C1RouteAExpNode2541P023.lean": "21436a8ccd084a46653706c5437cc3d56bb16bbb6c05cc06ac4d14fa10a199f9",
+    "ConnesWeilRH/Dev/C1RouteAExpNode2541P022.lean": "a547423855be1f3e74664452d8e817f2c8f2b93641da46508976b5dbabff29b6",
+    "ConnesWeilRH/Dev/C1RouteAExpNode2541P021.lean": "a84a97799d3900bbc0f7462e27d981589d9b2b5b5024e172247ea87b4e94f256",
+    "ConnesWeilRH/Dev/C1RouteAExpNode2541P020.lean": "7bb5b8b0d6129883ac31925b7611c54d75ffe0f94cb18581aeb2cd8528bd27ba",
+    "ConnesWeilRH/Dev/C1RouteAExpNode2541P019.lean": "5676f856bdbc932a65ebbd113c599e12d8443c151423336ff8551b45bb84c8d1",
+    "ConnesWeilRH/Dev/C1RouteAExpNode2541P018.lean": "212a2ee2c60efd6f5c1f6b491daf25289273a8e67b087edad69529ee0791536b",
+    "ConnesWeilRH/Dev/C1RouteAExpNode2541P017.lean": "5e38e80212109f057c682cc7dd5deca55e86fe099e7b1cb3523dee4f3472761e",
+    "ConnesWeilRH/Dev/C1RouteAExpNode2541P016.lean": "dd6eee667dea20a3ffe61b40005d5cb1390b60e765c123ca86ffa6270c80c60e",
+    "ConnesWeilRH/Dev/C1RouteAExpNode2541P015.lean": "2093fe975c5a7b5f2d88504e6ffb86bf88d393402f93566646a8c5d7bb2f2c54",
+    "ConnesWeilRH/Dev/C1RouteAExpNode2541P014.lean": "8da3d2554aa93a641cb8bc9203e420ec000436a8c9938ee14b324649ab54dfa7",
+    "ConnesWeilRH/Dev/C1RouteAExpNode2541P013.lean": "408f3b65027d08ebbeb1891cc92389d479f7650eb9fa857df2a990799b23bc0a",
+    "ConnesWeilRH/Dev/C1RouteAExpNode2541P012.lean": "503350f0b86742616bc39fd5d6d4033a513b4ca2f2862fa0e3e1473e0c6b76cb",
+    "ConnesWeilRH/Dev/C1RouteAExpNode2541P011.lean": "b3df5edf84438a10baaee7a86266773f923c5e876e1b877545459eadc5b6cd55",
+    "ConnesWeilRH/Dev/C1RouteAExpNode2541P010.lean": "0588e29622fd42b9cdb5da8db3b50273c3810604a31982b47c9e93fb7c067272",
+    "ConnesWeilRH/Dev/C1RouteAExpNode2541P009.lean": "cd9b7258f8f6af5815abe255f8babeec0ad5ac1d78ec17ad28bc215856bfb8a0",
+    "ConnesWeilRH/Dev/C1RouteAExpNode2541P008.lean": "59c28c0b8a4c4962b149c9c6709243541025181d34ffd3e17b27bde470f1387e",
+    "ConnesWeilRH/Dev/C1RouteAExpNode2541P007.lean": "80fc6ab1279a75d1665470480de088e44d038a174225ceda24edefb324dd2abf",
+    "ConnesWeilRH/Dev/C1RouteAExpNode2541P006.lean": "834e3e5a357ca1c602aae6d4bbe77174f8a7fafb70fb17c9c174f6346a68a817",
+    "ConnesWeilRH/Dev/C1RouteAExpNode2541P005.lean": "f133631d436d5c70ef5a99d14a1a9a96cac6d689d977c1629f9d0818be540780",
+    "ConnesWeilRH/Dev/C1RouteAExpNode2541P004.lean": "def99622e0a13db325a0b2eec7a4748904b0fe3988de8ebd96e0cde9cf6e5f23",
+    "ConnesWeilRH/Dev/C1RouteAExpNode2541P003.lean": "4a1d5aa7cba645d89b8eb4ce82833a9bf30169a39d4d30204528f23766ab8c68",
+    "ConnesWeilRH/Dev/C1RouteAExpNode2541P002.lean": "cda7c6bc785c0fb0ab0575b749da769391873755bc8767b8fa34cabd24cd5558",
+    "ConnesWeilRH/Dev/C1RouteAExpNode2541P001.lean": "599a837a4cfd92c1e5790d14669917d53f27a35e87672790ad40a8b88b6e783c",
+    "ConnesWeilRH/Dev/C1RouteAExpNode2541P000.lean": "f064978f6518f2775ab51ad965002fab099301e37d5a5618b971e8ab635ce4cd",
+    "ConnesWeilRH/Dev/C1RouteACompactExp2542.lean": "e42cd4717658ada816c60f8edf471ecf65c8dd3d95443eb5a22eecc611153f12",
+    "ConnesWeilRH/Dev/C1RouteAKernelN02701Plus2555.lean": "7fa0864fedf00ac6bea3a13a43ad3dbe3b5ec4774302a9fcd65e986dbf70f292",
+    "ConnesWeilRH/Dev/C1RouteADerivativeMultiplier2543.lean": "f32137c5392b363a4e81ef06215ad25766ce37ba7782c3cd5cc0ee1c5b8925cd",
+    "ConnesWeilRH/Dev/C1RouteACompactExp1602547.lean": "410a1455b084a4b65c6ed911fd2c5432b8063e835bab9cb1b67f46fb38fe8443",
+    "ConnesWeilRH/Dev/C1RouteANeighborValueRight2557.lean": "06b9382365948739a1163301b9aa618076c9eaa211e765412bbf485cff627eae",
+    "ConnesWeilRH/Dev/C1RouteANeighborRight2557.lean": "4de2f99b4084db680c4842a0401e6f55ded9e369820f5b6178b43867e81d110a",
+    "ConnesWeilRH/Dev/C1RouteANeighborAssembly2557.lean": "3a82b9b95e8112f3d1d376e868c2b30f35f810ce74d6254d616373ecef579d48",
+    "ConnesWeilRH/Dev/C1RouteANeighborMidpointBounds2557.lean": "37f8e2fe9c4ab8ed2c60f1c2ae9762b9e60a151c048e5ca7e2b7d1d7009746bb",
+    "ConnesWeilRH/Dev/C1RouteANeighborMidpoint2557.lean": "49ed41a81c8469c8a1e91e37c42207a519af31603099bbc6ef599e80b3ccdeee",
+    "ConnesWeilRH/Dev/C1RouteANeighborRightBounds2557.lean": "5443c731c5d3e7859e4cf353737586c802b2a3e799d4bfa1230c9c413299a1b5",
+    "ConnesWeilRH/Dev/C1RouteASignedMidpoint2543.lean": "72be4bad972783548e198b5e4bdb881ea28511f572600a7a56501db71e5bbbe1",
+    "ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean": "55698d1bb36b9cfd8e2620cfafd56934d111a44076e9981b779d08c8e8d4c745",
+    "ConnesWeilRH/Dev/C1RouteANeighborLeftBounds2557.lean": "9a7fed4c76a3278450878f7c36811a77880785b42da2a043f1a0f01bb721c435",
+    "ConnesWeilRH/Dev/C1RouteANeighborFourth2557.lean": "2221fc34d6ab0cd5c55e248e47ae2f67b55a0396cf711c5ed29278658f792cef",
+    "ConnesWeilRH/Dev/C1RouteAFactoredCellEnvelope2545.lean": "f53f84aa75512095852950644137f35f00dea9f57d2c809443965c1d05c1f4cd",
+    "ConnesWeilRH/Dev/C1RouteAThirdCellEndpointAssembly2544.lean": "295d95782a180b4cf6caee751cc76b89a83fc12a193eeaee93ea318b8dd4b708",
+    "ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean": "8d3c5b14fe70ecdd1c16e337a094202c24e503bb633acaadc1b1eefcee99437c",
+    "ConnesWeilRH/Dev/C1RouteAEndpointRightThird2544.lean": "89d63fd7e73d5bb964d336afb6f507d077938309d52e8acd659c41b0baa15e47",
+    "ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean": "f5e3f8dee28c5498df4cf7de4a133eedae5501b7e8beea9495c11a81570abcea",
+    "ConnesWeilRH/Dev/C1RouteAEndpointLeftThird2544.lean": "29a1d5783edea10307d5577c2aca1e1c716bd615e8773b1ade32c14536afdb01",
+    "ConnesWeilRH/Dev/C1RouteABoundaryIntegral2551.lean": "bb9244431f8321cded09683942996937849787c60fe23d97e7beba31f4149917",
+    "ConnesWeilRH/Dev/C1RouteABoundaryValueLeft2551.lean": "9fc2feb5e12e2466965508d745074a4e19e498584b5e7e24a240fe3a39787664",
+    "ConnesWeilRH/Dev/C1RouteABoundaryValueRight2551.lean": "ac612f2d012ca93db75c6968878b6cb400c3f96adad26f9fc0a7d7648d46935e",
+    "ConnesWeilRH/Dev/C1RouteABoundaryAssembly2550.lean": "e8e2596dc08d7b6556801289b0ab151b7d2c6e57b6ca5eb1ae95f6c2e7daefbb",
+    "ConnesWeilRH/Dev/C1RouteABoundaryMidpointBounds2549.lean": "f2d4a8fa1442b5e714da102e3c8770ed83c9fe62de4fb7e33e27db805c354fd4",
+    "ConnesWeilRH/Dev/C1RouteABoundaryMidpoint2548.lean": "458fe3e2af85b7f8ee95bd230a3ebe724cf96f2ac6f3a4caf77a9cd8bae597c2",
+    "ConnesWeilRH/Dev/C1RouteABoundaryRightBounds2549.lean": "2a41022cbb33038a6261d8b7e72204b2aa6a4deab47493f8f04af1c1f1b0e0a9",
+    "ConnesWeilRH/Dev/C1RouteABoundaryRight2548.lean": "2813407df3c40c2814f703189b3aaa96f94374189ffee2e62bded55460b1e3d4",
+    "ConnesWeilRH/Dev/C1RouteABoundaryLeftBounds2549.lean": "214293d19e77ef3119a1941fb5a4dbf1e64b41578b5fee34240fda8535808746",
+    "ConnesWeilRH/Dev/C1RouteABoundaryLeft2548.lean": "8b1281f297be71ad6fc248b04aff2b057f91dcf670ac22bab9cbb6ed2d4f44fd",
+    "ConnesWeilRH/Dev/C1RouteABoundaryFourth2550.lean": "8b319979d25aaf92e2dc8e87e29f950a0dca249e19c7e006740693ccf260423f",
+    "ConnesWeilRH/Dev/C1RouteABatchC02701MinusIntegral2558.lean": "c4a90b2ccf4aa50454b974d3d026b0bd231e43043623ec10b54255c0e33c44c4",
+    "ConnesWeilRH/Dev/C1RouteASharedN02701Minus2556.lean": "e34138ce989cf035e9a8c3b994023f8d336832951e84b76f7e2cc5024507d343",
+    "ConnesWeilRH/Dev/C1RouteAKernelN02701Minus2555.lean": "440a61814c00a5c48cad8061067161c9ca5de0c36a00a24fc1084d3c5f458a29",
+    "ConnesWeilRH/Dev/C1RouteABatchValueN02702Minus2558.lean": "46d72f1b51550b589c05062c1b1b356719fde15b54ff01805e2ef4ddc8d0301b",
+    "ConnesWeilRH/Dev/C1RouteABatchN02702Minus2558.lean": "5f50c3f6d072f38b0a598e90890817343d2c5473204831f9f648a426a61d2d06",
+    "ConnesWeilRH/Dev/C1RouteABatchC02701MinusAssembly2558.lean": "d56fd24da304fc0c8e8452a34f451299e13498bde4b7f93fb350176958c9c105",
+    "ConnesWeilRH/Dev/C1RouteABatchC02701MinusMidpointBounds2558.lean": "6fbdff31b8f7c21560956f5bc3c0b94afd30f64d86b30a8b56d9b081db970311",
+    "ConnesWeilRH/Dev/C1RouteABatchC02701MinusMidpoint2558.lean": "aea1e45a89b713f04299050f6d9da3252a31bb3ed18ae7bee6736654098c36a6",
+    "ConnesWeilRH/Dev/C1RouteABatchC02701MinusRightBounds2558.lean": "75ca75aa520804769439b83d042bfe4d739b301d0a27afbd545b20a72a43552c",
+    "ConnesWeilRH/Dev/C1RouteABatchC02701MinusLeftBounds2558.lean": "3e7bca2a10e74a8f531166b36db5225c69685aee0fb246c850a30c1153e64ecc",
+    "ConnesWeilRH/Dev/C1RouteABatchC02701MinusFourth2558.lean": "f28dd153f43f18e86b8a7a06b4347e626629d58e0b6e1d139eb5d8d7d712bddd",
+    "ConnesWeilRH/Dev/C1RouteABatchC02700MinusIntegral2558.lean": "ad67c739178caef46ed19b8cb43a58454d3336a9bfd602aafcbc52e7a24bb438",
+    "ConnesWeilRH/Dev/C1RouteASharedN02700Minus2556.lean": "aa6a7ba5c4eed6410439006d90688b201a9cbf182448f50d697002052acd2bbe",
+    "ConnesWeilRH/Dev/C1RouteAKernelN02700Minus2555.lean": "f166bde7b2771f1fbb32cf154d544e25578882019cc8623a52aa679ac6cf2883",
+    "ConnesWeilRH/Dev/C1RouteABatchC02700MinusAssembly2558.lean": "e3fcbd39c7422806bf6279764279531d4f60a81d1d00b42bf7c7e69aa520f59c",
+    "ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpointBounds2558.lean": "a750c0afc8db7d39c8881ac9154aef693954f422621a42d2a0d76c6954db744b",
+    "ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpoint2558.lean": "2d1b41318e6afa8a728d066b7360a4f0ddf4a4a0f29188065b0038157d4006bf",
+    "ConnesWeilRH/Dev/C1RouteABatchC02700MinusRightBounds2558.lean": "e3be15f09eb4b6a60d51e0d1108af8dad02a2a2a1142b64ccbfc4e10593e70a0",
+    "ConnesWeilRH/Dev/C1RouteABatchC02700MinusLeftBounds2558.lean": "3fddf1ed84ef89868e559a1555f7fcdb87c0210d1ed8633753875f07b7bceebc",
+    "ConnesWeilRH/Dev/C1RouteABatchC02700MinusFourth2558.lean": "b4fef69f2d71713db18de16abc47578efb2703b26d68ef6781f6fabbdf94543e",
+    "ConnesWeilRH.lean": "ec214e8e5121d9a766c612610d478ff9345d9c57262a39b1d5a11d5b64617aaa",
+    "ConnesWeilRH/Route/RouteTheorem.lean": "cda7e4688c76abec11634bf026d2e7febbec3629febd950d9f81fdf27cbd4273",
+    "ConnesWeilRH/Route/TraceFrontEnd.lean": "a7716543217debb99ff09fc802455c5c699e432a5ce9b99b7c475e59c11a2220",
+    "ConnesWeilRH/Source/S2B1TraceScale.lean": "03a43f977f3c5c4a0045a5983e15ebb08b34b83353553445bfda5b00b42c1905",
+    "ConnesWeilRH/Source/CCM25Concrete/Package.lean": "1b81a665503b67f617c82462b86c1981dc5e81dce49b360dad155a9c429d3beb",
+    "ConnesWeilRH/Source/CCM25Concrete/FormulaComponents.lean": "598bbac953050b653493e5c19ebd51c3fa1b71fa57946063bf2e33362d8f7352",
+    "ConnesWeilRH/Source/CCM25Concrete/RestrictedComponent.lean": "49169af9639245e387fa984f08ee1e5ce30cf9ca691d45acee5106d89b3194ba",
+    "ConnesWeilRH/Source/CCM25Concrete/Interface.lean": "0c71c10e470b14f792bf4207ba26038537008d04ffe88ece314b86d6c357c11e",
+    "ConnesWeilRH/Source/CCM25Concrete/Restricted.lean": "8ac531499462c7b6957ac924ac8dc574fbe9c8a957335afd975968025a9a0ca2",
+    "ConnesWeilRH/Source/CCM25.lean": "4ae16a1b5b72092729fecbc0c284eb5e339af7b2b968ffbdf1c744573e24a2cb",
+    "ConnesWeilRH/Source/CCM25Concrete/Global.lean": "7622ac4c57e82f669bfd0340929ffd881fa1d3d89146dbdfd10d7d4ffd121ea7",
+    "ConnesWeilRH/Source/CCM25Concrete/GlobalComponent.lean": "d94bcd9b5e718479b8109d86281123f999533f510ade34d7281c727142c96a7b",
+    "ConnesWeilRH/Source/ObjectExpandedRows.lean": "9d155f8c1fa606af5205ed5555c4195ada2864920ec7a132bf3ace2b1853efc1",
+    "ConnesWeilRH/Source/CCM25Concrete/FinitePrimeSourceDataBridge.lean": "76ab06e76c836f5c9812260d2ddec1d17456decff6f31212455434b4b54dbe85",
+    "ConnesWeilRH/Source/AnalyticCore.lean": "5a68eaeee4f8babe95dc639655e635532a96d4b1bff53ac9e2063f9f5bcd99b1",
+    "ConnesWeilRH/Source/CCM25Concrete/PrimePowerArithmeticBridge.lean": "4a5c476180fb7971b6305e5936c8fd427648a93e46a14a499a9d0fd06feab1af",
+    "ConnesWeilRH/Source/CCM25Concrete/PrimePowerEvaluationBridge.lean": "8b68fe656e4ecdec814424495b9138c5731e39857d9bdf727e25275d2eed4f8b",
+    "ConnesWeilRH/Source/ObjectTheoremBasePackage.lean": "9a99758bf9c1bb6847a079bf3e04336204c71f68ac1104573772219d12fba0ac",
+    "ConnesWeilRH/Source/TheoremBase.lean": "1b50ac0bd03c5fb88b912d623aae173cc20eadeb5fcc96639168907f59ef5892",
+    "ConnesWeilRH/Source/CC20TheoremBase.lean": "fd9ca2dce40fd6dae5549124057ffd59b65d7d219b91c3d0375b90061a9f60a6",
+    "ConnesWeilRH/Source/CC20.lean": "6f43d5212140a9bbd6de72f7b6112d802c043b8459626e30573eab76824336fc",
+    "ConnesWeilRH/Source/CCM25TheoremBase.lean": "7a24901b6edc5371d04f7ceca5a9fbd778bd6e84bb1e3ad6d324c88609f7f855",
+    "ConnesWeilRH/Source/CCM25SourceModel.lean": "f4c94812955ab015e452e3f7a9f3a69435899c367f90072a1a7e459fb4a9ca86",
+    "ConnesWeilRH/Source/CCM24TheoremBase.lean": "382727dcbab8ddab9cf1cbc1a18f7e555f214253fde1ef6efae50dcf40682cb6",
+    "ConnesWeilRH/Source/CCM24SourceModel.lean": "9e88079d493d23f386154f2ea4fc3dee810d13e8813b74996d8d224e72bb2525",
+    "ConnesWeilRH/Source/CCM24.lean": "980dce152303152efb09b02cd7e258a472070053b7d9be72d7b22e05134d1c34",
+    "ConnesWeilRH/Route/FixedTestFrontEnd.lean": "cf0cb207f1d7f305fcda5367f5375413fa058148dd320bbbb26ea9ba215a08b2",
+    "ConnesWeilRH/Route/AdmissibleWindow.lean": "9063bf30c3420c28a9e06d2320b1aedbf0f91d8b38a2c8fbc20ccb4330309411",
+    "ConnesWeilRH/Route/Definitions.lean": "871cd6ccfa81201c9321ec136d7d0c9864f8638f457121633808d9f063ba92c0",
+    "ConnesWeilRH/Route/Theorem1.lean": "777a4bbac43ea0a5873f27641791fd8a4efff1fe0190a3225d2c41118819d787",
+    "ConnesWeilRH/Route/Ledger.lean": "9b2619e417267cba7973ec147a897ce3406a97d4fbae606844fc46a99b3a926d",
+    "ConnesWeilRH/Route/SignDefect.lean": "535bdc3fd372812beeea7625c99af228cad4595bfa2cfa72b41dc1b7fbff65e7",
+    "ConnesWeilRH/Route/Bridge.lean": "812a3a75dbab4beba6a45ab62bbed196e1678bfce4f44dcfddc258fc72fef6a2",
+    "ConnesWeilRH/Route/Exhaustion.lean": "ea5cf78f89bdd26a96bec97d5def199708bc5c35abcbbb00c1c264baa3d92a11",
+    "ConnesWeilRH/Route/CC20RouteRealization.lean": "6a52e42e548ca1b8c8adf0cd713b41798422c3875d51f6444a7c8578fe66c1da",
+    "ConnesWeilRH/Source/CC20PropositionC1.lean": "6ec0b48f962e655b32485a37be46f3374e4812d78db4f7e34e33bbfe8c7adcdb",
+    "ConnesWeilRH/Source/AnalyticSourceModel.lean": "55c3ec6cc462a44d5f3eaa05212fe74f09c035da60380e1810933bfe4289356a",
+    "ConnesWeilRH/Source/CC20Concrete.lean": "1dc49925f9c5e955416fe1dae593a546e41600b25a5948b25eca4478b001370e",
+    "ConnesWeilRH/Source/CC20Concrete/GlobalLogMellinCompleteness.lean": "5035b0292905f7154efb693ee3d59cd412ca4651ee16eea821c848c37cada672",
+    "ConnesWeilRH/Source/CC20Concrete/QuantizedRemainder.lean": "f69b17601681c03d9f69e869b718da1a44472217632abf6af36338d5f409e1d1",
+    "ConnesWeilRH/Source/CC20Concrete/GlobalLogKernel.lean": "324da3e2545f26556e31d118f4d9463d9f2ffc6ea21be705774f4752d75f70fd",
+    "ConnesWeilRH/Source/CC20Concrete/ParameterizedHaarCompact.lean": "91ecca5f640acd750b2f4dc41338ed6dc006a8e763a5a94f93001696baeac0b3",
+    "ConnesWeilRH/Source/CC20Concrete/CompactBadSpace.lean": "1057a41667af1a7c9b6413ea0bd7dcce2d5564b4374c9fdb63b6b77cac4bfde7",
+    "ConnesWeilRH/Source/CC20Concrete/ParameterizedHaarSymmetry.lean": "e14adddbd91db33871abcb177fcd5e8a58e63734b1f24aca077cb6b925424e8b",
+    "ConnesWeilRH/Source/CC20Concrete/ParameterizedHaarL2.lean": "3c1fee84496b10728a396a6f222eb301d6759d81d89df170b09bc65ef7a647fc",
+    "ConnesWeilRH/Source/CC20Concrete/RegularKernelHaarL2.lean": "2b7f0eed2c16929ef62df492b78bdba50f2cb15edb0f75a6abb9d0d202d9f8fa",
+    "ConnesWeilRH/Source/CC20Concrete/RegularKernelSourceBridge.lean": "7edc786ef5bbe09ab79a6aef4318afd7a14b93dfdde9bbfd54a8fa28b09960cb",
+    "ConnesWeilRH/Source/CC20Concrete/RegularKernelCompactMeasure.lean": "08c44b56a689f77c4a5a4341171e1b41f519138d4abe62a7bd36837b3f000eda",
+    "ConnesWeilRH/Source/CC20Concrete/RegularKernelCompactOperator.lean": "6c3a0c0296fbff786be2d08e1439f6ad97b4bf8d1acb910b22c4e7f1c8333383",
+    "ConnesWeilRH/Source/CC20Concrete/RegularKernelOperator.lean": "0d6861fcd4b908cbf81680f94448ecb1b52d802b71c562af3be0538f71b1012a",
+    "ConnesWeilRH/Source/CC20Concrete/RegularKernelL2.lean": "cceb548c679b048575b0b3ca65167a5c7b2dff58a164fc79d34e5b2285fd2454",
+    "ConnesWeilRH/Source/CC20Concrete/RegularKernel.lean": "b21e8ed9ce55c6b18c026e8202ad3f8d0f5146ec147be4fad6f456fcd659fbd3",
+    "ConnesWeilRH/Source/CC20Concrete/RegularKernelCandidate.lean": "00efed9f1d3ea4a0355677a690941b5015acf115491325baf237c0207f9fa61a",
+    "ConnesWeilRH/Source/CC20Concrete/SineIntegral.lean": "d0e6b3b09a323f36ba11b014ada2638299e746c0b34e0374537b7281bc600944",
+    "ConnesWeilRH/Source/CC20Concrete/RegularKernelComplexHilbertSchmidt.lean": "fcb939396b422c2de8c89741c2ab81e453a23133bc6b2a8bdef5c128df46de1c",
+    "ConnesWeilRH/Source/CC20Concrete/RegularKernelHilbertSchmidt.lean": "95cf767307af6ff89aa8b592eadbf6ccc7b80e55330bbfb6f8e4c3ee2f33ab14",
+    "ConnesWeilRH/Source/CC20Concrete/RegularKernelL2Symmetry.lean": "8642eca45bc1bd7c912ca0b3000e59a1215aa3c0bb1ec4a4caa86d7f15bd22a9",
+    "ConnesWeilRH/Source/CC20Concrete/RegularKernelL2Holder.lean": "2461418efb1e2c6c4abfa8217231d1f5e31567bdd711b8ba2c366d17a41e7402",
+    "ConnesWeilRH/Source/CC20Concrete/RegularKernelL2Prelude.lean": "178da2f18067a7240f4d63acf44013d84aa1439b78216a86a467d57a0ba24639",
+    "ConnesWeilRH/Source/CC20Concrete/ParameterizedHaarMeasure.lean": "b3d0e1595d8ab90c62bd70aa01c88978bdde3b4299bd065eb8ada7c3609ea824",
+    "ConnesWeilRH/Source/CC20Concrete/HaarLogTransport.lean": "87c76581bd4b6c3b7b2b1841956363dd8f46ae5ef7bdb97d2347f924aa8f5282",
+    "ConnesWeilRH/Source/CC20Concrete/GlobalLogMellinRows.lean": "9e8af04cca446de3fb16ce99c10e9379e7567d072267354d3c839a1cf9b6ad10",
+    "ConnesWeilRH/Source/CC20Concrete/GlobalLogControlFrame.lean": "dfeb4c42300c0d7ea5a11d793936cc8a42c95b1b245a19a5320d6200edbe524c",
+    "ConnesWeilRH/Source/CC20Concrete/CCM24OriginalCarrierAlignment.lean": "59eba41e9ec93a2adb136588adb8f47481c8b459c43e708c07c45ba849737c0a",
+    "ConnesWeilRH/Source/CC20Concrete/CCM24SemilocalFourierSupport.lean": "e0c308bf2983276bf547a99dc53492c407e9a4f7408fb679094e3c547887ad48",
+    "ConnesWeilRH/Source/CC20Concrete/CCM24HardyTitchmarsh.lean": "62ee0d299508755a20cea9a2f417a46fc79ce068419f00a1d3fcafd83dab4717",
+    "ConnesWeilRH/Source/CC20Concrete/CCM24LogRadialSupport.lean": "ea5043f0ea75978ba006379f1e089537c04abc9f5349292e348997a00f408c45",
+    "ConnesWeilRH/Source/CC20Concrete/CCM24EulerTransport.lean": "3a4cd25ef150bcdf84ff2fc5fe31dbf3cdd59e404fa7c296e6b55271b0ba519b",
+    "ConnesWeilRH/Source/CC20Concrete/CCM24FiniteEulerSoninTransport.lean": "ab4d2eaebbdc80fb664228fb3ebfa075329c3201439d5bde27c10880649c8a21",
+    "ConnesWeilRH/Source/CC20Concrete/CCM24RestrictedSoninEquiv.lean": "c7ab3818b0d223c05ee1536d017929c2b629c97a6aa54ed0ee83a7d8b5c15b69",
+    "ConnesWeilRH/Source/CC20Concrete/CCM24SoninProjectionBridge.lean": "c82a38e2d056437702c8eaad9223567e52b7ad33fc7f92595555f5aeac1ddaf7",
+    "ConnesWeilRH/Source/CC20Concrete/GramCorrectedSoninTransport.lean": "cf05d5a2306c62f01c89956b811c80398511cd06da848da7bf6628f5a85a3c1a",
+    "ConnesWeilRH/Source/CC20Concrete/InvertibleTransportSonin.lean": "53b5a5c33957170a53bc805c6c950b6e31775247f03ed4275ca87c4dd072accf",
+    "ConnesWeilRH/Source/CC20Concrete/CCM24GaussianMellin.lean": "2b8279e84b562ccfc06f25a1c65323d5b65205d8c87af9e56302509f9fc02250",
+    "ConnesWeilRH/Source/CC20Concrete/CCM24ArchimedeanCarrier.lean": "6458f3b02c3e07761f8dfb14a5164a4ccaa0e39a03734e26ff410d42f720db4f",
+    "ConnesWeilRH/Source/CC20Concrete/CCM24RadialHalfLineAlignment.lean": "cd4e4c530b845e9bb90afee5a0c4766bf8dbba7ee6b0fd21050482b06edc9225",
+    "ConnesWeilRH/Source/CC20Concrete/GlobalLogSoninProjection.lean": "a071e736a72a308ed5f30bc67cde56c83c02e5681cd10efe24e1c9b32ff8439d",
+    "ConnesWeilRH/Source/CC20Concrete/ThreeBranchCommutatorLedger.lean": "4f29c1ca516ca0251c6f0a712a79effe23092340df495c474605428af5ca9456",
+    "ConnesWeilRH/Source/CC20Concrete/ProlateTraceReduction.lean": "a3ba6b4eef67a965d9a65262cebfbe601973f06861edfd2af6da92e36a891eed",
+    "ConnesWeilRH/Source/CC20Concrete/HilbertSchmidtIdeal.lean": "6a3bdf13423f7d1a18bca45d3f6f009416f42306ee1180a832317ab81b850c86",
+    "ConnesWeilRH/Source/CC20Concrete/SelfAdjointBoundaryCommutator.lean": "1b9bf06c44d86edc9c9af93b13370ccade6dab6b7a498d40117196b28524d88a",
+    "ConnesWeilRH/Source/CC20Concrete/MovingGlobalCrossingPair.lean": "b613fa7a127884ec85b11d03543af7fa1bba70dbe759ad9797a6cab0f2f77ea1",
+    "ConnesWeilRH/Source/CC20Concrete/MovingGlobalCrossing.lean": "8e86da6ef7b1328e4a4404c92c76d3199d5c8c71aa0351b9c3822dfb9cffe849",
+    "ConnesWeilRH/Source/CC20Concrete/MovingRootSandwiched.lean": "ed6abf947a2d2891d0075d33a0241dea83ae0f276719cee2d31e3581492bcaba",
+    "ConnesWeilRH/Source/CC20Concrete/RootSandwichedTrace.lean": "741baf31df5283bdfaae109b0e84b0a5000c78c6c369199c962c34576bd4fce2",
+    "ConnesWeilRH/Source/CC20Concrete/GlobalCrossingKernelBridge.lean": "60d4e76bab3936182849597dd7198fb84d23b3e2d632cccc98b4ba2c430d8147",
+    "ConnesWeilRH/Source/CC20Concrete/MovingDividedDifferenceKernel.lean": "f90b1cc099e302823b6d3484e0c2c830e474031b107d8bbc909fae626b806654",
+    "ConnesWeilRH/Source/CC20Concrete/DividedDifferenceKernel.lean": "685abe88372d0b351bc628ac9270a77a455ec911832aa1c5d7ecbe6f9bfa281f",
+    "ConnesWeilRH/Source/CC20Concrete/CompactConvolutionSupport.lean": "390fb7b4deaa52a1af1d21f2080b1d736045b1f24adc9c3f9e7b8129826af517",
+    "ConnesWeilRH/Source/CC20Concrete/CompactRootHalfLinePair.lean": "6bb587c151f12b8127e8d1a87b5ae04674aa2563a0ec267a40470c40b69c747d",
+    "ConnesWeilRH/Source/CC20Concrete/GlobalLogCrossingTraceClass.lean": "f356082eee34ff39dac8d8c08dcfca6761308fe32810e998be942611bb86ffa6",
+    "ConnesWeilRH/Source/CC20Concrete/HaarMellinMismatch.lean": "a097b006162ad171a8fc7435030f1b612cb13de2c4650a6f03ed21b49109bb30",
+    "ConnesWeilRH/Source/CC20Concrete/RegularKernelHaarCompact.lean": "72d669714d5f6c894480148f5370c53dfa442d490d6f044e75c9fd7d3a8329d5",
+    "ConnesWeilRH/Source/CC20Concrete/RegularKernelHaarSymmetry.lean": "6f5a4e7a3156c5f488a3afe66dc4e06bf8cba4a3a558cafb90622be969975ec9",
+    "ConnesWeilRH/Source/CC20Concrete/CompactApproximateKernel.lean": "805b6dbea4a312398a2092f6cdaa3a59ebc6e14deb66430fbc79d548cc438a84",
+    "ConnesWeilRH/Source/CCM25Concrete.lean": "203db2065c9709ee43f8ea3d06860dc76d061bbe6145b26e99d2523866d14855",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCausalMarkovRawRenewalTailBound.lean": "bddc94c3e182c6bdb2b4d5033d97679ce7c864e20a9af6f5e6067f25a07e6ec0",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCausalMarkovRawRenewalSupportSplit.lean": "164caee39d7b69c6ffd21fad4d1a5ce636000327b9ea537d19f34b3a8195072c",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSTwoSidedIndexBridge.lean": "d148d7635a8c9292f18fb52a6c77350195291fb973cec21c540b680c49767990",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSSupportMajorant.lean": "e2c67e818090b8c4eb72a0f0409b601aed9f146b3c7012089a417c095e84c123",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSTwoSidedRenewal.lean": "71ff38ae4c41ed8265712d86101d4f2a6e58777f0e1c29b8a8e70c03e16c22d4",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSNormalizedCausalCoframe.lean": "a1959e45c0facad2bf5bc5895e6dd9b1f7342029ef7104f58fe8de38d2e68085",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSMultiRenewal.lean": "bb2196115029ce7135a71673f3d7dba36d56111d69bba6d5449c572b3703d961",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCausalMarkov.lean": "5fa284c919af7431bee48f005c156036e8e87893786f1067ee8491a833d9bfbe",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSNormalizedPhysicalResponse.lean": "93f1f5d02792550635e761d669530dc77fb250dd0d45de9849570d7b91e3eb73",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSNormalizedCoframe.lean": "efdf4624b05693a7becd59cc924c32a75c04ff11fcfbd4fa6aa32a62c7ccfa80",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSTransportBounds.lean": "6bfc019915643603fdab9f51d0fac1b6c33d7f5a8f23242c32b1cbaeb77589c1",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSInverseMetric.lean": "106c5957b867bf53b6447f1a5ab7ae1dadca1f7461bef4653bc679296d1bc5f9",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCausalSupport.lean": "8496a4b253baaa9b4e9f41028374d153f75bd272447cd1a02dab2936877c9f90",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGramResponse.lean": "d6aca1460c4f55f726369af1b9740e331ddf602dc21c7a4d4cab42c41612df52",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSProjectionTrace.lean": "39739a5aacde6879d7ccfc6a44ef7373b38d1ad39f5d7d0af2974dda07f9517c",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSPhysicalLeakage.lean": "dea83440ad266a506016202d90916298e8ef7e23d75b8e99a0f3b2bb8ee5556e",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCoframeResponse.lean": "4e28d6756ac0b067310ffec2bfe152659b763248fb681a5c3cf271d88fb5b858",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSBandTrace.lean": "042a39f167bed22a8b688a592ee17818fe5b2d572103f92e932f783b0f4c5b5c",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSTwoSidedOperatorExpansion.lean": "2826d27c5a33b9d6b5b51cb1fb0dc0cb5442c904802782964dab613769308786",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSForwardRenewal.lean": "6e50c161918bc2cbf0c8e1b611e8acd0e7ea1d2ef535806fd509d2572fdfb1e8",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCausalMarkovRawRenewalBridge.lean": "8a3948728918b376750208a5a3663d432dda411bb16f3f7af93cd9b215905213",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSOrderedCausalGram.lean": "9415dbf6e83d125b655ed45d9740f3fb5026fbf78674b70b381582eee82ecc5f",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSPhysicalRenewalExpansion.lean": "286e48326277cec17541fd84d1c63dde68a4d54986a32329d95f109bf393017b",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCausalMarkovRawGateReadout.lean": "9a7cc9f25a95b85bfdb1a8ff2a984012d69cfef086c6e5d0d9089370274da8d1",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCausalMarkovRawCumulativeLedger.lean": "684f0e3edfd8241d0c2d3ec28bcc884d1fd22d409db8664578d56420658b5d13",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCausalMarkovRawBase.lean": "601fe569eefa0f675fd304d4e72930eab6d98dd8cb2af196398da0710cd11932",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalObliqueShearKernelReduction.lean": "4f565488769b9a22cdc2958317abc74c137246da3a69316c333ba1255102af85",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalPrefixFullKernelPairing.lean": "e6aa48bc7eedec60c33d1bc72fa8ae41b1ec7b0509385be38970ee5b888db0d3",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalPrefixBoundaryKernelPairing.lean": "3260277a7147f84f0768482fa011bc0dc40b1a414096d1ac6e31ec532767cd0c",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSRootCompletedDetectorSignedKernelResponse.lean": "dad673b79d281d7aff2694dad1c7bc48e3b028e9ed5b8caaabfcdeaa075321e6",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSRootCompletedDetectorPrimitiveKernel.lean": "c363b8f0a1d7c926e9c072d4756f5cafc5912594a1a2af15c5304407b1978e1b",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSRootCompletedDetectorPrimitiveOuter.lean": "1db8fce75ccf03021b50ee74917e70e0d27658d9e3c18a41d8f705bad615887e",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSRootCompletedDetectorPhysicalDiagonal.lean": "877e820ad0655229fcb5dc007672ceae007dc2ba38c86855170a1b1bf7befe48",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSRootCompletedDetectorBoundaryTrace.lean": "bf211c382ae2215842d172edf57e3e98bd48d48bbb4e1283c2056a1ab0bd115b",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSRootCompletedDetectorTrace.lean": "d9d7a77b201420df2a78156be80ff17cc190488ee768b70cbd361aab7889a64a",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSRootCompletedDetectorCommutator.lean": "a905e26bfdcb4ecfc047ea2c01962ccd8f74b2dd11148df9cd7b72590738c3a2",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSRootCompletedSoninCommutator.lean": "5e2d45164cc305f7eb470a6369b359a78968c6a8594f4d460a6d55ab99b25d26",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSRootCompletedCommutatorRenewal.lean": "d346a53b8b170c19373b71ec4c773cd84d1bef0be0be1e98e13b8c396a85cf3b",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSRootCompletedCommutator.lean": "da2bb981a17440c19a24caa0eebf897447303364a74adc9ce0c0e4dad21080cb",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSRootCompletedFirstJet.lean": "6128a37e1ce943f6f04a17f8f2037992e8d6ab1c17794525f17281148e50f4bc",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSFixedQuotientContractionBound.lean": "e77344cb0eda632609768d9a4339748bafcf2d246e15596a313ef7327498ae5c",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSFixedQuotientBandConsumer.lean": "85c1970a6cb6635ce2731e115dc92f9d742bb994e588fa9b36c321f2c058dce4",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSFixedSourcePolar.lean": "20c3ac36b923a4f89eed7a2aa8649c74da9f389d3e67c642d7c802b108d11c3e",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGramInverseCalculus.lean": "6bd84573c011d018adf487b4c1a58c4a66b8ff214623a9fa3fc8d71f60d7c96f",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSFrameGramCalculus.lean": "f3c57e7deb5aaa1df917d6d70001209cd04bb80e2e6be44c621850e333caaa50",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSOrthogonalProjectionFlow.lean": "98892a4ee220a653b7cd00ef9a64084c6632ae21c317fdb6704883e4fde5d082",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSObliqueProjectionCalculus.lean": "6e8b16f1c71a3f9773165af3f4d48aae7f909a5c8065cd68669a2735296caad3",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSAdjointCalculus.lean": "37cf9ecba891f86d3715b56aaf8676180c6673a8b26bfba22c09120ba59011ab",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSParameterizedInverseCalculus.lean": "e280fad1eba68be065c3ea25dc705a675a492612901588d98904f3ec947acbcb",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSParameterizedEulerCalculus.lean": "3accfce53c46094114e7a39d997f9390de4eeaf1b676316c60958460d7862e31",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSParameterizedSoninProjection.lean": "451abc94994eaadfe7fc067c74828341b75b71a3fad45886daed5683de5adec7",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSParameterizedSoninSubspace.lean": "e11d56583eb78a0e60e06b9b3a418cd1241a9f0c4ec598eb7032e097a76624eb",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSParameterizedRadialSupport.lean": "e619fb4023201cea7e2590dcd4af2539a724106ae9e3a2d692fea8252929ba95",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSParameterizedEulerEquiv.lean": "2ba8f05afde5d32edd49b260cbde77d19a2aeb91672d79ab2e8f2db00ffc41d3",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSParameterizedEulerCommutation.lean": "cbfa1fded3552f7bed842647564d88ee623000f41c0625fb2d7242d6e40be7da",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSParameterizedEulerProduct.lean": "f1221b99f4f8ac783ee1d7f2a1144c6cde01846d676989715ca2236dc7108e6e",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGeneratorTranslationSeries.lean": "e72737501304eccd627b67e4ecb62bc91ea8c2962f844fd98c47ea5d33df36c4",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSParameterizedEulerGenerator.lean": "e9489168343dc72c8bc0e0105403702e8eecacb538a9725bf0e25128a05a11dc",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedSoninKernel.lean": "637a52de3328e9efac867ec13938e5518eea6188109a36a7e9d77e34babbaaa3",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSMovingSupportFirst.lean": "7cdd7cd6db2ff95fdb4ef8c0e7c6ad013142ca2c8241e24d7999739e06e6b1e7",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSMovingProjectionCovariance.lean": "41a3db48588f0118d3b8e215f3cc01e09b0a13f757d0ed4383ffc7a1df4a5ff5",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSSynchronizedCovariance.lean": "3be2525f0578b0d8e3b82b533c749741d79593ca6e3816e456f81206f3c2ba26",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSMatrixCovariance.lean": "28cd5d0c4c46b44e9050a8552305e78f2fac4b4967df9a19c8d738bfd203add6",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSProjectionKernelCovariance.lean": "71641aa170285d914a98de9537d5b9a2953a4dd8d2d3d36264002b5dea89294b",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSSupportFirstCovariance.lean": "aebd15ab3a19a98a7648f9f0f8e98faab6eb19cdcf4435f0dd4cc956ed38b0ef",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualJuliaInput.lean": "087dbb691d1c4d794503e66ff8b27d258a0416dd17aa72d37ad9b14feb5dee09",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualMovingProjection.lean": "83c45a8384c7d1b9177f5635fdf15801082c9b9ac654dbe80efe656e583a0dde",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGramFlowCollapse.lean": "ce4cea165fa5c502202a982b63c6aa4bce27cf526f52e4a435e7b81b07c99ecf",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGramProjectionCalculus.lean": "71ac0ba3d680ac6bfd32e780e0fab7d7caf5462c0ff9c70897e83a8e12674255",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSJuliaSchurContractivity.lean": "4e30899a5aa13cc2f6152cb3bb1a0eaea87bdf54ba835a33507faba57687bff5",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSJuliaSchur.lean": "a5b2c07c4869f39fc7ab798bf70ec51ef1afdefd7b3ee830aed214f724fa546b",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSJuliaCausal.lean": "35c91b93c0d9f078207eb70c8bb7b152460bbdb71f8a9e147d4517676c32b0ed",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSJuliaBessel.lean": "0be55c9671ae966e76a7108fbdb47fc4bdef7b29f6274558cd17e745deace5c6",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSFixedQuotientCarrier.lean": "7b78d4138a14f53654efa8a66996af745a33e4dafc0dcd7f297dabcb595128cd",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSInputSideTraceConsumer.lean": "50632ab7240a241dec8bee955c21152b3c5bc0239fb2a9d93c22ca13e6353346",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCommonBoundaryPair.lean": "63ccda200d154691a123c3949ebbba0fa276561e2a479513da75c7678faac94b",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSDouglasFactor.lean": "3ad10abcd4947f4e05c2b66ec618a4f03c50f567d57d80be021101e013c30824",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSFixedQuotientFirstJet.lean": "265ea0db34a6c14017136351dde3e638d694f647ac28d704e9eda499e5aa305c",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSTwoSidedRootRecombination.lean": "49a17f48a178f3d885d1229d406e091a255e454c16e853d755694931dce387f1",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24SourceProlateTrace.lean": "60977b09878b07daf8a7c6bcd5a4ae30097ecbe92c649fba2cb09eaaeb414c32",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24ReflectedCompactRoot.lean": "a09ac09800b783e2641758c6aba95c818b42b30e1b6964e2f5a4c6c9f0babeb2",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24RadialBoundaryPairTransport.lean": "ab31b3de0a3613e6b7842b6e3b7ea2aaa251100433ee934184e9adda2d3b3a4b",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalPrefixBoundaryCenteredCycle.lean": "271d12d4468919a355221419c7e33cd25aa7e67eb03c7e7c6f409e6f5a507e11",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalPrefixBoundaryCycle.lean": "50bc714bc9d1e5e1a01ad7e930e3990be1d7e4f2a392d185f20fe8c8863987cb",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSRectangularTailFactorization.lean": "a82d2dd79aa44a7289a10b68380702a6c8299f8295dbd57ae6544b2188f665d4",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSEndpointBoundaryCollapse.lean": "ffc4692ae365f2867d7f8ba3508bc5a6f1e3a7abd48dd3fc6cda0e9dc9f42332",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCombinedBoundaryLedger.lean": "92934594ca002e56874a0945b924ed04821c6d22bc2e88e77eba781c77bc46b1",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSRectangularPrefixCycle.lean": "3ec8ec84030d3a0518cd09627d1a817f95b3aef5c10f2f293f01cb9b8b15de6d",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualBandQuadraticCycle.lean": "2fdaaa896b0cd07eda6efee4bf328037dbd348db28cb4e8417eb0f352d0880e5",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualBandSourceRemainder.lean": "fd8c483764cd37f1877344fec55db8d0cdf9fb7462e490ff4c2f4c41708cdc03",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualBandFirstJetTrace.lean": "0b3cc1a00dee3932a82a6153bcbe5898bf17bcded6de0ad6fa2f922448ff9f2b",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualBandJetOrientation.lean": "13577f96afadc9f86a5d249896fbfdef979bcc70decce10083f9b7462482d76c",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSPairedFirstJetRemainder.lean": "3c235f43722c748d2b40174065c941f046db1555f0e02229bc30f1c47b737b78",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSMovingBandRootCycleDefect.lean": "12e965b7340766257589d6d12250561feee810c26eb32de1e7680b37e8a3b448",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSMovingBandMatrixCancellation.lean": "9f5816d70b4850a240f041fc45bf412ab045efb00bf6dcf39bf5c8f8ff3ede5f",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSMovingBandEndpointIntegral.lean": "37412a1119daf4019770fe65a81fdbcfa68996bcda8a01818a832529ed93e469",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSRadialGeneratorInvariance.lean": "39e4bf93ccf5a9dc88c44981858cab231b52da415cccaba033487b974d7d7cc9",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedMovingCrossing.lean": "097b9e1ddd032fa7dddff2ddadc60be5d62b0f4723764f585991aa55724a79ac",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSMovingBandCalculus.lean": "8b98c47184512ca7dbbca9b13b359618cce59ad911660756bc0b8c05de1b699b",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSRootSandwichedProjectionCalculus.lean": "ff72eaa2deb2f6ccb990e2596076be9e7078189758b15cf918288ec2f696d318",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSRootSandwichedMovingFlow.lean": "6b973bc65c5d6e1b245b34bdba8dbb22f88d3e1b130f69ef1ddebbcb6f51af58",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSParameterizedZeroEndpoint.lean": "c357254b43edee795b9faeee496203e9e91bed86ba8e0cc76b2a326b9b5e23b7",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSPrefixBoundaryDefect.lean": "b2f299b02964e9dbe4a6206c6d090bce13d3e85a662e7f97b640901049aa299b",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSMovingBandPrefixCompression.lean": "d6778291af841c86da7bb429549bc52811392950638a9fab8ff7aad2108aa516",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSMovingBandExhaustionTrace.lean": "dd7ff0fa533fd371926f40f2f201a3e416f376aa9f7fe231004a532828c0315b",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSMovingBandSelfAdjointTrace.lean": "aa6aab8f318a6d417b6284d9bbc88bff450689f0ba14d2f5556a349e9cd3eb3d",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSMovingBandTraceLimit.lean": "344a950f76bf7c53ea2275c522f3ecc65f895bb0f00ca4e36af893eceeed8f56",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCanonicalCompletedResponse.lean": "2ff4f2c245935d54f9bcf15423a4c99224a4a1d5fc8b1a43d09abb590a581e90",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCanonicalEulerEnergy.lean": "0b2c82fe80fe9b2a22ebddf26cad191a62984fcaa131a7608ef6a4afabe29666",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSWeightedTranslationBessel.lean": "48d8bf3091e83450df4efbd180b9c28662ecf7dece36eb34f14ae143c5252d91",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCanonicalFamily.lean": "1081e36dcc73bf6c4cfee532a61ff4d1949aadfb21f068a7a630a1dc04459571",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualBandCompletedNumerator.lean": "ab6be4449b45bec5c95d78e1b62766cc4c6fa288cedf6c76acc670511452fb5c",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSMovingBandDiagonalIntegral.lean": "4e7c9ba6aafd380ec07a1a33b096de20da54057a02a2ffffcab5746d219d93c9",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSMovingBandFlowRegularity.lean": "23a77f8c2653099b6f2a1bc5b8bc1837994da0cee812668e2c708ec6607a70bc",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalPrefixRootPairing.lean": "41612d95a9c16d98414e8adaff9e56f23248f826a5239cb5ac59248476bb150b",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalPrefixDetectorFunctional.lean": "c45428d21f54190ba566092b0a527755e8dd36c390a6bc1fb1ec2582d6aa45c1",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalPrefixCompression.lean": "e61600e8da8720ace52585a4f5982c17ba024585e730505839583ce9cb7cd502",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalFiniteDiagonalLimit.lean": "40310bef714b534c697ea3f9fc61fc23341b56e18fd212ba208378b32fe6cbe3",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalSignedDiagonal.lean": "d72636eb96f8994a3b22a0d2f936be718b6590435941e8378de6a4e736e35b7d",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalDetectorNormalForm.lean": "d2a2a08750d9ee6791b3156d32b62c89c3f5a66beb8037ebe4ff26e64c7f494a",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalBoundaryCenteredCycle.lean": "4335d333fd91e275f890811ddf5643dd173edb877ee23a64f56236a9c77e27f8",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalBoundaryCycle.lean": "a7f5e6c0456b69af9e32e40303761642cfd368d37e486c20ef441a11be299371",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalBoundaryDifference.lean": "2c2ccccbc4b5d976b8e6da7bbe577efe3d24ff9fbae955c1d9db968fad5faa5c",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualSchurSkewPhysicalOwner.lean": "497bb8b8b970441523771b5bdc6ce5345c8852f655d7254310bcf9881782b445",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualSchurTransitionSkewTrace.lean": "410507e7ed1b8c8649a1a7bf1c332acb38ac8c2fa0b10870e549242426ff4c4a",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualSchurTransitionOrientation.lean": "6726f231ed86f4f0c0e6d742fa132eb9ab7224aa8973b1c04d6c406a1da5d631",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualSchurRowBoundaryMoment.lean": "c5c0f8b5a885bbd89a53f9a0fb4979eb57afaa2bfc14a67e6d187507f8ed38c7",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawCoframeBoundaryTelescope.lean": "d132034acd9807d6a7cfb016d418be5b30fbe296771f058b4c85f90a7ed84e31",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSRawLocalTraceFactorization.lean": "5ce024b2c6c89a9a9d089e1c5d58f2b9bd730d39e4f422fe9f2278b2504f1805",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSRawRemainderCommonPair.lean": "da2b8b860b14a7ecdbecd8268e588d50f17d496f10ed78149376d68729d920eb",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSRawCompletedGaugeOwner.lean": "065b3b1ccf213283e0b5c3fe1fda3575efcd831e1822d5d6efb1059f5f10d11f",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSRawCompletedSchurCocycle.lean": "3dc6dc21ce56d78290bf17e179a0b2a20560600b8c2cf5154ca7b6751caf7b09",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSSchurMarkovPolarTraceBridge.lean": "bfa2f259a5f229ad56794feb7a859b76d6dc6a52e04aa77c7c40113f9ea40c94",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGramOrderingBridge.lean": "5a0bbba3e6f4bd374aa623fecf4497e8e4fb963fe26550c73a37c8046e07f022",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSIsometricTargetCrossing.lean": "183afadfd4f80985de130331f7d15dc0ca5c162617e2e87afe7b5f6f975e117d",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSWeightedBoundaryResolvent.lean": "72ac2500aa202dcad8031d2e058b67b568ba8bc01e1bee26441af8ee046b5714",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCentralAnomalyGuard.lean": "aa315b3c6ac0c8b4ccffe2dd0786415b42a20a4335643bb3b58dd06963826de6",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCutoffTraceAnomaly.lean": "778a4bc9cdcc11945c286261122a422327d681310f4f0262a9c33bfac4e04bba",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSSchurMarkovPairing.lean": "aa33b6bed07ed86f1284fb7c8803f661da56d887478109828d4a840692152c2c",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSSchurPolarTelescoping.lean": "bb768c47144a473933fec7c1b08a7be209a880d56d346ceea69f7e47ef0cd15f",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualSchurCascade.lean": "f4643b62077a95cb2db6cd26a1b76a28a9ce2e949d16f995b23db301fe371c0f",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSJuliaCoDefect.lean": "57d2c5d2dcc225349db351fe4cc65a102073797201bb7116244ea7d09b972ac7",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSBiSchurRelative.lean": "5077cb0de307a18c8cf82be150e7394c8599f62e99ee7e1bdb229811e07b2376",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSSchurCascade.lean": "393b3a429e8b5b91fb9b2ef46bd3bb3006022306dbebe2e92d3bfad48d34eac9",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSSchurMarkovCompletedReadout.lean": "6137e0d3b90af3ad5e4f28cf42aacb2a740c2a0811cf78ce4be6aaea8b480c7d",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCombinedCoframeGuard.lean": "04b61ee2f8530c37d5d8559e8578dd8e6cf291d99fe5cbd1db8e97a494ff8737",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalResidualLedger.lean": "bd4c2b358f68c08f73204d215159bf5854a5f1bc44f98c084963aeae82444768",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualSchurForwardPhysicalDifference.lean": "bf4edb71aed860af001a4c6b35ac22d696f573b4e01a2f6df51415a3e5d7b2ca",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualSchurForwardTransport.lean": "dc9db7629306767d3306f1d83903157ee02d8d30bc4eee5cda054ced068f7e29",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualSchurTelescoping.lean": "33d2380696c77a32f2621cc7002e665a0b116ef1755f95ef49c79b6401dedf65",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalFactorization.lean": "672af7dddf7b4a1a9c9e897a42babd8b444fe450eb29687ecf7684e17247c9ae",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalReadout.lean": "9b85b4cff6b72a925f54c9117db27d7d1dd70f8d9594d32882f29b85bbb1a902",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaUniformRawReadout.lean": "3a0948c1a06d40ae5d908a0e04fffbb8240ccb47a9c6d8ac85da487459d3f816",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaPolarRawReadout.lean": "d1b02f271fc6f05b41d88056e715dcecb8a79a20545f0130263d69dae1ef4a67",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaPhysicalDouglasReadout.lean": "1e63b6abd143f4ca825908b351a556e73a3b4ab610c03f099e3f040486849de5",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaAmbientDefectFactorization.lean": "b98ae97c7556105e9922edefa633e6514d1582175601b04d454da761256837ec",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaMismatchFactorization.lean": "e155297baafb11153402b0a1c68ea450577af6fc84cba2dfbd985f8591db4717",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaNonpolarMismatchNormalForm.lean": "176c43c8fe0597f6534460b6bac6b2a6293abdc66dcc8da6e082b39188334e9a",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRouteKernelNormalForm.lean": "0e97bb4832c4dd93905cbe5946edb0f3047fea48605e71ef29999be3dc458adb",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaSignedLocalization.lean": "1837235cb9918999e736cb6a124084ab72e298fce27b8c6a387be51016dfe61f",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaSynthesis.lean": "004ce8c71721028661bdc73cc95d8e7ad9138098136df4ec6031a3f40241318c",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSSchurMarkovUniformBound.lean": "9ad48fcf27299a6c5f5deab2a9d8c7719697d63c5514235b6faa75c53f54a269",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSNormalizedEndpointSupportBound.lean": "ec32eb2947df31d22e3effbd488b8420a28662f131d474f2949c4a06dda2b97d",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualFirstJetSupportBound.lean": "6175a863083b5ca8600a9579a3ed8944daac54eb29e9d2110897c45fdbae17f8",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSRootConvolutionNorm.lean": "dfc046cd6b40996c6cc52c5f8cb8c9b90b98698d13bd9012ed8266af618dbbe0",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSHomogeneousPhysicalEnergyBound.lean": "51d55fa7f322e5d6ff536b88b74985e1d676f5838505dea9891c75b19ef1249a",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSProlateCommutatorTraceBound.lean": "9d164d9b05656329cb1f19d1a86c4bd23fe944f722052e114c418ec065b0f6a4",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSFixedPhysicalEnergyBound.lean": "3f5a9b5b083207c57c294eb810795c21a2899090970f67794e35294d38e745d3",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSPhysicalBoundaryEnergy.lean": "800a7e375ebb9717a582d28abcb00da1d4db3ff90341cebc3f592b1f2ff22277",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSReflectedRootEnergy.lean": "fe6ff77c15f6399f3bac5ce7a7053df4717d524e633929129debf725a6473715",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompactRootEnergy.lean": "705c3ac53d90e20f30cd2a02f62912ca8d215d7acaf017ec7895fa4020b15df1",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSRootCompletedDetectorUniformTrace.lean": "38b27f84d9f4bc2eb2d1d14cfa194551b7aaade51879655b0f23fb735f4e202d",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSRootCompletedDetectorRenewalRootPairing.lean": "a389bd40014e15aa96f2ede188098af52126693986e4e5b72b4f2030f0127a9c",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSRootCompletedDetectorRootPairing.lean": "49a5904cf7b6c4ddc5131f18f46f3109420cdc8f9d3fe0d03dcd52528dd1657e",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSRootCompletedDetectorCompletedKernelOperator.lean": "ac29cd86d6d9d75d187f7db409e410deb311b41852e8db2eaf78f664453a8e11",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSSourceFirstJetSupportBound.lean": "cc9edaefb0fffe130fd68964f3cd9440be62c7f8ae87bb33f225086deefd7e4f",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedPhysicalHistory.lean": "a3e19fadfbc784f0afbebf09feb37cea7a4858cdf7b052dbd890ef7f9dd1b119",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCombinedPhysicalEnergyGate.lean": "df51f5423d220d1e1868085ee1c1a0e2307841e2547e8b455ab86432960d407e",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSJointResidualDouglasReadout.lean": "431378a2efb42c5af84eff1cf666112bf790f794c34f5b9f3b731908d27eb7a7",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualSchurEndpointAlignmentResidual.lean": "fc81b880c01e1c517459bfbc711f4250ecb97cb8e11191b6232b8c2ef5394691",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedPhysicalHistoryMismatch.lean": "2904e2ea37efeb70c473b4817bb61814f074314819babbbb91fea1e6b87e0845",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGateBoundaryMomentBridge.lean": "b25fe677f02f946c6d8d8e97f86bbe0c8f5532b7fc97f38ea9b952c81e56aadc",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSPhysicalCancellationBoundaryMomentBridge.lean": "e9af8f1f899ff1f4916aa0568c1549a85ebc89bbd82768159217b929941ecff4",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSPhysicalCancellationEndpointNormalForm.lean": "bf2583c26c871f4a6c79d6f6a58b74568723280d74f9b7f6aa7c4c6ee0b59e3d",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSPhysicalCancellationEndpointSplit.lean": "9441c35d44564dfbd0ece0d05d26af3e432407db21ddb42beaff900cc31310d2",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSPhysicalCancellationChannelSplit.lean": "d3513a1236e62240bc2ee449ecd68e156d73a300a1d60a296a25112ab4910b10",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSEndpointContractionGuard.lean": "c1bf667010b362bc5639832c411bb3b333a287652f700406b41757bd9027e0e5",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSEmptyPhysicalReadout.lean": "a8847f7c0c21d565359d6710822c47adeff95a965682936784f418722835a153",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSFixedPhysicalSourceInput.lean": "bd8f823179080f2df85a11293f22e9be4bf64513d7f305459e6e252d2db585d5",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSFixedSourceInput.lean": "0ad94ffad9a711e965c5871b443f9429700054174c69edc12010c4e48d9f8b2d",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCoDefectConsumer.lean": "ea00882114bf26119690935a1310a8c605a1a9800ab0baf9cc4888803ddecb21",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalObliqueShearReduction.lean": "b84e804a146d459f2d6c8bec929294d443db0d77f2a839fa46d6e186e45a7bac",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalPulledObliqueReduction.lean": "50b25d45a4c804adb914b54e172e91e4b16898ea7cb63bd03ed4dc68266fece0",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalTargetCommutatorReduction.lean": "18771a6c1b7a27bee33f769da5e4fbe2ef7d0285eac9ddf276f65b9404325624",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalLeakageTraceReduction.lean": "7eda145efaedf92b910c55711dfa351286e038352e8528bbfe7327387c3be3ec",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCausalMarkovCompletedPhysicalDifference.lean": "156c57501548a8bc8c995ac702a451e38318bb4f59144bc48a4694750ce20510",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalHardyProlateCompletedHermitianTrace.lean": "4102dea0cf6cffcdff36924054df49e1a33a6258b063554743290b3a3e4174c5",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCanonicalRealGate.lean": "c1f876fd1b7c0cff2b61e044a7563d67920f7a51a6783fb18c209a31679bd934",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalCanonicalCompletedKernelPhysicalTraceLegality.lean": "4b988ee9b2d20bb5ff282638ae634041f31f46cfa0b2fff6477a3730f582a02c",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalCanonicalCompletedKernelTraceLegality.lean": "9d937b68d6c4b4a0eced836ef8f65679b746d61133bca3fa7871bf92ddcfad37",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalCanonicalCompletedKernel.lean": "b485ed38f4bf014447f1bff1913b3ea338daf8958724f5548b336f8da3d9d0b8",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalCompletedKernelBridge.lean": "2ef83f29e16e22cff8473bad6c9849c994cde5573535514d6a03c5d39d46cb92",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalTargetHermitianPrefix.lean": "dc295686723d90a0eae0e1e12ab27471e434d3cf97204df2443a2f3769d27d57",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalRealTraceHandoff.lean": "6b52b24ff09450914767833c90682da7cec88e1dc5beaa29d17159511a57f9db",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalNormalizedRealTraceReduction.lean": "a4707dfe07fae51c02a1924045548c9f63d04c5df58988df11497d4ce4900b37",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalNormalizedAnomalyBoundaryReadout.lean": "6cf47059ff4fd4e7e0f47e7bb7a2b349640b43b016ddc90eac52172f3b5cdb29",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalNormalizedAnomalyTrace.lean": "3bb299bb73a89948a9e5a0c58c162bb7cba9d39039a07d902582032a460a0ffc",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalNormalizedGradedCoboundary.lean": "f47e92d92244375c74b07f4ddf195b47702efab5659084fbce719b65a7313046",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalNormalizedDoubleBoundaryReduction.lean": "e51a818632209af60ce5187bf58449da81f3fcc120a4fc5d4e0273a653a828e5",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalHardyProlateCompletedHermitianKernel.lean": "1c3e538f46a62734397754e59bdcab9b21c4512d244bd052bd4c6fce11d74704",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalHardyProlateCompletedBoundaryKernel.lean": "a0ab7d5841017ea3ff9ed34c7c3ae95c66d39a35a84850165281a3f84089a572",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalHardyProlateCompletedComplement.lean": "8ed148ee8895c6d82d85b2929dd7b5b703b7cba36fadb64464550b778da12952",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalHardyProlateRowRootCommutator.lean": "e8f9b2edc2e1ee119972e5849c0a43a5fd0f45c0bf78c9ba803b3eedbc3c40b0",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalHardyProlateRow.lean": "6d167333d2fdec7bc9e5419c253adbbcfa9a565aee8f8cd1c8d0905764757c29",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalHardyProlateGram.lean": "5ae47304aeda2b1bfbc5343ed7a5f1958ea9f98588f03f8ea4ebccd5877709da",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalCausalCompletedBracket.lean": "fdca9f5afc7d6dcdac1d01b73ef9485376b9de13b768d7c499e3b94653ceca3b",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalCausalDualFrameCorner.lean": "532e05f04177ae08a5cca3d62ef980a8ce27f131929438abdce92e9367573c47",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalMetricDetectorCorner.lean": "845b1baf9b19d68fe87823dd9e96faf268757e3e9bc46f14841210b48fa6e4f7",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCausalMarkovCompletedTraceDifference.lean": "b53ba160e02efd09abdd9ae3086442de68750543da95c3a84a61b40ff8a00d32",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCausalMarkovCompletedFirstDifference.lean": "3b57b495906ea00a967baaf8030d942103e8000ad08fd6811fbfa0495e5d1775",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCausalMarkovTwoSidedFirstDifference.lean": "241ba721527b22efa028ae4ab756ca8403c355aeecbd5b8f4cbc11809d1f7b37",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCausalMarkovFirstDifference.lean": "2b2300bdd9c868bc49c6e305885658389fc426293cde1cd4a85bf7f9c403f6c1",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCausalMarkovRawRenewalCumulativeLedger.lean": "35607749aec1b50b2abfd0dc440391ea09e2b2b7652f6ee59ca66653d2068ede",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCausalMarkovRawPermutationCumulativeLedger.lean": "3acb84fa64ba86fd42e194124cd42c0d329362ed7d6f548aab32e306fbdcde09",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCausalMarkovPermutationLedger.lean": "de2a028a389bbe301e38135c690f7d8dd1a9e09be7fda3468eef82b45e1b2e03",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCausalMarkovPermutationInvariance.lean": "de99af43cc976c7d0b91f9a1542de2f23ace29aeb4fc1493d25ac57a29387151",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCausalMarkovRawSourceOwnerTrace.lean": "268125e85fc6fb454f7776194bfa5a67d9026670614ef09259994a145df62ff3",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCausalMarkovRawPermutationDiamond.lean": "769a547ddc7b69e05494f33ec135b64ca51f570a88bc6dab7e98a6d9a7c1c7c2",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCausalMarkovRawPermutationOrderInvariance.lean": "c09ecd90c9fa4af12ccbfed3019e0bc480b2cabdfe3e3a004ebe425dddd98628",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalLowerFactorCompletedTrace.lean": "c3fa44087df46262b0c079316ab67a7e85a62bea6c642a52e9ca06614cad50d4",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalLowerFactorPersistence.lean": "6cfd06f0d5162cdbb0287553768ca4340d808ffef3daf93cdd698eea61bfe54f",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSRawEndpointSupportBound.lean": "2b989afbff841f463132c815625c52b3e3641a0b4a4334a70f5f89d9ffc0e948",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSGatePhysicalYoshidaMellinZeroL2Guard.lean": "ee7ebf658801c9e72775c161b7a6ac82e34742fec720171157f019de7daa75a4",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSFixedReflectedRootFourierMultiplierBridge.lean": "b233120c89efabad30b352409f18aa468d09126c407f7095ee3d116db8ea8a36",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSFixedFullBoundaryWindowUniquenessBridge.lean": "440c51b14e63ae6ad6c81e2bc3275804ecfc65b88c52915dd8a3435fb98752e2",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSFixedFullBoundaryInjectivityBridge.lean": "7f84a58a196daef7b79af63f829752da07ce1e59de0544be37c593b509e0b90a",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSFixedBoundaryKernelReduction.lean": "356d5c020e4ed809d65e07ce4417ce3226a78045c0b052fa60e08f4ba8a6f67c",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSFixedPhysicalKernelBridge.lean": "c43552a7332ce87319e9ba49e206a0e70d106ab3b97a3e73073d3b4010c343bf",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSFixedCompactRootFourierAeNonzeroBridge.lean": "9c1b7f5d3af95a920c0b2b0d722540d8ed892a0dcd0b8f61e1e4ed6e11a268e1",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSFixedFullBoundaryOriginalRootMultiplierBridge.lean": "60c5bbaefe50c751b665681639d1fb81d69df24219897376749f484e99b2c1d8",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCanonicalSupportGate3U.lean": "cadbffe30709a46c3ea85e659050f514fc9ebf6ef88fe09c6b643bb8dce568c7",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaJointProducer.lean": "b2eaac43784d67f2563846c89d179de795c6a52fbbbae197c010d6d6b4b5e410",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaUniformCoDefectFactor.lean": "de3d15d1660c01df8fd0a445a9ca365446d6a5aa1b2d3394200d89b750572c7b",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCanonicalTransportedOuterCollapse.lean": "3e0d8ffab3069456f496cbd30e23b4d09b9130224ab8c413fffef818166d03da",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCanonicalCompletedKernelMovingBandGuard.lean": "15038bbd288c8bbc34c5c19cf0738f74058f8d030737a416e320f4caebb38a09",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCanonicalCompletedKernelBoundaryCycle.lean": "8d6037343e54cd6647593eefad9ef638d038b316383407e30fc3854595ea93cc",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCanonicalAdjointEnergyGate.lean": "e5b9d80a2be6f4bf6abf8e387c599c0ef0504e61f118985a2db4b661d00ab6d7",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualSchurBoundaryMomentCanonicalSkew.lean": "1e4b5161e6a3e9399d3117d769b01045fc73608a2df09dcdfb5f5e644325a499",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24RootSandwichedHalfLinePair.lean": "924bb53d686998de685187f5d41b511aba5205aa885c359c5b06864fa650a1f8",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSMovingCrossingPullback.lean": "ccd6b167660145b6ccc2ecb7e92f93ecbe9ba4bd33aa39978232652cfc1bd8dc",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24UnitScaleStrictAngle.lean": "2f81d304243ada518f645d807d2afcceb8f2a78c8bee720cea506d813092221d",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24UnitScalePlancherelKernel.lean": "10b4b2740bf1194a970305a26da296918fbe06f7c5d56ffeeea37092246470f1",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24UnitScaleProlateTraceReduction.lean": "7a8baf4d3b2a40dac251d99ddff390ee98efa9c6372d50cd6877e52403a901bb",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24UnitScaleProlateAlignment.lean": "51ce3da608b9bb04d8df311c561e5557c0d90a3602211a0cf0c52bf0d8f182ef",
+    "ConnesWeilRH/Source/CC20Concrete/ContinuousKernelCompact.lean": "c322aa6e20a1799af525f7dabd8cff9ad20fa6b6064b7f68bade1a7cfaa30fff",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSIsometricFrameOwner.lean": "e801346913f12a200bfa46449a7ebc7ed4da33cf2a1cd10277c02c5ccb473a86",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaNonpolarDouglasObstruction.lean": "6c9ccab2e86526668e5ee6a8635a47529f9e06f44494458d8ff72b2237a3eb8f",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaComponentObstruction.lean": "5c856da38125517d85ddd883412303a35b147f04b2e84c78e798121167e8e625",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaComponentKernel.lean": "a316dbee0322262348e51f37b9b8c911c4239328c810e2e92927d19b3dbf91e1",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaComponentNonpolarDouglas.lean": "58ccc016cff796d10dbe614a60e46573ae177f3a4f06c67583d88d0efc4b5d56",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaNonpolarGapDouglas.lean": "104183f09ee3e854da120bdff4aaae6ddb601b21e2960cf3928ba5d0c20a0d34",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaNonpolarGapKernel.lean": "f87e04b31b20acb5d5758e87486d4f0cb59cd19978a633d5c80428e39d27b50e",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawCoDefectFactor.lean": "f3cb834572e7ea62822c1a4c3c0785cacefb591b4b9b54c3077d843007785a7d",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawDouglasReadout.lean": "ab358c18a2aaa8784aa83321cddf9a6e322dcf95003a193d9e89c027565645f8",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaNonpolarGapObstruction.lean": "6d9ef87dee0e98904b1c3e27d48f3d444e2c731c7798cae96efdf5d7e44ddf78",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaNonpolarGapFactorBridge.lean": "84458ed82bf96453195ed1d452d84853d1ceefd5d0b76fde0294e06bb8d8d83f",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaPolarSlotBound.lean": "50942ab42b31712380f7d52bd2a1605c55ff8e7df52eb2aba6cfb223fe82ed91",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualJuliaLiteralFactorConstructor.lean": "12b28db1f082729d8568dda5b919fa693cf984f29c4b0ba2e177fea9bb613f15",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualJuliaRangeSineDouglas.lean": "c08023a0f892981fa7fd5f9a14436c09afdedcc9ee21247eb519ed7d2f311069",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualJuliaReadbackConstructor.lean": "2eb19351e570bb84f1ac123598bc6d3294cff4edb742a0244eeffdc9e1e91754",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualJuliaRangeSineAmbientScaleGuard.lean": "1f3f9b796a436ef5f4e9ca1c1145093fcb506f2f5bb345078326021571ca43bf",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawDouglasObstruction.lean": "13502517cf4ec9f551b4d74c3c14edb2dd3d233c63fdd0941e278c3941cac3ce",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaResidualOnlyAntiresonantObstruction.lean": "e5860c8b07916dffc2c83cdda3f4122a4e87382402d6833d5e2574909813a093",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaApproximateKernelObstruction.lean": "fa275de3bfdf43fc83b51b852a208c791a4e259d476cdeaa9e97b549a1ca90cb",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaCanonicalAnalysisBridge.lean": "59378f2f8b4ef64d71e1c0b7cf4ec2f56459a714f5e8b28a82092b8e8afe8de5",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaAnalysisIsometricFactor.lean": "ed12c9cb4f6c5d1b405f7bca2f073c1c61bb781047f525de50296b6b596aa058",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawCofactorTrace.lean": "388cbdde3c2aebd362a547e865a7b3ae72485dad81354e3dbede76d2173e8cd5",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawLocalCofactor.lean": "7fd2fcfc20ae45bb59853ad3fc2d26851d3f09d8b950a0469faf3ed8caed418f",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierSpectralGapObstruction.lean": "4525f59d1479e9a4467eab979d13bc52e9712d715d2744d5a26d4525c0d3b7dd",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierSpectralGap.lean": "4b437c5cd9b84bae2fe304274d8d0c5c7705dcd2f6ac01b4f48037e374baf5e4",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierReduction.lean": "9568043e63849e7a6e8f83344609440bf72c6efbc63ab3df90f68a78cc71f3b6",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaAmbientLossKernel.lean": "c04ababad13e4d0c00fb5e0e7a4f70410d4d32ff006dd194bcfbcff366f15fc1",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierMovingMomentColumnSelector.lean": "1325be14d00d1db725ebf77fb6b23dc2e018090c885475d2502fa78df265024f",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierFixedSourceMomentObstruction.lean": "10c48818ec60da6c16de5649b871e3284e8054282a74172b5c32ff78a160b63d",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOnePrimeMomentObstruction.lean": "59d40f006d0be72c55673087891ce40f094debb22a230bcf56e4372b2696db91",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOnePrimeMomentNorm.lean": "8e88e49269706f85a170a606ee263ab52c3e21a6bdfe952e84c15b8d05231ae2",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOnePrimeMomentReduction.lean": "17c858f5518aefca90d4dbcf4900bb305f9c3dab1834980ca70298bb96363d19",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierFixedSourceKernelGuard.lean": "d0a1e9897af993cfea8649baf564e8a978e798b101c819b435d8a2a6ae55d590",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierMomentDecay.lean": "d4ac7f2aaec8c767b25771a82f67771c3dbdfe22675be97ff4811ebcb5af067d",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeRangeAnnihilationGuard.lean": "f81c299c60328912ab7e455800f4ab093a027777a3eaf7e1022394143a83f661",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeJointGapResponse.lean": "9b8fb186c2d9d6c44e7544ae002c82bdbae2a76b3ad29a4dd30075a86164ddf0",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeJointGapReadout.lean": "ee1506bebdd6586328a418989e0fe9f13bbe84743b2a1e5f38581c2114eb28ae",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeJointGapExpansion.lean": "ad57868c6c8eef1c7b3f441bea4f88094037de5788a02891aaf465bd0e123135",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierLeakageExpansion.lean": "c8154900c96fab5bdbc64b8477269789d5c571dadd046601feff38cfc1b9f4c8",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierSignedTelescope.lean": "ed209c0409fd10a2b67281a8fe5b1b0b49fc9de651bc1a6125f56d0d178ede5c",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeJointPullback.lean": "156720b215896621bf4f3e1d9d9d43237bec58009887152023a1bf4553aa141f",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeScalarRightInverse.lean": "e791f270b0b69709799cf9326ac8b0ea68e8d6f9ac8bb4fdab26c0abe995e12e",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeBoundedPieces.lean": "8086cea270622eead67ca9bdb3d23aa3a1bb9fadc433241e5a0aada82ecfb65d",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeOrientationLedger.lean": "a338e699693fd2c6de62970451b6cc3e0dba5e6a6041d75a25a613ecbe4d3649",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualSchurPhysicalResidualUniformControl.lean": "1979b29564bab248c341723776c523e5d065a983ff57eedad23e6d019b4b638d",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeResidual.lean": "8cb4d5ec0dc255328e2f67baa9ab8bf2ff5518069b5e17279d0ce9b2524f0a2f",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeRecurrence.lean": "9561a32fcbb453d2035bad90a7e586c87cbec60f9979825fe43ee13aeff7ce6a",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeRangeFactorization.lean": "391e036eab38d6ad4fd250246bc3e3eec2020dcad7bae9e9bca6b774a18e0f6c",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeDivideConquer.lean": "ceefa35f73a7dbbc64208f2d7677e0bee3ccf1e11c0632db0d8874f1f3fcf1ba",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawLocalDouglasBridge.lean": "2f8718720582db4c5c4b026dbef1091aded9c602fe2d8bf318fad33fcb924d92",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeAmbientChannel.lean": "1bd71e3d4608fce3ec7b1f456f4e6e0248775009d599505fb2c19538ba111e66",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeJointReadout.lean": "091af18881cd35850263804d9a4ac5d8d8272f7d6157e586e379ee8b7a1e708c",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeJointNormalForm.lean": "d83b3e3499e453ae01113da84ecd32cabe1ea57daa24b2a2e32b9351f9f5d505",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialPhysicalOwnerCommonRootPairDataTraceConsumer.lean": "10a4b8059b74626a5f46a5cb73bb4098aab9cba95b8d23cfbea991093fe67407",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialPhysicalOwnerCommonRootPairData.lean": "0c5094ed7c5f696f0f1b3b81b72634cf76a6fc23325590e5e66373f5a1ccd887",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialPhysicalOwnerRootSandwichFiniteSEndpointAlignment.lean": "c90fcd960f44659e735f535dd03ca09d39320eb33d98acf9c0228d0ce87a807a",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialPhysicalOwnerFiniteSEndpointAlignment.lean": "8b564319a06e0d30e5f5de49e8c70a99b00be1f9d13a7724a05a2452766f1fdb",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialPhysicalOwnerTwoCarrierSplit.lean": "498fb6823b70f4d9a1650ae524407c9023d1fdcfbdb24fc8f92fc315503ee52b",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialPhysicalOwnerComplement.lean": "c53f67155dde7dee526caf21c15552d077d4cef4619c117806d86a80b9e7fc9c",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialPhysicalOwnerCompression.lean": "c5e6aa28879628786f941895b60d5b016029e97fff9c88a4d15b1c513866622f",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialPhysicalOwner.lean": "c40c133e9c374320470bdc791d4d519f9c2d98f0d2039bf74579c7b29a1375b8",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialInteriorPhysicalExpansion.lean": "14e6b460dab87d07c1064d90b17d56e0f82eb1ecea891e331996f2a48ddff2ec",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialBoundarySupport.lean": "f5fbb72321975fbcec88ca3a2122aea1150a2db3aef35e70b645f1478250e69b",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialBoundarySplit.lean": "96c24088ecbe22f77cc755ca6b5fbcd0f0d84f5e785d0532c46745b7bea46f90",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialReduction.lean": "a94fdf58fa81389139a3ca5f55955f5b286ec24844f385d81fb668dd48b7aec3",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantRadialBlockRecurrence.lean": "88a0c2fdfa528c259dec0e1ff62eb859aee078c216f04c5b723e73388d41c4eb",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantRadialSplit.lean": "6ba6659b8bba67d5cdb6e4276d1398740ab3f44002662a1601cce8b3a9a9000e",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeAntiresonantReduction.lean": "45d888d19e55fdeb883e90d9a429869aac7d91d5a0fda039c2c654c8dbb0e21e",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeJointGapResponseReadout.lean": "3c31e7d39921a8430b57bcb506dc43a67a7e3529b5c2d63774554435195fa65c",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossCommutatorReduction.lean": "3d29c14e6b4538b6b3042e2eb85dfac09d19e593a4fa9a9cb2875f0886a9f474",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorBalancedProjectionRawLedger.lean": "2531127d43401f87c7cc9ce25fa53c82bb739ed4fdaddf8350c38b4a3b25c8a3",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorPolarGaugeNormalForm.lean": "67cc4b711b916c4d44168ffcaa57e8a15d284c043ef506676812b7e987f117d5",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorAmbientMetricFirstJetResidual.lean": "cb4bf9ccd20dad89ce96d2b27b7fb66e4a2fc7dfb3a1aa1b1b919dd4355a8b40",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorRawIntertwiningAmbientReduction.lean": "46fa64bdb8c9a46941e1d9ed0efd3a4de7ea00e56391fb4d7a78a37bb7229a65",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorNonpolarCofactorCollapse.lean": "c7e53b3649620dfe5b7c4e25c33260d1c0217db72dee8041f00cb2a6266677ed",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorPolarScaledTargetSize.lean": "527e3fa6f99a43882b793c8ef8a57b14c5b7b3673fa0381d6fdf987207464f31",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorOneStepTargetSize.lean": "47f37dae7dd62127e274416acd0a1702f06b6728ca1286d15705e0c77641060f",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorNormalizedSuffixMetricRow.lean": "d21d2618a13a303f1d51f6d5fd82cbf2c4abc2a7dbf0d213c3f3cc26d4ae08c3",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorOnePrimeNumeratorDecay.lean": "4d957c753db4aaf093d0737040c29d969209f39dd8c61190f7ce8448bd341d0c",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierOnePrimeAntiresonantScreen.lean": "a70e8369d2822fe873052fca878ba37d06406bbf7b5caf03185e013da594bed7",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorSingleChannelRenewalDeviation.lean": "2c5d9e809cbb47cae772c29fefa6ec82461df21ecc083c1f85f421c7f02890b5",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorSingleChannelRouteDomination.lean": "d362d6f88ed7673a821ec45d5550bf07091ecedff564d2428be9acf63e9e6350",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorSingleChannelRecovery.lean": "849e76ea386a731eefe9353c28bcb8e24c8d1f596526baa7f9b9726658d48aa0",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorSingleChannelFactorization.lean": "22f229fab4eae82b3d2b56affbcfecc712f1d61a9c91ba69bcebb422345bc169",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorSingleChannelPacking.lean": "0256790d7201b1f9e79b48fd41c8ff9cd5752ea1e0f51523996fba5c6d58c668",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorRouteValidFactorization.lean": "cded146a02eeb89a6bf6cfb50114411dc6db609c8d03542c96fbc8cb96331fa1",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorPhysicalFactorization.lean": "c45645fe2273fc4a0b79a6d4faa8f23267a929e225d8cb267b9ee041d847dcdb",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorPhysicalCofactorOwner.lean": "38355ef2895f29a999c0bdc45ca6f09bcdac59082b5416a75fd00ac121d56666",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorLocalCofactor.lean": "79724dd587921e54636868187ce308735df5db825ae31e8baf15c324dcd8b4b1",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorReverseIntertwining.lean": "b617abedaf718efc99daa1b42c3efa3c5d7f6c268042d4a6302fa83dc1746395",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorRadialBracketComparison.lean": "ea266ef3652524f288b815c644156c7872c448eac2e529e078fc980743e5c676",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorAdjacentBoundaryResponse.lean": "ff49a157b58c77ff43e14fbad2d5ba009066d240233039f541622b6a03e18294",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorBoundaryCommutator.lean": "87dd5a07e61bb1c3c01f1e1d534af207edad7ac01d30161a01350746fb0c482e",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorGapNormEquivalence.lean": "7bfdbb0b965854ebe6515ed4e77007d240b7f1d3c3e658be880a7bb94562193d",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorGapNormalForm.lean": "4c81498e45e8ce8100aa53706022259a196a81c58a86fdc2479538405b6a6090",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantScalarInteriorNormalization.lean": "cd6d1f3360299a138ed75269cccd760be4fbfb387f41e85fbf8ba6951af9f7cc",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantSignedRadialReduction.lean": "eb6b65647776a62f822bb2f1c729fcd40b5a245c45d57954c109be6ef0d46683",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantExteriorAdjointRadialFactorization.lean": "4325d364300df1a3cfd3a561405cededb3f5c9a4ea8e84122d95ad2294be94cd",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantExteriorAdjointRenewal.lean": "7b3bd6246244fa076cb1cbc0b8b5ea22095b907e5a462da839149757cac33dd5",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantGeometricBoundaryResolvent.lean": "38511a23cdeae692f4409352c28b8b130941a92fe874c1547593122e11d1ddf1",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantGeometricBoundaryReadout.lean": "389be7c5528007b85958811c363f45bc03a4ba756337a02b51b6e8f6fdd4314a",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorAmbientPhysicalFactorization.lean": "f8ca897d1fe37661e666dcf16bb8788839fbd6118559af79285cf1fcb10b76e2",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorSingleChannelKernel.lean": "027cd4fa50152a45370257ed7fdb361c54309071cdfa5deaa394d4cab96332fe",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorOnePrimeNumeratorBound.lean": "b91d6c798d552803be1cb9cd1e134964f27309050377c377c35763b228b710dd",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeResponseBounds.lean": "6974fb48e1eb574c391e81d7c508ad811b535273fc277505b605135819ecd7dc",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorPairedCorrelationCoboundary.lean": "7e2660ebd952897a88a595a476e7ce2569e555691f9bea4cf3ec04b87931b24d",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorPairedEnvelopeEquivalence.lean": "a8951175600f44b570dd8b0777e5e0b3ada9eac3721e22696b22e8e9e06313d4",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorPairedScalarCorrelation.lean": "39b324082adda70638654fd9448f1869957ca6175097573d69954fd234d3e95b",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorScalarCorrelationPrimitive.lean": "974143e9f1d6c701ebedbf8da88f060f215f242ece17398317dde75f880c61ac",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorWeakAlternatingPrimitive.lean": "0e6d47481d966e8013334554708bde9d8c615d4f37dcb511eae797bbf063d8b1",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorPointwiseAlternatingPrimitive.lean": "8ee6417bd25600393a78deb23a65b1b46e9a13d10f2615b667fc6ecd4bfc83c7",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorSingleChannelColumnEquivalence.lean": "810c3da7797fb7fcb21608fb1be64ed560375305904b095450ccb7a8bda2843d",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorSingleChannelRadialRecovery.lean": "ed8383c3800dd6e603f69d2685ed7ef693190a370abed577c5666dbf30cfabc9",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorUniformAlternatingPrimitive.lean": "9679db422e8b48e54b143f26ccd2c4eba69b25241dec75d141654657f582318f",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorInfiniteHorizonTail.lean": "d57188a97ff6fe4d9ec164cc976edbe92e12a80a01094d4c210732ecddc26e18",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFixedStepCompactness.lean": "427b61242cccc715270a71c048863b9be3ac45fb3b4d5a2d475afc6d0d9a7e01",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFiniteHorizonCoboundary.lean": "b0a16df9840e6321f6fa271fb877f7dd40ccadcf0ec47040a6afe60edc1fd383",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorSwappedLocalPairRadialColumnBridge.lean": "772f94a173b90c3a031c22bee59beedfd47ae6ab783ff35f3794396a68f872a7",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFiniteRadialBlockColumn.lean": "6fc97993ab4d6dbd20da14ca9ebd1b44fecde8ca97ea29a9129a810f42ce104e",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorAdjacentProjectionGap.lean": "029a902c327b34f1eaacc09117bd5ae8ac7aceae85e0981b150e8f845774904f",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierBlockReduction.lean": "ee86afe6b0d73c77c167e3a2d4f6d2c544ff871874fb56dd6858c5e92a1ab2f0",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorOnePrimeScaledTargetSize.lean": "791ee4860ab0662e8d10e31dc483c73d540ed08d282ef71d6c82dfddfc13228c",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorTwoStepCoboundaryFactorization.lean": "ad21150da3c50f0e987de1f72fd52e1cd8f1c013422ee5126fc1c4cc2057d71e",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorAmbientCovariance.lean": "b3ee4fbc1f0a450886b7164b55f9e5adf9647a3dbc792df96cf344badf49c031",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorAmbientFrameLossStability.lean": "5895b91debe3a5c38d6e39841473233009e0913029f530bb1dd725e4d240f6ab",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorTwoStepFactorCollapse.lean": "e3938e89dd0194607a884becf347013b7a7c514e9b7d314187ebd2df61d0dbd8",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorBalancedPolarBoundaryRawIntertwining.lean": "5368232d8b804a12e90d1d3032af31a8ba9bdb754d47b7cb1e6bc55cf1f715bf",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorBalancedPolarBoundaryReduction.lean": "d7d655c0977ee673c1e0efc1ba50589acea77fcd56bf057e2b736de3b12f6292",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorBalancedPolarFirstJetRecurrence.lean": "901b71a9bb386cdff88d3452a2e45bcd0a3996fa65f2729f73fe620afe21aef1",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorBalancedPhysicalCocycle.lean": "073bcff94e76f9690eec661edf064e12ddc134c2a0fa72c80bfd117ea5de3fe6",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialPhysicalOwnerRootSandwich.lean": "cddf6b9446ad355e68d1ba3004c837166d008bf9d0b94149525ed453db98fbff",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorSignedScalarOwner.lean": "f7358705e095065d24eaae69b28f4d250541f2931340e1cbccecbdafb8dac8e0",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialBoundarySignedPairGuard.lean": "0d9983864cfa36cc45c296b6b3460c02d83094eecff6341953c70725ef0d4ab6",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialBoundaryCauchyPairProducer.lean": "a8dcfd3970e13201b20e9d177b7ed7ae3d2dd809c0d8a484275f9471fcf356d8",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialBoundaryCauchyEnergy.lean": "88b1d0344a9cc1ab1b3389c11de6afe9600b9ca2a86c139647f656ab5412f39a",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialBoundaryCauchyDefect.lean": "529bcec7bf7f6bfa437d89a87b5a41c79ce2fad186fa606096838f26a5d2464b",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialBoundaryCorePairSupport.lean": "7715c7566b6db339ec6969fa94a739bed58e728fde8c76e14e13f21fd9a5004f",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialBoundaryAdjointSupport.lean": "726e765106782c9c761b49375e044dd8783cc9dc9239a552bd2cee6c978f63e4",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialBoundaryColumnFullCarrierPairReadout.lean": "9bdc19d27926bf98fdfc9d2be89552ae8228d72c714bc69f4c737e70426b6e9c",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialBoundaryColumnFullCarrierExtension.lean": "7331ebedab7183555ef78b312d055018cbebcbd1e613858f4ad97187037b9db2",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialBoundaryColumnPairAlignment.lean": "5e7ca811a4c4de7e47426b070f8182eaf14a8a9c43627024f8989dac1d7af52d",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialBoundaryColumnBridge.lean": "e30dd80beaae2f0325d31b635ef54f8b73fc03188f95de792fa05e250e058ea0",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorCompactSupportCellCutoffObstruction.lean": "6e3002239c4b5cd029a7b3a7fe8acc52cb9fc0f854d82bef090f8ab4b77b2887",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFiniteRadialKernelTail.lean": "b7d3895ea68ca5c53b329576a2356abb8a3c207afba0f85a5d7feb2bb91fe1d1",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorSuffixRenewalEnvelope.lean": "b574977515bd6f313b04758f2fa308b65d8e70da2ee4b34ab5d4ef587758a14f",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorLocalPairOwner.lean": "61fe41123fc3894af067964d331f1102dd7e475f9bcd668801cd1293ba7c29f4",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorSingleChannelRightCoDefect.lean": "7ddcf8518d9d5b952b27533b365deda3e1d67344de7c83abefc56da47a0cf633",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualSchurRightCoDefect.lean": "0916166c0bab08544dd05f43682c72a93bd015cd30b78846a0c852704bc81622",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorAmbientCovarianceLeakage.lean": "2c88f6473ae8879d0710ed641f55d46bf2bebf756885d70b71134e2a43d67211",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantResponseSplit.lean": "8f0866bf5015d9df99746279e3ce632dad28734d5979d007357500fc2401f7bc",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierFactorRecovery.lean": "b38909afa174592789896219accb6e30b05472a8b86e6235ecc0ec859ffb3037",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoDefectBridge.lean": "bc785064f60540c5a171f3d2e1853ec27f170b29b95b26ac75e5405fb04639ac",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierQuotientGuard.lean": "aba73076fccd472eae215f02dee4a219f66aac8fbd606551a658e81be86afa6e",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorSchurMarkovScalarDecayGuard.lean": "64a0fed78028da46ecd496b28cea6e24e3208aab97bb7654b2f6bff6e27140b6",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSPhysicalSchurMarkovAlignment.lean": "667e2a7f9b9fb551014b6472b3668d34388f642109de587aedd28ce975478dbc",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedPhysicalHistoryMetricGuard.lean": "9c22c63a8a27b602d7fc80fee19469cf9c4468a9115f5c071aa38d3d2e792563",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedMetricCoframeReadout.lean": "1677dc407e422c586ba4995814bd43ae1c15420a6410a6e31295a1e49b8cc77e",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCompletedPhysicalTerminalReadout.lean": "a66e92a9d18c2c9303a4239aa14a12c16290b89d313c6e3f9a7a86205e0f641e",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualSchurPhysicalResidualEnergy.lean": "9691ac1d4edae3da4b9b07a6f524db6a0cf3a18beb768ee158c50d05bd499fa2",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCorrectedPhysicalPairAlignment.lean": "d17a3d667f9d0c3ac9189bee93eeea2f8199ec54475cf8bb17fe98b9afa6af2a",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSEndpointArithmeticLimit.lean": "107c23f0ce58e1cda44c2be497c7c051f6c44779fdcd15f83fe98ad8c26f018a",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSEndpointArithmeticLedger.lean": "780224f0f754042feb250b58ae4b5cd55b63f0247aca204fb2503b782d345559",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSEndpointBalancedCycle.lean": "672d9230a564982ba53c23d50b44f07d3826535743875e7e6e046de2646cc858",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSEndpointBalancedProjection.lean": "ed5db4e835579634f0b5c40c0576aa6cc6d5540fadc990d057535f56e3691309",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSMovingBandSignedBoundTraceClass.lean": "d7de72cb113e5856548c04f8b2f05f1edb95a168c1c03ff40594fc290274a373",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualJuliaRangeSineContractivityObstruction.lean": "d9f7cd1dc3198c941aeed09bffa58889b8e5dae8e2730c7992eb45fab5a93ff1",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSRelativeTraceCocycle.lean": "da2bd8daab7490ed79a3571911efa1773b05a57fa988cd7e39dcff54066e45d7",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSRootDilation.lean": "93ecfc61181b40bec237184ede78e41d6465b19149819b5545e25b237792093c",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSNearlyInvariantCommutator.lean": "e2f8c39e32a37746ad4f9e3a67ec15f9c0c798dec09deb46ec8b694f40f2010c",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSDetectorVariance.lean": "8ba5da0973f327b0f7af3a324c09fc38053928a20eb116c31f5b36c850621022",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSMidpointProjection.lean": "9271f12f4da26514d8fbd0fbf303c3e99f26bc5c0ff0ad095a5772dd2a16a50e",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSHarmonicDetectorRow.lean": "1201aae32eb1fd4ab1be7d0ba0c786426ab9b95969efb9044b244f49281a8f4b",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualSchurGraphPhysicalCarrierGuard.lean": "20488836326cc7b1a94aebc8890234569be34aa147e00cdf63731e4822345bc8",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualSchurGraphPhysicalBoundaryTargetReadback.lean": "094d7d01958d1651004d7d84281d6c818e45b348333b942ed5d735eded54cbf1",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualSchurGraphPhysicalEndpointReadback.lean": "38727b8b20dd45d1070df6b2b07b51a6a843b73188809c28535ce7e1a2686620",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualSchurGraphPhysicalCascadeResidual.lean": "c5cc89726ed1f8f3101747dd52fe9a35d71b94417c3d0a92482847d3322ba072",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualSchurGraphPhysicalCascadeReadback.lean": "6e92d63ed932ed00f098e67456802ce6b09825ea8d62f810cb39f31419ce6eed",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualSchurGraphPhysicalTransportReadback.lean": "d3ea4845941ab3c9fa9e6a59d2fdca6188592dbde9d7291bea2633a3193db979",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualSchurGraphSupportDefectReadback.lean": "9f832ebfe5ceec74155bc3d4784d3ef41ba92b1928164ef4725265e563173090",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSActualSchurGraphSupportDefect.lean": "cbf48445caa7fcf332dcce0d55916938f242a277477946e8add93d6ecde00251",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCausalMarkovScaledForcingRecurrenceGuard.lean": "193777926ff284853fb873a7e0e3d263270f024c0517e3f8795e5c36a31b48a5",
+    "ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSCausalMarkovCompletedForcingSupportBound.lean": "0b3f3d4d9473f8810e95ca4a9cf6723d0c68486c54be7babd287caabd5e75d4d",
+    "ConnesWeilRH/Source/CC20YoshidaCriticalContraction.lean": "786cdacc726926aa9d1c6330ef02a31a50e6a54e735d2c83691c477ce1df3fb6"
+  },
+  "build_footer": "Build completed successfully (4590 jobs).",
+  "build_log_sha256": "6c779e502d38bdf44aefcfb279db99f8be4a5508ff1c9a31366306600b3c77ec",
+  "conditional_negative_segment_upper": "4934/1000000000000",
+  "conditional_both_signs_sum_upper": "5159/1000000000000",
+  "cell_build_cost": {
+    "elapsed": "87.22",
+    "user": "386.00",
+    "system": "22.99",
+    "peak_kib": "4663452"
+  },
+  "cost_log_sha256": "a732b24e2b98c3912c36530b680234605d57f66aeab6b65aea69c01cc1327f13"
+}

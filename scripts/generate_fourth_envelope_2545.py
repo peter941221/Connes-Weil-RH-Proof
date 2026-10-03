@@ -17,8 +17,9 @@ def polynomial(k, t):
     return sum(Q(c)*t**j for j,c in enumerate(rows[k]))
 
 
-def render(count, *, cell_index=5440, indices=None, precision=100):
+def render(count, *, cell_index=5440, indices=None, precision=100, sigma=Q(1,2)):
     assert precision in (100,160)
+    assert sigma in (Q(1,2),Q(-1,2))
     a,b = -R+cell_index*STEP,-R+(cell_index+1)*STEP
     selected = list(range(count)) if indices is None else list(indices)
     families = json.loads(CAPTURE.read_text())["owner_capture"]["families_hex"]
@@ -36,14 +37,15 @@ open ConnesWeilRH.Dev.C1RouteAOwnerScaleAudit
         r = width**2
         near,far = min(abs(a),abs(b))/r,min(max(abs(a),abs(b)),r)/r
         assert a*b > 0 and 0 < near < 1 and near < far <= 1
-        exponent = b/2-30/(1-near**2)
+        growth = max(sigma*a,sigma*b)
+        exponent = growth-30/(1-near**2)
         # Reuse only the proved scalar exponential algorithm: its real
-        # argument is exactly b/2 - 30/(1-near^2), with imaginary part zero.
+        # argument is the maximum signed endpoint growth minus bump decay.
         closest = near*r
-        ev = evaluate(r,Q(0),closest,b/(2*closest))
+        ev = evaluate(r,Q(0),closest,growth/closest)
         if precision == 160:
             from price_boundary_precision_2547 import precision_evaluate
-            center,error,depth = precision_evaluate(r,Q(0),closest,b/(2*closest),160)
+            center,error,depth = precision_evaluate(r,Q(0),closest,growth/closest,160)
             ev = dict(center=center,error=error,depth=depth,trace=((exponent/2**depth,Q(0)),))
         z,k = ev["trace"][0],ev["depth"]
         assert z == (exponent/2**k,0)
@@ -131,6 +133,8 @@ theorem {p}Bound2545 : fourthCellTerm2544 ⟨{i}, by omega⟩ ≤ {p}Upper2545 :
         parts.append("#print axioms ConnesWeilRH.Dev.fourthBound2545\n")
     lines = []
     output = "".join(parts)
+    if sigma < 0:
+        output = output.replace("(1/2)","(-1/2)")
     if precision == 160:
         output = output.replace("compactExp2542","compactExp2547").replace("compactExp_error2542","compactExp_error2547")
     for line in output.splitlines():

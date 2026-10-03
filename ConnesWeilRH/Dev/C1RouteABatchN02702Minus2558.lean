@@ -1,0 +1,3330 @@
+import ConnesWeilRH.Dev.C1RouteACompactExp1602547
+import ConnesWeilRH.Dev.C1RouteADerivativeMultiplier2543
+import ConnesWeilRH.Dev.C1RouteANonzeroNode2541
+
+namespace ConnesWeilRH.Dev
+
+open ConnesWeilRH.Dev.C1RouteAOwnerScaleAudit
+open ConnesWeilRH.Source.C1RouteAItem5Arithmetic
+
+noncomputable def batchN02702MinusPosition2558 : ℝ := (((-79233025209) : ℝ) /
+        25600000000)
+
+theorem batchN02702MinusZero2558 : embedPair2542 (0, 0) = 0 := by
+  apply Complex.ext <;> norm_num [embedPair2542]
+
+def batchN02702MinusP000Center2558 : RatPair2542 := (0, 0)
+
+def batchN02702MinusP000Factor2558 : RatPair2542 := (0, 0)
+
+noncomputable def batchN02702MinusP000Error2558 : ℝ := 0
+
+theorem batchN02702MinusP000Exterior2558 (n : ℕ) :
+    weightedUnitJet2539 n (-1/2) nodeModulation2541 ⟨0, by omega⟩ batchN02702MinusPosition2558 = 0
+        := by
+  have hx : storedWidth ⟨0, by omega⟩ ^ 2 ≤ |batchN02702MinusPosition2558| := by
+    norm_num [storedWidth, batchN02702MinusPosition2558]
+  exact weightedFamily_outside_zero2543 n (-1/2) (nodeModulation2541 ⟨0, by omega⟩)
+    (pow_pos (storedWidth_pos ⟨0, by omega⟩) 2) hx
+
+theorem batchN02702MinusP000BaseError2558 :
+    ‖weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨0, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP000Center2558‖ ≤ batchN02702MinusP000Error2558 := by
+  rw [batchN02702MinusP000Exterior2558]
+  norm_num [batchN02702MinusP000Center2558, batchN02702MinusP000Error2558,
+      batchN02702MinusZero2558]
+
+theorem batchN02702MinusP000DerivativeError2558 :
+    ‖weightedUnitJet2539 3 (-1/2) nodeModulation2541 ⟨0, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP000Factor2558 * embedPair2542 batchN02702MinusP000Center2558‖
+          ≤
+        (pairMagnitude2542 batchN02702MinusP000Factor2558 : ℝ) * batchN02702MinusP000Error2558 :=
+            by
+  rw [batchN02702MinusP000Exterior2558]
+  norm_num [batchN02702MinusP000Factor2558, batchN02702MinusP000Center2558,
+      batchN02702MinusP000Error2558,
+      batchN02702MinusZero2558, pairMagnitude2542]
+
+def batchN02702MinusP001Input2558 : RatPair2542 := ((((-((18 * 10^40
+        + 5781842504157709083773797513449382919147) * 10^40
+        + 7891878721064052424381933342951022830831)) : ℚ) /
+        ((52 * 10^40
+        + 5327705452767415333723241392768703787170) * 10^40
+        + 3821134574968135018370261083750400000000)),
+    ((437706290102569059082793061 : ℚ) /
+        1844674407370955161600000000))
+
+def batchN02702MinusP001Center2558 : RatPair2542 := ((((-1) : ℚ) /
+        (146150163 * 10^40
+        + 7330902918203684832716283019655932542976)),
+    ((0 : ℚ) /
+        1))
+
+def batchN02702MinusP001Factor2558 : RatPair2542 := ((((((((((((((5275491 * 10^40
+        + 1521383777960297415117181192386694887261) * 10^40
+        + 3198426057165930399069994311157241051070) * 10^40
+        + 889131134907169805314834121245619732364) * 10^40
+        + 5448842502192226973352814919555990403910) * 10^40
+        + 4512437894331530284162665492135732158197) * 10^40
+        + 5026893791000573929402699074778943610848) * 10^40
+        + 3831998175804128639774300408379814123011) * 10^40
+        + 9232120467895959499599274105073901197234) * 10^40
+        + 4561720716524545720195293799964966070728) * 10^40
+        + 1543995441252655407796532392331497916262) * 10^40
+        + 9217884184518218917174414470965617676907) : ℚ) /
+        ((((((((((256561739412300154721745905821722014066 * 10^40
+        + 2891801755297488142086282210811029025179) * 10^40
+        + 5661661483804262145536189826030236453561) * 10^40
+        + 4974671597761789718555418906186320968766) * 10^40
+        + 8285758446500141270987646893778650093348) * 10^40
+        + 4600579127089816697636832281422736988687) * 10^40
+        + 6253883164626704029513108198706467546636) * 10^40
+        + 6425113740564488976870856689727105519546) * 10^40
+        + 7054560303152525233742881655739680438206) * 10^40
+        + 4266154884070983969304014478239976063910) * 10^40
+        + 7728444367415221537755694762772490354688)),
+    (((-((((((((1880 * 10^40
+        + 229601613822413799813062276790981544526) * 10^40
+        + 3840293065065771646721510763640856668735) * 10^40
+        + 182992088799599429777292400382383476824) * 10^40
+        + 6304024512225984033290907996155680460972) * 10^40
+        + 2160551043173711529629843339912978833958) * 10^40
+        + 3046092611234184638064088711113135371470) * 10^40
+        + 3494332536491288530652770720636971683610) * 10^40
+        + 6939612821584282690729771860715863871243)) : ℚ) /
+        (((((((449563376228811642905470319697612153 * 10^40
+        + 5266376055940757075056269020110826468215) * 10^40
+        + 4397394730239828485440517685342776327934) * 10^40
+        + 6320322075098826558105256491183187878265) * 10^40
+        + 8645812069240071171828491750976455567098) * 10^40
+        + 5307459993337195222934019647794257879545) * 10^40
+        + 860122782819459623401760279013668619083) * 10^40
+        + 5060256141902288286067943841365619638272)))
+
+noncomputable def batchN02702MinusP001Error2558 : ℝ := ((2199023255553 : ℝ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))
+
+theorem batchN02702MinusP001BaseError2558 :
+    ‖weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨1, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP001Center2558‖ ≤ batchN02702MinusP001Error2558 := by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨1, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hz : ‖embedPair2542 batchN02702MinusP001Input2558‖ ≤ 1 := by
+    apply complex_norm_le_l1_2541
+    norm_num [embedPair2542, batchN02702MinusP001Input2558]
+  have hs : compactExp2547 batchN02702MinusP001Input2558 9 =
+      (batchN02702MinusP001Center2558, ((2199023255553 : ℚ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))) := by decide +kernel
+  have hc := congrArg Prod.fst hs
+  have he : ((compactExp2547 batchN02702MinusP001Input2558 9).2 : ℝ) =
+      batchN02702MinusP001Error2558 := by
+    rw [hs]
+    norm_num [batchN02702MinusP001Error2558]
+  have h := compactExp_error2547 batchN02702MinusP001Input2558 hz 9
+  rw [hc, he] at h
+  have ho : weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨1, by omega⟩
+      batchN02702MinusPosition2558 = Complex.exp ((2 : ℂ)^9 * embedPair2542
+          batchN02702MinusP001Input2558) := by
+    simp only [weightedUnitJet2539, iteratedDeriv_zero]
+    rw [weighted_unit_inside_exp2541 _ _ _ _ hx]
+    congr 1
+    apply Complex.ext <;> norm_num [batchN02702MinusPosition2558, storedWidth, nodeModulation2541,
+      embedPair2542, batchN02702MinusP001Input2558, Complex.mul_re, Complex.mul_im]
+  rwa [ho]
+
+theorem batchN02702MinusP001DerivativeError2558 :
+    ‖weightedUnitJet2539 3 (-1/2) nodeModulation2541 ⟨1, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP001Factor2558 * embedPair2542 batchN02702MinusP001Center2558‖
+          ≤
+        (pairMagnitude2542 batchN02702MinusP001Factor2558 : ℝ) * batchN02702MinusP001Error2558 :=
+            by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨1, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hf : weightedMultiplier2543 3 (-1/2) (nodeModulation2541 ⟨1, by omega⟩)
+      (storedWidth ⟨1, by omega⟩ ^ 2) batchN02702MinusPosition2558 = embedPair2542
+          batchN02702MinusP001Factor2558 :=
+          by
+    apply Complex.ext <;> norm_num [weightedMultiplier2543, Finset.sum_range_succ,
+      weightedLambda2537, bumpMultiplier2543, bumpDeficit2350, bumpNumerator2350,
+      batchN02702MinusPosition2558, storedWidth, nodeModulation2541, embedPair2542,
+      batchN02702MinusP001Factor2558, Complex.mul_re, Complex.mul_im, pow_succ]
+  have h := weightedFamily_inside_factor2543 3 (by omega) (-1/2)
+    (nodeModulation2541 ⟨1, by omega⟩) (pow_pos (storedWidth_pos ⟨1, by omega⟩) 2) hx
+  rw [hf] at h
+  change ‖iteratedDeriv 3 _ _ - _‖ ≤ _
+  rw [h]
+  exact complex_multiplier_error2543 _ _ _ _ _ batchN02702MinusP001BaseError2558
+    (embedPair_magnitude2542 batchN02702MinusP001Factor2558)
+
+def batchN02702MinusP002Input2558 : RatPair2542 := ((((-((477 * 10^40
+        + 2255107326888302176340661150205602907439) * 10^40
+        + 5476330259514208027845595586673152402671)) : ℚ) /
+        ((2039 * 10^40
+        + 5757741460588060628394170300498186110020) * 10^40
+        + 7730176828859850146962088670003200000000)),
+    (((-437706290102569059082793061) : ℚ) /
+        922337203685477580800000000))
+
+def batchN02702MinusP002Center2558 : RatPair2542 := ((((-1808320510932834055125) : ℚ) /
+        (36537540 * 10^40
+        + 9332725729550921208179070754913983135744)),
+    (((-3040243993904768592253) : ℚ) /
+        (36537540 * 10^40
+        + 9332725729550921208179070754913983135744)))
+
+def batchN02702MinusP002Factor2558 : RatPair2542 := ((((-(((((((((((725382520615725 * 10^40
+        + 6021304361237387313429943328117790335737) * 10^40
+        + 1180381767540063725694128873635071826537) * 10^40
+        + 6360743626978525692169316045399060128655) * 10^40
+        + 178280819830338268149315264044704904961) * 10^40
+        + 9225371950261312923508987754795390125458) * 10^40
+        + 8846186094380028781624307176132291433826) * 10^40
+        + 8577956883747064605460014518486980852693) * 10^40
+        + 5813642392059218420467823239917632712231) * 10^40
+        + 6628888072762851911160636023117164680566) * 10^40
+        + 7733315028310489217683118314510365013373) * 10^40
+        + 4431474528293504241947431089287333752213)) : ℚ) /
+        (((((((((((5623790053 * 10^40
+        + 5345028717899208143525080632042257506957) * 10^40
+        + 7996832095160324478376359060986242312243) * 10^40
+        + 1809253644103034126971394547474786948468) * 10^40
+        + 9554754557422551463909321429494115709931) * 10^40
+        + 2286727896070595524025847268000335518199) * 10^40
+        + 7478502534210252838492061593110828785940) * 10^40
+        + 9334488126151931566759736467318051194990) * 10^40
+        + 4187209450911610074049471336454739399112) * 10^40
+        + 2346223783876610291901938608583906039912) * 10^40
+        + 8905891477902200107998145960672855721424) * 10^40
+        + 2397815274429841582277902829538517188608)),
+    ((((((((((213169136 * 10^40
+        + 8477256041273009953418738377183234659241) * 10^40
+        + 5058792207477783952686789719453300153638) * 10^40
+        + 8939152916625902375855428546217976426335) * 10^40
+        + 5790087336218839205139973097252816169948) * 10^40
+        + 1683313346920274813967110382059513266055) * 10^40
+        + 3418068208397141586810281522623400731862) * 10^40
+        + 8147638598656667023179380570704173631890) * 10^40
+        + 4013785694737688133386220819892507578123) : ℚ) /
+        ((((((((1634 * 10^40
+        + 3650356788179276370231281585653830944664) * 10^40
+        + 9764650060649963238412078436451861610765) * 10^40
+        + 5364633056375432662096857458669685019968) * 10^40
+        + 4509381599398261992605584169384619994282) * 10^40
+        + 6582824274867956171001273425255326607191) * 10^40
+        + 7226395476136758207260259563595937505758) * 10^40
+        + 389902966080521832726216138575373078980) * 10^40
+        + 2695982315006962220652387737248613793792)))
+
+noncomputable def batchN02702MinusP002Error2558 : ℝ := ((26203547001217881765 : ℝ) /
+        (80346902212949513777 * 10^40
+        + 981046170581301261101496891396417650688))
+
+theorem batchN02702MinusP002BaseError2558 :
+    ‖weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨2, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP002Center2558‖ ≤ batchN02702MinusP002Error2558 := by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨2, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hz : ‖embedPair2542 batchN02702MinusP002Input2558‖ ≤ 1 := by
+    apply complex_norm_le_l1_2541
+    norm_num [embedPair2542, batchN02702MinusP002Input2558]
+  have hs : compactExp2547 batchN02702MinusP002Input2558 8 =
+      (batchN02702MinusP002Center2558, ((26203547001217881765 : ℚ) /
+        (80346902212949513777 * 10^40
+        + 981046170581301261101496891396417650688))) := by decide +kernel
+  have hc := congrArg Prod.fst hs
+  have he : ((compactExp2547 batchN02702MinusP002Input2558 8).2 : ℝ) =
+      batchN02702MinusP002Error2558 := by
+    rw [hs]
+    norm_num [batchN02702MinusP002Error2558]
+  have h := compactExp_error2547 batchN02702MinusP002Input2558 hz 8
+  rw [hc, he] at h
+  have ho : weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨2, by omega⟩
+      batchN02702MinusPosition2558 = Complex.exp ((2 : ℂ)^8 * embedPair2542
+          batchN02702MinusP002Input2558) := by
+    simp only [weightedUnitJet2539, iteratedDeriv_zero]
+    rw [weighted_unit_inside_exp2541 _ _ _ _ hx]
+    congr 1
+    apply Complex.ext <;> norm_num [batchN02702MinusPosition2558, storedWidth, nodeModulation2541,
+      embedPair2542, batchN02702MinusP002Input2558, Complex.mul_re, Complex.mul_im]
+  rwa [ho]
+
+theorem batchN02702MinusP002DerivativeError2558 :
+    ‖weightedUnitJet2539 3 (-1/2) nodeModulation2541 ⟨2, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP002Factor2558 * embedPair2542 batchN02702MinusP002Center2558‖
+          ≤
+        (pairMagnitude2542 batchN02702MinusP002Factor2558 : ℝ) * batchN02702MinusP002Error2558 :=
+            by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨2, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hf : weightedMultiplier2543 3 (-1/2) (nodeModulation2541 ⟨2, by omega⟩)
+      (storedWidth ⟨2, by omega⟩ ^ 2) batchN02702MinusPosition2558 = embedPair2542
+          batchN02702MinusP002Factor2558 :=
+          by
+    apply Complex.ext <;> norm_num [weightedMultiplier2543, Finset.sum_range_succ,
+      weightedLambda2537, bumpMultiplier2543, bumpDeficit2350, bumpNumerator2350,
+      batchN02702MinusPosition2558, storedWidth, nodeModulation2541, embedPair2542,
+      batchN02702MinusP002Factor2558, Complex.mul_re, Complex.mul_im, pow_succ]
+  have h := weightedFamily_inside_factor2543 3 (by omega) (-1/2)
+    (nodeModulation2541 ⟨2, by omega⟩) (pow_pos (storedWidth_pos ⟨2, by omega⟩) 2) hx
+  rw [hf] at h
+  change ‖iteratedDeriv 3 _ _ - _‖ ≤ _
+  rw [h]
+  exact complex_multiplier_error2543 _ _ _ _ _ batchN02702MinusP002BaseError2558
+    (embedPair_magnitude2542 batchN02702MinusP002Factor2558)
+
+def batchN02702MinusP003Input2558 : RatPair2542 := ((((-((9973 * 10^40
+        + 2256215055554662430951253447146088309355) * 10^40
+        + 5495472998434125712497953547040931958511)) : ℚ) /
+        ((59001 * 10^40
+        + 3089754565407751898622199770334889942512) * 10^40
+        + 5741483004646831459175457370931200000000)),
+    (((-437706290102569059082793061) : ℚ) /
+        922337203685477580800000000))
+
+def batchN02702MinusP003Center2558 : RatPair2542 := ((((-120309152640455605580363375995) : ℚ) /
+        (146150163 * 10^40
+        + 7330902918203684832716283019655932542976)),
+    (((-202270104506104807991901408963) : ℚ) /
+        (146150163 * 10^40
+        + 7330902918203684832716283019655932542976)))
+
+def batchN02702MinusP003Factor2558 : RatPair2542 := ((((-(((((((((((203491474302861659020614 *
+    10^40
+        + 6983383376409392395992369461189379201634) * 10^40
+        + 2061260353689935874650443345006099281604) * 10^40
+        + 8575145842828960014920362826935800067888) * 10^40
+        + 3087326874847337390116594951379888620052) * 10^40
+        + 6280174855163641967858450718289926628254) * 10^40
+        + 2203077200799378791689522247389153885254) * 10^40
+        + 9256799042579060892596463937792610793543) * 10^40
+        + 6042430207550951007030688533815857873569) * 10^40
+        + 1404081126045074413570953526740827031011) * 10^40
+        + 615894947267261893992388285742059462044) * 10^40
+        + 2966322216168277427354649908503758717333)) : ℚ) /
+        (((((((((((3295792879890984782 * 10^40
+        + 7422290034568501577860678413768047342681) * 10^40
+        + 6222898127092666488985088919772719587802) * 10^40
+        + 5330384427348941392534046817921597146586) * 10^40
+        + 3473835223814199285717056038623933304378) * 10^40
+        + 1296437055164324127480266644871509541199) * 10^40
+        + 2869835216847140093010829865258096304180) * 10^40
+        + 2561072844919433666911073305524631745211) * 10^40
+        + 4798279120988519142358006251065319202737) * 10^40
+        + 9038208580419010027990736894021795130259) * 10^40
+        + 7085557788088312432323047081833489422691) * 10^40
+        + 6399582968343494245106392583552030998528)),
+    (((-((((((((45378800473673 * 10^40
+        + 9289534148618607643507549154375153547374) * 10^40
+        + 625070012510566307696158698970529576941) * 10^40
+        + 3373042192587415910385654472368450914482) * 10^40
+        + 4431807616903252687120849765565245556860) * 10^40
+        + 2986175168469091952950226816792515802806) * 10^40
+        + 922595544035234652278410665845447808455) * 10^40
+        + 9592004644027219923336787027633235159151) * 10^40
+        + 6786668953046436600138603802602127665397)) : ℚ) /
+        ((((((((1144553955 * 10^40
+        + 7204356326498616829333140434645303712899) * 10^40
+        + 8229299020552135100043796799444637263433) * 10^40
+        + 3980010768663130427503160724229811498697) * 10^40
+        + 1005038917578976128903718688904848957578) * 10^40
+        + 4868745369166089736494351179175394281902) * 10^40
+        + 9567999874501090188168737145900718068329) * 10^40
+        + 7124158458887615287041127327241336151906) * 10^40
+        + 7389616120338860115014967265567505907712)))
+
+noncomputable def batchN02702MinusP003Error2558 : ℝ := ((408428881659359733954910165 : ℝ) /
+        (80346902212949513777 * 10^40
+        + 981046170581301261101496891396417650688))
+
+theorem batchN02702MinusP003BaseError2558 :
+    ‖weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨3, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP003Center2558‖ ≤ batchN02702MinusP003Error2558 := by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨3, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hz : ‖embedPair2542 batchN02702MinusP003Input2558‖ ≤ 1 := by
+    apply complex_norm_le_l1_2541
+    norm_num [embedPair2542, batchN02702MinusP003Input2558]
+  have hs : compactExp2547 batchN02702MinusP003Input2558 8 =
+      (batchN02702MinusP003Center2558, ((408428881659359733954910165 : ℚ) /
+        (80346902212949513777 * 10^40
+        + 981046170581301261101496891396417650688))) := by decide +kernel
+  have hc := congrArg Prod.fst hs
+  have he : ((compactExp2547 batchN02702MinusP003Input2558 8).2 : ℝ) =
+      batchN02702MinusP003Error2558 := by
+    rw [hs]
+    norm_num [batchN02702MinusP003Error2558]
+  have h := compactExp_error2547 batchN02702MinusP003Input2558 hz 8
+  rw [hc, he] at h
+  have ho : weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨3, by omega⟩
+      batchN02702MinusPosition2558 = Complex.exp ((2 : ℂ)^8 * embedPair2542
+          batchN02702MinusP003Input2558) := by
+    simp only [weightedUnitJet2539, iteratedDeriv_zero]
+    rw [weighted_unit_inside_exp2541 _ _ _ _ hx]
+    congr 1
+    apply Complex.ext <;> norm_num [batchN02702MinusPosition2558, storedWidth, nodeModulation2541,
+      embedPair2542, batchN02702MinusP003Input2558, Complex.mul_re, Complex.mul_im]
+  rwa [ho]
+
+theorem batchN02702MinusP003DerivativeError2558 :
+    ‖weightedUnitJet2539 3 (-1/2) nodeModulation2541 ⟨3, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP003Factor2558 * embedPair2542 batchN02702MinusP003Center2558‖
+          ≤
+        (pairMagnitude2542 batchN02702MinusP003Factor2558 : ℝ) * batchN02702MinusP003Error2558 :=
+            by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨3, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hf : weightedMultiplier2543 3 (-1/2) (nodeModulation2541 ⟨3, by omega⟩)
+      (storedWidth ⟨3, by omega⟩ ^ 2) batchN02702MinusPosition2558 = embedPair2542
+          batchN02702MinusP003Factor2558 :=
+          by
+    apply Complex.ext <;> norm_num [weightedMultiplier2543, Finset.sum_range_succ,
+      weightedLambda2537, bumpMultiplier2543, bumpDeficit2350, bumpNumerator2350,
+      batchN02702MinusPosition2558, storedWidth, nodeModulation2541, embedPair2542,
+      batchN02702MinusP003Factor2558, Complex.mul_re, Complex.mul_im, pow_succ]
+  have h := weightedFamily_inside_factor2543 3 (by omega) (-1/2)
+    (nodeModulation2541 ⟨3, by omega⟩) (pow_pos (storedWidth_pos ⟨3, by omega⟩) 2) hx
+  rw [hf] at h
+  change ‖iteratedDeriv 3 _ _ - _‖ ≤ _
+  rw [h]
+  exact complex_multiplier_error2543 _ _ _ _ _ batchN02702MinusP003BaseError2558
+    (embedPair_magnitude2542 batchN02702MinusP003Factor2558)
+
+def batchN02702MinusP004Input2558 : RatPair2542 := ((((-((1078 * 10^40
+        + 3091548951820516196409849396445654228081) * 10^40
+        + 7733082618942795786190859673587214902671)) : ℚ) /
+        ((7447 * 10^40
+        + 8007525417628767465445011537519794516855) * 10^40
+        + 5700019301591690146962088670003200000000)),
+    ((437706290102569059082793061 : ℚ) /
+        922337203685477580800000000))
+
+def batchN02702MinusP004Center2558 : RatPair2542 := ((((-29892566899523530686861247311731) : ℚ) /
+        (73075081 * 10^40
+        + 8665451459101842416358141509827966271488)),
+    ((100513925965249929978375590473809 : ℚ) /
+        (146150163 * 10^40
+        + 7330902918203684832716283019655932542976)))
+
+def batchN02702MinusP004Factor2558 : RatPair2542 := ((((-(((((((((((407947136107662399 * 10^40
+        + 2033584189681915734792088210166945377097) * 10^40
+        + 8319044235608440219116714295474056137261) * 10^40
+        + 1143300375729557113347830621863231347681) * 10^40
+        + 7763576729456437517386347470620405543155) * 10^40
+        + 6607032831745525225817717915253576107360) * 10^40
+        + 6439739454869390298924777244333039262690) * 10^40
+        + 5873514179136045598849558891548804657927) * 10^40
+        + 6403293163134930848235449181211710185704) * 10^40
+        + 35733707032418553907507534776036546564) * 10^40
+        + 6224920623071076935163490962957004252628) * 10^40
+        + 5540836765421821734973229575615458752213)) : ℚ) /
+        (((((((((((13333934833650 * 10^40
+        + 9971517618121969154129984964871285267879) * 10^40
+        + 5984738859495130611842348591889951463293) * 10^40
+        + 6125164979236665047541932013894432763732) * 10^40
+        + 5858167147305081960923219887441363572028) * 10^40
+        + 8654616800009248802978886640846612251678) * 10^40
+        + 1673769745154913406382432106665730699625) * 10^40
+        + 5297790964096429504160747485828179300154) * 10^40
+        + 3168687149004743606189981813750612831954) * 10^40
+        + 6441012126335624117660080169510456621180) * 10^40
+        + 9797768311222909063981655216539090444022) * 10^40
+        + 3993060345224963310175502829538517188608)),
+    ((((((((((16226450238 * 10^40
+        + 6664852530927551150253870735934664381859) * 10^40
+        + 4135532381503976692281723038143756439785) * 10^40
+        + 8156876905366450792618758606960488512662) * 10^40
+        + 3782314588289454823021375886067512635111) * 10^40
+        + 633161447513986200784772519232084204650) * 10^40
+        + 4782034458634269444534020110773827073030) * 10^40
+        + 3940024952275401707885277734906733261239) * 10^40
+        + 6148575179620180227583699004326242421877) : ℚ) /
+        ((((((((290604 * 10^40
+        + 1969094059240756694012022211275079450378) * 10^40
+        + 5864164965006501410876788381978536002162) * 10^40
+        + 2524647771234897950998468046614314353167) * 10^40
+        + 4410927939648029517959407503537747456256) * 10^40
+        + 4508596300616643358630491050424669059171) * 10^40
+        + 88336592144474006884371272399339470295) * 10^40
+        + 5153772248874244825826744633326275738853) * 10^40
+        + 4815618956468741101573987737248613793792)))
+
+noncomputable def batchN02702MinusP004Error2558 : ℝ := ((198097311830982059347853453109 : ℝ) /
+        (80346902212949513777 * 10^40
+        + 981046170581301261101496891396417650688))
+
+theorem batchN02702MinusP004BaseError2558 :
+    ‖weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨4, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP004Center2558‖ ≤ batchN02702MinusP004Error2558 := by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨4, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hz : ‖embedPair2542 batchN02702MinusP004Input2558‖ ≤ 1 := by
+    apply complex_norm_le_l1_2541
+    norm_num [embedPair2542, batchN02702MinusP004Input2558]
+  have hs : compactExp2547 batchN02702MinusP004Input2558 8 =
+      (batchN02702MinusP004Center2558, ((198097311830982059347853453109 : ℚ) /
+        (80346902212949513777 * 10^40
+        + 981046170581301261101496891396417650688))) := by decide +kernel
+  have hc := congrArg Prod.fst hs
+  have he : ((compactExp2547 batchN02702MinusP004Input2558 8).2 : ℝ) =
+      batchN02702MinusP004Error2558 := by
+    rw [hs]
+    norm_num [batchN02702MinusP004Error2558]
+  have h := compactExp_error2547 batchN02702MinusP004Input2558 hz 8
+  rw [hc, he] at h
+  have ho : weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨4, by omega⟩
+      batchN02702MinusPosition2558 = Complex.exp ((2 : ℂ)^8 * embedPair2542
+          batchN02702MinusP004Input2558) := by
+    simp only [weightedUnitJet2539, iteratedDeriv_zero]
+    rw [weighted_unit_inside_exp2541 _ _ _ _ hx]
+    congr 1
+    apply Complex.ext <;> norm_num [batchN02702MinusPosition2558, storedWidth, nodeModulation2541,
+      embedPair2542, batchN02702MinusP004Input2558, Complex.mul_re, Complex.mul_im]
+  rwa [ho]
+
+theorem batchN02702MinusP004DerivativeError2558 :
+    ‖weightedUnitJet2539 3 (-1/2) nodeModulation2541 ⟨4, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP004Factor2558 * embedPair2542 batchN02702MinusP004Center2558‖
+          ≤
+        (pairMagnitude2542 batchN02702MinusP004Factor2558 : ℝ) * batchN02702MinusP004Error2558 :=
+            by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨4, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hf : weightedMultiplier2543 3 (-1/2) (nodeModulation2541 ⟨4, by omega⟩)
+      (storedWidth ⟨4, by omega⟩ ^ 2) batchN02702MinusPosition2558 = embedPair2542
+          batchN02702MinusP004Factor2558 :=
+          by
+    apply Complex.ext <;> norm_num [weightedMultiplier2543, Finset.sum_range_succ,
+      weightedLambda2537, bumpMultiplier2543, bumpDeficit2350, bumpNumerator2350,
+      batchN02702MinusPosition2558, storedWidth, nodeModulation2541, embedPair2542,
+      batchN02702MinusP004Factor2558, Complex.mul_re, Complex.mul_im, pow_succ]
+  have h := weightedFamily_inside_factor2543 3 (by omega) (-1/2)
+    (nodeModulation2541 ⟨4, by omega⟩) (pow_pos (storedWidth_pos ⟨4, by omega⟩) 2) hx
+  rw [hf] at h
+  change ‖iteratedDeriv 3 _ _ - _‖ ≤ _
+  rw [h]
+  exact complex_multiplier_error2543 _ _ _ _ _ batchN02702MinusP004BaseError2558
+    (embedPair_magnitude2542 batchN02702MinusP004Factor2558)
+
+def batchN02702MinusP005Center2558 : RatPair2542 := (0, 0)
+
+def batchN02702MinusP005Factor2558 : RatPair2542 := (0, 0)
+
+noncomputable def batchN02702MinusP005Error2558 : ℝ := 0
+
+theorem batchN02702MinusP005Exterior2558 (n : ℕ) :
+    weightedUnitJet2539 n (-1/2) nodeModulation2541 ⟨5, by omega⟩ batchN02702MinusPosition2558 = 0
+        := by
+  have hx : storedWidth ⟨5, by omega⟩ ^ 2 ≤ |batchN02702MinusPosition2558| := by
+    norm_num [storedWidth, batchN02702MinusPosition2558]
+  exact weightedFamily_outside_zero2543 n (-1/2) (nodeModulation2541 ⟨5, by omega⟩)
+    (pow_pos (storedWidth_pos ⟨5, by omega⟩) 2) hx
+
+theorem batchN02702MinusP005BaseError2558 :
+    ‖weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨5, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP005Center2558‖ ≤ batchN02702MinusP005Error2558 := by
+  rw [batchN02702MinusP005Exterior2558]
+  norm_num [batchN02702MinusP005Center2558, batchN02702MinusP005Error2558,
+      batchN02702MinusZero2558]
+
+theorem batchN02702MinusP005DerivativeError2558 :
+    ‖weightedUnitJet2539 3 (-1/2) nodeModulation2541 ⟨5, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP005Factor2558 * embedPair2542 batchN02702MinusP005Center2558‖
+          ≤
+        (pairMagnitude2542 batchN02702MinusP005Factor2558 : ℝ) * batchN02702MinusP005Error2558 :=
+            by
+  rw [batchN02702MinusP005Exterior2558]
+  norm_num [batchN02702MinusP005Factor2558, batchN02702MinusP005Center2558,
+      batchN02702MinusP005Error2558,
+      batchN02702MinusZero2558, pairMagnitude2542]
+
+def batchN02702MinusP006Input2558 : RatPair2542 := ((((-15772723686503309308431500179204329) : ℚ)
+    /
+        27576812937084734710212198400000000),
+    ((0 : ℚ) /
+        1))
+
+def batchN02702MinusP006Center2558 : RatPair2542 := (((11719533816037623 : ℚ) /
+        (73075081 * 10^40
+        + 8665451459101842416358141509827966271488)),
+    ((0 : ℚ) /
+        1))
+
+def batchN02702MinusP006Factor2558 : RatPair2542 := ((((((14758826106400825 * 10^40
+        + 507117650112181176975555305929919324997) * 10^40
+        + 9203661263967689715637234332256203681565) * 10^40
+        + 198716545280685419863558879805812061919) : ℚ) /
+        (((44409393516 * 10^40
+        + 2023344271789931074110343813418828537211) * 10^40
+        + 8005777342566079444652812457721294013794) * 10^40
+        + 2485474144332436641091528961553503504648)),
+    ((0 : ℚ) /
+        1))
+
+noncomputable def batchN02702MinusP006Error2558 : ℝ := ((4021762308289 : ℝ) /
+        (80346902212949513777 * 10^40
+        + 981046170581301261101496891396417650688))
+
+theorem batchN02702MinusP006BaseError2558 :
+    ‖weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨6, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP006Center2558‖ ≤ batchN02702MinusP006Error2558 := by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨6, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hz : ‖embedPair2542 batchN02702MinusP006Input2558‖ ≤ 1 := by
+    apply complex_norm_le_l1_2541
+    norm_num [embedPair2542, batchN02702MinusP006Input2558]
+  have hs : compactExp2547 batchN02702MinusP006Input2558 7 =
+      (batchN02702MinusP006Center2558, ((4021762308289 : ℚ) /
+        (80346902212949513777 * 10^40
+        + 981046170581301261101496891396417650688))) := by decide +kernel
+  have hc := congrArg Prod.fst hs
+  have he : ((compactExp2547 batchN02702MinusP006Input2558 7).2 : ℝ) =
+      batchN02702MinusP006Error2558 := by
+    rw [hs]
+    norm_num [batchN02702MinusP006Error2558]
+  have h := compactExp_error2547 batchN02702MinusP006Input2558 hz 7
+  rw [hc, he] at h
+  have ho : weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨6, by omega⟩
+      batchN02702MinusPosition2558 = Complex.exp ((2 : ℂ)^7 * embedPair2542
+          batchN02702MinusP006Input2558) := by
+    simp only [weightedUnitJet2539, iteratedDeriv_zero]
+    rw [weighted_unit_inside_exp2541 _ _ _ _ hx]
+    congr 1
+    apply Complex.ext <;> norm_num [batchN02702MinusPosition2558, storedWidth, nodeModulation2541,
+      embedPair2542, batchN02702MinusP006Input2558, Complex.mul_re, Complex.mul_im]
+  rwa [ho]
+
+theorem batchN02702MinusP006DerivativeError2558 :
+    ‖weightedUnitJet2539 3 (-1/2) nodeModulation2541 ⟨6, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP006Factor2558 * embedPair2542 batchN02702MinusP006Center2558‖
+          ≤
+        (pairMagnitude2542 batchN02702MinusP006Factor2558 : ℝ) * batchN02702MinusP006Error2558 :=
+            by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨6, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hf : weightedMultiplier2543 3 (-1/2) (nodeModulation2541 ⟨6, by omega⟩)
+      (storedWidth ⟨6, by omega⟩ ^ 2) batchN02702MinusPosition2558 = embedPair2542
+          batchN02702MinusP006Factor2558 :=
+          by
+    apply Complex.ext <;> norm_num [weightedMultiplier2543, Finset.sum_range_succ,
+      weightedLambda2537, bumpMultiplier2543, bumpDeficit2350, bumpNumerator2350,
+      batchN02702MinusPosition2558, storedWidth, nodeModulation2541, embedPair2542,
+      batchN02702MinusP006Factor2558, Complex.mul_re, Complex.mul_im, pow_succ]
+  have h := weightedFamily_inside_factor2543 3 (by omega) (-1/2)
+    (nodeModulation2541 ⟨6, by omega⟩) (pow_pos (storedWidth_pos ⟨6, by omega⟩) 2) hx
+  rw [hf] at h
+  change ‖iteratedDeriv 3 _ _ - _‖ ≤ _
+  rw [h]
+  exact complex_multiplier_error2543 _ _ _ _ _ batchN02702MinusP006BaseError2558
+    (embedPair_magnitude2542 batchN02702MinusP006Factor2558)
+
+def batchN02702MinusP007Input2558 : RatPair2542 := ((((-((9973 * 10^40
+        + 2256215055554662430951253447146088309355) * 10^40
+        + 5495472998434125712497953547040931958511)) : ℚ) /
+        ((14750 * 10^40
+        + 3272438641351937974655549942583722485628) * 10^40
+        + 1435370751161707864793864342732800000000)),
+    ((0 : ℚ) /
+        1))
+
+def batchN02702MinusP007Center2558 : RatPair2542 := (((117672731958146325856108455551 : ℚ) /
+        (73075081 * 10^40
+        + 8665451459101842416358141509827966271488)),
+    ((0 : ℚ) /
+        1))
+
+def batchN02702MinusP007Factor2558 : RatPair2542 :=
+    (((((((((((((13845495862014188503705049892752758 *
+    10^40
+        + 5960286682638097089062291059989310252673) * 10^40
+        + 5816888894956666044728741625303611092369) * 10^40
+        + 2490268246553344278847741336780033464913) * 10^40
+        + 3646758593803443845750729141852934998220) * 10^40
+        + 809615575192495936008501170288350296937) * 10^40
+        + 4192531120434303139535005685560629233008) * 10^40
+        + 2999048097757057193758298281032612460963) * 10^40
+        + 3379243416801687082615728575250909824179) * 10^40
+        + 6323450947517539224382119541612086451677) * 10^40
+        + 3526461130027245847207577337488441922479) : ℚ) /
+        ((((((((((6655800715908525290759910342022 * 10^40
+        + 139238945924417499513781269295561511007) * 10^40
+        + 2245835083371853791348998140693296409514) * 10^40
+        + 1978055003605644344688352199494941965614) * 10^40
+        + 2791811410015730749744434699609128096942) * 10^40
+        + 1955299232985994784864562396469923993473) * 10^40
+        + 5682875917107215182234841000647056524028) * 10^40
+        + 3396699611110749051943610653269780799197) * 10^40
+        + 6145500656374024861445456482697745573696) * 10^40
+        + 1909813974424111658409947126889341277592) * 10^40
+        + 9192982959782033222339381300092464620168)),
+    ((0 : ℚ) /
+        1))
+
+noncomputable def batchN02702MinusP007Error2558 : ℝ := ((16281624050426687031899557 : ℝ) /
+        (80346902212949513777 * 10^40
+        + 981046170581301261101496891396417650688))
+
+theorem batchN02702MinusP007BaseError2558 :
+    ‖weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨7, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP007Center2558‖ ≤ batchN02702MinusP007Error2558 := by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨7, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hz : ‖embedPair2542 batchN02702MinusP007Input2558‖ ≤ 1 := by
+    apply complex_norm_le_l1_2541
+    norm_num [embedPair2542, batchN02702MinusP007Input2558]
+  have hs : compactExp2547 batchN02702MinusP007Input2558 6 =
+      (batchN02702MinusP007Center2558, ((16281624050426687031899557 : ℚ) /
+        (80346902212949513777 * 10^40
+        + 981046170581301261101496891396417650688))) := by decide +kernel
+  have hc := congrArg Prod.fst hs
+  have he : ((compactExp2547 batchN02702MinusP007Input2558 6).2 : ℝ) =
+      batchN02702MinusP007Error2558 := by
+    rw [hs]
+    norm_num [batchN02702MinusP007Error2558]
+  have h := compactExp_error2547 batchN02702MinusP007Input2558 hz 6
+  rw [hc, he] at h
+  have ho : weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨7, by omega⟩
+      batchN02702MinusPosition2558 = Complex.exp ((2 : ℂ)^6 * embedPair2542
+          batchN02702MinusP007Input2558) := by
+    simp only [weightedUnitJet2539, iteratedDeriv_zero]
+    rw [weighted_unit_inside_exp2541 _ _ _ _ hx]
+    congr 1
+    apply Complex.ext <;> norm_num [batchN02702MinusPosition2558, storedWidth, nodeModulation2541,
+      embedPair2542, batchN02702MinusP007Input2558, Complex.mul_re, Complex.mul_im]
+  rwa [ho]
+
+theorem batchN02702MinusP007DerivativeError2558 :
+    ‖weightedUnitJet2539 3 (-1/2) nodeModulation2541 ⟨7, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP007Factor2558 * embedPair2542 batchN02702MinusP007Center2558‖
+          ≤
+        (pairMagnitude2542 batchN02702MinusP007Factor2558 : ℝ) * batchN02702MinusP007Error2558 :=
+            by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨7, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hf : weightedMultiplier2543 3 (-1/2) (nodeModulation2541 ⟨7, by omega⟩)
+      (storedWidth ⟨7, by omega⟩ ^ 2) batchN02702MinusPosition2558 = embedPair2542
+          batchN02702MinusP007Factor2558 :=
+          by
+    apply Complex.ext <;> norm_num [weightedMultiplier2543, Finset.sum_range_succ,
+      weightedLambda2537, bumpMultiplier2543, bumpDeficit2350, bumpNumerator2350,
+      batchN02702MinusPosition2558, storedWidth, nodeModulation2541, embedPair2542,
+      batchN02702MinusP007Factor2558, Complex.mul_re, Complex.mul_im, pow_succ]
+  have h := weightedFamily_inside_factor2543 3 (by omega) (-1/2)
+    (nodeModulation2541 ⟨7, by omega⟩) (pow_pos (storedWidth_pos ⟨7, by omega⟩) 2) hx
+  rw [hf] at h
+  change ‖iteratedDeriv 3 _ _ - _‖ ≤ _
+  rw [h]
+  exact complex_multiplier_error2543 _ _ _ _ _ batchN02702MinusP007BaseError2558
+    (embedPair_magnitude2542 batchN02702MinusP007Factor2558)
+
+def batchN02702MinusP008Input2558 : RatPair2542 := ((((-((578154 * 10^40
+        + 6953538535139781891480462516901598321515) * 10^40
+        + 9047419746790429937938596620327657238359)) : ℚ) /
+        ((1043438 * 10^40
+        + 5341836082217744690501668084214075543561) * 10^40
+        + 3423907653835340883493847983718400000000)),
+    ((315234250415438586120416073 : ℚ) /
+        236118324143482260684800000000))
+
+def batchN02702MinusP008Center2558 : RatPair2542 := (((0 : ℚ) /
+        1),
+    ((0 : ℚ) /
+        1))
+
+def batchN02702MinusP008Factor2558 : RatPair2542 :=
+    ((((((((((((((32674247781250744343960246360674416 *
+    10^40
+        + 6728441894296369535640482966740141958667) * 10^40
+        + 6794545080293426645422260667203890611747) * 10^40
+        + 5722973982513112090106996575079221870915) * 10^40
+        + 7473598787476778454581776198231333354301) * 10^40
+        + 1186306766867558439943535245978061224809) * 10^40
+        + 6902584872259839799928479161458212114606) * 10^40
+        + 9024576326886154547558325065974030994894) * 10^40
+        + 5915687225794515716639212126653258650151) * 10^40
+        + 8020784208672477064524504854747076278839) * 10^40
+        + 802595191721639375558748246620308243819) * 10^40
+        + 677203638963459793709672921729039051843) : ℚ) /
+        (((((((((((91704665452005 * 10^40
+        + 2327825286843634285526529924068748047098) * 10^40
+        + 5608156296906071094137519266680777218094) * 10^40
+        + 1470852307582060063257283185535791747374) * 10^40
+        + 3280623318771542527534902593663358567797) * 10^40
+        + 1729025466241875725437757902980181814894) * 10^40
+        + 8846867241640500435496506520058408685213) * 10^40
+        + 3633205974727876818887423332684205948883) * 10^40
+        + 4659436421371989984351307346578595860951) * 10^40
+        + 9864387051676695467973755085747756216128) * 10^40
+        + 1656468500290299954020915346649937734477) * 10^40
+        + 5584645699454832454960289506110442831872)),
+    (((-((((((((7111696382298906442081 * 10^40
+        + 4140386258295114497749552692256516595740) * 10^40
+        + 1482533848999879172406307969368202755782) * 10^40
+        + 8669260303581794543047113387463625363140) * 10^40
+        + 8214106598788882594102615754687190898257) * 10^40
+        + 2785867894081923803558607010508622674353) * 10^40
+        + 1214148203621240587045457106542264696810) * 10^40
+        + 2318929736393452758106014786340943355518) * 10^40
+        + 2031320371085099793657125180775598918671)) : ℚ) /
+        ((((((((3336624 * 10^40
+        + 558651103367555413902446549437994274060) * 10^40
+        + 2595630609475083769512465552647335182650) * 10^40
+        + 9915166904430167233788738472643902785721) * 10^40
+        + 8590140480867267292263659679258013720057) * 10^40
+        + 1903501574476612889314209692951789051109) * 10^40
+        + 45179279704803950623035839446831364285) * 10^40
+        + 7843080265014065323647915045963286532193) * 10^40
+        + 9149762741836609099573600546157353762816)))
+
+noncomputable def batchN02702MinusP008Error2558 : ℝ := ((2199023255553 : ℝ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))
+
+theorem batchN02702MinusP008BaseError2558 :
+    ‖weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨8, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP008Center2558‖ ≤ batchN02702MinusP008Error2558 := by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨8, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hz : ‖embedPair2542 batchN02702MinusP008Input2558‖ ≤ 1 := by
+    apply complex_norm_le_l1_2541
+    norm_num [embedPair2542, batchN02702MinusP008Input2558]
+  have hs : compactExp2547 batchN02702MinusP008Input2558 15 =
+      (batchN02702MinusP008Center2558, ((2199023255553 : ℚ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))) := by decide +kernel
+  have hc := congrArg Prod.fst hs
+  have he : ((compactExp2547 batchN02702MinusP008Input2558 15).2 : ℝ) =
+      batchN02702MinusP008Error2558 := by
+    rw [hs]
+    norm_num [batchN02702MinusP008Error2558]
+  have h := compactExp_error2547 batchN02702MinusP008Input2558 hz 15
+  rw [hc, he] at h
+  have ho : weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨8, by omega⟩
+      batchN02702MinusPosition2558 = Complex.exp ((2 : ℂ)^15 * embedPair2542
+          batchN02702MinusP008Input2558) :=
+          by
+    simp only [weightedUnitJet2539, iteratedDeriv_zero]
+    rw [weighted_unit_inside_exp2541 _ _ _ _ hx]
+    congr 1
+    apply Complex.ext <;> norm_num [batchN02702MinusPosition2558, storedWidth, nodeModulation2541,
+      embedPair2542, batchN02702MinusP008Input2558, Complex.mul_re, Complex.mul_im]
+  rwa [ho]
+
+theorem batchN02702MinusP008DerivativeError2558 :
+    ‖weightedUnitJet2539 3 (-1/2) nodeModulation2541 ⟨8, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP008Factor2558 * embedPair2542 batchN02702MinusP008Center2558‖
+          ≤
+        (pairMagnitude2542 batchN02702MinusP008Factor2558 : ℝ) * batchN02702MinusP008Error2558 :=
+            by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨8, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hf : weightedMultiplier2543 3 (-1/2) (nodeModulation2541 ⟨8, by omega⟩)
+      (storedWidth ⟨8, by omega⟩ ^ 2) batchN02702MinusPosition2558 = embedPair2542
+          batchN02702MinusP008Factor2558 :=
+          by
+    apply Complex.ext <;> norm_num [weightedMultiplier2543, Finset.sum_range_succ,
+      weightedLambda2537, bumpMultiplier2543, bumpDeficit2350, bumpNumerator2350,
+      batchN02702MinusPosition2558, storedWidth, nodeModulation2541, embedPair2542,
+      batchN02702MinusP008Factor2558, Complex.mul_re, Complex.mul_im, pow_succ]
+  have h := weightedFamily_inside_factor2543 3 (by omega) (-1/2)
+    (nodeModulation2541 ⟨8, by omega⟩) (pow_pos (storedWidth_pos ⟨8, by omega⟩) 2) hx
+  rw [hf] at h
+  change ‖iteratedDeriv 3 _ _ - _‖ ≤ _
+  rw [h]
+  exact complex_multiplier_error2543 _ _ _ _ _ batchN02702MinusP008BaseError2558
+    (embedPair_magnitude2542 batchN02702MinusP008Factor2558)
+
+def batchN02702MinusP009Input2558 : RatPair2542 := ((((-((578154 * 10^40
+        + 6953538535139781891480462516901598321515) * 10^40
+        + 9047419746790429937938596620327657238359)) : ℚ) /
+        ((1043438 * 10^40
+        + 5341836082217744690501668084214075543561) * 10^40
+        + 3423907653835340883493847983718400000000)),
+    ((468835922968538293612120599 : ℚ) /
+        236118324143482260684800000000))
+
+def batchN02702MinusP009Center2558 : RatPair2542 := (((0 : ℚ) /
+        1),
+    ((0 : ℚ) /
+        1))
+
+def batchN02702MinusP009Factor2558 : RatPair2542 :=
+    ((((((((((((((32674247780778437665493219120588685 *
+    10^40
+        + 6020084117799916892201275951056020346671) * 10^40
+        + 3837218062905537855526421835358903488645) * 10^40
+        + 9677880486186835197356324776130393061985) * 10^40
+        + 3407972235405083405122733542262370321276) * 10^40
+        + 8777588385220833591934159369568456137890) * 10^40
+        + 8050265340786268155591632799798268437851) * 10^40
+        + 4386080861341571623568992718809800326782) * 10^40
+        + 8622828121351716943711924507974763642274) * 10^40
+        + 5817282853839852539798971309981666282114) * 10^40
+        + 1055481691977679676779138073661151772632) * 10^40
+        + 1238938824108009581706663719038531365379) : ℚ) /
+        (((((((((((91704665452005 * 10^40
+        + 2327825286843634285526529924068748047098) * 10^40
+        + 5608156296906071094137519266680777218094) * 10^40
+        + 1470852307582060063257283185535791747374) * 10^40
+        + 3280623318771542527534902593663358567797) * 10^40
+        + 1729025466241875725437757902980181814894) * 10^40
+        + 8846867241640500435496506520058408685213) * 10^40
+        + 3633205974727876818887423332684205948883) * 10^40
+        + 4659436421371989984351307346578595860951) * 10^40
+        + 9864387051676695467973755085747756216128) * 10^40
+        + 1656468500290299954020915346649937734477) * 10^40
+        + 5584645699454832454960289506110442831872)),
+    (((-((((((((10576955812598704111389 * 10^40
+        + 3310601326658727948507353030063618361707) * 10^40
+        + 7630655623219565070330486683007074044038) * 10^40
+        + 6521512393905263115176042108837339494243) * 10^40
+        + 3060519440137882266924042767842516165990) * 10^40
+        + 4196315253655624810839445485483425494593) * 10^40
+        + 9106307333458814677126823955121341952415) * 10^40
+        + 9767161750886825450016003329609131174625) * 10^40
+        + 2955486296018682481457806380559057490641)) : ℚ) /
+        ((((((((3336624 * 10^40
+        + 558651103367555413902446549437994274060) * 10^40
+        + 2595630609475083769512465552647335182650) * 10^40
+        + 9915166904430167233788738472643902785721) * 10^40
+        + 8590140480867267292263659679258013720057) * 10^40
+        + 1903501574476612889314209692951789051109) * 10^40
+        + 45179279704803950623035839446831364285) * 10^40
+        + 7843080265014065323647915045963286532193) * 10^40
+        + 9149762741836609099573600546157353762816)))
+
+noncomputable def batchN02702MinusP009Error2558 : ℝ := ((2199023255553 : ℝ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))
+
+theorem batchN02702MinusP009BaseError2558 :
+    ‖weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨9, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP009Center2558‖ ≤ batchN02702MinusP009Error2558 := by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨9, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hz : ‖embedPair2542 batchN02702MinusP009Input2558‖ ≤ 1 := by
+    apply complex_norm_le_l1_2541
+    norm_num [embedPair2542, batchN02702MinusP009Input2558]
+  have hs : compactExp2547 batchN02702MinusP009Input2558 15 =
+      (batchN02702MinusP009Center2558, ((2199023255553 : ℚ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))) := by decide +kernel
+  have hc := congrArg Prod.fst hs
+  have he : ((compactExp2547 batchN02702MinusP009Input2558 15).2 : ℝ) =
+      batchN02702MinusP009Error2558 := by
+    rw [hs]
+    norm_num [batchN02702MinusP009Error2558]
+  have h := compactExp_error2547 batchN02702MinusP009Input2558 hz 15
+  rw [hc, he] at h
+  have ho : weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨9, by omega⟩
+      batchN02702MinusPosition2558 = Complex.exp ((2 : ℂ)^15 * embedPair2542
+          batchN02702MinusP009Input2558) :=
+          by
+    simp only [weightedUnitJet2539, iteratedDeriv_zero]
+    rw [weighted_unit_inside_exp2541 _ _ _ _ hx]
+    congr 1
+    apply Complex.ext <;> norm_num [batchN02702MinusPosition2558, storedWidth, nodeModulation2541,
+      embedPair2542, batchN02702MinusP009Input2558, Complex.mul_re, Complex.mul_im]
+  rwa [ho]
+
+theorem batchN02702MinusP009DerivativeError2558 :
+    ‖weightedUnitJet2539 3 (-1/2) nodeModulation2541 ⟨9, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP009Factor2558 * embedPair2542 batchN02702MinusP009Center2558‖
+          ≤
+        (pairMagnitude2542 batchN02702MinusP009Factor2558 : ℝ) * batchN02702MinusP009Error2558 :=
+            by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨9, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hf : weightedMultiplier2543 3 (-1/2) (nodeModulation2541 ⟨9, by omega⟩)
+      (storedWidth ⟨9, by omega⟩ ^ 2) batchN02702MinusPosition2558 = embedPair2542
+          batchN02702MinusP009Factor2558 :=
+          by
+    apply Complex.ext <;> norm_num [weightedMultiplier2543, Finset.sum_range_succ,
+      weightedLambda2537, bumpMultiplier2543, bumpDeficit2350, bumpNumerator2350,
+      batchN02702MinusPosition2558, storedWidth, nodeModulation2541, embedPair2542,
+      batchN02702MinusP009Factor2558, Complex.mul_re, Complex.mul_im, pow_succ]
+  have h := weightedFamily_inside_factor2543 3 (by omega) (-1/2)
+    (nodeModulation2541 ⟨9, by omega⟩) (pow_pos (storedWidth_pos ⟨9, by omega⟩) 2) hx
+  rw [hf] at h
+  change ‖iteratedDeriv 3 _ _ - _‖ ≤ _
+  rw [h]
+  exact complex_multiplier_error2543 _ _ _ _ _ batchN02702MinusP009BaseError2558
+    (embedPair_magnitude2542 batchN02702MinusP009Factor2558)
+
+def batchN02702MinusP010Input2558 : RatPair2542 := ((((-((578154 * 10^40
+        + 6953538535139781891480462516901598321515) * 10^40
+        + 9047419746790429937938596620327657238359)) : ℚ) /
+        ((1043438 * 10^40
+        + 5341836082217744690501668084214075543561) * 10^40
+        + 3423907653835340883493847983718400000000)),
+    ((278897497562407945441511889 : ℚ) /
+        118059162071741130342400000000))
+
+def batchN02702MinusP010Center2558 : RatPair2542 := (((0 : ℚ) /
+        1),
+    ((0 : ℚ) /
+        1))
+
+def batchN02702MinusP010Factor2558 : RatPair2542 :=
+    ((((((((((((((8168561945105069269751736820537600 *
+    10^40
+        + 9504307548288568547470326655710139731487) * 10^40
+        + 2922707183566827810152733044874144621095) * 10^40
+        + 2351963420287493461666782036485315479410) * 10^40
+        + 7340982030792265455969928316312102224298) * 10^40
+        + 8192052824553158262467791920585056237494) * 10^40
+        + 2009020251372011587303149485716597516323) * 10^40
+        + 2857799148458825943052177160140179405110) * 10^40
+        + 2474449217353428593538736755791792127585) * 10^40
+        + 9005655316423667339194808575581127687567) * 10^40
+        + 9875191997626107217337372668119884668398) * 10^40
+        + 3301351677865386079385146825188555688627) : ℚ) /
+        (((((((((((22926166363001 * 10^40
+        + 3081956321710908571381632481017187011774) * 10^40
+        + 6402039074226517773534379816670194304523) * 10^40
+        + 5367713076895515015814320796383947936843) * 10^40
+        + 5820155829692885631883725648415839641949) * 10^40
+        + 2932256366560468931359439475745045453723) * 10^40
+        + 7211716810410125108874126630014602171303) * 10^40
+        + 3408301493681969204721855833171051487220) * 10^40
+        + 8664859105342997496087826836644648965237) * 10^40
+        + 9966096762919173866993438771436939054032) * 10^40
+        + 414117125072574988505228836662484433619) * 10^40
+        + 3896161424863708113740072376527610707968)),
+    (((-((((((((1572984472521054400883 * 10^40
+        + 3551940761461642754779450724272824015535) * 10^40
+        + 3172491532566481594313410101776375538828) * 10^40
+        + 181289860252632501088858014830915270920) * 10^40
+        + 2694934244597650146989412225657453492942) * 10^40
+        + 2691640614451843561607632644845773520267) * 10^40
+        + 8344029722320531786301213132749364463017) * 10^40
+        + 7849591862344809628360417869563526466021) * 10^40
+        + 4441379165333342288793572219986943594487)) : ℚ) /
+        ((((((((417078 * 10^40
+        + 69831387920944426737805818679749284257) * 10^40
+        + 5324453826184385471189058194080916897831) * 10^40
+        + 3739395863053770904223592309080487848215) * 10^40
+        + 2323767560108408411532957459907251715007) * 10^40
+        + 1487937696809576611164276211618973631388) * 10^40
+        + 6255647409963100493827879479930853920535) * 10^40
+        + 7230385033126758165455989380745410816524) * 10^40
+        + 2393720342729576137446700068269669220352)))
+
+noncomputable def batchN02702MinusP010Error2558 : ℝ := ((2199023255553 : ℝ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))
+
+theorem batchN02702MinusP010BaseError2558 :
+    ‖weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨10, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP010Center2558‖ ≤ batchN02702MinusP010Error2558 := by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨10, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hz : ‖embedPair2542 batchN02702MinusP010Input2558‖ ≤ 1 := by
+    apply complex_norm_le_l1_2541
+    norm_num [embedPair2542, batchN02702MinusP010Input2558]
+  have hs : compactExp2547 batchN02702MinusP010Input2558 15 =
+      (batchN02702MinusP010Center2558, ((2199023255553 : ℚ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))) := by decide +kernel
+  have hc := congrArg Prod.fst hs
+  have he : ((compactExp2547 batchN02702MinusP010Input2558 15).2 : ℝ) =
+      batchN02702MinusP010Error2558 := by
+    rw [hs]
+    norm_num [batchN02702MinusP010Error2558]
+  have h := compactExp_error2547 batchN02702MinusP010Input2558 hz 15
+  rw [hc, he] at h
+  have ho : weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨10, by omega⟩
+      batchN02702MinusPosition2558 = Complex.exp ((2 : ℂ)^15 * embedPair2542
+          batchN02702MinusP010Input2558) :=
+          by
+    simp only [weightedUnitJet2539, iteratedDeriv_zero]
+    rw [weighted_unit_inside_exp2541 _ _ _ _ hx]
+    congr 1
+    apply Complex.ext <;> norm_num [batchN02702MinusPosition2558, storedWidth, nodeModulation2541,
+      embedPair2542, batchN02702MinusP010Input2558, Complex.mul_re, Complex.mul_im]
+  rwa [ho]
+
+theorem batchN02702MinusP010DerivativeError2558 :
+    ‖weightedUnitJet2539 3 (-1/2) nodeModulation2541 ⟨10, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP010Factor2558 * embedPair2542 batchN02702MinusP010Center2558‖
+          ≤
+        (pairMagnitude2542 batchN02702MinusP010Factor2558 : ℝ) * batchN02702MinusP010Error2558 :=
+            by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨10, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hf : weightedMultiplier2543 3 (-1/2) (nodeModulation2541 ⟨10, by omega⟩)
+      (storedWidth ⟨10, by omega⟩ ^ 2) batchN02702MinusPosition2558 = embedPair2542
+          batchN02702MinusP010Factor2558 :=
+          by
+    apply Complex.ext <;> norm_num [weightedMultiplier2543, Finset.sum_range_succ,
+      weightedLambda2537, bumpMultiplier2543, bumpDeficit2350, bumpNumerator2350,
+      batchN02702MinusPosition2558, storedWidth, nodeModulation2541, embedPair2542,
+      batchN02702MinusP010Factor2558, Complex.mul_re, Complex.mul_im, pow_succ]
+  have h := weightedFamily_inside_factor2543 3 (by omega) (-1/2)
+    (nodeModulation2541 ⟨10, by omega⟩) (pow_pos (storedWidth_pos ⟨10, by omega⟩) 2) hx
+  rw [hf] at h
+  change ‖iteratedDeriv 3 _ _ - _‖ ≤ _
+  rw [h]
+  exact complex_multiplier_error2543 _ _ _ _ _ batchN02702MinusP010BaseError2558
+    (embedPair_magnitude2542 batchN02702MinusP010Factor2558)
+
+def batchN02702MinusP011Input2558 : RatPair2542 := ((((-((578154 * 10^40
+        + 6953538535139781891480462516901598321515) * 10^40
+        + 9047419746790429937938596620327657238359)) : ℚ) /
+        ((1043438 * 10^40
+        + 5341836082217744690501668084214075543561) * 10^40
+        + 3423907653835340883493847983718400000000)),
+    ((308553336021908726764541409 : ℚ) /
+        118059162071741130342400000000))
+
+def batchN02702MinusP011Center2558 : RatPair2542 := (((0 : ℚ) /
+        1),
+    ((0 : ℚ) /
+        1))
+
+def batchN02702MinusP011Factor2558 : RatPair2542 :=
+    ((((((((((((((8168561945036748155550390749642215 *
+    10^40
+        + 7587506576902478843595729253650613330942) * 10^40
+        + 7108746048396980208547737156408654876968) * 10^40
+        + 3819171145102977386863249979314618231197) * 10^40
+        + 4324405423042787694696505045536843551196) * 10^40
+        + 9909363205066014034661337381596034711724) * 10^40
+        + 7583238021789429312406184843196965479703) * 10^40
+        + 6463223922954951050800210586791140836464) * 10^40
+        + 9056330797213334738023961109781826405714) * 10^40
+        + 2196326666203742964471645145257004046235) * 10^40
+        + 3345086203074478874587193471383688502841) * 10^40
+        + 844526169912858867937350060202793881107) : ℚ) /
+        (((((((((((22926166363001 * 10^40
+        + 3081956321710908571381632481017187011774) * 10^40
+        + 6402039074226517773534379816670194304523) * 10^40
+        + 5367713076895515015814320796383947936843) * 10^40
+        + 5820155829692885631883725648415839641949) * 10^40
+        + 2932256366560468931359439475745045453723) * 10^40
+        + 7211716810410125108874126630014602171303) * 10^40
+        + 3408301493681969204721855833171051487220) * 10^40
+        + 8664859105342997496087826836644648965237) * 10^40
+        + 9966096762919173866993438771436939054032) * 10^40
+        + 414117125072574988505228836662484433619) * 10^40
+        + 3896161424863708113740072376527610707968)),
+    (((-((((((((1740243676435202768137 * 10^40
+        + 3603705400644406983004873383867824726168) * 10^40
+        + 1701976152350636612636540488185671881933) * 10^40
+        + 6076493558676427279113542980184850531819) * 10^40
+        + 135310715735637259030026040559843525032) * 10^40
+        + 9177364300769887647459904312622362532211) * 10^40
+        + 9900760261673958577183295801332796333019) * 10^40
+        + 4892607246776578187027309428802060721947) * 10^40
+        + 4245440361920027281431844409227676540487)) : ℚ) /
+        ((((((((417078 * 10^40
+        + 69831387920944426737805818679749284257) * 10^40
+        + 5324453826184385471189058194080916897831) * 10^40
+        + 3739395863053770904223592309080487848215) * 10^40
+        + 2323767560108408411532957459907251715007) * 10^40
+        + 1487937696809576611164276211618973631388) * 10^40
+        + 6255647409963100493827879479930853920535) * 10^40
+        + 7230385033126758165455989380745410816524) * 10^40
+        + 2393720342729576137446700068269669220352)))
+
+noncomputable def batchN02702MinusP011Error2558 : ℝ := ((2199023255553 : ℝ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))
+
+theorem batchN02702MinusP011BaseError2558 :
+    ‖weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨11, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP011Center2558‖ ≤ batchN02702MinusP011Error2558 := by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨11, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hz : ‖embedPair2542 batchN02702MinusP011Input2558‖ ≤ 1 := by
+    apply complex_norm_le_l1_2541
+    norm_num [embedPair2542, batchN02702MinusP011Input2558]
+  have hs : compactExp2547 batchN02702MinusP011Input2558 15 =
+      (batchN02702MinusP011Center2558, ((2199023255553 : ℚ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))) := by decide +kernel
+  have hc := congrArg Prod.fst hs
+  have he : ((compactExp2547 batchN02702MinusP011Input2558 15).2 : ℝ) =
+      batchN02702MinusP011Error2558 := by
+    rw [hs]
+    norm_num [batchN02702MinusP011Error2558]
+  have h := compactExp_error2547 batchN02702MinusP011Input2558 hz 15
+  rw [hc, he] at h
+  have ho : weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨11, by omega⟩
+      batchN02702MinusPosition2558 = Complex.exp ((2 : ℂ)^15 * embedPair2542
+          batchN02702MinusP011Input2558) :=
+          by
+    simp only [weightedUnitJet2539, iteratedDeriv_zero]
+    rw [weighted_unit_inside_exp2541 _ _ _ _ hx]
+    congr 1
+    apply Complex.ext <;> norm_num [batchN02702MinusPosition2558, storedWidth, nodeModulation2541,
+      embedPair2542, batchN02702MinusP011Input2558, Complex.mul_re, Complex.mul_im]
+  rwa [ho]
+
+theorem batchN02702MinusP011DerivativeError2558 :
+    ‖weightedUnitJet2539 3 (-1/2) nodeModulation2541 ⟨11, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP011Factor2558 * embedPair2542 batchN02702MinusP011Center2558‖
+          ≤
+        (pairMagnitude2542 batchN02702MinusP011Factor2558 : ℝ) * batchN02702MinusP011Error2558 :=
+            by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨11, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hf : weightedMultiplier2543 3 (-1/2) (nodeModulation2541 ⟨11, by omega⟩)
+      (storedWidth ⟨11, by omega⟩ ^ 2) batchN02702MinusPosition2558 = embedPair2542
+          batchN02702MinusP011Factor2558 :=
+          by
+    apply Complex.ext <;> norm_num [weightedMultiplier2543, Finset.sum_range_succ,
+      weightedLambda2537, bumpMultiplier2543, bumpDeficit2350, bumpNumerator2350,
+      batchN02702MinusPosition2558, storedWidth, nodeModulation2541, embedPair2542,
+      batchN02702MinusP011Factor2558, Complex.mul_re, Complex.mul_im, pow_succ]
+  have h := weightedFamily_inside_factor2543 3 (by omega) (-1/2)
+    (nodeModulation2541 ⟨11, by omega⟩) (pow_pos (storedWidth_pos ⟨11, by omega⟩) 2) hx
+  rw [hf] at h
+  change ‖iteratedDeriv 3 _ _ - _‖ ≤ _
+  rw [h]
+  exact complex_multiplier_error2543 _ _ _ _ _ batchN02702MinusP011BaseError2558
+    (embedPair_magnitude2542 batchN02702MinusP011Factor2558)
+
+def batchN02702MinusP012Input2558 : RatPair2542 := ((((-((578154 * 10^40
+        + 6953538535139781891480462516901598321515) * 10^40
+        + 9047419746790429937938596620327657238359)) : ℚ) /
+        ((1043438 * 10^40
+        + 5341836082217744690501668084214075543561) * 10^40
+        + 3423907653835340883493847983718400000000)),
+    ((6785390535256519649532381 : ℚ) /
+        2361183241434822606848000000))
+
+def batchN02702MinusP012Center2558 : RatPair2542 := (((0 : ℚ) /
+        1),
+    ((0 : ℚ) /
+        1))
+
+def batchN02702MinusP012Factor2558 : RatPair2542 :=
+    ((((((((((((((2042140486239677956444254004936789 *
+    10^40
+        + 3125960231540926781062540502053335300226) * 10^40
+        + 7376296430265053986013448471949527689428) * 10^40
+        + 1581531907433341461401853113493124060751) * 10^40
+        + 9488918586137708699290978416218863681161) * 10^40
+        + 8373150037421434200579642080617626932267) * 10^40
+        + 508308851454461892598654421497703477525) * 10^40
+        + 9978066022451493699132506129831300463393) * 10^40
+        + 2227120806937090669342999945387561178403) * 10^40
+        + 463415973381497210350212860004564364519) * 10^40
+        + 1122470083417834379845073511973866367694) * 10^40
+        + 6397752743380481862454193505867222192251) : ℚ) /
+        (((((((((((5731541590750 * 10^40
+        + 3270489080427727142845408120254296752943) * 10^40
+        + 6600509768556629443383594954167548576130) * 10^40
+        + 8841928269223878753953580199095986984210) * 10^40
+        + 8955038957423221407970931412103959910487) * 10^40
+        + 3233064091640117232839859868936261363430) * 10^40
+        + 9302929202602531277218531657503650542825) * 10^40
+        + 8352075373420492301180463958292762871805) * 10^40
+        + 2166214776335749374021956709161162241309) * 10^40
+        + 4991524190729793466748359692859234763508) * 10^40
+        + 103529281268143747126307209165621108404) * 10^40
+        + 8474040356215927028435018094131902676992)),
+    (((-((((((((239185409631101491003 * 10^40
+        + 6942479549774240180834416544173901785294) * 10^40
+        + 4592572168630384937149232795780514990727) * 10^40
+        + 4009058463860483938110523993274545256084) * 10^40
+        + 9600213289054896005015237195344369930948) * 10^40
+        + 1318333131547222689530703177522645896438) * 10^40
+        + 6878327170425621910204902186348768459325) * 10^40
+        + 2414008138965809931889182811733835756248) * 10^40
+        + 7484817776066757791331338423727166178075)) : ℚ) /
+        ((((((((52134 * 10^40
+        + 7508728923490118053342225727334968660532) * 10^40
+        + 1915556728273048183898632274260114612228) * 10^40
+        + 9217424482881721363027949038635060981026) * 10^40
+        + 9040470945013551051441619682488406464375) * 10^40
+        + 8935992212101197076395534526452371703923) * 10^40
+        + 5781955926245387561728484934991356740066) * 10^40
+        + 9653798129140844770681998672593176352065) * 10^40
+        + 5299215042841197017180837508533708652544)))
+
+noncomputable def batchN02702MinusP012Error2558 : ℝ := ((2199023255553 : ℝ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))
+
+theorem batchN02702MinusP012BaseError2558 :
+    ‖weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨12, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP012Center2558‖ ≤ batchN02702MinusP012Error2558 := by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨12, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hz : ‖embedPair2542 batchN02702MinusP012Input2558‖ ≤ 1 := by
+    apply complex_norm_le_l1_2541
+    norm_num [embedPair2542, batchN02702MinusP012Input2558]
+  have hs : compactExp2547 batchN02702MinusP012Input2558 15 =
+      (batchN02702MinusP012Center2558, ((2199023255553 : ℚ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))) := by decide +kernel
+  have hc := congrArg Prod.fst hs
+  have he : ((compactExp2547 batchN02702MinusP012Input2558 15).2 : ℝ) =
+      batchN02702MinusP012Error2558 := by
+    rw [hs]
+    norm_num [batchN02702MinusP012Error2558]
+  have h := compactExp_error2547 batchN02702MinusP012Input2558 hz 15
+  rw [hc, he] at h
+  have ho : weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨12, by omega⟩
+      batchN02702MinusPosition2558 = Complex.exp ((2 : ℂ)^15 * embedPair2542
+          batchN02702MinusP012Input2558) :=
+          by
+    simp only [weightedUnitJet2539, iteratedDeriv_zero]
+    rw [weighted_unit_inside_exp2541 _ _ _ _ hx]
+    congr 1
+    apply Complex.ext <;> norm_num [batchN02702MinusPosition2558, storedWidth, nodeModulation2541,
+      embedPair2542, batchN02702MinusP012Input2558, Complex.mul_re, Complex.mul_im]
+  rwa [ho]
+
+theorem batchN02702MinusP012DerivativeError2558 :
+    ‖weightedUnitJet2539 3 (-1/2) nodeModulation2541 ⟨12, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP012Factor2558 * embedPair2542 batchN02702MinusP012Center2558‖
+          ≤
+        (pairMagnitude2542 batchN02702MinusP012Factor2558 : ℝ) * batchN02702MinusP012Error2558 :=
+            by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨12, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hf : weightedMultiplier2543 3 (-1/2) (nodeModulation2541 ⟨12, by omega⟩)
+      (storedWidth ⟨12, by omega⟩ ^ 2) batchN02702MinusPosition2558 = embedPair2542
+          batchN02702MinusP012Factor2558 :=
+          by
+    apply Complex.ext <;> norm_num [weightedMultiplier2543, Finset.sum_range_succ,
+      weightedLambda2537, bumpMultiplier2543, bumpDeficit2350, bumpNumerator2350,
+      batchN02702MinusPosition2558, storedWidth, nodeModulation2541, embedPair2542,
+      batchN02702MinusP012Factor2558, Complex.mul_re, Complex.mul_im, pow_succ]
+  have h := weightedFamily_inside_factor2543 3 (by omega) (-1/2)
+    (nodeModulation2541 ⟨12, by omega⟩) (pow_pos (storedWidth_pos ⟨12, by omega⟩) 2) hx
+  rw [hf] at h
+  change ‖iteratedDeriv 3 _ _ - _‖ ≤ _
+  rw [h]
+  exact complex_multiplier_error2543 _ _ _ _ _ batchN02702MinusP012BaseError2558
+    (embedPair_magnitude2542 batchN02702MinusP012Factor2558)
+
+def batchN02702MinusP013Input2558 : RatPair2542 := ((((-((578154 * 10^40
+        + 6953538535139781891480462516901598321515) * 10^40
+        + 9047419746790429937938596620327657238359)) : ℚ) /
+        ((1043438 * 10^40
+        + 5341836082217744690501668084214075543561) * 10^40
+        + 3423907653835340883493847983718400000000)),
+    ((73452149567042081226768819 : ℚ) /
+        23611832414348226068480000000))
+
+def batchN02702MinusP013Center2558 : RatPair2542 := (((0 : ℚ) /
+        1),
+    ((0 : ℚ) /
+        1))
+
+def batchN02702MinusP013Factor2558 : RatPair2542 :=
+    ((((((((((((((8168561944881153963730815706682116 *
+    10^40
+        + 2054165929848658436667149193803690447999) * 10^40
+        + 8964313858639111822394789403703733948262) * 10^40
+        + 1396244421854640974900234306557004679020) * 10^40
+        + 7669110748228166895717732012531087360804) * 10^40
+        + 7942883382758624109046563215556968288102) * 10^40
+        + 2367986404440701272971349056215692955064) * 10^40
+        + 2098212718073188907220539755396668217283) * 10^40
+        + 1113169971553400839894733816821786029485) * 10^40
+        + 4066199346529588791484699197433350440431) * 10^40
+        + 5645966206780385435901954257533927339988) * 10^40
+        + 8026724622026208666406807369230105882579) : ℚ) /
+        (((((((((((22926166363001 * 10^40
+        + 3081956321710908571381632481017187011774) * 10^40
+        + 6402039074226517773534379816670194304523) * 10^40
+        + 5367713076895515015814320796383947936843) * 10^40
+        + 5820155829692885631883725648415839641949) * 10^40
+        + 2932256366560468931359439475745045453723) * 10^40
+        + 7211716810410125108874126630014602171303) * 10^40
+        + 3408301493681969204721855833171051487220) * 10^40
+        + 8664859105342997496087826836644648965237) * 10^40
+        + 9966096762919173866993438771436939054032) * 10^40
+        + 414117125072574988505228836662484433619) * 10^40
+        + 3896161424863708113740072376527610707968)),
+    (((-((((((((2071354023462431138786 * 10^40
+        + 8635974035077259652863894477990926860535) * 10^40
+        + 6743569879719001654378027033618763018506) * 10^40
+        + 8228141915373917441585348713196353585820) * 10^40
+        + 7467537543472051936492951647066454625245) * 10^40
+        + 965153005656438745629900134138423406299) * 10^40
+        + 5609640752384875460207692574216577082885) * 10^40
+        + 2253903475344667484319704780308256347006) * 10^40
+        + 7717765393277740859203093236540446240665)) : ℚ) /
+        ((((((((417078 * 10^40
+        + 69831387920944426737805818679749284257) * 10^40
+        + 5324453826184385471189058194080916897831) * 10^40
+        + 3739395863053770904223592309080487848215) * 10^40
+        + 2323767560108408411532957459907251715007) * 10^40
+        + 1487937696809576611164276211618973631388) * 10^40
+        + 6255647409963100493827879479930853920535) * 10^40
+        + 7230385033126758165455989380745410816524) * 10^40
+        + 2393720342729576137446700068269669220352)))
+
+noncomputable def batchN02702MinusP013Error2558 : ℝ := ((2199023255553 : ℝ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))
+
+theorem batchN02702MinusP013BaseError2558 :
+    ‖weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨13, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP013Center2558‖ ≤ batchN02702MinusP013Error2558 := by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨13, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hz : ‖embedPair2542 batchN02702MinusP013Input2558‖ ≤ 1 := by
+    apply complex_norm_le_l1_2541
+    norm_num [embedPair2542, batchN02702MinusP013Input2558]
+  have hs : compactExp2547 batchN02702MinusP013Input2558 15 =
+      (batchN02702MinusP013Center2558, ((2199023255553 : ℚ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))) := by decide +kernel
+  have hc := congrArg Prod.fst hs
+  have he : ((compactExp2547 batchN02702MinusP013Input2558 15).2 : ℝ) =
+      batchN02702MinusP013Error2558 := by
+    rw [hs]
+    norm_num [batchN02702MinusP013Error2558]
+  have h := compactExp_error2547 batchN02702MinusP013Input2558 hz 15
+  rw [hc, he] at h
+  have ho : weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨13, by omega⟩
+      batchN02702MinusPosition2558 = Complex.exp ((2 : ℂ)^15 * embedPair2542
+          batchN02702MinusP013Input2558) :=
+          by
+    simp only [weightedUnitJet2539, iteratedDeriv_zero]
+    rw [weighted_unit_inside_exp2541 _ _ _ _ hx]
+    congr 1
+    apply Complex.ext <;> norm_num [batchN02702MinusPosition2558, storedWidth, nodeModulation2541,
+      embedPair2542, batchN02702MinusP013Input2558, Complex.mul_re, Complex.mul_im]
+  rwa [ho]
+
+theorem batchN02702MinusP013DerivativeError2558 :
+    ‖weightedUnitJet2539 3 (-1/2) nodeModulation2541 ⟨13, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP013Factor2558 * embedPair2542 batchN02702MinusP013Center2558‖
+          ≤
+        (pairMagnitude2542 batchN02702MinusP013Factor2558 : ℝ) * batchN02702MinusP013Error2558 :=
+            by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨13, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hf : weightedMultiplier2543 3 (-1/2) (nodeModulation2541 ⟨13, by omega⟩)
+      (storedWidth ⟨13, by omega⟩ ^ 2) batchN02702MinusPosition2558 = embedPair2542
+          batchN02702MinusP013Factor2558 :=
+          by
+    apply Complex.ext <;> norm_num [weightedMultiplier2543, Finset.sum_range_succ,
+      weightedLambda2537, bumpMultiplier2543, bumpDeficit2350, bumpNumerator2350,
+      batchN02702MinusPosition2558, storedWidth, nodeModulation2541, embedPair2542,
+      batchN02702MinusP013Factor2558, Complex.mul_re, Complex.mul_im, pow_succ]
+  have h := weightedFamily_inside_factor2543 3 (by omega) (-1/2)
+    (nodeModulation2541 ⟨13, by omega⟩) (pow_pos (storedWidth_pos ⟨13, by omega⟩) 2) hx
+  rw [hf] at h
+  change ‖iteratedDeriv 3 _ _ - _‖ ≤ _
+  rw [h]
+  exact complex_multiplier_error2543 _ _ _ _ _ batchN02702MinusP013BaseError2558
+    (embedPair_magnitude2542 batchN02702MinusP013Factor2558)
+
+def batchN02702MinusP014Input2558 : RatPair2542 := ((((-((578154 * 10^40
+        + 6953538535139781891480462516901598321515) * 10^40
+        + 9047419746790429937938596620327657238359)) : ℚ) /
+        ((1043438 * 10^40
+        + 5341836082217744690501668084214075543561) * 10^40
+        + 3423907653835340883493847983718400000000)),
+    ((419125613659595683276618299 : ℚ) /
+        118059162071741130342400000000))
+
+def batchN02702MinusP014Center2558 : RatPair2542 := (((0 : ℚ) /
+        1),
+    ((0 : ℚ) /
+        1))
+
+def batchN02702MinusP014Factor2558 : RatPair2542 :=
+    ((((((((((((((8168561944721204628255443532316841 *
+    10^40
+        + 3858580982065104737984610523310681952647) * 10^40
+        + 1958817511824944174448836645068839394274) * 10^40
+        + 7491132280478032358623916023513913427158) * 10^40
+        + 7451700948622883463397975587425230562795) * 10^40
+        + 3691238071533264350151463210694208846931) * 10^40
+        + 8072411951405072137797962910246165084991) * 10^40
+        + 525024789019932979030324364676061192931) * 10^40
+        + 4323558245538597830896918843310983130727) * 10^40
+        + 1711229313778431862665222441102463653999) * 10^40
+        + 6394294074942112787319010999958234275929) * 10^40
+        + 1034241699165834986858701919732267600667) : ℚ) /
+        (((((((((((22926166363001 * 10^40
+        + 3081956321710908571381632481017187011774) * 10^40
+        + 6402039074226517773534379816670194304523) * 10^40
+        + 5367713076895515015814320796383947936843) * 10^40
+        + 5820155829692885631883725648415839641949) * 10^40
+        + 2932256366560468931359439475745045453723) * 10^40
+        + 7211716810410125108874126630014602171303) * 10^40
+        + 3408301493681969204721855833171051487220) * 10^40
+        + 8664859105342997496087826836644648965237) * 10^40
+        + 9966096762919173866993438771436939054032) * 10^40
+        + 414117125072574988505228836662484433619) * 10^40
+        + 3896161424863708113740072376527610707968)),
+    (((-((((((((2363872347658609997668 * 10^40
+        + 1155152376660521499436090661701965174002) * 10^40
+        + 5814651383577865595512665888422755662888) * 10^40
+        + 3830034538724224846502867758416428490031) * 10^40
+        + 7480432712177525858571352927017743713678) * 10^40
+        + 208871417388992590681146675538175368558) * 10^40
+        + 9913166102550667218377609418289515445942) * 10^40
+        + 1400754120952395332531710490410575519889) * 10^40
+        + 8991807924906047565385482021523826578037)) : ℚ) /
+        ((((((((417078 * 10^40
+        + 69831387920944426737805818679749284257) * 10^40
+        + 5324453826184385471189058194080916897831) * 10^40
+        + 3739395863053770904223592309080487848215) * 10^40
+        + 2323767560108408411532957459907251715007) * 10^40
+        + 1487937696809576611164276211618973631388) * 10^40
+        + 6255647409963100493827879479930853920535) * 10^40
+        + 7230385033126758165455989380745410816524) * 10^40
+        + 2393720342729576137446700068269669220352)))
+
+noncomputable def batchN02702MinusP014Error2558 : ℝ := ((2199023255553 : ℝ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))
+
+theorem batchN02702MinusP014BaseError2558 :
+    ‖weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨14, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP014Center2558‖ ≤ batchN02702MinusP014Error2558 := by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨14, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hz : ‖embedPair2542 batchN02702MinusP014Input2558‖ ≤ 1 := by
+    apply complex_norm_le_l1_2541
+    norm_num [embedPair2542, batchN02702MinusP014Input2558]
+  have hs : compactExp2547 batchN02702MinusP014Input2558 15 =
+      (batchN02702MinusP014Center2558, ((2199023255553 : ℚ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))) := by decide +kernel
+  have hc := congrArg Prod.fst hs
+  have he : ((compactExp2547 batchN02702MinusP014Input2558 15).2 : ℝ) =
+      batchN02702MinusP014Error2558 := by
+    rw [hs]
+    norm_num [batchN02702MinusP014Error2558]
+  have h := compactExp_error2547 batchN02702MinusP014Input2558 hz 15
+  rw [hc, he] at h
+  have ho : weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨14, by omega⟩
+      batchN02702MinusPosition2558 = Complex.exp ((2 : ℂ)^15 * embedPair2542
+          batchN02702MinusP014Input2558) :=
+          by
+    simp only [weightedUnitJet2539, iteratedDeriv_zero]
+    rw [weighted_unit_inside_exp2541 _ _ _ _ hx]
+    congr 1
+    apply Complex.ext <;> norm_num [batchN02702MinusPosition2558, storedWidth, nodeModulation2541,
+      embedPair2542, batchN02702MinusP014Input2558, Complex.mul_re, Complex.mul_im]
+  rwa [ho]
+
+theorem batchN02702MinusP014DerivativeError2558 :
+    ‖weightedUnitJet2539 3 (-1/2) nodeModulation2541 ⟨14, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP014Factor2558 * embedPair2542 batchN02702MinusP014Center2558‖
+          ≤
+        (pairMagnitude2542 batchN02702MinusP014Factor2558 : ℝ) * batchN02702MinusP014Error2558 :=
+            by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨14, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hf : weightedMultiplier2543 3 (-1/2) (nodeModulation2541 ⟨14, by omega⟩)
+      (storedWidth ⟨14, by omega⟩ ^ 2) batchN02702MinusPosition2558 = embedPair2542
+          batchN02702MinusP014Factor2558 :=
+          by
+    apply Complex.ext <;> norm_num [weightedMultiplier2543, Finset.sum_range_succ,
+      weightedLambda2537, bumpMultiplier2543, bumpDeficit2350, bumpNumerator2350,
+      batchN02702MinusPosition2558, storedWidth, nodeModulation2541, embedPair2542,
+      batchN02702MinusP014Factor2558, Complex.mul_re, Complex.mul_im, pow_succ]
+  have h := weightedFamily_inside_factor2543 3 (by omega) (-1/2)
+    (nodeModulation2541 ⟨14, by omega⟩) (pow_pos (storedWidth_pos ⟨14, by omega⟩) 2) hx
+  rw [hf] at h
+  change ‖iteratedDeriv 3 _ _ - _‖ ≤ _
+  rw [h]
+  exact complex_multiplier_error2543 _ _ _ _ _ batchN02702MinusP014BaseError2558
+    (embedPair_magnitude2542 batchN02702MinusP014Factor2558)
+
+def batchN02702MinusP015Input2558 : RatPair2542 := ((((-((578154 * 10^40
+        + 6953538535139781891480462516901598321515) * 10^40
+        + 9047419746790429937938596620327657238359)) : ℚ) /
+        ((1043438 * 10^40
+        + 5341836082217744690501668084214075543561) * 10^40
+        + 3423907653835340883493847983718400000000)),
+    ((456286966545542434888967823 : ℚ) /
+        118059162071741130342400000000))
+
+def batchN02702MinusP015Center2558 : RatPair2542 := (((0 : ℚ) /
+        1),
+    ((0 : ℚ) /
+        1))
+
+def batchN02702MinusP015Factor2558 : RatPair2542 :=
+    ((((((((((((((8168561944593626123330591737605413 *
+    10^40
+        + 1557166674010956801892299190971043435359) * 10^40
+        + 3889180212086307463098032767499140420431) * 10^40
+        + 4173611416879774416490919167295557364873) * 10^40
+        + 7864431463886111676781284618584111051440) * 10^40
+        + 1256028962419020494250147751104170006178) * 10^40
+        + 8740802514346095173496454447657867544325) * 10^40
+        + 9323300531554043156382866791460940955611) * 10^40
+        + 9215781346784492986754427111400131416642) * 10^40
+        + 5502934523612419308046175180781175820979) * 10^40
+        + 8049368070598503961057908814539861523215) * 10^40
+        + 2486527757828396425679631398115336201331) : ℚ) /
+        (((((((((((22926166363001 * 10^40
+        + 3081956321710908571381632481017187011774) * 10^40
+        + 6402039074226517773534379816670194304523) * 10^40
+        + 5367713076895515015814320796383947936843) * 10^40
+        + 5820155829692885631883725648415839641949) * 10^40
+        + 2932256366560468931359439475745045453723) * 10^40
+        + 7211716810410125108874126630014602171303) * 10^40
+        + 3408301493681969204721855833171051487220) * 10^40
+        + 8664859105342997496087826836644648965237) * 10^40
+        + 9966096762919173866993438771436939054032) * 10^40
+        + 414117125072574988505228836662484433619) * 10^40
+        + 3896161424863708113740072376527610707968)),
+    (((-((((((((2573462722534021751410 * 10^40
+        + 8454872166091751912630156645147370118023) * 10^40
+        + 4243241548109083510142256676030943570068) * 10^40
+        + 144319392598583009183868490911186457332) * 10^40
+        + 4140966319303783364658135877495386502429) * 10^40
+        + 1623325390095204904939047764136184832736) * 10^40
+        + 9135709878023665707968657469402950158086) * 10^40
+        + 2868703813614036517869437908905539946641) * 10^40
+        + 7800613003661805228780204311159973108713)) : ℚ) /
+        ((((((((417078 * 10^40
+        + 69831387920944426737805818679749284257) * 10^40
+        + 5324453826184385471189058194080916897831) * 10^40
+        + 3739395863053770904223592309080487848215) * 10^40
+        + 2323767560108408411532957459907251715007) * 10^40
+        + 1487937696809576611164276211618973631388) * 10^40
+        + 6255647409963100493827879479930853920535) * 10^40
+        + 7230385033126758165455989380745410816524) * 10^40
+        + 2393720342729576137446700068269669220352)))
+
+noncomputable def batchN02702MinusP015Error2558 : ℝ := ((2199023255553 : ℝ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))
+
+theorem batchN02702MinusP015BaseError2558 :
+    ‖weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨15, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP015Center2558‖ ≤ batchN02702MinusP015Error2558 := by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨15, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hz : ‖embedPair2542 batchN02702MinusP015Input2558‖ ≤ 1 := by
+    apply complex_norm_le_l1_2541
+    norm_num [embedPair2542, batchN02702MinusP015Input2558]
+  have hs : compactExp2547 batchN02702MinusP015Input2558 15 =
+      (batchN02702MinusP015Center2558, ((2199023255553 : ℚ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))) := by decide +kernel
+  have hc := congrArg Prod.fst hs
+  have he : ((compactExp2547 batchN02702MinusP015Input2558 15).2 : ℝ) =
+      batchN02702MinusP015Error2558 := by
+    rw [hs]
+    norm_num [batchN02702MinusP015Error2558]
+  have h := compactExp_error2547 batchN02702MinusP015Input2558 hz 15
+  rw [hc, he] at h
+  have ho : weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨15, by omega⟩
+      batchN02702MinusPosition2558 = Complex.exp ((2 : ℂ)^15 * embedPair2542
+          batchN02702MinusP015Input2558) :=
+          by
+    simp only [weightedUnitJet2539, iteratedDeriv_zero]
+    rw [weighted_unit_inside_exp2541 _ _ _ _ hx]
+    congr 1
+    apply Complex.ext <;> norm_num [batchN02702MinusPosition2558, storedWidth, nodeModulation2541,
+      embedPair2542, batchN02702MinusP015Input2558, Complex.mul_re, Complex.mul_im]
+  rwa [ho]
+
+theorem batchN02702MinusP015DerivativeError2558 :
+    ‖weightedUnitJet2539 3 (-1/2) nodeModulation2541 ⟨15, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP015Factor2558 * embedPair2542 batchN02702MinusP015Center2558‖
+          ≤
+        (pairMagnitude2542 batchN02702MinusP015Factor2558 : ℝ) * batchN02702MinusP015Error2558 :=
+            by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨15, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hf : weightedMultiplier2543 3 (-1/2) (nodeModulation2541 ⟨15, by omega⟩)
+      (storedWidth ⟨15, by omega⟩ ^ 2) batchN02702MinusPosition2558 = embedPair2542
+          batchN02702MinusP015Factor2558 :=
+          by
+    apply Complex.ext <;> norm_num [weightedMultiplier2543, Finset.sum_range_succ,
+      weightedLambda2537, bumpMultiplier2543, bumpDeficit2350, bumpNumerator2350,
+      batchN02702MinusPosition2558, storedWidth, nodeModulation2541, embedPair2542,
+      batchN02702MinusP015Factor2558, Complex.mul_re, Complex.mul_im, pow_succ]
+  have h := weightedFamily_inside_factor2543 3 (by omega) (-1/2)
+    (nodeModulation2541 ⟨15, by omega⟩) (pow_pos (storedWidth_pos ⟨15, by omega⟩) 2) hx
+  rw [hf] at h
+  change ‖iteratedDeriv 3 _ _ - _‖ ≤ _
+  rw [h]
+  exact complex_multiplier_error2543 _ _ _ _ _ batchN02702MinusP015BaseError2558
+    (embedPair_magnitude2542 batchN02702MinusP015Factor2558)
+
+def batchN02702MinusP016Input2558 : RatPair2542 := ((((-((578154 * 10^40
+        + 6953538535139781891480462516901598321515) * 10^40
+        + 9047419746790429937938596620327657238359)) : ℚ) /
+        ((1043438 * 10^40
+        + 5341836082217744690501668084214075543561) * 10^40
+        + 3423907653835340883493847983718400000000)),
+    ((241571331091476180442591281 : ℚ) /
+        59029581035870565171200000000))
+
+def batchN02702MinusP016Center2558 : RatPair2542 := (((0 : ℚ) /
+        1),
+    ((0 : ℚ) /
+        1))
+
+def batchN02702MinusP016Factor2558 : RatPair2542 :=
+    ((((((((((((((2042140486123671419078217621738531 *
+    10^40
+        + 1225634090135058734185629036145218296369) * 10^40
+        + 1310837770007378140698988376158067928508) * 10^40
+        + 5672230278150409565324660641212123884767) * 10^40
+        + 8337727415426743017302429570412587434245) * 10^40
+        + 6969852111797428342302158325363954953860) * 10^40
+        + 4031842507115622664285575429955771229184) * 10^40
+        + 8169362888103083837268693587515519603974) * 10^40
+        + 9234125950159938248315766682488719995609) * 10^40
+        + 6518018951665614655422595403489937926873) * 10^40
+        + 8555925847474554722654385394959708952631) * 10^40
+        + 8462568364034968813705159918328644504819) : ℚ) /
+        (((((((((((5731541590750 * 10^40
+        + 3270489080427727142845408120254296752943) * 10^40
+        + 6600509768556629443383594954167548576130) * 10^40
+        + 8841928269223878753953580199095986984210) * 10^40
+        + 8955038957423221407970931412103959910487) * 10^40
+        + 3233064091640117232839859868936261363430) * 10^40
+        + 9302929202602531277218531657503650542825) * 10^40
+        + 8352075373420492301180463958292762871805) * 10^40
+        + 2166214776335749374021956709161162241309) * 10^40
+        + 4991524190729793466748359692859234763508) * 10^40
+        + 103529281268143747126307209165621108404) * 10^40
+        + 8474040356215927028435018094131902676992)),
+    (((-((((((((20036243345310458615 * 10^40
+        + 7227116099189396108482186137368091865031) * 10^40
+        + 4338377907421806172813100823008992562676) * 10^40
+        + 3585506805408127987843161559946085491282) * 10^40
+        + 2645419939094513019535363490718188632196) * 10^40
+        + 3574905317158352283138283880873063536129) * 10^40
+        + 6772481324081493442111083993644877585597) * 10^40
+        + 9888040630998865582039419614927274235990) * 10^40
+        + 8021023833866859677327123524992733813607)) : ℚ) /
+        ((((((((3066 * 10^40
+        + 7500513466087654003137777983960880509443) * 10^40
+        + 700915101663120481405801898485889094836) * 10^40
+        + 9953966146051865962531055825802062410648) * 10^40
+        + 6414145349706679473614212922499318027316) * 10^40
+        + 2290352483064776298611502030967786570819) * 10^40
+        + 340115054485022797748734407940668043533) * 10^40
+        + 3509046948772990868863646980740775079533) * 10^40
+        + 2664659708402423353951813971090218156032)))
+
+noncomputable def batchN02702MinusP016Error2558 : ℝ := ((2199023255553 : ℝ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))
+
+theorem batchN02702MinusP016BaseError2558 :
+    ‖weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨16, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP016Center2558‖ ≤ batchN02702MinusP016Error2558 := by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨16, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hz : ‖embedPair2542 batchN02702MinusP016Input2558‖ ≤ 1 := by
+    apply complex_norm_le_l1_2541
+    norm_num [embedPair2542, batchN02702MinusP016Input2558]
+  have hs : compactExp2547 batchN02702MinusP016Input2558 15 =
+      (batchN02702MinusP016Center2558, ((2199023255553 : ℚ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))) := by decide +kernel
+  have hc := congrArg Prod.fst hs
+  have he : ((compactExp2547 batchN02702MinusP016Input2558 15).2 : ℝ) =
+      batchN02702MinusP016Error2558 := by
+    rw [hs]
+    norm_num [batchN02702MinusP016Error2558]
+  have h := compactExp_error2547 batchN02702MinusP016Input2558 hz 15
+  rw [hc, he] at h
+  have ho : weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨16, by omega⟩
+      batchN02702MinusPosition2558 = Complex.exp ((2 : ℂ)^15 * embedPair2542
+          batchN02702MinusP016Input2558) :=
+          by
+    simp only [weightedUnitJet2539, iteratedDeriv_zero]
+    rw [weighted_unit_inside_exp2541 _ _ _ _ hx]
+    congr 1
+    apply Complex.ext <;> norm_num [batchN02702MinusPosition2558, storedWidth, nodeModulation2541,
+      embedPair2542, batchN02702MinusP016Input2558, Complex.mul_re, Complex.mul_im]
+  rwa [ho]
+
+theorem batchN02702MinusP016DerivativeError2558 :
+    ‖weightedUnitJet2539 3 (-1/2) nodeModulation2541 ⟨16, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP016Factor2558 * embedPair2542 batchN02702MinusP016Center2558‖
+          ≤
+        (pairMagnitude2542 batchN02702MinusP016Factor2558 : ℝ) * batchN02702MinusP016Error2558 :=
+            by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨16, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hf : weightedMultiplier2543 3 (-1/2) (nodeModulation2541 ⟨16, by omega⟩)
+      (storedWidth ⟨16, by omega⟩ ^ 2) batchN02702MinusPosition2558 = embedPair2542
+          batchN02702MinusP016Factor2558 :=
+          by
+    apply Complex.ext <;> norm_num [weightedMultiplier2543, Finset.sum_range_succ,
+      weightedLambda2537, bumpMultiplier2543, bumpDeficit2350, bumpNumerator2350,
+      batchN02702MinusPosition2558, storedWidth, nodeModulation2541, embedPair2542,
+      batchN02702MinusP016Factor2558, Complex.mul_re, Complex.mul_im, pow_succ]
+  have h := weightedFamily_inside_factor2543 3 (by omega) (-1/2)
+    (nodeModulation2541 ⟨16, by omega⟩) (pow_pos (storedWidth_pos ⟨16, by omega⟩) 2) hx
+  rw [hf] at h
+  change ‖iteratedDeriv 3 _ _ - _‖ ≤ _
+  rw [h]
+  exact complex_multiplier_error2543 _ _ _ _ _ batchN02702MinusP016BaseError2558
+    (embedPair_magnitude2542 batchN02702MinusP016Factor2558)
+
+def batchN02702MinusP017Input2558 : RatPair2542 := ((((-((578154 * 10^40
+        + 6953538535139781891480462516901598321515) * 10^40
+        + 9047419746790429937938596620327657238359)) : ℚ) /
+        ((1043438 * 10^40
+        + 5341836082217744690501668084214075543561) * 10^40
+        + 3423907653835340883493847983718400000000)),
+    ((535308171979337431536686643 : ℚ) /
+        118059162071741130342400000000))
+
+def batchN02702MinusP017Center2558 : RatPair2542 := (((0 : ℚ) /
+        1),
+    ((0 : ℚ) /
+        1))
+
+def batchN02702MinusP017Factor2558 : RatPair2542 :=
+    ((((((((((((((8168561944286334127702756698453263 *
+    10^40
+        + 830188513009429894842013439002540003396) * 10^40
+        + 8010073510832489971732046867323832057914) * 10^40
+        + 5480323779597639729924583999097483970409) * 10^40
+        + 7242336057617793385137165534069523762197) * 10^40
+        + 4114556944108662702952783685391190369698) * 10^40
+        + 6627426860270256869222184167807029222501) * 10^40
+        + 3148130018289670185156189379856861575551) * 10^40
+        + 1844171974262639466007303692281869884125) * 10^40
+        + 9114155655010152544604809901614628049397) * 10^40
+        + 1154622669963568079774198810726613977139) * 10^40
+        + 2427185786824309841709070872898905746891) : ℚ) /
+        (((((((((((22926166363001 * 10^40
+        + 3081956321710908571381632481017187011774) * 10^40
+        + 6402039074226517773534379816670194304523) * 10^40
+        + 5367713076895515015814320796383947936843) * 10^40
+        + 5820155829692885631883725648415839641949) * 10^40
+        + 2932256366560468931359439475745045453723) * 10^40
+        + 7211716810410125108874126630014602171303) * 10^40
+        + 3408301493681969204721855833171051487220) * 10^40
+        + 8664859105342997496087826836644648965237) * 10^40
+        + 9966096762919173866993438771436939054032) * 10^40
+        + 414117125072574988505228836662484433619) * 10^40
+        + 3896161424863708113740072376527610707968)),
+    (((-((((((((3019143053943444184663 * 10^40
+        + 3259866803545732489600646918129031543289) * 10^40
+        + 4189569962803516932710398425739717879451) * 10^40
+        + 8407155858237196138500246351267952902330) * 10^40
+        + 8070157059163663858703489146143108435032) * 10^40
+        + 309661555433085016058414082159664785827) * 10^40
+        + 6571598173140261498950498556481816436745) * 10^40
+        + 9208082569765196830595003996843240934270) * 10^40
+        + 5240613582302934370446296807413145638093)) : ℚ) /
+        ((((((((417078 * 10^40
+        + 69831387920944426737805818679749284257) * 10^40
+        + 5324453826184385471189058194080916897831) * 10^40
+        + 3739395863053770904223592309080487848215) * 10^40
+        + 2323767560108408411532957459907251715007) * 10^40
+        + 1487937696809576611164276211618973631388) * 10^40
+        + 6255647409963100493827879479930853920535) * 10^40
+        + 7230385033126758165455989380745410816524) * 10^40
+        + 2393720342729576137446700068269669220352)))
+
+noncomputable def batchN02702MinusP017Error2558 : ℝ := ((2199023255553 : ℝ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))
+
+theorem batchN02702MinusP017BaseError2558 :
+    ‖weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨17, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP017Center2558‖ ≤ batchN02702MinusP017Error2558 := by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨17, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hz : ‖embedPair2542 batchN02702MinusP017Input2558‖ ≤ 1 := by
+    apply complex_norm_le_l1_2541
+    norm_num [embedPair2542, batchN02702MinusP017Input2558]
+  have hs : compactExp2547 batchN02702MinusP017Input2558 15 =
+      (batchN02702MinusP017Center2558, ((2199023255553 : ℚ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))) := by decide +kernel
+  have hc := congrArg Prod.fst hs
+  have he : ((compactExp2547 batchN02702MinusP017Input2558 15).2 : ℝ) =
+      batchN02702MinusP017Error2558 := by
+    rw [hs]
+    norm_num [batchN02702MinusP017Error2558]
+  have h := compactExp_error2547 batchN02702MinusP017Input2558 hz 15
+  rw [hc, he] at h
+  have ho : weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨17, by omega⟩
+      batchN02702MinusPosition2558 = Complex.exp ((2 : ℂ)^15 * embedPair2542
+          batchN02702MinusP017Input2558) :=
+          by
+    simp only [weightedUnitJet2539, iteratedDeriv_zero]
+    rw [weighted_unit_inside_exp2541 _ _ _ _ hx]
+    congr 1
+    apply Complex.ext <;> norm_num [batchN02702MinusPosition2558, storedWidth, nodeModulation2541,
+      embedPair2542, batchN02702MinusP017Input2558, Complex.mul_re, Complex.mul_im]
+  rwa [ho]
+
+theorem batchN02702MinusP017DerivativeError2558 :
+    ‖weightedUnitJet2539 3 (-1/2) nodeModulation2541 ⟨17, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP017Factor2558 * embedPair2542 batchN02702MinusP017Center2558‖
+          ≤
+        (pairMagnitude2542 batchN02702MinusP017Factor2558 : ℝ) * batchN02702MinusP017Error2558 :=
+            by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨17, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hf : weightedMultiplier2543 3 (-1/2) (nodeModulation2541 ⟨17, by omega⟩)
+      (storedWidth ⟨17, by omega⟩ ^ 2) batchN02702MinusPosition2558 = embedPair2542
+          batchN02702MinusP017Factor2558 :=
+          by
+    apply Complex.ext <;> norm_num [weightedMultiplier2543, Finset.sum_range_succ,
+      weightedLambda2537, bumpMultiplier2543, bumpDeficit2350, bumpNumerator2350,
+      batchN02702MinusPosition2558, storedWidth, nodeModulation2541, embedPair2542,
+      batchN02702MinusP017Factor2558, Complex.mul_re, Complex.mul_im, pow_succ]
+  have h := weightedFamily_inside_factor2543 3 (by omega) (-1/2)
+    (nodeModulation2541 ⟨17, by omega⟩) (pow_pos (storedWidth_pos ⟨17, by omega⟩) 2) hx
+  rw [hf] at h
+  change ‖iteratedDeriv 3 _ _ - _‖ ≤ _
+  rw [h]
+  exact complex_multiplier_error2543 _ _ _ _ _ batchN02702MinusP017BaseError2558
+    (embedPair_magnitude2542 batchN02702MinusP017Factor2558)
+
+def batchN02702MinusP018Input2558 : RatPair2542 := ((((-((578154 * 10^40
+        + 6953538535139781891480462516901598321515) * 10^40
+        + 9047419746790429937938596620327657238359)) : ℚ) /
+        ((1043438 * 10^40
+        + 5341836082217744690501668084214075543561) * 10^40
+        + 3423907653835340883493847983718400000000)),
+    ((138757710302715355185282117 : ℚ) /
+        29514790517935282585600000000))
+
+def batchN02702MinusP018Center2558 : RatPair2542 := (((0 : ℚ) /
+        1),
+    ((0 : ℚ) /
+        1))
+
+def batchN02702MinusP018Factor2558 : RatPair2542 :=
+    ((((((((((((((510535121512625035264545245024290 *
+    10^40
+        + 1916755474768331659776672027060484429708) * 10^40
+        + 7890584975593409032300705941405770818436) * 10^40
+        + 9328313940673939568972443070499801970452) * 10^40
+        + 5948508742512953899480854185982874393006) * 10^40
+        + 5390609435267749171628405853790606757097) * 10^40
+        + 1235566898400716448361225146565120109855) * 10^40
+        + 7689564404057423709724988138106861072577) * 10^40
+        + 4473287513157929411307447329566775265588) * 10^40
+        + 3205271847985995028236838075509128178862) * 10^40
+        + 1090205073702078494343666417707361142360) * 10^40
+        + 2804166565580476636567142187698003213851) : ℚ) /
+        (((((((((((1432885397687 * 10^40
+        + 5817622270106931785711352030063574188235) * 10^40
+        + 9150127442139157360845898738541887144032) * 10^40
+        + 7210482067305969688488395049773996746052) * 10^40
+        + 7238759739355805351992732853025989977621) * 10^40
+        + 8308266022910029308209964967234065340857) * 10^40
+        + 7325732300650632819304632914375912635706) * 10^40
+        + 4588018843355123075295115989573190717951) * 10^40
+        + 3041553694083937343505489177290290560327) * 10^40
+        + 3747881047682448366687089923214808690877) * 10^40
+        + 25882320317035936781576802291405277101) * 10^40
+        + 2118510089053981757108754523532975669248)),
+    (((-((((((((48912173301506886995 * 10^40
+        + 5308326909886571473213138929177065591522) * 10^40
+        + 1542043924212036535258129119433444128004) * 10^40
+        + 2464833983791545349572939696976387618605) * 10^40
+        + 2671067135470964279403137429977208141007) * 10^40
+        + 8979631237586393529418888934472568456214) * 10^40
+        + 3322100063741710857674553929834297235458) * 10^40
+        + 4710762925713578023989202458645062013806) * 10^40
+        + 528372457968636553237242438091490853387)) : ℚ) /
+        ((((((((6516 * 10^40
+        + 8438591115436264756667778215916871082566) * 10^40
+        + 5239444591034131022987329034282514326528) * 10^40
+        + 6152178060360215170378493629829382622628) * 10^40
+        + 3630058868126693881430202460311050808046) * 10^40
+        + 9866999026512649634549441815806546462990) * 10^40
+        + 4472744490780673445216060616873919592508) * 10^40
+        + 3706724766142605596335249834074147044008) * 10^40
+        + 1912401880355149627147604688566713581568)))
+
+noncomputable def batchN02702MinusP018Error2558 : ℝ := ((2199023255553 : ℝ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))
+
+theorem batchN02702MinusP018BaseError2558 :
+    ‖weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨18, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP018Center2558‖ ≤ batchN02702MinusP018Error2558 := by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨18, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hz : ‖embedPair2542 batchN02702MinusP018Input2558‖ ≤ 1 := by
+    apply complex_norm_le_l1_2541
+    norm_num [embedPair2542, batchN02702MinusP018Input2558]
+  have hs : compactExp2547 batchN02702MinusP018Input2558 15 =
+      (batchN02702MinusP018Center2558, ((2199023255553 : ℚ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))) := by decide +kernel
+  have hc := congrArg Prod.fst hs
+  have he : ((compactExp2547 batchN02702MinusP018Input2558 15).2 : ℝ) =
+      batchN02702MinusP018Error2558 := by
+    rw [hs]
+    norm_num [batchN02702MinusP018Error2558]
+  have h := compactExp_error2547 batchN02702MinusP018Input2558 hz 15
+  rw [hc, he] at h
+  have ho : weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨18, by omega⟩
+      batchN02702MinusPosition2558 = Complex.exp ((2 : ℂ)^15 * embedPair2542
+          batchN02702MinusP018Input2558) :=
+          by
+    simp only [weightedUnitJet2539, iteratedDeriv_zero]
+    rw [weighted_unit_inside_exp2541 _ _ _ _ hx]
+    congr 1
+    apply Complex.ext <;> norm_num [batchN02702MinusPosition2558, storedWidth, nodeModulation2541,
+      embedPair2542, batchN02702MinusP018Input2558, Complex.mul_re, Complex.mul_im]
+  rwa [ho]
+
+theorem batchN02702MinusP018DerivativeError2558 :
+    ‖weightedUnitJet2539 3 (-1/2) nodeModulation2541 ⟨18, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP018Factor2558 * embedPair2542 batchN02702MinusP018Center2558‖
+          ≤
+        (pairMagnitude2542 batchN02702MinusP018Factor2558 : ℝ) * batchN02702MinusP018Error2558 :=
+            by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨18, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hf : weightedMultiplier2543 3 (-1/2) (nodeModulation2541 ⟨18, by omega⟩)
+      (storedWidth ⟨18, by omega⟩ ^ 2) batchN02702MinusPosition2558 = embedPair2542
+          batchN02702MinusP018Factor2558 :=
+          by
+    apply Complex.ext <;> norm_num [weightedMultiplier2543, Finset.sum_range_succ,
+      weightedLambda2537, bumpMultiplier2543, bumpDeficit2350, bumpNumerator2350,
+      batchN02702MinusPosition2558, storedWidth, nodeModulation2541, embedPair2542,
+      batchN02702MinusP018Factor2558, Complex.mul_re, Complex.mul_im, pow_succ]
+  have h := weightedFamily_inside_factor2543 3 (by omega) (-1/2)
+    (nodeModulation2541 ⟨18, by omega⟩) (pow_pos (storedWidth_pos ⟨18, by omega⟩) 2) hx
+  rw [hf] at h
+  change ‖iteratedDeriv 3 _ _ - _‖ ≤ _
+  rw [h]
+  exact complex_multiplier_error2543 _ _ _ _ _ batchN02702MinusP018BaseError2558
+    (embedPair_magnitude2542 batchN02702MinusP018Factor2558)
+
+def batchN02702MinusP019Input2558 : RatPair2542 := ((((-((578154 * 10^40
+        + 6953538535139781891480462516901598321515) * 10^40
+        + 9047419746790429937938596620327657238359)) : ℚ) /
+        ((1043438 * 10^40
+        + 5341836082217744690501668084214075543561) * 10^40
+        + 3423907653835340883493847983718400000000)),
+    ((29533753606550223310219719 : ℚ) /
+        5902958103587056517120000000))
+
+def batchN02702MinusP019Center2558 : RatPair2542 := (((0 : ℚ) /
+        1),
+    ((0 : ℚ) /
+        1))
+
+def batchN02702MinusP019Factor2558 : RatPair2542 :=
+    ((((((((((((((510535121502615460469073388377142 *
+    10^40
+        + 7527511519351503589884267764141245350580) * 10^40
+        + 8478967647606727132908129417706951733696) * 10^40
+        + 3029251823122648811110387220556560346692) * 10^40
+        + 4988481238900985318132309596761090300678) * 10^40
+        + 4049051610141771470257332287991513480451) * 10^40
+        + 8017824275309911015007488488854551910264) * 10^40
+        + 4173028877735632890588161083449205552358) * 10^40
+        + 246313800764893709534301051415014716485) * 10^40
+        + 6597894727324480067096668701222083387618) * 10^40
+        + 954934373652178525122817160055670883667) * 10^40
+        + 3496601764008995818758934033152159877419) : ℚ) /
+        (((((((((((1432885397687 * 10^40
+        + 5817622270106931785711352030063574188235) * 10^40
+        + 9150127442139157360845898738541887144032) * 10^40
+        + 7210482067305969688488395049773996746052) * 10^40
+        + 7238759739355805351992732853025989977621) * 10^40
+        + 8308266022910029308209964967234065340857) * 10^40
+        + 7325732300650632819304632914375912635706) * 10^40
+        + 4588018843355123075295115989573190717951) * 10^40
+        + 3041553694083937343505489177290290560327) * 10^40
+        + 3747881047682448366687089923214808690877) * 10^40
+        + 25882320317035936781576802291405277101) * 10^40
+        + 2118510089053981757108754523532975669248)),
+    (((-((((((((52053326315812437610 * 10^40
+        + 2666243630451347590852958104215364704116) * 10^40
+        + 7328000281651334847182012702058643484003) * 10^40
+        + 1212806534686462502079075192865777831885) * 10^40
+        + 4848767188986243160264882793135404252844) * 10^40
+        + 8952044571577558348058589662998659802536) * 10^40
+        + 1958835806230418665669825780687244219138) * 10^40
+        + 5367274557730583886410525653944690342380) * 10^40
+        + 577663063467291310105333763066097605565)) : ℚ) /
+        ((((((((6516 * 10^40
+        + 8438591115436264756667778215916871082566) * 10^40
+        + 5239444591034131022987329034282514326528) * 10^40
+        + 6152178060360215170378493629829382622628) * 10^40
+        + 3630058868126693881430202460311050808046) * 10^40
+        + 9866999026512649634549441815806546462990) * 10^40
+        + 4472744490780673445216060616873919592508) * 10^40
+        + 3706724766142605596335249834074147044008) * 10^40
+        + 1912401880355149627147604688566713581568)))
+
+noncomputable def batchN02702MinusP019Error2558 : ℝ := ((2199023255553 : ℝ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))
+
+theorem batchN02702MinusP019BaseError2558 :
+    ‖weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨19, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP019Center2558‖ ≤ batchN02702MinusP019Error2558 := by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨19, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hz : ‖embedPair2542 batchN02702MinusP019Input2558‖ ≤ 1 := by
+    apply complex_norm_le_l1_2541
+    norm_num [embedPair2542, batchN02702MinusP019Input2558]
+  have hs : compactExp2547 batchN02702MinusP019Input2558 15 =
+      (batchN02702MinusP019Center2558, ((2199023255553 : ℚ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))) := by decide +kernel
+  have hc := congrArg Prod.fst hs
+  have he : ((compactExp2547 batchN02702MinusP019Input2558 15).2 : ℝ) =
+      batchN02702MinusP019Error2558 := by
+    rw [hs]
+    norm_num [batchN02702MinusP019Error2558]
+  have h := compactExp_error2547 batchN02702MinusP019Input2558 hz 15
+  rw [hc, he] at h
+  have ho : weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨19, by omega⟩
+      batchN02702MinusPosition2558 = Complex.exp ((2 : ℂ)^15 * embedPair2542
+          batchN02702MinusP019Input2558) :=
+          by
+    simp only [weightedUnitJet2539, iteratedDeriv_zero]
+    rw [weighted_unit_inside_exp2541 _ _ _ _ hx]
+    congr 1
+    apply Complex.ext <;> norm_num [batchN02702MinusPosition2558, storedWidth, nodeModulation2541,
+      embedPair2542, batchN02702MinusP019Input2558, Complex.mul_re, Complex.mul_im]
+  rwa [ho]
+
+theorem batchN02702MinusP019DerivativeError2558 :
+    ‖weightedUnitJet2539 3 (-1/2) nodeModulation2541 ⟨19, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP019Factor2558 * embedPair2542 batchN02702MinusP019Center2558‖
+          ≤
+        (pairMagnitude2542 batchN02702MinusP019Factor2558 : ℝ) * batchN02702MinusP019Error2558 :=
+            by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨19, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hf : weightedMultiplier2543 3 (-1/2) (nodeModulation2541 ⟨19, by omega⟩)
+      (storedWidth ⟨19, by omega⟩ ^ 2) batchN02702MinusPosition2558 = embedPair2542
+          batchN02702MinusP019Factor2558 :=
+          by
+    apply Complex.ext <;> norm_num [weightedMultiplier2543, Finset.sum_range_succ,
+      weightedLambda2537, bumpMultiplier2543, bumpDeficit2350, bumpNumerator2350,
+      batchN02702MinusPosition2558, storedWidth, nodeModulation2541, embedPair2542,
+      batchN02702MinusP019Factor2558, Complex.mul_re, Complex.mul_im, pow_succ]
+  have h := weightedFamily_inside_factor2543 3 (by omega) (-1/2)
+    (nodeModulation2541 ⟨19, by omega⟩) (pow_pos (storedWidth_pos ⟨19, by omega⟩) 2) hx
+  rw [hf] at h
+  change ‖iteratedDeriv 3 _ _ - _‖ ≤ _
+  rw [h]
+  exact complex_multiplier_error2543 _ _ _ _ _ batchN02702MinusP019BaseError2558
+    (embedPair_magnitude2542 batchN02702MinusP019Factor2558)
+
+def batchN02702MinusP020Input2558 : RatPair2542 := ((((-((578154 * 10^40
+        + 6953538535139781891480462516901598321515) * 10^40
+        + 9047419746790429937938596620327657238359)) : ℚ) /
+        ((1043438 * 10^40
+        + 5341836082217744690501668084214075543561) * 10^40
+        + 3423907653835340883493847983718400000000)),
+    ((629435323401138262557665571 : ℚ) /
+        118059162071741130342400000000))
+
+def batchN02702MinusP020Center2558 : RatPair2542 := (((0 : ℚ) /
+        1),
+    ((0 : ℚ) /
+        1))
+
+def batchN02702MinusP020Factor2558 : RatPair2542 :=
+    ((((((((((((((8168561943856383667476959997000536 *
+    10^40
+        + 5434502130113300956134614038370036564159) * 10^40
+        + 1878441727696408417123784984620520144472) * 10^40
+        + 9512635698865971237238188931802254504668) * 10^40
+        + 9314693133317614102248380850022706863214) * 10^40
+        + 3449210493421156793207120196262954531199) * 10^40
+        + 4823541860615340621887310014706862951776) * 10^40
+        + 885764061936802602002753976750460806792) * 10^40
+        + 5891517462249135590975823068573275545304) * 10^40
+        + 7757978087228227735676583376637903092650) * 10^40
+        + 7360674411166360298708586533578552876931) * 10^40
+        + 2146411749362701509080915382410958402987) : ℚ) /
+        (((((((((((22926166363001 * 10^40
+        + 3081956321710908571381632481017187011774) * 10^40
+        + 6402039074226517773534379816670194304523) * 10^40
+        + 5367713076895515015814320796383947936843) * 10^40
+        + 5820155829692885631883725648415839641949) * 10^40
+        + 2932256366560468931359439475745045453723) * 10^40
+        + 7211716810410125108874126630014602171303) * 10^40
+        + 3408301493681969204721855833171051487220) * 10^40
+        + 8664859105342997496087826836644648965237) * 10^40
+        + 9966096762919173866993438771436939054032) * 10^40
+        + 414117125072574988505228836662484433619) * 10^40
+        + 3896161424863708113740072376527610707968)),
+    (((-((((((((3550021060794553218716 * 10^40
+        + 3474235160679181848221611988404497378729) * 10^40
+        + 4723332585755182041860963377696481188086) * 10^40
+        + 3866538256220525707558795601851772184381) * 10^40
+        + 7667748597794904907470725134067495676170) * 10^40
+        + 4807700045150753619521703332794541863908) * 10^40
+        + 6830869881332888800915014124706206956634) * 10^40
+        + 6858785703709757666551021570206845787524) * 10^40
+        + 4978868923169631543624326208048989596413)) : ℚ) /
+        ((((((((417078 * 10^40
+        + 69831387920944426737805818679749284257) * 10^40
+        + 5324453826184385471189058194080916897831) * 10^40
+        + 3739395863053770904223592309080487848215) * 10^40
+        + 2323767560108408411532957459907251715007) * 10^40
+        + 1487937696809576611164276211618973631388) * 10^40
+        + 6255647409963100493827879479930853920535) * 10^40
+        + 7230385033126758165455989380745410816524) * 10^40
+        + 2393720342729576137446700068269669220352)))
+
+noncomputable def batchN02702MinusP020Error2558 : ℝ := ((2199023255553 : ℝ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))
+
+theorem batchN02702MinusP020BaseError2558 :
+    ‖weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨20, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP020Center2558‖ ≤ batchN02702MinusP020Error2558 := by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨20, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hz : ‖embedPair2542 batchN02702MinusP020Input2558‖ ≤ 1 := by
+    apply complex_norm_le_l1_2541
+    norm_num [embedPair2542, batchN02702MinusP020Input2558]
+  have hs : compactExp2547 batchN02702MinusP020Input2558 15 =
+      (batchN02702MinusP020Center2558, ((2199023255553 : ℚ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))) := by decide +kernel
+  have hc := congrArg Prod.fst hs
+  have he : ((compactExp2547 batchN02702MinusP020Input2558 15).2 : ℝ) =
+      batchN02702MinusP020Error2558 := by
+    rw [hs]
+    norm_num [batchN02702MinusP020Error2558]
+  have h := compactExp_error2547 batchN02702MinusP020Input2558 hz 15
+  rw [hc, he] at h
+  have ho : weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨20, by omega⟩
+      batchN02702MinusPosition2558 = Complex.exp ((2 : ℂ)^15 * embedPair2542
+          batchN02702MinusP020Input2558) :=
+          by
+    simp only [weightedUnitJet2539, iteratedDeriv_zero]
+    rw [weighted_unit_inside_exp2541 _ _ _ _ hx]
+    congr 1
+    apply Complex.ext <;> norm_num [batchN02702MinusPosition2558, storedWidth, nodeModulation2541,
+      embedPair2542, batchN02702MinusP020Input2558, Complex.mul_re, Complex.mul_im]
+  rwa [ho]
+
+theorem batchN02702MinusP020DerivativeError2558 :
+    ‖weightedUnitJet2539 3 (-1/2) nodeModulation2541 ⟨20, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP020Factor2558 * embedPair2542 batchN02702MinusP020Center2558‖
+          ≤
+        (pairMagnitude2542 batchN02702MinusP020Factor2558 : ℝ) * batchN02702MinusP020Error2558 :=
+            by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨20, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hf : weightedMultiplier2543 3 (-1/2) (nodeModulation2541 ⟨20, by omega⟩)
+      (storedWidth ⟨20, by omega⟩ ^ 2) batchN02702MinusPosition2558 = embedPair2542
+          batchN02702MinusP020Factor2558 :=
+          by
+    apply Complex.ext <;> norm_num [weightedMultiplier2543, Finset.sum_range_succ,
+      weightedLambda2537, bumpMultiplier2543, bumpDeficit2350, bumpNumerator2350,
+      batchN02702MinusPosition2558, storedWidth, nodeModulation2541, embedPair2542,
+      batchN02702MinusP020Factor2558, Complex.mul_re, Complex.mul_im, pow_succ]
+  have h := weightedFamily_inside_factor2543 3 (by omega) (-1/2)
+    (nodeModulation2541 ⟨20, by omega⟩) (pow_pos (storedWidth_pos ⟨20, by omega⟩) 2) hx
+  rw [hf] at h
+  change ‖iteratedDeriv 3 _ _ - _‖ ≤ _
+  rw [h]
+  exact complex_multiplier_error2543 _ _ _ _ _ batchN02702MinusP020BaseError2558
+    (embedPair_magnitude2542 batchN02702MinusP020Factor2558)
+
+def batchN02702MinusP021Input2558 : RatPair2542 := ((((-((578154 * 10^40
+        + 6953538535139781891480462516901598321515) * 10^40
+        + 9047419746790429937938596620327657238359)) : ℚ) /
+        ((1043438 * 10^40
+        + 5341836082217744690501668084214075543561) * 10^40
+        + 3423907653835340883493847983718400000000)),
+    ((661782268241419174231706883 : ℚ) /
+        118059162071741130342400000000))
+
+def batchN02702MinusP021Center2558 : RatPair2542 := (((0 : ℚ) /
+        1),
+    ((0 : ℚ) /
+        1))
+
+def batchN02702MinusP021Factor2558 : RatPair2542 :=
+    ((((((((((((((8168561943692586679701854193094039 *
+    10^40
+        + 298368652333180605171091126143304413156) * 10^40
+        + 1714826991814197342212354270684826066999) * 10^40
+        + 9519032555711067066952063707549168496073) * 10^40
+        + 7776373680883994729451456723329431541637) * 10^40
+        + 9077767915793316001984572409497596027375) * 10^40
+        + 5312328506440075426654231856485140355508) * 10^40
+        + 6479251059739347587960202717539023103834) * 10^40
+        + 2101593643791092237762215364614694631721) * 10^40
+        + 6245101768453630744738923230765670838074) * 10^40
+        + 1963145633960508105724771274843059853539) * 10^40
+        + 7815851419255313338659569012842949596011) : ℚ) /
+        (((((((((((22926166363001 * 10^40
+        + 3081956321710908571381632481017187011774) * 10^40
+        + 6402039074226517773534379816670194304523) * 10^40
+        + 5367713076895515015814320796383947936843) * 10^40
+        + 5820155829692885631883725648415839641949) * 10^40
+        + 2932256366560468931359439475745045453723) * 10^40
+        + 7211716810410125108874126630014602171303) * 10^40
+        + 3408301493681969204721855833171051487220) * 10^40
+        + 8664859105342997496087826836644648965237) * 10^40
+        + 9966096762919173866993438771436939054032) * 10^40
+        + 414117125072574988505228836662484433619) * 10^40
+        + 3896161424863708113740072376527610707968)),
+    (((-((((((((3732458129641643078501 * 10^40
+        + 9605154928683513084647135094576372609016) * 10^40
+        + 1195169371616114241536802898075558716293) * 10^40
+        + 3933947899672413984611751519649684271024) * 10^40
+        + 7396942469151588188404478099396731896599) * 10^40
+        + 735105349072113414412880693947215816795) * 10^40
+        + 3424866696379375024152296575137879031049) * 10^40
+        + 4454227683247977181131367495500840766297) * 10^40
+        + 2421552160228078057559344709220667733853)) : ℚ) /
+        ((((((((417078 * 10^40
+        + 69831387920944426737805818679749284257) * 10^40
+        + 5324453826184385471189058194080916897831) * 10^40
+        + 3739395863053770904223592309080487848215) * 10^40
+        + 2323767560108408411532957459907251715007) * 10^40
+        + 1487937696809576611164276211618973631388) * 10^40
+        + 6255647409963100493827879479930853920535) * 10^40
+        + 7230385033126758165455989380745410816524) * 10^40
+        + 2393720342729576137446700068269669220352)))
+
+noncomputable def batchN02702MinusP021Error2558 : ℝ := ((2199023255553 : ℝ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))
+
+theorem batchN02702MinusP021BaseError2558 :
+    ‖weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨21, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP021Center2558‖ ≤ batchN02702MinusP021Error2558 := by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨21, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hz : ‖embedPair2542 batchN02702MinusP021Input2558‖ ≤ 1 := by
+    apply complex_norm_le_l1_2541
+    norm_num [embedPair2542, batchN02702MinusP021Input2558]
+  have hs : compactExp2547 batchN02702MinusP021Input2558 15 =
+      (batchN02702MinusP021Center2558, ((2199023255553 : ℚ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))) := by decide +kernel
+  have hc := congrArg Prod.fst hs
+  have he : ((compactExp2547 batchN02702MinusP021Input2558 15).2 : ℝ) =
+      batchN02702MinusP021Error2558 := by
+    rw [hs]
+    norm_num [batchN02702MinusP021Error2558]
+  have h := compactExp_error2547 batchN02702MinusP021Input2558 hz 15
+  rw [hc, he] at h
+  have ho : weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨21, by omega⟩
+      batchN02702MinusPosition2558 = Complex.exp ((2 : ℂ)^15 * embedPair2542
+          batchN02702MinusP021Input2558) :=
+          by
+    simp only [weightedUnitJet2539, iteratedDeriv_zero]
+    rw [weighted_unit_inside_exp2541 _ _ _ _ hx]
+    congr 1
+    apply Complex.ext <;> norm_num [batchN02702MinusPosition2558, storedWidth, nodeModulation2541,
+      embedPair2542, batchN02702MinusP021Input2558, Complex.mul_re, Complex.mul_im]
+  rwa [ho]
+
+theorem batchN02702MinusP021DerivativeError2558 :
+    ‖weightedUnitJet2539 3 (-1/2) nodeModulation2541 ⟨21, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP021Factor2558 * embedPair2542 batchN02702MinusP021Center2558‖
+          ≤
+        (pairMagnitude2542 batchN02702MinusP021Factor2558 : ℝ) * batchN02702MinusP021Error2558 :=
+            by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨21, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hf : weightedMultiplier2543 3 (-1/2) (nodeModulation2541 ⟨21, by omega⟩)
+      (storedWidth ⟨21, by omega⟩ ^ 2) batchN02702MinusPosition2558 = embedPair2542
+          batchN02702MinusP021Factor2558 :=
+          by
+    apply Complex.ext <;> norm_num [weightedMultiplier2543, Finset.sum_range_succ,
+      weightedLambda2537, bumpMultiplier2543, bumpDeficit2350, bumpNumerator2350,
+      batchN02702MinusPosition2558, storedWidth, nodeModulation2541, embedPair2542,
+      batchN02702MinusP021Factor2558, Complex.mul_re, Complex.mul_im, pow_succ]
+  have h := weightedFamily_inside_factor2543 3 (by omega) (-1/2)
+    (nodeModulation2541 ⟨21, by omega⟩) (pow_pos (storedWidth_pos ⟨21, by omega⟩) 2) hx
+  rw [hf] at h
+  change ‖iteratedDeriv 3 _ _ - _‖ ≤ _
+  rw [h]
+  exact complex_multiplier_error2543 _ _ _ _ _ batchN02702MinusP021BaseError2558
+    (embedPair_magnitude2542 batchN02702MinusP021Factor2558)
+
+def batchN02702MinusP022Input2558 : RatPair2542 := ((((-((578154 * 10^40
+        + 6953538535139781891480462516901598321515) * 10^40
+        + 9047419746790429937938596620327657238359)) : ℚ) /
+        ((1043438 * 10^40
+        + 5341836082217744690501668084214075543561) * 10^40
+        + 3423907653835340883493847983718400000000)),
+    ((135667725494164983963605697 : ℚ) /
+        23611832414348226068480000000))
+
+def batchN02702MinusP022Center2558 : RatPair2542 := (((0 : ℚ) /
+        1),
+    ((0 : ℚ) /
+        1))
+
+def batchN02702MinusP022Factor2558 : RatPair2542 :=
+    ((((((((((((((8168561943605574103237370255180024 *
+    10^40
+        + 2888684105242616007835827779597249553694) * 10^40
+        + 6126967216731621012652417007539568628140) * 10^40
+        + 3367826605967705465193880321663399273225) * 10^40
+        + 339574780294896130871144466040045578428) * 10^40
+        + 3960423547302815675933178391022724953225) * 10^40
+        + 683319744846469247836417810689352387320) * 10^40
+        + 9947239035843419952418060840139375811708) * 10^40
+        + 3493001271109319549000735149826029036146) * 10^40
+        + 8168741030940716049123374756860682855352) * 10^40
+        + 7438615960311369243115576893737228331866) * 10^40
+        + 8982795045145124111397312058357232913179) : ℚ) /
+        (((((((((((22926166363001 * 10^40
+        + 3081956321710908571381632481017187011774) * 10^40
+        + 6402039074226517773534379816670194304523) * 10^40
+        + 5367713076895515015814320796383947936843) * 10^40
+        + 5820155829692885631883725648415839641949) * 10^40
+        + 2932256366560468931359439475745045453723) * 10^40
+        + 7211716810410125108874126630014602171303) * 10^40
+        + 3408301493681969204721855833171051487220) * 10^40
+        + 8664859105342997496087826836644648965237) * 10^40
+        + 9966096762919173866993438771436939054032) * 10^40
+        + 414117125072574988505228836662484433619) * 10^40
+        + 3896161424863708113740072376527610707968)),
+    (((-((((((((3825836149219411056047 * 10^40
+        + 7527632304917588282645803881026817839615) * 10^40
+        + 6379128634137256633836719934815085381811) * 10^40
+        + 5648012452291803249268097356877679161449) * 10^40
+        + 6814646775003640026681606237995618698014) * 10^40
+        + 9029849154701818435159056174719967065226) * 10^40
+        + 7474845254513573580387327118142446327859) * 10^40
+        + 2369639018772346121908680115529769436277) * 10^40
+        + 9160749300969813134350777088787317632395)) : ℚ) /
+        ((((((((417078 * 10^40
+        + 69831387920944426737805818679749284257) * 10^40
+        + 5324453826184385471189058194080916897831) * 10^40
+        + 3739395863053770904223592309080487848215) * 10^40
+        + 2323767560108408411532957459907251715007) * 10^40
+        + 1487937696809576611164276211618973631388) * 10^40
+        + 6255647409963100493827879479930853920535) * 10^40
+        + 7230385033126758165455989380745410816524) * 10^40
+        + 2393720342729576137446700068269669220352)))
+
+noncomputable def batchN02702MinusP022Error2558 : ℝ := ((2199023255553 : ℝ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))
+
+theorem batchN02702MinusP022BaseError2558 :
+    ‖weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨22, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP022Center2558‖ ≤ batchN02702MinusP022Error2558 := by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨22, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hz : ‖embedPair2542 batchN02702MinusP022Input2558‖ ≤ 1 := by
+    apply complex_norm_le_l1_2541
+    norm_num [embedPair2542, batchN02702MinusP022Input2558]
+  have hs : compactExp2547 batchN02702MinusP022Input2558 15 =
+      (batchN02702MinusP022Center2558, ((2199023255553 : ℚ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))) := by decide +kernel
+  have hc := congrArg Prod.fst hs
+  have he : ((compactExp2547 batchN02702MinusP022Input2558 15).2 : ℝ) =
+      batchN02702MinusP022Error2558 := by
+    rw [hs]
+    norm_num [batchN02702MinusP022Error2558]
+  have h := compactExp_error2547 batchN02702MinusP022Input2558 hz 15
+  rw [hc, he] at h
+  have ho : weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨22, by omega⟩
+      batchN02702MinusPosition2558 = Complex.exp ((2 : ℂ)^15 * embedPair2542
+          batchN02702MinusP022Input2558) :=
+          by
+    simp only [weightedUnitJet2539, iteratedDeriv_zero]
+    rw [weighted_unit_inside_exp2541 _ _ _ _ hx]
+    congr 1
+    apply Complex.ext <;> norm_num [batchN02702MinusPosition2558, storedWidth, nodeModulation2541,
+      embedPair2542, batchN02702MinusP022Input2558, Complex.mul_re, Complex.mul_im]
+  rwa [ho]
+
+theorem batchN02702MinusP022DerivativeError2558 :
+    ‖weightedUnitJet2539 3 (-1/2) nodeModulation2541 ⟨22, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP022Factor2558 * embedPair2542 batchN02702MinusP022Center2558‖
+          ≤
+        (pairMagnitude2542 batchN02702MinusP022Factor2558 : ℝ) * batchN02702MinusP022Error2558 :=
+            by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨22, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hf : weightedMultiplier2543 3 (-1/2) (nodeModulation2541 ⟨22, by omega⟩)
+      (storedWidth ⟨22, by omega⟩ ^ 2) batchN02702MinusPosition2558 = embedPair2542
+          batchN02702MinusP022Factor2558 :=
+          by
+    apply Complex.ext <;> norm_num [weightedMultiplier2543, Finset.sum_range_succ,
+      weightedLambda2537, bumpMultiplier2543, bumpDeficit2350, bumpNumerator2350,
+      batchN02702MinusPosition2558, storedWidth, nodeModulation2541, embedPair2542,
+      batchN02702MinusP022Factor2558, Complex.mul_re, Complex.mul_im, pow_succ]
+  have h := weightedFamily_inside_factor2543 3 (by omega) (-1/2)
+    (nodeModulation2541 ⟨22, by omega⟩) (pow_pos (storedWidth_pos ⟨22, by omega⟩) 2) hx
+  rw [hf] at h
+  change ‖iteratedDeriv 3 _ _ - _‖ ≤ _
+  rw [h]
+  exact complex_multiplier_error2543 _ _ _ _ _ batchN02702MinusP022BaseError2558
+    (embedPair_magnitude2542 batchN02702MinusP022Factor2558)
+
+def batchN02702MinusP023Input2558 : RatPair2542 := ((((-((578154 * 10^40
+        + 6953538535139781891480462516901598321515) * 10^40
+        + 9047419746790429937938596620327657238359)) : ℚ) /
+        ((1043438 * 10^40
+        + 5341836082217744690501668084214075543561) * 10^40
+        + 3423907653835340883493847983718400000000)),
+    ((363036843833529947066478597 : ℚ) /
+        59029581035870565171200000000))
+
+def batchN02702MinusP023Center2558 : RatPair2542 := (((0 : ℚ) /
+        1),
+    ((0 : ℚ) /
+        1))
+
+def batchN02702MinusP023Factor2558 : RatPair2542 :=
+    ((((((((((((((2042140485835666297154324361224033 *
+    10^40
+        + 9260390680506614721023413666667393800604) * 10^40
+        + 1539150668378895481870597120976905429) * 10^40
+        + 2676052391623415640003734421082580543031) * 10^40
+        + 5792525060193400766319531000099417641613) * 10^40
+        + 3976381170493580584934767716800693216199) * 10^40
+        + 3038949828590112228930462919806273318001) * 10^40
+        + 1843259699065078467350964702139112737211) * 10^40
+        + 8602584454201943134051578512255317759958) * 10^40
+        + 7738154782957192915256696435223329193076) * 10^40
+        + 2252487820078874533514259423267858235016) * 10^40
+        + 2725921458303354473849741996895563929243) : ℚ) /
+        (((((((((((5731541590750 * 10^40
+        + 3270489080427727142845408120254296752943) * 10^40
+        + 6600509768556629443383594954167548576130) * 10^40
+        + 8841928269223878753953580199095986984210) * 10^40
+        + 8955038957423221407970931412103959910487) * 10^40
+        + 3233064091640117232839859868936261363430) * 10^40
+        + 9302929202602531277218531657503650542825) * 10^40
+        + 8352075373420492301180463958292762871805) * 10^40
+        + 2166214776335749374021956709161162241309) * 10^40
+        + 4991524190729793466748359692859234763508) * 10^40
+        + 103529281268143747126307209165621108404) * 10^40
+        + 8474040356215927028435018094131902676992)),
+    (((-((((((((511882791420282153417 * 10^40
+        + 1802175160468014919431894862710252433591) * 10^40
+        + 4245484347408759090182406059414269908795) * 10^40
+        + 5206251379067159788914779756430116579674) * 10^40
+        + 5218759667091249401803763825261130852720) * 10^40
+        + 4101818133526975485903835596654778663642) * 10^40
+        + 6867293596260944199406869084914253181354) * 10^40
+        + 8439006454124297528712859761087230822788) * 10^40
+        + 8559344857631663586236148433403303963339)) : ℚ) /
+        ((((((((52134 * 10^40
+        + 7508728923490118053342225727334968660532) * 10^40
+        + 1915556728273048183898632274260114612228) * 10^40
+        + 9217424482881721363027949038635060981026) * 10^40
+        + 9040470945013551051441619682488406464375) * 10^40
+        + 8935992212101197076395534526452371703923) * 10^40
+        + 5781955926245387561728484934991356740066) * 10^40
+        + 9653798129140844770681998672593176352065) * 10^40
+        + 5299215042841197017180837508533708652544)))
+
+noncomputable def batchN02702MinusP023Error2558 : ℝ := ((2199023255553 : ℝ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))
+
+theorem batchN02702MinusP023BaseError2558 :
+    ‖weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨23, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP023Center2558‖ ≤ batchN02702MinusP023Error2558 := by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨23, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hz : ‖embedPair2542 batchN02702MinusP023Input2558‖ ≤ 1 := by
+    apply complex_norm_le_l1_2541
+    norm_num [embedPair2542, batchN02702MinusP023Input2558]
+  have hs : compactExp2547 batchN02702MinusP023Input2558 15 =
+      (batchN02702MinusP023Center2558, ((2199023255553 : ℚ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))) := by decide +kernel
+  have hc := congrArg Prod.fst hs
+  have he : ((compactExp2547 batchN02702MinusP023Input2558 15).2 : ℝ) =
+      batchN02702MinusP023Error2558 := by
+    rw [hs]
+    norm_num [batchN02702MinusP023Error2558]
+  have h := compactExp_error2547 batchN02702MinusP023Input2558 hz 15
+  rw [hc, he] at h
+  have ho : weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨23, by omega⟩
+      batchN02702MinusPosition2558 = Complex.exp ((2 : ℂ)^15 * embedPair2542
+          batchN02702MinusP023Input2558) :=
+          by
+    simp only [weightedUnitJet2539, iteratedDeriv_zero]
+    rw [weighted_unit_inside_exp2541 _ _ _ _ hx]
+    congr 1
+    apply Complex.ext <;> norm_num [batchN02702MinusPosition2558, storedWidth, nodeModulation2541,
+      embedPair2542, batchN02702MinusP023Input2558, Complex.mul_re, Complex.mul_im]
+  rwa [ho]
+
+theorem batchN02702MinusP023DerivativeError2558 :
+    ‖weightedUnitJet2539 3 (-1/2) nodeModulation2541 ⟨23, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP023Factor2558 * embedPair2542 batchN02702MinusP023Center2558‖
+          ≤
+        (pairMagnitude2542 batchN02702MinusP023Factor2558 : ℝ) * batchN02702MinusP023Error2558 :=
+            by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨23, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hf : weightedMultiplier2543 3 (-1/2) (nodeModulation2541 ⟨23, by omega⟩)
+      (storedWidth ⟨23, by omega⟩ ^ 2) batchN02702MinusPosition2558 = embedPair2542
+          batchN02702MinusP023Factor2558 :=
+          by
+    apply Complex.ext <;> norm_num [weightedMultiplier2543, Finset.sum_range_succ,
+      weightedLambda2537, bumpMultiplier2543, bumpDeficit2350, bumpNumerator2350,
+      batchN02702MinusPosition2558, storedWidth, nodeModulation2541, embedPair2542,
+      batchN02702MinusP023Factor2558, Complex.mul_re, Complex.mul_im, pow_succ]
+  have h := weightedFamily_inside_factor2543 3 (by omega) (-1/2)
+    (nodeModulation2541 ⟨23, by omega⟩) (pow_pos (storedWidth_pos ⟨23, by omega⟩) 2) hx
+  rw [hf] at h
+  change ‖iteratedDeriv 3 _ _ - _‖ ≤ _
+  rw [h]
+  exact complex_multiplier_error2543 _ _ _ _ _ batchN02702MinusP023BaseError2558
+    (embedPair_magnitude2542 batchN02702MinusP023Factor2558)
+
+def batchN02702MinusP024Input2558 : RatPair2542 := ((((-((578154 * 10^40
+        + 6953538535139781891480462516901598321515) * 10^40
+        + 9047419746790429937938596620327657238359)) : ℚ) /
+        ((1043438 * 10^40
+        + 5341836082217744690501668084214075543561) * 10^40
+        + 3423907653835340883493847983718400000000)),
+    ((374005394131059804721629723 : ℚ) /
+        59029581035870565171200000000))
+
+def batchN02702MinusP024Center2558 : RatPair2542 := (((0 : ℚ) /
+        1),
+    ((0 : ℚ) /
+        1))
+
+def batchN02702MinusP024Factor2558 : RatPair2542 :=
+    ((((((((((((((2042140485803962241876368605934348 *
+    10^40
+        + 5021858179802314427331736613483338141891) * 10^40
+        + 90713870848607361748133264961485312207) * 10^40
+        + 6986232386001171543523343657092678259991) * 10^40
+        + 5467365919837007404350725904021619662870) * 10^40
+        + 9248786462170282134502357268207312174719) * 10^40
+        + 4582677417303318257202845039771291322953) * 10^40
+        + 2085754221680744551878445037139650258096) * 10^40
+        + 6577986313413097589433253120965146033984) * 10^40
+        + 1073458335183265955474106040177962600937) * 10^40
+        + 7290571275409092791764750987128569710351) * 10^40
+        + 4754509153203363325256741053179455901403) : ℚ) /
+        (((((((((((5731541590750 * 10^40
+        + 3270489080427727142845408120254296752943) * 10^40
+        + 6600509768556629443383594954167548576130) * 10^40
+        + 8841928269223878753953580199095986984210) * 10^40
+        + 8955038957423221407970931412103959910487) * 10^40
+        + 3233064091640117232839859868936261363430) * 10^40
+        + 9302929202602531277218531657503650542825) * 10^40
+        + 8352075373420492301180463958292762871805) * 10^40
+        + 2166214776335749374021956709161162241309) * 10^40
+        + 4991524190729793466748359692859234763508) * 10^40
+        + 103529281268143747126307209165621108404) * 10^40
+        + 8474040356215927028435018094131902676992)),
+    (((-((((((((527348472766877793556 * 10^40
+        + 8955290040905028898286240973094348873595) * 10^40
+        + 371955421767883440119327534508051824156) * 10^40
+        + 5802293751156001484119768803647563987196) * 10^40
+        + 5813039735503209490996809156164320865591) * 10^40
+        + 5811775936556172418076206007163259230942) * 10^40
+        + 9612613276976382734360784271906498625797) * 10^40
+        + 110310468017091412807366044303708697169) * 10^40
+        + 9558800353234653873666040123638720616661)) : ℚ) /
+        ((((((((52134 * 10^40
+        + 7508728923490118053342225727334968660532) * 10^40
+        + 1915556728273048183898632274260114612228) * 10^40
+        + 9217424482881721363027949038635060981026) * 10^40
+        + 9040470945013551051441619682488406464375) * 10^40
+        + 8935992212101197076395534526452371703923) * 10^40
+        + 5781955926245387561728484934991356740066) * 10^40
+        + 9653798129140844770681998672593176352065) * 10^40
+        + 5299215042841197017180837508533708652544)))
+
+noncomputable def batchN02702MinusP024Error2558 : ℝ := ((2199023255553 : ℝ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))
+
+theorem batchN02702MinusP024BaseError2558 :
+    ‖weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨24, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP024Center2558‖ ≤ batchN02702MinusP024Error2558 := by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨24, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hz : ‖embedPair2542 batchN02702MinusP024Input2558‖ ≤ 1 := by
+    apply complex_norm_le_l1_2541
+    norm_num [embedPair2542, batchN02702MinusP024Input2558]
+  have hs : compactExp2547 batchN02702MinusP024Input2558 15 =
+      (batchN02702MinusP024Center2558, ((2199023255553 : ℚ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))) := by decide +kernel
+  have hc := congrArg Prod.fst hs
+  have he : ((compactExp2547 batchN02702MinusP024Input2558 15).2 : ℝ) =
+      batchN02702MinusP024Error2558 := by
+    rw [hs]
+    norm_num [batchN02702MinusP024Error2558]
+  have h := compactExp_error2547 batchN02702MinusP024Input2558 hz 15
+  rw [hc, he] at h
+  have ho : weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨24, by omega⟩
+      batchN02702MinusPosition2558 = Complex.exp ((2 : ℂ)^15 * embedPair2542
+          batchN02702MinusP024Input2558) :=
+          by
+    simp only [weightedUnitJet2539, iteratedDeriv_zero]
+    rw [weighted_unit_inside_exp2541 _ _ _ _ hx]
+    congr 1
+    apply Complex.ext <;> norm_num [batchN02702MinusPosition2558, storedWidth, nodeModulation2541,
+      embedPair2542, batchN02702MinusP024Input2558, Complex.mul_re, Complex.mul_im]
+  rwa [ho]
+
+theorem batchN02702MinusP024DerivativeError2558 :
+    ‖weightedUnitJet2539 3 (-1/2) nodeModulation2541 ⟨24, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP024Factor2558 * embedPair2542 batchN02702MinusP024Center2558‖
+          ≤
+        (pairMagnitude2542 batchN02702MinusP024Factor2558 : ℝ) * batchN02702MinusP024Error2558 :=
+            by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨24, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hf : weightedMultiplier2543 3 (-1/2) (nodeModulation2541 ⟨24, by omega⟩)
+      (storedWidth ⟨24, by omega⟩ ^ 2) batchN02702MinusPosition2558 = embedPair2542
+          batchN02702MinusP024Factor2558 :=
+          by
+    apply Complex.ext <;> norm_num [weightedMultiplier2543, Finset.sum_range_succ,
+      weightedLambda2537, bumpMultiplier2543, bumpDeficit2350, bumpNumerator2350,
+      batchN02702MinusPosition2558, storedWidth, nodeModulation2541, embedPair2542,
+      batchN02702MinusP024Factor2558, Complex.mul_re, Complex.mul_im, pow_succ]
+  have h := weightedFamily_inside_factor2543 3 (by omega) (-1/2)
+    (nodeModulation2541 ⟨24, by omega⟩) (pow_pos (storedWidth_pos ⟨24, by omega⟩) 2) hx
+  rw [hf] at h
+  change ‖iteratedDeriv 3 _ _ - _‖ ≤ _
+  rw [h]
+  exact complex_multiplier_error2543 _ _ _ _ _ batchN02702MinusP024BaseError2558
+    (embedPair_magnitude2542 batchN02702MinusP024Factor2558)
+
+def batchN02702MinusP025Input2558 : RatPair2542 := ((((-((578154 * 10^40
+        + 6953538535139781891480462516901598321515) * 10^40
+        + 9047419746790429937938596620327657238359)) : ℚ) /
+        ((1043438 * 10^40
+        + 5341836082217744690501668084214075543561) * 10^40
+        + 3423907653835340883493847983718400000000)),
+    ((12117435734886672992717097 : ℚ) /
+        1844674407370955161600000000))
+
+def batchN02702MinusP025Center2558 : RatPair2542 := (((0 : ℚ) /
+        1),
+    ((0 : ℚ) /
+        1))
+
+def batchN02702MinusP025Factor2558 : RatPair2542 := ((((((((((((((1994277818127810434965389812807
+    * 10^40
+        + 6710384609306187116797130944489935056630) * 10^40
+        + 6136620273064146288182811273630005344169) * 10^40
+        + 6081649058720863801642323663861708052642) * 10^40
+        + 9974866067625059902260185219966716236971) * 10^40
+        + 6780780263366315531820530136188466602632) * 10^40
+        + 1762868931835894929510982109790908878363) * 10^40
+        + 7368774972733995902203980554452189780178) * 10^40
+        + 6246695669864328946037176034119797710377) * 10^40
+        + 6740888739023205888373757234603420833749) * 10^40
+        + 6689029626290668233475516742885060358597) * 10^40
+        + 6534093315847790487204234589045313225091) : ℚ) /
+        (((((((((((5597208584 * 10^40
+        + 7171162586992605202287934968867435836672) * 10^40
+        + 7965430185320856083440804291947429246656) * 10^40
+        + 3778165945575413944095657793163179674789) * 10^40
+        + 2684526405231858614656221612707132773350) * 10^40
+        + 852766664151992301985195175653258067737) * 10^40
+        + 7255178641799416534450408722321780908733) * 10^40
+        + 2283546948606855949512871546834270276241) * 10^40
+        + 9972818569117515380248068317098790197501) * 10^40
+        + 2788077660342509563932371445012557846448) * 10^40
+        + 7382913602813738421628053034383950801863) * 10^40
+        + 6766087930035367116238706072357550686208)),
+    (((-((((((((16685168435087458 * 10^40
+        + 6562370923972421758979693416281380246633) * 10^40
+        + 7282157220268940095949597150207094173444) * 10^40
+        + 4626682594915172300107019366439551655915) * 10^40
+        + 3077430934591244996310837908633348288461) * 10^40
+        + 490489853474756660162958216181101886442) * 10^40
+        + 645888862697131919794145457587343012576) * 10^40
+        + 6084477953220542151293807355349806506447) * 10^40
+        + 6992782892208616060769504629762840223087)) : ℚ) /
+        ((((((((1 * 10^40
+        + 5910263327909042056825358344290995329854) * 10^40
+        + 1422177598777107942144284015877510379474) * 10^40
+        + 2501501996596767630656830686921345064116) * 10^40
+        + 8526276869840851243623396045522536877638) * 10^40
+        + 6833463622809207189852184922318312145132) * 10^40
+        + 5660271666135444500352835952299041484275) * 10^40
+        + 5147389337101109034569417785604022008555) * 10^40
+        + 6660623144990321081451940333175919607808)))
+
+noncomputable def batchN02702MinusP025Error2558 : ℝ := ((2199023255553 : ℝ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))
+
+theorem batchN02702MinusP025BaseError2558 :
+    ‖weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨25, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP025Center2558‖ ≤ batchN02702MinusP025Error2558 := by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨25, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hz : ‖embedPair2542 batchN02702MinusP025Input2558‖ ≤ 1 := by
+    apply complex_norm_le_l1_2541
+    norm_num [embedPair2542, batchN02702MinusP025Input2558]
+  have hs : compactExp2547 batchN02702MinusP025Input2558 15 =
+      (batchN02702MinusP025Center2558, ((2199023255553 : ℚ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))) := by decide +kernel
+  have hc := congrArg Prod.fst hs
+  have he : ((compactExp2547 batchN02702MinusP025Input2558 15).2 : ℝ) =
+      batchN02702MinusP025Error2558 := by
+    rw [hs]
+    norm_num [batchN02702MinusP025Error2558]
+  have h := compactExp_error2547 batchN02702MinusP025Input2558 hz 15
+  rw [hc, he] at h
+  have ho : weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨25, by omega⟩
+      batchN02702MinusPosition2558 = Complex.exp ((2 : ℂ)^15 * embedPair2542
+          batchN02702MinusP025Input2558) :=
+          by
+    simp only [weightedUnitJet2539, iteratedDeriv_zero]
+    rw [weighted_unit_inside_exp2541 _ _ _ _ hx]
+    congr 1
+    apply Complex.ext <;> norm_num [batchN02702MinusPosition2558, storedWidth, nodeModulation2541,
+      embedPair2542, batchN02702MinusP025Input2558, Complex.mul_re, Complex.mul_im]
+  rwa [ho]
+
+theorem batchN02702MinusP025DerivativeError2558 :
+    ‖weightedUnitJet2539 3 (-1/2) nodeModulation2541 ⟨25, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP025Factor2558 * embedPair2542 batchN02702MinusP025Center2558‖
+          ≤
+        (pairMagnitude2542 batchN02702MinusP025Factor2558 : ℝ) * batchN02702MinusP025Error2558 :=
+            by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨25, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hf : weightedMultiplier2543 3 (-1/2) (nodeModulation2541 ⟨25, by omega⟩)
+      (storedWidth ⟨25, by omega⟩ ^ 2) batchN02702MinusPosition2558 = embedPair2542
+          batchN02702MinusP025Factor2558 :=
+          by
+    apply Complex.ext <;> norm_num [weightedMultiplier2543, Finset.sum_range_succ,
+      weightedLambda2537, bumpMultiplier2543, bumpDeficit2350, bumpNumerator2350,
+      batchN02702MinusPosition2558, storedWidth, nodeModulation2541, embedPair2542,
+      batchN02702MinusP025Factor2558, Complex.mul_re, Complex.mul_im, pow_succ]
+  have h := weightedFamily_inside_factor2543 3 (by omega) (-1/2)
+    (nodeModulation2541 ⟨25, by omega⟩) (pow_pos (storedWidth_pos ⟨25, by omega⟩) 2) hx
+  rw [hf] at h
+  change ‖iteratedDeriv 3 _ _ - _‖ ≤ _
+  rw [h]
+  exact complex_multiplier_error2543 _ _ _ _ _ batchN02702MinusP025BaseError2558
+    (embedPair_magnitude2542 batchN02702MinusP025Factor2558)
+
+def batchN02702MinusP026Input2558 : RatPair2542 := ((((-((578154 * 10^40
+        + 6953538535139781891480462516901598321515) * 10^40
+        + 9047419746790429937938596620327657238359)) : ℚ) /
+        ((1043438 * 10^40
+        + 5341836082217744690501668084214075543561) * 10^40
+        + 3423907653835340883493847983718400000000)),
+    ((25113280636521318884391333 : ℚ) /
+        3689348814741910323200000000))
+
+def batchN02702MinusP026Center2558 : RatPair2542 := (((0 : ℚ) /
+        1),
+    ((0 : ℚ) /
+        1))
+
+def batchN02702MinusP026Factor2558 : RatPair2542 := ((((((((((((((7977111272341244855230478968373
+    * 10^40
+        + 432666486044437972419106535140632675400) * 10^40
+        + 8469877164795543568115974150478163193170) * 10^40
+        + 9277918038274584693287032351038344276233) * 10^40
+        + 2994790137140852546329732635225212525169) * 10^40
+        + 1500288186721575117071914819646537297863) * 10^40
+        + 308593220202662403912015558290894836875) * 10^40
+        + 5745426422962509122158582657537558200546) * 10^40
+        + 8101796378228580396509756812317866761264) * 10^40
+        + 4051571539813974860964103659470413726368) * 10^40
+        + 5474674282762999088705346482879959352006) * 10^40
+        + 9826609963861554319820409909358693767003) : ℚ) /
+        (((((((((((22388834338 * 10^40
+        + 8684650347970420809151739875469743346691) * 10^40
+        + 1861720741283424333763217167789716986625) * 10^40
+        + 5112663782301655776382631172652718699157) * 10^40
+        + 738105620927434458624886450828531093400) * 10^40
+        + 3411066656607969207940780702613032270950) * 10^40
+        + 9020714567197666137801634889287123634932) * 10^40
+        + 9134187794427423798051486187337081104967) * 10^40
+        + 9891274276470061520992273268395160790005) * 10^40
+        + 1152310641370038255729485780050231385794) * 10^40
+        + 9531654411254953686512212137535803207454) * 10^40
+        + 7064351720141468464954824289430202744832)),
+    (((-((((((((138319468423706221 * 10^40
+        + 2462272459043337796836831911274013315294) * 10^40
+        + 9949180144447282723587697263343230250723) * 10^40
+        + 9090359935572532446797083350129447181068) * 10^40
+        + 3036048141432977864531097807047476872942) * 10^40
+        + 6867397853957377031244971374159376378053) * 10^40
+        + 1301050693416851130454112737372262550039) * 10^40
+        + 5797089376360185991660503406690010161303) * 10^40
+        + 1099570229252950836783376764838284070891)) : ℚ) /
+        ((((((((12 * 10^40
+        + 7282106623272336454602866754327962638833) * 10^40
+        + 1377420790216863537154272127020083035794) * 10^40
+        + 12015972774141045254645495370760512934) * 10^40
+        + 8210214958726809948987168364180295021109) * 10^40
+        + 4667708982473657518817479378546497161060) * 10^40
+        + 5282173329083556002822687618392331874204) * 10^40
+        + 1179114696808872276555342284832176068445) * 10^40
+        + 3284985159922568651615522665407356862464)))
+
+noncomputable def batchN02702MinusP026Error2558 : ℝ := ((2199023255553 : ℝ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))
+
+theorem batchN02702MinusP026BaseError2558 :
+    ‖weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨26, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP026Center2558‖ ≤ batchN02702MinusP026Error2558 := by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨26, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hz : ‖embedPair2542 batchN02702MinusP026Input2558‖ ≤ 1 := by
+    apply complex_norm_le_l1_2541
+    norm_num [embedPair2542, batchN02702MinusP026Input2558]
+  have hs : compactExp2547 batchN02702MinusP026Input2558 15 =
+      (batchN02702MinusP026Center2558, ((2199023255553 : ℚ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))) := by decide +kernel
+  have hc := congrArg Prod.fst hs
+  have he : ((compactExp2547 batchN02702MinusP026Input2558 15).2 : ℝ) =
+      batchN02702MinusP026Error2558 := by
+    rw [hs]
+    norm_num [batchN02702MinusP026Error2558]
+  have h := compactExp_error2547 batchN02702MinusP026Input2558 hz 15
+  rw [hc, he] at h
+  have ho : weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨26, by omega⟩
+      batchN02702MinusPosition2558 = Complex.exp ((2 : ℂ)^15 * embedPair2542
+          batchN02702MinusP026Input2558) :=
+          by
+    simp only [weightedUnitJet2539, iteratedDeriv_zero]
+    rw [weighted_unit_inside_exp2541 _ _ _ _ hx]
+    congr 1
+    apply Complex.ext <;> norm_num [batchN02702MinusPosition2558, storedWidth, nodeModulation2541,
+      embedPair2542, batchN02702MinusP026Input2558, Complex.mul_re, Complex.mul_im]
+  rwa [ho]
+
+theorem batchN02702MinusP026DerivativeError2558 :
+    ‖weightedUnitJet2539 3 (-1/2) nodeModulation2541 ⟨26, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP026Factor2558 * embedPair2542 batchN02702MinusP026Center2558‖
+          ≤
+        (pairMagnitude2542 batchN02702MinusP026Factor2558 : ℝ) * batchN02702MinusP026Error2558 :=
+            by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨26, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hf : weightedMultiplier2543 3 (-1/2) (nodeModulation2541 ⟨26, by omega⟩)
+      (storedWidth ⟨26, by omega⟩ ^ 2) batchN02702MinusPosition2558 = embedPair2542
+          batchN02702MinusP026Factor2558 :=
+          by
+    apply Complex.ext <;> norm_num [weightedMultiplier2543, Finset.sum_range_succ,
+      weightedLambda2537, bumpMultiplier2543, bumpDeficit2350, bumpNumerator2350,
+      batchN02702MinusPosition2558, storedWidth, nodeModulation2541, embedPair2542,
+      batchN02702MinusP026Factor2558, Complex.mul_re, Complex.mul_im, pow_succ]
+  have h := weightedFamily_inside_factor2543 3 (by omega) (-1/2)
+    (nodeModulation2541 ⟨26, by omega⟩) (pow_pos (storedWidth_pos ⟨26, by omega⟩) 2) hx
+  rw [hf] at h
+  change ‖iteratedDeriv 3 _ _ - _‖ ≤ _
+  rw [h]
+  exact complex_multiplier_error2543 _ _ _ _ _ batchN02702MinusP026BaseError2558
+    (embedPair_magnitude2542 batchN02702MinusP026Factor2558)
+
+def batchN02702MinusP027Input2558 : RatPair2542 := ((((-((578154 * 10^40
+        + 6953538535139781891480462516901598321515) * 10^40
+        + 9047419746790429937938596620327657238359)) : ℚ) /
+        ((1043438 * 10^40
+        + 5341836082217744690501668084214075543561) * 10^40
+        + 3423907653835340883493847983718400000000)),
+    ((52761707395609667092460043 : ℚ) /
+        7378697629483820646400000000))
+
+def batchN02702MinusP027Center2558 : RatPair2542 := (((0 : ℚ) /
+        1),
+    ((0 : ℚ) /
+        1))
+
+def batchN02702MinusP027Factor2558 : RatPair2542 := ((((((((((((((31908445088341064286166626729813
+    *
+    10^40
+        + 5792169275758811019852149098706701687114) * 10^40
+        + 588830846824917893355876093407111335144) * 10^40
+        + 770262822430228176371446454658092822522) * 10^40
+        + 3074253561695015138854500710229591270383) * 10^40
+        + 3743776179756316904065614909406406919399) * 10^40
+        + 5812392573163815046248343874602587120223) * 10^40
+        + 863033435539114298776545153068456710337) * 10^40
+        + 848617061345209640906369408547742888345) * 10^40
+        + 9956566787348279553116963177030840865274) * 10^40
+        + 5172572577400999510129809617424675209013) * 10^40
+        + 5259000866381165496396609212032134474171) : ℚ) /
+        (((((((((((89555337355 * 10^40
+        + 4738601391881683236606959501878973386764) * 10^40
+        + 7446882965133697335052868671158867946502) * 10^40
+        + 450655129206623105530524690610874796628) * 10^40
+        + 2952422483709737834499545803314124373601) * 10^40
+        + 3644266626431876831763122810452129083803) * 10^40
+        + 6082858268790664551206539557148494539731) * 10^40
+        + 6536751177709695192205944749348324419871) * 10^40
+        + 9565097105880246083969093073580643160020) * 10^40
+        + 4609242565480153022917943120200925543179) * 10^40
+        + 8126617645019814746048848550143212829818) * 10^40
+        + 8257406880565873859819297157720810979328)),
+    (((-((((((((1162408277228212487 * 10^40
+        + 4762004706488707422394731627498999921341) * 10^40
+        + 674141791424963186867673201023601938607) * 10^40
+        + 1702282374369140741423105419597815818517) * 10^40
+        + 5772029064500723636270031403033414209301) * 10^40
+        + 5843354372850323920735001493617435532545) * 10^40
+        + 7033623136382836627360882521112978527611) * 10^40
+        + 2142769455811219146894712793657647033905) * 10^40
+        + 7063877352247174633523648028963534590213)) : ℚ) /
+        ((((((((101 * 10^40
+        + 8256852986178691636822934034623701110665) * 10^40
+        + 1019366321734908297234177016160664286352) * 10^40
+        + 96127782193128362037163962966084103478) * 10^40
+        + 5681719669814479591897346913442360168875) * 10^40
+        + 7341671859789260150539835028371977288484) * 10^40
+        + 2257386632668448022581500947138654993632) * 10^40
+        + 9432917574470978212442738278657408547562) * 10^40
+        + 6279881279380549212924181323258854899712)))
+
+noncomputable def batchN02702MinusP027Error2558 : ℝ := ((2199023255553 : ℝ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))
+
+theorem batchN02702MinusP027BaseError2558 :
+    ‖weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨27, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP027Center2558‖ ≤ batchN02702MinusP027Error2558 := by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨27, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hz : ‖embedPair2542 batchN02702MinusP027Input2558‖ ≤ 1 := by
+    apply complex_norm_le_l1_2541
+    norm_num [embedPair2542, batchN02702MinusP027Input2558]
+  have hs : compactExp2547 batchN02702MinusP027Input2558 15 =
+      (batchN02702MinusP027Center2558, ((2199023255553 : ℚ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))) := by decide +kernel
+  have hc := congrArg Prod.fst hs
+  have he : ((compactExp2547 batchN02702MinusP027Input2558 15).2 : ℝ) =
+      batchN02702MinusP027Error2558 := by
+    rw [hs]
+    norm_num [batchN02702MinusP027Error2558]
+  have h := compactExp_error2547 batchN02702MinusP027Input2558 hz 15
+  rw [hc, he] at h
+  have ho : weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨27, by omega⟩
+      batchN02702MinusPosition2558 = Complex.exp ((2 : ℂ)^15 * embedPair2542
+          batchN02702MinusP027Input2558) :=
+          by
+    simp only [weightedUnitJet2539, iteratedDeriv_zero]
+    rw [weighted_unit_inside_exp2541 _ _ _ _ hx]
+    congr 1
+    apply Complex.ext <;> norm_num [batchN02702MinusPosition2558, storedWidth, nodeModulation2541,
+      embedPair2542, batchN02702MinusP027Input2558, Complex.mul_re, Complex.mul_im]
+  rwa [ho]
+
+theorem batchN02702MinusP027DerivativeError2558 :
+    ‖weightedUnitJet2539 3 (-1/2) nodeModulation2541 ⟨27, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP027Factor2558 * embedPair2542 batchN02702MinusP027Center2558‖
+          ≤
+        (pairMagnitude2542 batchN02702MinusP027Factor2558 : ℝ) * batchN02702MinusP027Error2558 :=
+            by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨27, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hf : weightedMultiplier2543 3 (-1/2) (nodeModulation2541 ⟨27, by omega⟩)
+      (storedWidth ⟨27, by omega⟩ ^ 2) batchN02702MinusPosition2558 = embedPair2542
+          batchN02702MinusP027Factor2558 :=
+          by
+    apply Complex.ext <;> norm_num [weightedMultiplier2543, Finset.sum_range_succ,
+      weightedLambda2537, bumpMultiplier2543, bumpDeficit2350, bumpNumerator2350,
+      batchN02702MinusPosition2558, storedWidth, nodeModulation2541, embedPair2542,
+      batchN02702MinusP027Factor2558, Complex.mul_re, Complex.mul_im, pow_succ]
+  have h := weightedFamily_inside_factor2543 3 (by omega) (-1/2)
+    (nodeModulation2541 ⟨27, by omega⟩) (pow_pos (storedWidth_pos ⟨27, by omega⟩) 2) hx
+  rw [hf] at h
+  change ‖iteratedDeriv 3 _ _ - _‖ ≤ _
+  rw [h]
+  exact complex_multiplier_error2543 _ _ _ _ _ batchN02702MinusP027BaseError2558
+    (embedPair_magnitude2542 batchN02702MinusP027Factor2558)
+
+def batchN02702MinusP028Input2558 : RatPair2542 := ((((-((578154 * 10^40
+        + 6953538535139781891480462516901598321515) * 10^40
+        + 9047419746790429937938596620327657238359)) : ℚ) /
+        ((1043438 * 10^40
+        + 5341836082217744690501668084214075543561) * 10^40
+        + 3423907653835340883493847983718400000000)),
+    ((215061626496775559671970943 : ℚ) /
+        29514790517935282585600000000))
+
+def batchN02702MinusP028Center2558 : RatPair2542 := (((0 : ℚ) /
+        1),
+    ((0 : ℚ) /
+        1))
+
+def batchN02702MinusP028Factor2558 : RatPair2542 :=
+    ((((((((((((((510535121406748041690514054164963 *
+    10^40
+        + 5221503245408982865836044351452704851845) * 10^40
+        + 8066812784410746450366558390808767481929) * 10^40
+        + 704493748147254695311346608472573887256) * 10^40
+        + 2682342845297844220600317233896251522221) * 10^40
+        + 3213050164989992619115520280807933307828) * 10^40
+        + 5296107547906992633857675572609416615782) * 10^40
+        + 7474082557778794553159154923368858023966) * 10^40
+        + 523810617174298423308301996247606352288) * 10^40
+        + 3660501630719693284591057932375661869527) * 10^40
+        + 7394834126483826353848662862984628931919) * 10^40
+        + 6401627832605907313177450314966829234131) : ℚ) /
+        (((((((((((1432885397687 * 10^40
+        + 5817622270106931785711352030063574188235) * 10^40
+        + 9150127442139157360845898738541887144032) * 10^40
+        + 7210482067305969688488395049773996746052) * 10^40
+        + 7238759739355805351992732853025989977621) * 10^40
+        + 8308266022910029308209964967234065340857) * 10^40
+        + 7325732300650632819304632914375912635706) * 10^40
+        + 4588018843355123075295115989573190717951) * 10^40
+        + 3041553694083937343505489177290290560327) * 10^40
+        + 3747881047682448366687089923214808690877) * 10^40
+        + 25882320317035936781576802291405277101) * 10^40
+        + 2118510089053981757108754523532975669248)),
+    (((-((((((((75809347981623811058 * 10^40
+        + 4400507461815320246148857326586791071453) * 10^40
+        + 1101726002510302932649461203188285827976) * 10^40
+        + 3610468584731265170166834382364308252582) * 10^40
+        + 6128967502365336072632586347354333860602) * 10^40
+        + 3842373603079633603823343929247365316980) * 10^40
+        + 2975319901192452630689122137731047952314) * 10^40
+        + 3683386978454280449826982885828852406577) * 10^40
+        + 1419464318425727794562096226656130937753)) : ℚ) /
+        ((((((((6516 * 10^40
+        + 8438591115436264756667778215916871082566) * 10^40
+        + 5239444591034131022987329034282514326528) * 10^40
+        + 6152178060360215170378493629829382622628) * 10^40
+        + 3630058868126693881430202460311050808046) * 10^40
+        + 9866999026512649634549441815806546462990) * 10^40
+        + 4472744490780673445216060616873919592508) * 10^40
+        + 3706724766142605596335249834074147044008) * 10^40
+        + 1912401880355149627147604688566713581568)))
+
+noncomputable def batchN02702MinusP028Error2558 : ℝ := ((2199023255553 : ℝ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))
+
+theorem batchN02702MinusP028BaseError2558 :
+    ‖weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨28, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP028Center2558‖ ≤ batchN02702MinusP028Error2558 := by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨28, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hz : ‖embedPair2542 batchN02702MinusP028Input2558‖ ≤ 1 := by
+    apply complex_norm_le_l1_2541
+    norm_num [embedPair2542, batchN02702MinusP028Input2558]
+  have hs : compactExp2547 batchN02702MinusP028Input2558 15 =
+      (batchN02702MinusP028Center2558, ((2199023255553 : ℚ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))) := by decide +kernel
+  have hc := congrArg Prod.fst hs
+  have he : ((compactExp2547 batchN02702MinusP028Input2558 15).2 : ℝ) =
+      batchN02702MinusP028Error2558 := by
+    rw [hs]
+    norm_num [batchN02702MinusP028Error2558]
+  have h := compactExp_error2547 batchN02702MinusP028Input2558 hz 15
+  rw [hc, he] at h
+  have ho : weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨28, by omega⟩
+      batchN02702MinusPosition2558 = Complex.exp ((2 : ℂ)^15 * embedPair2542
+          batchN02702MinusP028Input2558) :=
+          by
+    simp only [weightedUnitJet2539, iteratedDeriv_zero]
+    rw [weighted_unit_inside_exp2541 _ _ _ _ hx]
+    congr 1
+    apply Complex.ext <;> norm_num [batchN02702MinusPosition2558, storedWidth, nodeModulation2541,
+      embedPair2542, batchN02702MinusP028Input2558, Complex.mul_re, Complex.mul_im]
+  rwa [ho]
+
+theorem batchN02702MinusP028DerivativeError2558 :
+    ‖weightedUnitJet2539 3 (-1/2) nodeModulation2541 ⟨28, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP028Factor2558 * embedPair2542 batchN02702MinusP028Center2558‖
+          ≤
+        (pairMagnitude2542 batchN02702MinusP028Factor2558 : ℝ) * batchN02702MinusP028Error2558 :=
+            by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨28, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hf : weightedMultiplier2543 3 (-1/2) (nodeModulation2541 ⟨28, by omega⟩)
+      (storedWidth ⟨28, by omega⟩ ^ 2) batchN02702MinusPosition2558 = embedPair2542
+          batchN02702MinusP028Factor2558 :=
+          by
+    apply Complex.ext <;> norm_num [weightedMultiplier2543, Finset.sum_range_succ,
+      weightedLambda2537, bumpMultiplier2543, bumpDeficit2350, bumpNumerator2350,
+      batchN02702MinusPosition2558, storedWidth, nodeModulation2541, embedPair2542,
+      batchN02702MinusP028Factor2558, Complex.mul_re, Complex.mul_im, pow_succ]
+  have h := weightedFamily_inside_factor2543 3 (by omega) (-1/2)
+    (nodeModulation2541 ⟨28, by omega⟩) (pow_pos (storedWidth_pos ⟨28, by omega⟩) 2) hx
+  rw [hf] at h
+  change ‖iteratedDeriv 3 _ _ - _‖ ≤ _
+  rw [h]
+  exact complex_multiplier_error2543 _ _ _ _ _ batchN02702MinusP028BaseError2558
+    (embedPair_magnitude2542 batchN02702MinusP028Factor2558)
+
+def batchN02702MinusP029Input2558 : RatPair2542 := ((((-((578154 * 10^40
+        + 6953538535139781891480462516901598321515) * 10^40
+        + 9047419746790429937938596620327657238359)) : ℚ) /
+        ((1043438 * 10^40
+        + 5341836082217744690501668084214075543561) * 10^40
+        + 3423907653835340883493847983718400000000)),
+    ((221173897030652641300579731 : ℚ) /
+        29514790517935282585600000000))
+
+def batchN02702MinusP029Center2558 : RatPair2542 := (((0 : ℚ) /
+        1),
+    ((0 : ℚ) /
+        1))
+
+def batchN02702MinusP029Factor2558 : RatPair2542 :=
+    ((((((((((((((510535121396291289766200829266737 *
+    10^40
+        + 1579647554303553199027401755338754370458) * 10^40
+        + 6327878114229983257244695438558468932197) * 10^40
+        + 9744429599017739538276983542931315018164) * 10^40
+        + 948970506749404522587677374930298927488) * 10^40
+        + 1135683578276504810435137769802650073344) * 10^40
+        + 894610660866981085854569760159081679487) * 10^40
+        + 6117154139951588380725757718674046261588) * 10^40
+        + 4316321017553626357684886450933578700000) * 10^40
+        + 6757273566487697947536317503054358135027) * 10^40
+        + 6331516731205095728098901238570639079757) * 10^40
+        + 3437778009372414192127569458110601358987) : ℚ) /
+        (((((((((((1432885397687 * 10^40
+        + 5817622270106931785711352030063574188235) * 10^40
+        + 9150127442139157360845898738541887144032) * 10^40
+        + 7210482067305969688488395049773996746052) * 10^40
+        + 7238759739355805351992732853025989977621) * 10^40
+        + 8308266022910029308209964967234065340857) * 10^40
+        + 7325732300650632819304632914375912635706) * 10^40
+        + 4588018843355123075295115989573190717951) * 10^40
+        + 3041553694083937343505489177290290560327) * 10^40
+        + 3747881047682448366687089923214808690877) * 10^40
+        + 25882320317035936781576802291405277101) * 10^40
+        + 2118510089053981757108754523532975669248)),
+    (((-((((((((77963926887076806780 * 10^40
+        + 5902722397133469957418301508302255128793) * 10^40
+        + 977781295213293330132549460966939527033) * 10^40
+        + 6944402526617034671281230087691140569029) * 10^40
+        + 7395879065833682279288906689614846244928) * 10^40
+        + 8158237672858481488986922969586569703717) * 10^40
+        + 365423570199488793219597333815720460184) * 10^40
+        + 6689261738322233849617696967748170954892) * 10^40
+        + 6793680457642223193380279729685420802733)) : ℚ) /
+        ((((((((6516 * 10^40
+        + 8438591115436264756667778215916871082566) * 10^40
+        + 5239444591034131022987329034282514326528) * 10^40
+        + 6152178060360215170378493629829382622628) * 10^40
+        + 3630058868126693881430202460311050808046) * 10^40
+        + 9866999026512649634549441815806546462990) * 10^40
+        + 4472744490780673445216060616873919592508) * 10^40
+        + 3706724766142605596335249834074147044008) * 10^40
+        + 1912401880355149627147604688566713581568)))
+
+noncomputable def batchN02702MinusP029Error2558 : ℝ := ((2199023255553 : ℝ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))
+
+theorem batchN02702MinusP029BaseError2558 :
+    ‖weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨29, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP029Center2558‖ ≤ batchN02702MinusP029Error2558 := by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨29, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hz : ‖embedPair2542 batchN02702MinusP029Input2558‖ ≤ 1 := by
+    apply complex_norm_le_l1_2541
+    norm_num [embedPair2542, batchN02702MinusP029Input2558]
+  have hs : compactExp2547 batchN02702MinusP029Input2558 15 =
+      (batchN02702MinusP029Center2558, ((2199023255553 : ℚ) /
+        (160693804425899027554 * 10^40
+        + 1962092341162602522202993782792835301376))) := by decide +kernel
+  have hc := congrArg Prod.fst hs
+  have he : ((compactExp2547 batchN02702MinusP029Input2558 15).2 : ℝ) =
+      batchN02702MinusP029Error2558 := by
+    rw [hs]
+    norm_num [batchN02702MinusP029Error2558]
+  have h := compactExp_error2547 batchN02702MinusP029Input2558 hz 15
+  rw [hc, he] at h
+  have ho : weightedUnitJet2539 0 (-1/2) nodeModulation2541 ⟨29, by omega⟩
+      batchN02702MinusPosition2558 = Complex.exp ((2 : ℂ)^15 * embedPair2542
+          batchN02702MinusP029Input2558) :=
+          by
+    simp only [weightedUnitJet2539, iteratedDeriv_zero]
+    rw [weighted_unit_inside_exp2541 _ _ _ _ hx]
+    congr 1
+    apply Complex.ext <;> norm_num [batchN02702MinusPosition2558, storedWidth, nodeModulation2541,
+      embedPair2542, batchN02702MinusP029Input2558, Complex.mul_re, Complex.mul_im]
+  rwa [ho]
+
+theorem batchN02702MinusP029DerivativeError2558 :
+    ‖weightedUnitJet2539 3 (-1/2) nodeModulation2541 ⟨29, by omega⟩ batchN02702MinusPosition2558 -
+      embedPair2542 batchN02702MinusP029Factor2558 * embedPair2542 batchN02702MinusP029Center2558‖
+          ≤
+        (pairMagnitude2542 batchN02702MinusP029Factor2558 : ℝ) * batchN02702MinusP029Error2558 :=
+            by
+  have hx : |batchN02702MinusPosition2558| < storedWidth ⟨29, by omega⟩ ^ 2 := by
+    norm_num [batchN02702MinusPosition2558, storedWidth]
+  have hf : weightedMultiplier2543 3 (-1/2) (nodeModulation2541 ⟨29, by omega⟩)
+      (storedWidth ⟨29, by omega⟩ ^ 2) batchN02702MinusPosition2558 = embedPair2542
+          batchN02702MinusP029Factor2558 :=
+          by
+    apply Complex.ext <;> norm_num [weightedMultiplier2543, Finset.sum_range_succ,
+      weightedLambda2537, bumpMultiplier2543, bumpDeficit2350, bumpNumerator2350,
+      batchN02702MinusPosition2558, storedWidth, nodeModulation2541, embedPair2542,
+      batchN02702MinusP029Factor2558, Complex.mul_re, Complex.mul_im, pow_succ]
+  have h := weightedFamily_inside_factor2543 3 (by omega) (-1/2)
+    (nodeModulation2541 ⟨29, by omega⟩) (pow_pos (storedWidth_pos ⟨29, by omega⟩) 2) hx
+  rw [hf] at h
+  change ‖iteratedDeriv 3 _ _ - _‖ ≤ _
+  rw [h]
+  exact complex_multiplier_error2543 _ _ _ _ _ batchN02702MinusP029BaseError2558
+    (embedPair_magnitude2542 batchN02702MinusP029Factor2558)
+
+theorem batchN02702MinusGrid2558 :
+    -stripRadius2303 + (2702 : ℝ) * (2 * stripRadius2303 / 10240) =
+      batchN02702MinusPosition2558 := by
+  norm_num [stripRadius2303, batchN02702MinusPosition2558]
+
+end ConnesWeilRH.Dev
+
+#print axioms ConnesWeilRH.Dev.batchN02702MinusP000DerivativeError2558
+#print axioms ConnesWeilRH.Dev.batchN02702MinusP001DerivativeError2558
+#print axioms ConnesWeilRH.Dev.batchN02702MinusP002DerivativeError2558
+#print axioms ConnesWeilRH.Dev.batchN02702MinusP003DerivativeError2558
+#print axioms ConnesWeilRH.Dev.batchN02702MinusP004DerivativeError2558
+#print axioms ConnesWeilRH.Dev.batchN02702MinusP005DerivativeError2558
+#print axioms ConnesWeilRH.Dev.batchN02702MinusP006DerivativeError2558
+#print axioms ConnesWeilRH.Dev.batchN02702MinusP007DerivativeError2558
+#print axioms ConnesWeilRH.Dev.batchN02702MinusP008DerivativeError2558
+#print axioms ConnesWeilRH.Dev.batchN02702MinusP009DerivativeError2558
+#print axioms ConnesWeilRH.Dev.batchN02702MinusP010DerivativeError2558
+#print axioms ConnesWeilRH.Dev.batchN02702MinusP011DerivativeError2558
+#print axioms ConnesWeilRH.Dev.batchN02702MinusP012DerivativeError2558
+#print axioms ConnesWeilRH.Dev.batchN02702MinusP013DerivativeError2558
+#print axioms ConnesWeilRH.Dev.batchN02702MinusP014DerivativeError2558
+#print axioms ConnesWeilRH.Dev.batchN02702MinusP015DerivativeError2558
+#print axioms ConnesWeilRH.Dev.batchN02702MinusP016DerivativeError2558
+#print axioms ConnesWeilRH.Dev.batchN02702MinusP017DerivativeError2558
+#print axioms ConnesWeilRH.Dev.batchN02702MinusP018DerivativeError2558
+#print axioms ConnesWeilRH.Dev.batchN02702MinusP019DerivativeError2558
+#print axioms ConnesWeilRH.Dev.batchN02702MinusP020DerivativeError2558
+#print axioms ConnesWeilRH.Dev.batchN02702MinusP021DerivativeError2558
+#print axioms ConnesWeilRH.Dev.batchN02702MinusP022DerivativeError2558
+#print axioms ConnesWeilRH.Dev.batchN02702MinusP023DerivativeError2558
+#print axioms ConnesWeilRH.Dev.batchN02702MinusP024DerivativeError2558
+#print axioms ConnesWeilRH.Dev.batchN02702MinusP025DerivativeError2558
+#print axioms ConnesWeilRH.Dev.batchN02702MinusP026DerivativeError2558
+#print axioms ConnesWeilRH.Dev.batchN02702MinusP027DerivativeError2558
+#print axioms ConnesWeilRH.Dev.batchN02702MinusP028DerivativeError2558
+#print axioms ConnesWeilRH.Dev.batchN02702MinusP029DerivativeError2558
+#print axioms ConnesWeilRH.Dev.batchN02702MinusGrid2558

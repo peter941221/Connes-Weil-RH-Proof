@@ -10,13 +10,13 @@ from generate_boundary_bounds_2549 import wrap
 from routea_exp_schedule_probe_2542 import R,STEP
 
 
-def render(*, smoke=False, cell_index=2700):
+def render(*, smoke=False, cell_index=2700, sigma=Q(1,2)):
     a,b = -R+cell_index*STEP,-R+(cell_index+1)*STEP
     assert a*b > 0
     raw = json.loads(CAPTURE.read_text())["owner_capture"]["families_hex"]
     active = [i for i,v in enumerate(raw) if min(abs(a),abs(b)) < Q.from_float(float.fromhex(v[0]))**2]
     selected = active[:1] if smoke else active
-    out,rows = template(len(selected),cell_index=cell_index,indices=selected,precision=160)
+    out,rows = template(len(selected),cell_index=cell_index,indices=selected,precision=160,sigma=sigma)
     out = out.replace("import ConnesWeilRH.Dev.C1RouteAFactoredCellEnvelope2545",
         "import ConnesWeilRH.Dev.C1RouteAFactoredCellEnvelope2545\n"
         "import ConnesWeilRH.Dev.C1RouteACompactExp1602547\n"
@@ -36,6 +36,8 @@ noncomputable def edgeFourthCell2550 (i : Fin 30) : ℝ :=
   else 0
 
 """
+    if sigma < 0:
+        definition = definition.replace("(1/2)","(-1/2)")
     out = out.replace("open ConnesWeilRH.Dev.C1RouteAOwnerScaleAudit\n",
                       "open ConnesWeilRH.Dev.C1RouteAOwnerScaleAudit\n"+definition)
     if not smoke:

@@ -9,8 +9,9 @@ from validate_adaptive_nodes_2542 import scalar_def
 
 
 def render(*, cell_index=5440, sources=None, midpoint_upper=Q(997840737,400000),
-           left_upper=Q(721605217,1250000000), right_node=None):
-    right_source,right_info = render_node(cell_index+1,1) if right_node is None else right_node
+           left_upper=Q(721605217,1250000000), right_node=None, sigma=Q(1,2)):
+    assert sigma in (Q(1,2),Q(-1,2))
+    right_source,right_info = render_node(cell_index+1,1 if sigma > 0 else -1) if right_node is None else right_node
     h = Q(65536001,51200000000)
     left = (ROOT/"ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean").read_text()
     right = (ROOT/"ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean").read_text()
@@ -130,7 +131,10 @@ end ConnesWeilRH.Dev
 #print axioms ConnesWeilRH.Dev.cellIntegralBound2546
 """)
     lines = []
-    for line in "".join(parts).splitlines():
+    output = "".join(parts)
+    if sigma < 0:
+        output = output.replace("(1/2)","(-1/2)")
+    for line in output.splitlines():
         indent = len(line)-len(line.lstrip())
         lines.extend(textwrap.wrap(line,width=98,subsequent_indent=" "*(indent+4),
                                   break_long_words=False,break_on_hyphens=False) or [""])

@@ -14,7 +14,8 @@ from validate_adaptive_nodes_2542 import scalar_def
 from validate_nonzero_node_2541 import multiply
 
 
-def check(source, *, cell_index=2700):
+def check(source, *, cell_index=2700, sigma=Q(1,2)):
+    assert sigma in (Q(1,2),Q(-1,2))
     source = re.sub(r":\s*([ℝℚ])",r": \1",source)
     raw = json.loads(CAPTURE.read_text())["owner_capture"]["families_hex"]
     a = -Q(65536001,10**7)+cell_index*Q(65536001,51200000000)
@@ -33,7 +34,7 @@ def check(source, *, cell_index=2700):
             continue
         depth = int(re.search(r"compactExp2547\s+"+p+r"Input2550\s+(\d+)",source)[1])
         z = value(source,p+"Input2550")
-        exponent = b/2-30/(1-near**2)
+        exponent = max(sigma*a,sigma*b)-30/(1-near**2)
         assert z == (exponent/2**depth,0) and sum(abs(v) for v in z) <= 1
         assert scalar_def(source,p+"Exponent2550") == exponent
         center,error = (Q(1),Q(0)),Q(1,10**18)+19*Q(1,2**159)

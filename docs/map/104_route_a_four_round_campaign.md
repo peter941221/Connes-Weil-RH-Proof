@@ -4758,3 +4758,19 @@ signed budget remain open. Next: parameterized segment batching with both
 sigma signs and a measured end-to-end cost before full-grid expansion.
 Evidence: docs/proofs/2557_neighbor_segment.md and
 results/2557_neighbor_numeric_readback.json.
+
+Record2558: the same continuous segment2700..2702 now covers sigma=-1/2
+as well. Negative cell uppers2501/1e12 and2433/1e12 sum to4934/1e12;
+bothSignsSegmentIntegralBound2558 adds the accepted positive225/1e12 for
+a combined5159/1e12, retaining the same actual coefficient membership.
+Parameterized cell generation shares existing endpoint owners and computes
+the fourth growth as max(sigma*a,sigma*b). Independent opposite-sign and
+zero-integral corruptions are rejected; six old default outputs reproduce.
+Integration4590jobs,303standard-axiom terminal declarations,779source
+identities. New cell batch build87.22s wall/386.00s userCPU, excluding
+generation/readback and final segment/root build; no full-grid extrapolation.
+Next: cells meeting zero, where the current fourth generator's near>0
+implementation guard must be removed without changing the analytic bound,
+then larger mixed-position batches. Fullgrid/exactmembership/corrections/
+selected-owner signedbudget remain open. Evidence:
+docs/proofs/2558_both_signs_segment.md and results/2558_signed_cell_readback.json.

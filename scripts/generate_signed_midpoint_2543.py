@@ -10,7 +10,8 @@ from validate_compact_replay_2542 import value
 from validate_adaptive_nodes_2542 import scalar_def
 
 
-def render(*, source=None):
+def render(*, source=None, sigma=Q(1,2)):
+    assert sigma in (Q(1,2),Q(-1,2))
     if source is None:
         source = (ROOT/"ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean").read_text()
     coefficients = json.loads((ROOT/"results/2338_exact_interpolation_repair.json").read_text())["coefficient_rows"]
@@ -137,7 +138,10 @@ theorem signedMidpointCharge2543 :
                  "signedMidpointUpper_le2543","weightedPhysical_second_midpoint_le2543"):
         parts.append(f"#print axioms ConnesWeilRH.Dev.{name}\n")
     lines = []
-    for line in "".join(parts).splitlines():
+    output = "".join(parts)
+    if sigma < 0:
+        output = output.replace("(1/2)","(-1/2)")
+    for line in output.splitlines():
         indent = len(line)-len(line.lstrip())
         lines.extend(textwrap.wrap(line,width=98,subsequent_indent=" "*(indent+4),
                                    break_long_words=False,break_on_hyphens=False) or [""])
