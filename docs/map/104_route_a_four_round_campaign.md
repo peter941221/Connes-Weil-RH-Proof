@@ -4561,3 +4561,10 @@ per-cell inequality explicit and proves whole-table monotonicity; the
 external 2517 price is not imported as a Lean premise or conclusion.
 Evidence: `docs/proofs/2518_production_exp_table_bridge_lean.md` and
 `ConnesWeilRH/Dev/C1RouteAExpProductionTableBridge2518.lean`.
+
+Record 2519 (2026-10-03): materialized the 2517 nextUp cell profile as an
+exact-rational Lean payload and exported a theorem applying the 2518 bridge.
+The full 640-cell analytic inequality remains an explicit premise; this is
+table plumbing, not a margin closure.
+Evidence: `docs/proofs/2519_production_exp_table_payload_lean.md` and
+`ConnesWeilRH/Dev/C1RouteAExpProductionTable2519.lean`.
