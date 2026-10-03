@@ -4489,3 +4489,8 @@ Record 2508 (2026-10-03): composed the 2507 production domain certificate
 with the 2506 floor-selected exponential split for `196 ≤ index ≤ 443`.
 Evidence: `docs/proofs/2508_owner_exp_production_consumer_lean.md`,
 `ConnesWeilRH/Dev/C1RouteAOwnerExpProduction2508.lean`.
+
+Record 2509 (2026-10-03): packaged propagation of one exponential upper bound
+through all three nonnegative `weightedCurvature2348` slots.
+Evidence: `docs/proofs/2509_exp_curvature_upper_lean.md`,
+`ConnesWeilRH/Dev/C1RouteAExpCurvatureUpper2509.lean`.
