@@ -9,4 +9,6 @@ explicit certified premise; this does not close the owner cell inequality.
 Evidence: `ConnesWeilRH/Dev/C1RouteAExpIntervalUpper2512.lean` and its audit
 file.  The same file now also provides the 30-family panel sum adapter, with
 the per-family certified exponential upper as its only replacement input.
+An `OrZero` variant also preserves the existing outside-support branch, so
+production cells need not first prove that all 30 families are inside.
 The audit must report only the standard three Mathlib axioms.

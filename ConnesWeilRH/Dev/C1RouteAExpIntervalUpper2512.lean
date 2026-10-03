@@ -130,4 +130,45 @@ theorem ownerPanelWeightedSecondDeriv_le_sumIntervalExpUpper_auto2513
     (ownerRadPos_2465 i) (hinside i) (ht i) (htone i) (hcoord i)
     (ha i) (haone i) (halower i) (hcoefficient i) (hupper i)
 
+theorem ownerPanelWeightedSecondDeriv_le_sumIntervalExpUpperOrZero_auto2513
+    (sigma x : ℝ) (t a coefficientBound upper : Fin 30 → ℝ)
+    (hdata : ∀ i : Fin 30, |x| < ownerRad_2463 i →
+      0 ≤ t i ∧ t i < 1 ∧ |x / ownerRad_2463 i| ≤ t i ∧
+      0 ≤ a i ∧ a i < 1 ∧ a i ≤ |x / ownerRad_2463 i|)
+    (hcoefficient : ∀ i : Fin 30,
+      ‖ownerCoef_2463 i‖ ≤ coefficientBound i)
+    (hupper : ∀ i : Fin 30, |x| < ownerRad_2463 i →
+      Real.exp (-30 / (1 - (a i) ^ 2)) ≤ upper i) :
+    ‖deriv (deriv (weightedFunction2348 sigma ownerPanelSumValue_2467)) x‖ ≤
+      ∑ i : Fin 30, if ownerRad_2463 i ≤ |x| then 0 else
+        weightedCurvature2348 sigma (ownerRad_2463 i)
+          (coefficientBound i * upper i)
+          (coefficientBound i * upper i *
+            (60 * t i * (1 - (t i) ^ 2)⁻¹ ^ 2 / ownerRad_2463 i +
+              |ownerMod_2463 i|))
+          (coefficientBound i * upper i *
+            ((60 * ((1 - (t i) ^ 2)⁻¹ ^ 2 +
+                4 * (t i) ^ 2 * (1 - (t i) ^ 2)⁻¹ ^ 3) /
+                (ownerRad_2463 i) ^ 2) +
+              (60 * t i * (1 - (t i) ^ 2)⁻¹ ^ 2 / ownerRad_2463 i) ^ 2 +
+              (ownerMod_2463 i) ^ 2 +
+              2 * |ownerMod_2463 i| *
+                (60 * t i * (1 - (t i) ^ 2)⁻¹ ^ 2 / ownerRad_2463 i))) := by
+  apply ownerPanelWeightedSecondDeriv_le_sumFamilyBound2488 sigma x
+  intro i
+  by_cases houtside : ownerRad_2463 i ≤ |x|
+  · rw [if_pos houtside]
+    rw [weightedExternalFamilySecondDeriv_zero_of_outside2488 sigma
+      (ownerCoef_2463 i) (ownerMod_2463 i) (ownerRad_2463 i) x
+      (ownerRadPos_2465 i) houtside]
+    simp
+  · rw [if_neg houtside]
+    have hinside : |x| < ownerRad_2463 i := lt_of_not_ge houtside
+    rcases hdata i hinside with ⟨ht, htone, hcoord, ha, haone, halower⟩
+    exact weightedExternalFamilySecondDeriv_le_of_interval_exp_upper_auto2513
+      sigma x (ownerMod_2463 i) (ownerRad_2463 i) (t i) (a i)
+      (coefficientBound i) (upper i) (ownerCoef_2463 i)
+      (ownerRadPos_2465 i) hinside ht htone hcoord ha haone halower
+      (hcoefficient i) (hupper i hinside)
+
 end ConnesWeilRH.Dev
