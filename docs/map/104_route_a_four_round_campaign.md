@@ -4478,3 +4478,9 @@ automatic `Nat.floor` selection for every nonnegative owner exponent.  The
 floor bounds are proved in Lean and feed the 2498 exponential envelope.
 Evidence: `docs/proofs/2506_owner_exp_auto_floor_lean.md`,
 `ConnesWeilRH/Dev/C1RouteAOwnerExpAuto2506.lean`.
+
+Record 2507 (2026-10-03): converted the existing 2488 production endpoint
+certificate into a strict `< 1` bound for the corrected 2501 minimum-endpoint
+ratio on indices `196..443`.  This feeds the automatic exponential split.
+Evidence: `docs/proofs/2507_owner_lower_ratio_production_lean.md`,
+`ConnesWeilRH/Dev/C1RouteAOwnerLowerRatioProduction2507.lean`.

@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteAOwnerLowerRatioProduction2507
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ownerCellLowerRatio_lt_one_of_endpointBounds2507
+#print axioms ownerCellLowerRatio_lt_one_production2507
+
+end ConnesWeilRH.Dev
