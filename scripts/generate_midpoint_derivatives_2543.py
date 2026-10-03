@@ -10,8 +10,10 @@ from routea_exp_schedule_probe_2542 import evaluate, R, STEP
 from routea_derivative_pricing_2543 import multiplier
 
 
-def render(count):
-    x, sigma = -R+Q(10881,2)*STEP, Q(1,2)
+def render(count, *, order=2, grid_index=None):
+    assert 0 <= order <= 4
+    coordinate = Q(10881,2) if grid_index is None else Q(grid_index)
+    x, sigma = -R+coordinate*STEP, Q(1,2)
     capture = json.loads(CAPTURE.read_text())["owner_capture"]["families_hex"]
     parts = ["""import ConnesWeilRH.Dev.C1RouteADerivativeMultiplier2543
 import ConnesWeilRH.Dev.C1RouteANonzeroNode2541
@@ -28,7 +30,7 @@ open ConnesWeilRH.Source.C1RouteAItem5Arithmetic
         assert abs(x) < width**2
         evaluation = evaluate(width**2,theta,x,sigma)
         z,k = evaluation["trace"][0],evaluation["depth"]
-        factor = multiplier(2,width**2,theta,sigma,x)
+        factor = multiplier(order,width**2,theta,sigma,x)
         p = f"midpointP{i:03d}"
         parts.append(f"""def {p}Input2543 : RatPair2542 :=
   {pair(z)}
@@ -68,28 +70,28 @@ theorem {p}BaseError2543 :
   rwa [howner]
 
 theorem {p}DerivativeError2543 :
-    ‖weightedUnitJet2539 2 (1/2) nodeModulation2541 ⟨{i}, by omega⟩ midpointPosition2543 -
+    ‖weightedUnitJet2539 {order} (1/2) nodeModulation2541 ⟨{i}, by omega⟩ midpointPosition2543 -
       embedPair2542 {p}Factor2543 * embedPair2542 {p}Center2543‖ ≤
       (pairMagnitude2542 {p}Factor2543 : ℝ) * {p}Error2543 := by
   have hx : |midpointPosition2543| < storedWidth ⟨{i}, by omega⟩ ^ 2 := by
     norm_num [midpointPosition2543, storedWidth]
-  have hf : weightedMultiplier2543 2 (1/2) (nodeModulation2541 ⟨{i}, by omega⟩)
+  have hf : weightedMultiplier2543 {order} (1/2) (nodeModulation2541 ⟨{i}, by omega⟩)
       (storedWidth ⟨{i}, by omega⟩ ^ 2) midpointPosition2543 = embedPair2542 {p}Factor2543 := by
     apply Complex.ext <;>
       norm_num [weightedMultiplier2543, Finset.sum_range_succ, weightedLambda2537,
         bumpMultiplier2543, bumpDeficit2350, bumpNumerator2350,
         midpointPosition2543, storedWidth, nodeModulation2541, embedPair2542, {p}Factor2543,
         Complex.mul_re, Complex.mul_im, pow_succ]
-  have hfactor := weightedFamily_inside_factor2543 2 (by omega) (1/2)
+  have hfactor := weightedFamily_inside_factor2543 {order} (by omega) (1/2)
     (nodeModulation2541 ⟨{i}, by omega⟩) (pow_pos (storedWidth_pos ⟨{i}, by omega⟩) 2) hx
   rw [hf] at hfactor
-  change ‖iteratedDeriv 2 _ _ - _‖ ≤ _
+  change ‖iteratedDeriv {order} _ _ - _‖ ≤ _
   rw [hfactor]
   exact complex_multiplier_error2543 _ _ _ _ _ {p}BaseError2543
     (embedPair_magnitude2542 {p}Factor2543)
 
 """)
-    parts.append("""theorem midpoint_grid2543 :
+    grid_proof = """theorem midpoint_grid2543 :
     (-stripRadius2303 + (5440 : ℝ)*(2*stripRadius2303/10240) +
       (-stripRadius2303 + (5441 : ℝ)*(2*stripRadius2303/10240)))/2 =
         midpointPosition2543 := by
@@ -97,7 +99,16 @@ theorem {p}DerivativeError2543 :
 
 end ConnesWeilRH.Dev
 
-""")
+"""
+    if grid_index is not None:
+        grid_proof = f"""theorem midpoint_grid2543 :
+    -stripRadius2303 + ({grid_index} : ℝ)*(2*stripRadius2303/10240) = midpointPosition2543 := by
+  norm_num [stripRadius2303, midpointPosition2543]
+
+end ConnesWeilRH.Dev
+
+"""
+    parts.append(grid_proof)
     parts.extend(f"#print axioms ConnesWeilRH.Dev.midpointP{i:03d}DerivativeError2543\n" for i in range(count))
     lines = []
     for line in "".join(parts).splitlines():

@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteAEndpointLeftNorms2544
+import ConnesWeilRH.Dev.C1RouteAEndpointRightNorms2544
+
+#print axioms ConnesWeilRH.Dev.endpointLeftNormBound2544
+#print axioms ConnesWeilRH.Dev.endpointRightNormBound2544
+#print axioms ConnesWeilRH.Dev.endpointLeft_grid2544
+#print axioms ConnesWeilRH.Dev.endpointRight_grid2544

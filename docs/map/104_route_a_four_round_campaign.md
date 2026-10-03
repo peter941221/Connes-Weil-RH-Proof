@@ -4707,3 +4707,15 @@ numerics, the fourth-order envelope, remaining cells, exact coefficient
 membership and the complete signed budget remain open. Evidence:
 docs/proofs/2543_midpoint_derivative_progress.md and
 results/2543_midpoint_readback.json.
+
+Records 2544-2546 (2026-10-04): the unchanged 30-family owner now has a
+FORMAL numerical whole-cell norm-integral upper on production cell 5440,
+sigma=+1/2: 379207837/500000000000 = 0.000758415674. Both third-order
+endpoints and the original fourth-order envelopes are numerically certified.
+Their coefficient-weighted charges give curvature upper 5663.644581;
+the new right signed node upper is 0.6061937461. The existing cell-integral
+consumer retains coefficient-ball membership. This closes one complete
+cell, not the grid or exact-owner transfer. Remaining cells/signs, exact
+interpolation membership, correction channels and selected-owner signed
+margin remain open; route ruling unchanged. Evidence:
+docs/proofs/2546_first_cell_integral.md and results/2546_cell_readback.json.

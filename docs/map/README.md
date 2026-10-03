@@ -85,9 +85,11 @@ Two equivalent attack lanes remain admissible:
   replays all 30 prior families, and certifies indices 5440 and 10239 at both
   endpoint signs, including a 17-square support-edge case. Record 2543
   certifies the signed order-two upper 2494.6018425 at the actual midpoint
-  of cell 5440, sigma=+1/2. Remaining nodes, third/fourth-order cell numerics,
-  full-grid import and exact-owner
-  transfer remain open; the signed producer is unchanged.
+  of cell 5440, sigma=+1/2. Records 2544-2546 certify its third-order
+  endpoints, fourth-order envelopes and first numerical whole-cell integral
+  upper 0.000758415674, conditional on coefficient-ball membership.
+  Remaining cells/signs, full-grid import and exact-owner transfer remain
+  open; the signed producer is unchanged.
 
 This lane must prove an unconditional signed inequality on the actual selected
 detector and its actual finite visible-prime set. Channelwise absolute

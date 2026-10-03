@@ -64,3 +64,9 @@ docs/proofs/2540_center_node_certificate.md
 results/2540_center_node_validation.json
 docs/proofs/2541_nonzero_node_certificate.md
 results/2541_nonzero_node_validation.json
+
+Records 2544-2546 certify both third endpoints, the fourth envelopes and
+the first complete numerical integral upper for cell5440 at sigma=+1/2:
+0.000758415674, conditional on coefficient-ball membership. This does not
+complete the other cells/signs or exact-owner transfer. Current evidence:
+docs/proofs/2546_first_cell_integral.md and results/2546_cell_readback.json.

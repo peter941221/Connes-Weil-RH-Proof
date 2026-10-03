@@ -133,3 +133,11 @@ coefficient-box error. It retains the original complex signed sum. Third-order
 endpoint and fourth-order envelope numerics remain necessary for a complete
 cell certificate; full-grid and exact-owner obligations remain open.
 Evidence: docs/proofs/2543_midpoint_derivative_progress.md.
+
+Records 2544-2546 complete the numerical cell-5440 norm-integral upper
+0.000758415674 at sigma=+1/2. Certified third endpoints and fourth envelopes
+feed the original midpoint-curvature consumer, and the right signed node
+is certified at index5441. Coefficient-ball membership remains a premise;
+remaining cells/signs, exact-owner transfer and the complete selected-owner
+signed margin remain open. Evidence: docs/proofs/2546_first_cell_integral.md
+and results/2546_cell_readback.json.

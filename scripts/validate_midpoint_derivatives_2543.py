@@ -12,11 +12,12 @@ from validate_adaptive_nodes_2542 import scalar_def
 from validate_nonzero_node_2541 import multiply, complex_value, definition
 
 
-def check(source):
-    position = scalar_def(source,"midpointPosition2543")
-    assert position == -Q(65536001,10**7)+Q(10881,2)*Q(65536001,51200000000)
-    names = re.findall(r"def (midpointP\d{3})Input2543",source)
-    assert names == [f"midpointP{i:03d}" for i in range(len(names))] and names
+def check(source, *, prefix="midpoint", record=2543, order=2, grid_position=Q(10881,2)):
+    suffix = str(record)
+    position = scalar_def(source,prefix+"Position"+suffix)
+    assert position == -Q(65536001,10**7)+grid_position*Q(65536001,51200000000)
+    names = re.findall(r"def ("+prefix+r"P\d{3})Input"+suffix,source)
+    assert names == [f"{prefix}P{i:03d}" for i in range(len(names))] and names
     capture = json.loads(CAPTURE.read_text())["owner_capture"]["families_hex"]
     for i,name in enumerate(names):
         width,theta = (Q.from_float(float.fromhex(v)) for v in capture[i])
@@ -26,10 +27,19 @@ def check(source):
         log_first = (Q(1,2)-60*position/(radius**2*q**2),theta)
         log_second = -60/(radius**2*q**2)-240*position**2/(radius**4*q**3)
         squared = multiply(log_first,log_first)
-        factor = value(source,name+"Factor2543")
-        assert factor == (squared[0]+log_second,squared[1]), (name,"factor")
-        depth = int(re.search(r"compactExp2542\s+"+name+r"Input2543\s+(\d+)",source)[1])
-        z = value(source,name+"Input2543")
+        factor = value(source,name+"Factor"+suffix)
+        if order == 2:
+            expected_factor = (squared[0]+log_second,squared[1])
+        elif order == 3:
+            cube = multiply(squared,log_first)
+            log_third = -720*position/(radius**4*q**3)-1440*position**3/(radius**6*q**4)
+            expected_factor = (cube[0]+3*log_first[0]*log_second+log_third,
+                               cube[1]+3*log_first[1]*log_second)
+        else:
+            raise ValueError("Independent reader supports orders two and three")
+        assert factor == expected_factor, (name,"factor")
+        depth = int(re.search(r"compactExp2542\s+"+name+r"Input"+suffix+r"\s+(\d+)",source)[1])
+        z = value(source,name+"Input"+suffix)
         assert z == ((position/2-30/q)/2**depth,theta*position/2**depth)
         assert abs(z[0])+abs(z[1]) <= 1
         center, error = (Q(1),Q(0)), Q(1,10**18)+19*Q(1,2**99)
@@ -43,8 +53,8 @@ def check(source):
             scaled = (error*(2*sum(abs(v) for v in center)+error)+Q(1,2**99))*2**140
             error = Q(-((-scaled.numerator)//scaled.denominator),2**140)
             center = tuple(down(v) for v in multiply(center,center))
-        assert center == value(source,name+"Center2543")
-        assert error == scalar_def(source,name+"Error2543")
+        assert center == value(source,name+"Center"+suffix)
+        assert error == scalar_def(source,name+"Error"+suffix)
     return len(names)
 
 
