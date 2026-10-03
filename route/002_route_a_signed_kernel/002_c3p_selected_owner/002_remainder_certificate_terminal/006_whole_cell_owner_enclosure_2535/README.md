@@ -26,11 +26,18 @@ Record 2542 replays that node through a compact proved rational evaluator and
 certifies indices 5440 and 10239 at sigma=-1/2 and +1/2. The support-edge
 cases use 17 squarings for the one active family; exterior families are
 proved zero from their definitions. The complete grid remains open.
+Record 2543 certifies the actual midpoint of cell 5440 at sigma=+1/2:
+the signed order-two midpoint-plus-error expression is at most 2494.6018425.
+All 30 exact complex derivative factors retain their signs, and rounded
+derivative centers carry a proved evaluation/rounding charge. Third-order
+endpoint numerics and the fourth-order envelope still need certification
+before the midpoint result yields a whole-cell integral bound.
 
 Next steps
 
-1. Extend the adaptive certificates to midpoint derivatives and remaining
-   production nodes. Completion requires
+1. Certify third-order endpoint values and the fourth-order cell envelope,
+   then extend the midpoint certificate to the remaining production cells.
+   Completion requires
    concrete numerical inequalities with the scaled-argument and error gates
    checked for each case. Price witness size before full-grid expansion.
 

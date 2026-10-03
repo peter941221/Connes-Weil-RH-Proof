@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteAMidpointDerivatives2543
+
+#print axioms ConnesWeilRH.Dev.widthBump_inside_factor2543
+#print axioms ConnesWeilRH.Dev.weightedFamily_inside_factor2543
+#print axioms ConnesWeilRH.Dev.weightedFamily_outside_zero2543
+#print axioms ConnesWeilRH.Dev.complex_multiplier_error2543
+#print axioms ConnesWeilRH.Dev.midpoint_grid2543

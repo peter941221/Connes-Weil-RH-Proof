@@ -4692,3 +4692,18 @@ outputs. Derivative numerics, the complete grid, exact interpolation
 membership and the selected-owner signed margin remain open. Evidence:
 docs/proofs/2542_compact_exp_progress.md and
 results/2542_compact_replay_readback.json.
+
+Record 2543 (2026-10-04): the signed order-two midpoint-plus-error expression
+at the true midpoint of cell 5440, sigma=+1/2, is FORMALLY bounded by
+997840737/400000 = 2494.6018425. The new factorization retains complex
+modulation through order four and proves all-order exterior zero. Thirty
+second-derivative factors and exponential errors feed rounded derivative
+centers; the signed center sum precedes the norm, with evaluation/rounding
+charge 5.6779285e-11 bounded in Lean by 1e-8 and coefficient uncertainty 30e-30.
+Independent checks use exponent differentiation for the factors and reject
+corrupted factors, rounded centers and radii. This closes one concrete
+midpoint obligation, not the whole-cell bound: actual third-order endpoint
+numerics, the fourth-order envelope, remaining cells, exact coefficient
+membership and the complete signed budget remain open. Evidence:
+docs/proofs/2543_midpoint_derivative_progress.md and
+results/2543_midpoint_readback.json.

@@ -126,3 +126,10 @@ for both endpoint signs, using a proved compact rational evaluator. Its
 prove exterior families zero from their definitions. The complete grid,
 derivative numerics, exact coefficient membership and full signed budget
 remain open. Evidence: docs/proofs/2542_compact_exp_progress.md.
+
+Record 2543 proves the signed second-derivative upper 2494.6018425 at the
+actual midpoint of cell 5440, sigma=+1/2, including rounded-evaluation and
+coefficient-box error. It retains the original complex signed sum. Third-order
+endpoint and fourth-order envelope numerics remain necessary for a complete
+cell certificate; full-grid and exact-owner obligations remain open.
+Evidence: docs/proofs/2543_midpoint_derivative_progress.md.
