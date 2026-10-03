@@ -1,0 +1,31 @@
+{
+  "record": 2517,
+  "status": "EXTERNAL_DIRECTED_MPFR_PRICE_NOT_A_LEAN_CERTIFICATE",
+  "grid": {
+    "cells": 640,
+    "safe_range": [
+      196,
+      443
+    ]
+  },
+  "rows": [
+    {
+      "sigma": -0.5,
+      "baseline_remainder": 635.575993091222,
+      "production_remainder": 414.57518775159883,
+      "production_to_baseline": 0.6522826416637425
+    },
+    {
+      "sigma": 0.5,
+      "baseline_remainder": 635.575993091222,
+      "production_remainder": 414.57518775159883,
+      "production_to_baseline": 0.6522826416637425
+    }
+  ],
+  "decision": "price_2516_production_upper_against_l1_baseline",
+  "nonclaims": [
+    "no Lean literal import",
+    "no producer GO",
+    "no RH"
+  ]
+}
