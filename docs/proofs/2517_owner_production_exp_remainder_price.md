@@ -1,5 +1,12 @@
 # Record 2517 — production exponential remainder price
 
+**2521 correction:** the historical claim below that this prices the exact
+2516 fallback is withdrawn. The script uses per-family exponential weights;
+2516 uses the global strip-radius weight on non-safe cells. The artifact is
+preserved as the price of the family-weighted rule, now formally supplied by
+2521. See [2521](2521_family_fallback_alignment.md). The historical numbers
+must not be used to discharge the old 2516/2519 per-cell premise.
+
 The 2516 production remainder was priced on the same exact-owner 640-cell
 grid as the corrected 2495 replay, using directed MPFR.  The 2495 L1 control
 reproduces `635.575993091222` for both sigma signs.  The 2516 rule uses the

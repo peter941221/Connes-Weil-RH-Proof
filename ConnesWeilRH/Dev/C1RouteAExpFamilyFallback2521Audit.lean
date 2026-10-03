@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteAExpFamilyFallback2521
+
+open ConnesWeilRH.Dev
+
+#print axioms ownerPanelWeightedSecondDeriv_le_familyFallback2521
+#print axioms ownerProductionCell_bound2521
+#print axioms ownerPanelStripNorm_le_productionExpUpper2521
+#print axioms ownerPanelStripNorm_le_productionTable2521

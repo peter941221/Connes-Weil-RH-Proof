@@ -1,0 +1,140 @@
+{
+  "record": 2049,
+  "mathlib_rev": "c5ea00351c28e24afc9f0f84379aa41082b1188f",
+  "toolchain": "leanprover/lean4:v4.30.0",
+  "rows": [
+    {
+      "brick": "sylvester_inertia_uniqueness",
+      "present": true,
+      "note": "congruence invariance of the inertia indices (uniqueness half of Sylvester's law of inertia), real quadratic forms",
+      "evidence": [
+        [
+          ".lake/packages/mathlib/Mathlib/LinearAlgebra/QuadraticForm/Signature.lean",
+          120,
+          "lemma QuadraticMap.Equivalent.sigPos_eq (h : Equivalent Q Q') : sigPos Q = sigPos Q' := by"
+        ],
+        [
+          ".lake/packages/mathlib/Mathlib/LinearAlgebra/QuadraticForm/Signature.lean",
+          132,
+          "lemma QuadraticMap.Equivalent.sigNeg_eq (h : Equivalent Q Q') : sigNeg Q = sigNeg Q' :="
+        ],
+        [
+          ".lake/packages/mathlib/Mathlib/LinearAlgebra/QuadraticForm/Signature.lean",
+          133,
+          "sigPos_eq <| match h with | \u27e8e\u27e9 => \u27e8e, by simp\u27e9"
+        ]
+      ]
+    },
+    {
+      "brick": "sylvester_inertia_existence",
+      "present": true,
+      "note": "existence half: a nondegenerate real quadratic form is equivalent to a weighted sum of squares with +-1 weights",
+      "evidence": [
+        [
+          ".lake/packages/mathlib/Mathlib/LinearAlgebra/QuadraticForm/Real.lean",
+          16,
+          "Sylvester's law of inertia `equivalent_one_neg_one_weighted_sum_squared`:"
+        ],
+        [
+          ".lake/packages/mathlib/Mathlib/LinearAlgebra/QuadraticForm/Real.lean",
+          66,
+          "theorem equivalent_one_neg_one_weighted_sum_squared {M : Type*} [AddCommGroup M] [Module \u211d M]"
+        ]
+      ]
+    },
+    {
+      "brick": "birkhoff_von_neumann",
+      "present": true,
+      "note": "Birkhoff's theorem: doubly stochastic = convex hull of permutation matrices (the rearrangement engine)",
+      "evidence": [
+        [
+          ".lake/packages/mathlib/Mathlib/Analysis/Convex/Birkhoff.lean",
+          148,
+          "`doublyStochastic_eq_convexHull_permMatrix` shows `doublyStochastic n` is exactly the convex hull of"
+        ],
+        [
+          ".lake/packages/mathlib/Mathlib/Analysis/Convex/Birkhoff.lean",
+          152,
+          "lemma exists_eq_sum_perm_of_mem_doublyStochastic (hM : M \u2208 doublyStochastic R n) :"
+        ],
+        [
+          ".lake/packages/mathlib/Mathlib/Analysis/Convex/Birkhoff.lean",
+          167,
+          "`exists_eq_sum_perm_of_mem_doublyStochastic` gives a convex weighting of each permutation matrix"
+        ]
+      ]
+    },
+    {
+      "brick": "rearrangement_inequality",
+      "present": true,
+      "note": "Hardy-Littlewood-Polya rearrangement: aligned pairing maximizes the sum of products",
+      "evidence": [
+        [
+          ".lake/packages/mathlib/Mathlib/Algebra/Order/Rearrangement.lean",
+          70,
+          "theorem MonovaryOn.sum_smul_comp_perm_le_sum_smul (hfg : MonovaryOn f g s)"
+        ],
+        [
+          ".lake/packages/mathlib/Mathlib/Algebra/Order/Rearrangement.lean",
+          116,
+          "theorem AntivaryOn.sum_smul_le_sum_smul_comp_perm (hfg : AntivaryOn f g s)"
+        ],
+        [
+          ".lake/packages/mathlib/Mathlib/Algebra/Order/Rearrangement.lean",
+          139,
+          "theorem Monovary.sum_smul_comp_perm_le_sum_smul (hfg : Monovary f g) :"
+        ]
+      ]
+    },
+    {
+      "brick": "hermitian_trace_eq_sum_eigenvalues",
+      "present": true,
+      "note": "tr A = sum of eigenvalues for Hermitian A (spectral trace identity)",
+      "evidence": [
+        [
+          ".lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/Trace.lean",
+          39,
+          "lemma IsSymmetric.trace_eq_sum_eigenvalues {T : E \u2192\u2097[\ud835\udd5c] E} (hT : T.IsSymmetric) :"
+        ],
+        [
+          ".lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/Trace.lean",
+          44,
+          "lemma IsSymmetric.re_trace_eq_sum_eigenvalues {T : E \u2192\u2097[\ud835\udd5c] E} (hT : T.IsSymmetric) :"
+        ],
+        [
+          ".lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/Trace.lean",
+          46,
+          "rw [hT.trace_eq_sum_eigenvalues]"
+        ]
+      ]
+    },
+    {
+      "brick": "singular_values_api",
+      "present": true,
+      "note": "singular values of a linear map between inner product spaces",
+      "evidence": [
+        [
+          ".lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/SingularValues.lean",
+          94,
+          "noncomputable def singularValues : \u2115 \u2192\u2080 \u211d :="
+        ],
+        [
+          ".lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/SingularValues.lean",
+          140,
+          "theorem singularValues_antitone : Antitone T.singularValues := by"
+        ],
+        [
+          ".lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/SingularValues.lean",
+          186,
+          "order [T.singularValues_antitone hl]"
+        ]
+      ]
+    },
+    {
+      "brick": "von_neumann_trace_inequality",
+      "present": false,
+      "note": "the NAMED theorem |tr(AB)| <= sum sigma_i(A) sigma_i(B) - expected ABSENT; the three proof ingredients above are all present.  NOTE: patterns must be word-boundary anchored - an unanchored 'trace_mul_le' matches the unrelated Matrix.ext_iff_trace_mul_left",
+      "evidence": []
+    }
+  ]
+}

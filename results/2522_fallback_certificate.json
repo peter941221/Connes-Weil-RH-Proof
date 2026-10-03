@@ -1,0 +1,197 @@
+{
+  "record": 2522,
+  "status": "EXACT_WITNESSES_BUILD_REQUIRED",
+  "rows": [
+    {
+      "family": 0,
+      "integer_exponent": 28,
+      "exp_upper": "1682799925331517/5000000000000000000000000000",
+      "family_upper": "455378681/1024"
+    },
+    {
+      "family": 1,
+      "integer_exponent": 28,
+      "exp_upper": "31784783617437/62500000000000000000000000",
+      "family_upper": "64417981/1024"
+    },
+    {
+      "family": 2,
+      "integer_exponent": 27,
+      "exp_upper": "8140130476358043/10000000000000000000000000000",
+      "family_upper": "6253575/128"
+    },
+    {
+      "family": 3,
+      "integer_exponent": 27,
+      "exp_upper": "13801899241961041/10000000000000000000000000000",
+      "family_upper": "19178241/512"
+    },
+    {
+      "family": 4,
+      "integer_exponent": 26,
+      "exp_upper": "495783075102559/200000000000000000000000000",
+      "family_upper": "66475/1024"
+    },
+    {
+      "family": 5,
+      "integer_exponent": 28,
+      "exp_upper": "1918721403180919/5000000000000000000000000000",
+      "family_upper": "5937717/1024"
+    },
+    {
+      "family": 6,
+      "integer_exponent": 28,
+      "exp_upper": "1382880021388049/2000000000000000000000000000",
+      "family_upper": "1448519/512"
+    },
+    {
+      "family": 7,
+      "integer_exponent": 27,
+      "exp_upper": "13801899241961041/10000000000000000000000000000",
+      "family_upper": "461581/1024"
+    },
+    {
+      "family": 8,
+      "integer_exponent": 28,
+      "exp_upper": "880705750689653/2000000000000000000000000000",
+      "family_upper": "2812057/512"
+    },
+    {
+      "family": 9,
+      "integer_exponent": 28,
+      "exp_upper": "880705750689653/2000000000000000000000000000",
+      "family_upper": "3645625/512"
+    },
+    {
+      "family": 10,
+      "integer_exponent": 28,
+      "exp_upper": "880705750689653/2000000000000000000000000000",
+      "family_upper": "2785623/512"
+    },
+    {
+      "family": 11,
+      "integer_exponent": 28,
+      "exp_upper": "880705750689653/2000000000000000000000000000",
+      "family_upper": "2459309/512"
+    },
+    {
+      "family": 12,
+      "integer_exponent": 28,
+      "exp_upper": "880705750689653/2000000000000000000000000000",
+      "family_upper": "4271263/512"
+    },
+    {
+      "family": 13,
+      "integer_exponent": 28,
+      "exp_upper": "880705750689653/2000000000000000000000000000",
+      "family_upper": "3834563/1024"
+    },
+    {
+      "family": 14,
+      "integer_exponent": 28,
+      "exp_upper": "880705750689653/2000000000000000000000000000",
+      "family_upper": "100971139/512"
+    },
+    {
+      "family": 15,
+      "integer_exponent": 28,
+      "exp_upper": "880705750689653/2000000000000000000000000000",
+      "family_upper": "112994337/512"
+    },
+    {
+      "family": 16,
+      "integer_exponent": 28,
+      "exp_upper": "880705750689653/2000000000000000000000000000",
+      "family_upper": "1067195/256"
+    },
+    {
+      "family": 17,
+      "integer_exponent": 28,
+      "exp_upper": "880705750689653/2000000000000000000000000000",
+      "family_upper": "15473427/1024"
+    },
+    {
+      "family": 18,
+      "integer_exponent": 28,
+      "exp_upper": "880705750689653/2000000000000000000000000000",
+      "family_upper": "354011/64"
+    },
+    {
+      "family": 19,
+      "integer_exponent": 28,
+      "exp_upper": "880705750689653/2000000000000000000000000000",
+      "family_upper": "16181925/1024"
+    },
+    {
+      "family": 20,
+      "integer_exponent": 28,
+      "exp_upper": "880705750689653/2000000000000000000000000000",
+      "family_upper": "65829/4"
+    },
+    {
+      "family": 21,
+      "integer_exponent": 28,
+      "exp_upper": "880705750689653/2000000000000000000000000000",
+      "family_upper": "1305153/256"
+    },
+    {
+      "family": 22,
+      "integer_exponent": 28,
+      "exp_upper": "880705750689653/2000000000000000000000000000",
+      "family_upper": "10282695/512"
+    },
+    {
+      "family": 23,
+      "integer_exponent": 28,
+      "exp_upper": "880705750689653/2000000000000000000000000000",
+      "family_upper": "23046593/1024"
+    },
+    {
+      "family": 24,
+      "integer_exponent": 28,
+      "exp_upper": "880705750689653/2000000000000000000000000000",
+      "family_upper": "1260903/256"
+    },
+    {
+      "family": 25,
+      "integer_exponent": 28,
+      "exp_upper": "880705750689653/2000000000000000000000000000",
+      "family_upper": "12459783/512"
+    },
+    {
+      "family": 26,
+      "integer_exponent": 28,
+      "exp_upper": "880705750689653/2000000000000000000000000000",
+      "family_upper": "8148059/512"
+    },
+    {
+      "family": 27,
+      "integer_exponent": 28,
+      "exp_upper": "880705750689653/2000000000000000000000000000",
+      "family_upper": "16180121/256"
+    },
+    {
+      "family": 28,
+      "integer_exponent": 28,
+      "exp_upper": "880705750689653/2000000000000000000000000000",
+      "family_upper": "56184657/1024"
+    },
+    {
+      "family": 29,
+      "integer_exponent": 28,
+      "exp_upper": "880705750689653/2000000000000000000000000000",
+      "family_upper": "16231919/256"
+    }
+  ],
+  "sum_family_uppers_exact": "177577883/128",
+  "fallback_upper": 1387328,
+  "fallback_cell_count": 392,
+  "module_sha256": "881d203c5a7f4bad959e8cfefbf672d90e7e4a85a2b98a59617faa14f5154450",
+  "sources": {
+    "scripts/routea_fallback_certificate_2522.py": "c53b4df8941b50043a3817e8ef2703756e90fcdab7d31bd4b1d48cab437289cc",
+    "ConnesWeilRH/Dev/C1RouteAOwnerPanelSample2460.lean": "afecfa0282ea27a7e04566fc16005cd6ee94b46bf1a52e17565fedd783bd5618",
+    "ConnesWeilRH/Dev/C1RouteAFallbackScalar2522.lean": "311991b1328c2541acc6043c99058d030160a896e781b18b997d0905905de2b1",
+    "ConnesWeilRH/Dev/C1RouteAExpFamilyFallback2521.lean": "4692fc38ad97e3bb8711e9b4f2d751bb7f88c7ae769f4d3a6f98c75e5906ac6e"
+  },
+  "scope": "2463 fixed midpoint coefficients; both sigma signs; safe hcell still open"
+}

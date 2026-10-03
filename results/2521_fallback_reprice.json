@@ -1,0 +1,68 @@
+{
+  "record": 2521,
+  "status": "PASS_EXTERNAL_PRICE_NOT_FULL_CERTIFICATE",
+  "same_run_2517_full_artifact_equal": true,
+  "2519_all_640_literals_equal_both_signs": true,
+  "exact_owner_families_checked": 30,
+  "fallback_cells": 392,
+  "safe_cells": 248,
+  "rows": [
+    {
+      "sigma": -0.5,
+      "historical_price": 414.57518775159883,
+      "historical_fallback": 1387327.195897279,
+      "family_fallback_interval": [
+        1387327.195897266,
+        1387327.1958972763
+      ],
+      "global_fallback_interval": [
+        8261510.618254852,
+        8261510.618254885
+      ],
+      "global_to_historical_ratio": 5.954983541508079,
+      "old_2516_definition_total_upper_display": 2343.502196152711,
+      "repaired_2522_table_total_exact": "973648012109177887171387948701589542710255486265054487119189563489991285741535400458021002318381416568747998120727/2348542582773833227889480596789337027375682548908319870707290971532209025114608443463698998384768703031934976000",
+      "repaired_2522_table_total_display": 414.5754133864649,
+      "rounding_cost_display": 0.00022563486606941296
+    },
+    {
+      "sigma": 0.5,
+      "historical_price": 414.57518775159883,
+      "historical_fallback": 1387327.195897279,
+      "family_fallback_interval": [
+        1387327.195897266,
+        1387327.1958972763
+      ],
+      "global_fallback_interval": [
+        8261510.618254852,
+        8261510.618254885
+      ],
+      "global_to_historical_ratio": 5.954983541508079,
+      "old_2516_definition_total_upper_display": 2343.502196152711,
+      "repaired_2522_table_total_exact": "973648012109177887171387948701589542710255486265054487119189563489991285741535400458021002318381416568747998120727/2348542582773833227889480596789337027375682548908319870707290971532209025114608443463698998384768703031934976000",
+      "repaired_2522_table_total_display": 414.5754133864649,
+      "rounding_cost_display": 0.00022563486606941296
+    }
+  ],
+  "sources": {
+    "scripts/routea_fallback_reprice_2521.py": "d9c4fc0e4e7914c46f3b3ef7b586cf9d710abd702ae6c79b483aaf294c6692a7",
+    "scripts/routea_owner_production_exp_remainder_2517.py": "654fd539d7a5bede69b76341093f5b3fdcfcb0b14dd04ae94604c285fffa35f8",
+    "scripts/routea_owner_family_binding_2493.py": "8aed5c2789cb6ec19c37aa0cd80722a319c6c31bbdd6bfeeedd6b4cc7ff8584b",
+    "results/2338_exact_interpolation_repair.json": "7efde152db5e18c2d312cae16309172154044b443477bca75b9619b3070eb258",
+    "results/2275_gap_owner_audit.json": "743fe372bef89b5730c38274d5a5517ac9ea4d3421989d46c49d4af3e78b5e74",
+    "ConnesWeilRH/Dev/C1RouteAOwnerPanelSample2460.lean": "afecfa0282ea27a7e04566fc16005cd6ee94b46bf1a52e17565fedd783bd5618",
+    "results/2517_owner_production_exp_remainder.json": "fe8eec1f877f81b380781f7ef130d6540ce7534c017a8237355480415995e761",
+    "scripts/routea_owner_local_curvature_mpfr_2478.py": "fbc0be883aa74ea0f12242bbee6dbaca1075fcd8534064d2c6d735dc4fc312b6",
+    "scripts/routea_mpfr_owner_atom_preflight_2286.py": "c3941bc43124539b945b16fdfefee3523c3738cab75378fb4642bfad3b5dc61f",
+    "ConnesWeilRH/Dev/C1RouteAExpProductionRemainder2516.lean": "310a250d77fca994e1a360edc790d443cf151a8685d89518d9664e77ccbef80d",
+    "ConnesWeilRH/Dev/C1RouteAOwnerWeightedCurvature2480.lean": "81fbe687a23922418b81107ab5a90242d4d95ad342834e902d16afc8cac0698d",
+    "ConnesWeilRH/Dev/C1RouteAExpFamilyFallback2521.lean": "4692fc38ad97e3bb8711e9b4f2d751bb7f88c7ae769f4d3a6f98c75e5906ac6e",
+    "ConnesWeilRH/Dev/C1RouteAExpProductionTable2519.lean": "a2ef8b3ee874fd50b7362b052760a6c5826557ce86757ccede6275fe90834430"
+  },
+  "open": [
+    "safe-cell hcell",
+    "node-sum numeric certificate",
+    "midpoint to exact interpolant",
+    "selected-detector signed margin"
+  ]
+}

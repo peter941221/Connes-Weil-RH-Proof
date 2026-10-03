@@ -1,5 +1,12 @@
 # Record 2519: production table payload
 
+**2521/2522 correction:** the old theorem remains conditional and valid, but
+its fallback premise does not match the supplied table: the old 2516 global
+weight is larger than the family-weighted quantity priced in 2517. The live
+consumer is now 2521; 2522 replaces fallback entries by the explicit rational
+upper 1387328 and proves those entries. Safe entries are unchanged data and
+their analytic inequalities remain open. The original payload is retained.
+
 `C1RouteAExpProductionTable2519.lean` stores the 640 production-remainder
 cell readings as exact rational reconstructions of the binary64 `nextUp`
 values emitted by the 2517 external artifact.  The payload is split into

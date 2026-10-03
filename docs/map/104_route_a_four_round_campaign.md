@@ -4575,3 +4575,26 @@ split Taylor remainder argument.  This isolates one missing analytic factor;
 the 640 per-cell inequalities and producer margin remain open.
 Evidence: `docs/proofs/2520_exp_weight_upper_lean.md` and
 `ConnesWeilRH/Dev/C1RouteAExpWeightUpper2520.lean`.
+
+Record 2521 (2026-10-03): corrected the 2516/2517 fallback mismatch. The
+old Lean branch used a global exponential weight; the price used per-family
+weights (old global single-cell reading 8261510.618 versus priced 1387327.196).
+The new production term proves the family-weighted fallback for the same
+2463 midpoint owner, using the existing support-edge/exterior theorem. The
+full old 2517 artifact reproduces in the same run, with all 640 table literals
+and both signs checked. Old 2516/2519 remain conditional historical objects.
+Evidence: `docs/proofs/2521_family_fallback_alignment.md` and
+`results/2521_fallback_reprice.json`.
+
+Record 2522 (2026-10-03): proved the repaired fallback upper 1387328 in
+Lean at both producer signs. Combining the exponents gives exp(r_i/2-30);
+30 exact rational Taylor witnesses prove the family bounds, whose sum is
+177577883/128. All 392 non-safe hcell premises are now discharged, including
+the concrete index-0 leaf. The downstream consumer retains only the 248 safe
+cell inequalities. The replacement table reads 414.5754133864649 externally,
+costing 0.000225635 above the old family-weighted price. This is not yet a
+complete analytic remainder or strip certificate: safe cells, node sum,
+midpoint-to-interpolant connection and selected-detector margin remain open.
+Evidence: `docs/proofs/2522_fallback_hcell_certificate.md`,
+`results/2522_fallback_certificate.json`, and
+`results/2522_fallback_build_validation.json`.
