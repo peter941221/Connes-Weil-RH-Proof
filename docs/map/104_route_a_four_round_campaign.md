@@ -4494,3 +4494,9 @@ Record 2509 (2026-10-03): packaged propagation of one exponential upper bound
 through all three nonnegative `weightedCurvature2348` slots.
 Evidence: `docs/proofs/2509_exp_curvature_upper_lean.md`,
 `ConnesWeilRH/Dev/C1RouteAExpCurvatureUpper2509.lean`.
+
+Record 2510 (2026-10-03): connected the propagated exponential upper to the
+existing single-family second-derivative/factor bounds, producing the direct
+hcell-facing curvature upper.
+Evidence: `docs/proofs/2510_exp_family_second_deriv_upper_lean.md`,
+`ConnesWeilRH/Dev/C1RouteAExpFamilySecondDerivUpper2510.lean`.

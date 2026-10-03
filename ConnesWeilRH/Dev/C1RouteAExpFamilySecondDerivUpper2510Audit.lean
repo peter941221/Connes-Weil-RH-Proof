@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteAExpFamilySecondDerivUpper2510
+
+namespace ConnesWeilRH.Dev
+
+#print axioms weightedExternalFamilySecondDeriv_le_of_exp_upper_factor_bounds2510
+
+end ConnesWeilRH.Dev
