@@ -4500,3 +4500,9 @@ existing single-family second-derivative/factor bounds, producing the direct
 hcell-facing curvature upper.
 Evidence: `docs/proofs/2510_exp_family_second_deriv_upper_lean.md`,
 `ConnesWeilRH/Dev/C1RouteAExpFamilySecondDerivUpper2510.lean`.
+
+Record 2511 (2026-10-03): summed the certified single-family exponential
+curvature uppers over all 30 owner families, yielding the panel-level hcell
+interface.
+Evidence: `docs/proofs/2511_exp_panel_upper_lean.md`,
+`ConnesWeilRH/Dev/C1RouteAExpPanelUpper2511.lean`.
