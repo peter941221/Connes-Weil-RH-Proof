@@ -4834,16 +4834,6 @@ stripSecondNorm sigma (externalPhysical2344 coefficients modulations) is at
 most signedSecondCompositeUpper2562 plus 2|sigma| times
 signedFirstCompositeUpper2562 plus sigma^2 times the certified 2539 composite,
 all on the identical 10240-cell production grid over [-r, r]. The engine is
-the pointwise identity exp(sigma*x) f = W - 2 sigma W
-
-Record 2562: the correction-second channel lands on the certified weighted
-aggregate in Lean. The new module
-ConnesWeilRH.Dev.C1RouteACorrectionSecondStrip2562 proves, for every sigma and
-every explicit coefficient set with per-family error bounds, that
-stripSecondNorm sigma (externalPhysical2344 coefficients modulations) is at
-most signedSecondCompositeUpper2562 plus 2|sigma| times
-signedFirstCompositeUpper2562 plus sigma^2 times the certified 2539 composite,
-all on the identical 10240-cell production grid over [-r, r]. The engine is
 the pointwise identity exp(sigma*x) f'' = W'' - 2 sigma W' + sigma^2 W on the
 weighted aggregate W, proved from the certified weighted-function derivative
 formulas, with exterior vanishing of f'' at |x| >= r (open-set transfer plus
@@ -4860,3 +4850,37 @@ docs/proofs/2562_correction_second_lean_interface.md,
 build-logs/2562_correction_strip_try9.log,
 build-logs/2562_correction_strip_audit.log,
 build-logs/2562_correction_strip_integration.log.
+
+Record 2563: the first numeric certificate of the correction-second channel
+lands at production cell 2700, sigma = +1/2. The new generator
+scripts/generate_firstjet_midpoint_2563.py produces the order-1 signed jet
+certificate ConnesWeilRH.Dev.C1RouteAFirstJetMidpoint2563 at the cell midpoint
+-r + (5401/2)h with h = 2r/10240: 28 active families, each certified by the
+2543 rounding template at order 1 (independent log-derivative factor
+M_1 = sigma - 60x/(rf^2 q^2) + i*theta, 160-bit compactExp2547 replay,
+2^-140-grid up-rounded per-family radius, rounded unit-jet norm at most 1),
+aggregated through the 2541 sum chain into fjmidUpper2563 = 147/50000000
+about 2.94e-6 with evaluation charge 7.84e-16. The assembly module
+ConnesWeilRH.Dev.C1RouteACorrectionSecondCell2700_2563 then bounds the full
+three-piece 2562 summand on the cell, step * curvature plus 2|sigma| * step *
+(first jet at the midpoint plus curvature * step/2) plus sigma^2 * (step/2 *
+endpoint function values plus curvature * step^3/12), by 236901/10^12 about
+2.36901e-7, from boundaryCellCurvatureBound2551 (91/500000), the new
+first-jet certificate, and the shared endpoint values 179/2000000000 and
+873/10000000000 from 2556; the exact piece sum is 2.369005939687927e-7. This
+exercises the whole exact-arithmetic-to-Lean pipeline of the 2562 route:
+the coefficient boxes consumed are the same 2338 artifact rows that priced
+the external 2561 budget. Axiom audit: all seven audited theorems across the
+two modules depend on exactly propext, Classical.choice, Quot.sound. The
+independent validator scripts/validate_firstjet_midpoint_2563.py replays
+factors, exponentials, rounding, aggregate, and the final three-piece
+inequality in exact arithmetic, rejects four corruption classes, verifies
+byte-identical regeneration, and closes the build-log axiom audit plus a
+753-file project source SHA closure against the verification mirror. Family
+centers and errors stay explicit at the 2338 boxes; actual coefficient
+membership and the remaining 10239 cells stay open, so this is a single-cell
+pipeline certificate, not an RH claim. Evidence:
+docs/proofs/2563_correction_second_cell2700.md,
+results/2563_firstjet_midpoint_readback.json,
+build-logs/2563_cell2700_try3.log, build-logs/2563_cell2700_audit.log,
+build-logs/2563_firstjet_integration.log.
