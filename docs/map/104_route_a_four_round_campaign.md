@@ -5146,3 +5146,19 @@ full-grid total or an exact-interpolant membership proof. No producer GO
 or RH claim. Before mass generation, measure shared endpoint/exponential
 reuse and the kernel cost of the new table structure.
 Evidence: docs/proofs/2575_second_chord_cell2700.md.
+
+
+Record 2576: same-owner endpoint exponentials are shared across derivative
+orders. Four position/input/center/error comparisons pass against the
+2575 order-two and 2555 order-three owners; order-two multipliers remain
+separate. Ten new modules reproduce the same chord-cell numerical bounds,
+with 274 standard-trio audits, twelve wrong-factor/owner/sign rejections,
+deterministic regeneration and 758-file mirror closure. Warm fixed-input
+compile means decrease 21-28% on the four tested endpoints; their summed
+means are 34.6940s -> 25.8611s. The initial 53.6718s standalone sample is
+retained separately, not used to headline a speedup. The comparison
+excludes first construction of imported exponential certificates and is
+not a full-grid cost estimate. Full-grid coverage and actual coefficient
+membership remain open; no producer GO or RH claim. Next: arbitrary-node
+shared order-zero owners and a continuous-span control/cost run.
+Evidence: docs/proofs/2576_shared_endpoint_exponentials.md.

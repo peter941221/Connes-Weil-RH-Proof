@@ -1,0 +1,75 @@
+{
+  "record": 2576,
+  "status": "PRE_WARMUP_TIMING_RETAINED",
+  "scope": "Initial fixed-input compiler readings; first standalone minus node2700 is anomalous, not the production cost verdict.",
+  "timing": {
+    "repetitions": 2,
+    "rows": [
+      {
+        "index": 2700,
+        "sign": -1,
+        "before_seconds": 29.33669369099971,
+        "after_seconds": 3.8760445300003994,
+        "delta_percent": -86.78772539664365,
+        "standalone_samples": [
+          53.67177243900005,
+          5.0016149429993675
+        ],
+        "shared_samples": [
+          3.805155838999781,
+          3.946933221001018
+        ]
+      },
+      {
+        "index": 2701,
+        "sign": -1,
+        "before_seconds": 13.331356372500522,
+        "after_seconds": 9.97312024349958,
+        "delta_percent": -25.19050601578846,
+        "standalone_samples": [
+          13.064721934000772,
+          13.597990811000273
+        ],
+        "shared_samples": [
+          10.159441956999217,
+          9.786798529999942
+        ]
+      },
+      {
+        "index": 2700,
+        "sign": 1,
+        "before_seconds": 5.084217049500694,
+        "after_seconds": 3.9034818879999875,
+        "delta_percent": -23.22353963264929,
+        "standalone_samples": [
+          5.138704621000215,
+          5.0297294780011725
+        ],
+        "shared_samples": [
+          3.771754231000159,
+          4.035209544999816
+        ]
+      },
+      {
+        "index": 2701,
+        "sign": 1,
+        "before_seconds": 13.478397238999605,
+        "after_seconds": 9.790351943999667,
+        "delta_percent": -27.3626398569751,
+        "standalone_samples": [
+          13.34242098499999,
+          13.61437349299922
+        ],
+        "shared_samples": [
+          9.806064700998832,
+          9.774639187000503
+        ]
+      }
+    ],
+    "imports_warm": true,
+    "axiom_prints_removed_from_both": true,
+    "alternating_order": true,
+    "scope": "fixed-input compiler runs; not new grid cells or full-grid timing"
+  },
+  "source_validation_sha256": "28efe250faebdf5bb4be09ac539312b1c02397051526158439a4e2c5bcd66409"
+}
