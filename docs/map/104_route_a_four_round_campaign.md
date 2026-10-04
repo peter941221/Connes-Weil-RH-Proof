@@ -4979,3 +4979,45 @@ Evidence: docs/proofs/2567_replay_mechanism_gate.md,
 results/2567_replay_probe_readback.json,
 build-logs/2567_Cbv.log, build-logs/2567_Decide.log,
 build-logs/2567_Rfl.log.
+
+Record 2568: direction correction — the committed cell2700 correction-second
+certificates (2563, 2565) and their 2558/2556 aggregate layers are
+instantiated at the record-2338 ideal_base_coefficient rows, while the
+channel they feed, the correction side of the 2560 two-channel reduction,
+is the function built from the ideal_correction_coefficient rows (right-hand
+sides 1 versus the captured targets y_i; worst-family midpoint L2 distance
+about 5.7e17). No membership premise can bridge the two center vectors, so
+the 2563/2565 certificates cannot feed the correction consumer even though
+their Lean content is valid at their stated scope. The salvage surface is
+large: every position-keyed table (exp inputs, factors, centers, third
+envelopes, the 90 per-family leaves) is coefficient-independent, and the
+2566 90-110 h kernel projection is unchanged; what regenerates is the
+aggregate layer (coefficient centers and charges). Disposition ordered on
+record before any further generation: reprice single-cell externally,
+regenerate the cell2700 correction-second modules at the correction pair,
+then mass-generate the 2566 lanes at the correction pair, then the
+membership brick at error 1e-28. Scope record only: no regenerated
+certificate, no RH claim. Evidence:
+docs/proofs/2568_row_scope_correction.md.
+
+Record 2569: the 2568 step-2 reprice — the cell2700 minus three-piece
+summand re-evaluated in exact external arithmetic at the correction pair
+(correction midpoints, 1e-28 per-family charge) with the committed
+deterministic helpers and the committed 2558 third envelopes, everything
+else identical. The pipeline first reproduces the committed base-pair
+aggregates (third L1 aggregate bitwise against the 2565 chunked literal,
+endpoint uppers to 1.4e-16, mid/jet within their 9e-8 quantization quanta,
+exact sum 5.0717541e-6 inside the committed 5071985/10^12 bound), then
+reprices: cell bound 3317219889/10^11 (exact 3.3172198889e-2; curvature
+piece 97.6 percent; first-jet 8.05e-4; endpoint 4.9e-6), cross-checked
+against an independent 2561-method trapezoid enclosure of the same cell at
+3.14641891e-2, ratio 1.0543. Charges at the correction scale stay at
+1.2-2.4e-13 against values up to 24.5, so the committed 160-bit
+rationalization grade survives the 5.5e17 correction coefficients without
+deepening. The 2568 "about 12 per cell" figure was the 2561 grid average:
+cell2700 (|x| about 3.1) reprices 6546x its base-pair value because the
+correction mass concentrates near the origin. External pilot only: no Lean
+module regenerated, membership unchanged, no RH claim. Evidence:
+docs/proofs/2569_cell2700_minus_correction_repricing.md,
+scripts/price_cell2700_minus_correction_2569.py,
+results/2569_cell2700_minus_correction_repricing.json.
