@@ -24,7 +24,8 @@ def read(module):
     return (DEV / (module + ".lean")).read_text()
 
 
-def check_node(index, sign, owner=None, derivatives=None):
+def check_node(index, sign, owner=None, derivatives=None, orders=(2, 3)):
+    assert 2 in orders and len(set(orders)) == len(orders) and set(orders) <= {2, 3}
     parent = generation.names(index, sign)
     owner = read(parent["module"]) if owner is None else owner
     derivatives = {} if derivatives is None else derivatives
@@ -37,7 +38,7 @@ def check_node(index, sign, owner=None, derivatives=None):
     opposite = "(1/2)" if sign < 0 else "(-1/2)"
     assert sigma in owner and opposite not in owner.replace(sigma, "SIGMA")
     reports = []
-    for order in (2, 3):
+    for order in orders:
         child = generation.names(index, sign, order)
         raw = derivatives.get(order, read(child["module"]))
         fields = declarations(raw)

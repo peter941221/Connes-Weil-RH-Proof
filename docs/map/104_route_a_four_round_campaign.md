@@ -5193,3 +5193,16 @@ assembly. This is one local cell, not full-grid coverage or coefficient
 membership. Next: a short adjacent-span control and consumer-required
 order-only batch pricing.
 Evidence: docs/proofs/2578_cell2702_second_chord.md.
+
+Record 2579: the adjacent correction second-chord span now closes across
+cells 2702 and 2703 at both signs. A fresh order-zero owner and consumer-
+required order-two derivative owner were generated at node 2704; cell 2703
+uses its own fourth envelope, while cell 2702 reuses the committed 2578
+certificate. The exact cell-2703 uppers are 0.032143775029258005 (minus) and
+0.0014710881197518625 (plus). Adding the exact rational cell bounds gives
+span uppers 0.0640166524134798 and 0.002927923114013575. The Lean audit
+build completes 3947 jobs with 262 standard-trio targets; 24 mutation controls,
+deterministic regeneration, 238-file mirror closure, and the 22-test Linux
+integration all pass. This validates the adjacent interval-integral assembly,
+not full-grid coverage or coefficient membership. Evidence:
+docs/proofs/2579_adjacent_second_chord_span.md.
