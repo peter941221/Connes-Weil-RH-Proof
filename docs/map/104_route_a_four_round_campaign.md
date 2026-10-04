@@ -4825,3 +4825,38 @@ ratios 12.02, 10.42, 9.34, 8.67). This is external pricing, not a Lean
 certificate; coefficient membership and formal grid coverage stay open.
 Evidence: docs/proofs/2561_correction_second_budget.md and
 results/2561_correction_second_10240.json.
+
+Record 2562: the correction-second channel lands on the certified weighted
+aggregate in Lean. The new module
+ConnesWeilRH.Dev.C1RouteACorrectionSecondStrip2562 proves, for every sigma and
+every explicit coefficient set with per-family error bounds, that
+stripSecondNorm sigma (externalPhysical2344 coefficients modulations) is at
+most signedSecondCompositeUpper2562 plus 2|sigma| times
+signedFirstCompositeUpper2562 plus sigma^2 times the certified 2539 composite,
+all on the identical 10240-cell production grid over [-r, r]. The engine is
+the pointwise identity exp(sigma*x) f = W - 2 sigma W
+
+Record 2562: the correction-second channel lands on the certified weighted
+aggregate in Lean. The new module
+ConnesWeilRH.Dev.C1RouteACorrectionSecondStrip2562 proves, for every sigma and
+every explicit coefficient set with per-family error bounds, that
+stripSecondNorm sigma (externalPhysical2344 coefficients modulations) is at
+most signedSecondCompositeUpper2562 plus 2|sigma| times
+signedFirstCompositeUpper2562 plus sigma^2 times the certified 2539 composite,
+all on the identical 10240-cell production grid over [-r, r]. The engine is
+the pointwise identity exp(sigma*x) f'' = W'' - 2 sigma W' + sigma^2 W on the
+weighted aggregate W, proved from the certified weighted-function derivative
+formulas, with exterior vanishing of f'' at |x| >= r (open-set transfer plus
+one-sided nhdsWithin limits with tendsto_nhds_unique at the boundary), a new
+first-jet midpoint-plus-curvature cell bound via
+Convex.norm_image_sub_le_of_norm_deriv_le, and per-cell integral mono charging.
+Axiom audit: the main theorem and five interface theorems depend on exactly
+propext, Classical.choice, Quot.sound. Integration rebuild of the root target
+passes with 0 errors (4148 jobs). This is the Lean landing pad for the
+externally priced 2561 channel values; family centers and errors stay
+explicit hypotheses, so no numeric certificate is claimed yet and the two
+endpoint inputs of the two-channel budget remain open. Evidence:
+docs/proofs/2562_correction_second_lean_interface.md,
+build-logs/2562_correction_strip_try9.log,
+build-logs/2562_correction_strip_audit.log,
+build-logs/2562_correction_strip_integration.log.

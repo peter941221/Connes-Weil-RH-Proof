@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteACorrectionSecondStrip2562
+
+#print axioms ConnesWeilRH.Dev.externalPhysical2344_stripSecond_le_decomposed2562
+#print axioms ConnesWeilRH.Dev.weightedPhysical2539_first_integral_le_composite2562
+#print axioms ConnesWeilRH.Dev.weightedPhysical2539_second_integral_le_composite2562
+#print axioms ConnesWeilRH.Dev.weightedPhysical2539_first_le_signed_midpoint2562
+#print axioms ConnesWeilRH.Dev.weightedPhysical2539_secondDeriv_integrand_le2562
+#print axioms ConnesWeilRH.Dev.externalPhysical2344_stripSecond_eq_interval2562
