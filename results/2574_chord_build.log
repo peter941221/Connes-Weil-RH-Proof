@@ -1,0 +1,19 @@
+Focused module/audit excerpt; dependency replay warnings omitted.
+Full log error lines: 0; placeholder mentions: 0.
+Full log SHA256: 1e82ad59f280ed916319f760c6f381ce2046910b7f0fdb320924361e4674c52d
+
+✔ [3724/3725] Built ConnesWeilRH.Dev.C1RouteACorrectionSecondChord2574 (36s)
+ℹ [3725/3725] Built ConnesWeilRH.Dev.C1RouteACorrectionSecondChord2574Audit (1.2s)
+info: ConnesWeilRH/Dev/C1RouteACorrectionSecondChord2574Audit.lean:3:0: 'ConnesWeilRH.Dev.weightedUnitFourthCellUpper_nonneg2574' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrectionSecondChord2574Audit.lean:4:0: 'ConnesWeilRH.Dev.weightedExternalFamily_fourth_le_cell2574' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrectionSecondChord2574Audit.lean:5:0: 'ConnesWeilRH.Dev.weightedPhysical2539_fourth_le_cell2574' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrectionSecondChord2574Audit.lean:6:0: 'ConnesWeilRH.Dev.weightedPhysical2539_second_norm_integral_le_chord2574' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrectionSecondChord2574Audit.lean:7:0: 'ConnesWeilRH.Dev.weightedPhysical2539_second_integral_le_chord_composite2574' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrectionSecondChord2574Audit.lean:8:0: 'ConnesWeilRH.Dev.externalPhysical2344_stripSecond_le_secondChord2574' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Build completed successfully (3725 jobs).

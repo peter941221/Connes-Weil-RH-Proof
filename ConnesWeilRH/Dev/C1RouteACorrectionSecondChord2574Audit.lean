@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteACorrectionSecondChord2574
+
+#print axioms ConnesWeilRH.Dev.weightedUnitFourthCellUpper_nonneg2574
+#print axioms ConnesWeilRH.Dev.weightedExternalFamily_fourth_le_cell2574
+#print axioms ConnesWeilRH.Dev.weightedPhysical2539_fourth_le_cell2574
+#print axioms ConnesWeilRH.Dev.weightedPhysical2539_second_norm_integral_le_chord2574
+#print axioms ConnesWeilRH.Dev.weightedPhysical2539_second_integral_le_chord_composite2574
+#print axioms ConnesWeilRH.Dev.externalPhysical2344_stripSecond_le_secondChord2574

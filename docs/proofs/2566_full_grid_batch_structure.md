@@ -1,5 +1,16 @@
 # Record 2566 — Full-grid batch structure for the correction-second channel
 
+Status update (records 2573-2574, 2026-10-04): the constant-per-cell
+second-channel construction below is OVER BUDGET at the production grid
+and must not be mass-generated under the old cost plan. Its full-grid
+external totals are about 5.14e6 and 5.11e6 against the 666472.585392 pin.
+Record 2574 proves a same-owner endpoint-chord replacement, with external
+prices about 183747 and 157982. The replacement needs separate endpoint
+and fourth-envelope tables; the old three-sum affine plan and the claim
+that 2561 prices its analytic totals are superseded. The original draft
+below is retained as history. See 2573_decomposed_correction_grid_failure.md
+and 2574_same_owner_second_chord.md.
+
 Verdict: DESIGN DRAFT, no certificate. This record fixes the architecture,
 the cost model, and the lane decomposition for scaling the certified cell2700
 pipeline (2563 plus, 2565 minus) to all 10240 cells at both endpoint signs,

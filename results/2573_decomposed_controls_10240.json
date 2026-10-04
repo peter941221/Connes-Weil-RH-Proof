@@ -1,0 +1,26 @@
+{
+  "record": 2573,
+  "cells": 10240,
+  "status": "DECOMPOSED_GRID_PRICE_VALIDATED",
+  "analytic_grid_fits": false,
+  "controls": {
+    "derivative_checks": 90,
+    "reconstruction_checks": 18,
+    "fourth_sample_checks": 90,
+    "max_scaled_error": "5.26103512672683525915463999250339826700063762740569733597828844766906821977789554101271314e-56",
+    "samples_are_not_integral_certificates": true
+  },
+  "mutation_rejections": [
+    "zero_total",
+    "missing_sign",
+    "wrong_coefficient_owner",
+    "unproved_membership"
+  ],
+  "source_artifact_sha256": "0427c4578f1a32c2588b53218cef33659adc68573893b951759b38494e115576",
+  "validator_sha256": "2a0f6cfe4733346e335662c635c192e071af5e62dfaf61d88d49ad4ae2b76ce1",
+  "lean_certificate": false,
+  "table_rounding_priced": false,
+  "exact_coefficient_membership": false,
+  "producer_go": false,
+  "rh_claim": false
+}

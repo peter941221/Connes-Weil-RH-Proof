@@ -5110,3 +5110,24 @@ production costs are not certified by this two-cell pilot. Exact
 interpolant membership remains distinct from choosing points inside
 boxes. Evidence: docs/proofs/2572_adjacent_correction_affine_segment.md.
 No producer GO or RH claim.
+
+
+Record 2573: the production-grid price of the 2562 correction-second
+construction is OVER BUDGET at both signs: 5137302.91465908 and
+5111537.64264868 against 666472.585392. The unsigned third variation
+alone costs 4849971.55. Local certificates 2570-2572 remain valid;
+the 2566 constant-per-cell second-channel production plan stops at these
+inputs. Same-run direct 2561 reproduction and independent controls pass.
+This is a method-specific price failure, not a global no-go.
+Evidence: docs/proofs/2573_decomposed_correction_grid_failure.md.
+
+Record 2574: same-owner second-chord method proved in Lean. Replace only
+the second integral by signed endpoint trapezoids plus whole-cell fourth
+bounds times h^3/12; first/value channels, correction owner, 1e-28 allowance
+and 10240 grid remain unchanged. External totals are 183747.17913191413
+and 157981.90712151656. Both fit the pin. Six audited generic theorems
+use exactly the standard axiom trio. The full-grid rational tables,
+table-rounding allowances and actual exact-interpolant membership remain
+open; no producer GO or RH claim. The next production plan must use this
+separate endpoint/fourth structure, not the superseded 2566 affine total.
+Evidence: docs/proofs/2574_same_owner_second_chord.md.

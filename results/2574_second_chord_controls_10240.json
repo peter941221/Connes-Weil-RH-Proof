@@ -1,0 +1,54 @@
+{
+  "record": 2574,
+  "status": "SECOND_CHORD_METHOD_VALIDATED",
+  "cells": 10240,
+  "analytic_grid_fits": true,
+  "deterministic_non_timing_fields": true,
+  "controls": {
+    "derivative_checks": 90,
+    "reconstruction_checks": 18,
+    "fourth_sample_checks": 90,
+    "max_scaled_error": "5.26103512672683525915463999250339826700063762740569733597828844766906821977789554101271314e-56",
+    "samples_are_not_integral_certificates": true
+  },
+  "endpoint_controls": {
+    "endpoint_checks": 10,
+    "includes_support_edges": true,
+    "sampled_controls_not_full_table_certificate": true
+  },
+  "mutation_rejections": [
+    "zero_total",
+    "zero_remainder",
+    "missing_sign",
+    "wrong_owner",
+    "false_membership",
+    "false_lean_certificate",
+    "predecessor_drift"
+  ],
+  "build": {
+    "expected_targets": [
+      "weightedUnitFourthCellUpper_nonneg2574",
+      "weightedExternalFamily_fourth_le_cell2574",
+      "weightedPhysical2539_fourth_le_cell2574",
+      "weightedPhysical2539_second_norm_integral_le_chord2574",
+      "weightedPhysical2539_second_integral_le_chord_composite2574",
+      "externalPhysical2344_stripSecond_le_secondChord2574"
+    ],
+    "verified_targets": 6,
+    "axiom_trio": true,
+    "source_mirror_equal": true,
+    "log_sha256": "442db3f4e6d45a8bb99a053c21479e51d48e7a7a69ab46f47bfdc3f6a44098a5",
+    "source_sha256": {
+      "ConnesWeilRH/Dev/C1RouteACorrectionSecondChord2574.lean": "da13bd954069e2b1a3e34868e4e28c7b2bcbeee57ae7353d5940a295dcc1e5d3",
+      "ConnesWeilRH/Dev/C1RouteACorrectionSecondChord2574Audit.lean": "664af4f72ca9af0b34442b5d0f933f902a6bf2d8dd491e0335ddc8c2d1395fdc"
+    }
+  },
+  "source_artifact_sha256": "0f189745a6e93f6fa7628d3a0fdf452c4343e1e7db53383460de21d66aba4068",
+  "validator_sha256": "f4d331317e77a33145f59e71f06e0c445cc643d0de895e3296a71dc576d7464e",
+  "generic_lean_method_proved": true,
+  "lean_certificate": false,
+  "table_rounding_priced": false,
+  "exact_coefficient_membership": false,
+  "producer_go": false,
+  "rh_claim": false
+}
