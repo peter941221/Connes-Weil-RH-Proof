@@ -5162,3 +5162,21 @@ not a full-grid cost estimate. Full-grid coverage and actual coefficient
 membership remain open; no producer GO or RH claim. Next: arbitrary-node
 shared order-zero owners and a continuous-span control/cost run.
 Evidence: docs/proofs/2576_shared_endpoint_exponentials.md.
+
+
+Record 2577: arbitrary-node first-value ownership now has checked fresh
+instances at nodes 2702 and 2703, both signs. Each point has a standalone
+order-zero exponential owner; order-two and order-three leaves refer to
+that proof with separate factors, without an earlier 2575/2555 point leaf.
+The correction-owner signed second uppers are 24.78293182/24.99367675
+(minus) and 1.13205122/1.14313167 (plus). Seventeen Lean modules regenerate;
+632 targets have the standard axiom trio, sixteen mutations fail, and the
+source/config mirror closure checks 749 files. Root 4148 jobs and 22 Linux
+integration tests pass. Warm fixed-input value-owner checking costs
+9.13-9.53s and order-two reuse 9.07-9.39s; imported infrastructure is warm,
+and generation/signed bounds/fourth tables/assembly are outside timing.
+Order-three reuse costs 17.34-18.13s but the 2574 chord consumer does not
+need that endpoint order. No full-grid/runtime extrapolation, exact
+coefficient membership, producer GO or RH claim. Next: consumer-required
+orders and a new chord-cell assembly with its certified fourth table.
+Evidence: docs/proofs/2577_fresh_node_exponential_owners.md.

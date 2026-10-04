@@ -1,0 +1,369 @@
+{
+  "record": 2577,
+  "status": "NODE_OWNER_COST_MEASURED",
+  "rows": [
+    {
+      "index": 2702,
+      "sign": -1,
+      "active": 28,
+      "warmup": {
+        "value_owner": {
+          "wall_seconds": 57.165213715999926,
+          "user_seconds": 12.797092,
+          "system_seconds": 4.7688749999999995,
+          "minor_faults": 138667,
+          "major_faults": 68274
+        },
+        "order_two": {
+          "wall_seconds": 9.661829986000157,
+          "user_seconds": 36.874817,
+          "system_seconds": 1.0787550000000001,
+          "minor_faults": 167102,
+          "major_faults": 71
+        },
+        "order_three": {
+          "wall_seconds": 17.997449575001156,
+          "user_seconds": 50.165963000000005,
+          "system_seconds": 0.9650509999999999,
+          "minor_faults": 174278,
+          "major_faults": 0
+        }
+      },
+      "samples": {
+        "value_owner": [
+          {
+            "wall_seconds": 9.080995483998777,
+            "user_seconds": 11.310779999999994,
+            "system_seconds": 0.7805180000000007,
+            "minor_faults": 156394,
+            "major_faults": 0
+          },
+          {
+            "wall_seconds": 9.214835695000147,
+            "user_seconds": 11.54253300000002,
+            "system_seconds": 0.8843349999999983,
+            "minor_faults": 165459,
+            "major_faults": 0
+          }
+        ],
+        "order_two": [
+          {
+            "wall_seconds": 9.037324803999581,
+            "user_seconds": 35.06081900000001,
+            "system_seconds": 0.9407370000000004,
+            "minor_faults": 161600,
+            "major_faults": 0
+          },
+          {
+            "wall_seconds": 9.127192162999563,
+            "user_seconds": 35.584835999999996,
+            "system_seconds": 0.9542110000000008,
+            "minor_faults": 167467,
+            "major_faults": 0
+          }
+        ],
+        "order_three": [
+          {
+            "wall_seconds": 17.764801742998316,
+            "user_seconds": 49.089905999999985,
+            "system_seconds": 0.8673570000000002,
+            "minor_faults": 181074,
+            "major_faults": 0
+          },
+          {
+            "wall_seconds": 17.499368127000707,
+            "user_seconds": 48.70482899999999,
+            "system_seconds": 0.8642719999999997,
+            "minor_faults": 174441,
+            "major_faults": 0
+          }
+        ]
+      },
+      "mean_wall_seconds": {
+        "value_owner": 9.147915589499462,
+        "order_two": 9.082258483499572,
+        "order_three": 17.63208493499951
+      },
+      "source_sha256": {
+        "ConnesWeilRH/Dev/C1RouteANodeExpN02702Minus2577.lean": "8c4d98fb3e3fd6c62634d3e7523e439445384d039d29ebd19493fb84f5efe78c",
+        "ConnesWeilRH/Dev/C1RouteANodeJet2N02702Minus2577.lean": "58a71ba5c88f4a07eea589b58ae473f341ef8e1d108f368bfbd69a5b5ec0a5fb",
+        "ConnesWeilRH/Dev/C1RouteANodeJet3N02702Minus2577.lean": "af2e7cf09cd1298e357f7032a1cb1d19b69376c260a664140b8284530a422cc0"
+      }
+    },
+    {
+      "index": 2703,
+      "sign": -1,
+      "active": 28,
+      "warmup": {
+        "value_owner": {
+          "wall_seconds": 9.203275869000208,
+          "user_seconds": 11.328335999999979,
+          "system_seconds": 0.8069740000000003,
+          "minor_faults": 161327,
+          "major_faults": 0
+        },
+        "order_two": {
+          "wall_seconds": 9.11254327700044,
+          "user_seconds": 35.066273000000024,
+          "system_seconds": 0.9015620000000002,
+          "minor_faults": 164052,
+          "major_faults": 33
+        },
+        "order_three": {
+          "wall_seconds": 17.378526547001456,
+          "user_seconds": 48.33728400000001,
+          "system_seconds": 0.9562059999999999,
+          "minor_faults": 173170,
+          "major_faults": 0
+        }
+      },
+      "samples": {
+        "value_owner": [
+          {
+            "wall_seconds": 9.445746074999988,
+            "user_seconds": 11.600101999999993,
+            "system_seconds": 0.8192589999999988,
+            "minor_faults": 153396,
+            "major_faults": 0
+          },
+          {
+            "wall_seconds": 9.61124890499923,
+            "user_seconds": 11.909489000000008,
+            "system_seconds": 0.8843929999999993,
+            "minor_faults": 161469,
+            "major_faults": 0
+          }
+        ],
+        "order_two": [
+          {
+            "wall_seconds": 9.232785890000741,
+            "user_seconds": 35.45683700000001,
+            "system_seconds": 0.9032660000000021,
+            "minor_faults": 169944,
+            "major_faults": 0
+          },
+          {
+            "wall_seconds": 9.538765866000176,
+            "user_seconds": 36.64087100000006,
+            "system_seconds": 1.0586570000000002,
+            "minor_faults": 163659,
+            "major_faults": 0
+          }
+        ],
+        "order_three": [
+          {
+            "wall_seconds": 17.616407543000605,
+            "user_seconds": 48.99341399999997,
+            "system_seconds": 0.8813309999999994,
+            "minor_faults": 180635,
+            "major_faults": 0
+          },
+          {
+            "wall_seconds": 18.641830878999826,
+            "user_seconds": 51.079963999999904,
+            "system_seconds": 1.035060999999999,
+            "minor_faults": 174629,
+            "major_faults": 0
+          }
+        ]
+      },
+      "mean_wall_seconds": {
+        "value_owner": 9.528497489999609,
+        "order_two": 9.385775878000459,
+        "order_three": 18.129119211000216
+      },
+      "source_sha256": {
+        "ConnesWeilRH/Dev/C1RouteANodeExpN02703Minus2577.lean": "5d8d24a20659a516bd0b8c261289a27cd8e1d0f5322fd7e6c48227298d2e786a",
+        "ConnesWeilRH/Dev/C1RouteANodeJet2N02703Minus2577.lean": "3da47f58845dc05f4f8e2c6fecfc107bc94297fb21dca649776950b212fa9ec4",
+        "ConnesWeilRH/Dev/C1RouteANodeJet3N02703Minus2577.lean": "d6bca38c935db1628406b8faa54c21883f2c5a46c4c9dd1e523e6347d1a54255"
+      }
+    },
+    {
+      "index": 2702,
+      "sign": 1,
+      "active": 28,
+      "warmup": {
+        "value_owner": {
+          "wall_seconds": 9.45555958299883,
+          "user_seconds": 11.551356000000055,
+          "system_seconds": 0.9553100000000008,
+          "minor_faults": 161638,
+          "major_faults": 0
+        },
+        "order_two": {
+          "wall_seconds": 9.025497306000034,
+          "user_seconds": 34.71625199999994,
+          "system_seconds": 0.9142599999999987,
+          "minor_faults": 164879,
+          "major_faults": 34
+        },
+        "order_three": {
+          "wall_seconds": 17.69694362700102,
+          "user_seconds": 48.047011999999995,
+          "system_seconds": 0.8644750000000023,
+          "minor_faults": 173854,
+          "major_faults": 0
+        }
+      },
+      "samples": {
+        "value_owner": [
+          {
+            "wall_seconds": 9.209783692000201,
+            "user_seconds": 11.492897999999968,
+            "system_seconds": 0.7477260000000001,
+            "minor_faults": 156594,
+            "major_faults": 0
+          },
+          {
+            "wall_seconds": 9.135897430998739,
+            "user_seconds": 11.481577000000016,
+            "system_seconds": 0.7753619999999977,
+            "minor_faults": 155521,
+            "major_faults": 0
+          }
+        ],
+        "order_two": [
+          {
+            "wall_seconds": 9.112576342999091,
+            "user_seconds": 34.44647599999996,
+            "system_seconds": 0.8188990000000018,
+            "minor_faults": 160555,
+            "major_faults": 0
+          },
+          {
+            "wall_seconds": 9.019268914998975,
+            "user_seconds": 34.55595200000005,
+            "system_seconds": 0.8451560000000029,
+            "minor_faults": 162498,
+            "major_faults": 0
+          }
+        ],
+        "order_three": [
+          {
+            "wall_seconds": 17.509727833999932,
+            "user_seconds": 47.75978200000009,
+            "system_seconds": 0.9448909999999984,
+            "minor_faults": 170767,
+            "major_faults": 0
+          },
+          {
+            "wall_seconds": 17.451466170001368,
+            "user_seconds": 47.607658000000015,
+            "system_seconds": 0.9039369999999991,
+            "minor_faults": 171869,
+            "major_faults": 0
+          }
+        ]
+      },
+      "mean_wall_seconds": {
+        "value_owner": 9.17284056149947,
+        "order_two": 9.065922628999033,
+        "order_three": 17.48059700200065
+      },
+      "source_sha256": {
+        "ConnesWeilRH/Dev/C1RouteANodeExpN02702Plus2577.lean": "ddccf191e18a6fb473bfa5ad0b4241bb6cc2381ba77400ac4754980d0ee06709",
+        "ConnesWeilRH/Dev/C1RouteANodeJet2N02702Plus2577.lean": "aa9c00f2e68e9901fa1ac60f43c223ccfc1616fba16adb4dc69d9b6a55ddac4c",
+        "ConnesWeilRH/Dev/C1RouteANodeJet3N02702Plus2577.lean": "3370bf0bfa74c9e70a5c908c5bde5aca4ae6e9e08df7b12ff169ea6a7c6da4c3"
+      }
+    },
+    {
+      "index": 2703,
+      "sign": 1,
+      "active": 28,
+      "warmup": {
+        "value_owner": {
+          "wall_seconds": 9.119298861000061,
+          "user_seconds": 11.467114999999922,
+          "system_seconds": 0.7157309999999981,
+          "minor_faults": 164715,
+          "major_faults": 0
+        },
+        "order_two": {
+          "wall_seconds": 9.266601027000434,
+          "user_seconds": 34.619001000000026,
+          "system_seconds": 0.8319140000000012,
+          "minor_faults": 164537,
+          "major_faults": 34
+        },
+        "order_three": {
+          "wall_seconds": 17.55983758900038,
+          "user_seconds": 47.925820000000044,
+          "system_seconds": 0.8868219999999987,
+          "minor_faults": 175719,
+          "major_faults": 0
+        }
+      },
+      "samples": {
+        "value_owner": [
+          {
+            "wall_seconds": 9.169325587999992,
+            "user_seconds": 11.458176999999978,
+            "system_seconds": 0.7542589999999976,
+            "minor_faults": 161586,
+            "major_faults": 0
+          },
+          {
+            "wall_seconds": 9.091028228000141,
+            "user_seconds": 11.240324999999984,
+            "system_seconds": 0.8218060000000023,
+            "minor_faults": 155780,
+            "major_faults": 0
+          }
+        ],
+        "order_two": [
+          {
+            "wall_seconds": 9.147017721999873,
+            "user_seconds": 34.238608,
+            "system_seconds": 0.9629490000000018,
+            "minor_faults": 160964,
+            "major_faults": 0
+          },
+          {
+            "wall_seconds": 9.144758840999202,
+            "user_seconds": 34.268735000000106,
+            "system_seconds": 0.9303480000000022,
+            "minor_faults": 168776,
+            "major_faults": 0
+          }
+        ],
+        "order_three": [
+          {
+            "wall_seconds": 17.298994651000612,
+            "user_seconds": 47.40106800000001,
+            "system_seconds": 0.8868100000000005,
+            "minor_faults": 177352,
+            "major_faults": 0
+          },
+          {
+            "wall_seconds": 17.388092983001115,
+            "user_seconds": 47.28095399999984,
+            "system_seconds": 0.9019750000000002,
+            "minor_faults": 174870,
+            "major_faults": 0
+          }
+        ]
+      },
+      "mean_wall_seconds": {
+        "value_owner": 9.130176908000067,
+        "order_two": 9.145888281499538,
+        "order_three": 17.343543817000864
+      },
+      "source_sha256": {
+        "ConnesWeilRH/Dev/C1RouteANodeExpN02703Plus2577.lean": "800bb8e8df1a9ab82c9d3d3c6409d0c71a581126ce5f1b0056fbe393ec24ffce",
+        "ConnesWeilRH/Dev/C1RouteANodeJet2N02703Plus2577.lean": "a40c631c8f1b5f93e5598b74ccc60b6ce1f299106a25e9468758ca143b532311",
+        "ConnesWeilRH/Dev/C1RouteANodeJet3N02703Plus2577.lean": "a60adb5d9c853d9a5d76e7bf7e8cc0454ad2d658ac892eeb0befbd6b4297b750"
+      }
+    }
+  ],
+  "repetitions": 2,
+  "warmup_rounds": 1,
+  "alternating_order": true,
+  "imports_warm": true,
+  "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "lean_toolchain": "leanprover/lean4:v4.30.0",
+  "scope": "fixed fresh-node inputs; value-owner source is checked in full; imported infrastructure is warm; not cold end-to-end generation or full-grid throughput",
+  "script_sha256": "a917ed23b9925a6e76d0fc82767f92e44f34fe866decd7aba33e63db14fa373a",
+  "generation_sha256": "c7e66986dbfa2367bef47439f00f22957a7b05fa62762f145226d09224201142",
+  "full_grid_certificate": false,
+  "rh_claim": false
+}
