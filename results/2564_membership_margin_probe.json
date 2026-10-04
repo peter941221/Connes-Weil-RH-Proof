@@ -1,0 +1,33 @@
+{
+  "record": 2564,
+  "scope": "membership margin probe; external only, no Lean claim",
+  "note": "base error matches the committed baseBox_widths2540 constant; correction error is this probe's recommended ceiling 1/10^28 over the raw 2338 widths (the committed 2540 constant does not cover the correction boxes)",
+  "base": {
+    "error_constant": "1/1000000000000000000000000000000",
+    "slots_checked": 30,
+    "max_half_l1": "365454475/10889035741470030830827987437816582766592",
+    "max_half_l1_display": 3.3561693034783195e-32,
+    "box_slack_ratio": 29.79587468855055,
+    "representative_offset_sq_max": "785858887889996747719039952223422209131644932024467917606942781905020028537/1167984798111281975972139931059274579172666497855631342228273284582214442805421410945513679697247078343332431250840168271536308408672112127552681297848886832192510636636227827221215793215130566656",
+    "representative_offset_slack_ratio": 1.0,
+    "representatives_inside_boxes": 30,
+    "smallest_k_within_half_error": 101
+  },
+  "correction": {
+    "error_constant": "1/10000000000000000000000000000",
+    "slots_checked": 30,
+    "max_half_l1": "1365042733/21267647932558653966460912964485513216",
+    "max_half_l1_display": 6.418400085090065e-29,
+    "box_slack_ratio": 1.5580206698597658,
+    "representative_offset_sq_max": "971334355795760858671395830273335117394408321065308361958784692943078128659236329205/1254114127528279663858649702758819738757691336351197686075754380957778013777036862877289423055073845679040662969631723812346323072954131093770936672842951023567968290121184491680065097304421119039367020544",
+    "representative_offset_slack_ratio": 1.0,
+    "representatives_inside_boxes": 30,
+    "smallest_k_within_half_error": 95
+  },
+  "truncation_exponent": 200,
+  "source_sha256": "7efde152db5e18c2d312cae16309172154044b443477bca75b9619b3070eb258",
+  "lean_import_module": false,
+  "membership_proof": false,
+  "producer_go": false,
+  "rh_claim": false
+}
