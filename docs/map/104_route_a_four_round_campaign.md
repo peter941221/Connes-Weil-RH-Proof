@@ -5131,3 +5131,18 @@ table-rounding allowances and actual exact-interpolant membership remain
 open; no producer GO or RH claim. The next production plan must use this
 separate endpoint/fourth structure, not the superseded 2566 affine total.
 Evidence: docs/proofs/2574_same_owner_second_chord.md.
+
+
+Record 2575: second-chord numerical cell certificate at both signs for
+production cell 2700. Four signed order-2 endpoint certificates at nodes
+2700/2701 feed the reused 2558 whole-cell fourth envelopes. The checked
+second-integral bounds are 0.031337156561715526 (minus) and
+0.0014287074027819074 (plus). ProductionSummand_le matches the actual
+2574 grid coordinates; Integral_le retains the coefficient-distance
+premise. Six committed base modules regress byte-for-byte, the ten new
+modules regenerate deterministically, and the dedicated audit has 154
+expected standard-trio targets. This is one second-integral cell, not a
+full-grid total or an exact-interpolant membership proof. No producer GO
+or RH claim. Before mass generation, measure shared endpoint/exponential
+reuse and the kernel cost of the new table structure.
+Evidence: docs/proofs/2575_second_chord_cell2700.md.
