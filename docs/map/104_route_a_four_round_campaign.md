@@ -4884,3 +4884,45 @@ docs/proofs/2563_correction_second_cell2700.md,
 results/2563_firstjet_midpoint_readback.json,
 build-logs/2563_cell2700_try3.log, build-logs/2563_cell2700_audit.log,
 build-logs/2563_firstjet_integration.log.
+
+Record 2565: the sigma = -1/2 half of the cell2700 correction-second
+certificate lands, discharging the two-sign single-cell obligation of the
+2562 decomposition. The generator
+scripts/generate_firstjet_midpoint_minus_2565.py clones the 2563 order-1
+template at sigma = -1/2 (the active-family set is sigma-independent, the
+same 28 families) into
+ConnesWeilRH.Dev.C1RouteAFirstJetMidpointMinus2565 with
+fjminUpper2565 = 1283/20000000 about 6.415e-5 and evaluation charge
+7.85e-16, about 22x the plus-side jet, consistent with the minus-sign
+amplification of the bump derivatives on this cell. The assembly module
+ConnesWeilRH.Dev.C1RouteACorrectionSecondCell2700Minus_2565 adds the new L1
+coefficient bridge: the 2558 batch curvature aggregate stores L2 coefficient
+norms, so correctionThirdL1Sum_eq_2565 closes the 30-term L1 sum
+(|re| + |im| + error per family, pointwise bridge
+Complex.norm_le_abs_re_add_abs_im over the certified 2558 ThirdCell leaves)
+to the closed rational correctionThirdL1Upper2565 = 0.1889474614460479,
+proved by sum30_chain2541 plus one norm_num naming all 90 per-family leaves
+(the match dispatchers only unfold one level). The main theorem
+correctionSecondCell2700MinusSummand_le_2565 transports the 2558 curvature
+lemma from the kernel positions to the 2548 edge positions and bounds the
+three-piece summand by 5071985/10^12 about 5.071985e-6 from the bridged
+curvature about 3.8953564e-3, the new first-jet certificate, and the shared
+minus endpoint values 19793/10^10 and 9637/(5*10^9) from 2556; the exact
+piece sum is 5.071984558354379e-6, headroom 1.0000000870 (tighter than the
+plus side's 1.0000017, tracking the 22x larger minus charge). Axiom audit:
+all eight audited theorems across the two modules depend on exactly propext,
+Classical.choice, Quot.sound. The independent validator
+scripts/validate_firstjet_midpoint_minus_2565.py (status
+BUILD_AXIOM_SOURCE_MINUS_FIRST_JET_CELL2700_PASS) replays every factor at
+sigma = -1/2, the 160-bit exponentials, rounding, aggregate, the L1 bridge
+literal against an independent 90-leaf recomputation, and the final
+three-piece inequality in exact arithmetic, rejects four corruption classes,
+verifies byte-identical regeneration, and closes the build-log axiom audit
+plus the project source SHA closure against the verification mirror. Family
+centers and errors stay explicit at the 2338 boxes; no membership claim and
+no RH claim. Evidence:
+docs/proofs/2565_correction_second_cell2700_minus.md,
+results/2565_cell2700_minus_pricing.json,
+results/2565_minus_firstjet_midpoint_readback.json,
+build-logs/2565_minus_cell2700_try3.log, build-logs/2565_minus_full_audit.log,
+build-logs/2565_minus_integration.log.
