@@ -4807,3 +4807,21 @@ function instead changes the target. Then expand formal grid coverage and
 prove actual coefficient membership. The selected-owner signed budget
 remains open. Evidence: docs/proofs/2560_grid_budget_and_two_channel_bridge.md
 and results/2560_production_grid_validation.json.
+
+Record 2561: the second channel of the 2560 two-channel bridge is priced at
+both endpoint signs. External exact arithmetic encloses integral
+exp(sigma*x)|c''(x)| dx over all 10240 production cells from the 2338
+ideal_correction_coefficient boxes: 126381.736940 at sigma=-1/2 and
+101290.552277 at sigma=+1/2, each under the pin 666472.585392 with margin
+above 5.4e5. Paired with the 2560 base-norm candidates the products are about
+339775.5 and 271132.2 against budget 9506275.1026, roughly 28x and 35x
+headroom, with both endpoint inputs still explicit hypotheses. Independent
+controls: 90 mpmath derivative checks against the priced jets (max scaled
+error 5.30e-56 versus the 1e-45 bar), 90 envelope samples including
+support-crossing cells, wrong-convention detection confirming the target is
+exp(sigma*x)*c'' and not the second derivative of the weighted function, and
+a 256-to-4096-cell remainder ladder converging to the h^3 law (doubling
+ratios 12.02, 10.42, 9.34, 8.67). This is external pricing, not a Lean
+certificate; coefficient membership and formal grid coverage stay open.
+Evidence: docs/proofs/2561_correction_second_budget.md and
+results/2561_correction_second_10240.json.

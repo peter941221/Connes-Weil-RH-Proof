@@ -1,0 +1,12 @@
+{
+  "status": "INDEPENDENT_DERIVATIVE_CONTROLS_PASS",
+  "derivative_checks": 90,
+  "envelope_sample_checks": 90,
+  "max_scaled_error": "5.30080780231939674897026673848712164716474489762798858771619210287904873646926998737464995e-56",
+  "wrong_weighted_derivative_detected": true,
+  "envelope_samples_are_not_integral_certificates": true,
+  "source_sha256": {
+    "scripts/price_correction_second_2561.py": "68740739dafb02b7b845995b087ec0492e1f321d1b570ccc461583d6c5146578",
+    "scripts/validate_correction_second_2561.py": "2a49f6799660028d01402a02a29a0eb6d8c574ec5491b10cb04d414085b8aa6c"
+  }
+}
