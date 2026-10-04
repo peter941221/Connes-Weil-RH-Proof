@@ -5100,3 +5100,13 @@ results/2571_cell2700_plus_correction_repricing.json,
 results/2571_generation_readback.json,
 results/2571_correction_pair_validation.json,
 build-logs/2571_full_build.log.
+
+Record 2572: the correction-pair minus certificate extends to cell 2701,
+reusing the committed 2570 left endpoint at position 2701. The new bound
+is 33454650339/1000000000000; the two certified neighboring summands total
+at most 66626849459/1000000000000. Generic affine factorization and
+finite-sum identities now compile in Lean, but full-grid pricing and
+production costs are not certified by this two-cell pilot. Exact
+interpolant membership remains distinct from choosing points inside
+boxes. Evidence: docs/proofs/2572_adjacent_correction_affine_segment.md.
+No producer GO or RH claim.
