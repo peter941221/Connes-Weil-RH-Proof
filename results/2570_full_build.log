@@ -1,0 +1,2039 @@
+⚠ [3531/3748] Replayed ConnesWeilRH.Source.CCM25Concrete.PrimePowerSupport
+warning: ConnesWeilRH/Source/CCM25Concrete/PrimePowerSupport.lean:512:4: Try this: intro n hn
+⚠ [3533/3748] Replayed ConnesWeilRH.Source.CCM25Concrete.FinitePrimeCertificate
+warning: ConnesWeilRH/Source/CCM25Concrete/FinitePrimeCertificate.lean:93:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+⚠ [3536/3748] Replayed ConnesWeilRH.Source.CCM25Concrete.FinitePrimeSourceData
+warning: ConnesWeilRH/Source/CCM25Concrete/FinitePrimeSourceData.lean:249:9: unused variable `hn`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [3543/3748] Replayed ConnesWeilRH.Source.AnalyticCoreBase
+warning: ConnesWeilRH/Source/AnalyticCoreBase.lean:3491:2: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+⚠ [3547/3748] Replayed ConnesWeilRH.Source.CC20YoshidaCriterion
+warning: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: `simp [nodeValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: Try this:
+  [apply] simp only [reduceCtorEq] at h ⊢
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:145:4: `exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) h.symm` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: `simp [nodeValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: Try this:
+  [apply] simp only [reduceCtorEq] at h ⊢
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:146:4: `exact
+  (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+    (by simpa [criticalVanishingPointValue] using h.symm)` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: `simp [nodeValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: Try this:
+  [apply] simp only [reduceCtorEq] at h ⊢
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:148:4: `exact (standard_source_nontrivial_zero_ne_cc20_one hrho) h.symm` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: `simp [nodeValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: Try this:
+  [apply] simp only [reduceCtorEq] at h ⊢
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:149:4: `exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) h` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: `simp [nodeValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: Try this:
+  [apply] simp only [reduceCtorEq] at h ⊢
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:149:4: `exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) h` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: `simp [nodeValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: Try this:
+  [apply] simp only [reduceCtorEq] at h ⊢
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:150:4: `exact
+  (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+    (by simpa [criticalVanishingPointValue] using h)` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: `simp [nodeValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: Try this:
+  [apply] simp only [reduceCtorEq] at h ⊢
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:150:4: `exact
+  (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+    (by simpa [criticalVanishingPointValue] using h)` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: `simp [nodeValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: Try this:
+  [apply] simp only [reduceCtorEq] at h ⊢
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:152:4: `exact (standard_source_nontrivial_zero_ne_cc20_one hrho) h` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: `simp [nodeValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: Try this:
+  [apply] simp only [reduceCtorEq] at h ⊢
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:152:4: `exact (standard_source_nontrivial_zero_ne_cc20_one hrho) h` uses `⊢`!
+⚠ [3549/3748] Replayed ConnesWeilRH.Source.CC20YoshidaConstruction
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `h`!
+⚠ [3633/3748] Replayed ConnesWeilRH.Source.CC20ZetaCounting
+warning: ConnesWeilRH/Source/CC20ZetaCounting.lean:460:46: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+⚠ [3634/3748] Replayed ConnesWeilRH.Dev.C1XiGrowth
+warning: ConnesWeilRH/Dev/C1XiGrowth.lean:56:10: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+info: ConnesWeilRH/Dev/C1XiGrowth.lean:64:4: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+warning: ConnesWeilRH/Dev/C1XiGrowth.lean:63:76: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+info: ConnesWeilRH/Dev/C1XiGrowth.lean:162:12: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+info: ConnesWeilRH/Dev/C1XiGrowth.lean:200:10: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+⚠ [3637/3748] Replayed ConnesWeilRH.Source.CCM25Concrete.CompactLogConvolution
+warning: ConnesWeilRH/Source/CCM25Concrete/CompactLogConvolution.lean:160:14: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [3651/3748] Replayed ConnesWeilRH.Source.CC20YoshidaConvolution
+warning: ConnesWeilRH/Source/CC20YoshidaConvolution.lean:101:9: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Source/CC20YoshidaConvolution.lean:259:22: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Source/CC20YoshidaConvolution.lean:261:22: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Source/CC20YoshidaConvolution.lean:541:27: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Source/CC20YoshidaConvolution.lean:541:40: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Source/CC20YoshidaConvolution.lean:557:28: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Source/CC20YoshidaConvolution.lean:558:43: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Source/CC20YoshidaConvolution.lean:1590:27: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Source/CC20YoshidaConvolution.lean:1591:27: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [3653/3748] Replayed ConnesWeilRH.Dev.MellinLogLiftProbe
+warning: ConnesWeilRH/Dev/MellinLogLiftProbe.lean:60:16: This simp argument is unused:
+  Real.exp_pos u
+
+Hint: Omit it from the simp argument list.
+  simp ̵[̵R̵e̵a̵l̵.̵e̵x̵p̵_̵p̵o̵s̵ ̵u̵]̵
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ConnesWeilRH/Dev/MellinLogLiftProbe.lean:65:16: '' starts on column 16, but all commands should start at the beginning of the line.
+
+Note: This linter can be disabled with `set_option linter.style.whitespace false`
+⚠ [3654/3748] Replayed ConnesWeilRH.Dev.MellinConvolutionIdentity
+warning: ConnesWeilRH/Dev/MellinConvolutionIdentity.lean:182:16: '' starts on column 16, but all commands should start at the beginning of the line.
+
+Note: This linter can be disabled with `set_option linter.style.whitespace false`
+⚠ [3662/3748] Replayed ConnesWeilRH.Dev.C1RouteAWeightedZeroMeasure
+warning: ConnesWeilRH/Dev/C1RouteAWeightedZeroMeasure.lean:79:33: unused variable `hMeval_nonneg`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ConnesWeilRH/Dev/C1RouteAWeightedZeroMeasure.lean:113:12: This simp argument is unused:
+  Nat.cast_ofNat
+
+Hint: Omit it from the simp argument list.
+  simp ̵[̵N̵a̵t̵.̵c̵a̵s̵t̵_̵o̵f̵N̵a̵t̵]̵
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [3710/3748] Replayed ConnesWeilRH.Dev.C1RouteAExternalOwnerDerivatives
+warning: ConnesWeilRH/Dev/C1RouteAExternalOwnerDerivatives.lean:46:64: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Dev/C1RouteAExternalOwnerDerivatives.lean:47:30: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Dev/C1RouteAExternalOwnerDerivatives.lean:56:2: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Dev/C1RouteAExternalOwnerDerivatives.lean:66:2: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+info: ConnesWeilRH/Dev/C1RouteAExternalOwnerDerivatives.lean:78:2: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+⚠ [3720/3748] Replayed ConnesWeilRH.Dev.C1RouteAWholeCellLipschitz2534
+warning: ConnesWeilRH/Dev/C1RouteAWholeCellLipschitz2534.lean:35:48: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Dev/C1RouteAWholeCellLipschitz2534.lean:53:48: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+ℹ [3726/3748] Replayed ConnesWeilRH.Dev.C1RouteACompactExp1602547
+info: ConnesWeilRH/Dev/C1RouteACompactExp1602547.lean:107:0: 'ConnesWeilRH.Dev.embedPair_round_error2547' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACompactExp1602547.lean:108:0: 'ConnesWeilRH.Dev.hornerRat_error2547' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACompactExp1602547.lean:109:0: 'ConnesWeilRH.Dev.squareState_error2547' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACompactExp1602547.lean:110:0: 'ConnesWeilRH.Dev.compactExp_error2547' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [3776/3933] Replayed ConnesWeilRH.Dev.C1XiVerticalFunctional
+warning: ConnesWeilRH/Dev/C1XiVerticalFunctional.lean:111:83: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Dev/C1XiVerticalFunctional.lean:154:53: 'ring' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ConnesWeilRH/Dev/C1XiVerticalFunctional.lean:154:53: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+warning: ConnesWeilRH/Dev/C1XiVerticalFunctional.lean:161:49: 'ring' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ConnesWeilRH/Dev/C1XiVerticalFunctional.lean:161:49: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+⚠ [3779/3933] Replayed ConnesWeilRH.Dev.C1XiResidue
+info: ConnesWeilRH/Dev/C1XiResidue.lean:280:73: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+warning: ConnesWeilRH/Dev/C1XiResidue.lean:280:69: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [3780/3933] Replayed ConnesWeilRH.Dev.C1XiArithmeticIntervalReadback
+warning: ConnesWeilRH/Dev/C1XiArithmeticIntervalReadback.lean:192:8: `simp [verticalPoint]` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Dev/C1XiArithmeticIntervalReadback.lean:193:8: `exact hc` uses `⊢`!
+warning: ConnesWeilRH/Dev/C1XiArithmeticIntervalReadback.lean:231:8: `simp [verticalPoint]` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Dev/C1XiArithmeticIntervalReadback.lean:232:8: `exact p.1.2` uses `⊢`!
+warning: ConnesWeilRH/Dev/C1XiArithmeticIntervalReadback.lean:234:8: `simp [verticalPoint]` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Dev/C1XiArithmeticIntervalReadback.lean:235:8: `exact p.1.2` uses `⊢`!
+⚠ [3784/3933] Replayed ConnesWeilRH.Dev.C1XiCenterTwoPole
+warning: ConnesWeilRH/Dev/C1XiCenterTwoPole.lean:69:6: `simp` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Dev/C1XiCenterTwoPole.lean:69:6: Try this:
+  [apply] simp only [neg_add_rev, add_re, neg_re, mul_re, ofReal_re, I_re, mul_zero, ofReal_im, I_im, mul_one, sub_self,
+    neg_zero, zero_add, Left.neg_neg_iff]
+info: ConnesWeilRH/Dev/C1XiCenterTwoPole.lean:70:6: `exact ha` uses `⊢`!
+info: ConnesWeilRH/Dev/C1XiCenterTwoPole.lean:526:4: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+info: ConnesWeilRH/Dev/C1XiCenterTwoPole.lean:543:4: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+⚠ [3793/3933] Replayed ConnesWeilRH.Dev.C1XiCenterTwoGamma
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:113:4: `simp` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:113:4: Try this:
+  [apply] simp only [one_div, add_re, natCast_re, inv_re, re_ofNat, normSq_ofNat, div_self_mul_self']
+info: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:114:4: `positivity` uses `⊢`!
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:159:4: `simp` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:159:4: Try this:
+  [apply] simp only [one_div, add_re, natCast_re, inv_re, re_ofNat, normSq_ofNat, div_self_mul_self']
+info: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:160:4: `positivity` uses `⊢`!
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:197:55: This simp argument is unused:
+  mul_zero
+
+Hint: Omit it from the simp argument list.
+  simp only [add_re, mul_re, ofReal_re, ofReal_im, m̵u̵l̵_̵z̵e̵r̵o̵,̵ ̵sub_re, sub_im,
+  ̵  ̵ ̵ ̵ ̵ ̵ ̵ ̵zero_mul, sub_zero, add_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:198:28: This simp argument is unused:
+  add_zero
+
+Hint: Omit it from the simp argument list.
+  simp only [add_re, mul_re, ofReal_re, ofReal_im, mul_zero, sub_re, sub_im,
+  ̵  ̵ ̵ ̵ ̵ ̵ ̵ ̵zero_mul, sub_zero,̵ ̵a̵d̵d̵_̵z̵e̵r̵o̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:217:34: This simp argument is unused:
+  add_zero
+
+Hint: Omit it from the simp argument list.
+  simp only [neg_re, mul_re, ofReal_re, ofReal_im, mul_zero, sub_zero,
+  ̵  ̵ ̵ ̵ ̵ ̵ ̵ ̵add_re, sub_re, zero_mul,̵ ̵a̵d̵d̵_̵z̵e̵r̵o̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:188:63: 'ring' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:188:63: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:184:60: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+info: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:498:16: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:497:12: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:498:12: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:537:10: This simp argument is unused:
+  Function.comp_def
+
+Hint: Omit it from the simp argument list.
+  simp [F̵u̵n̵c̵t̵i̵o̵n̵.̵c̵o̵m̵p̵_̵d̵e̵f̵,̵ ̵Complex.ofReal_inv, Complex.ofReal_add]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:752:14: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:881:4: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:901:74: 'simp' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:901:74: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:963:4: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1007:2: 'push_cast' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1017:14: This simp argument is unused:
+  sub_zero
+
+Hint: Omit it from the simp argument list.
+  simp only [add_re, ofReal_re, mul_re, ofReal_im, I_re, I_im,
+  ̵  ̵ ̵ ̵mul_zero, s̵u̵b̵_̵z̵e̵r̵o̵,̵ ̵add_zero] at hre
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1017:24: This simp argument is unused:
+  add_zero
+
+Hint: Omit it from the simp argument list.
+  simp only [add_re, ofReal_re, mul_re, ofReal_im, I_re, I_im,
+  ̵  ̵ ̵ ̵mul_zero, sub_zero,̵ ̵a̵d̵d̵_̵z̵e̵r̵o̵] at hre
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1193:13: This simp argument is unused:
+  Nat.cast_one
+
+Hint: Omit it from the simp argument list.
+  simp only [N̵a̵t̵.̵c̵a̵s̵t̵_̵o̵n̵e̵,̵ ̵Real.norm_eq_abs, norm_neg, abs_mul]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1193:45: This simp argument is unused:
+  norm_neg
+
+Hint: Omit it from the simp argument list.
+  simp only [Nat.cast_one, Real.norm_eq_abs, n̵o̵r̵m̵_̵n̵e̵g̵,̵ ̵abs_mul]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1217:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1273:49: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1314:4: `simp [verticalPoint] at hre` is a flexible tactic modifying `hre`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1315:4: `exact (by positivity : 0 < (n : Real) + 1).ne' hre` uses `hre`!
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1320:4: 'push_cast' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1537:47: unused variable `hy`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1592:6: This simp argument is unused:
+  add_re
+
+Hint: Omit it from the simp argument list.
+  simp only [neg_re, mul_re, ofReal_re, ofReal_im, mul_zero, sub_zero,
+  ̵  ̵ ̵ ̵ ̵ ̵a̵d̵d̵_̵r̵e̵,̵ ̵zero_mul, add_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1592:14: This simp argument is unused:
+  zero_mul
+
+Hint: Omit it from the simp argument list.
+  simp only [neg_re, mul_re, ofReal_re, ofReal_im, mul_zero, sub_zero,
+  ̵  ̵ ̵ ̵ ̵ ̵add_re, z̵e̵r̵o̵_̵m̵u̵l̵,̵ ̵add_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1592:24: This simp argument is unused:
+  add_zero
+
+Hint: Omit it from the simp argument list.
+  simp only [neg_re, mul_re, ofReal_re, ofReal_im, mul_zero, sub_zero,
+  ̵  ̵ ̵ ̵ ̵ ̵add_re, zero_mul,̵ ̵a̵d̵d̵_̵z̵e̵r̵o̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1640:4: The `show` tactic should only be used to indicate intermediate goal states for readability.
+However, this tactic invocation changed the goal. Please use `change` instead for these purposes.
+
+Note: This linter can be disabled with `set_option linter.style.show false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1620:69: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1629:69: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1649:60: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1654:69: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+info: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1744:6: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1945:6: 'push_cast' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+info: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:2102:39: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:2102:35: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+info: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:2396:4: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+⚠ [3823/3933] Replayed ConnesWeilRH.Dev.C1XiFiniteRectanglePrincipalPart
+info: ConnesWeilRH/Dev/C1XiFiniteRectanglePrincipalPart.lean:179:63: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+warning: ConnesWeilRH/Dev/C1XiFiniteRectanglePrincipalPart.lean:179:59: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [3839/3933] Replayed ConnesWeilRH.Dev.C1XiGlobalWeightedZeroSum
+warning: ConnesWeilRH/Dev/C1XiGlobalWeightedZeroSum.lean:230:36: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Dev/C1XiGlobalWeightedZeroSum.lean:278:46: This simp argument is unused:
+  norm_mul
+
+Hint: Omit it from the simp argument list.
+  simp [weightedRegularizedZeroDeriv, n̵o̵r̵m̵_̵m̵u̵l̵,̵ ̵norm_neg, norm_algebraMap, Real.norm_eq_abs,
+  ̲  ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲abs_of_nonneg, norm_inv, pow_two]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ConnesWeilRH/Dev/C1XiGlobalWeightedZeroSum.lean:278:66: This simp argument is unused:
+  norm_algebraMap
+
+Hint: Omit it from the simp argument list.
+  simp [weightedRegularizedZeroDeriv, norm_mul, norm_neg, n̵o̵r̵m̵_̵a̵l̵g̵e̵b̵r̵a̵M̵a̵p̵,̵Real.norm_eq_abs, abs_of_nonneg,
+  ̲  ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲norm_inv, pow_two]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ConnesWeilRH/Dev/C1XiGlobalWeightedZeroSum.lean:279:12: This simp argument is unused:
+  Real.norm_eq_abs
+
+Hint: Omit it from the simp argument list.
+  simp [weightedRegularizedZeroDeriv, norm_mul, norm_neg, norm_algebraMap, R̵e̵a̵l̵.̵n̵o̵r̵m̵_̵e̵q̵_̵a̵b̵s̵,̵ ̵abs_of_nonneg,
+  ̲  ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲norm_inv, pow_two]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ConnesWeilRH/Dev/C1XiGlobalWeightedZeroSum.lean:279:30: This simp argument is unused:
+  abs_of_nonneg
+
+Hint: Omit it from the simp argument list.
+  simp [weightedRegularizedZeroDeriv, norm_mul, norm_neg, norm_algebraMap, Real.norm_eq_abs,
+  ̲  ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲a̵b̵s̵_̵o̵f̵_̵n̵o̵n̵n̵e̵g̵,̵ ̵norm_inv, pow_two]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [3846/3933] Replayed ConnesWeilRH.Dev.C1XiCenterTwoVerticalFold
+warning: ConnesWeilRH/Dev/C1XiCenterTwoVerticalFold.lean:117:49: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [3847/3933] Replayed ConnesWeilRH.Dev.C1XiCenterTwoRectangleAssembly
+warning: ConnesWeilRH/Dev/C1XiCenterTwoRectangleAssembly.lean:79:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoRectangleAssembly.lean:83:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+⚠ [3848/3933] Replayed ConnesWeilRH.Dev.C1XiCenterTwoSpectralLimit
+warning: ConnesWeilRH/Dev/C1XiCenterTwoSpectralLimit.lean:64:2: Try this: intro n hn rho hrho
+warning: ConnesWeilRH/Dev/C1XiCenterTwoSpectralLimit.lean:112:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+⚠ [3849/3933] Replayed ConnesWeilRH.Dev.C1XiCenterTwoArithmeticAssembly
+warning: ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean:60:0: Please, write a comment here or remove this line, but do not place empty lines within commands!
+Context:
+                                                                        ↓
+  ⏎      hheight.atTop_mul_const_of_neg' (by norm_num : (-1 : Real) < 0)⏎⏎  have hpoleIntervals : Tendsto⏎
+
+Note: This linter can be disabled with `set_option linter.style.emptyLine false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean:68:0: Please, write a comment here or remove this line, but do not place empty lines within commands!
+Context:
+                                                                           ↓
+  ⏎    tendsto_selected_intervalIntegral_elementaryPole_centerTwo F hheight⏎⏎  have hgammaIntervals : Tendsto⏎
+
+Note: This linter can be disabled with `set_option linter.style.emptyLine false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean:76:0: Please, write a comment here or remove this line, but do not place empty lines within commands!
+Context:
+                                                                       ↓
+  ⏎    intervalIntegral_tendsto_integral hgamma.integrable hneg hheight⏎⏎  have hprimeIntervals : Tendsto⏎
+
+Note: This linter can be disabled with `set_option linter.style.emptyLine false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean:84:0: Please, write a comment here or remove this line, but do not place empty lines within commands!
+Context:
+                                                                              ↓
+  ⏎    tendsto_selected_intervalIntegral_arithmeticLSeries_centerTwo F hheight⏎⏎  have hpoleNorm : Tendsto⏎
+
+Note: This linter can be disabled with `set_option linter.style.emptyLine false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean:103:0: Please, write a comment here or remove this line, but do not place empty lines within commands!
+Context:
+                                                           ↓
+  ⏎    simpa only [Function.comp_apply, K, hread] using hre⏎⏎  have hgammaNorm : Tendsto⏎
+
+Note: This linter can be disabled with `set_option linter.style.emptyLine false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean:122:0: Please, write a comment here or remove this line, but do not place empty lines within commands!
+Context:
+                                                           ↓
+  ⏎    simpa only [Function.comp_apply, K, hread] using hre⏎⏎  have hprimeNorm : Tendsto⏎
+
+Note: This linter can be disabled with `set_option linter.style.emptyLine false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean:141:0: Please, write a comment here or remove this line, but do not place empty lines within commands!
+Context:
+                                                           ↓
+  ⏎    simpa only [Function.comp_apply, K, hread] using hre⏎⏎  have hcomponents : Tendsto⏎
+
+Note: This linter can be disabled with `set_option linter.style.emptyLine false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean:160:0: Please, write a comment here or remove this line, but do not place empty lines within commands!
+Context:
+                                                  ↓
+  ⏎      (hpoleNorm.add hgammaNorm).add hprimeNorm⏎⏎  have htotal : Tendsto⏎
+
+Note: This linter can be disabled with `set_option linter.style.emptyLine false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean:170:0: Please, write a comment here or remove this line, but do not place empty lines within commands!
+Context:
+                                                            ↓
+  ⏎      tendsto_selected_normalized_centerTwoRightLine_re F⏎⏎  have hpoint : ∀ n : Nat,⏎
+
+Note: This linter can be disabled with `set_option linter.style.emptyLine false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean:194:0: Please, write a comment here or remove this line, but do not place empty lines within commands!
+Context:
+                                          ↓
+  ⏎    simp only [mul_add, Complex.add_re]⏎⏎  have htotal' : Tendsto⏎
+
+Note: This linter can be disabled with `set_option linter.style.emptyLine false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean:213:0: Please, write a comment here or remove this line, but do not place empty lines within commands!
+Context:
+                     ↓
+  ⏎    exact hpoint n⏎⏎  have hbalance : -spectralWeilValue F =⏎
+
+Note: This linter can be disabled with `set_option linter.style.emptyLine false`
+⚠ [3858/3933] Replayed ConnesWeilRH.Source.CC20YoshidaFullProduct
+warning: ConnesWeilRH/Source/CC20YoshidaFullProduct.lean:254:56: 'ring' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ConnesWeilRH/Source/CC20YoshidaFullProduct.lean:254:56: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+warning: ConnesWeilRH/Source/CC20YoshidaFullProduct.lean:254:10: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Source/CC20YoshidaFullProduct.lean:254:24: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [3862/3933] Replayed ConnesWeilRH.Source.CC20Concrete.GlobalLogCrossing
+warning: ConnesWeilRH/Source/CC20Concrete/GlobalLogCrossing.lean:258:13: unused variable `hb`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [3876/3933] Replayed ConnesWeilRH.Source.CC20Concrete.PositiveTrace
+warning: ConnesWeilRH/Source/CC20Concrete/PositiveTrace.lean:68:2: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: ConnesWeilRH/Source/CC20Concrete/PositiveTrace.lean:628:0: automatically included section variable(s) unused in theorem `ConnesWeilRH.Source.CC20Concrete.PositiveTrace.diag_term_le_opNorm`:
+  [CompleteSpace H]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace H] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3878/3933] Replayed ConnesWeilRH.Source.CC20Concrete.ContinuousKernelHilbertSchmidt
+warning: ConnesWeilRH/Source/CC20Concrete/ContinuousKernelHilbertSchmidt.lean:43:0: automatically included section variable(s) unused in theorem `ConnesWeilRH.Source.CC20Concrete.ContinuousKernelHilbertSchmidt.continuous_sectionToLp`:
+  [T2Space X]
+  [T2Space Y]
+  [CompactSpace Y]
+  [MeasurableSpace Y]
+  [BorelSpace Y]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [T2Space X] [T2Space Y] [CompactSpace Y] [MeasurableSpace Y] [BorelSpace Y] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ConnesWeilRH/Source/CC20Concrete/ContinuousKernelHilbertSchmidt.lean:128:0: automatically included section variable(s) unused in theorem `ConnesWeilRH.Source.CC20Concrete.ContinuousKernelHilbertSchmidt.norm_continuousMap_toLp_sq`:
+  [T2Space Y]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [T2Space Y] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ConnesWeilRH/Source/CC20Concrete/ContinuousKernelHilbertSchmidt.lean:375:6: `simp [coefficient, inner_conj_symm]` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20Concrete/ContinuousKernelHilbertSchmidt.lean:375:6: Try this:
+  [apply] simp only [RCLike.inner_apply]
+info: ConnesWeilRH/Source/CC20Concrete/ContinuousKernelHilbertSchmidt.lean:376:6: `rw [← basis.tsum_inner_mul_inner (sectionToLp μX rightKernel y) (sectionToLp μX leftKernel y)]` uses `⊢`!
+⚠ [3880/3933] Replayed ConnesWeilRH.Source.CCM25Concrete.SelectedCrossingKernel
+warning: ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingKernel.lean:213:4: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingKernel.lean:216:4: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+info: ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingKernel.lean:250:18: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+warning: ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingKernel.lean:416:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+warning: ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingKernel.lean:422:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+⚠ [3881/3933] Replayed ConnesWeilRH.Source.CCM25Concrete.SelectedCrossingOperatorBridge
+warning: ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingOperatorBridge.lean:329:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+warning: ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingOperatorBridge.lean:369:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+warning: ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingOperatorBridge.lean:449:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+info: ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingOperatorBridge.lean:613:6: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+info: ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingOperatorBridge.lean:671:8: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+warning: ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingOperatorBridge.lean:1191:10: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+info: ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingOperatorBridge.lean:1397:8: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+info: ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingOperatorBridge.lean:2442:6: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+⚠ [3883/3933] Replayed ConnesWeilRH.Dev.C1HealthyYoshidaUnscaledOrbit
+warning: ConnesWeilRH/Dev/C1HealthyYoshidaUnscaledOrbit.lean:673:5: unused variable `hbaseLower`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ConnesWeilRH/Dev/C1HealthyYoshidaUnscaledOrbit.lean:673:34: unused variable `hbaseUpper`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ConnesWeilRH/Dev/C1HealthyYoshidaUnscaledOrbit.lean:667:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+warning: ConnesWeilRH/Dev/C1HealthyYoshidaUnscaledOrbit.lean:905:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+⚠ [3884/3933] Replayed ConnesWeilRH.Dev.C1HealthyYoshidaSpectralPrefix
+warning: ConnesWeilRH/Dev/C1HealthyYoshidaSpectralPrefix.lean:72:8: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+⚠ [3885/3933] Replayed ConnesWeilRH.Dev.C1HealthyYoshidaClosedPrefix
+warning: ConnesWeilRH/Dev/C1HealthyYoshidaClosedPrefix.lean:136:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+⚠ [3887/3933] Replayed ConnesWeilRH.Dev.C1HealthyYoshidaSpectralNegativity
+warning: ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativity.lean:321:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+⚠ [3893/3933] Replayed ConnesWeilRH.Dev.C1ClassGramScale
+warning: ConnesWeilRH/Dev/C1ClassGramScale.lean:97:37: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Dev/C1ClassGramScale.lean:105:37: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Dev/C1ClassGramScale.lean:113:37: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Dev/C1ClassGramScale.lean:121:37: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [3904/3933] Replayed ConnesWeilRH.Dev.C1ScaledExpRationalEnvelope
+warning: ConnesWeilRH/Dev/C1ScaledExpRationalEnvelope.lean:90:28: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [3905/3933] Replayed ConnesWeilRH.Dev.C1RouteAExpSplit2498
+warning: ConnesWeilRH/Dev/C1RouteAExpSplit2498.lean:74:60: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+ℹ [3908/3933] Replayed ConnesWeilRH.Dev.C1RouteACorrMidpointDerivatives2570
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointDerivatives2570.lean:2965:0: 'ConnesWeilRH.Dev.corrC02700MinusMidpointP000DerivativeError2570' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointDerivatives2570.lean:2966:0: 'ConnesWeilRH.Dev.corrC02700MinusMidpointP001DerivativeError2570' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointDerivatives2570.lean:2967:0: 'ConnesWeilRH.Dev.corrC02700MinusMidpointP002DerivativeError2570' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointDerivatives2570.lean:2968:0: 'ConnesWeilRH.Dev.corrC02700MinusMidpointP003DerivativeError2570' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointDerivatives2570.lean:2969:0: 'ConnesWeilRH.Dev.corrC02700MinusMidpointP004DerivativeError2570' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointDerivatives2570.lean:2970:0: 'ConnesWeilRH.Dev.corrC02700MinusMidpointP005DerivativeError2570' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointDerivatives2570.lean:2971:0: 'ConnesWeilRH.Dev.corrC02700MinusMidpointP006DerivativeError2570' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointDerivatives2570.lean:2972:0: 'ConnesWeilRH.Dev.corrC02700MinusMidpointP007DerivativeError2570' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointDerivatives2570.lean:2973:0: 'ConnesWeilRH.Dev.corrC02700MinusMidpointP008DerivativeError2570' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointDerivatives2570.lean:2974:0: 'ConnesWeilRH.Dev.corrC02700MinusMidpointP009DerivativeError2570' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointDerivatives2570.lean:2975:0: 'ConnesWeilRH.Dev.corrC02700MinusMidpointP010DerivativeError2570' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointDerivatives2570.lean:2976:0: 'ConnesWeilRH.Dev.corrC02700MinusMidpointP011DerivativeError2570' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointDerivatives2570.lean:2977:0: 'ConnesWeilRH.Dev.corrC02700MinusMidpointP012DerivativeError2570' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointDerivatives2570.lean:2978:0: 'ConnesWeilRH.Dev.corrC02700MinusMidpointP013DerivativeError2570' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointDerivatives2570.lean:2979:0: 'ConnesWeilRH.Dev.corrC02700MinusMidpointP014DerivativeError2570' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointDerivatives2570.lean:2980:0: 'ConnesWeilRH.Dev.corrC02700MinusMidpointP015DerivativeError2570' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointDerivatives2570.lean:2981:0: 'ConnesWeilRH.Dev.corrC02700MinusMidpointP016DerivativeError2570' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointDerivatives2570.lean:2982:0: 'ConnesWeilRH.Dev.corrC02700MinusMidpointP017DerivativeError2570' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointDerivatives2570.lean:2983:0: 'ConnesWeilRH.Dev.corrC02700MinusMidpointP018DerivativeError2570' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointDerivatives2570.lean:2984:0: 'ConnesWeilRH.Dev.corrC02700MinusMidpointP019DerivativeError2570' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointDerivatives2570.lean:2985:0: 'ConnesWeilRH.Dev.corrC02700MinusMidpointP020DerivativeError2570' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointDerivatives2570.lean:2986:0: 'ConnesWeilRH.Dev.corrC02700MinusMidpointP021DerivativeError2570' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointDerivatives2570.lean:2987:0: 'ConnesWeilRH.Dev.corrC02700MinusMidpointP022DerivativeError2570' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointDerivatives2570.lean:2988:0: 'ConnesWeilRH.Dev.corrC02700MinusMidpointP023DerivativeError2570' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointDerivatives2570.lean:2989:0: 'ConnesWeilRH.Dev.corrC02700MinusMidpointP024DerivativeError2570' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointDerivatives2570.lean:2990:0: 'ConnesWeilRH.Dev.corrC02700MinusMidpointP025DerivativeError2570' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointDerivatives2570.lean:2991:0: 'ConnesWeilRH.Dev.corrC02700MinusMidpointP026DerivativeError2570' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointDerivatives2570.lean:2992:0: 'ConnesWeilRH.Dev.corrC02700MinusMidpointP027DerivativeError2570' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointDerivatives2570.lean:2993:0: 'ConnesWeilRH.Dev.corrC02700MinusMidpointP028DerivativeError2570' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointDerivatives2570.lean:2994:0: 'ConnesWeilRH.Dev.corrC02700MinusMidpointP029DerivativeError2570' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointDerivatives2570.lean:2995:0: 'ConnesWeilRH.Dev.corrC02700MinusMidpointGrid2570' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [3909/3933] Replayed ConnesWeilRH.Dev.C1RouteACorrMidpointBounds2700Minus2570
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointBounds2700Minus2570.lean:1969:0: 'ConnesWeilRH.Dev.corrC02700MinusSignedMidpointExpError2570' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointBounds2700Minus2570.lean:1970:0: 'ConnesWeilRH.Dev.corrC02700MinusSignedMidpointSum_eq2570' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointBounds2700Minus2570.lean:1971:0: 'ConnesWeilRH.Dev.corrC02700MinusSignedMidpointCharge2570' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointBounds2700Minus2570.lean:1972:0: 'ConnesWeilRH.Dev.corrC02700MinusSignedMidpointUpper_le2570' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrMidpointBounds2700Minus2570.lean:1973:0: 'ConnesWeilRH.Dev.corrC02700MinusPhysicalSecond2570' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [3910/3933] Replayed ConnesWeilRH.Dev.C1RouteABoundaryMidpoint2548
+info: ConnesWeilRH/Dev/C1RouteABoundaryMidpoint2548.lean:2738:0: 'ConnesWeilRH.Dev.edgeMidpointP000DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryMidpoint2548.lean:2739:0: 'ConnesWeilRH.Dev.edgeMidpointP001DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryMidpoint2548.lean:2740:0: 'ConnesWeilRH.Dev.edgeMidpointP002DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryMidpoint2548.lean:2741:0: 'ConnesWeilRH.Dev.edgeMidpointP003DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryMidpoint2548.lean:2742:0: 'ConnesWeilRH.Dev.edgeMidpointP004DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryMidpoint2548.lean:2743:0: 'ConnesWeilRH.Dev.edgeMidpointP005DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryMidpoint2548.lean:2744:0: 'ConnesWeilRH.Dev.edgeMidpointP006DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryMidpoint2548.lean:2745:0: 'ConnesWeilRH.Dev.edgeMidpointP007DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryMidpoint2548.lean:2746:0: 'ConnesWeilRH.Dev.edgeMidpointP008DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryMidpoint2548.lean:2747:0: 'ConnesWeilRH.Dev.edgeMidpointP009DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryMidpoint2548.lean:2748:0: 'ConnesWeilRH.Dev.edgeMidpointP010DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryMidpoint2548.lean:2749:0: 'ConnesWeilRH.Dev.edgeMidpointP011DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryMidpoint2548.lean:2750:0: 'ConnesWeilRH.Dev.edgeMidpointP012DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryMidpoint2548.lean:2751:0: 'ConnesWeilRH.Dev.edgeMidpointP013DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryMidpoint2548.lean:2752:0: 'ConnesWeilRH.Dev.edgeMidpointP014DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryMidpoint2548.lean:2753:0: 'ConnesWeilRH.Dev.edgeMidpointP015DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryMidpoint2548.lean:2754:0: 'ConnesWeilRH.Dev.edgeMidpointP016DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryMidpoint2548.lean:2755:0: 'ConnesWeilRH.Dev.edgeMidpointP017DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryMidpoint2548.lean:2756:0: 'ConnesWeilRH.Dev.edgeMidpointP018DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryMidpoint2548.lean:2757:0: 'ConnesWeilRH.Dev.edgeMidpointP019DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryMidpoint2548.lean:2758:0: 'ConnesWeilRH.Dev.edgeMidpointP020DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryMidpoint2548.lean:2759:0: 'ConnesWeilRH.Dev.edgeMidpointP021DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryMidpoint2548.lean:2760:0: 'ConnesWeilRH.Dev.edgeMidpointP022DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryMidpoint2548.lean:2761:0: 'ConnesWeilRH.Dev.edgeMidpointP023DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryMidpoint2548.lean:2762:0: 'ConnesWeilRH.Dev.edgeMidpointP024DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryMidpoint2548.lean:2763:0: 'ConnesWeilRH.Dev.edgeMidpointP025DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryMidpoint2548.lean:2764:0: 'ConnesWeilRH.Dev.edgeMidpointP026DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryMidpoint2548.lean:2765:0: 'ConnesWeilRH.Dev.edgeMidpointP027DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryMidpoint2548.lean:2766:0: 'ConnesWeilRH.Dev.edgeMidpointP028DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryMidpoint2548.lean:2767:0: 'ConnesWeilRH.Dev.edgeMidpointP029DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryMidpoint2548.lean:2768:0: 'ConnesWeilRH.Dev.edgeMidpointGrid2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [3911/3933] Replayed ConnesWeilRH.Dev.C1RouteACorrFirstJetMidpointMinus2570
+info: ConnesWeilRH/Dev/C1RouteACorrFirstJetMidpointMinus2570.lean:3760:0: 'ConnesWeilRH.Dev.fjcmExpError2570' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrFirstJetMidpointMinus2570.lean:3761:0: 'ConnesWeilRH.Dev.fjcmSum_eq2570' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrFirstJetMidpointMinus2570.lean:3762:0: 'ConnesWeilRH.Dev.fjcmSum_norm2570' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrFirstJetMidpointMinus2570.lean:3763:0: 'ConnesWeilRH.Dev.fjcmCharge2570' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrFirstJetMidpointMinus2570.lean:3764:0: 'ConnesWeilRH.Dev.firstJetCorrMinusUpper_le2570' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrFirstJetMidpointMinus2570.lean:3765:0: 'ConnesWeilRH.Dev.weightedPhysicalFirstJetMidpointMinus_le2570' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ℹ [3912/3933] Replayed ConnesWeilRH.Dev.C1RouteAKernelN02700Minus2555
+info: ConnesWeilRH/Dev/C1RouteAKernelN02700Minus2555.lean:1483:0: 'ConnesWeilRH.Dev.kernelN02700MinusP000DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02700Minus2555.lean:1484:0: 'ConnesWeilRH.Dev.kernelN02700MinusP001DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02700Minus2555.lean:1485:0: 'ConnesWeilRH.Dev.kernelN02700MinusP002DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02700Minus2555.lean:1486:0: 'ConnesWeilRH.Dev.kernelN02700MinusP003DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02700Minus2555.lean:1487:0: 'ConnesWeilRH.Dev.kernelN02700MinusP004DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02700Minus2555.lean:1488:0: 'ConnesWeilRH.Dev.kernelN02700MinusP005DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02700Minus2555.lean:1489:0: 'ConnesWeilRH.Dev.kernelN02700MinusP006DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02700Minus2555.lean:1490:0: 'ConnesWeilRH.Dev.kernelN02700MinusP007DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02700Minus2555.lean:1491:0: 'ConnesWeilRH.Dev.kernelN02700MinusP008DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02700Minus2555.lean:1492:0: 'ConnesWeilRH.Dev.kernelN02700MinusP009DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02700Minus2555.lean:1493:0: 'ConnesWeilRH.Dev.kernelN02700MinusP010DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02700Minus2555.lean:1494:0: 'ConnesWeilRH.Dev.kernelN02700MinusP011DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02700Minus2555.lean:1495:0: 'ConnesWeilRH.Dev.kernelN02700MinusP012DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02700Minus2555.lean:1496:0: 'ConnesWeilRH.Dev.kernelN02700MinusP013DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02700Minus2555.lean:1497:0: 'ConnesWeilRH.Dev.kernelN02700MinusP014DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02700Minus2555.lean:1498:0: 'ConnesWeilRH.Dev.kernelN02700MinusP015DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02700Minus2555.lean:1499:0: 'ConnesWeilRH.Dev.kernelN02700MinusP016DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02700Minus2555.lean:1500:0: 'ConnesWeilRH.Dev.kernelN02700MinusP017DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02700Minus2555.lean:1501:0: 'ConnesWeilRH.Dev.kernelN02700MinusP018DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02700Minus2555.lean:1502:0: 'ConnesWeilRH.Dev.kernelN02700MinusP019DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02700Minus2555.lean:1503:0: 'ConnesWeilRH.Dev.kernelN02700MinusP020DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02700Minus2555.lean:1504:0: 'ConnesWeilRH.Dev.kernelN02700MinusP021DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02700Minus2555.lean:1505:0: 'ConnesWeilRH.Dev.kernelN02700MinusP022DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02700Minus2555.lean:1506:0: 'ConnesWeilRH.Dev.kernelN02700MinusP023DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02700Minus2555.lean:1507:0: 'ConnesWeilRH.Dev.kernelN02700MinusP024DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02700Minus2555.lean:1508:0: 'ConnesWeilRH.Dev.kernelN02700MinusP025DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02700Minus2555.lean:1509:0: 'ConnesWeilRH.Dev.kernelN02700MinusP026DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02700Minus2555.lean:1510:0: 'ConnesWeilRH.Dev.kernelN02700MinusP027DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02700Minus2555.lean:1511:0: 'ConnesWeilRH.Dev.kernelN02700MinusP028DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02700Minus2555.lean:1512:0: 'ConnesWeilRH.Dev.kernelN02700MinusP029DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02700Minus2555.lean:1513:0: 'ConnesWeilRH.Dev.kernelN02700MinusGrid2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [3913/3933] Replayed ConnesWeilRH.Dev.C1RouteACorrSharedN02700Minus2570
+info: ConnesWeilRH/Dev/C1RouteACorrSharedN02700Minus2570.lean:1558:0: 'ConnesWeilRH.Dev.corrSharedN02700MinusSigned_le2570' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrSharedN02700Minus2570.lean:1559:0: 'ConnesWeilRH.Dev.corrSharedN02700MinusPhysical_le2570' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [3914/3933] Replayed ConnesWeilRH.Dev.C1RouteAKernelN02701Minus2555
+info: ConnesWeilRH/Dev/C1RouteAKernelN02701Minus2555.lean:3351:0: 'ConnesWeilRH.Dev.kernelN02701MinusP000DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02701Minus2555.lean:3352:0: 'ConnesWeilRH.Dev.kernelN02701MinusP001DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02701Minus2555.lean:3353:0: 'ConnesWeilRH.Dev.kernelN02701MinusP002DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02701Minus2555.lean:3354:0: 'ConnesWeilRH.Dev.kernelN02701MinusP003DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02701Minus2555.lean:3355:0: 'ConnesWeilRH.Dev.kernelN02701MinusP004DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02701Minus2555.lean:3356:0: 'ConnesWeilRH.Dev.kernelN02701MinusP005DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02701Minus2555.lean:3357:0: 'ConnesWeilRH.Dev.kernelN02701MinusP006DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02701Minus2555.lean:3358:0: 'ConnesWeilRH.Dev.kernelN02701MinusP007DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02701Minus2555.lean:3359:0: 'ConnesWeilRH.Dev.kernelN02701MinusP008DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02701Minus2555.lean:3360:0: 'ConnesWeilRH.Dev.kernelN02701MinusP009DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02701Minus2555.lean:3361:0: 'ConnesWeilRH.Dev.kernelN02701MinusP010DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02701Minus2555.lean:3362:0: 'ConnesWeilRH.Dev.kernelN02701MinusP011DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02701Minus2555.lean:3363:0: 'ConnesWeilRH.Dev.kernelN02701MinusP012DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02701Minus2555.lean:3364:0: 'ConnesWeilRH.Dev.kernelN02701MinusP013DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02701Minus2555.lean:3365:0: 'ConnesWeilRH.Dev.kernelN02701MinusP014DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02701Minus2555.lean:3366:0: 'ConnesWeilRH.Dev.kernelN02701MinusP015DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02701Minus2555.lean:3367:0: 'ConnesWeilRH.Dev.kernelN02701MinusP016DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02701Minus2555.lean:3368:0: 'ConnesWeilRH.Dev.kernelN02701MinusP017DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02701Minus2555.lean:3369:0: 'ConnesWeilRH.Dev.kernelN02701MinusP018DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02701Minus2555.lean:3370:0: 'ConnesWeilRH.Dev.kernelN02701MinusP019DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02701Minus2555.lean:3371:0: 'ConnesWeilRH.Dev.kernelN02701MinusP020DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02701Minus2555.lean:3372:0: 'ConnesWeilRH.Dev.kernelN02701MinusP021DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02701Minus2555.lean:3373:0: 'ConnesWeilRH.Dev.kernelN02701MinusP022DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02701Minus2555.lean:3374:0: 'ConnesWeilRH.Dev.kernelN02701MinusP023DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02701Minus2555.lean:3375:0: 'ConnesWeilRH.Dev.kernelN02701MinusP024DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02701Minus2555.lean:3376:0: 'ConnesWeilRH.Dev.kernelN02701MinusP025DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02701Minus2555.lean:3377:0: 'ConnesWeilRH.Dev.kernelN02701MinusP026DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02701Minus2555.lean:3378:0: 'ConnesWeilRH.Dev.kernelN02701MinusP027DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02701Minus2555.lean:3379:0: 'ConnesWeilRH.Dev.kernelN02701MinusP028DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02701Minus2555.lean:3380:0: 'ConnesWeilRH.Dev.kernelN02701MinusP029DerivativeError2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAKernelN02701Minus2555.lean:3381:0: 'ConnesWeilRH.Dev.kernelN02701MinusGrid2555' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [3915/3933] Replayed ConnesWeilRH.Dev.C1RouteACorrSharedN02701Minus2570
+info: ConnesWeilRH/Dev/C1RouteACorrSharedN02701Minus2570.lean:1580:0: 'ConnesWeilRH.Dev.corrSharedN02701MinusSigned_le2570' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrSharedN02701Minus2570.lean:1581:0: 'ConnesWeilRH.Dev.corrSharedN02701MinusPhysical_le2570' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [3917/3933] Replayed ConnesWeilRH.Dev.C1RouteABoundaryLeft2548
+info: ConnesWeilRH/Dev/C1RouteABoundaryLeft2548.lean:1283:0: 'ConnesWeilRH.Dev.edgeLeftP000DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryLeft2548.lean:1284:0: 'ConnesWeilRH.Dev.edgeLeftP001DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryLeft2548.lean:1285:0: 'ConnesWeilRH.Dev.edgeLeftP002DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryLeft2548.lean:1286:0: 'ConnesWeilRH.Dev.edgeLeftP003DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryLeft2548.lean:1287:0: 'ConnesWeilRH.Dev.edgeLeftP004DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryLeft2548.lean:1288:0: 'ConnesWeilRH.Dev.edgeLeftP005DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryLeft2548.lean:1289:0: 'ConnesWeilRH.Dev.edgeLeftP006DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryLeft2548.lean:1290:0: 'ConnesWeilRH.Dev.edgeLeftP007DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryLeft2548.lean:1291:0: 'ConnesWeilRH.Dev.edgeLeftP008DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryLeft2548.lean:1292:0: 'ConnesWeilRH.Dev.edgeLeftP009DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryLeft2548.lean:1293:0: 'ConnesWeilRH.Dev.edgeLeftP010DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryLeft2548.lean:1294:0: 'ConnesWeilRH.Dev.edgeLeftP011DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryLeft2548.lean:1295:0: 'ConnesWeilRH.Dev.edgeLeftP012DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryLeft2548.lean:1296:0: 'ConnesWeilRH.Dev.edgeLeftP013DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryLeft2548.lean:1297:0: 'ConnesWeilRH.Dev.edgeLeftP014DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryLeft2548.lean:1298:0: 'ConnesWeilRH.Dev.edgeLeftP015DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryLeft2548.lean:1299:0: 'ConnesWeilRH.Dev.edgeLeftP016DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryLeft2548.lean:1300:0: 'ConnesWeilRH.Dev.edgeLeftP017DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryLeft2548.lean:1301:0: 'ConnesWeilRH.Dev.edgeLeftP018DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryLeft2548.lean:1302:0: 'ConnesWeilRH.Dev.edgeLeftP019DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryLeft2548.lean:1303:0: 'ConnesWeilRH.Dev.edgeLeftP020DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryLeft2548.lean:1304:0: 'ConnesWeilRH.Dev.edgeLeftP021DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryLeft2548.lean:1305:0: 'ConnesWeilRH.Dev.edgeLeftP022DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryLeft2548.lean:1306:0: 'ConnesWeilRH.Dev.edgeLeftP023DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryLeft2548.lean:1307:0: 'ConnesWeilRH.Dev.edgeLeftP024DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryLeft2548.lean:1308:0: 'ConnesWeilRH.Dev.edgeLeftP025DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryLeft2548.lean:1309:0: 'ConnesWeilRH.Dev.edgeLeftP026DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryLeft2548.lean:1310:0: 'ConnesWeilRH.Dev.edgeLeftP027DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryLeft2548.lean:1311:0: 'ConnesWeilRH.Dev.edgeLeftP028DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryLeft2548.lean:1312:0: 'ConnesWeilRH.Dev.edgeLeftP029DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryLeft2548.lean:1313:0: 'ConnesWeilRH.Dev.edgeLeftGrid2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [3918/3933] Replayed ConnesWeilRH.Dev.C1RouteABoundaryRight2548
+info: ConnesWeilRH/Dev/C1RouteABoundaryRight2548.lean:3153:0: 'ConnesWeilRH.Dev.edgeRightP000DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryRight2548.lean:3154:0: 'ConnesWeilRH.Dev.edgeRightP001DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryRight2548.lean:3155:0: 'ConnesWeilRH.Dev.edgeRightP002DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryRight2548.lean:3156:0: 'ConnesWeilRH.Dev.edgeRightP003DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryRight2548.lean:3157:0: 'ConnesWeilRH.Dev.edgeRightP004DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryRight2548.lean:3158:0: 'ConnesWeilRH.Dev.edgeRightP005DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryRight2548.lean:3159:0: 'ConnesWeilRH.Dev.edgeRightP006DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryRight2548.lean:3160:0: 'ConnesWeilRH.Dev.edgeRightP007DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryRight2548.lean:3161:0: 'ConnesWeilRH.Dev.edgeRightP008DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryRight2548.lean:3162:0: 'ConnesWeilRH.Dev.edgeRightP009DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryRight2548.lean:3163:0: 'ConnesWeilRH.Dev.edgeRightP010DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryRight2548.lean:3164:0: 'ConnesWeilRH.Dev.edgeRightP011DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryRight2548.lean:3165:0: 'ConnesWeilRH.Dev.edgeRightP012DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryRight2548.lean:3166:0: 'ConnesWeilRH.Dev.edgeRightP013DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryRight2548.lean:3167:0: 'ConnesWeilRH.Dev.edgeRightP014DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryRight2548.lean:3168:0: 'ConnesWeilRH.Dev.edgeRightP015DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryRight2548.lean:3169:0: 'ConnesWeilRH.Dev.edgeRightP016DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryRight2548.lean:3170:0: 'ConnesWeilRH.Dev.edgeRightP017DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryRight2548.lean:3171:0: 'ConnesWeilRH.Dev.edgeRightP018DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryRight2548.lean:3172:0: 'ConnesWeilRH.Dev.edgeRightP019DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryRight2548.lean:3173:0: 'ConnesWeilRH.Dev.edgeRightP020DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryRight2548.lean:3174:0: 'ConnesWeilRH.Dev.edgeRightP021DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryRight2548.lean:3175:0: 'ConnesWeilRH.Dev.edgeRightP022DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryRight2548.lean:3176:0: 'ConnesWeilRH.Dev.edgeRightP023DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryRight2548.lean:3177:0: 'ConnesWeilRH.Dev.edgeRightP024DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryRight2548.lean:3178:0: 'ConnesWeilRH.Dev.edgeRightP025DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryRight2548.lean:3179:0: 'ConnesWeilRH.Dev.edgeRightP026DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryRight2548.lean:3180:0: 'ConnesWeilRH.Dev.edgeRightP027DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryRight2548.lean:3181:0: 'ConnesWeilRH.Dev.edgeRightP028DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryRight2548.lean:3182:0: 'ConnesWeilRH.Dev.edgeRightP029DerivativeError2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABoundaryRight2548.lean:3183:0: 'ConnesWeilRH.Dev.edgeRightGrid2548' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [3919/3933] Replayed ConnesWeilRH.Dev.C1RouteAEndpointLeftThird2544
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftThird2544.lean:3452:0: 'ConnesWeilRH.Dev.endpointLeftP000DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftThird2544.lean:3453:0: 'ConnesWeilRH.Dev.endpointLeftP001DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftThird2544.lean:3454:0: 'ConnesWeilRH.Dev.endpointLeftP002DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftThird2544.lean:3455:0: 'ConnesWeilRH.Dev.endpointLeftP003DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftThird2544.lean:3456:0: 'ConnesWeilRH.Dev.endpointLeftP004DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftThird2544.lean:3457:0: 'ConnesWeilRH.Dev.endpointLeftP005DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftThird2544.lean:3458:0: 'ConnesWeilRH.Dev.endpointLeftP006DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftThird2544.lean:3459:0: 'ConnesWeilRH.Dev.endpointLeftP007DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftThird2544.lean:3460:0: 'ConnesWeilRH.Dev.endpointLeftP008DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftThird2544.lean:3461:0: 'ConnesWeilRH.Dev.endpointLeftP009DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftThird2544.lean:3462:0: 'ConnesWeilRH.Dev.endpointLeftP010DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftThird2544.lean:3463:0: 'ConnesWeilRH.Dev.endpointLeftP011DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftThird2544.lean:3464:0: 'ConnesWeilRH.Dev.endpointLeftP012DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftThird2544.lean:3465:0: 'ConnesWeilRH.Dev.endpointLeftP013DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftThird2544.lean:3466:0: 'ConnesWeilRH.Dev.endpointLeftP014DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftThird2544.lean:3467:0: 'ConnesWeilRH.Dev.endpointLeftP015DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftThird2544.lean:3468:0: 'ConnesWeilRH.Dev.endpointLeftP016DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftThird2544.lean:3469:0: 'ConnesWeilRH.Dev.endpointLeftP017DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftThird2544.lean:3470:0: 'ConnesWeilRH.Dev.endpointLeftP018DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftThird2544.lean:3471:0: 'ConnesWeilRH.Dev.endpointLeftP019DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftThird2544.lean:3472:0: 'ConnesWeilRH.Dev.endpointLeftP020DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftThird2544.lean:3473:0: 'ConnesWeilRH.Dev.endpointLeftP021DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftThird2544.lean:3474:0: 'ConnesWeilRH.Dev.endpointLeftP022DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftThird2544.lean:3475:0: 'ConnesWeilRH.Dev.endpointLeftP023DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftThird2544.lean:3476:0: 'ConnesWeilRH.Dev.endpointLeftP024DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftThird2544.lean:3477:0: 'ConnesWeilRH.Dev.endpointLeftP025DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftThird2544.lean:3478:0: 'ConnesWeilRH.Dev.endpointLeftP026DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftThird2544.lean:3479:0: 'ConnesWeilRH.Dev.endpointLeftP027DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftThird2544.lean:3480:0: 'ConnesWeilRH.Dev.endpointLeftP028DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftThird2544.lean:3481:0: 'ConnesWeilRH.Dev.endpointLeftP029DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [3920/3933] Replayed ConnesWeilRH.Dev.C1RouteAMidpointDerivatives2543
+info: ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean:2984:0: 'ConnesWeilRH.Dev.midpointP000DerivativeError2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean:2985:0: 'ConnesWeilRH.Dev.midpointP001DerivativeError2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean:2986:0: 'ConnesWeilRH.Dev.midpointP002DerivativeError2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean:2987:0: 'ConnesWeilRH.Dev.midpointP003DerivativeError2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean:2988:0: 'ConnesWeilRH.Dev.midpointP004DerivativeError2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean:2989:0: 'ConnesWeilRH.Dev.midpointP005DerivativeError2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean:2990:0: 'ConnesWeilRH.Dev.midpointP006DerivativeError2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean:2991:0: 'ConnesWeilRH.Dev.midpointP007DerivativeError2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean:2992:0: 'ConnesWeilRH.Dev.midpointP008DerivativeError2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean:2993:0: 'ConnesWeilRH.Dev.midpointP009DerivativeError2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean:2994:0: 'ConnesWeilRH.Dev.midpointP010DerivativeError2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean:2995:0: 'ConnesWeilRH.Dev.midpointP011DerivativeError2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean:2996:0: 'ConnesWeilRH.Dev.midpointP012DerivativeError2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean:2997:0: 'ConnesWeilRH.Dev.midpointP013DerivativeError2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean:2998:0: 'ConnesWeilRH.Dev.midpointP014DerivativeError2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean:2999:0: 'ConnesWeilRH.Dev.midpointP015DerivativeError2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean:3000:0: 'ConnesWeilRH.Dev.midpointP016DerivativeError2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean:3001:0: 'ConnesWeilRH.Dev.midpointP017DerivativeError2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean:3002:0: 'ConnesWeilRH.Dev.midpointP018DerivativeError2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean:3003:0: 'ConnesWeilRH.Dev.midpointP019DerivativeError2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean:3004:0: 'ConnesWeilRH.Dev.midpointP020DerivativeError2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean:3005:0: 'ConnesWeilRH.Dev.midpointP021DerivativeError2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean:3006:0: 'ConnesWeilRH.Dev.midpointP022DerivativeError2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean:3007:0: 'ConnesWeilRH.Dev.midpointP023DerivativeError2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean:3008:0: 'ConnesWeilRH.Dev.midpointP024DerivativeError2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean:3009:0: 'ConnesWeilRH.Dev.midpointP025DerivativeError2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean:3010:0: 'ConnesWeilRH.Dev.midpointP026DerivativeError2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean:3011:0: 'ConnesWeilRH.Dev.midpointP027DerivativeError2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean:3012:0: 'ConnesWeilRH.Dev.midpointP028DerivativeError2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAMidpointDerivatives2543.lean:3013:0: 'ConnesWeilRH.Dev.midpointP029DerivativeError2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [3921/3933] Replayed ConnesWeilRH.Dev.C1RouteASignedMidpoint2543
+info: ConnesWeilRH/Dev/C1RouteASignedMidpoint2543.lean:1518:0: 'ConnesWeilRH.Dev.signedMidpointExpError2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteASignedMidpoint2543.lean:1519:0: 'ConnesWeilRH.Dev.signedMidpointSum_eq2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteASignedMidpoint2543.lean:1520:0: 'ConnesWeilRH.Dev.signedMidpointCharge2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteASignedMidpoint2543.lean:1521:0: 'ConnesWeilRH.Dev.signedMidpointUpper_le2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteASignedMidpoint2543.lean:1522:0: 'ConnesWeilRH.Dev.weightedPhysical_second_midpoint_le2543' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [3922/3933] Replayed ConnesWeilRH.Dev.C1RouteAEndpointLeftNorms2544
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean:707:0: 'ConnesWeilRH.Dev.endpointLeftP000NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean:708:0: 'ConnesWeilRH.Dev.endpointLeftP001NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean:709:0: 'ConnesWeilRH.Dev.endpointLeftP002NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean:710:0: 'ConnesWeilRH.Dev.endpointLeftP003NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean:711:0: 'ConnesWeilRH.Dev.endpointLeftP004NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean:712:0: 'ConnesWeilRH.Dev.endpointLeftP005NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean:713:0: 'ConnesWeilRH.Dev.endpointLeftP006NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean:714:0: 'ConnesWeilRH.Dev.endpointLeftP007NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean:715:0: 'ConnesWeilRH.Dev.endpointLeftP008NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean:716:0: 'ConnesWeilRH.Dev.endpointLeftP009NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean:717:0: 'ConnesWeilRH.Dev.endpointLeftP010NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean:718:0: 'ConnesWeilRH.Dev.endpointLeftP011NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean:719:0: 'ConnesWeilRH.Dev.endpointLeftP012NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean:720:0: 'ConnesWeilRH.Dev.endpointLeftP013NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean:721:0: 'ConnesWeilRH.Dev.endpointLeftP014NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean:722:0: 'ConnesWeilRH.Dev.endpointLeftP015NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean:723:0: 'ConnesWeilRH.Dev.endpointLeftP016NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean:724:0: 'ConnesWeilRH.Dev.endpointLeftP017NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean:725:0: 'ConnesWeilRH.Dev.endpointLeftP018NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean:726:0: 'ConnesWeilRH.Dev.endpointLeftP019NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean:727:0: 'ConnesWeilRH.Dev.endpointLeftP020NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean:728:0: 'ConnesWeilRH.Dev.endpointLeftP021NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean:729:0: 'ConnesWeilRH.Dev.endpointLeftP022NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean:730:0: 'ConnesWeilRH.Dev.endpointLeftP023NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean:731:0: 'ConnesWeilRH.Dev.endpointLeftP024NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean:732:0: 'ConnesWeilRH.Dev.endpointLeftP025NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean:733:0: 'ConnesWeilRH.Dev.endpointLeftP026NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean:734:0: 'ConnesWeilRH.Dev.endpointLeftP027NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean:735:0: 'ConnesWeilRH.Dev.endpointLeftP028NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointLeftNorms2544.lean:736:0: 'ConnesWeilRH.Dev.endpointLeftP029NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [3923/3933] Replayed ConnesWeilRH.Dev.C1RouteAEndpointRightThird2544
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightThird2544.lean:3518:0: 'ConnesWeilRH.Dev.endpointRightP000DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightThird2544.lean:3519:0: 'ConnesWeilRH.Dev.endpointRightP001DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightThird2544.lean:3520:0: 'ConnesWeilRH.Dev.endpointRightP002DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightThird2544.lean:3521:0: 'ConnesWeilRH.Dev.endpointRightP003DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightThird2544.lean:3522:0: 'ConnesWeilRH.Dev.endpointRightP004DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightThird2544.lean:3523:0: 'ConnesWeilRH.Dev.endpointRightP005DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightThird2544.lean:3524:0: 'ConnesWeilRH.Dev.endpointRightP006DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightThird2544.lean:3525:0: 'ConnesWeilRH.Dev.endpointRightP007DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightThird2544.lean:3526:0: 'ConnesWeilRH.Dev.endpointRightP008DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightThird2544.lean:3527:0: 'ConnesWeilRH.Dev.endpointRightP009DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightThird2544.lean:3528:0: 'ConnesWeilRH.Dev.endpointRightP010DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightThird2544.lean:3529:0: 'ConnesWeilRH.Dev.endpointRightP011DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightThird2544.lean:3530:0: 'ConnesWeilRH.Dev.endpointRightP012DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightThird2544.lean:3531:0: 'ConnesWeilRH.Dev.endpointRightP013DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightThird2544.lean:3532:0: 'ConnesWeilRH.Dev.endpointRightP014DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightThird2544.lean:3533:0: 'ConnesWeilRH.Dev.endpointRightP015DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightThird2544.lean:3534:0: 'ConnesWeilRH.Dev.endpointRightP016DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightThird2544.lean:3535:0: 'ConnesWeilRH.Dev.endpointRightP017DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightThird2544.lean:3536:0: 'ConnesWeilRH.Dev.endpointRightP018DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightThird2544.lean:3537:0: 'ConnesWeilRH.Dev.endpointRightP019DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightThird2544.lean:3538:0: 'ConnesWeilRH.Dev.endpointRightP020DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightThird2544.lean:3539:0: 'ConnesWeilRH.Dev.endpointRightP021DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightThird2544.lean:3540:0: 'ConnesWeilRH.Dev.endpointRightP022DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightThird2544.lean:3541:0: 'ConnesWeilRH.Dev.endpointRightP023DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightThird2544.lean:3542:0: 'ConnesWeilRH.Dev.endpointRightP024DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightThird2544.lean:3543:0: 'ConnesWeilRH.Dev.endpointRightP025DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightThird2544.lean:3544:0: 'ConnesWeilRH.Dev.endpointRightP026DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightThird2544.lean:3545:0: 'ConnesWeilRH.Dev.endpointRightP027DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightThird2544.lean:3546:0: 'ConnesWeilRH.Dev.endpointRightP028DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightThird2544.lean:3547:0: 'ConnesWeilRH.Dev.endpointRightP029DerivativeError2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [3924/3933] Replayed ConnesWeilRH.Dev.C1RouteAEndpointRightNorms2544
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean:707:0: 'ConnesWeilRH.Dev.endpointRightP000NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean:708:0: 'ConnesWeilRH.Dev.endpointRightP001NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean:709:0: 'ConnesWeilRH.Dev.endpointRightP002NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean:710:0: 'ConnesWeilRH.Dev.endpointRightP003NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean:711:0: 'ConnesWeilRH.Dev.endpointRightP004NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean:712:0: 'ConnesWeilRH.Dev.endpointRightP005NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean:713:0: 'ConnesWeilRH.Dev.endpointRightP006NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean:714:0: 'ConnesWeilRH.Dev.endpointRightP007NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean:715:0: 'ConnesWeilRH.Dev.endpointRightP008NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean:716:0: 'ConnesWeilRH.Dev.endpointRightP009NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean:717:0: 'ConnesWeilRH.Dev.endpointRightP010NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean:718:0: 'ConnesWeilRH.Dev.endpointRightP011NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean:719:0: 'ConnesWeilRH.Dev.endpointRightP012NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean:720:0: 'ConnesWeilRH.Dev.endpointRightP013NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean:721:0: 'ConnesWeilRH.Dev.endpointRightP014NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean:722:0: 'ConnesWeilRH.Dev.endpointRightP015NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean:723:0: 'ConnesWeilRH.Dev.endpointRightP016NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean:724:0: 'ConnesWeilRH.Dev.endpointRightP017NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean:725:0: 'ConnesWeilRH.Dev.endpointRightP018NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean:726:0: 'ConnesWeilRH.Dev.endpointRightP019NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean:727:0: 'ConnesWeilRH.Dev.endpointRightP020NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean:728:0: 'ConnesWeilRH.Dev.endpointRightP021NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean:729:0: 'ConnesWeilRH.Dev.endpointRightP022NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean:730:0: 'ConnesWeilRH.Dev.endpointRightP023NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean:731:0: 'ConnesWeilRH.Dev.endpointRightP024NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean:732:0: 'ConnesWeilRH.Dev.endpointRightP025NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean:733:0: 'ConnesWeilRH.Dev.endpointRightP026NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean:734:0: 'ConnesWeilRH.Dev.endpointRightP027NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean:735:0: 'ConnesWeilRH.Dev.endpointRightP028NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAEndpointRightNorms2544.lean:736:0: 'ConnesWeilRH.Dev.endpointRightP029NormBound2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [3925/3933] Replayed ConnesWeilRH.Dev.C1RouteAThirdCellEndpointAssembly2544
+info: ConnesWeilRH/Dev/C1RouteAThirdCellEndpointAssembly2544.lean:61:0: 'ConnesWeilRH.Dev.thirdCellTerm_bounds2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAThirdCellEndpointAssembly2544.lean:62:0: 'ConnesWeilRH.Dev.thirdAggregate_bounds2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAThirdCellEndpointAssembly2544.lean:63:0: 'ConnesWeilRH.Dev.curvature_after_endpoints2544' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [3926/3933] Replayed ConnesWeilRH.Dev.C1RouteAFactoredCellEnvelope2545
+info: ConnesWeilRH/Dev/C1RouteAFactoredCellEnvelope2545.lean:22:2: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+info: ConnesWeilRH/Dev/C1RouteAFactoredCellEnvelope2545.lean:63:0: 'ConnesWeilRH.Dev.weightedCell_factor2545' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAFactoredCellEnvelope2545.lean:64:0: 'ConnesWeilRH.Dev.cellPolynomial_mono2545' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteAFactoredCellEnvelope2545.lean:65:0: 'ConnesWeilRH.Dev.weightedCell_upper2545' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [3927/3933] Replayed ConnesWeilRH.Dev.C1RouteABatchC02700MinusFourth2558
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusFourth2558.lean:2945:0: 'ConnesWeilRH.Dev.batchC02700MinusFourthP001Bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusFourth2558.lean:2946:0: 'ConnesWeilRH.Dev.batchC02700MinusFourthP002Bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusFourth2558.lean:2947:0: 'ConnesWeilRH.Dev.batchC02700MinusFourthP003Bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusFourth2558.lean:2948:0: 'ConnesWeilRH.Dev.batchC02700MinusFourthP004Bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusFourth2558.lean:2949:0: 'ConnesWeilRH.Dev.batchC02700MinusFourthP006Bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusFourth2558.lean:2950:0: 'ConnesWeilRH.Dev.batchC02700MinusFourthP007Bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusFourth2558.lean:2951:0: 'ConnesWeilRH.Dev.batchC02700MinusFourthP008Bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusFourth2558.lean:2952:0: 'ConnesWeilRH.Dev.batchC02700MinusFourthP009Bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusFourth2558.lean:2953:0: 'ConnesWeilRH.Dev.batchC02700MinusFourthP010Bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusFourth2558.lean:2954:0: 'ConnesWeilRH.Dev.batchC02700MinusFourthP011Bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusFourth2558.lean:2955:0: 'ConnesWeilRH.Dev.batchC02700MinusFourthP012Bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusFourth2558.lean:2956:0: 'ConnesWeilRH.Dev.batchC02700MinusFourthP013Bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusFourth2558.lean:2957:0: 'ConnesWeilRH.Dev.batchC02700MinusFourthP014Bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusFourth2558.lean:2958:0: 'ConnesWeilRH.Dev.batchC02700MinusFourthP015Bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusFourth2558.lean:2959:0: 'ConnesWeilRH.Dev.batchC02700MinusFourthP016Bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusFourth2558.lean:2960:0: 'ConnesWeilRH.Dev.batchC02700MinusFourthP017Bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusFourth2558.lean:2961:0: 'ConnesWeilRH.Dev.batchC02700MinusFourthP018Bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusFourth2558.lean:2962:0: 'ConnesWeilRH.Dev.batchC02700MinusFourthP019Bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusFourth2558.lean:2963:0: 'ConnesWeilRH.Dev.batchC02700MinusFourthP020Bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusFourth2558.lean:2964:0: 'ConnesWeilRH.Dev.batchC02700MinusFourthP021Bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusFourth2558.lean:2965:0: 'ConnesWeilRH.Dev.batchC02700MinusFourthP022Bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusFourth2558.lean:2966:0: 'ConnesWeilRH.Dev.batchC02700MinusFourthP023Bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusFourth2558.lean:2967:0: 'ConnesWeilRH.Dev.batchC02700MinusFourthP024Bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusFourth2558.lean:2968:0: 'ConnesWeilRH.Dev.batchC02700MinusFourthP025Bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusFourth2558.lean:2969:0: 'ConnesWeilRH.Dev.batchC02700MinusFourthP026Bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusFourth2558.lean:2970:0: 'ConnesWeilRH.Dev.batchC02700MinusFourthP027Bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusFourth2558.lean:2971:0: 'ConnesWeilRH.Dev.batchC02700MinusFourthP028Bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusFourth2558.lean:2972:0: 'ConnesWeilRH.Dev.batchC02700MinusFourthP029Bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusFourth2558.lean:2973:0: 'ConnesWeilRH.Dev.batchC02700MinusFourthBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusFourth2558.lean:2974:0: 'ConnesWeilRH.Dev.batchC02700MinusFourthP000Bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusFourth2558.lean:2975:0: 'ConnesWeilRH.Dev.batchC02700MinusFourthP005Bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [3928/3933] Replayed ConnesWeilRH.Dev.C1RouteABatchC02700MinusLeftBounds2558
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusLeftBounds2558.lean:863:0: 'ConnesWeilRH.Dev.batchC02700MinusLeftP000NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusLeftBounds2558.lean:864:0: 'ConnesWeilRH.Dev.batchC02700MinusLeftP001NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusLeftBounds2558.lean:865:0: 'ConnesWeilRH.Dev.batchC02700MinusLeftP002NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusLeftBounds2558.lean:866:0: 'ConnesWeilRH.Dev.batchC02700MinusLeftP003NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusLeftBounds2558.lean:867:0: 'ConnesWeilRH.Dev.batchC02700MinusLeftP004NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusLeftBounds2558.lean:868:0: 'ConnesWeilRH.Dev.batchC02700MinusLeftP005NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusLeftBounds2558.lean:869:0: 'ConnesWeilRH.Dev.batchC02700MinusLeftP006NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusLeftBounds2558.lean:870:0: 'ConnesWeilRH.Dev.batchC02700MinusLeftP007NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusLeftBounds2558.lean:871:0: 'ConnesWeilRH.Dev.batchC02700MinusLeftP008NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusLeftBounds2558.lean:872:0: 'ConnesWeilRH.Dev.batchC02700MinusLeftP009NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusLeftBounds2558.lean:873:0: 'ConnesWeilRH.Dev.batchC02700MinusLeftP010NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusLeftBounds2558.lean:874:0: 'ConnesWeilRH.Dev.batchC02700MinusLeftP011NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusLeftBounds2558.lean:875:0: 'ConnesWeilRH.Dev.batchC02700MinusLeftP012NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusLeftBounds2558.lean:876:0: 'ConnesWeilRH.Dev.batchC02700MinusLeftP013NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusLeftBounds2558.lean:877:0: 'ConnesWeilRH.Dev.batchC02700MinusLeftP014NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusLeftBounds2558.lean:878:0: 'ConnesWeilRH.Dev.batchC02700MinusLeftP015NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusLeftBounds2558.lean:879:0: 'ConnesWeilRH.Dev.batchC02700MinusLeftP016NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusLeftBounds2558.lean:880:0: 'ConnesWeilRH.Dev.batchC02700MinusLeftP017NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusLeftBounds2558.lean:881:0: 'ConnesWeilRH.Dev.batchC02700MinusLeftP018NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusLeftBounds2558.lean:882:0: 'ConnesWeilRH.Dev.batchC02700MinusLeftP019NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusLeftBounds2558.lean:883:0: 'ConnesWeilRH.Dev.batchC02700MinusLeftP020NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusLeftBounds2558.lean:884:0: 'ConnesWeilRH.Dev.batchC02700MinusLeftP021NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusLeftBounds2558.lean:885:0: 'ConnesWeilRH.Dev.batchC02700MinusLeftP022NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusLeftBounds2558.lean:886:0: 'ConnesWeilRH.Dev.batchC02700MinusLeftP023NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusLeftBounds2558.lean:887:0: 'ConnesWeilRH.Dev.batchC02700MinusLeftP024NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusLeftBounds2558.lean:888:0: 'ConnesWeilRH.Dev.batchC02700MinusLeftP025NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusLeftBounds2558.lean:889:0: 'ConnesWeilRH.Dev.batchC02700MinusLeftP026NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusLeftBounds2558.lean:890:0: 'ConnesWeilRH.Dev.batchC02700MinusLeftP027NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusLeftBounds2558.lean:891:0: 'ConnesWeilRH.Dev.batchC02700MinusLeftP028NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusLeftBounds2558.lean:892:0: 'ConnesWeilRH.Dev.batchC02700MinusLeftP029NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [3929/3933] Replayed ConnesWeilRH.Dev.C1RouteABatchC02700MinusRightBounds2558
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusRightBounds2558.lean:833:0: 'ConnesWeilRH.Dev.batchC02700MinusRightP000NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusRightBounds2558.lean:834:0: 'ConnesWeilRH.Dev.batchC02700MinusRightP001NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusRightBounds2558.lean:835:0: 'ConnesWeilRH.Dev.batchC02700MinusRightP002NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusRightBounds2558.lean:836:0: 'ConnesWeilRH.Dev.batchC02700MinusRightP003NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusRightBounds2558.lean:837:0: 'ConnesWeilRH.Dev.batchC02700MinusRightP004NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusRightBounds2558.lean:838:0: 'ConnesWeilRH.Dev.batchC02700MinusRightP005NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusRightBounds2558.lean:839:0: 'ConnesWeilRH.Dev.batchC02700MinusRightP006NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusRightBounds2558.lean:840:0: 'ConnesWeilRH.Dev.batchC02700MinusRightP007NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusRightBounds2558.lean:841:0: 'ConnesWeilRH.Dev.batchC02700MinusRightP008NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusRightBounds2558.lean:842:0: 'ConnesWeilRH.Dev.batchC02700MinusRightP009NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusRightBounds2558.lean:843:0: 'ConnesWeilRH.Dev.batchC02700MinusRightP010NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusRightBounds2558.lean:844:0: 'ConnesWeilRH.Dev.batchC02700MinusRightP011NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusRightBounds2558.lean:845:0: 'ConnesWeilRH.Dev.batchC02700MinusRightP012NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusRightBounds2558.lean:846:0: 'ConnesWeilRH.Dev.batchC02700MinusRightP013NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusRightBounds2558.lean:847:0: 'ConnesWeilRH.Dev.batchC02700MinusRightP014NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusRightBounds2558.lean:848:0: 'ConnesWeilRH.Dev.batchC02700MinusRightP015NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusRightBounds2558.lean:849:0: 'ConnesWeilRH.Dev.batchC02700MinusRightP016NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusRightBounds2558.lean:850:0: 'ConnesWeilRH.Dev.batchC02700MinusRightP017NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusRightBounds2558.lean:851:0: 'ConnesWeilRH.Dev.batchC02700MinusRightP018NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusRightBounds2558.lean:852:0: 'ConnesWeilRH.Dev.batchC02700MinusRightP019NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusRightBounds2558.lean:853:0: 'ConnesWeilRH.Dev.batchC02700MinusRightP020NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusRightBounds2558.lean:854:0: 'ConnesWeilRH.Dev.batchC02700MinusRightP021NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusRightBounds2558.lean:855:0: 'ConnesWeilRH.Dev.batchC02700MinusRightP022NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusRightBounds2558.lean:856:0: 'ConnesWeilRH.Dev.batchC02700MinusRightP023NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusRightBounds2558.lean:857:0: 'ConnesWeilRH.Dev.batchC02700MinusRightP024NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusRightBounds2558.lean:858:0: 'ConnesWeilRH.Dev.batchC02700MinusRightP025NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusRightBounds2558.lean:859:0: 'ConnesWeilRH.Dev.batchC02700MinusRightP026NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusRightBounds2558.lean:860:0: 'ConnesWeilRH.Dev.batchC02700MinusRightP027NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusRightBounds2558.lean:861:0: 'ConnesWeilRH.Dev.batchC02700MinusRightP028NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusRightBounds2558.lean:862:0: 'ConnesWeilRH.Dev.batchC02700MinusRightP029NormBound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [3930/3933] Replayed ConnesWeilRH.Dev.C1RouteABatchC02700MinusMidpoint2558
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpoint2558.lean:2965:0: 'ConnesWeilRH.Dev.batchC02700MinusMidpointP000DerivativeError2558' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpoint2558.lean:2966:0: 'ConnesWeilRH.Dev.batchC02700MinusMidpointP001DerivativeError2558' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpoint2558.lean:2967:0: 'ConnesWeilRH.Dev.batchC02700MinusMidpointP002DerivativeError2558' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpoint2558.lean:2968:0: 'ConnesWeilRH.Dev.batchC02700MinusMidpointP003DerivativeError2558' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpoint2558.lean:2969:0: 'ConnesWeilRH.Dev.batchC02700MinusMidpointP004DerivativeError2558' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpoint2558.lean:2970:0: 'ConnesWeilRH.Dev.batchC02700MinusMidpointP005DerivativeError2558' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpoint2558.lean:2971:0: 'ConnesWeilRH.Dev.batchC02700MinusMidpointP006DerivativeError2558' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpoint2558.lean:2972:0: 'ConnesWeilRH.Dev.batchC02700MinusMidpointP007DerivativeError2558' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpoint2558.lean:2973:0: 'ConnesWeilRH.Dev.batchC02700MinusMidpointP008DerivativeError2558' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpoint2558.lean:2974:0: 'ConnesWeilRH.Dev.batchC02700MinusMidpointP009DerivativeError2558' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpoint2558.lean:2975:0: 'ConnesWeilRH.Dev.batchC02700MinusMidpointP010DerivativeError2558' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpoint2558.lean:2976:0: 'ConnesWeilRH.Dev.batchC02700MinusMidpointP011DerivativeError2558' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpoint2558.lean:2977:0: 'ConnesWeilRH.Dev.batchC02700MinusMidpointP012DerivativeError2558' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpoint2558.lean:2978:0: 'ConnesWeilRH.Dev.batchC02700MinusMidpointP013DerivativeError2558' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpoint2558.lean:2979:0: 'ConnesWeilRH.Dev.batchC02700MinusMidpointP014DerivativeError2558' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpoint2558.lean:2980:0: 'ConnesWeilRH.Dev.batchC02700MinusMidpointP015DerivativeError2558' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpoint2558.lean:2981:0: 'ConnesWeilRH.Dev.batchC02700MinusMidpointP016DerivativeError2558' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpoint2558.lean:2982:0: 'ConnesWeilRH.Dev.batchC02700MinusMidpointP017DerivativeError2558' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpoint2558.lean:2983:0: 'ConnesWeilRH.Dev.batchC02700MinusMidpointP018DerivativeError2558' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpoint2558.lean:2984:0: 'ConnesWeilRH.Dev.batchC02700MinusMidpointP019DerivativeError2558' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpoint2558.lean:2985:0: 'ConnesWeilRH.Dev.batchC02700MinusMidpointP020DerivativeError2558' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpoint2558.lean:2986:0: 'ConnesWeilRH.Dev.batchC02700MinusMidpointP021DerivativeError2558' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpoint2558.lean:2987:0: 'ConnesWeilRH.Dev.batchC02700MinusMidpointP022DerivativeError2558' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpoint2558.lean:2988:0: 'ConnesWeilRH.Dev.batchC02700MinusMidpointP023DerivativeError2558' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpoint2558.lean:2989:0: 'ConnesWeilRH.Dev.batchC02700MinusMidpointP024DerivativeError2558' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpoint2558.lean:2990:0: 'ConnesWeilRH.Dev.batchC02700MinusMidpointP025DerivativeError2558' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpoint2558.lean:2991:0: 'ConnesWeilRH.Dev.batchC02700MinusMidpointP026DerivativeError2558' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpoint2558.lean:2992:0: 'ConnesWeilRH.Dev.batchC02700MinusMidpointP027DerivativeError2558' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpoint2558.lean:2993:0: 'ConnesWeilRH.Dev.batchC02700MinusMidpointP028DerivativeError2558' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpoint2558.lean:2994:0: 'ConnesWeilRH.Dev.batchC02700MinusMidpointP029DerivativeError2558' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpoint2558.lean:2995:0: 'ConnesWeilRH.Dev.batchC02700MinusMidpointGrid2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [3931/3933] Replayed ConnesWeilRH.Dev.C1RouteABatchC02700MinusMidpointBounds2558
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpointBounds2558.lean:1967:0: 'ConnesWeilRH.Dev.batchC02700MinusSignedMidpointExpError2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpointBounds2558.lean:1968:0: 'ConnesWeilRH.Dev.batchC02700MinusSignedMidpointSum_eq2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpointBounds2558.lean:1969:0: 'ConnesWeilRH.Dev.batchC02700MinusSignedMidpointCharge2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpointBounds2558.lean:1970:0: 'ConnesWeilRH.Dev.batchC02700MinusSignedMidpointUpper_le2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusMidpointBounds2558.lean:1971:0: 'ConnesWeilRH.Dev.batchC02700MinusPhysicalSecond2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [3932/3933] Replayed ConnesWeilRH.Dev.C1RouteABatchC02700MinusAssembly2558
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusAssembly2558.lean:69:0: 'ConnesWeilRH.Dev.batchC02700MinusThirdCell_bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusAssembly2558.lean:70:0: 'ConnesWeilRH.Dev.batchC02700MinusThirdAggregate_bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteABatchC02700MinusAssembly2558.lean:71:0: 'ConnesWeilRH.Dev.batchC02700MinusCurvature_bound2558' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [3933/3933] Replayed ConnesWeilRH.Dev.C1RouteACorrectionSecondCell2700MinusCorr2570
+warning: ConnesWeilRH/Dev/C1RouteACorrectionSecondCell2700MinusCorr2570.lean:79:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+warning: ConnesWeilRH/Dev/C1RouteACorrectionSecondCell2700MinusCorr2570.lean:131:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+warning: ConnesWeilRH/Dev/C1RouteACorrectionSecondCell2700MinusCorr2570.lean:136:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+warning: ConnesWeilRH/Dev/C1RouteACorrectionSecondCell2700MinusCorr2570.lean:139:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+warning: ConnesWeilRH/Dev/C1RouteACorrectionSecondCell2700MinusCorr2570.lean:146:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+warning: ConnesWeilRH/Dev/C1RouteACorrectionSecondCell2700MinusCorr2570.lean:149:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+warning: ConnesWeilRH/Dev/C1RouteACorrectionSecondCell2700MinusCorr2570.lean:152:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+warning: ConnesWeilRH/Dev/C1RouteACorrectionSecondCell2700MinusCorr2570.lean:234:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+info: ConnesWeilRH/Dev/C1RouteACorrectionSecondCell2700MinusCorr2570.lean:260:0: 'ConnesWeilRH.Dev.corrSecondCell2700MinusSummand_le_2570' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ConnesWeilRH/Dev/C1RouteACorrectionSecondCell2700MinusCorr2570.lean:261:0: 'ConnesWeilRH.Dev.corrThirdL1Sum_eq_2570' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (3933 jobs).

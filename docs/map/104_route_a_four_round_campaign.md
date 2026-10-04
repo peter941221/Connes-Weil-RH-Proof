@@ -5021,3 +5021,38 @@ module regenerated, membership unchanged, no RH claim. Evidence:
 docs/proofs/2569_cell2700_minus_correction_repricing.md,
 scripts/price_cell2700_minus_correction_2569.py,
 results/2569_cell2700_minus_correction_repricing.json.
+
+Record 2570: the 2568 step-3 regeneration — the cell2700 sigma = -1/2
+correction-second chain now exists at the correction pair as eight green
+Lean modules (correction boxes and center node with the 1e-28 error, a
+renamed derivatives copy, the order-2 midpoint lane, the order-1 first-jet
+lane, both shared endpoint modules, and the assembly), every audited
+theorem on the axiom trio. The composer re-derives each layer through the
+2567 remainder law with only the declared substitutions (row key, center/
+error names, 1e-28 charge) and still reproduces the committed base modules
+byte-for-byte in selfcheck; a deterministic re-run is byte-identical. Cell
+bound 414652489/12500000000 = 3.317219912e-2 covers the piece sum
+0.033172199119954 with 4.6e-14 slack and sits 1.0000000069x the 2569
+pilot bound. Two generation incidents closed on the way: the 2567
+runtime-token trap in its file-content form (the derived generators slice
+committed modules for their bridge sections, so source-level renames
+cannot reach them; the emission now strips the four baseCoefficient tokens
+with a hard assert, adds the correction imports, and regenerates the two
+1/10^30 per-family error literals to 1/10^28 with 9e-8 of linarith slack),
+and a chunked-literal power bug (a trailing 68-wide denominator chunk with
+a leading zero shrank the accumulated powers by one digit and inflated the
+literal 10x; chunked() now accumulates raw digit-slice widths and
+round-trip-asserts the emitted text). Validation: pilot agreement (mid/jet
+uppers cover the 2569 aggregates within one 1/10^7 quantum; endpoint
+uppers agree within the 1.24e-13 charge scale), an independent exact
+re-read of the six emitted literals (HOLDS), a 3933-job build with the
+axiom census over the log, and mirror byte-equality over the import
+closure. Scope: minus sign only; the plus counterpart (2563) and the 2566
+grid lanes regenerate next; membership unchanged; no RH claim. Evidence:
+docs/proofs/2570_correction_pair_regeneration.md,
+scripts/generate_correction_pair_2570.py,
+scripts/validate_correction_pair_2570.py,
+scripts/check_assembly_inequality_2570.py,
+results/2570_generation_readback.json,
+results/2570_correction_pair_validation.json,
+results/2570_full_build.log.
