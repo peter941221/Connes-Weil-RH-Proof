@@ -5180,3 +5180,16 @@ need that endpoint order. No full-grid/runtime extrapolation, exact
 coefficient membership, producer GO or RH claim. Next: consumer-required
 orders and a new chord-cell assembly with its certified fourth table.
 Evidence: docs/proofs/2577_fresh_node_exponential_owners.md.
+
+Record 2578: cell 2702 now has a correction second-chord certificate at
+both signs. Fresh order-two endpoint owners from 2577 cover nodes 2702/2703;
+cell-specific 2558 fourth envelopes close the remainder. The exact cell
+uppers are 0.03187287738422179 (minus) and 0.0014568349942617126 (plus),
+with fourth weighted uppers 90679.62224956072 and 4107.984983057736. The
+focused build completes 3937 jobs; 154 requested audit targets have the
+standard trio, the source/config closure checks 225 files, and the
+independent validator passes four endpoint replays and exact rational
+assembly. This is one local cell, not full-grid coverage or coefficient
+membership. Next: a short adjacent-span control and consumer-required
+order-only batch pricing.
+Evidence: docs/proofs/2578_cell2702_second_chord.md.
