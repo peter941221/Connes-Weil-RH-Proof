@@ -1,0 +1,172 @@
+{
+  "record": 2567,
+  "scope": "replay-mechanism gate probe: matched cbv/decide/rfl readings on the accepted node5440 plus replay; no production generator or accepted certificate changed",
+  "gate_verdict": "cbv is the only kernel mechanism closing the compactExp2547 replay equalities at this interface; the 2566 cost projection stands and the segment count governs leases",
+  "variant_expectations": {
+    "Cbv": true,
+    "Decide": false,
+    "Rfl": false
+  },
+  "error_census": {
+    "Cbv": {
+      "error_count": 0,
+      "note": "all 30 replay theorems on the axiom trio",
+      "built": true
+    },
+    "Decide": {
+      "error_count": 30,
+      "note": "failed theorems print sorryAx; mechanism unavailable",
+      "built": false
+    },
+    "Rfl": {
+      "error_count": 30,
+      "note": "failed theorems print sorryAx; mechanism unavailable",
+      "built": false
+    }
+  },
+  "reports": {
+    "Cbv": {
+      "side": "N05440Plus",
+      "order": 3,
+      "grid": "5440",
+      "active": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "exterior": []
+    },
+    "Decide": {
+      "side": "N05440Plus",
+      "order": 3,
+      "grid": "5440",
+      "active": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "exterior": []
+    },
+    "Rfl": {
+      "side": "N05440Plus",
+      "order": 3,
+      "grid": "5440",
+      "active": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "exterior": []
+    }
+  },
+  "timings": {
+    "Cbv": {
+      "wall_s": 30.82,
+      "user_s": 74.97
+    },
+    "Decide": {
+      "wall_s": 18.42,
+      "user_s": 17.31
+    },
+    "Rfl": {
+      "wall_s": 14.98,
+      "user_s": 16.5
+    }
+  },
+  "cbv_reference": {
+    "wall_s": 30.17,
+    "user_s": 72.27,
+    "source": "record 2554 replay phase"
+  },
+  "corrupted_factor_rejected": true,
+  "source_sha256": {
+    "ConnesWeilRH/Dev/C1RouteAReplayProbeCbv2567.lean": "d68b4aa6f242b6c6dc37195ed9274ab0fc67278933c8c0212bfa47bba8fd8c2a",
+    "ConnesWeilRH/Dev/C1RouteAReplayProbeDecide2567.lean": "a1253abe5fc1374d36e8fae7cac90a72c1fd420a721ec2645906671133f2add5",
+    "ConnesWeilRH/Dev/C1RouteAReplayProbeRfl2567.lean": "fa3820b93720dd3a059b6b6a175ade804d0e305b9d11b9a776266670b6c7aac2"
+  },
+  "baseline_log": "build-logs/2567_baseline.log",
+  "full_grid_certificate": false,
+  "membership_claim": false,
+  "rh_claim": false
+}

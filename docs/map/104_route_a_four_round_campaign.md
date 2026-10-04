@@ -4926,3 +4926,56 @@ results/2565_cell2700_minus_pricing.json,
 results/2565_minus_firstjet_midpoint_readback.json,
 build-logs/2565_minus_cell2700_try3.log, build-logs/2565_minus_full_audit.log,
 build-logs/2565_minus_integration.log.
+
+Record 2566: design draft for the full-grid batch structure of the
+correction-second channel — the plan that scales the certified cell2700
+pipeline (2563 plus, 2565 minus) to all 10240 cells at both endpoint signs.
+The structural lever: the three-piece summand is affine in its inputs,
+S_cell = K1*C + K2*J1 + K3*(N0l + N0r) with K1 = h + |sigma|*h^2 +
+sigma^2*h^3/12, K2 = 2|sigma|*h, K3 = sigma^2*h/2, and at sigma = +/-1/2
+the three constants are sign-independent, so the grid total factors through
+three global sums (curvature aggregate, midpoint-jet aggregate, endpoint
+aggregate), each closed once per sign as a chunked rational (a 300k-term
+leaf sum has a roughly 50-digit numerator; the 2565 per-cell closure at 177
+digits already closes in seconds, which is why the per-cell closure — 43 s
+of kernel time at cell2700 — is the wrong shape at 10240 scale and per-cell
+theorems stop at the open affine form instead). Cost model from the single
+readings 2552/2553/2554/2559 projects 90-110 h sequential wall if every
+fourth envelope is an exact replay; lanes: 2a replay-mechanism gate probe
+(the 2553/2554 open cbv-vs-decide-vs-shared decision) before any mass
+generation, 2b per-edge order-0/order-3 table lane (10241 shared positions,
+2558/2559 generator pattern), 2c fourth-envelope lane preferring the 2459
+W-C analytic envelope over per-instance Horner replays with fallback gated
+on the two-channel product staying above about 10x headroom, 2d midpoint
+lane emitting order-1 jets and order-2 leaves together per 160-cell segment,
+2e per-cell affine assembly + three global chunked closures + total theorems
+against the externally priced 2561 numbers under the pin 666472.585392, 2f
+segment-scope validator on the 2563/2565 readback architecture. Design
+only: no cell certificate, no membership claim, no RH claim. Evidence:
+docs/proofs/2566_full_grid_batch_structure.md and the 2552-2565 records
+it cites.
+
+Record 2567: the 2566 batch structure's 2a gate closes — cbv is the only
+kernel mechanism that closes the compactExp2547 replay equalities at the
+existing interface. Three modules derived from the accepted node5440 plus
+replay (byte-identical definitions and statements, only the closing tactic
+varied: cbv / decide / rfl, rename invariant asserting no numeric literal
+moved) were timed in one matched warm session under four sequential heavy
+leases: cbv built all 30 equalities on the axiom trio at 30.82 s wall /
+74.97 s user, reproducing the accepted 2554 replay-phase reading within
+2-4 percent; decide failed 30/30 (Tactic decide failed, sorryAx-printed
+theorems) at 18.42 s wall; rfl failed 30/30 (defeq depth surrender,
+not definitionally equal) at 14.98 s wall — both fail fast precisely
+because they surrender early. The 2566 90-110 h sequential-wall projection
+therefore stands and the 64-segment structure governs leases; the 2553
+generic proved rational factor evaluator remains the only lever against
+the replay cost itself and needs its own probe. The validator
+scripts/validate_replay_probe_2567.py (status REPLAY_PROBE_READBACK_PASS)
+encodes the pre-registered acceptance semantics, replays all three
+modules' payloads independently through the 2553 machinery, byte-checks
+regeneration, and rejects a corrupted factor. Probe only: no production
+generator changed, no repricing, no membership claim, no RH claim.
+Evidence: docs/proofs/2567_replay_mechanism_gate.md,
+results/2567_replay_probe_readback.json,
+build-logs/2567_Cbv.log, build-logs/2567_Decide.log,
+build-logs/2567_Rfl.log.
