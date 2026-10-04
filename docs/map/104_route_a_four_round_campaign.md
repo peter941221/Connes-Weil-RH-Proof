@@ -5056,3 +5056,47 @@ scripts/check_assembly_inequality_2570.py,
 results/2570_generation_readback.json,
 results/2570_correction_pair_validation.json,
 results/2570_full_build.log.
+
+Record 2571: the plus counterpart — the cell2700 sigma = +1/2
+correction-second chain now exists at the correction pair as six green
+Lean modules over the shared 2570 correction boxes and center node, with
+both endpoint signs of the 2560 two-channel consumer now holding
+single-cell correction-pair certificates. The committed plus certificate
+(2563) rested on the coarse 2551 boundary envelope, whose statement is
+base-pair only, so the record ran in two stages. Stage A committed the
+missing base-pair plus fine chain (seven C02700Plus*2558 modules) by
+rendering Cell(2700, +1) through the sign-parameterized 2558 generator;
+its curvature bound reproduces the 2551 coarse value 91/500000 bitwise
+and its right endpoint upper equals sharedN02701PlusUpper2556 bitwise,
+and the independent 2558 payload re-read accepts the chain at sign +1
+while rejecting the opposite-sign fourth witnesses. The plus repricing
+(base selfcheck against every committed plus aggregate; correction-side
+pieces 1.4757e-3 / 3.6546e-5 / 2.2259e-7, sum 1.5124195837e-3;
+2561-enclosure ratio 1.0638; grid extrapolation 15.49 against the pin
+666472.585392 — the plus cell runs ~22x cheaper than the minus cell).
+Stage B derived the 2565 first-jet generator to the plus sign (the
+sliced 2541 statement is natively plus, so the slice sign rewrite goes
+inert under the 2567 remainder law), rendered the natively-plus 2543
+midpoint lane, and cloned the 2565 assembly with sigma, leaf-prefix,
+kernel-position, and name swaps. Assembly corrSecondCell2700PlusSummand_le_2571:
+the 2562 three-piece summand is at most 302483963/200000000000 =
+1.512419815e-3 on cell 2700 at sigma = +1/2, covering the piece sum
+1.51241981420859e-3 with 7.9e-13 slack (independent literal re-read
+HOLDS), 1.00000015x the repricing pilot bound. Validation: token/sign
+hygiene, stage-A driver re-run byte-identical plus independent payload
+re-read, composer re-run byte-identical, base selfcheck reproduces the
+committed stage-A/2556/2565 modules byte-for-byte, pilot agreement, a
+census of 182 axiom audits all trio, and 758-file mirror byte-equality.
+Scope: single cell 2700, both signs now done; the 2566 grid lanes at the
+correction pair and the membership brick come next; no RH claim.
+Evidence: docs/proofs/2571_cell2700_plus_correction_pair.md,
+scripts/generate_plus_cell2700_2571.py,
+scripts/price_cell2700_plus_correction_2571.py,
+scripts/generate_correction_pair_2571.py,
+scripts/validate_correction_pair_2571.py,
+scripts/check_assembly_inequality_2571.py,
+results/2571_plus_cell2700_base_inputs.json,
+results/2571_cell2700_plus_correction_repricing.json,
+results/2571_generation_readback.json,
+results/2571_correction_pair_validation.json,
+build-logs/2571_full_build.log.
