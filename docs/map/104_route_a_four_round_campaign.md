@@ -5206,3 +5206,12 @@ deterministic regeneration, 238-file mirror closure, and the 22-test Linux
 integration all pass. This validates the adjacent interval-integral assembly,
 not full-grid coverage or coefficient membership. Evidence:
 docs/proofs/2579_adjacent_second_chord_span.md.
+
+
+Record 2580: cell 2704 extends the adjacent correction second-chord span to
+cells 2703 and 2704, with a fresh order-zero/order-two owner at node 2705.
+The exact cell-2704 uppers are 0.032416714960059885 (minus) and
+0.001485468770406976 (plus). The Lean audit completes 3943 jobs with zero
+errors and zero `sorryAx`; audited declarations use the standard three axioms.
+This remains a local certificate, not full-grid coverage or coefficient
+membership. Evidence: docs/proofs/2580_cell2704_second_chord_span.md.
