@@ -56,3 +56,8 @@ _precompress_backup_*/
 
 # local scratch probes and one-off diagnostics
 /tmp/
+
+# local replay-probe controls; the durable validation record is tracked
+/ConnesWeilRH/Dev/C1RouteAReplayProbeCbv2567.lean
+/ConnesWeilRH/Dev/C1RouteAReplayProbeDecide2567.lean
+/ConnesWeilRH/Dev/C1RouteAReplayProbeRfl2567.lean
