@@ -20,6 +20,74 @@ noncomputable def matrixDefectEntry2598
     (x a : Matrix (Fin 30) (Fin 30) ℂ) (i j : Fin 30) : ℂ :=
   (if i = j then (1 : ℂ) else 0) - ∑ k : Fin 30, x i k * a k j
 
+theorem matrixProductInterval2598_reLo
+    (xRect aRect : Matrix (Fin 30) (Fin 30) ComplexRect2427)
+    (i j : Fin 30) :
+    (matrixProductInterval2598 xRect aRect i j).reLo =
+      ∑ k : Fin 30, ((xRect i k).mul (aRect k j)).reLo := by
+  rfl
+
+theorem matrixProductInterval2598_reHi
+    (xRect aRect : Matrix (Fin 30) (Fin 30) ComplexRect2427)
+    (i j : Fin 30) :
+    (matrixProductInterval2598 xRect aRect i j).reHi =
+      ∑ k : Fin 30, ((xRect i k).mul (aRect k j)).reHi := by
+  rfl
+
+theorem matrixProductInterval2598_imLo
+    (xRect aRect : Matrix (Fin 30) (Fin 30) ComplexRect2427)
+    (i j : Fin 30) :
+    (matrixProductInterval2598 xRect aRect i j).imLo =
+      ∑ k : Fin 30, ((xRect i k).mul (aRect k j)).imLo := by
+  rfl
+
+theorem matrixProductInterval2598_imHi
+    (xRect aRect : Matrix (Fin 30) (Fin 30) ComplexRect2427)
+    (i j : Fin 30) :
+    (matrixProductInterval2598 xRect aRect i j).imHi =
+      ∑ k : Fin 30, ((xRect i k).mul (aRect k j)).imHi := by
+  rfl
+
+theorem matrixDefectInterval2598_reLo
+    (xRect aRect : Matrix (Fin 30) (Fin 30) ComplexRect2427)
+    (i j : Fin 30) :
+    (matrixDefectInterval2598 xRect aRect i j).reLo =
+      (if i = j then (1 : ℝ) else 0) -
+        ∑ k : Fin 30, ((xRect i k).mul (aRect k j)).reHi := by
+  by_cases h : i = j <;>
+    simp [matrixDefectInterval2598, matrixProductInterval2598,
+      ComplexRect2427.sumFinset, ComplexRect2427.point, ComplexRect2427.sub, h]
+
+theorem matrixDefectInterval2598_reHi
+    (xRect aRect : Matrix (Fin 30) (Fin 30) ComplexRect2427)
+    (i j : Fin 30) :
+    (matrixDefectInterval2598 xRect aRect i j).reHi =
+      (if i = j then (1 : ℝ) else 0) -
+        ∑ k : Fin 30, ((xRect i k).mul (aRect k j)).reLo := by
+  by_cases h : i = j <;>
+    simp [matrixDefectInterval2598, matrixProductInterval2598,
+      ComplexRect2427.sumFinset, ComplexRect2427.point, ComplexRect2427.sub, h]
+
+theorem matrixDefectInterval2598_imLo
+    (xRect aRect : Matrix (Fin 30) (Fin 30) ComplexRect2427)
+    (i j : Fin 30) :
+    (matrixDefectInterval2598 xRect aRect i j).imLo =
+      (if i = j then (0 : ℝ) else 0) -
+        ∑ k : Fin 30, ((xRect i k).mul (aRect k j)).imHi := by
+  by_cases h : i = j <;>
+    simp [matrixDefectInterval2598, matrixProductInterval2598,
+      ComplexRect2427.sumFinset, ComplexRect2427.point, ComplexRect2427.sub, h]
+
+theorem matrixDefectInterval2598_imHi
+    (xRect aRect : Matrix (Fin 30) (Fin 30) ComplexRect2427)
+    (i j : Fin 30) :
+    (matrixDefectInterval2598 xRect aRect i j).imHi =
+      (if i = j then (0 : ℝ) else 0) -
+        ∑ k : Fin 30, ((xRect i k).mul (aRect k j)).imLo := by
+  by_cases h : i = j <;>
+    simp [matrixDefectInterval2598, matrixProductInterval2598,
+      ComplexRect2427.sumFinset, ComplexRect2427.point, ComplexRect2427.sub, h]
+
 theorem matrixDefectInterval2598_mem
     (x a : Matrix (Fin 30) (Fin 30) ℂ)
     (xRect aRect : Matrix (Fin 30) (Fin 30) ComplexRect2427)
@@ -84,4 +152,3 @@ theorem norm_le_rectL1Upper2598
       (add_le_add hre him)
   exact_mod_cast hnorm
 end ConnesWeilRH.Dev
-
