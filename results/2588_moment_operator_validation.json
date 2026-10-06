@@ -1,0 +1,22 @@
+{
+  "record": 2588,
+  "date": "2026-10-05",
+  "status": "LEAN_ANALYTIC_MOMENT_OPERATOR_INTERFACE_PASS",
+  "source": "ConnesWeilRH/Dev/C1RouteACorrectionMomentOperator2588.lean",
+  "audit": "ConnesWeilRH/Dev/C1RouteACorrectionMomentOperator2588Audit.lean",
+  "lean_build": true,
+  "axiom_audit": ["propext", "Classical.choice", "Quot.sound"],
+  "theorems": [
+    "ownerMomentOperator2588_apply",
+    "ownerMomentMatrix_det_ne_zero_of_operator_injective2588"
+  ],
+  "operator": "ownerMomentMatrix2351 converted to a continuous linear operator on Fin 30 -> Complex",
+  "determinant_bridge": "operator injectivity implies matrix determinant nonzero",
+  "analytic_entry_enclosure_instantiated": false,
+  "neumann_defect_instantiated": false,
+  "hdet_closed": false,
+  "owner_transfer_to_live_consumer": false,
+  "producer_go": false,
+  "rh_claim": false,
+  "boundary": "The missing step is still a Lean proof of the actual operator defect bound from the 2338 analytic interval matrix certificate."
+}

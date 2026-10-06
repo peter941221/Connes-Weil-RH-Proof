@@ -1,0 +1,19 @@
+{
+  "record": 2592,
+  "date": "2026-10-05",
+  "status": "LEAN_ENTRYWISE_DEFECT_BOUND_INTERFACE_PASS",
+  "source": "ConnesWeilRH/Dev/C1RouteACorrectionEntrywiseDefect2592.lean",
+  "audit": "ConnesWeilRH/Dev/C1RouteACorrectionEntrywiseDefect2592Audit.lean",
+  "lean_build": true,
+  "axiom_audit": ["propext", "Classical.choice", "Quot.sound"],
+  "theorem": "capturedActualCorrectionOwner2584_realizes_of_entrywise_defect_bounds2592",
+  "bound_representation": "NNReal entrywise bounds on complex defect moduli",
+  "operator_norm_step": true,
+  "numeric_2338_payload_instantiated": false,
+  "analytic_matrix_enclosure_instantiated": false,
+  "membership": false,
+  "owner_transfer_to_live_consumer": false,
+  "producer_go": false,
+  "rh_claim": false,
+  "boundary": "The remaining bridge is to provide the actual defect matrix, its NNReal entrywise bounds, row sums below one, and equality to the Lean defect operator."
+}

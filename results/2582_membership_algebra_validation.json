@@ -1,0 +1,26 @@
+{
+  "record": 2582,
+  "status": "FORMAL_MEMBERSHIP_ALGEBRA_PASS",
+  "scope": "bounded inverse residual to coefficient distance",
+  "source": "ConnesWeilRH/Dev/C1RouteACorrectionMembershipAlgebra2581.lean",
+  "audit": "ConnesWeilRH/Dev/C1RouteACorrectionMembershipAlgebra2581Audit.lean",
+  "source_sha256": "7c84b69bf72162c4dd55b26956c03a33d39967cf4e74f50954fbc631f38880c7",
+  "audit_sha256": "1da687b954be795b36a16045445a3056afc31bf166e1506cde765555f22e42ff",
+  "verified_in": "Linux-side clean HEAD verification copy",
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "theorem": "coefficient_distance_of_left_inverse2581",
+  "premises": [
+    "X.comp A = id",
+    "A coefficient = target",
+    "norm (target - A center) <= residual"
+  ],
+  "conclusion": "norm (coefficient - center) <= norm X * residual",
+  "lean_membership_theorem": false,
+  "owner_transfer_to_live_consumer": false,
+  "producer_go": false,
+  "rh_claim": false
+}

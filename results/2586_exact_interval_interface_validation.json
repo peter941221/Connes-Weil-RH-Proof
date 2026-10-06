@@ -1,0 +1,20 @@
+{
+  "record": 2586,
+  "date": "2026-10-05",
+  "status": "LEAN_EXACT_INTERVAL_BOX_INTERFACE_PASS",
+  "source": "ConnesWeilRH/Dev/C1RouteACorrectionExactIntervals2586.lean",
+  "generator": "scripts/generate_exact_correction_intervals_2586.py",
+  "repair_source": "results/2338_exact_interpolation_repair.json",
+  "repair_source_sha256": "7efde152db5e18c2d312cae16309172154044b443477bca75b9619b3070eb258",
+  "rows": 30,
+  "coordinates": 60,
+  "exact_interval_box_theorem": true,
+  "explicit_owner_interface_theorem": true,
+  "lean_build": true,
+  "axiom_audit": ["propext", "Classical.choice", "Quot.sound"],
+  "external_interval_soundness_in_lean": false,
+  "owner_transfer_to_live_consumer": false,
+  "producer_go": false,
+  "rh_claim": false,
+  "boundary": "The h_exact_interval premise still requires a Lean proof that the 2338 Arb intervals enclose the exact analytic owner."
+}

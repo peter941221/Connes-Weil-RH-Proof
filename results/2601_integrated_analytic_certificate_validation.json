@@ -1,0 +1,16 @@
+{
+  "record": 2601,
+  "lean_file": "ConnesWeilRH/Dev/C1RouteACorrectionAnalyticCertificate2601.lean",
+  "static_comparison": "2600",
+  "interval_propagation": "2598",
+  "owner_consumer": "2599",
+  "remaining_premises": [
+    "candidate inverse containment",
+    "analytic integral interval soundness",
+    "actual defect entry identity",
+    "operator defect identity"
+  ],
+  "producer_go": "not_proved",
+  "rh": "not_proved",
+  "lean_audit": "audit_target_created_not_run"
+}

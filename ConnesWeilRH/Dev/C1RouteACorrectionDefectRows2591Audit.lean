@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RouteACorrectionDefectRows2591
+
+#print axioms ConnesWeilRH.Dev.matrixOperator2590_apply
+#print axioms ConnesWeilRH.Dev.matrixOperator_norm_lt_one_of_row_sum_lt_one2590
+#print axioms ConnesWeilRH.Dev.capturedActualCorrectionOwner2584_realizes_of_defect_rows2591

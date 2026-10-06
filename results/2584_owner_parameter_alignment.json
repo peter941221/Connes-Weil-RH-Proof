@@ -1,0 +1,16 @@
+{
+  "record": 2584,
+  "status": "OWNER_WIDTH_ALIGNMENT_PASS",
+  "capture_source": "results\\2275_gap_owner_audit.json",
+  "lean_source": "ConnesWeilRH\\Dev\\C1RouteAOwnerScaleAudit.lean",
+  "family_count": 30,
+  "width_mismatches": [],
+  "radius_convention": "Lean radius is storedWidth[index]^2; 2338 uses width^2",
+  "modulations_instantiated": false,
+  "nodes_instantiated": false,
+  "targets_instantiated": false,
+  "membership_theorem": false,
+  "owner_transfer_to_live_consumer": false,
+  "producer_go": false,
+  "rh_claim": false
+}

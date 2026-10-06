@@ -5215,3 +5215,88 @@ The exact cell-2704 uppers are 0.032416714960059885 (minus) and
 errors and zero `sorryAx`; audited declarations use the standard three axioms.
 This remains a local certificate, not full-grid coverage or coefficient
 membership. Evidence: docs/proofs/2580_cell2704_second_chord_span.md.
+
+
+Record 2581: external coefficient-membership handoff opens the exact-owner
+transfer lane by importing the 2338 membership facts as a Lean-side algebra
+layer. Evidence: docs/proofs/2581_membership_handoff.md.
+
+Record 2582: bounded-inverse membership algebra supplies the norm and
+algebra lemmas the membership bridge consumes. Evidence:
+docs/proofs/2582_membership_algebra.md.
+
+Record 2583: analytic-owner membership bridge connects the membership door
+to the analytic-owner side of the chain. Evidence:
+docs/proofs/2583_membership_bridge.md.
+
+Record 2584: captured owner parameter instance and 2338-to-Lean owner
+parameter alignment fix the concrete owner the chain reasons about.
+Evidence: docs/proofs/2584_capture_parameters.md and
+docs/proofs/2584_owner_parameter_alignment.md.
+
+Record 2585: full interval containment certifies that the complete 2338
+interval system lies inside the 2570 boxes. Evidence:
+docs/proofs/2585_full_interval_box_containment.md.
+
+Record 2586: exact interval interface imports the exact correction intervals
+into Lean. Evidence: docs/proofs/2586_exact_interval_interface.md.
+
+Record 2587: Neumann defect to injectivity bridge. Evidence:
+docs/proofs/2587_neumann_injectivity_bridge.md.
+
+Record 2588: analytic moment operator and determinant interface. Evidence:
+docs/proofs/2588_moment_operator_interface.md.
+
+Record 2589: captured-owner defect interface. Evidence:
+docs/proofs/2589_captured_owner_defect_interface.md.
+
+Record 2591: row-sum defect certificate interface. Evidence:
+docs/proofs/2591_defect_rows_interface.md.
+
+Record 2592: entrywise defect-bound interface. Evidence:
+docs/proofs/2592_entrywise_defect_interface.md.
+
+Record 2594: imported row-bound owner interface. Evidence:
+docs/proofs/2594_imported_row_bound_interface.md.
+
+Record 2595: defect-entry payload, the entrywise NNReal comparison payload
+consumed downstream. Evidence: docs/proofs/2595_defect_entry_payload.md.
+
+Record 2596: analytic-entry owner interface connects the 2595 payload to
+the owner side. Evidence: docs/proofs/2596_analytic_entry_owner_interface.md.
+
+Record 2597: analytic matrix interval interface imports the 900 rational
+rectangles of the 2351 analytic matrix. Evidence:
+docs/proofs/2597_analytic_matrix_interval_interface.md.
+
+Record 2598: interval propagation proves the generic logical propagation
+used by the 2338 certificate. Evidence:
+docs/proofs/2598_interval_propagation.md.
+
+Record 2599: interval-to-owner interface wires the generic 2598 propagation
+to the 2596 owner. Evidence: docs/proofs/2599_interval_owner_interface.md.
+
+Record 2600: static defect comparison reconstructs the candidate inverse as
+exact point rectangles for the finite rational defect comparison. Evidence:
+docs/proofs/2600_static_defect_comparison.md.
+
+Record 2601: integrated analytic certificate interface composes the 2598
+propagation and the 2600 comparison, and explicitly enumerates its four
+remaining premises. This is machinery plus an explicit premise list: no
+producer GO and no RH claim. Evidence:
+docs/proofs/2601_integrated_analytic_certificate.md.
+
+Build ledger (2026-10-06): on the WSL2 mirror the chain closure through
+AnalyticMomentSystem plus 2597 (568s) and 2598 (759s, after the le_max
+explicit-argument rewrite recorded in AGENTS 2bs) is compiled with direct
+lean -o and a dynamic LEAN_PATH; 2581, 2585, 2586 and the 2590/2593/2594/
+2595 payload layer were compiled in earlier sessions. 2600 is NOT compiled:
+three single-process attempts (up to 187G swap, best run 3h37m at ~3.4 cores
+average) were killed by monotonic anonymous-memory growth, since each of its
+31 row theorems unfolds the full 30x30 interval matrix thirty times via
+fin_cases and norm_num. The designed next brick is a mechanical split of
+2600 into def units plus at-most-ten theorem units behind a same-name facade
+re-export, checkpointed by the chain's SKIP-if-olean rule. The modules after
+2600 in the chain build order (2583, capture owner 2584, 2587, 2588, 2589,
+2591, 2592, 2596, 2599, 2601) and the 2598/2599/2600/2601 audits are
+source-only: no compile or axiom claim is made for them.

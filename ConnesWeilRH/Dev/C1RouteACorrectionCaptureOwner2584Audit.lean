@@ -1,0 +1,4 @@
+import ConnesWeilRH.Dev.C1RouteACorrectionCaptureOwner2584
+
+#print axioms ConnesWeilRH.Dev.capturedActualCorrectionOwner2584_realizes
+#print axioms ConnesWeilRH.Dev.capturedActualCorrectionOwner2584_mem_of_component_distances

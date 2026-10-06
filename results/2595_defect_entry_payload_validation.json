@@ -1,0 +1,12 @@
+{
+  "record": 2595,
+  "rows": 30,
+  "entries": 900,
+  "source": "results/2351_moment_matrix_witness.json",
+  "row_sum_reference": "results/2351_moment_matrix_exact_check.json",
+  "generator": "scripts/generate_defect_entry_bounds_2595.py",
+  "lean_file": "ConnesWeilRH/Dev/C1RouteACorrectionDefectEntryBounds2595.lean",
+  "generated_payload_verified": true,
+  "lean_build": "Mathlib.Analysis.Matrix.Normed.olean_built; project_chain_2590_to_2595_not_completed",
+  "actual_analytic_defect_enclosure": "external_premise_not_proved"
+}

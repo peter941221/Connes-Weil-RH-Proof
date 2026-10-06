@@ -1,0 +1,4 @@
+import ConnesWeilRH.Dev.C1RouteACorrectionNeumann2587
+
+#print axioms ConnesWeilRH.Dev.injective_of_norm_sub_id_lt_one2587
+#print axioms ConnesWeilRH.Dev.injective_of_norm_sub_id_lt_one2587_left_factor

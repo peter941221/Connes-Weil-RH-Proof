@@ -1,0 +1,4 @@
+import ConnesWeilRH.Dev.C1RouteACorrectionMomentOperator2588
+
+#print axioms ConnesWeilRH.Dev.ownerMomentOperator2588_apply
+#print axioms ConnesWeilRH.Dev.ownerMomentMatrix_det_ne_zero_of_operator_injective2588

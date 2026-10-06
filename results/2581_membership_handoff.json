@@ -1,0 +1,21 @@
+{
+  "record": 2581,
+  "status": "EXTERNAL_MEMBERSHIP_HANDOFF_PASS",
+  "scope": "2338 analytic repair to 2570 correction-box handoff",
+  "matrix_dimension": 30,
+  "neumann_defect_lt_half": true,
+  "solution_interval_residual_contains_zero": true,
+  "correction_slots_checked": 30,
+  "correction_representatives_inside_boxes": 30,
+  "correction_box_slack_ratio": 1.5580206698597658,
+  "correction_smallest_k_within_half_error": 95,
+  "repair_source_sha256": "7efde152db5e18c2d312cae16309172154044b443477bca75b9619b3070eb258",
+  "margin_source_sha256": "7efde152db5e18c2d312cae16309172154044b443477bca75b9619b3070eb258",
+  "box_source_sha256": "56510aeabcfcd87ccc7888c79ba04febb953ba601f2d0de857474eb15d079ca9",
+  "center_source_sha256": "37d7c9e55b861ead6476f76552ecba2265a65e0550ca35005829e9aa3bdcbb71",
+  "lean_box_source_hash_bound": true,
+  "lean_membership_theorem": false,
+  "owner_transfer_to_live_consumer": false,
+  "producer_go": false,
+  "rh_claim": false
+}

@@ -1,0 +1,14 @@
+{
+  "record": 2597,
+  "rows": 30,
+  "entries": 900,
+  "generator": "scripts/generate_analytic_moment_intervals_2597.py",
+  "lean_file": "ConnesWeilRH/Dev/C1RouteACorrectionAnalyticIntervals2597.lean",
+  "witness": "results/2351_moment_matrix_witness.json",
+  "witness_sha256": "c8737256f4daeddfec9fa2bbab0ee54b0643acce69c87aeb46983696b61581ea",
+  "endpoint_payload_imported": true,
+  "analytic_interval_soundness": "explicit_premise_required",
+  "defect_entry_bounds": "not_connected",
+  "producer_go": "not_proved",
+  "rh": "not_proved"
+}

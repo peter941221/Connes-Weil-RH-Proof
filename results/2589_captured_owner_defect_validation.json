@@ -1,0 +1,19 @@
+{
+  "record": 2589,
+  "date": "2026-10-05",
+  "status": "LEAN_CAPTURED_OWNER_DEFECT_INTERFACE_PASS",
+  "source": "ConnesWeilRH/Dev/C1RouteACorrectionDefectOwner2589.lean",
+  "audit": "ConnesWeilRH/Dev/C1RouteACorrectionDefectOwner2589Audit.lean",
+  "lean_build": true,
+  "axiom_audit": ["propext", "Classical.choice", "Quot.sound"],
+  "theorem": "capturedActualCorrectionOwner2584_realizes_of_defect2589",
+  "premise": "strict operator defect < 1 for a left preconditioner X and the captured analytic moment operator",
+  "conclusion": "captured owner satisfies all 30 Laplace interpolation targets",
+  "numeric_2338_defect_instantiated": false,
+  "analytic_matrix_enclosure_instantiated": false,
+  "membership": false,
+  "owner_transfer_to_live_consumer": false,
+  "producer_go": false,
+  "rh_claim": false,
+  "boundary": "The theorem is conditional on the Lean operator defect premise; 2338 Arb intervals have not yet been imported as that premise."
+}

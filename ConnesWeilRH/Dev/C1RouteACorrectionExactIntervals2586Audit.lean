@@ -1,0 +1,4 @@
+import ConnesWeilRH.Dev.C1RouteACorrectionExactIntervals2586
+
+#print axioms ConnesWeilRH.Dev.exactCorrectionInterval_mem_correctionBox2586
+#print axioms ConnesWeilRH.Dev.actualCorrectionOwner_mem_correctionBox_of_exactInterval2586

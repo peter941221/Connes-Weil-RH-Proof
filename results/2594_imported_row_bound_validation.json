@@ -1,0 +1,19 @@
+{
+  "record": 2594,
+  "date": "2026-10-05",
+  "status": "LEAN_IMPORTED_ROW_BOUND_OWNER_INTERFACE_PASS",
+  "source": "ConnesWeilRH/Dev/C1RouteACorrectionRowBoundOwner2594.lean",
+  "generator": "scripts/generate_row_bounds_2593.py",
+  "payload_source": "results/2351_moment_matrix_exact_check.json",
+  "audit": "ConnesWeilRH/Dev/C1RouteACorrectionRowBoundOwner2594Audit.lean",
+  "rows": 30,
+  "row_bound_lt_one_theorem": true,
+  "lean_build": true,
+  "axiom_audit": ["propext", "Classical.choice", "Quot.sound"],
+  "remaining_premise": "actual defect matrix row NNReal norm sums are bounded by imported row bounds and actual defect operator equality",
+  "analytic_matrix_enclosure_instantiated": false,
+  "membership": false,
+  "owner_transfer_to_live_consumer": false,
+  "producer_go": false,
+  "rh_claim": false
+}

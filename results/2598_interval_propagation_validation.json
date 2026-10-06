@@ -1,0 +1,14 @@
+{
+  "record": 2598,
+  "lean_file": "ConnesWeilRH/Dev/C1RouteACorrectionIntervalPropagation2598.lean",
+  "operations": [
+    "complex_mul",
+    "finite_sum",
+    "identity_minus_product"
+  ],
+  "analytic_interval_soundness": "external_premise_required",
+  "static_defect_bound_to_2595": "not_proved",
+  "producer_go": "not_proved",
+  "rh": "not_proved",
+  "lean_audit": "audit_target_created_not_run"
+}

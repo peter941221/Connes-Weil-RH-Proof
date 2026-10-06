@@ -1,0 +1,3 @@
+import ConnesWeilRH.Dev.C1RouteACorrectionIntervalPropagation2598
+#print axioms ConnesWeilRH.Dev.matrixDefectInterval2598_mem
+#print axioms ConnesWeilRH.Dev.norm_le_rectL1Upper2598

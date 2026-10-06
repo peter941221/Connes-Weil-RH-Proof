@@ -1,0 +1,13 @@
+{
+  "record": 2583,
+  "status": "FORMAL_INTERFACE_ADDED",
+  "scope": "analytic owner to correction-box membership interface",
+  "actual_owner": "ownerMomentSolution2351",
+  "realization_theorem": "actualCorrectionOwner2351_realizes",
+  "box_transfer_theorem": "actualCorrectionOwner2351_mem_of_component_distances2583",
+  "remaining_premise": "componentwise directed residual bounds for the same live owner",
+  "lean_membership_theorem": false,
+  "owner_transfer_to_live_consumer": false,
+  "producer_go": false,
+  "rh_claim": false
+}

@@ -1,0 +1,3 @@
+import ConnesWeilRH.Dev.C1RouteACorrectionMembershipAlgebra2581
+
+#print axioms ConnesWeilRH.Dev.coefficient_distance_of_left_inverse2581

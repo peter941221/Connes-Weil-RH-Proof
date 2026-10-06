@@ -1,0 +1,21 @@
+{
+  "record": 2587,
+  "date": "2026-10-05",
+  "status": "LEAN_NEUMANN_INJECTIVITY_BRIDGE_PASS",
+  "source": "ConnesWeilRH/Dev/C1RouteACorrectionNeumann2587.lean",
+  "audit": "ConnesWeilRH/Dev/C1RouteACorrectionNeumann2587Audit.lean",
+  "lean_build": true,
+  "axiom_audit": ["propext", "Classical.choice", "Quot.sound"],
+  "theorems": [
+    "injective_of_norm_sub_id_lt_one2587",
+    "injective_of_norm_sub_id_lt_one2587_left_factor"
+  ],
+  "mathematical_scope": "For continuous linear maps A and X on the same normed complex space, ||I - X.comp A|| < 1 implies X.comp A is injective and A is injective.",
+  "2338_numeric_defect_instantiated": false,
+  "analytic_matrix_entry_enclosure_instantiated": false,
+  "hdet_closed": false,
+  "owner_transfer_to_live_consumer": false,
+  "producer_go": false,
+  "rh_claim": false,
+  "boundary": "The 2338 Arb defect bound and the analytic matrix-entry enclosure are still external data; this record formalizes only the algebraic implication."
+}

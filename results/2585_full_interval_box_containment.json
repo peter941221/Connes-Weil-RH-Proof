@@ -1,0 +1,14 @@
+{
+  "record": 2585,
+  "status": "FULL_INTERVAL_BOX_CONTAINMENT_PASS",
+  "rows_checked": 30,
+  "coordinates_checked": 60,
+  "failures": [],
+  "minimum_outward_margin": "0",
+  "repair_source": "results\\2338_exact_interpolation_repair.json",
+  "box_source": "ConnesWeilRH\\Dev\\C1RouteACorrectionCoefficientBoxes2570.lean",
+  "lean_membership_theorem": false,
+  "owner_transfer_to_live_consumer": false,
+  "producer_go": false,
+  "rh_claim": false
+}

@@ -1,0 +1,10 @@
+{
+  "record": 2596,
+  "lean_file": "ConnesWeilRH/Dev/C1RouteACorrectionAnalyticEntryOwner2596.lean",
+  "payload": "ConnesWeilRH.Dev.C1RouteACorrectionDefectEntryBounds2595",
+  "consumer": "ConnesWeilRH.Dev.C1RouteACorrectionEntrywiseDefect2592",
+  "actual_entry_enclosure": "explicit_premise_required",
+  "actual_defect_matrix_identity": "explicit_premise_required",
+  "producer_go": "not_proved",
+  "rh": "not_proved"
+}

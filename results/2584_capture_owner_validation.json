@@ -1,0 +1,17 @@
+{
+  "record": 2584,
+  "status": "CAPTURE_PARAMETERS_FORMALIZED",
+  "capture_source": "results/2275_gap_owner_audit.json",
+  "capture_sha256": "743fe372bef89b5730c38274d5a5517ac9ea4d3421989d46c49d4af3e78b5e74",
+  "family_count": 30,
+  "node_count": 30,
+  "target_count": 30,
+  "width_alignment": true,
+  "radius_convention": "storedWidth[index]^2",
+  "lean_parameter_definitions": true,
+  "lean_captured_owner_interface": true,
+  "lean_membership_theorem": false,
+  "owner_transfer_to_live_consumer": false,
+  "producer_go": false,
+  "rh_claim": false
+}

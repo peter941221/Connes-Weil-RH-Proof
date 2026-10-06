@@ -1,0 +1,4 @@
+import ConnesWeilRH.Dev.C1RouteACorrectionEntrywiseDefect2592
+
+#print axioms ConnesWeilRH.Dev.matrixOperator_norm_lt_one_of_entrywise_bounds2590
+#print axioms ConnesWeilRH.Dev.capturedActualCorrectionOwner2584_realizes_of_entrywise_defect_bounds2592

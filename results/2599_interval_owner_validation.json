@@ -1,0 +1,15 @@
+{
+  "record": 2599,
+  "lean_file": "ConnesWeilRH/Dev/C1RouteACorrectionIntervalOwner2599.lean",
+  "interval_layer": "2598",
+  "owner_consumer": "2596",
+  "explicit_premises": [
+    "candidate inverse interval containment",
+    "analytic matrix interval containment",
+    "static 900-entry defect bound comparison",
+    "actual defect operator identity"
+  ],
+  "producer_go": "not_proved",
+  "rh": "not_proved",
+  "lean_audit": "audit_target_created_not_run"
+}
