@@ -28,20 +28,22 @@ def product_coords(left: dict, right: dict) -> dict[str, Fraction]:
     return {"reLo": real[0], "reHi": real[1], "imLo": imag[0], "imHi": imag[1]}
 
 
-def block_theorem(column: int, block: int, coordinate: str, matrix: list[list[dict]], inverse: list[list[dict]]) -> str:
+def block_theorem(row: int, column: int, block: int, coordinate: str,
+                  matrix: list[list[dict]], inverse: list[list[dict]]) -> str:
     start = block * 5
     indices = list(range(start, start + 5))
     terms = [
-        f"((candidateInverseInterval2600 0 {fin_literal(inner)}).mul\n"
+        f"((candidateInverseInterval2600 {fin_literal(row)} {fin_literal(inner)}).mul\n"
         f"        (analyticMomentInterval2597 {fin_literal(inner)} {fin_literal(column)})).{coordinate}"
         for inner in indices
     ]
     total = sum(
-        (product_coords(inverse[0][inner], matrix[inner][column])[coordinate] for inner in indices),
+        (product_coords(inverse[row][inner], matrix[inner][column])[coordinate] for inner in indices),
         Fraction(0),
     )
-    theorem = f"candidateInverseAnalyticSumBlock2600_00_{column:02d}_{block}_{coordinate}"
-    names = [f"candidateInverseAnalyticProduct2600_00_{column:02d}_{inner:02d}" for inner in indices]
+    theorem = f"candidateInverseAnalyticSumBlock2600_{row:02d}_{column:02d}_{block}_{coordinate}"
+    names = [f"candidateInverseAnalyticProduct2600_{row:02d}_{column:02d}_{inner:02d}"
+             for inner in indices]
     return f'''theorem {theorem} :
     {' + '.join(terms)} = {real_expr(str(total))} := by
   rw [{', '.join(names)}]
@@ -49,9 +51,11 @@ def block_theorem(column: int, block: int, coordinate: str, matrix: list[list[di
 '''
 
 
-def module_source(column: int, payload: dict) -> str:
+def module_source(column: int, payload: dict, row: int = 0) -> str:
     if not 0 <= column < 30:
         raise ValueError("column must be in [0, 29]")
+    if not 0 <= row < 30:
+        raise ValueError("row must be in [0, 29]")
     matrix = payload["matrix"]
     inverse = payload["candidate_inverse"]
     indices = [fin_literal(index) for index in range(30)]
@@ -67,16 +71,21 @@ def module_source(column: int, payload: dict) -> str:
 
 '''
     theorems = [
-        block_theorem(column, block, coordinate, matrix, inverse)
+        block_theorem(row, column, block, coordinate, matrix, inverse)
         for block in range(6)
         for coordinate in ("reLo", "reHi", "imLo", "imHi")
     ]
-    dependency = ("C1RouteACorrectionStaticDefectProductCache2600Row00" if column == 0
-                  else "C1RouteACorrectionStaticDefectSumBlocks2600Row00Col00")
+    dependencies = ([] if row == 0 or column != 0
+                    else ["C1RouteACorrectionStaticDefectSumBlocks2600Row00Col00"])
+    dependencies.append(
+        f"C1RouteACorrectionStaticDefectProductCache2600Row{row:02d}" if column == 0
+        else f"C1RouteACorrectionStaticDefectSumBlocks2600Row{row:02d}Col00")
+    imports = "\n".join(f"import ConnesWeilRH.Dev.{dependency}"
+                        for dependency in dependencies)
     return (
-        f"import ConnesWeilRH.Dev.{dependency}\n\n"
+        imports + "\n\n"
         "namespace ConnesWeilRH.Dev\n\n"
-        + (generic if column == 0 else "")
+        + (generic if row == 0 and column == 0 else "")
         + "\n".join(theorems)
         + "\nend ConnesWeilRH.Dev\n"
     )
@@ -85,11 +94,12 @@ def module_source(column: int, payload: dict) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--column", type=int, default=0)
+    parser.add_argument("--row", type=int, default=0)
     args = parser.parse_args()
     payload = json.loads(WITNESS.read_text(encoding="utf-8"))
-    source = module_source(args.column, payload)
-    output = DEV / f"C1RouteACorrectionStaticDefectSumBlocks2600Row00Col{args.column:02d}.lean"
-    output.write_text(source, encoding="utf-8")
+    source = module_source(args.column, payload, args.row)
+    output = DEV / f"C1RouteACorrectionStaticDefectSumBlocks2600Row{args.row:02d}Col{args.column:02d}.lean"
+    output.write_text(source, encoding="utf-8", newline="\n")
     print(output)
 
 

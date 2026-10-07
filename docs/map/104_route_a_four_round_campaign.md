@@ -5309,3 +5309,36 @@ three axioms. The other twenty-nine rows and the analytic containment premise
 remain open; neither coefficient membership nor producer GO follows from this
 row closure. Evidence: docs/proofs/2617_static_coordinate_row.md and
 results/2617_static_coordinate_bound_validation.json.
+
+Analytic moment lane (2026-10-02 through 2026-10-07, records 2618-2621):
+the actual-owner normalized integrand, the first-order residual
+architecture, certified 320/400-bit scalar exponentials, and the first
+actual degree-32 panel certificate (panel 094, integral error <= 1e-82,
+Lean-certified). Evidence: docs/proofs/2618_analytic_moment_normalization.md,
+docs/proofs/2619_analytic_moment_residual_architecture.md,
+docs/proofs/2620_actual_moment_scalars_and_edges.md, and
+docs/proofs/2621_actual_moment_panel094_certificate.md.
+
+Record 2622: ten actual panels (090-099, with 094 as the byte-matched
+control) batch-certified through the parameterized consumer; 31 modules,
+260 audited leaves on the standard three axioms, 60s total compiler wall.
+The other 170 panels, partition assembly, and full (0,0) containment
+remain open. Evidence: docs/proofs/2622_moment_panel_batch.md and
+results/2622_moment_panel_batch_validation.json.
+
+Record 2623: static defect comparison rows 1-5 in the coordinate-leaf
+shape; 150 of 900 entries verified, 1065 modules, 155 audits on the
+standard three axioms, 1695s total compiler wall at 6.4 GiB peak - the
+2600 memory wall stays broken at batch scale. Rows 6-29 remain open.
+Evidence: docs/proofs/2623_static_coordinate_rows.md and
+results/2623_static_coordinate_rows_validation.json.
+
+Record 2624: off-diagonal pricing probe. Entry scalars are per-column
+(beta = node_re*width^2, psi = (node_im+modulation)*width^2); the pilot
+entry (0,3) at |psi| = 422.5 is priced inside its committed 2597
+rectangle at degree 55 with 20x margin (degree 52 misses by 77x), and
+the exp(i*psi*center) rotation is mandatory. Route (a) complex
+polynomial is selected over the cos/sin split; the rational-phase
+cos/sin engine is a shared obligation. Pricing only: no Lean, no entry
+theorem yet. Evidence: docs/proofs/2624_offdiagonal_pricing.md and
+results/2624_offdiagonal_pricing.json.

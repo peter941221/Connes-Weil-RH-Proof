@@ -119,9 +119,9 @@ def cell_theorem(i: int, j: int, candidate_names: list[str], analytic_names: lis
 
 
 def row_module(i: int, candidate_names: list[str], analytic_names: list[str], bridge_names: list[str], matrix: list[list[dict]], inverse: list[list[dict]]) -> str:
-    if i == 0:
-        from generate_static_coordinate_bounds_2617 import row_facade_source
-        return row_facade_source()
+    from generate_static_coordinate_bounds_2617 import CONVERTED_ROWS, row_facade_source
+    if i in CONVERTED_ROWS:
+        return row_facade_source(i)
     cells = []
     dispatch = []
     for j in range(30):

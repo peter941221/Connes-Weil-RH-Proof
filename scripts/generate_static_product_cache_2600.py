@@ -61,7 +61,8 @@ def main() -> None:
         raise ValueError("row must be in [0, 29]")
     payload = json.loads(WITNESS.read_text(encoding="utf-8"))
     output = DEV / f"C1RouteACorrectionStaticDefectProductCache2600Row{args.row:02d}.lean"
-    output.write_text(row_module(args.row, payload["matrix"], payload["candidate_inverse"]), encoding="utf-8")
+    output.write_text(row_module(args.row, payload["matrix"], payload["candidate_inverse"]),
+                      encoding="utf-8", newline="\n")
     print(output)
 
 

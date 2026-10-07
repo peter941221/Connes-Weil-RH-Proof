@@ -12,6 +12,7 @@ from generate_static_product_cache_2600 import row_module as product_cache_sourc
 COORDINATES = ("reLo", "reHi", "imLo", "imHi")
 SUFFIXES = {"reLo": "ReLo", "reHi": "ReHi", "imLo": "ImLo", "imHi": "ImHi"}
 SUM_PREFIX = "C1RouteACorrectionStaticDefectSum2617Cell"
+CONVERTED_ROWS = frozenset({0, 1, 2, 3, 4, 5})
 
 
 def validate_payload(payload: dict) -> None:
@@ -32,22 +33,25 @@ def validate_payload(payload: dict) -> None:
                         raise ValueError("candidate inverse must use point rectangles")
 
 
-def compute_coordinates(payload: dict, column: int = 0) -> tuple[dict, dict, Fraction, Fraction]:
+def compute_coordinates(payload: dict, column: int = 0,
+                        row: int = 0) -> tuple[dict, dict, Fraction, Fraction]:
     if not 0 <= column < 30:
         raise ValueError("column must be in [0, 29]")
+    if not 0 <= row < 30:
+        raise ValueError("row must be in [0, 29]")
     matrix = payload["matrix"]
     inverse = payload["candidate_inverse"]
     sums = {
         coordinate: sum(
-            (product_coords(inverse[0][inner], matrix[inner][column])[coordinate]
+            (product_coords(inverse[row][inner], matrix[inner][column])[coordinate]
              for inner in range(30)),
             Fraction(0),
         )
         for coordinate in COORDINATES
     }
     defect = {
-        "reLo": Fraction(int(column == 0)) - sums["reHi"],
-        "reHi": Fraction(int(column == 0)) - sums["reLo"],
+        "reLo": Fraction(int(column == row)) - sums["reHi"],
+        "reHi": Fraction(int(column == row)) - sums["reLo"],
         "imLo": -sums["imHi"],
         "imHi": -sums["imLo"],
     }
@@ -56,18 +60,20 @@ def compute_coordinates(payload: dict, column: int = 0) -> tuple[dict, dict, Fra
     return sums, defect, real_bound, imag_bound
 
 
-def sum_source(coordinate: str, value: Fraction, column: int = 0) -> str:
+def sum_source(coordinate: str, value: Fraction, column: int = 0,
+               row: int = 0) -> str:
     column_index = fin_literal(column)
+    row_index = fin_literal(row)
     blocks = ", ".join(
-        f"candidateInverseAnalyticSumBlock2600_00_{column:02d}_{block}_{coordinate}"
+        f"candidateInverseAnalyticSumBlock2600_{row:02d}_{column:02d}_{block}_{coordinate}"
         for block in range(6)
     )
-    return f'''import ConnesWeilRH.Dev.C1RouteACorrectionStaticDefectSumBlocks2600Row00Col{column:02d}
+    return f'''import ConnesWeilRH.Dev.C1RouteACorrectionStaticDefectSumBlocks2600Row{row:02d}Col{column:02d}
 
 namespace ConnesWeilRH.Dev
 
-theorem candidateInverseAnalyticSum2617_00_{column:02d}_{coordinate} :
-    (∑ k : Fin 30, ((candidateInverseInterval2600 0 k).mul
+theorem candidateInverseAnalyticSum2617_{row:02d}_{column:02d}_{coordinate} :
+    (∑ k : Fin 30, ((candidateInverseInterval2600 {row_index} k).mul
       (analyticMomentInterval2597 k {column_index})).{coordinate}) =
     {real_expr(str(value))} := by
   rw [fin30_sum_eq_six_blocks]
@@ -78,13 +84,15 @@ end ConnesWeilRH.Dev
 '''
 
 
-def bound_source(real_bound: Fraction, imag_bound: Fraction, column: int = 0) -> str:
+def bound_source(real_bound: Fraction, imag_bound: Fraction, column: int = 0,
+                 row: int = 0) -> str:
     column_index = fin_literal(column)
-    diagonal_guard = (f"  have hdiag : (0 : Fin 30) ≠ {column_index} := by decide\n"
-                      if column != 0 else "")
-    diagonal_rewrite = "    rw [if_neg hdiag]\n" if column != 0 else ""
+    row_index = fin_literal(row)
+    diagonal_guard = (f"  have hdiag : ({row_index} : Fin 30) ≠ {column_index} := by decide\n"
+                      if column != row else "")
+    diagonal_rewrite = "    rw [if_neg hdiag]\n" if column != row else ""
     imports = "\n".join(
-        f"import ConnesWeilRH.Dev.{SUM_PREFIX}00{column:02d}{SUFFIXES[coordinate]}"
+        f"import ConnesWeilRH.Dev.{SUM_PREFIX}{row:02d}{column:02d}{SUFFIXES[coordinate]}"
         for coordinate in COORDINATES
     )
     source_coordinates = {
@@ -92,7 +100,7 @@ def bound_source(real_bound: Fraction, imag_bound: Fraction, column: int = 0) ->
     }
     steps = "\n".join(
         f'''  · rw [matrixDefectInterval2598_{coordinate},
-      candidateInverseAnalyticSum2617_00_{column:02d}_{source_coordinates[coordinate]}]
+      candidateInverseAnalyticSum2617_{row:02d}_{column:02d}_{source_coordinates[coordinate]}]
 {diagonal_rewrite}    norm_num'''
         for coordinate in COORDINATES
     )
@@ -101,10 +109,10 @@ def bound_source(real_bound: Fraction, imag_bound: Fraction, column: int = 0) ->
 
 namespace ConnesWeilRH.Dev
 
-theorem candidateInverseDefectEntryBound2617_00_{column:02d} :
+theorem candidateInverseDefectEntryBound2617_{row:02d}_{column:02d} :
     rectL1Upper2598 (matrixDefectInterval2598
-      candidateInverseInterval2600 analyticMomentInterval2597 0 {column_index}) ≤
-      analyticDefectEntryBounds2595 0 {column_index} := by
+      candidateInverseInterval2600 analyticMomentInterval2597 {row_index} {column_index}) ≤
+      analyticDefectEntryBounds2595 {row_index} {column_index} := by
 {diagonal_guard}  apply rectL1Upper2598_le_of_coordinate_bounds2617
     (realBound := {real_expr(str(real_bound))})
     (imagBound := {real_expr(str(imag_bound))})
@@ -117,42 +125,43 @@ end ConnesWeilRH.Dev
 '''
 
 
-def generated_sources(payload: dict, column: int = 0) -> dict[str, str]:
+def generated_sources(payload: dict, column: int = 0, row: int = 0) -> dict[str, str]:
     validate_payload(payload)
-    sums, _, real_bound, imag_bound = compute_coordinates(payload, column)
+    sums, _, real_bound, imag_bound = compute_coordinates(payload, column, row)
     sources = {
-        f"{SUM_PREFIX}00{column:02d}{SUFFIXES[coordinate]}.lean":
-        sum_source(coordinate, sums[coordinate], column)
+        f"{SUM_PREFIX}{row:02d}{column:02d}{SUFFIXES[coordinate]}.lean":
+        sum_source(coordinate, sums[coordinate], column, row)
         for coordinate in COORDINATES
     }
-    sources[f"C1RouteACorrectionStaticDefectCoordinate2617Cell00{column:02d}.lean"] = bound_source(
-        real_bound, imag_bound, column)
-    sources[f"C1RouteACorrectionStaticDefectCoordinate2617Cell00{column:02d}Audit.lean"] = f'''import ConnesWeilRH.Dev.C1RouteACorrectionStaticDefectCoordinate2617Cell00{column:02d}
+    sources[f"C1RouteACorrectionStaticDefectCoordinate2617Cell{row:02d}{column:02d}.lean"] = bound_source(
+        real_bound, imag_bound, column, row)
+    sources[f"C1RouteACorrectionStaticDefectCoordinate2617Cell{row:02d}{column:02d}Audit.lean"] = f'''import ConnesWeilRH.Dev.C1RouteACorrectionStaticDefectCoordinate2617Cell{row:02d}{column:02d}
 
-#print axioms ConnesWeilRH.Dev.candidateInverseDefectEntryBound2617_00_{column:02d}
+#print axioms ConnesWeilRH.Dev.candidateInverseDefectEntryBound2617_{row:02d}_{column:02d}
 '''
     if column != 0:
-        sources[f"C1RouteACorrectionStaticDefectSumBlocks2600Row00Col{column:02d}.lean"] = module_source(
-            column, payload)
+        sources[f"C1RouteACorrectionStaticDefectSumBlocks2600Row{row:02d}Col{column:02d}.lean"] = module_source(
+            column, payload, row)
     return sources
 
 
-def row_facade_source() -> str:
+def row_facade_source(row: int = 0) -> str:
+    row_index = fin_literal(row)
     imports = "\n".join(
-        f"import ConnesWeilRH.Dev.C1RouteACorrectionStaticDefectCoordinate2617Cell00{column:02d}"
+        f"import ConnesWeilRH.Dev.C1RouteACorrectionStaticDefectCoordinate2617Cell{row:02d}{column:02d}"
         for column in range(30)
     )
     cells = "\n".join(
-        f'''theorem candidateInverseDefectEntryBound2600_cell_00_{column:02d} :
+        f'''theorem candidateInverseDefectEntryBound2600_cell_{row:02d}_{column:02d} :
     rectL1Upper2598 (matrixDefectInterval2598
-      candidateInverseInterval2600 analyticMomentInterval2597 0 {fin_literal(column)}) ≤
-      analyticDefectEntryBounds2595 0 {fin_literal(column)} :=
-  candidateInverseDefectEntryBound2617_00_{column:02d}
+      candidateInverseInterval2600 analyticMomentInterval2597 {row_index} {fin_literal(column)}) ≤
+      analyticDefectEntryBounds2595 {row_index} {fin_literal(column)} :=
+  candidateInverseDefectEntryBound2617_{row:02d}_{column:02d}
 '''
         for column in range(30)
     )
     dispatch = "\n".join(
-        f"  · exact candidateInverseDefectEntryBound2600_cell_00_{column:02d}"
+        f"  · exact candidateInverseDefectEntryBound2600_cell_{row:02d}_{column:02d}"
         for column in range(30)
     )
     return f'''{imports}
@@ -160,10 +169,10 @@ def row_facade_source() -> str:
 namespace ConnesWeilRH.Dev
 
 {cells}
-theorem candidateInverseDefectEntryBound2600_row_00 (j : Fin 30) :
+theorem candidateInverseDefectEntryBound2600_row_{row:02d} (j : Fin 30) :
     rectL1Upper2598 (matrixDefectInterval2598
-      candidateInverseInterval2600 analyticMomentInterval2597 0 j) ≤
-      analyticDefectEntryBounds2595 0 j := by
+      candidateInverseInterval2600 analyticMomentInterval2597 {row_index} j) ≤
+      analyticDefectEntryBounds2595 {row_index} j := by
   fin_cases j
 {dispatch}
 
@@ -171,17 +180,18 @@ end ConnesWeilRH.Dev
 '''
 
 
-def generated_row_sources(payload: dict) -> dict[str, str]:
+def generated_row_sources(payload: dict, row: int = 0) -> dict[str, str]:
     sources = {}
     for column in range(30):
-        sources.update(generated_sources(payload, column))
-    sources["C1RouteACorrectionStaticDefectSumBlocks2600Row00Col00.lean"] = module_source(0, payload)
-    sources["C1RouteACorrectionStaticDefectProductCache2600Row00.lean"] = product_cache_source(
-        0, payload["matrix"], payload["candidate_inverse"])
-    sources["C1RouteACorrectionStaticDefectBounds2600Row00.lean"] = row_facade_source()
-    sources["C1RouteACorrectionStaticDefectCoordinate2617Row00Audit.lean"] = '''import ConnesWeilRH.Dev.C1RouteACorrectionStaticDefectBounds2600Row00
+        sources.update(generated_sources(payload, column, row))
+    sources[f"C1RouteACorrectionStaticDefectSumBlocks2600Row{row:02d}Col00.lean"] = module_source(
+        0, payload, row)
+    sources[f"C1RouteACorrectionStaticDefectProductCache2600Row{row:02d}.lean"] = product_cache_source(
+        row, payload["matrix"], payload["candidate_inverse"])
+    sources[f"C1RouteACorrectionStaticDefectBounds2600Row{row:02d}.lean"] = row_facade_source(row)
+    sources[f"C1RouteACorrectionStaticDefectCoordinate2617Row{row:02d}Audit.lean"] = f'''import ConnesWeilRH.Dev.C1RouteACorrectionStaticDefectBounds2600Row{row:02d}
 
-#print axioms ConnesWeilRH.Dev.candidateInverseDefectEntryBound2600_row_00
+#print axioms ConnesWeilRH.Dev.candidateInverseDefectEntryBound2600_row_{row:02d}
 '''
     return sources
 
