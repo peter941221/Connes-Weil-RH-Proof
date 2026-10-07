@@ -1,0 +1,16 @@
+import ConnesWeilRH.Dev.C1RouteAMomentEdgeBound2619
+
+#print axioms ConnesWeilRH.Dev.momentPhase2619_hasDerivAt
+#print axioms ConnesWeilRH.Dev.realNormalizedMomentIntegrand2618_eq_phase2619
+#print axioms ConnesWeilRH.Dev.momentPanel_interior2619
+#print axioms ConnesWeilRH.Dev.momentPhaseDerivative2619_le_slopeUpper
+#print axioms ConnesWeilRH.Dev.momentPhase2619_variation_le
+#print axioms ConnesWeilRH.Dev.exp_polynomial_residual_stability2619
+#print axioms ConnesWeilRH.Dev.momentPhase_polynomial_residual_stability2619
+#print axioms ConnesWeilRH.Dev.momentDerivativeResidual_eq_polynomialQuotient2619
+#print axioms ConnesWeilRH.Dev.momentDerivativeResidual_le_of_polynomialBound2619
+#print axioms ConnesWeilRH.Dev.momentPhase_polynomial_integral_error2619
+#print axioms ConnesWeilRH.Dev.momentPhase_integral_error_of_polynomialResidual2619
+#print axioms ConnesWeilRH.Dev.realNormalizedMomentIntegrand2618_nonneg
+#print axioms ConnesWeilRH.Dev.realNormalizedMomentIntegrand2618_le_edgeUpper
+#print axioms ConnesWeilRH.Dev.realNormalizedMomentIntegrand2618_edge_integral_bound

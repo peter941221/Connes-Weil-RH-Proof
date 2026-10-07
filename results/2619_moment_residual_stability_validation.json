@@ -1,0 +1,61 @@
+{
+  "record": 2619,
+  "scope": "owner phase, polynomial residual stability, and edge integral bound",
+  "stages": [
+    {
+      "module": "C1RouteAMomentResidualStability2619",
+      "source_sha256": "e85c6d0d09a61bd6158c169cdb0b2b42946a95d95110debb71c9442c654225a6",
+      "olean_sha256": "9eb17bb0ea08c2a03372dc97dcdf922841379f14365ba7f97fa445235259c974",
+      "exit_code": 0,
+      "wall_seconds": 3.16,
+      "peak_rss_kib": 4067748
+    },
+    {
+      "module": "C1RouteAMomentEdgeBound2619",
+      "source_sha256": "8a2975808fb83e44e1eecf0bf3fc6b69697107189f52a984a0ad3cd3b4af74e4",
+      "olean_sha256": "d2945851a37c737e2dcdcfe87e4a55c31a1e3dbf34ba642b2a83f59fbf9770c7",
+      "exit_code": 0,
+      "wall_seconds": 1.67,
+      "peak_rss_kib": 3988960
+    },
+    {
+      "module": "C1RouteAMomentResidualStabilityAudit2619",
+      "source_sha256": "ddc9990dced3f085fa533139eca97554f9d8ad3285bccbea622cd0a3694c2796",
+      "olean_sha256": "883f3795d5a8c35fd2c6240b934d105d093fa3ae880bb0a4ecfdaa601f489cdc",
+      "exit_code": 0,
+      "wall_seconds": 1.34,
+      "peak_rss_kib": 3965400
+    }
+  ],
+  "audited_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "audited_theorems": [
+    "ConnesWeilRH.Dev.momentPhase2619_hasDerivAt",
+    "ConnesWeilRH.Dev.realNormalizedMomentIntegrand2618_eq_phase2619",
+    "ConnesWeilRH.Dev.momentPanel_interior2619",
+    "ConnesWeilRH.Dev.momentPhaseDerivative2619_le_slopeUpper",
+    "ConnesWeilRH.Dev.momentPhase2619_variation_le",
+    "ConnesWeilRH.Dev.exp_polynomial_residual_stability2619",
+    "ConnesWeilRH.Dev.momentPhase_polynomial_residual_stability2619",
+    "ConnesWeilRH.Dev.momentDerivativeResidual_eq_polynomialQuotient2619",
+    "ConnesWeilRH.Dev.momentDerivativeResidual_le_of_polynomialBound2619",
+    "ConnesWeilRH.Dev.momentPhase_polynomial_integral_error2619",
+    "ConnesWeilRH.Dev.momentPhase_integral_error_of_polynomialResidual2619",
+    "ConnesWeilRH.Dev.realNormalizedMomentIntegrand2618_nonneg",
+    "ConnesWeilRH.Dev.realNormalizedMomentIntegrand2618_le_edgeUpper",
+    "ConnesWeilRH.Dev.realNormalizedMomentIntegrand2618_edge_integral_bound"
+  ],
+  "probe_sha256": "108c96652f2c19246c3241c9ac402bbd08a860832cd85ea56e0f45c65114a4ba",
+  "probe_source_sha256": "fce69e788bb8d2d31cc983c6dffe1e49c0744f8978da74259893e2f45b061a1d",
+  "upstream_objects": "reused; not freshly rebuilt",
+  "lean_toolchain": "leanprover/lean4:v4.30.0",
+  "actual_entry_containment_lean_verified": false,
+  "polynomial_table_lean_verified": false,
+  "scalar_exponential_table_lean_verified": false,
+  "partition_assembly_lean_verified": false,
+  "producer_go": false,
+  "rh_claim": false
+}

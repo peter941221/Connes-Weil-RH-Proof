@@ -1,0 +1,152 @@
+{
+  "record": 2620,
+  "status": "ACTUAL_SCALARS_AND_BOTH_EDGES_LEAN_VERIFIED",
+  "entry": [
+    0,
+    0
+  ],
+  "panel": 94,
+  "center_exact": "9/200",
+  "half_width_exact": "1/200",
+  "stages": [
+    {
+      "module": "C1RouteACompactExpSharp3202620",
+      "source_sha256": "c2863cd52ed22540d99a16c61a0a88ff63a67f56e20a93239bfd74227008f1ff",
+      "olean_sha256": "de6bdbd82b7ecf68ad31a457f2c414d971ef6b8012ef6223519ec91c54f1dc69",
+      "exit_code": 0,
+      "wall_seconds": 1.47,
+      "peak_rss_kib": 4026768
+    },
+    {
+      "module": "C1RouteAMomentScalarOwner2620",
+      "source_sha256": "a78821fcae93de1860838eef24143d3f2ef034674c8324a728264fcb29f28f34",
+      "olean_sha256": "bba1301aa0aa4dc1bc7b7d8549c13ab2f8c76d74fdfa6086f3c6ea2c85fc83d8",
+      "exit_code": 0,
+      "wall_seconds": 1.39,
+      "peak_rss_kib": 4000800
+    },
+    {
+      "module": "C1RouteAMomentScalarAmplitude2620Panel094",
+      "source_sha256": "148084b2f62f7d1189f918447a4f28e1a257f8d3a26a1618d5361962cad7faba",
+      "olean_sha256": "3d86d051d58e8de02a048e3ef6587805c2642b522ab0ea51ec3b1e0fd8248f61",
+      "exit_code": 0,
+      "wall_seconds": 1.33,
+      "peak_rss_kib": 4007376
+    },
+    {
+      "module": "C1RouteAMomentScalarGrowth2620Panel094",
+      "source_sha256": "b22d9e4eb1a2709bc81692c14823f2883424035e8c1562a99e1f1b671d1c741f",
+      "olean_sha256": "9b4b58e2eb174e439d9b212a6cdb8c7bf34ea87cda05663cfaed724a516c3ed7",
+      "exit_code": 0,
+      "wall_seconds": 1.31,
+      "peak_rss_kib": 4011728
+    },
+    {
+      "module": "C1RouteAMomentScalarEdge2620Panel094",
+      "source_sha256": "a5aad6917fb8debcb6fd696b359120102ee9ce7590fa572ad8afbbbf76f1489f",
+      "olean_sha256": "71f54ab25c10037bd16aba022486c5844d15016bb98d36c6e11e2b6e37130ede",
+      "exit_code": 0,
+      "wall_seconds": 1.36,
+      "peak_rss_kib": 4008808
+    },
+    {
+      "module": "C1RouteAMomentActualEdge2620",
+      "source_sha256": "7904675b14957a5af2f8513300553017f45a9a64c54160c1c5148eb07a446f06",
+      "olean_sha256": "c5f173ac23d443f99f3fdffd6a4526a2d064235609885f88aac7ec4d941de500",
+      "exit_code": 0,
+      "wall_seconds": 1.49,
+      "peak_rss_kib": 3984900
+    },
+    {
+      "module": "C1RouteAMomentScalarAudit2620",
+      "source_sha256": "70d06923bba3eef607f416ffe5c9196c4f5a56f3e805510e33932a6157da27c0",
+      "olean_sha256": "7dbec1d349292f84ed140b778afb5e64054c5f8439e8a3c8c1a1212a2a45a5e5",
+      "exit_code": 0,
+      "wall_seconds": 1.28,
+      "peak_rss_kib": 3970116
+    }
+  ],
+  "audited_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "audited_theorems": [
+    "ConnesWeilRH.Dev.expHorner2541_error_tiny2620",
+    "ConnesWeilRH.Dev.embedPair_round_error2620",
+    "ConnesWeilRH.Dev.hornerRat_error2620",
+    "ConnesWeilRH.Dev.initialState_error2620",
+    "ConnesWeilRH.Dev.squareState_error2620",
+    "ConnesWeilRH.Dev.compactExp_error2620",
+    "ConnesWeilRH.Dev.compactExp_real_error2620",
+    "ConnesWeilRH.Dev.momentRadius_owner2620",
+    "ConnesWeilRH.Dev.momentBeta_owner2620",
+    "ConnesWeilRH.Dev.momentPanelPhase_owner2620",
+    "ConnesWeilRH.Dev.momentPanelGrowth_owner2620",
+    "ConnesWeilRH.Dev.momentEdgeArgument_owner2620",
+    "ConnesWeilRH.Dev.momentScalarAmplitude2620_replay",
+    "ConnesWeilRH.Dev.momentScalarAmplitude2620_error",
+    "ConnesWeilRH.Dev.momentScalarAmplitude2620_radius_le",
+    "ConnesWeilRH.Dev.momentScalarGrowth2620_replay",
+    "ConnesWeilRH.Dev.momentScalarGrowth2620_error",
+    "ConnesWeilRH.Dev.momentScalarGrowth2620_radius_le",
+    "ConnesWeilRH.Dev.momentScalarEdge2620_replay",
+    "ConnesWeilRH.Dev.momentScalarEdge2620_error",
+    "ConnesWeilRH.Dev.momentScalarEdge2620_radius_le",
+    "ConnesWeilRH.Dev.actualMomentEntry000_bothEdgeCharge_le2620"
+  ],
+  "input_fingerprints": {
+    "payload_sha256": "64567d1baebf30c650f6d5cbca5a94cf6437cdbf7ae462697b06c194dbda1666",
+    "record": 2620,
+    "panel": 94,
+    "center_exact": "9/200",
+    "half_width_exact": "1/200",
+    "coordinate_bits": 320,
+    "radius_bits": 400,
+    "scaling_steps": 20,
+    "capture_sha256": "743fe372bef89b5730c38274d5a5517ac9ea4d3421989d46c49d4af3e78b5e74",
+    "witness_sha256": "c8737256f4daeddfec9fa2bbab0ee54b0643acce69c87aeb46983696b61581ea",
+    "generator_sha256": "47e6f7f104d41e49e7e1bef38584527e6766678d7cadde3678e51df6c789c6bd",
+    "lean_verified": false,
+    "polynomial_table_lean_verified": false,
+    "actual_entry_containment_lean_verified": false,
+    "producer_go": false,
+    "rh_claim": false
+  },
+  "scalar_certificates": {
+    "phase": {
+      "argument_exact": "-5460783299141505630670534814590804715082443528434867359/182317762064413479974290296366254068317641159947059200",
+      "center_exact": "209703783103588117683941855231381896114049051676742671350638675868184273432112499065/2135987035920910082395021706169552114602704522356652769947041607822219725780640550022962086936576",
+      "radius_exact": "66459679988841190649582966056786045/645562469521727147413979793000752968582426448207305878207664839135161905504210298657411338320034457858975792993186873344"
+    },
+    "growth": {
+      "argument_exact": "6585427872602692964928022146312983073813727231166557/121183605294123476812992098465242173443877144153292800",
+      "center_exact": "1127636935500616193526888959845344426103550507120774913675478548668058289092031677236322794630559/1067993517960455041197510853084776057301352261178326384973520803911109862890320275011481043468288",
+      "radius_exact": "1429449564045497479970401322720600533176975009663/1291124939043454294827959586001505937164852896414611756415329678270323811008420597314822676640068915717951585986373746688"
+    },
+    "edge": {
+      "argument_exact": "-67458238773955019629351679249464676132954761019051/433883298582611803841718934712646521460354973696",
+      "center_exact": "32092303841647457648738843093/1067993517960455041197510853084776057301352261178326384973520803911109862890320275011481043468288",
+      "radius_exact": "2417851639229258349412353/2582249878086908589655919172003011874329705792829223512830659356540647622016841194629645353280137831435903171972747493376"
+    }
+  },
+  "both_edge_charge_upper_exact": "1/50000000000000000000000000000000000000000000000000000000000000000000",
+  "scalar_exponentials_lean_verified": true,
+  "actual_both_edge_integrals_lean_verified": true,
+  "polynomial_table_lean_verified": false,
+  "panel_integral_lean_verified": false,
+  "partition_assembly_lean_verified": false,
+  "actual_entry_containment_lean_verified": false,
+  "producer_go": false,
+  "rh_claim": false,
+  "upstream_objects": "reused; not freshly rebuilt",
+  "lean_toolchain": "leanprover/lean4:v4.30.0",
+  "validator_sha256": "6fba7c06bf7a0e468f6394b751869c65245842a157efbbbddf243ba5845669c7",
+  "selftests": {
+    "source_sha256": "4b354d8c4518a193b399979c71754f14d68fed96f14795d0a1d19f6bb8870ace",
+    "log_sha256": "ef1673b756a7932bc9d9966b72d8a265e284e8640836b95628c9670b048e4664",
+    "exit_code": 0,
+    "tests_run": 13,
+    "independent_engine": "512-bit Arb; test control, not Lean proof input"
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "record": 2618,
+  "scope": "same-owner normalization and diagonal imaginary coordinates",
+  "witness_sha256": "c8737256f4daeddfec9fa2bbab0ee54b0643acce69c87aeb46983696b61581ea",
+  "audited_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "audited_theorems": [
+    "momentIntegrand2351_support_subset_Ioc2618",
+    "momentEntry2351_eq_intervalIntegral2618",
+    "scaledMomentIntegrand2351_eq_normalized2618",
+    "momentEntry2351_eq_normalizedIntegral2618",
+    "normalizedMomentIntegrand2618_eq_real_of_phase_cancel",
+    "momentEntry2351_eq_realIntegral_of_phase_cancel2618",
+    "momentEntry2351_im_eq_zero_of_phase_cancel2618",
+    "capturedDiagonalPhase2618",
+    "actualOwnerMomentMatrix2351_diagonal_im_eq_zero2618",
+    "actualOwnerMomentMatrix2351_entry000_im_mem2618"
+  ],
+  "stages": [
+    {
+      "module": "C1RouteAAnalyticMomentNormalization2618",
+      "source_sha256": "75c04cb6fcad1939af75e28f3c4d56bf1ae9ef945a1dce89d9032e8fd307ae52",
+      "olean_sha256": "bb017bc2f447c1202bc2528e066752838c709b0e0326e6fe1cfd7cbc05f87d09",
+      "exit_code": 0,
+      "wall_seconds": 1.55,
+      "peak_rss_kib": 3997764
+    },
+    {
+      "module": "C1RouteAAnalyticMomentDiagonal2618",
+      "source_sha256": "924e51fffed1aa79e466307b47d0eee763fe012ee0fa5b4f74c79d4661677912",
+      "olean_sha256": "c1141840e57a9a39e69b4222fe6604298525e1760690543592841bd158d5eaf7",
+      "exit_code": 0,
+      "wall_seconds": 3.47,
+      "peak_rss_kib": 4054604
+    },
+    {
+      "module": "C1RouteAAnalyticMomentNormalizationAudit2618",
+      "source_sha256": "141d558e3ac52557e9d33851b60a3a4b4e16fa76c4920294d3e0a0c6032c962f",
+      "olean_sha256": "8eb044fb83b4873bc3f729fb32d816cb3c54bf56e54df65f9cf565179e92d56c",
+      "exit_code": 0,
+      "wall_seconds": 1.17,
+      "peak_rss_kib": 3963320
+    }
+  ],
+  "diagonal_imaginary_zero_equalities_verified": 30,
+  "imaginary_coordinate_containments_verified": 1,
+  "imaginary_coordinate_containment_entries": [
+    [
+      0,
+      0
+    ]
+  ],
+  "full_analytic_entries_verified": 0,
+  "entry_000_widths": {
+    "real": {
+      "width_exact": "421774671/3533694129556768659166595001485837031654967793751237916243212402585239552",
+      "width_decimal": "1.19358002005E-64"
+    },
+    "imag": {
+      "width_exact": "64987597/58026160979198597181455869541089037002645848659984580970683885585473711714203009333273209077567819727984441493376989751133623907250032832057550580338293844337326447848284120980356708877589390183135588339118247143715336230481408050411887603585528412235070478206335595501712350887320603590403563596663882788243345525096091302776877729899336254720063871091092372308403117009486632761112638501801893606480892043116644177707534385152",
+      "width_decimal": "1.11997064606E-420"
+    }
+  },
+  "upstream_dependencies": "reused project and Mathlib objects; not rebuilt in this run",
+  "lean_toolchain": "leanprover/lean4:v4.30.0",
+  "full_static_comparison_verified": false,
+  "analytic_interval_soundness": "external_premise_required",
+  "actual_coefficient_membership": "not_proved",
+  "producer_go": false,
+  "rh_claim": false
+}

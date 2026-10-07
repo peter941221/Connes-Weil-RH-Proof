@@ -1,0 +1,27 @@
+import ConnesWeilRH.Dev.C1RouteAMomentScalarAmplitude2620Panel094
+import ConnesWeilRH.Dev.C1RouteAMomentScalarGrowth2620Panel094
+import ConnesWeilRH.Dev.C1RouteAMomentScalarEdge2620Panel094
+import ConnesWeilRH.Dev.C1RouteAMomentActualEdge2620
+
+#print axioms ConnesWeilRH.Dev.expHorner2541_error_tiny2620
+#print axioms ConnesWeilRH.Dev.embedPair_round_error2620
+#print axioms ConnesWeilRH.Dev.hornerRat_error2620
+#print axioms ConnesWeilRH.Dev.initialState_error2620
+#print axioms ConnesWeilRH.Dev.squareState_error2620
+#print axioms ConnesWeilRH.Dev.compactExp_error2620
+#print axioms ConnesWeilRH.Dev.compactExp_real_error2620
+#print axioms ConnesWeilRH.Dev.momentRadius_owner2620
+#print axioms ConnesWeilRH.Dev.momentBeta_owner2620
+#print axioms ConnesWeilRH.Dev.momentPanelPhase_owner2620
+#print axioms ConnesWeilRH.Dev.momentPanelGrowth_owner2620
+#print axioms ConnesWeilRH.Dev.momentEdgeArgument_owner2620
+#print axioms ConnesWeilRH.Dev.momentScalarAmplitude2620_replay
+#print axioms ConnesWeilRH.Dev.momentScalarAmplitude2620_error
+#print axioms ConnesWeilRH.Dev.momentScalarAmplitude2620_radius_le
+#print axioms ConnesWeilRH.Dev.momentScalarGrowth2620_replay
+#print axioms ConnesWeilRH.Dev.momentScalarGrowth2620_error
+#print axioms ConnesWeilRH.Dev.momentScalarGrowth2620_radius_le
+#print axioms ConnesWeilRH.Dev.momentScalarEdge2620_replay
+#print axioms ConnesWeilRH.Dev.momentScalarEdge2620_error
+#print axioms ConnesWeilRH.Dev.momentScalarEdge2620_radius_le
+#print axioms ConnesWeilRH.Dev.actualMomentEntry000_bothEdgeCharge_le2620

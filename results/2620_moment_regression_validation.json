@@ -1,0 +1,30 @@
+{
+  "record": 2620,
+  "tests_run": 31,
+  "rows": [
+    {
+      "source": "scripts/analytic_moment_normalization_selftest_2618.py",
+      "source_sha256": "2d65c490a225dbda3df30532e2cb9547b7ea46797f050d064865ba63b187c2eb",
+      "tests_run": 7,
+      "exit_code": 0,
+      "output": "test_degenerate_width_is_rejected (__main__.NormalizationValidationTests.test_degenerate_width_is_rejected) ... ok\ntest_extra_axiom_is_rejected (__main__.NormalizationValidationTests.test_extra_axiom_is_rejected) ... ok\ntest_interrupted_success_code_is_rejected (__main__.NormalizationValidationTests.test_interrupted_success_code_is_rejected) ... ok\ntest_multiline_axioms_are_accepted (__main__.NormalizationValidationTests.test_multiline_axioms_are_accepted) ... ok\ntest_reversed_width_is_rejected (__main__.NormalizationValidationTests.test_reversed_width_is_rejected) ... ok\ntest_subtraction_is_exact (__main__.NormalizationValidationTests.test_subtraction_is_exact) ... ok\ntest_underflow_width_remains_nonzero (__main__.NormalizationValidationTests.test_underflow_width_remains_nonzero) ... ok\n\n----------------------------------------------------------------------\nRan 7 tests in 0.001s\n\nOK\n"
+    },
+    {
+      "source": "scripts/analytic_moment_residual_selftest_2619.py",
+      "source_sha256": "437923bc11687a99601fbc8cc85fae88a221589fa43b15a6bc03baef4e485d02",
+      "tests_run": 11,
+      "exit_code": 0,
+      "output": "degree=8 panels=180 fits=False charge=[1.2426850e-28 +/- 8.33e-37]\ndegree=32 panels=180 fits=True charge=[6.8366866e-71 +/- 2.91e-79]\ndegree=48 panels=180 fits=True charge=[2.7476020e-93 +/- 3.31e-101]\ndegree=32 panels=180 fits=True charge=[6.8366866e-71 +/- 2.91e-79]\ntest_degree_32_and_48_fit_unchanged_box (__main__.ResidualModelTests.test_degree_32_and_48_fit_unchanged_box) ... ok\ntest_independent_precision_preserves_enclosure (__main__.ResidualModelTests.test_independent_precision_preserves_enclosure) ... ok\ntest_initial_coefficient_and_first_derivatives (__main__.ResidualModelTests.test_initial_coefficient_and_first_derivatives) ... ok\ntest_low_order_candidate_fails_unchanged_box (__main__.ResidualModelTests.test_low_order_candidate_fails_unchanged_box) ... ok\ntest_nonpositive_width_is_rejected (__main__.ResidualModelTests.test_nonpositive_width_is_rejected) ... ok\ntest_numeric_reading_is_not_claimed_as_lean_membership (__main__.ResidualModelTests.test_numeric_reading_is_not_claimed_as_lean_membership) ... ok\ntest_only_five_high_order_residual_slots_remain (__main__.ResidualModelTests.test_only_five_high_order_residual_slots_remain) ... ok\ntest_residual_reconstructs_differential_equation (__main__.ResidualModelTests.test_residual_reconstructs_differential_equation) ... ok\ntest_singular_panel_is_rejected (__main__.ResidualModelTests.test_singular_panel_is_rejected) ... ok\ntest_unmodulated_center_has_no_odd_coefficients (__main__.ResidualModelTests.test_unmodulated_center_has_no_odd_coefficients) ... ok\ntest_zero_degree_is_rejected (__main__.ResidualModelTests.test_zero_degree_is_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 11 tests in 2.173s\n\nOK\n"
+    },
+    {
+      "source": "scripts/moment_scalar_certificate_selftest_2620.py",
+      "source_sha256": "4b354d8c4518a193b399979c71754f14d68fed96f14795d0a1d19f6bb8870ace",
+      "tests_run": 13,
+      "exit_code": 0,
+      "output": "test_capture_fingerprint_drift_is_rejected (__main__.ScalarCertificateTests.test_capture_fingerprint_drift_is_rejected) ... ok\ntest_every_state_contains_independent_exponential (__main__.ScalarCertificateTests.test_every_state_contains_independent_exponential) ... ok\ntest_generated_sources_are_deterministic_and_current (__main__.ScalarCertificateTests.test_generated_sources_are_deterministic_and_current) ... ok\ntest_generation_drift_is_rejected (__main__.ScalarCertificateTests.test_generation_drift_is_rejected) ... ok\ntest_horner_order_matches_independent_taylor (__main__.ScalarCertificateTests.test_horner_order_matches_independent_taylor) ... ok\ntest_negative_directed_rounding (__main__.ScalarCertificateTests.test_negative_directed_rounding) ... ok\ntest_owner_geometry_and_edge_charge (__main__.ScalarCertificateTests.test_owner_geometry_and_edge_charge) ... ok\ntest_payload_does_not_claim_complete_entry (__main__.ScalarCertificateTests.test_payload_does_not_claim_complete_entry) ... ok\ntest_perturbed_center_fails_containment (__main__.ScalarCertificateTests.test_perturbed_center_fails_containment) ... ok\ntest_radius_thresholds (__main__.ScalarCertificateTests.test_radius_thresholds) ... ok\ntest_replay_payload_drift_is_rejected (__main__.ScalarCertificateTests.test_replay_payload_drift_is_rejected) ... ok\ntest_rounding_encloses_signed_inputs (__main__.ScalarCertificateTests.test_rounding_encloses_signed_inputs) ... ok\ntest_tiny_argument_guard_and_boundary (__main__.ScalarCertificateTests.test_tiny_argument_guard_and_boundary) ... ok\n\n----------------------------------------------------------------------\nRan 13 tests in 0.354s\n\nOK\n"
+    }
+  ],
+  "lean_proof_input": false,
+  "producer_go": false,
+  "rh_claim": false
+}

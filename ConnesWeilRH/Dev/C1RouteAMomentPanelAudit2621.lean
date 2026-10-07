@@ -1,0 +1,28 @@
+import ConnesWeilRH.Dev.C1RouteAMomentActualPanel2621Panel094
+
+#print axioms ConnesWeilRH.Dev.polynomialEval_add2621
+#print axioms ConnesWeilRH.Dev.polynomialEval_scale2621
+#print axioms ConnesWeilRH.Dev.polynomialEval_mul2621
+#print axioms ConnesWeilRH.Dev.polynomialEval_hasDerivAt2621
+#print axioms ConnesWeilRH.Dev.polynomialEval_cast2621
+#print axioms ConnesWeilRH.Dev.polynomialAbsBound_nonneg2621
+#print axioms ConnesWeilRH.Dev.polynomialEval_abs_le2621
+#print axioms ConnesWeilRH.Dev.polynomialEval_integral2621
+#print axioms ConnesWeilRH.Dev.momentPanelPrimitive_replay2621
+#print axioms ConnesWeilRH.Dev.momentPanelResidual_replay2621
+#print axioms ConnesWeilRH.Dev.momentPanelResidualUpper_replay2621
+#print axioms ConnesWeilRH.Dev.momentPanelIntegral_replay2621
+#print axioms ConnesWeilRH.Dev.momentPanelCenter_replay2621
+#print axioms ConnesWeilRH.Dev.momentPanelCharge_replay2621
+#print axioms ConnesWeilRH.Dev.momentPanelCharge_le2621
+#print axioms ConnesWeilRH.Dev.momentPanelResidualUpper_nonneg2621
+#print axioms ConnesWeilRH.Dev.momentPanelResidual_low_zero2621
+#print axioms ConnesWeilRH.Dev.momentPanelResidual_tail_zero2621
+#print axioms ConnesWeilRH.Dev.momentPanelDenominator_eval2621
+#print axioms ConnesWeilRH.Dev.momentPanelNumerator_eval2621
+#print axioms ConnesWeilRH.Dev.momentPanelResidual_eval2621
+#print axioms ConnesWeilRH.Dev.momentPanelResidual_bound2621
+#print axioms ConnesWeilRH.Dev.momentPanelPolynomial_integral2621
+#print axioms ConnesWeilRH.Dev.momentPanelPhase_error2621
+#print axioms ConnesWeilRH.Dev.actualMomentPanel094_integral_certificate2621
+#print axioms ConnesWeilRH.Dev.actualMomentPanel094_integral_error_le2621

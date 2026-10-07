@@ -1,0 +1,12 @@
+import ConnesWeilRH.Dev.C1RouteAAnalyticMomentDiagonal2618
+
+#print axioms ConnesWeilRH.Dev.momentIntegrand2351_support_subset_Ioc2618
+#print axioms ConnesWeilRH.Dev.momentEntry2351_eq_intervalIntegral2618
+#print axioms ConnesWeilRH.Dev.scaledMomentIntegrand2351_eq_normalized2618
+#print axioms ConnesWeilRH.Dev.momentEntry2351_eq_normalizedIntegral2618
+#print axioms ConnesWeilRH.Dev.normalizedMomentIntegrand2618_eq_real_of_phase_cancel
+#print axioms ConnesWeilRH.Dev.momentEntry2351_eq_realIntegral_of_phase_cancel2618
+#print axioms ConnesWeilRH.Dev.momentEntry2351_im_eq_zero_of_phase_cancel2618
+#print axioms ConnesWeilRH.Dev.capturedDiagonalPhase2618
+#print axioms ConnesWeilRH.Dev.actualOwnerMomentMatrix2351_diagonal_im_eq_zero2618
+#print axioms ConnesWeilRH.Dev.actualOwnerMomentMatrix2351_entry000_im_mem2618
