@@ -5342,3 +5342,29 @@ polynomial is selected over the cos/sin split; the rational-phase
 cos/sin engine is a shared obligation. Pricing only: no Lean, no entry
 theorem yet. Evidence: docs/proofs/2624_offdiagonal_pricing.md and
 results/2624_offdiagonal_pricing.json.
+
+Record 2625: the remaining 170 actual panels (000-089, 100-179)
+batch-certified through the unchanged 2622 generator; 511 modules,
+4420 audited leaves on the standard three axioms, 1107s total compiler
+wall at 4.0 GiB peak. All 180 partition panels are now individually
+Lean-certified; the full-partition charge gate passes with margin
+1.75e6. The negative-center shape class (never compiled by 2622's
+all-positive 090-099 batch) failed wholesale on first run - two
+emitted-term defects (missing Rat.cast_neg; (-p/q) vs -(p/q) endpoint
+shapes), both fixed by sign-conditional emission with the committed
+2622 panels regenerating byte-identically. Partition assembly and full
+(0,0) containment remain open. Evidence:
+docs/proofs/2625_moment_panel_remaining.md and
+results/2625_moment_panel_remaining_validation.json.
+
+Record 2626: static defect comparison rows 6-29 in the coordinate-leaf
+shape, completing the static layer - with 2617 row zero and 2623 rows
+1-5, all thirty rows and all 900 entries are individually Lean-
+certified. This batch: 5112 modules, 744 audits on the standard three
+axioms, 8904s (2.47h) compiler wall at 6.3 GiB peak, linear in the 2623
+per-row cost with no memory-wall regression. The 24 same-name facades
+replace their 2600 source-only monoliths; rows 0-5 regenerate
+byte-identically as the primary gate. The full static comparison is not
+yet assembled into a single consumer theorem. Evidence:
+docs/proofs/2626_static_coordinate_rows_extension.md and
+results/2626_static_coordinate_rows_validation.json.

@@ -12,7 +12,7 @@ from generate_static_product_cache_2600 import row_module as product_cache_sourc
 COORDINATES = ("reLo", "reHi", "imLo", "imHi")
 SUFFIXES = {"reLo": "ReLo", "reHi": "ReHi", "imLo": "ImLo", "imHi": "ImHi"}
 SUM_PREFIX = "C1RouteACorrectionStaticDefectSum2617Cell"
-CONVERTED_ROWS = frozenset({0, 1, 2, 3, 4, 5})
+CONVERTED_ROWS = frozenset(range(30))
 
 
 def validate_payload(payload: dict) -> None:

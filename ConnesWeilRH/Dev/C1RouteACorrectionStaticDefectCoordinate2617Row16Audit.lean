@@ -1,0 +1,3 @@
+import ConnesWeilRH.Dev.C1RouteACorrectionStaticDefectBounds2600Row16
+
+#print axioms ConnesWeilRH.Dev.candidateInverseDefectEntryBound2600_row_16

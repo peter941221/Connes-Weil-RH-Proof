@@ -63,6 +63,22 @@ def lean_rat(value):
     return f"({value.numerator} / {value.denominator})"
 
 
+def lean_interval_literal(value):
+    """Interval endpoint literal for the actual-panel theorem statements.
+
+    A negative endpoint must emit as -(p / q): (-p / q) elaborates as
+    (Neg p) / q, while the norm_num products inside the proof carry
+    Neg (p / q), and the two shapes are not Eq.mp-compatible (caught by
+    the compiler on the first negative-center panel, record 2625).
+    Positive endpoints keep the plain lean_rat shape, so the committed
+    positive-center panels regenerate byte-identically.
+    """
+    value = Fraction(value)
+    if value >= 0:
+        return lean_rat(value)
+    return f"-{lean_rat(-value)}"
+
+
 def lean_list(values):
     return "[\n    " + ",\n    ".join(rational_expr(value) for value in values) + "]"
 
@@ -303,6 +319,9 @@ def consumer_sources(data):
     year = f"2622P{tag}"
     center_literal = lean_rat(data["center"])
     half_literal = lean_rat(HALF_WIDTH)
+    # Negative centers leave Rat.cast (-p) residues after the cast_div push;
+    # only those panels need Rat.cast_neg in the charge simplifier set.
+    cast_neg = ", Rat.cast_neg" if data["center"] < 0 else ""
     return f"""import ConnesWeilRH.Dev.C1RouteAMomentPanelTable2622Panel{tag}
 
 namespace ConnesWeilRH.Dev
@@ -391,7 +410,7 @@ theorem momentPanelPhase_error{year} :
   have h := mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_right hproduct hfactor)
     (by positivity : 0 ≤ (2 : ℝ) * {half_literal} ^ 2)
   simpa only [momentPanelAnalyticCharge{year}, Rat.cast_mul, Rat.cast_add, Rat.cast_div,
-    Rat.cast_sub, Rat.cast_pow, Rat.cast_abs, Rat.cast_natCast, Rat.cast_ofNat, Rat.cast_one] using h
+    Rat.cast_sub{cast_neg}, Rat.cast_pow, Rat.cast_abs, Rat.cast_natCast, Rat.cast_ofNat, Rat.cast_one] using h
 
 theorem actualMomentPanel{tag}_integral_certificate2622 :
     |(storedWidth 0 ^ 2) *
@@ -437,7 +456,7 @@ theorem actualMomentPanel{tag}_integral_certificate2622 :
 
 theorem actualMomentPanel{tag}_integral_error_le2622 :
     |(storedWidth 0 ^ 2) *
-      (∫ position in ({lean_rat(data['center'] - HALF_WIDTH)} : ℝ)..{lean_rat(data['center'] + HALF_WIDTH)},
+      (∫ position in ({lean_interval_literal(data['center'] - HALF_WIDTH)} : ℝ)..{lean_interval_literal(data['center'] + HALF_WIDTH)},
         realNormalizedMomentIntegrand2618 (storedWidth 0 ^ 2) (capturedNodes2584 0).re position) -
       (momentPanelIntegralCenter{year} : ℝ)| ≤ (1 : ℝ) / 10 ^ {data['charge_digits']} := by
   have h := actualMomentPanel{tag}_integral_certificate2622

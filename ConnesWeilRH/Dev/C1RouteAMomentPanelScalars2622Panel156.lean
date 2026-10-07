@@ -1,0 +1,74 @@
+import ConnesWeilRH.Dev.C1RouteACompactExpSharp3202620
+import ConnesWeilRH.Dev.C1RouteAMomentScalarOwner2620
+
+namespace ConnesWeilRH.Dev
+
+open ConnesWeilRH.Dev.C1RouteAOwnerScaleAudit
+
+def momentPanelPhase2622P156 : ℚ := ((-1772233292537133873134386265331814518737836070667608009 : ℚ) / 33966211490093515633377512815346865053691157256601600)
+
+def momentPanelGrowth2622P156 : ℚ := ((31159472314286124565335123764601724923832580022014437997 : ℚ) / 23118459931809879983342299323068224093862346682584268800)
+
+theorem momentPanelPhase_owner2622P156 :
+    (momentPanelPhase2622P156 : ℝ) = momentPhase2619 ((capturedNodes2584 0).re * (storedWidth 0 ^ 2)) (133 / 200) 0 := by
+  norm_num [momentPanelPhase2622P156, momentPhase2619, capturedNodes2584, storedWidth]
+
+theorem momentPanelGrowth_owner2622P156 :
+    (momentPanelGrowth2622P156 : ℝ) = 2 * momentPhaseSlopeUpper2619 ((capturedNodes2584 0).re * (storedWidth 0 ^ 2))
+      (133 / 200) (1 / 200) * (1 / 200) := by
+  norm_num [momentPanelGrowth2622P156, momentPhaseSlopeUpper2619, capturedNodes2584, storedWidth]
+
+def momentScalarAmp2622P156Input : RatPair2542 := (momentPanelPhase2622P156 / (2 : ℚ) ^ 20, 0)
+
+def momentScalarAmp2622P156Expected : RatState2542 :=
+  ((((46740483411249652150630305353461623450206055732491204394324645298918149269 : ℚ) / 2135987035920910082395021706169552114602704522356652769947041607822219725780640550022962086936576), 0), ((30835700914815256584014457 : ℚ) / 1291124939043454294827959586001505937164852896414611756415329678270323811008420597314822676640068915717951585986373746688))
+
+theorem momentScalarAmp2622P156_replay :
+    compactExp2620 momentScalarAmp2622P156Input 20 = momentScalarAmp2622P156Expected := by
+  decide +kernel
+
+theorem momentScalarAmp2622P156_error :
+    |Real.exp (momentPhase2619 ((capturedNodes2584 0).re * (storedWidth 0 ^ 2)) (133 / 200) 0) -
+      (momentScalarAmp2622P156Expected.1.1 : ℝ)| ≤
+      (momentScalarAmp2622P156Expected.2 : ℝ) := by
+  have hsmall : |((momentPanelPhase2622P156 / (2 : ℚ) ^ 20 : ℚ) : ℝ)| ≤ (1 : ℝ) / 1000 := by
+    norm_num [momentPanelPhase2622P156]
+  have h := compactExp_real_error2620 momentPanelPhase2622P156 20 hsmall
+  change |Real.exp (momentPanelPhase2622P156 : ℝ) -
+    ((compactExp2620 momentScalarAmp2622P156Input 20).1.1 : ℝ)| ≤
+      ((compactExp2620 momentScalarAmp2622P156Input 20).2 : ℝ) at h
+  rw [momentScalarAmp2622P156_replay] at h
+  simpa only [momentPanelPhase_owner2622P156] using h
+
+theorem momentScalarAmp2622P156_radius_le :
+    (momentScalarAmp2622P156Expected.2 : ℝ) ≤ (1 : ℝ) / 10 ^ 94 := by
+  norm_num [momentScalarAmp2622P156Expected]
+
+def momentScalarGrow2622P156Input : RatPair2542 := (momentPanelGrowth2622P156 / (2 : ℚ) ^ 20, 0)
+
+def momentScalarGrow2622P156Expected : RatState2542 :=
+  ((((8221450668066744747728611774031203034707601265256285175245555397142783690774026837752182602010225 : ℚ) / 2135987035920910082395021706169552114602704522356652769947041607822219725780640550022962086936576), 0), ((10421913478001750729947421411360951333530231322321 : ℚ) / 2582249878086908589655919172003011874329705792829223512830659356540647622016841194629645353280137831435903171972747493376))
+
+theorem momentScalarGrow2622P156_replay :
+    compactExp2620 momentScalarGrow2622P156Input 20 = momentScalarGrow2622P156Expected := by
+  decide +kernel
+
+theorem momentScalarGrow2622P156_error :
+    |Real.exp (2 * momentPhaseSlopeUpper2619 ((capturedNodes2584 0).re * (storedWidth 0 ^ 2)) (133 / 200) (1 / 200) *
+      (1 / 200)) -
+      (momentScalarGrow2622P156Expected.1.1 : ℝ)| ≤
+      (momentScalarGrow2622P156Expected.2 : ℝ) := by
+  have hsmall : |((momentPanelGrowth2622P156 / (2 : ℚ) ^ 20 : ℚ) : ℝ)| ≤ (1 : ℝ) / 1000 := by
+    norm_num [momentPanelGrowth2622P156]
+  have h := compactExp_real_error2620 momentPanelGrowth2622P156 20 hsmall
+  change |Real.exp (momentPanelGrowth2622P156 : ℝ) -
+    ((compactExp2620 momentScalarGrow2622P156Input 20).1.1 : ℝ)| ≤
+      ((compactExp2620 momentScalarGrow2622P156Input 20).2 : ℝ) at h
+  rw [momentScalarGrow2622P156_replay] at h
+  simpa only [momentPanelGrowth_owner2622P156] using h
+
+theorem momentScalarGrow2622P156_radius_le :
+    (momentScalarGrow2622P156Expected.2 : ℝ) ≤ (1 : ℝ) / 10 ^ 71 := by
+  norm_num [momentScalarGrow2622P156Expected]
+
+end ConnesWeilRH.Dev

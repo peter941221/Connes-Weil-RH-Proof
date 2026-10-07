@@ -1,0 +1,3 @@
+import ConnesWeilRH.Dev.C1RouteACorrectionStaticDefectCoordinate2617Cell2500
+
+#print axioms ConnesWeilRH.Dev.candidateInverseDefectEntryBound2617_25_00
