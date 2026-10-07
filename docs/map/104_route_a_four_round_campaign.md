@@ -5300,3 +5300,12 @@ re-export, checkpointed by the chain's SKIP-if-olean rule. The modules after
 2600 in the chain build order (2583, capture owner 2584, 2587, 2588, 2589,
 2591, 2592, 2596, 2599, 2601) and the 2598/2599/2600/2601 audits are
 source-only: no compile or axiom claim is made for them.
+
+Row-zero update (2026-10-07, record 2617): the coordinate-bound construction
+closes all thirty entries of static comparison row zero and preserves its
+existing consumer names. The fingerprinted serial control compiles 214 modules
+and checks thirty cell audits plus the row audit, each with exactly the standard
+three axioms. The other twenty-nine rows and the analytic containment premise
+remain open; neither coefficient membership nor producer GO follows from this
+row closure. Evidence: docs/proofs/2617_static_coordinate_row.md and
+results/2617_static_coordinate_bound_validation.json.

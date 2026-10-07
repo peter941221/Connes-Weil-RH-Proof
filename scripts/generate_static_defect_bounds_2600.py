@@ -119,6 +119,9 @@ def cell_theorem(i: int, j: int, candidate_names: list[str], analytic_names: lis
 
 
 def row_module(i: int, candidate_names: list[str], analytic_names: list[str], bridge_names: list[str], matrix: list[list[dict]], inverse: list[list[dict]]) -> str:
+    if i == 0:
+        from generate_static_coordinate_bounds_2617 import row_facade_source
+        return row_facade_source()
     cells = []
     dispatch = []
     for j in range(30):
@@ -230,6 +233,10 @@ end ConnesWeilRH.Dev
             encoding="utf-8",
             newline="\n",
         )
+        if i == 0:
+            from generate_static_coordinate_bounds_2617 import generated_row_sources
+            for filename, source in generated_row_sources(payload).items():
+                (DEV / filename).write_text(source, encoding="utf-8", newline="\n")
 
     imports = "\n".join(
         f"import ConnesWeilRH.Dev.{module}" for module in row_modules

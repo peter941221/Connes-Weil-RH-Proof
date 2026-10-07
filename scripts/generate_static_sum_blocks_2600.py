@@ -49,16 +49,11 @@ def block_theorem(column: int, block: int, coordinate: str, matrix: list[list[di
 '''
 
 
-def main() -> None:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--column", type=int, default=0)
-    args = parser.parse_args()
-    if not 0 <= args.column < 30:
+def module_source(column: int, payload: dict) -> str:
+    if not 0 <= column < 30:
         raise ValueError("column must be in [0, 29]")
-    payload = json.loads(WITNESS.read_text(encoding="utf-8"))
     matrix = payload["matrix"]
     inverse = payload["candidate_inverse"]
-    output = DEV / f"C1RouteACorrectionStaticDefectSumBlocks2600Row00Col{args.column:02d}.lean"
     indices = [fin_literal(index) for index in range(30)]
     block_sums = []
     for block in range(6):
@@ -72,18 +67,29 @@ def main() -> None:
 
 '''
     theorems = [
-        block_theorem(args.column, block, coordinate, matrix, inverse)
+        block_theorem(column, block, coordinate, matrix, inverse)
         for block in range(6)
         for coordinate in ("reLo", "reHi", "imLo", "imHi")
     ]
-    output.write_text(
-        "import ConnesWeilRH.Dev.C1RouteACorrectionStaticDefectProductCache2600Row00\n\n"
+    dependency = ("C1RouteACorrectionStaticDefectProductCache2600Row00" if column == 0
+                  else "C1RouteACorrectionStaticDefectSumBlocks2600Row00Col00")
+    return (
+        f"import ConnesWeilRH.Dev.{dependency}\n\n"
         "namespace ConnesWeilRH.Dev\n\n"
-        + generic
+        + (generic if column == 0 else "")
         + "\n".join(theorems)
-        + "\nend ConnesWeilRH.Dev\n",
-        encoding="utf-8",
+        + "\nend ConnesWeilRH.Dev\n"
     )
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--column", type=int, default=0)
+    args = parser.parse_args()
+    payload = json.loads(WITNESS.read_text(encoding="utf-8"))
+    source = module_source(args.column, payload)
+    output = DEV / f"C1RouteACorrectionStaticDefectSumBlocks2600Row00Col{args.column:02d}.lean"
+    output.write_text(source, encoding="utf-8")
     print(output)
 
 
