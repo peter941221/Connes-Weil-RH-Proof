@@ -31,12 +31,10 @@ import generate_moment_scalar_certificate_2620 as scalar_certificate
 
 
 def cons_val_word(owner_index):
-    word = {1: "one", 2: "two", 3: "three", 4: "four"}.get(owner_index)
-    if word is None:
-        raise SystemExit(
-            f"owner {owner_index}: no cons_val_{owner_index} lemma in "
-            "Mathlib; add a project-local family first")
-    return word
+    """Mathlib words for 1-4, project-local digit names for 5-29."""
+    if owner_index <= 4:
+        return {1: "one", 2: "two", 3: "three", 4: "four"}[owner_index]
+    return str(owner_index)
 
 
 def computed_bound(owner_index):
@@ -71,7 +69,7 @@ def scalar_edge_source(owner_index):
 def actual_edge_source(owner_index, numerator, exponent):
     suffix = f"K{owner_index:02d}"
     word = cons_val_word(owner_index)
-    return f"""import ConnesWeilRH.Dev.C1RouteAMomentScalarEdge2620{suffix}
+    module_source = f"""import ConnesWeilRH.Dev.C1RouteAMomentScalarEdge2620{suffix}
 import ConnesWeilRH.Dev.C1RouteAMomentEdgeBound2619
 
 namespace ConnesWeilRH.Dev
@@ -118,6 +116,12 @@ theorem actualMomentEntry{owner_index:02d}_bothEdgeCharge_le2620 :
 
 end ConnesWeilRH.Dev
 """
+    if owner_index >= 5:
+        module_source = module_source.replace(
+            "import ConnesWeilRH.Dev.C1RouteAMomentEdgeBound2619\n",
+            "import ConnesWeilRH.Dev.C1RouteAMomentEdgeBound2619\n"
+            "import ConnesWeilRH.Dev.MatrixConsValFamily2637\n")
+    return module_source
 
 
 def main():

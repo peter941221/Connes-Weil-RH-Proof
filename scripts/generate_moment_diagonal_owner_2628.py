@@ -85,16 +85,28 @@ def rename_owner_symbols(source, owner_index):
     if owner_index >= 1:
         # Unfolding `storedWidth {d}` inside norm_num needs the matching
         # cons_val lemma. Mathlib's VecNotation family stops at
-        # cons_val_four; owners >= 5 need a project-local lemma family.
-        word = {1: "one", 2: "two", 3: "three", 4: "four"}.get(owner_index)
-        if word is None:
-            raise SystemExit(
-                f"owner {owner_index}: no cons_val_{owner_index} lemma in "
-                "Mathlib; add a project-local family before generating")
+        # cons_val_four; owners >= 5 use the project-local family module
+        # (ConnesWeilRH.Dev.MatrixConsValFamily2637), imported below.
+        if owner_index <= 4:
+            word = {1: "one", 2: "two", 3: "three", 4: "four"}[owner_index]
+        else:
+            word = str(owner_index)
         source = source.replace(
             "norm_num [",
             f"norm_num [Matrix.cons_val_{word}, Matrix.cons_val_zero, "
         )
+    if owner_index >= 5:
+        # insert after the last import line; rename_owner_symbols is also
+        # called on FILENAMES, which carry no imports — skip those.
+        lines = source.split("\n")
+        import_indices = [
+            index for index, line in enumerate(lines)
+            if line.startswith("import ")]
+        if import_indices:
+            lines.insert(
+                import_indices[-1] + 1,
+                "import ConnesWeilRH.Dev.MatrixConsValFamily2637")
+            source = "\n".join(lines)
     return source
 
 
