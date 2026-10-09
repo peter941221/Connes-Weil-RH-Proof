@@ -154,6 +154,7 @@ def coefficient_certificate(panel: int, coefficient: int) -> dict:
             "left_denominator_blocks": block_values(chunks(left.denominator)),
             "right_denominator_blocks": block_values(chunks(right.denominator)),
         },
+        "canonical_fraction_equal": left == right,
     }
 
 
@@ -167,19 +168,20 @@ def render_lean_blocks(payload: dict) -> str:
         "  a0 + 1000000000 * (a1 + 1000000000 * (a2 + 1000000000 * (a3 + 1000000000 * (a4 + 1000000000 * (a5 + 1000000000 * (a6 + 1000000000 * a7))))))",
         "",
     ]
-    certificate = next(item for item in payload["certificates"] if item["coefficient"] == 32)
-    operands = certificate["canonical_operands"]
-    for label in ("left_numerator_blocks", "right_numerator_blocks",
-                  "left_denominator_blocks", "right_denominator_blocks"):
-        for block in operands[label]:
-            padded = (block["chunks"] + [0] * 8)[:8]
-            arguments = " ".join(str(value) for value in padded)
-            theorem_name = f"panel002_{label}_{block['index']:02d}"
-            lines.extend([
-                f"theorem {theorem_name} : blockValue8 {arguments} = {block['value']} := by",
-                "  norm_num [blockValue8]",
-                "",
-            ])
+    for certificate in payload["certificates"]:
+        coefficient = certificate["coefficient"]
+        operands = certificate["canonical_operands"]
+        for label in ("left_numerator_blocks", "right_numerator_blocks",
+                      "left_denominator_blocks", "right_denominator_blocks"):
+            for block in operands[label]:
+                padded = (block["chunks"] + [0] * 8)[:8]
+                arguments = " ".join(str(value) for value in padded)
+                theorem_name = f"panel{certificate['panel']:03d}_coefficient{coefficient:02d}_{label}_{block['index']:02d}"
+                lines.extend([
+                    f"theorem {theorem_name} : blockValue8 {arguments} = {block['value']} := by",
+                    "  norm_num [blockValue8]",
+                    "",
+                ])
     lines.extend(["end ConnesWeilRH.Dev", ""])
     return "\n".join(lines)
 
