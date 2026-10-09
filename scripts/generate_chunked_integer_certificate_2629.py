@@ -94,6 +94,13 @@ def render_lean_local_certificate(certificate: dict, theorem_name: str) -> str:
         facts.append(
             f"({row['left_digit']} * {row['right_digit']} = {row['product']})"
         )
+    products_by_row: dict[int, list[int]] = {}
+    for row in certificate["local_products"]:
+        products_by_row.setdefault(row["row"], []).append(row["product"])
+    for row in certificate["carry_rows"]:
+        products = products_by_row.get(row["row"], [])
+        product_sum = " + ".join(str(product) for product in products) or "0"
+        facts.append(f"{product_sum} = {row['product_sum']}")
     for row in certificate["carry_rows"]:
         facts.append(
             f"{row['raw']} = {row['product_sum']} + {row['carry_in']}"
