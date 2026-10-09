@@ -2,6 +2,32 @@ import Mathlib.Tactic.Ring
 
 namespace ConnesWeilRH.Dev
 
+def chunkValue2629 : List ℕ → ℕ
+  | [] => 0
+  | digit :: tail => digit + 1000000000 * chunkValue2629 tail
+
+theorem chunkValue2629_append (left right : List ℕ) :
+    chunkValue2629 (left ++ right) =
+      chunkValue2629 left + 1000000000 ^ left.length * chunkValue2629 right := by
+  induction left with
+  | nil => simp [chunkValue2629]
+  | cons head tail ih =>
+      simp only [List.cons_append, chunkValue2629, List.length_cons, pow_succ]
+      rw [ih]
+      ring
+
+theorem chunkValue2629_singleton (digit : ℕ) :
+    chunkValue2629 [digit] = digit := by
+  simp [chunkValue2629]
+
+theorem chunkValue2629_block_assembly
+    (left right : List ℕ) (leftValue rightValue productValue : ℕ)
+    (hleft : leftValue = chunkValue2629 left)
+    (hright : rightValue = chunkValue2629 right)
+    (hproduct : productValue = leftValue * rightValue) :
+    productValue = chunkValue2629 left * chunkValue2629 right := by
+  rw [hproduct, hleft, hright]
+
 /-
   A local carry row is the small exact identity used by the chunked integer
   certificate. Keeping this theorem independent of panel data lets the large
