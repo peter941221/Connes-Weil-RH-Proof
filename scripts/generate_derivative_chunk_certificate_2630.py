@@ -73,6 +73,15 @@ def block_values(value_chunks: list[int], block_size: int = BLOCK_SIZE) -> list[
     return blocks
 
 
+def signed_chunks(value: int) -> tuple[int, list[int]]:
+    """Sign-magnitude split: canonical Fractions keep denominators
+    positive, so numerators may be negative (record 2632: 176/180 K04
+    panels carry at least one negative numerator)."""
+    if value < 0:
+        return -1, chunks(-value)
+    return 1, chunks(value)
+
+
 def ledger(left: int, right: int) -> dict:
     left_chunks = chunks(left)
     right_chunks = chunks(right)
@@ -145,12 +154,14 @@ def coefficient_certificate(panel: int, coefficient: int) -> dict:
         "right_numerator": right.numerator,
         "right_denominator": right.denominator,
         "canonical_operands": {
-            "left_numerator_chunks": chunks(left.numerator),
-            "right_numerator_chunks": chunks(right.numerator),
+            "left_numerator_sign": signed_chunks(left.numerator)[0],
+            "right_numerator_sign": signed_chunks(right.numerator)[0],
+            "left_numerator_chunks": signed_chunks(left.numerator)[1],
+            "right_numerator_chunks": signed_chunks(right.numerator)[1],
             "left_denominator_chunks": chunks(left.denominator),
             "right_denominator_chunks": chunks(right.denominator),
-            "left_numerator_blocks": block_values(chunks(left.numerator)),
-            "right_numerator_blocks": block_values(chunks(right.numerator)),
+            "left_numerator_blocks": block_values(signed_chunks(left.numerator)[1]),
+            "right_numerator_blocks": block_values(signed_chunks(right.numerator)[1]),
             "left_denominator_blocks": block_values(chunks(left.denominator)),
             "right_denominator_blocks": block_values(chunks(right.denominator)),
         },
@@ -173,15 +184,28 @@ def render_lean_blocks(payload: dict) -> str:
         operands = certificate["canonical_operands"]
         for label in ("left_numerator_blocks", "right_numerator_blocks",
                       "left_denominator_blocks", "right_denominator_blocks"):
+            sign = operands.get(label.replace("_blocks", "_sign"), 1)
             for block in operands[label]:
                 padded = (block["chunks"] + [0] * 8)[:8]
                 arguments = " ".join(str(value) for value in padded)
                 theorem_name = f"panel{certificate['panel']:03d}_coefficient{coefficient:02d}_{label}_{block['index']:02d}"
-                lines.extend([
-                    f"theorem {theorem_name} : blockValue8 {arguments} = {block['value']} := by",
-                    "  norm_num [blockValue8]",
-                    "",
-                ])
+                if sign < 0:
+                    # Negative numerators keep the magnitude blocks and pin
+                    # the sign in Z. The multiplier form is required: a bare
+                    # cast goal ((blockValue8 .. : Nat) : Z) = -M is FALSE
+                    # (left side positive), and (-(x : Nat) : Z) elaborates
+                    # Neg at Nat (truncating); shape probe 2026-10-09.
+                    lines.extend([
+                        f"theorem {theorem_name} : (-1 : ℤ) * (blockValue8 {arguments} : ℕ) = -{block['value']} := by",
+                        "  norm_num [blockValue8]",
+                        "",
+                    ])
+                else:
+                    lines.extend([
+                        f"theorem {theorem_name} : blockValue8 {arguments} = {block['value']} := by",
+                        "  norm_num [blockValue8]",
+                        "",
+                    ])
     lines.extend(["end ConnesWeilRH.Dev", ""])
     return "\n".join(lines)
 
