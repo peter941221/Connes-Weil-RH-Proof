@@ -157,15 +157,45 @@ def coefficient_certificate(panel: int, coefficient: int) -> dict:
     }
 
 
+def render_lean_blocks(payload: dict) -> str:
+    lines = [
+        "import Mathlib.Tactic.NormNum",
+        "",
+        "namespace ConnesWeilRH.Dev",
+        "",
+        "def blockValue8 (a0 a1 a2 a3 a4 a5 a6 a7 : ℕ) : ℕ :=",
+        "  a0 + 1000000000 * (a1 + 1000000000 * (a2 + 1000000000 * (a3 + 1000000000 * (a4 + 1000000000 * (a5 + 1000000000 * (a6 + 1000000000 * a7))))))",
+        "",
+    ]
+    certificate = next(item for item in payload["certificates"] if item["coefficient"] == 32)
+    operands = certificate["canonical_operands"]
+    for label in ("left_numerator_blocks", "right_numerator_blocks",
+                  "left_denominator_blocks", "right_denominator_blocks"):
+        for block in operands[label]:
+            padded = (block["chunks"] + [0] * 8)[:8]
+            arguments = " ".join(str(value) for value in padded)
+            theorem_name = f"panel002_{label}_{block['index']:02d}"
+            lines.extend([
+                f"theorem {theorem_name} : blockValue8 {arguments} = {block['value']} := by",
+                "  norm_num [blockValue8]",
+                "",
+            ])
+    lines.extend(["end ConnesWeilRH.Dev", ""])
+    return "\n".join(lines)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--panel", type=int, default=2)
     parser.add_argument("--coefficients", type=int, nargs="+", default=[0, 32])
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--lean-output", type=Path)
     args = parser.parse_args()
     records = [coefficient_certificate(args.panel, coefficient) for coefficient in args.coefficients]
     payload = {"record": 2630, "panel": args.panel, "certificates": records}
     args.output.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8", newline="\n")
+    if args.lean_output is not None:
+        args.lean_output.write_text(render_lean_blocks(payload), encoding="utf-8", newline="\n")
     print(args.output)
     for record in records:
         operands = record["canonical_operands"]
