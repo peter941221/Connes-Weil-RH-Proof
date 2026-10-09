@@ -82,10 +82,18 @@ def rename_owner_symbols(source, owner_index):
     ]
     for old, new in replacements:
         source = source.replace(old, new)
-    if owner_index == 4:
+    if owner_index >= 1:
+        # Unfolding `storedWidth {d}` inside norm_num needs the matching
+        # cons_val lemma. Mathlib's VecNotation family stops at
+        # cons_val_four; owners >= 5 need a project-local lemma family.
+        word = {1: "one", 2: "two", 3: "three", 4: "four"}.get(owner_index)
+        if word is None:
+            raise SystemExit(
+                f"owner {owner_index}: no cons_val_{owner_index} lemma in "
+                "Mathlib; add a project-local family before generating")
         source = source.replace(
             "norm_num [",
-            "norm_num [Matrix.cons_val_four, Matrix.cons_val_zero, "
+            f"norm_num [Matrix.cons_val_{word}, Matrix.cons_val_zero, "
         )
     return source
 
