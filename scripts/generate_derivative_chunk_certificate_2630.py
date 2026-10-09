@@ -12,6 +12,7 @@ from fractions import Fraction
 from pathlib import Path
 
 BASE = 10**9
+BLOCK_SIZE = 8
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -58,6 +59,20 @@ def chunks(value: int) -> list[int]:
     return result or [0]
 
 
+def block_values(value_chunks: list[int], block_size: int = BLOCK_SIZE) -> list[dict]:
+    blocks = []
+    for index in range(0, len(value_chunks), block_size):
+        block_chunks = value_chunks[index:index + block_size]
+        value = sum(digit * BASE ** offset for offset, digit in enumerate(block_chunks))
+        blocks.append({
+            "index": index // block_size,
+            "start_chunk": index,
+            "chunks": block_chunks,
+            "value": value,
+        })
+    return blocks
+
+
 def ledger(left: int, right: int) -> dict:
     left_chunks = chunks(left)
     right_chunks = chunks(right)
@@ -100,6 +115,8 @@ def ledger(left: int, right: int) -> dict:
         "base": BASE,
         "left": str(left),
         "right": str(right),
+        "left_blocks": block_values(left_chunks),
+        "right_blocks": block_values(right_chunks),
         "left_chunks": left_chunks,
         "right_chunks": right_chunks,
         "local_products": local_products,
@@ -132,6 +149,10 @@ def coefficient_certificate(panel: int, coefficient: int) -> dict:
             "right_numerator_chunks": chunks(right.numerator),
             "left_denominator_chunks": chunks(left.denominator),
             "right_denominator_chunks": chunks(right.denominator),
+            "left_numerator_blocks": block_values(chunks(left.numerator)),
+            "right_numerator_blocks": block_values(chunks(right.numerator)),
+            "left_denominator_blocks": block_values(chunks(left.denominator)),
+            "right_denominator_blocks": block_values(chunks(right.denominator)),
         },
     }
 
@@ -151,6 +172,8 @@ def main() -> None:
         print(f"panel={args.panel} coefficient={record['coefficient']} "
               f"numerator_chunks={len(operands['left_numerator_chunks'])} "
               f"denominator_chunks={len(operands['left_denominator_chunks'])} "
+              f"numerator_blocks={len(operands['left_numerator_blocks'])} "
+              f"denominator_blocks={len(operands['left_denominator_blocks'])} "
               "canonical_fraction_equal=True")
 
 
