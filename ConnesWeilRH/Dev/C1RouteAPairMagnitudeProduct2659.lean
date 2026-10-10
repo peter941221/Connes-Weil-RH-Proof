@@ -41,8 +41,14 @@ theorem pairMagnitude_sub_le2659 (a b : RatPair2542) :
   simpa [pairMagnitude2542, pairAdd2542] using
     pairMagnitude_add_le2659 a (-b.1, -b.2)
 
+theorem pairMagnitude_scale_eq2659 (q : ℚ) (a : RatPair2542) :
+    pairMagnitude2542 (pairScale2542 q a) =
+      |q| * pairMagnitude2542 a := by
+  simp [pairMagnitude2542, pairScale2542, abs_mul, mul_add]
+
 #print axioms pairMagnitude_mul_le2659
 #print axioms pairMagnitude_add_le2659
 #print axioms pairMagnitude_sub_le2659
+#print axioms pairMagnitude_scale_eq2659
 
 end ConnesWeilRH.Dev
