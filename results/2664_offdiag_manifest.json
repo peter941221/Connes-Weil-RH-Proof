@@ -2,6 +2,9 @@
  "digest_convention": "sha256 over the canonical JSON of the payload's modules_sha256 map: json.dumps(map, sort_keys=True, separators=(\",\", \":\")).encode(\"utf-8\")",
  "entries": [
   {
+   "assembly_modules": 15,
+   "assembly_payload": "2664_assembly_29_3.json",
+   "assembly_sha256": "5ddc0d70c33c0856707c9e68a193084b1d025278e4d69373f18c24b4b0c93ef9",
    "beta_exact": "27292010362673683961057012550625/10141204801825835211973625643008",
    "capture_sha256": "743fe372bef89b5730c38274d5a5517ac9ea4d3421989d46c49d4af3e78b5e74",
    "chain_sha256": "e9ee6e4d2110fcba0c2602092dfc5ccd18d8f363b24f3fb93181e71493d58cf1",

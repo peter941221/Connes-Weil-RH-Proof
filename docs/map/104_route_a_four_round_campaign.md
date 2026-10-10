@@ -5502,3 +5502,38 @@ docs/proofs/2663_entry_03_membership.md; build logs
 results/build_2663_membership_final.log (repo-ignored).  No producer,
 SourceRH, or RH claim.  Next: the remaining 869 off-diagonal entries on
 this template.
+
+Record 2664: the (29,3) entry through the parameterized lane.  The
+survey priced all 870 off-diagonal entries (833 close at degree 55 with
+>= 4x margin; 23 need 58/60/63/66-rung ladders; 14 psi_zero entries need
+a separate pipeline branch) and measured the disk wall: one entry chain
+is ~212 MB of sources plus ~835 MB of oleans, so the full set needs
+~150-190 GB / 600-700 GB against the free disk -- the scoped plan is a
+class-covering sample built in waves with deletion between waves,
+artifact-level assembly and per-wave byte re-verification
+(results/2664_offdiag_survey_summary.json, results/2664_build_29_3.json,
+results/2664_offdiag_manifest.json).  The degree-66 worst-class chain
+OffDiagE29_03 is green as 950 modules + umbrella (1739 axiom records,
+every one exactly [propext, Classical.choice, Quot.sound]; chain_sha256
+e9ee6e4d..).  scripts/gen_2663_assembly.py gained a --row/--col scope
+that renders the 15 assembly modules from the committed (0,3) texts by
+assert-counted token substitution, with a legacy byte-stability gate
+(the no-argument run reproduces the 13 committed (0,3) support modules
+bitwise) and all numeric slots read back from committed artifacts.  The
+entry assembly build is green: footer Build completed successfully (4886
+jobs), exactly 15 Built lines over the cached chain, 0 errors / 0 uses
+sorry / 0 sorryAx, 1856 axiom records all on the exact trio (115 fresh +
+1741 replayed, per file identical to the wave-1 umbrella log on all 195
+shared files, the single closure addition being the adaptive-node 2542
+module), and entry2903Mem2663 proves (analyticMomentInterval2597 29 3).Mem
+(ownerMomentMatrix2351 capturedModulations2584 capturedNodes2584 29 3) in
+namespace ConnesWeilRH.Dev.OffDiagE29_03 -- the first membership from the
+parameterized lane.  Byte evidence committed: results/2664_assembly_29_3.json
+(assembly_sha256 5ddc0d70.., 15/15 gates) and the manifest now verifies
+the assembly payload from disk (payload-absent control exits 1 with the
+15 modules reported as extras).  Erratum: the record-2663 part-1 prose
+"0 errors, 0 warnings" about the (0,3) tiling should read one style.show
+warning (Tiling:277 in the frozen template, present in the legacy log).
+Evidence: docs/proofs/2664_entry_29_03_membership.md.  No producer,
+SourceRH, or RH claim.  Next: the wave protocol over the 833 + 23 + 14
+entry classes.

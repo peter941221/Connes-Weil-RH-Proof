@@ -13,6 +13,13 @@ and each entry's own payload `results/2664_entry_{row}_{col}.json`
 (~4.5 MB, untracked, dominated by per-panel table reports) carries
 `modules_sha256` for all 951 modules of the chain.
 
+The assembly half (15 modules: entry tiling/bars/rect/panels/assembly,
+rendered from the committed (0,3) texts by `gen_2663_assembly.py --row=R
+--col=C`) is byte-pinned by `results/2664_assembly_{row}_{col}.json`
+(committed).  When that payload exists it is verified from disk and its
+canonical digest is carried as `assembly_sha256`; without it the module
+files stand as unmanifested extras and the entry fails, as before.
+
 THIS manifest is the committed byte evidence: for every on-disk entry
 payload it
 
@@ -80,11 +87,31 @@ def main():
         on_disk = {f.name for f in edir.glob("*.lean")}
         on_disk |= {f.name for f in DEV.glob(
             f"C1RouteAOffDiagEntry2664E{row:02d}_{col:02d}.lean")}
-        extra = sorted(on_disk - set(digest_map))
+        # assembly-half payload (committed): verify from disk, then exclude
+        # its modules from the chain-extra check.  Absent the payload the
+        # old strict behavior stands (assembly files are extras -> fail).
+        asm_path = RESULTS / f"2664_assembly_{row}_{col}.json"
+        asm_map = {}
+        asm_digest = None
+        asm_mismatched = []
+        if asm_path.exists():
+            asm = json.loads(asm_path.read_text(encoding="utf-8"))
+            asm_map = asm["modules_sha256"]
+            asm_digest = hashlib.sha256(canonical(asm_map)).hexdigest()
+            for name, want in sorted(asm_map.items()):
+                mpath = edir / name
+                if not mpath.exists():
+                    asm_mismatched.append((name, "missing"))
+                elif hashlib.sha256(mpath.read_bytes()).hexdigest() != want:
+                    asm_mismatched.append((name, "sha-mismatch"))
+        extra = sorted(on_disk - set(digest_map) - set(asm_map))
         chain = hashlib.sha256(canonical(digest_map)).hexdigest()
-        ok = not mismatched and not extra
+        # extra already fails on assembly modules present without a payload;
+        # asm_mismatched fails on payload entries missing or drifted on disk
+        ok = not mismatched and not extra and not asm_mismatched
         if not ok:
-            failures.append((row, col, mismatched[:5], extra[:5]))
+            failures.append((row, col, mismatched[:5] + asm_mismatched[:5],
+                             extra[:5]))
         entries.append({
             "row": row, "column": col,
             "degree": payload["degree"],
@@ -99,6 +126,9 @@ def main():
             "payload": path.name,
             "generator_sha256": payload["generator_sha256"],
             "capture_sha256": payload["capture_sha256"],
+            "assembly_payload": asm_path.name if asm_path.exists() else None,
+            "assembly_sha256": asm_digest,
+            "assembly_modules": len(asm_map),
         })
         print(f"({row:2d},{col:2d}) deg {payload['degree']:2d} "
               f"{len(digest_map)} modules chain={chain[:16]}.. "
