@@ -1,0 +1,151 @@
+{
+  "record": 2649,
+  "scope": "inventory of the qw(g)>=0 core obligations from committed payloads only",
+  "grid": {
+    "cells": 10240,
+    "strip_radius": "65536001/10^7 (stripRadius2303, C1RouteAItem5Arithmetic.lean)",
+    "cell_arithmetic_proof": "C1RouteACorrectionSecondChord2574.lean",
+    "cell_step_exact": "65536001/51200000000",
+    "signs": [
+      "+1/2",
+      "-1/2"
+    ],
+    "total_obligations": 20480
+  },
+  "inventory": {
+    "unconditional": 0,
+    "conditional_certified": 3,
+    "conditional_cells": [
+      {
+        "cell": "5440",
+        "sign": "+1/2",
+        "class": "conditional_midpoint_envelope",
+        "upper": "2494.6018425 (order two, actual midpoint)",
+        "payload_scope": "bounded midpoint pricing, not a Lean derivative certificate",
+        "retains": "coefficient-ball membership",
+        "payloads": [
+          "2543_derivative_pricing.json",
+          "2544_endpoint_readback.json",
+          "2545_fourth_readback.json",
+          "2546_cell_readback.json"
+        ]
+      },
+      {
+        "cell": "2700",
+        "sign": "+1/2",
+        "class": "conditional_boundary_integral",
+        "upper": "57/500000000000 (1.14e-10)",
+        "retains": "coefficient-ball membership retained; exact_coefficient_membership=False",
+        "payloads": [
+          "2547_boundary_readback.json",
+          "2548_boundary_jets_readback.json",
+          "2549_boundary_bounds_readback.json",
+          "2550_boundary_fourth_readback.json",
+          "2551_boundary_integral_readback.json"
+        ]
+      },
+      {
+        "cell": "2700",
+        "sign": "-1/2",
+        "class": "conditional_correction_pair",
+        "upper": "correction-pair chains priced (2565-2576)",
+        "retains": "strip-lane readbacks; same coefficient-ball caveat",
+        "payloads": [
+          "2565-2576 record family (see docs/proofs)"
+        ]
+      }
+    ],
+    "open_obligations": 20477,
+    "open_fraction": "20477/20480"
+  },
+  "cost_model": {
+    "generators_per_cell": 5,
+    "generators_pattern": "2547-2551: boundary replay, jets, fourth, bounds, integral",
+    "lean_batch": "one 544-target xargs batch class per cell group (diagonal-campaign rhythm, ~350-450 s wall, triple acceptance 30/30 first-try)",
+    "family_eval_depth_range": [
+      6,
+      16
+    ],
+    "deepest_certified_chain": "2551: 160-bit derivative evaluation, exact exterior-zero branches"
+  },
+  "costed_family_evaluations": [
+    {
+      "family": 1,
+      "position": "-158531586419/51200000000",
+      "depth": 9,
+      "derivative_error_display": 3.490079240437101e-40
+    },
+    {
+      "family": 15,
+      "position": "-158531586419/51200000000",
+      "depth": 16,
+      "derivative_error_display": 3.1213818490809767e-26
+    },
+    {
+      "family": 1,
+      "position": "65536001/160000000",
+      "depth": 6,
+      "derivative_error_display": 2.587442525995775e-24
+    },
+    {
+      "family": 15,
+      "position": "65536001/160000000",
+      "depth": 6,
+      "derivative_error_display": 3.213195530758227e-24
+    }
+  ],
+  "payload_lock_report": {
+    "2543": {
+      "full_grid_certificate": false,
+      "producer_go": false,
+      "rh_claim": false
+    },
+    "2546": {
+      "full_grid_certificate": false,
+      "producer_go": false,
+      "rh_claim": false
+    },
+    "2551": {
+      "full_grid_certificate": false,
+      "producer_go": false,
+      "rh_claim": false,
+      "exact_coefficient_membership": false
+    },
+    "2552": {
+      "full_grid_certificate": false,
+      "formal_build_verified": false
+    }
+  },
+  "unknowns_ranked": [
+    {
+      "rank": 1,
+      "unknown": "coefficient-ball discharge margin per cell",
+      "why": "every certified cell retains coefficient-ball membership (2546/2551 exact_coefficient_membership=False); whether the margins survive unconditional discharge is the only genuine mathematical unknown; tool = the 2618-2648 analytic/complex containment layers",
+      "resolution": "discharge cell2700 first (tightest margin, 1.14e-10)"
+    },
+    {
+      "rank": 2,
+      "unknown": "sign coverage of the boundary-jets method near support crossings",
+      "why": "certified cells sit at sigma=+1/2 (2543-2551) with one correction-pair counterpart; the minus-sign chain 2565-2576 is priced but not boundary-integral certified",
+      "resolution": "rerun the 2547-2551 pipeline at sigma=-1/2"
+    },
+    {
+      "rank": 3,
+      "unknown": "exact-owner transfer composition at full grid",
+      "why": "point import (2452), node norm (2453-54) and quadrature import (2455-59) exist per-seam; the full-grid composition is unbuilt",
+      "resolution": "assemble after the first discharged cell; the 2334 lesson forbids proxy-owner shortcuts"
+    }
+  ],
+  "dead_ends": [
+    "channelwise absolute majorants (map: do not close it)",
+    "fixed-prime countermodels (map: do not close it)",
+    "hypotheses equivalent to the desired sign (map: do not close it)",
+    "lane B four-point family (frozen DEAD_ON_CURRENT_FAMILY)"
+  ],
+  "locks": {
+    "producer_go": false,
+    "source_rh": false,
+    "rh": false
+  },
+  "conclusion": "the core reduces to: discharge #1 (coefficient-ball), then certified-machinery scale-out over 20477 obligations; the discharge of cell2700 is the single cheapest experiment that converts the only mathematical unknown into a number"
+}
