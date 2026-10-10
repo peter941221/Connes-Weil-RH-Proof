@@ -64,6 +64,15 @@ checks by the 0-based pair `imLo <= 0` / `0 <= imHi` the emitted assembly
 consumes, and replaces the im-axis margin-ratio clause by the exact-zero
 membership fact (the charge bars do not -- and need not -- reach the
 needle-thin committed im rectangle).  Both payloads carry `psi_zero`.
+
+v6 (record 2664, over-banner edge branch): the frozen edge banner
+51923/10000 covers |beta| <= 51923/10000 only; thirteen of the 870
+off-diagonal entries exceed it (three on the psi = 0 branch).  For those the
+recon selects the `general` edge branch: banner = the 4-decimal ceil of
+|beta| (asserted <= 4000/13 - 210 and <= 30) and Lean intermediate 210
+(`2^302 <= (2718/1000)^210 <= (exp 1)^210 = exp 210`), with the proved edge
+bar unchanged at 2^-302.  Entry payloads carry `edge_branch` /
+`edge_banner` / `edge_mid`; legacy payloads (no field) mean `frozen`.
 """
 
 import json
@@ -79,7 +88,8 @@ import gen_2663_slots as S  # noqa: E402
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 H = F(1, 200)          # panel half width
 EDGE_LEN = F(1, 20)    # each edge slice length
-EDGE_POW2 = 302        # 2^-302 edge bar (needs a0bar >= 605/2 >= 302 log 2)
+EDGE_POW2 = 302        # 2^-302 edge bar (needs a0bar >= 605/2 frozen, or
+                       # >= 210 over-banner; both >= 302 log 2 = 209.33)
 SIGDIG = 60            # bar significant digits
 
 
@@ -172,10 +182,33 @@ def main():
         print(f"beta = {beta}  (== Re(node0) * r3^2: OK)")
 
     # ---- edge bar (base 2) ----
+    # Frozen branch (|beta| <= the committed 51923/10000 column-3 banner): the
+    # committed Lean intermediate 605/2 closes, a0bar = 4000/13 - |beta| >= 605/2.
+    # Over-banner branch (13 of the 870 off-diagonal entries have |beta| above
+    # the frozen banner): the banner rises to the 4-decimal ceil of |beta| and
+    # the Lean intermediate drops to 210, whose route
+    # `2^302 <= (2718/1000)^210 <= (exp 1)^210 = exp 210` (Real.exp_one_gt_d9)
+    # needs banner <= 4000/13 - 210 = 97.69... and banner <= 30 for the
+    # assembly's |x| < 1 ceiling linarith.  The proved edge bar stays 2^-302.
+    FROZEN_EDGE_BAR = F(51923, 10000)
     a0bar = F(4000, 13) - abs(beta)
-    assert a0bar >= F(605, 2), f"edge bar fails: a0bar = {float(a0bar)}"
+    if abs(beta) <= FROZEN_EDGE_BAR:
+        edge_branch = "frozen"
+        edge_banner = FROZEN_EDGE_BAR
+        edge_mid = F(605, 2)
+        assert a0bar >= F(605, 2), f"edge bar fails: a0bar = {float(a0bar)}"
+    else:
+        edge_branch = "general"
+        edge_banner = F(math.ceil(abs(beta) * 10000), 10000)
+        edge_mid = F(210)
+        assert edge_banner >= abs(beta), (edge_banner, abs(beta))
+        assert edge_banner <= F(4000, 13) - edge_mid, \
+            f"edge banner fails: banner = {edge_banner}"
+        assert edge_mid <= a0bar, f"edge mid fails: a0bar = {float(a0bar)}"
+        assert edge_banner <= 30, edge_banner
     edge_total = 2 * EDGE_LEN * F(2) ** (-EDGE_POW2)
-    print(f"edge: a0bar = {float(a0bar):.6f} (>= 605/2 = 302.5), "
+    print(f"edge: a0bar = {float(a0bar):.6f} (branch {edge_branch}, "
+          f"banner {float(edge_banner):.6f}, mid {float(edge_mid):.1f}), "
           f"edge_total = {float(edge_total):.3e}")
 
     # ---- per-panel charges, centers, bars (exact) ----
@@ -373,6 +406,9 @@ def main():
     if entry:
         out["entry"] = [row, col]
         out["psi_zero"] = bool(psi_zero)
+        out["edge_branch"] = edge_branch
+        out["edge_banner"] = fstr(edge_banner)
+        out["edge_mid"] = fstr(edge_mid)
     with open(out_path, "w", encoding="utf-8", newline="\n") as fh:
         json.dump(out, fh, indent=1, sort_keys=True)
         fh.write("\n")

@@ -28,6 +28,12 @@ DEV = os.path.join(ROOT, "ConnesWeilRH", "Dev")
 
 RAT_ASCRIBED = re.compile(r"\(\s*(-?\d+)\s*:\s*[ℚℝ]\s*\)\s*/\s*(\d+)")
 RAT_PLAIN = re.compile(r"(-?\d+)\s*/\s*(\d+)")
+# bare ascription `(n : ℚ)` without division: emitted by the panel-table
+# renderer for INTEGER-valued slots (first hit: entry (5,6), beta = 2 from
+# node_re = 1/2 x w6^2 = 4 -- record 2664).  Fallback-only arm: it runs only
+# when both division arms find nothing, so all previously-parsed bodies are
+# unchanged.
+RAT_BARE = re.compile(r"\(\s*(-?\d+)\s*:\s*[ℚℝ]\s*\)")
 
 
 def read(name):
@@ -53,6 +59,8 @@ def body_rats(body):
     out = [F(int(a), int(b)) for a, b in RAT_ASCRIBED.findall(body)]
     if not out:
         out = [F(int(a), int(b)) for a, b in RAT_PLAIN.findall(body)]
+    if not out:
+        out = [F(int(a)) for a in RAT_BARE.findall(body)]
     return out
 
 

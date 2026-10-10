@@ -5576,3 +5576,45 @@ docs/proofs/2664_entry_00_01_membership_psi0.md.  No producer, SourceRH,
 or RH claim.  Next: the remaining 13 psi=0 entries ((0,4), (1,0),
 (1,4), (2,3), (3,2), (4,0), (4,1), (5,6), (5,7), (6,5), (6,7), (7,5),
 (7,6)), then the 833 + 23 wave protocol.
+
+Record 2664 (psi=0 batch, representative (0,4)): the first OVER-BANNER
+entry of the record (beta = 6.193152000000003 > 51923/10000), hence the
+first build of the Tiling edge-general branch (banner replaced by its
+4-decimal ceil 15483/2500, midpoint 605/2 -> 210, hbase via
+Real.exp_one_gt_d9, scoped exponentiation.threshold 400 wrappers), and
+the psi=0 insert at an interior vector index, where the pilot's bracket
+form (`norm_num [capturedNodes2584, capturedModulations2584]`) cannot
+close: Mathlib's VecNotation marks only cons_val_zero/succ/one @[simp]
+and the dsimproc does not fire under norm_num, so the literal at index
+>= 2 stays stuck -- the first assembly attempt died on the residue
+`5524291025718029 / 140737488355328 + ![..] 4 = 0` at Assembly:583:64
+(3 error lines, 3 degraded sorryAx leaves; failed log preserved).  Fix:
+emit the insert as kernel-rfl literal pins with the capture's own
+spelling (the Tiling's hn/hw pattern, valid at any literal index 0..29);
+assembly re-run GREEN in 86 s, census 1858 = 117 fresh (Assembly 22 =
+wave-1's 20 + the two insert theorems) + 1741 replayed, per-file
+identical to the umbrella log on all shared files, assembly_sha256
+0bff9c93.., 15/15 gates.  Batch prep also found the verbatim-spelling
+law: the capture spells INTEGER-valued slots bare (`capturedWidth2584 6
+= (2 : Real)`, `capturedNodes2584 6 = <(1 : Real), (0 : Real)>`), so
+(5,6)/(6,5) refused at the generator's membership gate against the
+canonical `((n : Real) / 1)` spelling -- the substitution sites are
+kernel-rfl pins, so only the source's own spelling may be substituted;
+fixed by `_capture_vectors_2584()` verbatim extraction plus two new
+hygiene spelling gates, and the byte-stability gate re-rendered ten
+landed lanes 15/15 byte-identical ((0,4) 0bff9c93.. and (29,3)
+5ddc0d70.. both reproduced; legacy (0,3) zero-diff).  The (0,1) lane is
+excluded from the gate by design (it is bracket-era; the fixed generator
+legitimately rewrites its insert) and its tree was restored from the
+census-verified mirror with the committed module hash 35461cfa..
+verified.  Umbrella stage: 4691-job plan, 317 s, 0 errors / 0 sorry,
+1739 exact-trio records, 80 warnings all pre-existing (entry-path 0),
+965 oleans; sizes 84,849,592 B sources / 608,735,208 B oleans; manifest
+refresh deferred to the wave (strict extras check refuses while sibling
+trees await assembly payloads).  Evidence:
+results/2664_assembly_0_4.json, results/2664_build_0_4.json,
+results/2664_budget_recon_0_4.json,
+docs/proofs/2664_entry_00_04_membership_psi0.md.  No producer, SourceRH,
+or RH claim.  Next: the remaining 12 psi=0 entries ((1,0), (1,4),
+(2,3), (3,2), (4,0), (4,1), (5,6), (5,7), (6,5), (6,7), (7,5), (7,6)),
+then the 833 + 23 wave protocol.

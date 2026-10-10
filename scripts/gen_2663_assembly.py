@@ -34,11 +34,14 @@ assert-counted token substitution (`emit_entry_consumers`):
 
   C1RouteAEntryTiling2663.lean      the (R,C) tiling (node/width/column
                                     tokens and the Re(node) literal swapped;
-                                    the `entryBetaBound2663` banner
-                                    51923/10000 is column-3's and covers
-                                    every |Re(node_R) * w_C^2| <= 51923/10000
-                                    case at build time -- the rfl tie and
-                                    norm_num close decide)
+                                    the `entryBetaBound2663` banner is the
+                                    committed 51923/10000 while
+                                    |Re(node_R) * w_C^2| <= 51923/10000,
+                                    else the over-banner branch
+                                    (`tiling_general_branch`: banner = the
+                                    4-decimal ceil of |beta|, Lean
+                                    intermediate 210) -- the rfl tie and
+                                    norm_num close either way)
   C1RouteAEntryAssembly2663.lean    the (R,C) membership assembly
 
 All bar comparisons are exact rationals; no float64 text enters any module.
@@ -111,6 +114,86 @@ def write_module(fname, text):
     with open(path, "w", encoding="utf-8", newline="\n") as fh:
         fh.write(text)
     return path
+
+
+def _capture_vectors_2584():
+    """(nodes_re, nodes_im, mods, widths): the four capture vectors' VERBATIM
+    literal texts from the committed capture module.
+
+    Verbatim extraction (never a canonical re-spelling) is load-bearing: the
+    Tiling's node/width pins (`(capturedNodes2584 r).re = <lit> := rfl`,
+    `storedWidth c = <lit> := by rw [storedWidth_eq_capturedWidth2584]; rfl`)
+    close by KERNEL reduction against the capture literals, and integer-valued
+    slots are spelled bare `(n : ℝ)` there (`capturedWidth2584 6 = (2 : ℝ)`,
+    `capturedNodes2584 6 = ⟨(1 : ℝ), (0 : ℝ)⟩`); the canonical
+    `((n : ℝ) / 1)` spelling does not occur in the source and is not defeq to
+    the capture term ((n : ℝ) / 1 = n * 1⁻¹ does not reduce), so it fails
+    both a source membership check and a `rfl` pin -- the (5,6)/(6,5) render
+    failures of record 2664.
+    """
+    src = read("ConnesWeilRH/Dev/C1RouteACorrectionCaptureParameters2584.lean")
+
+    def split_top(s):
+        out, depth, cur = [], 0, ""
+        for ch in s:
+            if ch == "(":
+                depth += 1
+            elif ch == ")":
+                depth -= 1
+            if ch == "," and depth == 0:
+                out.append(cur.strip())
+                cur = ""
+            else:
+                cur += ch
+        if cur.strip():
+            out.append(cur.strip())
+        return out
+
+    def vec(name):
+        m = re.search(r"def " + name + r"[^=]*:=\s*!\[(.*?)\]\s*\n", src,
+                      re.S)
+        assert m, f"{name} literal not found"
+        return m.group(1)
+
+    mods = split_top(vec("capturedModulations2584"))
+    widths = split_top(vec("capturedWidth2584"))
+    nodes = [e.strip().strip("⟨⟩").strip()
+             for e in re.split("⟩\\s*,\\s*\\n?", vec("capturedNodes2584"))]
+    assert len(mods) == 30 and len(nodes) == 30 and len(widths) == 30, \
+        (len(mods), len(nodes), len(widths))
+    nodes_re = [split_top(e)[0] for e in nodes]
+    nodes_im = [split_top(e)[1] for e in nodes]
+    return nodes_re, nodes_im, mods, widths
+
+
+def capture_psi_literals_2584():
+    """Verbatim `(capturedNodes2584 r).im` / `capturedModulations2584 c`
+    literal texts from the committed capture module.
+
+    The psi = 0 insert proves `node.im + modulation = 0` by reducing the two
+    vector literals at their CONCRETE indices with kernel `rfl` (the Tiling's
+    own node/width pattern), then closing the rational sum with `norm_num`.
+    The simp route (`norm_num [capturedNodes2584, capturedModulations2584]`)
+    only reaches index 1: `Matrix.cons_val_zero/succ/one` are the only
+    @[simp] index peels in Mathlib's VecNotation (cons_val_two/three/four are
+    plain lemmas), so any column >= 2 leaves the `![..] c` application stuck
+    (the (0,4) stage-2 failure of record 2664; (0,1) passed only because
+    cons_val_one is @[simp]).  Kernel reduction at default transparency
+    handles every literal index 0..29 (cf. the committed `storedWidth k = ...
+    := rfl` pattern at k = 0..29 in the diagonal Tilings).
+    """
+    _nodes_re, nodes_im, mods, _widths = _capture_vectors_2584()
+    return nodes_im, mods
+
+
+def literal_fraction(lit):
+    """Exact Fraction of a capture-module rational literal."""
+    s = (lit.replace("(", "").replace(")", "").replace(" ", "")
+         .replace(":ℝ", "").replace("ℝ", ""))
+    if "/" in s:
+        n, d = s.split("/")
+        return F(int(n), int(d))
+    return F(int(s))
 
 
 # ---------------------------------------------------------------------------
@@ -605,6 +688,68 @@ def swap_counted(text, pairs, fname):
     return text
 
 
+def tiling_general_branch(text, bnum, bden, mid):
+    """Over-banner edge branch (record 2664 v6) for the rendered tiling.
+
+    The committed tiling hard-codes the column-3 edge banner `51923 / 10000`
+    and the intermediate `605 / 2` (its proof route `2^302 <= (exp 1)^302`,
+    whose last step needs the intermediate >= 302).  Entries with
+    |beta| = |Re(node_R) * w_C^2| above the banner cannot instantiate
+    `entryBetaBound2663`; this branch raises the banner to the recon's
+    `bnum / bden` and lowers the intermediate to `mid` = 210, proven by the
+    sharper-base route `2^302 <= (2718/1000)^210 <= (exp 1)^210 = exp 210`
+    (Real.exp_one_gt_d9).  The PROVED edge bar stays `2 ^ (-302)`; only the
+    internal intermediate and the hβ banner change.  Frozen-branch bytes are
+    untouched (callers must not reach here when |beta| fits the banner).
+    """
+    assert mid == "210", mid
+    old_block = (
+        "      have hpow : (2 : ℝ) ^ 302 ≤ Real.exp (605 / 2) := by\n"
+        "        have hbase : (2 : ℝ) ^ 302 ≤ (Real.exp 1) ^ 302 :=\n"
+        "          pow_le_pow_left₀ (by norm_num : (0 : ℝ) ≤ 2) "
+        "Real.exp_one_gt_two.le 302\n"
+        "        have hexp302 : (Real.exp 1) ^ 302 = Real.exp 302 := by\n"
+        "          rw [← Real.exp_nat_mul]\n"
+        "          norm_num\n"
+        "        exact le_trans hbase (le_trans (le_of_eq hexp302)\n"
+        "          (Real.exp_le_exp.mpr (by norm_num)))")
+    new_block = (
+        "      have hpow : (2 : ℝ) ^ 302 ≤ Real.exp 210 := by\n"
+        "        have hbase : (2 : ℝ) ^ 302 ≤ (2718 / 1000 : ℝ) ^ 210 := by\n"
+        "          norm_num\n"
+        "        have he : (2718 / 1000 : ℝ) ≤ Real.exp 1 := by\n"
+        "          linarith [Real.exp_one_gt_d9]\n"
+        "        calc (2 : ℝ) ^ 302 ≤ (2718 / 1000 : ℝ) ^ 210 := hbase\n"
+        "          _ ≤ (Real.exp 1) ^ 210 :=\n"
+        "              pow_le_pow_left₀ (by norm_num : (0 : ℝ) ≤ 2718 / 1000) "
+        "he 210\n"
+        "          _ = Real.exp 210 := by\n"
+        "              rw [← Real.exp_nat_mul]\n"
+        "              norm_num")
+    return swap_counted(text, [
+        (old_block, new_block, 1),
+        ("-(605 / 2)", "-(210)", 2),
+        ("(605 / 2)", "210", 1),
+        ("≤ 51923 / 10000", f"≤ {bnum} / {bden}", 4),
+        ("51923/10000", f"{bnum}/{bden}", 4),
+        ("-605/2", "-210", 2),
+        # the general hbase does what the frozen file never does -- it lets
+        # `norm_num` EVALUATE `2 ^ 302` (against `(2718 / 1000) ^ 210`), and
+        # the default `exponentiation.threshold` 256 refuses the reduction
+        # (probe run 2026-10-10: goal left as `2 ^ 302 ≤ <evaluated RHS>`).
+        # Wrap the theorem in the file's own scoped-threshold pattern.
+        ("/-- Edge pointwise bound: on `19/20 <= |x| <= 1` the normalized "
+         "integrand is",
+         "set_option exponentiation.threshold 400 in\n"
+         "-- the literal power `2 ^ 302` sits in the bound and the "
+         "general-branch\n"
+         "-- `norm_num` evaluates it against `(2718 / 1000) ^ 210`; raise the\n"
+         "-- normalization threshold so that evaluation reduces silently\n"
+         "/-- Edge pointwise bound: on `19/20 <= |x| <= 1` the normalized "
+         "integrand is", 1),
+    ], "tiling-general")
+
+
 def emit_entry_consumers():
     assert entry, "entry consumers are entry-scope only"
     from math import isqrt
@@ -630,12 +775,18 @@ def emit_entry_consumers():
     assert wnum * wnum == wsq.numerator, wsq
     assert wden * wden == wsq.denominator, wsq
     assert Q(wnum, wden) ** 2 == wsq, (wnum, wden, wsq)
-    # the emitted spellings must be the capture module's own spellings
-    spell_node = f"(({node_re.numerator} : ℝ) / {node_re.denominator})"
-    spell_wid = f"(({wnum} : ℝ) / {wden})"
-    cap_src = read("ConnesWeilRH/Dev/C1RouteACorrectionCaptureParameters2584.lean")
-    assert spell_node in cap_src, spell_node
-    assert spell_wid in cap_src, spell_wid
+    # the emitted spellings must be the capture module's own spellings: the
+    # substitution sites are kernel-rfl pins against the capture literals
+    # (see _capture_vectors_2584), so extract them VERBATIM; integer-valued
+    # slots are spelled bare `(n : ℝ)` there and the canonical division
+    # spelling is neither present in the source nor defeq (the (5,6)/(6,5)
+    # render failures)
+    nodes_re, _nodes_im, _mods, widths = _capture_vectors_2584()
+    spell_node = nodes_re[row]
+    spell_wid = widths[col]
+    assert literal_fraction(spell_node) == node_re, (spell_node, node_re)
+    assert literal_fraction(spell_wid) == Q(wnum, wden), \
+        (spell_wid, wnum, wden)
 
     til = read("ConnesWeilRH/Dev/C1RouteAEntryTiling2663.lean")
     til = swap_counted(til, [
@@ -654,6 +805,29 @@ def emit_entry_consumers():
         ("Re(node0)", f"Re(node{row})", 2),
         ("r3^2", f"r{col}^2", 2),
     ], "tiling")
+
+    # edge banner branch (record 2664 v6): the committed banner covers
+    # |beta| <= 51923/10000; over-banner entries render the general branch
+    # (recon payloads carry edge_branch/edge_banner/edge_mid; a legacy
+    # payload without the field means frozen and re-asserts the fit).
+    edge_branch = recon.get("edge_branch", "frozen")
+    edge_gen = None
+    if edge_branch == "frozen":
+        assert abs(pe["beta"]) <= Q(51923, 10000), \
+            (str(pe["beta"]), "over-banner entry with a frozen recon payload")
+    else:
+        assert edge_branch == "general", edge_branch
+        bnum, bden = (int(part)
+                      for part in str(recon["edge_banner"]).split("/"))
+        # recon stores Fraction spellings ("210/1"); parse, then pin the one
+        # value the rendered proof block hard-codes
+        mid_q = Q(recon["edge_mid"])
+        assert mid_q == Q(210), mid_q
+        mid = "210"
+        assert Q(bnum, bden) >= abs(pe["beta"]), (bnum, bden, str(pe["beta"]))
+        assert Q(bnum, bden) <= Q(30), (bnum, bden)
+        til = tiling_general_branch(til, bnum, bden, mid)
+        edge_gen = (bnum, bden, mid)
 
     asm = read("ConnesWeilRH/Dev/C1RouteAEntryAssembly2663.lean")
     # The owner application `ownerMomentMatrix2351 capturedModulations2584
@@ -685,6 +859,14 @@ def emit_entry_consumers():
         f"ownerMomentMatrix2351 capturedModulations2584 capturedNodes2584 "
         f"{row} {col}") == 10, "ownerMomentMatrix index swap incomplete"
 
+    if edge_gen:
+        # Assembly prose only (the `|x| < 1` ceiling sketch): that linarith
+        # consumes `entryBetaBound2663` directly and needs only banner <= 30,
+        # so no statement changes -- just the prose token.
+        asm = swap_counted(asm, [
+            ("51923/10000", f"{edge_gen[0]}/{edge_gen[1]}", 1),
+        ], "assembly-prose")
+
     if bool(recon.get("psi_zero")):
         # psi = 0 branch: the entry is exactly real (record-2618 phase
         # cancel).  Insert the phase-cancel pair before the membership
@@ -694,11 +876,18 @@ def emit_entry_consumers():
         # unchanged.
         anchor = "/-! ## Membership -/\n"
         assert asm.count(anchor) == 1, "membership anchor not found"
+        nodes_im, mods = capture_psi_literals_2584()
+        im_lit, mod_lit = nodes_im[row], mods[col]
+        assert literal_fraction(im_lit) + literal_fraction(mod_lit) == 0, \
+            f"psi not zero from capture literals: {im_lit} + {mod_lit}"
         insert = f"""\
 /-- Phase cancellation at this entry: psi = 0 exactly. -/
 theorem entryPhaseCancel2663 :
     (capturedNodes2584 {row}).im + capturedModulations2584 {col} = 0 := by
-  norm_num [capturedNodes2584, capturedModulations2584]
+  have hn : (capturedNodes2584 {row}).im = {im_lit} := rfl
+  have hm : capturedModulations2584 {col} = {mod_lit} := rfl
+  rw [hn, hm]
+  norm_num
 
 /-- The owner entry is exactly real: the record-2618 phase-cancel theorem. -/
 theorem entryImEqZero2663 :
