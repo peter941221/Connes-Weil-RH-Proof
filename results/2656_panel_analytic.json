@@ -1,0 +1,1912 @@
+{
+  "record": 2656,
+  "entry": [
+    0,
+    3
+  ],
+  "panel_count": 190,
+  "emitted": 189,
+  "pilot_panel": 109,
+  "pilot_record": 2649,
+  "constants": {
+    "half_width": "1/200",
+    "beta_exact": "116152111876054835606365918369810290020159149375/22835963083295358096932575511191922182123945984",
+    "psi_exact": "150769007920321682218453926567603851305337718125/356811923176489970264571492362373784095686656",
+    "beta_abs_bound": "8",
+    "beta_term_bound": "1/25"
+  },
+  "variation_formula": "VAR = 1/25 + 30*(2|c|+1/200)/200 / (1-B^2)^2, B = |c|+1/200",
+  "panels": [
+    {
+      "panel": 0,
+      "center": "-189/200",
+      "b": "19/20",
+      "dlow": "39/400",
+      "delta": "15160/507",
+      "var": "379507/12675",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P000.lean"
+    },
+    {
+      "panel": 1,
+      "center": "-187/200",
+      "b": "47/50",
+      "dlow": "291/2500",
+      "delta": "390625/18818",
+      "var": "9784443/470450",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P001.lean"
+    },
+    {
+      "panel": 2,
+      "center": "-37/40",
+      "b": "93/100",
+      "dlow": "1351/10000",
+      "delta": "3975000/260743",
+      "var": "99635743/6518575",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P002.lean"
+    },
+    {
+      "panel": 3,
+      "center": "-183/200",
+      "b": "23/25",
+      "dlow": "96/625",
+      "delta": "1146875/98304",
+      "var": "28770179/2457600",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P003.lean"
+    },
+    {
+      "panel": 4,
+      "center": "-181/200",
+      "b": "91/100",
+      "dlow": "1719/10000",
+      "delta": "3025000/328329",
+      "var": "75953329/8208225",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P004.lean"
+    },
+    {
+      "panel": 5,
+      "center": "-179/200",
+      "b": "9/10",
+      "dlow": "19/100",
+      "delta": "5385/722",
+      "var": "135347/18050",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P005.lean"
+    },
+    {
+      "panel": 6,
+      "center": "-177/200",
+      "b": "89/100",
+      "dlow": "2079/10000",
+      "delta": "8875000/1440747",
+      "var": "223315747/36018675",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P006.lean"
+    },
+    {
+      "panel": 7,
+      "center": "-7/8",
+      "b": "22/25",
+      "dlow": "141/625",
+      "delta": "365625/70688",
+      "var": "9211313/1767200",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P007.lean"
+    },
+    {
+      "panel": 8,
+      "center": "-173/200",
+      "b": "87/100",
+      "dlow": "2431/10000",
+      "delta": "26025000/5909761",
+      "var": "656534761/147744025",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P008.lean"
+    },
+    {
+      "panel": 9,
+      "center": "-171/200",
+      "b": "43/50",
+      "dlow": "651/2500",
+      "delta": "21875/5766",
+      "var": "552641/144150",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P009.lean"
+    },
+    {
+      "panel": 10,
+      "center": "-169/200",
+      "b": "17/20",
+      "dlow": "111/400",
+      "delta": "4520/1369",
+      "var": "114369/34225",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P010.lean"
+    },
+    {
+      "panel": 11,
+      "center": "-167/200",
+      "b": "21/25",
+      "dlow": "184/625",
+      "delta": "3140625/1083392",
+      "var": "79599017/27084800",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P011.lean"
+    },
+    {
+      "panel": 12,
+      "center": "-33/40",
+      "b": "83/100",
+      "dlow": "3111/10000",
+      "delta": "8275000/3226107",
+      "var": "210101107/80652675",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P012.lean"
+    },
+    {
+      "panel": 13,
+      "center": "-163/200",
+      "b": "41/50",
+      "dlow": "819/2500",
+      "delta": "340625/149058",
+      "var": "8664683/3726450",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P013.lean"
+    },
+    {
+      "panel": 14,
+      "center": "-161/200",
+      "b": "81/100",
+      "dlow": "3439/10000",
+      "delta": "1275000/622459",
+      "var": "32497459/15561475",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P014.lean"
+    },
+    {
+      "panel": 15,
+      "center": "-159/200",
+      "b": "4/5",
+      "dlow": "9/25",
+      "delta": "1595/864",
+      "var": "40739/21600",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P015.lean"
+    },
+    {
+      "panel": 16,
+      "center": "-157/200",
+      "b": "79/100",
+      "dlow": "3759/10000",
+      "delta": "375000/224287",
+      "var": "9599287/5607175",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P016.lean"
+    },
+    {
+      "panel": 17,
+      "center": "-31/40",
+      "b": "39/50",
+      "dlow": "979/2500",
+      "delta": "2915625/1916882",
+      "var": "74807507/47922050",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P017.lean"
+    },
+    {
+      "panel": 18,
+      "center": "-153/200",
+      "b": "77/100",
+      "dlow": "4071/10000",
+      "delta": "7675000/5524347",
+      "var": "197399347/138108675",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P018.lean"
+    },
+    {
+      "panel": 19,
+      "center": "-151/200",
+      "b": "19/25",
+      "dlow": "264/625",
+      "delta": "315625/247808",
+      "var": "8138433/6195200",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P019.lean"
+    },
+    {
+      "panel": 20,
+      "center": "-149/200",
+      "b": "3/4",
+      "dlow": "7/16",
+      "delta": "7176/6125",
+      "var": "7421/6125",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P020.lean"
+    },
+    {
+      "panel": 21,
+      "center": "-147/200",
+      "b": "37/50",
+      "dlow": "1131/2500",
+      "delta": "921875/852774",
+      "var": "23899649/21319350",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P021.lean"
+    },
+    {
+      "panel": 22,
+      "center": "-29/40",
+      "b": "73/100",
+      "dlow": "4671/10000",
+      "delta": "2425000/2424249",
+      "var": "63049249/60606225",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P022.lean"
+    },
+    {
+      "panel": 23,
+      "center": "-143/200",
+      "b": "18/25",
+      "dlow": "301/625",
+      "delta": "384375/414176",
+      "var": "10023551/10354400",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P023.lean"
+    },
+    {
+      "panel": 24,
+      "center": "-141/200",
+      "b": "71/100",
+      "dlow": "4959/10000",
+      "delta": "7075000/8197227",
+      "var": "185072227/204930675",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P024.lean"
+    },
+    {
+      "panel": 25,
+      "center": "-139/200",
+      "b": "7/10",
+      "dlow": "51/100",
+      "delta": "465/578",
+      "var": "12203/14450",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P025.lean"
+    },
+    {
+      "panel": 26,
+      "center": "-137/200",
+      "b": "69/100",
+      "dlow": "5239/10000",
+      "delta": "20625000/27447121",
+      "var": "543072121/686178025",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P026.lean"
+    },
+    {
+      "panel": 27,
+      "center": "-27/40",
+      "b": "17/25",
+      "dlow": "336/625",
+      "delta": "846875/1204224",
+      "var": "22376099/30105600",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P027.lean"
+    },
+    {
+      "panel": 28,
+      "center": "-133/200",
+      "b": "67/100",
+      "dlow": "5511/10000",
+      "delta": "2225000/3374569",
+      "var": "58999569/84364225",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P028.lean"
+    },
+    {
+      "panel": 29,
+      "center": "-131/200",
+      "b": "33/50",
+      "dlow": "1411/2500",
+      "delta": "2465625/3981842",
+      "var": "65622467/99546050",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P029.lean"
+    },
+    {
+      "panel": 30,
+      "center": "-129/200",
+      "b": "13/20",
+      "dlow": "231/400",
+      "delta": "1480/2541",
+      "var": "39541/63525",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P030.lean"
+    },
+    {
+      "panel": 31,
+      "center": "-127/200",
+      "b": "16/25",
+      "dlow": "369/625",
+      "delta": "265625/484128",
+      "var": "7124753/12103200",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P031.lean"
+    },
+    {
+      "panel": 32,
+      "center": "-5/8",
+      "b": "63/100",
+      "dlow": "6031/10000",
+      "delta": "18825000/36372961",
+      "var": "506997961/909324025",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P032.lean"
+    },
+    {
+      "panel": 33,
+      "center": "-123/200",
+      "b": "31/50",
+      "dlow": "1539/2500",
+      "delta": "40625/83106",
+      "var": "1098731/2077650",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P033.lean"
+    },
+    {
+      "panel": 34,
+      "center": "-121/200",
+      "b": "61/100",
+      "dlow": "6279/10000",
+      "delta": "2025000/4380649",
+      "var": "55005649/109516225",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P034.lean"
+    },
+    {
+      "panel": 35,
+      "center": "-119/200",
+      "b": "3/5",
+      "dlow": "16/25",
+      "delta": "3585/8192",
+      "var": "97817/204800",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P035.lean"
+    },
+    {
+      "panel": 36,
+      "center": "-117/200",
+      "b": "59/100",
+      "dlow": "6519/10000",
+      "delta": "5875000/14165787",
+      "var": "161040787/354144675",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P036.lean"
+    },
+    {
+      "panel": 37,
+      "center": "-23/40",
+      "b": "29/50",
+      "dlow": "1659/2500",
+      "delta": "34375/87374",
+      "var": "946749/2184350",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P037.lean"
+    },
+    {
+      "panel": 38,
+      "center": "-113/200",
+      "b": "57/100",
+      "dlow": "6751/10000",
+      "delta": "17025000/45576001",
+      "var": "471201001/1139400025",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P038.lean"
+    },
+    {
+      "panel": 39,
+      "center": "-111/200",
+      "b": "14/25",
+      "dlow": "429/625",
+      "delta": "696875/1963104",
+      "var": "19384979/49077600",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P039.lean"
+    },
+    {
+      "panel": 40,
+      "center": "-109/200",
+      "b": "11/20",
+      "dlow": "279/400",
+      "delta": "2920/8649",
+      "var": "81649/216225",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P040.lean"
+    },
+    {
+      "panel": 41,
+      "center": "-107/200",
+      "b": "27/50",
+      "dlow": "1771/2500",
+      "delta": "2015625/6272882",
+      "var": "56663507/156822050",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P041.lean"
+    },
+    {
+      "panel": 42,
+      "center": "-21/40",
+      "b": "53/100",
+      "dlow": "7191/10000",
+      "delta": "5275000/17236827",
+      "var": "149111827/430920675",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P042.lean"
+    },
+    {
+      "panel": 43,
+      "center": "-103/200",
+      "b": "13/25",
+      "dlow": "456/625",
+      "delta": "215625/739328",
+      "var": "6129953/18483200",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P043.lean"
+    },
+    {
+      "panel": 44,
+      "center": "-101/200",
+      "b": "51/100",
+      "dlow": "7399/10000",
+      "delta": "2175000/7820743",
+      "var": "62195743/195518575",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P044.lean"
+    },
+    {
+      "panel": 45,
+      "center": "-99/200",
+      "b": "1/2",
+      "dlow": "3/4",
+      "delta": "199/750",
+      "var": "229/750",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P045.lean"
+    },
+    {
+      "panel": 46,
+      "center": "-97/200",
+      "b": "49/100",
+      "dlow": "7599/10000",
+      "delta": "1625000/6416089",
+      "var": "47041089/160402225",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P046.lean"
+    },
+    {
+      "panel": 47,
+      "center": "-19/40",
+      "b": "12/25",
+      "dlow": "481/625",
+      "delta": "1790625/7403552",
+      "var": "52169177/185088800",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P047.lean"
+    },
+    {
+      "panel": 48,
+      "center": "-93/200",
+      "b": "47/100",
+      "dlow": "7791/10000",
+      "delta": "4675000/20233227",
+      "var": "137108227/505830675",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P048.lean"
+    },
+    {
+      "panel": 49,
+      "center": "-91/200",
+      "b": "23/50",
+      "dlow": "1971/2500",
+      "delta": "190625/863298",
+      "var": "5628923/21582450",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P049.lean"
+    },
+    {
+      "panel": 50,
+      "center": "-89/200",
+      "b": "9/20",
+      "dlow": "319/400",
+      "delta": "21480/101761",
+      "var": "638761/2544025",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P050.lean"
+    },
+    {
+      "panel": 51,
+      "center": "-87/200",
+      "b": "11/25",
+      "dlow": "504/625",
+      "delta": "78125/387072",
+      "var": "2340197/9676800",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P051.lean"
+    },
+    {
+      "panel": 52,
+      "center": "-17/40",
+      "b": "43/100",
+      "dlow": "8151/10000",
+      "delta": "75000/388531",
+      "var": "2263531/9713275",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P052.lean"
+    },
+    {
+      "panel": 53,
+      "center": "-83/200",
+      "b": "21/50",
+      "dlow": "2059/2500",
+      "delta": "1565625/8478962",
+      "var": "47619587/211974050",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P053.lean"
+    },
+    {
+      "panel": 54,
+      "center": "-81/200",
+      "b": "41/100",
+      "dlow": "8319/10000",
+      "delta": "4075000/23068587",
+      "var": "124943587/576714675",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P054.lean"
+    },
+    {
+      "panel": 55,
+      "center": "-79/200",
+      "b": "2/5",
+      "dlow": "21/25",
+      "delta": "265/1568",
+      "var": "8193/39200",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P055.lean"
+    },
+    {
+      "panel": 56,
+      "center": "-77/200",
+      "b": "39/100",
+      "dlow": "8479/10000",
+      "delta": "11625000/71893441",
+      "var": "362518441/1797336025",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P056.lean"
+    },
+    {
+      "panel": 57,
+      "center": "-3/8",
+      "b": "19/50",
+      "dlow": "2139/2500",
+      "delta": "471875/3050214",
+      "var": "14847089/76255350",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P057.lean"
+    },
+    {
+      "panel": 58,
+      "center": "-73/200",
+      "b": "37/100",
+      "dlow": "8631/10000",
+      "delta": "25000/168921",
+      "var": "793921/4223025",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P058.lean"
+    },
+    {
+      "panel": 59,
+      "center": "-71/200",
+      "b": "9/25",
+      "dlow": "544/625",
+      "delta": "1340625/9469952",
+      "var": "42985577/236748800",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P059.lean"
+    },
+    {
+      "panel": 60,
+      "center": "-69/200",
+      "b": "7/20",
+      "dlow": "351/400",
+      "delta": "5560/41067",
+      "var": "180067/1026675",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P060.lean"
+    },
+    {
+      "panel": 61,
+      "center": "-67/200",
+      "b": "17/50",
+      "dlow": "2211/2500",
+      "delta": "140625/1086338",
+      "var": "4601963/27158450",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P061.lean"
+    },
+    {
+      "panel": 62,
+      "center": "-13/40",
+      "b": "33/100",
+      "dlow": "8911/10000",
+      "delta": "9825000/79405921",
+      "var": "325030921/1985148025",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P062.lean"
+    },
+    {
+      "panel": 63,
+      "center": "-63/200",
+      "b": "8/25",
+      "dlow": "561/625",
+      "delta": "396875/3357024",
+      "var": "13278899/83925600",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P063.lean"
+    },
+    {
+      "panel": 64,
+      "center": "-61/200",
+      "b": "31/100",
+      "dlow": "9039/10000",
+      "delta": "1025000/9078169",
+      "var": "34703169/226954225",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P064.lean"
+    },
+    {
+      "panel": 65,
+      "center": "-59/200",
+      "b": "3/10",
+      "dlow": "91/100",
+      "delta": "255/2366",
+      "var": "8741/59150",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P065.lean"
+    },
+    {
+      "panel": 66,
+      "center": "-57/200",
+      "b": "29/100",
+      "dlow": "9159/10000",
+      "delta": "2875000/27962427",
+      "var": "99837427/699060675",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P066.lean"
+    },
+    {
+      "panel": 67,
+      "center": "-11/40",
+      "b": "7/25",
+      "dlow": "576/625",
+      "delta": "115625/1179648",
+      "var": "4070273/29491200",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P067.lean"
+    },
+    {
+      "panel": 68,
+      "center": "-53/200",
+      "b": "27/100",
+      "dlow": "9271/10000",
+      "delta": "8025000/85951441",
+      "var": "286576441/2148786025",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P068.lean"
+    },
+    {
+      "panel": 69,
+      "center": "-51/200",
+      "b": "13/50",
+      "dlow": "2331/2500",
+      "delta": "321875/3622374",
+      "var": "11669249/90559350",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P069.lean"
+    },
+    {
+      "panel": 70,
+      "center": "-49/200",
+      "b": "1/4",
+      "dlow": "15/16",
+      "delta": "264/3125",
+      "var": "389/3125",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P070.lean"
+    },
+    {
+      "panel": 71,
+      "center": "-47/200",
+      "b": "6/25",
+      "dlow": "589/625",
+      "delta": "46875/584288",
+      "var": "1756163/14607200",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P071.lean"
+    },
+    {
+      "panel": 72,
+      "center": "-9/40",
+      "b": "23/100",
+      "dlow": "9471/10000",
+      "delta": "325000/4271421",
+      "var": "12396421/106785525",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P072.lean"
+    },
+    {
+      "panel": 73,
+      "center": "-43/200",
+      "b": "11/50",
+      "dlow": "2379/2500",
+      "delta": "90625/1257698",
+      "var": "3523323/31442450",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P073.lean"
+    },
+    {
+      "panel": 74,
+      "center": "-41/200",
+      "b": "21/100",
+      "dlow": "9559/10000",
+      "delta": "6225000/91374481",
+      "var": "246999481/2284362025",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P074.lean"
+    },
+    {
+      "panel": 75,
+      "center": "-39/200",
+      "b": "1/5",
+      "dlow": "24/25",
+      "delta": "395/6144",
+      "var": "16019/153600",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P075.lean"
+    },
+    {
+      "panel": 76,
+      "center": "-37/200",
+      "b": "19/100",
+      "dlow": "9639/10000",
+      "delta": "625000/10323369",
+      "var": "25948369/258084225",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P076.lean"
+    },
+    {
+      "panel": 77,
+      "center": "-7/40",
+      "b": "9/50",
+      "dlow": "2419/2500",
+      "delta": "665625/11703122",
+      "var": "28343747/292578050",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P077.lean"
+    },
+    {
+      "panel": 78,
+      "center": "-33/200",
+      "b": "17/100",
+      "dlow": "9711/10000",
+      "delta": "1675000/31434507",
+      "var": "73309507/785862675",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P078.lean"
+    },
+    {
+      "panel": 79,
+      "center": "-31/200",
+      "b": "4/25",
+      "dlow": "609/625",
+      "delta": "9375/188384",
+      "var": "422759/4709600",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P079.lean"
+    },
+    {
+      "panel": 80,
+      "center": "-29/200",
+      "b": "3/20",
+      "dlow": "391/400",
+      "delta": "7080/152881",
+      "var": "329881/3822025",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P080.lean"
+    },
+    {
+      "panel": 81,
+      "center": "-27/200",
+      "b": "7/50",
+      "dlow": "2451/2500",
+      "delta": "171875/4004934",
+      "var": "8301809/100123350",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P081.lean"
+    },
+    {
+      "panel": 82,
+      "center": "-1/8",
+      "b": "13/100",
+      "dlow": "9831/10000",
+      "delta": "425000/10738729",
+      "var": "21363729/268468225",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P082.lean"
+    },
+    {
+      "panel": 83,
+      "center": "-23/200",
+      "b": "3/25",
+      "dlow": "616/625",
+      "delta": "440625/12142592",
+      "var": "23158217/303564800",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P083.lean"
+    },
+    {
+      "panel": 84,
+      "center": "-21/200",
+      "b": "11/100",
+      "dlow": "9879/10000",
+      "delta": "1075000/32531547",
+      "var": "59406547/813288675",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P084.lean"
+    },
+    {
+      "panel": 85,
+      "center": "-19/200",
+      "b": "1/10",
+      "dlow": "99/100",
+      "delta": "65/2178",
+      "var": "3803/54450",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P085.lean"
+    },
+    {
+      "panel": 86,
+      "center": "-17/200",
+      "b": "9/100",
+      "dlow": "9919/10000",
+      "delta": "375000/14055223",
+      "var": "23430223/351380575",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P086.lean"
+    },
+    {
+      "panel": 87,
+      "center": "-3/40",
+      "b": "2/25",
+      "dlow": "621/625",
+      "delta": "96875/4113504",
+      "var": "6535379/102837600",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P087.lean"
+    },
+    {
+      "panel": 88,
+      "center": "-13/200",
+      "b": "7/100",
+      "dlow": "9951/10000",
+      "delta": "225000/11002489",
+      "var": "16627489/275062225",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P088.lean"
+    },
+    {
+      "panel": 89,
+      "center": "-11/200",
+      "b": "3/50",
+      "dlow": "2491/2500",
+      "delta": "215625/12410162",
+      "var": "17800787/310254050",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P089.lean"
+    },
+    {
+      "panel": 90,
+      "center": "-9/200",
+      "b": "1/20",
+      "dlow": "399/400",
+      "delta": "40/2793",
+      "var": "3793/69825",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P090.lean"
+    },
+    {
+      "panel": 91,
+      "center": "-7/200",
+      "b": "1/25",
+      "dlow": "624/625",
+      "delta": "15625/1384448",
+      "var": "1775073/34611200",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P091.lean"
+    },
+    {
+      "panel": 92,
+      "center": "-1/40",
+      "b": "3/100",
+      "dlow": "9991/10000",
+      "delta": "825000/99820081",
+      "var": "120445081/2495502025",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P092.lean"
+    },
+    {
+      "panel": 93,
+      "center": "-3/200",
+      "b": "1/50",
+      "dlow": "2499/2500",
+      "delta": "3125/594762",
+      "var": "672887/14869050",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P093.lean"
+    },
+    {
+      "panel": 94,
+      "center": "-1/200",
+      "b": "1/100",
+      "dlow": "9999/10000",
+      "delta": "25000/11108889",
+      "var": "11733889/277722225",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P094.lean"
+    },
+    {
+      "panel": 95,
+      "center": "1/200",
+      "b": "1/100",
+      "dlow": "9999/10000",
+      "delta": "25000/11108889",
+      "var": "11733889/277722225",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P095.lean"
+    },
+    {
+      "panel": 96,
+      "center": "3/200",
+      "b": "1/50",
+      "dlow": "2499/2500",
+      "delta": "3125/594762",
+      "var": "672887/14869050",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P096.lean"
+    },
+    {
+      "panel": 97,
+      "center": "1/40",
+      "b": "3/100",
+      "dlow": "9991/10000",
+      "delta": "825000/99820081",
+      "var": "120445081/2495502025",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P097.lean"
+    },
+    {
+      "panel": 98,
+      "center": "7/200",
+      "b": "1/25",
+      "dlow": "624/625",
+      "delta": "15625/1384448",
+      "var": "1775073/34611200",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P098.lean"
+    },
+    {
+      "panel": 99,
+      "center": "9/200",
+      "b": "1/20",
+      "dlow": "399/400",
+      "delta": "40/2793",
+      "var": "3793/69825",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P099.lean"
+    },
+    {
+      "panel": 100,
+      "center": "11/200",
+      "b": "3/50",
+      "dlow": "2491/2500",
+      "delta": "215625/12410162",
+      "var": "17800787/310254050",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P100.lean"
+    },
+    {
+      "panel": 101,
+      "center": "13/200",
+      "b": "7/100",
+      "dlow": "9951/10000",
+      "delta": "225000/11002489",
+      "var": "16627489/275062225",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P101.lean"
+    },
+    {
+      "panel": 102,
+      "center": "3/40",
+      "b": "2/25",
+      "dlow": "621/625",
+      "delta": "96875/4113504",
+      "var": "6535379/102837600",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P102.lean"
+    },
+    {
+      "panel": 103,
+      "center": "17/200",
+      "b": "9/100",
+      "dlow": "9919/10000",
+      "delta": "375000/14055223",
+      "var": "23430223/351380575",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P103.lean"
+    },
+    {
+      "panel": 104,
+      "center": "19/200",
+      "b": "1/10",
+      "dlow": "99/100",
+      "delta": "65/2178",
+      "var": "3803/54450",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P104.lean"
+    },
+    {
+      "panel": 105,
+      "center": "21/200",
+      "b": "11/100",
+      "dlow": "9879/10000",
+      "delta": "1075000/32531547",
+      "var": "59406547/813288675",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P105.lean"
+    },
+    {
+      "panel": 106,
+      "center": "23/200",
+      "b": "3/25",
+      "dlow": "616/625",
+      "delta": "440625/12142592",
+      "var": "23158217/303564800",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P106.lean"
+    },
+    {
+      "panel": 107,
+      "center": "1/8",
+      "b": "13/100",
+      "dlow": "9831/10000",
+      "delta": "425000/10738729",
+      "var": "21363729/268468225",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P107.lean"
+    },
+    {
+      "panel": 108,
+      "center": "27/200",
+      "b": "7/50",
+      "dlow": "2451/2500",
+      "delta": "171875/4004934",
+      "var": "8301809/100123350",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P108.lean"
+    },
+    {
+      "panel": 110,
+      "center": "31/200",
+      "b": "4/25",
+      "dlow": "609/625",
+      "delta": "9375/188384",
+      "var": "422759/4709600",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P110.lean"
+    },
+    {
+      "panel": 111,
+      "center": "33/200",
+      "b": "17/100",
+      "dlow": "9711/10000",
+      "delta": "1675000/31434507",
+      "var": "73309507/785862675",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P111.lean"
+    },
+    {
+      "panel": 112,
+      "center": "7/40",
+      "b": "9/50",
+      "dlow": "2419/2500",
+      "delta": "665625/11703122",
+      "var": "28343747/292578050",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P112.lean"
+    },
+    {
+      "panel": 113,
+      "center": "37/200",
+      "b": "19/100",
+      "dlow": "9639/10000",
+      "delta": "625000/10323369",
+      "var": "25948369/258084225",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P113.lean"
+    },
+    {
+      "panel": 114,
+      "center": "39/200",
+      "b": "1/5",
+      "dlow": "24/25",
+      "delta": "395/6144",
+      "var": "16019/153600",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P114.lean"
+    },
+    {
+      "panel": 115,
+      "center": "41/200",
+      "b": "21/100",
+      "dlow": "9559/10000",
+      "delta": "6225000/91374481",
+      "var": "246999481/2284362025",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P115.lean"
+    },
+    {
+      "panel": 116,
+      "center": "43/200",
+      "b": "11/50",
+      "dlow": "2379/2500",
+      "delta": "90625/1257698",
+      "var": "3523323/31442450",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P116.lean"
+    },
+    {
+      "panel": 117,
+      "center": "9/40",
+      "b": "23/100",
+      "dlow": "9471/10000",
+      "delta": "325000/4271421",
+      "var": "12396421/106785525",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P117.lean"
+    },
+    {
+      "panel": 118,
+      "center": "47/200",
+      "b": "6/25",
+      "dlow": "589/625",
+      "delta": "46875/584288",
+      "var": "1756163/14607200",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P118.lean"
+    },
+    {
+      "panel": 119,
+      "center": "49/200",
+      "b": "1/4",
+      "dlow": "15/16",
+      "delta": "264/3125",
+      "var": "389/3125",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P119.lean"
+    },
+    {
+      "panel": 120,
+      "center": "51/200",
+      "b": "13/50",
+      "dlow": "2331/2500",
+      "delta": "321875/3622374",
+      "var": "11669249/90559350",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P120.lean"
+    },
+    {
+      "panel": 121,
+      "center": "53/200",
+      "b": "27/100",
+      "dlow": "9271/10000",
+      "delta": "8025000/85951441",
+      "var": "286576441/2148786025",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P121.lean"
+    },
+    {
+      "panel": 122,
+      "center": "11/40",
+      "b": "7/25",
+      "dlow": "576/625",
+      "delta": "115625/1179648",
+      "var": "4070273/29491200",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P122.lean"
+    },
+    {
+      "panel": 123,
+      "center": "57/200",
+      "b": "29/100",
+      "dlow": "9159/10000",
+      "delta": "2875000/27962427",
+      "var": "99837427/699060675",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P123.lean"
+    },
+    {
+      "panel": 124,
+      "center": "59/200",
+      "b": "3/10",
+      "dlow": "91/100",
+      "delta": "255/2366",
+      "var": "8741/59150",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P124.lean"
+    },
+    {
+      "panel": 125,
+      "center": "61/200",
+      "b": "31/100",
+      "dlow": "9039/10000",
+      "delta": "1025000/9078169",
+      "var": "34703169/226954225",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P125.lean"
+    },
+    {
+      "panel": 126,
+      "center": "63/200",
+      "b": "8/25",
+      "dlow": "561/625",
+      "delta": "396875/3357024",
+      "var": "13278899/83925600",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P126.lean"
+    },
+    {
+      "panel": 127,
+      "center": "13/40",
+      "b": "33/100",
+      "dlow": "8911/10000",
+      "delta": "9825000/79405921",
+      "var": "325030921/1985148025",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P127.lean"
+    },
+    {
+      "panel": 128,
+      "center": "67/200",
+      "b": "17/50",
+      "dlow": "2211/2500",
+      "delta": "140625/1086338",
+      "var": "4601963/27158450",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P128.lean"
+    },
+    {
+      "panel": 129,
+      "center": "69/200",
+      "b": "7/20",
+      "dlow": "351/400",
+      "delta": "5560/41067",
+      "var": "180067/1026675",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P129.lean"
+    },
+    {
+      "panel": 130,
+      "center": "71/200",
+      "b": "9/25",
+      "dlow": "544/625",
+      "delta": "1340625/9469952",
+      "var": "42985577/236748800",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P130.lean"
+    },
+    {
+      "panel": 131,
+      "center": "73/200",
+      "b": "37/100",
+      "dlow": "8631/10000",
+      "delta": "25000/168921",
+      "var": "793921/4223025",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P131.lean"
+    },
+    {
+      "panel": 132,
+      "center": "3/8",
+      "b": "19/50",
+      "dlow": "2139/2500",
+      "delta": "471875/3050214",
+      "var": "14847089/76255350",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P132.lean"
+    },
+    {
+      "panel": 133,
+      "center": "77/200",
+      "b": "39/100",
+      "dlow": "8479/10000",
+      "delta": "11625000/71893441",
+      "var": "362518441/1797336025",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P133.lean"
+    },
+    {
+      "panel": 134,
+      "center": "79/200",
+      "b": "2/5",
+      "dlow": "21/25",
+      "delta": "265/1568",
+      "var": "8193/39200",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P134.lean"
+    },
+    {
+      "panel": 135,
+      "center": "81/200",
+      "b": "41/100",
+      "dlow": "8319/10000",
+      "delta": "4075000/23068587",
+      "var": "124943587/576714675",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P135.lean"
+    },
+    {
+      "panel": 136,
+      "center": "83/200",
+      "b": "21/50",
+      "dlow": "2059/2500",
+      "delta": "1565625/8478962",
+      "var": "47619587/211974050",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P136.lean"
+    },
+    {
+      "panel": 137,
+      "center": "17/40",
+      "b": "43/100",
+      "dlow": "8151/10000",
+      "delta": "75000/388531",
+      "var": "2263531/9713275",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P137.lean"
+    },
+    {
+      "panel": 138,
+      "center": "87/200",
+      "b": "11/25",
+      "dlow": "504/625",
+      "delta": "78125/387072",
+      "var": "2340197/9676800",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P138.lean"
+    },
+    {
+      "panel": 139,
+      "center": "89/200",
+      "b": "9/20",
+      "dlow": "319/400",
+      "delta": "21480/101761",
+      "var": "638761/2544025",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P139.lean"
+    },
+    {
+      "panel": 140,
+      "center": "91/200",
+      "b": "23/50",
+      "dlow": "1971/2500",
+      "delta": "190625/863298",
+      "var": "5628923/21582450",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P140.lean"
+    },
+    {
+      "panel": 141,
+      "center": "93/200",
+      "b": "47/100",
+      "dlow": "7791/10000",
+      "delta": "4675000/20233227",
+      "var": "137108227/505830675",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P141.lean"
+    },
+    {
+      "panel": 142,
+      "center": "19/40",
+      "b": "12/25",
+      "dlow": "481/625",
+      "delta": "1790625/7403552",
+      "var": "52169177/185088800",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P142.lean"
+    },
+    {
+      "panel": 143,
+      "center": "97/200",
+      "b": "49/100",
+      "dlow": "7599/10000",
+      "delta": "1625000/6416089",
+      "var": "47041089/160402225",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P143.lean"
+    },
+    {
+      "panel": 144,
+      "center": "99/200",
+      "b": "1/2",
+      "dlow": "3/4",
+      "delta": "199/750",
+      "var": "229/750",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P144.lean"
+    },
+    {
+      "panel": 145,
+      "center": "101/200",
+      "b": "51/100",
+      "dlow": "7399/10000",
+      "delta": "2175000/7820743",
+      "var": "62195743/195518575",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P145.lean"
+    },
+    {
+      "panel": 146,
+      "center": "103/200",
+      "b": "13/25",
+      "dlow": "456/625",
+      "delta": "215625/739328",
+      "var": "6129953/18483200",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P146.lean"
+    },
+    {
+      "panel": 147,
+      "center": "21/40",
+      "b": "53/100",
+      "dlow": "7191/10000",
+      "delta": "5275000/17236827",
+      "var": "149111827/430920675",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P147.lean"
+    },
+    {
+      "panel": 148,
+      "center": "107/200",
+      "b": "27/50",
+      "dlow": "1771/2500",
+      "delta": "2015625/6272882",
+      "var": "56663507/156822050",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P148.lean"
+    },
+    {
+      "panel": 149,
+      "center": "109/200",
+      "b": "11/20",
+      "dlow": "279/400",
+      "delta": "2920/8649",
+      "var": "81649/216225",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P149.lean"
+    },
+    {
+      "panel": 150,
+      "center": "111/200",
+      "b": "14/25",
+      "dlow": "429/625",
+      "delta": "696875/1963104",
+      "var": "19384979/49077600",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P150.lean"
+    },
+    {
+      "panel": 151,
+      "center": "113/200",
+      "b": "57/100",
+      "dlow": "6751/10000",
+      "delta": "17025000/45576001",
+      "var": "471201001/1139400025",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P151.lean"
+    },
+    {
+      "panel": 152,
+      "center": "23/40",
+      "b": "29/50",
+      "dlow": "1659/2500",
+      "delta": "34375/87374",
+      "var": "946749/2184350",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P152.lean"
+    },
+    {
+      "panel": 153,
+      "center": "117/200",
+      "b": "59/100",
+      "dlow": "6519/10000",
+      "delta": "5875000/14165787",
+      "var": "161040787/354144675",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P153.lean"
+    },
+    {
+      "panel": 154,
+      "center": "119/200",
+      "b": "3/5",
+      "dlow": "16/25",
+      "delta": "3585/8192",
+      "var": "97817/204800",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P154.lean"
+    },
+    {
+      "panel": 155,
+      "center": "121/200",
+      "b": "61/100",
+      "dlow": "6279/10000",
+      "delta": "2025000/4380649",
+      "var": "55005649/109516225",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P155.lean"
+    },
+    {
+      "panel": 156,
+      "center": "123/200",
+      "b": "31/50",
+      "dlow": "1539/2500",
+      "delta": "40625/83106",
+      "var": "1098731/2077650",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P156.lean"
+    },
+    {
+      "panel": 157,
+      "center": "5/8",
+      "b": "63/100",
+      "dlow": "6031/10000",
+      "delta": "18825000/36372961",
+      "var": "506997961/909324025",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P157.lean"
+    },
+    {
+      "panel": 158,
+      "center": "127/200",
+      "b": "16/25",
+      "dlow": "369/625",
+      "delta": "265625/484128",
+      "var": "7124753/12103200",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P158.lean"
+    },
+    {
+      "panel": 159,
+      "center": "129/200",
+      "b": "13/20",
+      "dlow": "231/400",
+      "delta": "1480/2541",
+      "var": "39541/63525",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P159.lean"
+    },
+    {
+      "panel": 160,
+      "center": "131/200",
+      "b": "33/50",
+      "dlow": "1411/2500",
+      "delta": "2465625/3981842",
+      "var": "65622467/99546050",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P160.lean"
+    },
+    {
+      "panel": 161,
+      "center": "133/200",
+      "b": "67/100",
+      "dlow": "5511/10000",
+      "delta": "2225000/3374569",
+      "var": "58999569/84364225",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P161.lean"
+    },
+    {
+      "panel": 162,
+      "center": "27/40",
+      "b": "17/25",
+      "dlow": "336/625",
+      "delta": "846875/1204224",
+      "var": "22376099/30105600",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P162.lean"
+    },
+    {
+      "panel": 163,
+      "center": "137/200",
+      "b": "69/100",
+      "dlow": "5239/10000",
+      "delta": "20625000/27447121",
+      "var": "543072121/686178025",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P163.lean"
+    },
+    {
+      "panel": 164,
+      "center": "139/200",
+      "b": "7/10",
+      "dlow": "51/100",
+      "delta": "465/578",
+      "var": "12203/14450",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P164.lean"
+    },
+    {
+      "panel": 165,
+      "center": "141/200",
+      "b": "71/100",
+      "dlow": "4959/10000",
+      "delta": "7075000/8197227",
+      "var": "185072227/204930675",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P165.lean"
+    },
+    {
+      "panel": 166,
+      "center": "143/200",
+      "b": "18/25",
+      "dlow": "301/625",
+      "delta": "384375/414176",
+      "var": "10023551/10354400",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P166.lean"
+    },
+    {
+      "panel": 167,
+      "center": "29/40",
+      "b": "73/100",
+      "dlow": "4671/10000",
+      "delta": "2425000/2424249",
+      "var": "63049249/60606225",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P167.lean"
+    },
+    {
+      "panel": 168,
+      "center": "147/200",
+      "b": "37/50",
+      "dlow": "1131/2500",
+      "delta": "921875/852774",
+      "var": "23899649/21319350",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P168.lean"
+    },
+    {
+      "panel": 169,
+      "center": "149/200",
+      "b": "3/4",
+      "dlow": "7/16",
+      "delta": "7176/6125",
+      "var": "7421/6125",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P169.lean"
+    },
+    {
+      "panel": 170,
+      "center": "151/200",
+      "b": "19/25",
+      "dlow": "264/625",
+      "delta": "315625/247808",
+      "var": "8138433/6195200",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P170.lean"
+    },
+    {
+      "panel": 171,
+      "center": "153/200",
+      "b": "77/100",
+      "dlow": "4071/10000",
+      "delta": "7675000/5524347",
+      "var": "197399347/138108675",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P171.lean"
+    },
+    {
+      "panel": 172,
+      "center": "31/40",
+      "b": "39/50",
+      "dlow": "979/2500",
+      "delta": "2915625/1916882",
+      "var": "74807507/47922050",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P172.lean"
+    },
+    {
+      "panel": 173,
+      "center": "157/200",
+      "b": "79/100",
+      "dlow": "3759/10000",
+      "delta": "375000/224287",
+      "var": "9599287/5607175",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P173.lean"
+    },
+    {
+      "panel": 174,
+      "center": "159/200",
+      "b": "4/5",
+      "dlow": "9/25",
+      "delta": "1595/864",
+      "var": "40739/21600",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P174.lean"
+    },
+    {
+      "panel": 175,
+      "center": "161/200",
+      "b": "81/100",
+      "dlow": "3439/10000",
+      "delta": "1275000/622459",
+      "var": "32497459/15561475",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P175.lean"
+    },
+    {
+      "panel": 176,
+      "center": "163/200",
+      "b": "41/50",
+      "dlow": "819/2500",
+      "delta": "340625/149058",
+      "var": "8664683/3726450",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P176.lean"
+    },
+    {
+      "panel": 177,
+      "center": "33/40",
+      "b": "83/100",
+      "dlow": "3111/10000",
+      "delta": "8275000/3226107",
+      "var": "210101107/80652675",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P177.lean"
+    },
+    {
+      "panel": 178,
+      "center": "167/200",
+      "b": "21/25",
+      "dlow": "184/625",
+      "delta": "3140625/1083392",
+      "var": "79599017/27084800",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P178.lean"
+    },
+    {
+      "panel": 179,
+      "center": "169/200",
+      "b": "17/20",
+      "dlow": "111/400",
+      "delta": "4520/1369",
+      "var": "114369/34225",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P179.lean"
+    },
+    {
+      "panel": 180,
+      "center": "171/200",
+      "b": "43/50",
+      "dlow": "651/2500",
+      "delta": "21875/5766",
+      "var": "552641/144150",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P180.lean"
+    },
+    {
+      "panel": 181,
+      "center": "173/200",
+      "b": "87/100",
+      "dlow": "2431/10000",
+      "delta": "26025000/5909761",
+      "var": "656534761/147744025",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P181.lean"
+    },
+    {
+      "panel": 182,
+      "center": "7/8",
+      "b": "22/25",
+      "dlow": "141/625",
+      "delta": "365625/70688",
+      "var": "9211313/1767200",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P182.lean"
+    },
+    {
+      "panel": 183,
+      "center": "177/200",
+      "b": "89/100",
+      "dlow": "2079/10000",
+      "delta": "8875000/1440747",
+      "var": "223315747/36018675",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P183.lean"
+    },
+    {
+      "panel": 184,
+      "center": "179/200",
+      "b": "9/10",
+      "dlow": "19/100",
+      "delta": "5385/722",
+      "var": "135347/18050",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P184.lean"
+    },
+    {
+      "panel": 185,
+      "center": "181/200",
+      "b": "91/100",
+      "dlow": "1719/10000",
+      "delta": "3025000/328329",
+      "var": "75953329/8208225",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P185.lean"
+    },
+    {
+      "panel": 186,
+      "center": "183/200",
+      "b": "23/25",
+      "dlow": "96/625",
+      "delta": "1146875/98304",
+      "var": "28770179/2457600",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P186.lean"
+    },
+    {
+      "panel": 187,
+      "center": "37/40",
+      "b": "93/100",
+      "dlow": "1351/10000",
+      "delta": "3975000/260743",
+      "var": "99635743/6518575",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P187.lean"
+    },
+    {
+      "panel": 188,
+      "center": "187/200",
+      "b": "47/50",
+      "dlow": "291/2500",
+      "delta": "390625/18818",
+      "var": "9784443/470450",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P188.lean"
+    },
+    {
+      "panel": 189,
+      "center": "189/200",
+      "b": "19/20",
+      "dlow": "39/400",
+      "delta": "15160/507",
+      "var": "379507/12675",
+      "residual_upper": null,
+      "module": "C1RouteAComplexPanelAnalytic2656P189.lean"
+    }
+  ],
+  "generator_sha256": "ac745478a59133a16c6ec4ed77d38c54dd382b6e3df028c82e29083e78f550cc"
+}
