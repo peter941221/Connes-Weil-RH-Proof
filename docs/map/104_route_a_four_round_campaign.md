@@ -5422,3 +5422,20 @@ integrand, the 190-panel partition sum, and the comparison against
 docs/proofs/2657_exponential_amplitude_pins.md through
 docs/proofs/2660_panel095_ball.md,
 results/2659_panel095_assembly_pricing.json.
+
+Record 2661: the center-normalization identity is PROVEN -- the first
+bridge between the actual entry integrand and the panel certificate lane.
+Generic core (any panel, any entry): F(center + position) = F(center) *
+exp(phase(position) - phase(0)) for `normalizedMomentIntegrand2618`,
+pointwise plus integral form, coefficient tie as hypothesis `hcoef`.  P095
+instance: exact-rational tie (node_0 + i*theta_3) * r_3^2 = beta + i*psi of
+the 2655 panel table (kernel norm_num), the 2657/2658 argument pins, the
+identity `panelCenterNormalization2661P095`, and the composed ball
+`panelTrueBall2661P095` -- the true panel integral of the ACTUAL integrand
+in the 2660 L1 ball (radius panelAssemblyCharge2659P095 +
+panelResidualCharge2660P095).  Green build, 0 errors, 0 sorry, 0 warnings,
+10/10 declarations on the exact standard axiom trio.  Remaining to (0,3):
+the 189 further panel instantiations plus the two edge slices (46
+vacuous-VAR panels routed via monotone bounds), the partition sum, and the
+row_03 comparison; then the 870 off-diagonal memberships.  Evidence:
+docs/proofs/2661_panel095_center_normalization.md, _b2661b.log.
