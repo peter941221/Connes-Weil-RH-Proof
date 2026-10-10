@@ -21,3 +21,12 @@ charge.
 
 Evidence: `results/2659_panel095_assembly_pricing.json` and
 `scripts/price_panel_assembly_2659.py`.
+
+Lean interface
+
+`ConnesWeilRH/Dev/C1RouteAPanelAssembly2659P095.lean` now replays the
+center product and proves strict positivity and nonnegativity of the exact
+L1 product charge.  Its three declarations audit to exactly
+`[propext, Classical.choice, Quot.sound]`.  The file intentionally stops
+before replacing centers by their error balls and before claiming the
+analytic panel containment; those are the next assembly obligations.
