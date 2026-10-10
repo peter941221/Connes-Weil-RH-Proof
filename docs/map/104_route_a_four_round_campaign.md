@@ -5537,3 +5537,42 @@ warning (Tiling:277 in the frozen template, present in the legacy log).
 Evidence: docs/proofs/2664_entry_29_03_membership.md.  No producer,
 SourceRH, or RH claim.  Next: the wave protocol over the 833 + 23 + 14
 entry classes.
+
+Record 2664 (psi=0 branch): the (0,1) entry through the parameterized
+lane.  The psi=0 branch detours the im channel through the record-2618
+exact-zero identity (phase cancels exactly, psi_exact = 0; the modulus
+charge of the wave-1 ladder can never close an im bar, so the rendered
+assembly proves entryPhaseCancel2663 / entryImEqZero2663 and the Rect im
+barriers become 0-based sign facts under the same names).  Prep found and
+fixed a trailing-index defect in scripts/gen_2663_assembly.py: the owner
+application carries its Fin indices TRAILING the vector arguments, so
+the wave-1 swaps fixed the row index only as a substring side effect
+(col 3 == the template column) -- for row 0 the col index was never
+swapped.  The fix swaps the full application first (count 10) and makes
+the attached capturedNodes2584 count row-aware (29 / 19); both byte
+gates re-run green (legacy (0,3) zero diff; (29,3) reproduces
+5ddc0d70.. exactly).  The (0,1) chain OffDiagE00_01 is green as 950
+modules + umbrella (4691 jobs, 338 s, 1739 axiom records, 0 errors / 0
+sorry, 80 warnings all pre-existing, chain_sha256 6540025a..) and the
+assembly build (4886 jobs, 31 s) yields entry0001Mem2663 :
+(analyticMomentInterval2597 0 1).Mem (ownerMomentMatrix2351
+capturedModulations2584 capturedNodes2584 0 1), the first psi=0-branch
+membership and the first row-0 shape-class build; census 15/15 gates,
+1858 axiom records on the exact trio (117 fresh = wave-1's 115 plus the
+two psi=0 insert theorems; 1741 replayed; per-file identical to the
+wave-1 umbrella log on all 195 shared files), and no separate smoke was
+run -- documented, the two byte gates were the pre-build control.
+Instrument note: mid-run [n/N] windows grow (3865 -> 4250 -> 4691);
+judge a build by the footer, the full error list and the olean census.
+Inherited prose tags (570 chain modules say "entry (0, 3)", 190 say
+"column-3 parameters", the Rect sketch says r3sq = widthSq2663) are
+identical in the green (29,3) tree, comment-only, fix deferred to wave
+prep.  Psi=0 chains are materially leaner: 84,048,546 B sources /
+654,946,670 B oleans vs wave-1's 212,432,808 / 835,175,837 (degree-55
+zero-im tables at 391 KB per active panel vs 1.09 MB, 2.79x measured).
+Evidence: results/2664_assembly_0_1.json (assembly_sha256 62236601..,
+15/15 gates), results/2664_build_0_1.json, the updated manifest;
+docs/proofs/2664_entry_00_01_membership_psi0.md.  No producer, SourceRH,
+or RH claim.  Next: the remaining 13 psi=0 entries ((0,4), (1,0),
+(1,4), (2,3), (3,2), (4,0), (4,1), (5,6), (5,7), (6,5), (6,7), (7,5),
+(7,6)), then the 833 + 23 wave protocol.

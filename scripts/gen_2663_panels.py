@@ -77,15 +77,33 @@ def render(k, entry=None):
     Legacy mode (`entry=None`) reads the committed entry-(0,3) modules and
     reproduces the committed bytes.  Entry-scoped mode passes
 
-        entry = {"row", "col", "prefix", "dev",
-                 "node_re_lit", "node_im_lit", "modules"}
+        entry = {"row", "col", "col_word", "prefix", "dev",
+                 "node_re_lit", "node_im_lit", "modules",
+                 "mod_lit", "mod_keep", "width_lit", "width_keep"}
 
     where `prefix` is the entry namespace (e.g.
     `ConnesWeilRH.Dev.OffDiagE29_03`), `dev` the entry's mirror directory,
     the two literals are the exact double-wrapped `((num : ℝ) / den)`
-    spellings of the entry's captured node, and `modules` the four family
-    module-name map for `gen_2663_slots.slots`.  Column literals
-    (modulation, width) are column-scoped and stay unchanged.
+    spellings of the entry's captured node, `modules` the four family
+    module-name map for `gen_2663_slots.slots`, and the remaining fields
+    are the COLUMN-scoped slots:
+
+      - `mod_lit` / `width_lit`: the single-wrapped spellings derived from
+        the capture module's own `capturedModulations2584` / `capturedWidth2584`
+        elements (outer parens stripped; a bare `(c : ℝ)` value is kept
+        verbatim); used at the `modulationEntry` / `widthEntry` literal sites;
+      - `mod_keep` / `width_keep`: True when the column's value EQUALS the
+        template's (modulation cols 2,3; width cols 3,7) -- the template
+        token is then retained byte-for-byte, which freezes the rendered
+        (29,3)/(0,3) lane bytes;
+      - `col_word`: the English-word name infix (zero..twenty_nine) for the
+        `_three_eq2662` tie-theorem names -- `three` for col 3 keeps the
+        template names byte-identical.
+
+    The node-im site is PARKED under a placeholder before the modulation
+    literal is touched: for row 0 the row's node-im literal equals the
+    template's modulation token, so the single-wrapped token is ambiguous
+    until the (double-wrapped) node site is removed from the search space.
     """
     legacy = entry is None
     if legacy:
@@ -130,6 +148,7 @@ def render(k, entry=None):
     assert f"P{tag} panel" in text.split("\n")[3] or f"P{tag}" in text[:400]
     if entry is not None:
         row, col = entry["row"], entry["col"]
+        word = entry["col_word"]
 
         def swap(old, new, n):
             assert text.count(old) == n, (old[:48], text.count(old))
@@ -141,12 +160,46 @@ def render(k, entry=None):
         text = swap("capturedNodes2584 0", f"capturedNodes2584 {row}", 5)
         text = swap("((4255901647865119 : ℝ) / 4503599627370496)",
                     entry["node_re_lit"], 1)
-        text = swap("((5524291025718029 : ℝ) / 140737488355328)",
-                    entry["node_im_lit"], 1)
-        # the single-wrapped modulation fraction must survive unchanged
-        assert text.count("(5524291025718029 : ℝ) / 140737488355328") == 1
+        # park the node-im site (row 0's literal coincides with the template
+        # modulation token, making the single-wrapped pattern ambiguous)
+        park = "@@NODE_IM_2662@@"
+        text = swap("((5524291025718029 : ℝ) / 140737488355328)", park, 1)
+        old_mod = "(5524291025718029 : ℝ) / 140737488355328"
+        if entry["mod_keep"]:
+            assert text.count(old_mod) == 1, text.count(old_mod)
+        else:
+            text = swap(old_mod, entry["mod_lit"], 1)
+        text = swap(park, entry["node_im_lit"], 1)
+        assert park not in text
+        old_wid = "(5224175567749775 : ℝ) / 2251799813685248"
+        if entry["width_keep"]:
+            assert text.count(old_wid) == 1, text.count(old_wid)
+        else:
+            text = swap(old_wid, entry["width_lit"], 1)
+        # ---- column-scoped names (word infix keeps col 3 byte-identical) ----
+        text = swap("modulationEntry3_2662", f"modulationEntry{col}_2662", 4)
+        text = swap("widthEntry3_2662", f"widthEntry{col}_2662", 4)
+        text = swap("capturedModulations2584_three_eq2662",
+                    f"capturedModulations2584_{word}_eq2662", 3)
+        text = swap("storedWidth_three_eq2662",
+                    f"storedWidth_{word}_eq2662", 3)
+        text = swap("capturedModulations2584 3",
+                    f"capturedModulations2584 {col}", 5)
+        text = swap("storedWidth 3", f"storedWidth {col}", 5)
         text = swap("Captured node 0", f"Captured node {row}", 1)
+        text = swap("Captured modulation 3", f"Captured modulation {col}", 1)
+        text = swap("Captured width 3", f"Captured width {col}", 1)
         text = swap("(0,3)", f"({row},{col})", 5)
+        for old, new in (("modulationEntry3_2662", f"modulationEntry{col}_2662"),
+                         ("widthEntry3_2662", f"widthEntry{col}_2662"),
+                         ("capturedModulations2584 3",
+                          f"capturedModulations2584 {col}"),
+                         ("storedWidth 3", f"storedWidth {col}"),
+                         ("Captured modulation 3",
+                          f"Captured modulation {col}"),
+                         ("Captured width 3", f"Captured width {col}")):
+            if old != new:
+                assert old not in text, old
         # ---- scope: the four family imports + the namespace ----
         prefix = entry["prefix"]
         fams = ("C1RouteAComplexPanelTable2655", "C1RouteAComplexPanelAnalytic2656",

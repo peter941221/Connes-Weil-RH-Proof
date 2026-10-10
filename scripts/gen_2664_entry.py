@@ -27,6 +27,7 @@ No Lean build, no containment claim, no producer GO, no RH.
 
 import hashlib
 import json
+import re
 import sys
 from fractions import Fraction as F
 from pathlib import Path
@@ -46,10 +47,92 @@ import gen_2663_panels as TP  # noqa: E402
 ROOT = Path(__file__).resolve().parents[1]
 RECORD = 2664
 
+# English-word name infixes for the column-scoped tie-theorem names; the
+# template spells column 3 as `three`, so this map keeps the rendered (29,3)
+# lane byte-identical while every other column gets a truthful name.
+COL_WORDS = ("zero", "one", "two", "three", "four", "five", "six", "seven",
+             "eight", "nine", "ten", "eleven", "twelve", "thirteen",
+             "fourteen", "fifteen", "sixteen", "seventeen", "eighteen",
+             "nineteen", "twenty", "twenty_one", "twenty_two",
+             "twenty_three", "twenty_four", "twenty_five", "twenty_six",
+             "twenty_seven", "twenty_eight", "twenty_nine")
+
+# template literals of the trueball module C1RouteAPanelTrueBall2662P094
+TEMPLATE_MOD = F(5524291025718029, 140737488355328)
+TEMPLATE_WIDTH = F(5224175567749775, 2251799813685248)
+
 
 def spell(frac):
     """Exact dyadic fraction as the double-wrapped `((num : ℝ) / den)`."""
     return f"(({frac.numerator} : ℝ) / {frac.denominator})"
+
+
+def vector_elements(text, name):
+    """Split the `![...]` literal of `def <name> : Fin 30 → ℝ :=` at depth-0
+    commas; returns the 30 element spellings verbatim."""
+    m = re.search(rf"def {name} : Fin 30 → ℝ :=\s*\n\s*!\[(.*?)\]\s*\n",
+                  text, re.S)
+    assert m, name
+    body = m.group(1)
+    elems, depth, cur = [], 0, ""
+    for ch in body:
+        if ch == "(":
+            depth += 1
+        elif ch == ")":
+            depth -= 1
+        if ch == "," and depth == 0:
+            elems.append(cur.strip())
+            cur = ""
+        else:
+            cur += ch
+    elems.append(cur.strip())
+    assert len(elems) == 30, len(elems)
+    return elems
+
+
+def rational_spelling_value(t):
+    """Exact Fraction of a capture-module element spelling:
+    `((num : ℝ) / den)` or `(num : ℝ)`."""
+    t = t.strip()
+    assert t.startswith("(") and t.endswith(")"), t
+    inner = t[1:-1].strip()
+    if "/" in inner:
+        m = re.fullmatch(r"\((-?\d+)\s*:\s*ℝ\)\s*/\s*(\d+)", inner)
+        assert m, t
+        return F(int(m.group(1)), int(m.group(2)))
+    m = re.fullmatch(r"(-?\d+)\s*:\s*ℝ", inner)
+    assert m, t
+    return F(int(m.group(1)))
+
+
+def single_wrapped(el):
+    """Drop the capture module's outer parens from a fraction element; a bare
+    `(c : ℝ)` element is kept verbatim (it has no fraction to unwrap)."""
+    inner = el.strip()[1:-1].strip()
+    return el.strip()[1:-1] if "/" in inner else el.strip()
+
+
+def column_slots(col, capture):
+    """Column-scoped trueball slots from the committed capture module and the
+    capture JSON: the single-wrapped literal spellings, the value-driven
+    template-retention flags, and the word infix."""
+    cap_src = (ROOT / "ConnesWeilRH/Dev/"
+               "C1RouteACorrectionCaptureParameters2584.lean").read_text(
+        encoding="utf-8")
+    mod_el = vector_elements(cap_src, "capturedModulations2584")[col]
+    wid_el = vector_elements(cap_src, "capturedWidth2584")[col]
+    mod_val = rational_spelling_value(mod_el)
+    wid_val = rational_spelling_value(wid_el)
+    # wire tie to the pricing capture (hex floats -> exact Fractions)
+    assert mod_val == F(float.fromhex(capture["families_hex"][col][1])), \
+        (col, mod_val)
+    assert wid_val == F(float.fromhex(capture["families_hex"][col][0])), \
+        (col, wid_val)
+    return {"mod_lit": single_wrapped(mod_el),
+            "width_lit": single_wrapped(wid_el),
+            "mod_keep": mod_val == TEMPLATE_MOD,
+            "width_keep": wid_val == TEMPLATE_WIDTH,
+            "col_word": COL_WORDS[col]}
 
 
 def entry_modules(tag):
@@ -65,6 +148,7 @@ def render_entry(row, col, degree):
         (ROOT / "results/2275_gap_owner_audit.json").read_text()
     )["owner_capture"]
     params = P.entry_parameters(capture, row, col)
+    cslots = column_slots(col, capture)
     prefix = f"ConnesWeilRH.Dev.OffDiagE{row:02d}_{col:02d}"
     outdir = ROOT / "ConnesWeilRH" / "Dev" / f"OffDiagE{row:02d}_{col:02d}"
 
@@ -102,11 +186,12 @@ def render_entry(row, col, degree):
         files[f"C1RouteAPhasePin2658P{tag}.lean"] = src
         reports["phase"].append(rep)
 
-    return params, prefix, outdir, files, reports, vacuous, node_re, node_im
+    return params, prefix, outdir, files, reports, vacuous, node_re, node_im, \
+        cslots
 
 
 def render_trueball(outdir, row, col, prefix, files, reports,
-                    node_re, node_im):
+                    node_re, node_im, cslots):
     """Second stage: the trueball renderer reads the four family modules
     from the entry directory, so the first four families must be on disk
     (or staged) before this stage runs."""
@@ -115,6 +200,7 @@ def render_trueball(outdir, row, col, prefix, files, reports,
         ctx = {"row": row, "col": col, "prefix": prefix, "dev": str(outdir),
                "node_re_lit": spell(node_re), "node_im_lit": spell(node_im),
                "modules": entry_modules(tag)}
+        ctx.update(cslots)
         src, _ = TP.render(k, entry=ctx)
         files[f"C1RouteAPanelTrueBall2662P{tag}.lean"] = src
         reports["trueball"].append({"panel": k, "tag": tag})
@@ -168,8 +254,8 @@ def main():
                          "[--degree=D] [--out=NAME.json] [--emit]")
     out_name = out_name or f"2664_entry_{row}_{col}.json"
 
-    params, prefix, outdir, files, reports, vacuous, node_re, node_im = \
-        render_entry(row, col, degree)
+    params, prefix, outdir, files, reports, vacuous, node_re, node_im, \
+        cslots = render_entry(row, col, degree)
 
     # trueball needs the four families on disk: stage them into the real
     # directory when emitting; in dry mode stage into a temp under outdir
@@ -182,7 +268,7 @@ def main():
                 f"dry mode: {len(missing)} of {len(files)} files not yet "
                 f"emitted ({missing[0]}...); run --emit first")
         render_trueball(outdir, row, col, prefix, files, reports,
-                        node_re, node_im)
+                        node_re, node_im, cslots)
         drifted = [name for name in files
                    if (outdir / name).read_text(encoding="utf-8") != files[name]]
         umb = umbrella_text(prefix, row, col)
@@ -204,7 +290,7 @@ def main():
         (outdir / name).write_text(src, encoding="utf-8", newline="\n")
     # the trueball renderer reads the four family modules from outdir
     render_trueball(outdir, row, col, prefix, files, reports,
-                    node_re, node_im)
+                    node_re, node_im, cslots)
     for name in [n for n in files if n.startswith("C1RouteAPanelTrueBall")]:
         (outdir / name).write_text(files[name], encoding="utf-8", newline="\n")
     umb_name = f"C1RouteAOffDiagEntry{RECORD}E{row:02d}_{col:02d}.lean"

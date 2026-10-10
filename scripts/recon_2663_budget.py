@@ -53,6 +53,17 @@ owner multiplier and `beta` from the capture via
 the four-probe table literals, extracts the home rectangle
 `analyticMomentInterval2597_row_{R:02d}` element `C`, and writes
 results/2664_budget_recon_{R}_{C}.json + results/2664_bars_{R}_{C}.json.
+
+v5 (record 2664 psi_zero branch): the 14 off-diagonal entries with psi = 0
+exactly (`node.im + modulation = 0`, all transposition pairs) have phase
+factor 1, zero integral imaginary component and an exactly real true entry
+(2618 phase cancel).  For these the recon asserts the per-panel psi
+structure (`phaseValue == (1, 0)`, integral im == 0, center im == 0, per-panel
+im bars == 0, frozen im sums == 0), replaces the two compound im barrier
+checks by the 0-based pair `imLo <= 0` / `0 <= imHi` the emitted assembly
+consumes, and replaces the im-axis margin-ratio clause by the exact-zero
+membership fact (the charge bars do not -- and need not -- reach the
+needle-thin committed im rectangle).  Both payloads carry `psi_zero`.
 """
 
 import json
@@ -123,6 +134,7 @@ def main():
                                         f"OffDiagE{row:02d}_{col:02d}"))
 
     # ---- owner multiplier and coefficient (exact literals) ----
+    psi_zero = False
     if entry:
         import offdiagonal_residual_pricing_2624 as P
         capture = json.loads(
@@ -131,6 +143,7 @@ def main():
         params_e = P.entry_parameters(capture, row, col)
         r3sq = params_e["radius"]
         beta = params_e["beta"]
+        psi_zero = params_e["psi"] == 0
         node_re = S.rats(rd(f"C1RouteAPanelTrueBall2662P000.lean"),
                          f"nodeEntry{row}_2662P000")[0]
         betas = {}
@@ -141,7 +154,8 @@ def main():
         assert len(set(betas.values())) == 1, betas
         assert betas[95] == beta, (betas[95], beta)
         assert beta == node_re * r3sq, (beta, node_re * r3sq)
-        print(f"entry ({row},{col}): beta == Re(node{row}) * r{col}^2: OK")
+        print(f"entry ({row},{col}): beta == Re(node{row}) * r{col}^2: OK"
+              + ("  [psi_zero: exact real entry]" if psi_zero else ""))
     else:
         p2661 = S.read("C1RouteAPanelCenterNormalization2661P095.lean")
         r3 = S.rats(p2661, "widthEntry3_2661")[0]
@@ -172,7 +186,18 @@ def main():
         ph = rd(s["phase_module"] + ".lean")
         tb = rd(s["table_module"])
         ph_val = S.pair(ph, f"phaseValue2658P{tag}")
-        integral = S.pair(tb, f"complexPanelIntegral2648P{tag}")
+        if psi_zero:
+            # psi = 0: the phase factor is exactly 1 and the integral's
+            # imaginary component renders as a bare `(0 : ℚ)` (no
+            # denominator), which `S.pair` cannot pair; the 2618 exact-zero
+            # theorem carries the member fact for the whole im axis.
+            assert ph_val == (F(1), F(0)), (tag, ph_val)
+            ii = S.rats(tb, f"complexPanelIntegral2648P{tag}")
+            assert 1 <= len(ii) <= 2, (tag, len(ii))
+            integral = (ii[0], ii[1] if len(ii) == 2 else F(0))
+            assert integral[1] == 0, (tag, integral)
+        else:
+            integral = S.pair(tb, f"complexPanelIntegral2648P{tag}")
         m1 = abs(ph_val[0]) + abs(ph_val[1])
         m2 = abs(integral[0]) + abs(integral[1])
         ru = S.rats(tb, f"complexPanelResidualUpper2648P{tag}")[0]
@@ -183,6 +208,8 @@ def main():
             2 * (F(3) ** s["n"] * (ru / ds)) * (2 * H * H))
         c_re = s["amp_val"] * (ph_val[0] * integral[0] - ph_val[1] * integral[1])
         c_im = s["amp_val"] * (ph_val[0] * integral[1] + ph_val[1] * integral[0])
+        if psi_zero:
+            assert c_im == 0, (tag, c_im)
         re_lo, re_hi = bars60(c_re)
         im_lo, im_hi = bars60(c_im)
         ch_lo, ch_hi = bars60(charge + res)
@@ -208,6 +235,9 @@ def main():
     assert LO_re <= sum(r["center"][0] for r in rows) <= HI_re
     assert LO_im <= sum(r["center"][1] for r in rows) <= HI_im
     assert CBAR >= charge_sum + res_sum
+    if psi_zero:
+        assert LO_im == 0 and HI_im == 0 and s_im == 0, \
+            (float(LO_im), float(HI_im), float(s_im))
     scaled_lo_re = r3sq * LO_re
     scaled_hi_re = r3sq * HI_re
     scaled_lo_im = r3sq * LO_im
@@ -240,8 +270,18 @@ def main():
     print(f"rect: ctr re {float(re_ctr):.9e} im {float(im_ctr):.9e}  "
           f"hw re {float(hw_re):.3e} im {float(hw_im):.3e}")
     ok = True
-    for lbl, half, ctr, sig in (("re", hw_re, re_ctr, s_re),
-                                ("im", hw_im, im_ctr, s_im)):
+    axes = [("re", hw_re, re_ctr, s_re)]
+    if psi_zero:
+        # the entry is exactly real (2618 phase cancel): the member fact on
+        # the im axis is `imLo <= 0 <= imHi`, carried by the exact-zero
+        # theorem -- a margin-vs-charge ratio is meaningless here
+        im_in = im_lo <= s_im <= im_hi
+        ok = ok and im_in
+        print(f"  im: psi=0 exact-real entry: Sigma_im = 0 in [imLo, imHi]: "
+              f"{im_in}")
+    else:
+        axes.append(("im", hw_im, im_ctr, s_im))
+    for lbl, half, ctr, sig in axes:
         d = abs(sig - ctr)
         margin = half - d
         ratio = margin / total_scaled
@@ -258,8 +298,12 @@ def main():
             ("im", scaled_lo_im, scaled_hi_im, im_lo, im_hi)):
         head_lo = lo_r - lo_b
         head_hi = hi_r - hi_b
+        note = ""
+        if psi_zero and lbl == "im":
+            note = ("  [psi=0: bars need not reach the needle-thin im rect; "
+                    "the im member fact is the 2618 exact-zero theorem]")
         print(f"  {lbl} bar headroom: lo {float(head_lo):.6e} "
-              f"hi {float(head_hi):.6e}")
+              f"hi {float(head_hi):.6e}" + note)
     print("top ledger entries:")
     for r in worst:
         print(f"  P{r['tag']} n={r['n']:2d} charge={float(r['charge']):.3e} "
@@ -277,12 +321,23 @@ def main():
     reBarHi = r3sq * (HI_re + (CBAR + EBAR))
     imBarLo = r3sq * (LO_im - (CBAR + EBAR))
     imBarHi = r3sq * (HI_im + (CBAR + EBAR))
-    barriers = (
-        ("reBarLo >= reLo", reBarLo >= re_lo),
-        ("reBarHi <= reHi", reBarHi <= re_hi),
-        ("imBarLo >= imLo", imBarLo >= im_lo),
-        ("imBarHi <= imHi", imBarHi <= im_hi),
-    )
+    if psi_zero:
+        # psi = 0: the im barriers the assembly consumes are 0-based
+        # (`rectImLo2663 <= 0 <= rectImHi2663`); the charge bars do not (and
+        # need not) reach the needle-thin committed im rectangle
+        barriers = (
+            ("reBarLo >= reLo", reBarLo >= re_lo),
+            ("reBarHi <= reHi", reBarHi <= re_hi),
+            ("psi: imLo <= 0", im_lo <= 0),
+            ("psi: 0 <= imHi", 0 <= im_hi),
+        )
+    else:
+        barriers = (
+            ("reBarLo >= reLo", reBarLo >= re_lo),
+            ("reBarHi <= reHi", reBarHi <= re_hi),
+            ("imBarLo >= imLo", imBarLo >= im_lo),
+            ("imBarHi <= imHi", imBarHi <= im_hi),
+        )
     for nm, b in barriers:
         print(f"  barrier {nm}: {'OK' if b else '*** FAIL ***'}")
     ok = ok and all(b for _, b in barriers)
@@ -317,6 +372,7 @@ def main():
     out_path = os.path.join(ROOT, "results", out_name)
     if entry:
         out["entry"] = [row, col]
+        out["psi_zero"] = bool(psi_zero)
     with open(out_path, "w", encoding="utf-8", newline="\n") as fh:
         json.dump(out, fh, indent=1, sort_keys=True)
         fh.write("\n")
@@ -335,6 +391,7 @@ def main():
     )
     if entry:
         bars["entry"] = [row, col]
+        bars["psi_zero"] = bool(psi_zero)
     bars_name = (f"2664_bars_{row}_{col}.json" if entry
                  else "2663_bars.json")
     bars_path = os.path.join(ROOT, "results", bars_name)
