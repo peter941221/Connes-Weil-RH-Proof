@@ -1,0 +1,43 @@
+{
+  "record": 2652,
+  "kind": "lane-a pricing audit CORRECTION (supersedes the inventory counts in 2649_lane_a_pricing_audit.json)",
+  "correction_cause": "the 2649 audit scanned only four payloads (2543/2546/2551/2552) and missed the 2553-2559 batch-era payloads (2557_neighbor_numeric_readback, 2558_signed_cell_readback, 2559_central_cell_readback all exist in results/); its ranked-unknown #2 premise ('the minus-sign chain is not boundary-integral certified') was therefore wrong",
+  "corrected_inventory": {
+    "conditional_boundary_integral_certificates_found_in_committed_layer": {
+      "per_cell": [
+        {"cell": "2700", "sigma": "+1/2", "upper": "57/500000000000", "source": "2551 + 2558"},
+        {"cell": "2701", "sigma": "+1/2", "upper": "111/10^12", "source": "2557"},
+        {"cell": "2702", "sigma": "+1/2", "upper": "27/250000000000", "source": "2558"},
+        {"cell": "5119", "sigma": "+1/2", "upper": "17653882879/10^12", "source": "2559"},
+        {"cell": "5120", "sigma": "+1/2", "upper": "8830540631/500000000000", "source": "2559"},
+        {"cell": "2700", "sigma": "-1/2", "upper": "2501/10^12", "source": "2558"},
+        {"cell": "2701", "sigma": "-1/2", "upper": "2433/10^12", "source": "2558"},
+        {"cell": "2702", "sigma": "-1/2", "upper": "59/25000000000", "source": "2558"},
+        {"cell": "5119", "sigma": "-1/2", "upper": "2208147857/125000000000", "source": "2559"},
+        {"cell": "5120", "sigma": "-1/2", "upper": "17649787517/10^12", "source": "2559"}
+      ],
+      "segments": [
+        {"name": "neighborSegmentIntegralBound2557", "span": "edgeLeft2548..neighborRight2557 plus", "upper": "225/10^12"},
+        {"name": "negativeSegmentIntegralBound2558", "span": "kernelN02700Minus..batchN02702Minus", "upper": "4934/10^12"},
+        {"name": "bothSignsSegmentIntegralBound2558", "span": "edgeLeft2548..neighborRight2557 both signs", "upper": "5159/10^12"},
+        {"name": "centralPlusIntegralBound2559", "upper": "35314964141/10^12"},
+        {"name": "centralMinusIntegralBound2559", "upper": "35314970373/10^12"},
+        {"name": "centralBothSignsIntegralBound2559", "upper": "35314967257/500000000000"}
+      ],
+      "all_carry": "the identical coefficient-ball hypothesis (forall i, ||c i - center i|| <= 1/10^30)"
+    },
+    "discharge_state_after_records_2650_2651_2652": {
+      "unconditional_center_owner_certificates": 12,
+      "cell_spans_with_discharged_certificates": ["2700+","2701+","2702+","5119+","5120+","2700-","2701-","2702-","5119-","5120-"],
+      "cell5440_plus": "discharged separately (2651, midpoint-envelope family)",
+      "conditional_certificates_without_discharged_form": 0
+    }
+  },
+  "unknowns_ranked_v2": [
+    {"rank": 1, "unknown": "exact-owner transfer composition", "why": "region forms cover the record-2338 boxes; no theorem yet asserts a LIVE external computation's tuple lies in the boxes", "resolution": "assemble 2452/2453-54/2455-59 per-seam imports"},
+    {"rank": 2, "unknown": "grid scale-out of certified machinery (both signs)", "why": "12 discharged certificates sit on 11 cells of the 20480-cell space; the 2553-2559 batch pipeline (generators + Lean layer + discharge pattern) is proven at these cells and now needs iteration, not invention", "resolution": "batch the 2547-2551/2553-2559 generators over additional cells"},
+    {"rank": 3, "unknown": "full-grid composition of point/node/quadrature imports", "unchanged_from_v1": true}
+  ],
+  "method_law": "future audits must enumerate payloads by glob over the record range, not a hand-picked list (AGENTS 2cm)",
+  "locks": {"producer_go": false, "source_rh": false, "rh": false}
+}

@@ -1,0 +1,55 @@
+{
+  "record": 2652,
+  "module": "ConnesWeilRH.Dev.C1RouteABoundaryDischarge2652",
+  "scope": "complete discharge of the committed 2551-2559 boundary-integral conditional family: composition-top certificates instantiated in region form (record-2338 boxes) and unconditional form (exact-rational center tuple)",
+  "consumes": [
+    "ConnesWeilRH.Dev.C1RouteASignedSegment2558",
+    "ConnesWeilRH.Dev.C1RouteACentralSegment2559",
+    "ConnesWeilRH.Dev.C1RouteABatchC02702MinusIntegral2558",
+    "ConnesWeilRH.Dev.C1RouteABatchC02702PlusIntegral2558"
+  ],
+  "targets_and_coverage": [
+    {
+      "target": "bothSignsSegmentIntegralBound2558",
+      "span": "edgeLeftPosition2548..neighborRightPosition2557",
+      "discharged_upper": "5159/10^12 (sum of plus and minus integrals)",
+      "cell_spans_covered": ["2700 plus", "2701 plus (via neighbor 2557)", "2700 minus", "2701 minus"]
+    },
+    {
+      "target": "centralBothSignsIntegralBound2559",
+      "span": "batchN05119*Position2559..batchN05121*Position2559",
+      "discharged_upper": "35314967257/500000000000 (sum of plus and minus integrals)",
+      "cell_spans_covered": ["5119 plus", "5120 plus", "5119 minus", "5120 minus"]
+    },
+    {
+      "target": "batchC02702MinusCellIntegralBound2558",
+      "span": "batchN02702MinusPosition2558..batchN02703MinusPosition2558",
+      "discharged_upper": "59/25000000000",
+      "cell_spans_covered": ["2702 minus"]
+    },
+    {
+      "target": "batchC02702PlusCellIntegralBound2558",
+      "span": "neighborRightPosition2557..batchN02703PlusPosition2558",
+      "discharged_upper": "27/250000000000",
+      "cell_spans_covered": ["2702 plus"]
+    }
+  ],
+  "inventory_effect": {
+    "cell_spans_now_with_discharged_certificates": 10,
+    "plus_previous_records": ["2650: cell2700 sigma+1/2 (edge form, 1.14e-10)", "2651: cell5440 sigma+1/2 (7.58e-4)"],
+    "committed_boundary_integral_conditionals_remaining": 0,
+    "note": "every committed boundary-integral certificate in the 2551-2559 family now has a zero-premise form at the center owner; the coefficient-ball premise class is fully discharged wherever it occurs in the committed Lean layer"
+  },
+  "build_evidence": {
+    "acceptance": "trio from log: Built line [4017/4017] Built ConnesWeilRH.Dev.C1RouteABoundaryDischarge2652 (3.0s) + Build completed successfully (4017 jobs); 0 'error:'; 0 'uses sorry'; 0 module warnings",
+    "axioms": "all four _center_discharge2652 theorems depend on [propext, Classical.choice, Quot.sound] only",
+    "transient_failure_note": "first build attempt failed with 'unknown free variable HSub' at C1RouteABatchC05120PlusMidpoint2559.lean:1695 (a 3264-line generated module compiled for the first time since the 2650 mirror repair); a direct lean invocation of the identical module compiled with ZERO errors, and the unchanged lake build then passed green - classified as a transient parallel-elaboration glitch, no source patched"
+  },
+  "locks": {
+    "full_grid_certificate": false,
+    "exact_owner_transfer": false,
+    "producer_go": false,
+    "source_rh": false,
+    "rh_claim": false
+  }
+}
