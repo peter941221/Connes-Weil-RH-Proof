@@ -52,6 +52,12 @@ def render_panel(index, params, degree, prefix="ConnesWeilRH.Dev"):
         f"panel {index}: integral diverges from the 2624 pipeline"
 
     g.RECORD = RECORD
+    # build_module reads the 2648 module GLOBAL DEGREE for the literal
+    # positions (`take {degree}`, `drop {degree + 5}`); panel_tables takes
+    # degree as a parameter.  Without this line an entry at degree != 55
+    # emits a degree-55 literal against a degree-66 list (found by the
+    # record-2664 smoke build: `drop 60 [71 slots] = [(0,0)]` is false).
+    g.DEGREE = degree
     g.TAG = f"{index:03d}"
     source = g.build_module(tables)
     if prefix != "ConnesWeilRH.Dev":
@@ -59,6 +65,8 @@ def render_panel(index, params, degree, prefix="ConnesWeilRH.Dev"):
         source = source.replace(
             "namespace ConnesWeilRH.Dev\n",
             f"namespace {prefix}\n\nopen ConnesWeilRH.Dev\n", 1)
+        assert source.count("end ConnesWeilRH.Dev") == 1, index
+        source = source.replace("end ConnesWeilRH.Dev", f"end {prefix}", 1)
     return source, dict(
         panel=index, center=str(center),
         residual_upper=str(tables["modulus_bound"]),

@@ -158,6 +158,8 @@ def render(k, entry=None):
         assert text.count("namespace ConnesWeilRH.Dev\n") == 1
         text = text.replace("namespace ConnesWeilRH.Dev\n",
                             f"namespace {prefix}\n\nopen ConnesWeilRH.Dev\n", 1)
+        assert text.count("end ConnesWeilRH.Dev") == 1
+        text = text.replace("end ConnesWeilRH.Dev", f"end {prefix}", 1)
         for m in re.finditer(rf"^import {re.escape(prefix)}\.(\S+)$", text, re.M):
             fn = m.group(1) + ".lean"
             assert os.path.exists(os.path.join(entry["dev"], fn)), \

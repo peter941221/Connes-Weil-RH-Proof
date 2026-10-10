@@ -696,6 +696,8 @@ def render_panel(index, prefix="ConnesWeilRH.Dev"):
         body = body.replace(
             "namespace ConnesWeilRH.Dev\n",
             f"namespace {prefix}\n\nopen ConnesWeilRH.Dev\n", 1)
+        assert body.count("end ConnesWeilRH.Dev") == 1, index
+        body = body.replace("end ConnesWeilRH.Dev", f"end {prefix}", 1)
     return body, dict(
         panel=index, center=str(center), b=str(b), dlow=str(dlow),
         delta=str(delta), var=str(var),

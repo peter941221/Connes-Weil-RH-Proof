@@ -1,0 +1,32 @@
+{
+ "digest_convention": "sha256 over the canonical JSON of the payload's modules_sha256 map: json.dumps(map, sort_keys=True, separators=(\",\", \":\")).encode(\"utf-8\")",
+ "entries": [
+  {
+   "beta_exact": "27292010362673683961057012550625/10141204801825835211973625643008",
+   "capture_sha256": "743fe372bef89b5730c38274d5a5517ac9ea4d3421989d46c49d4af3e78b5e74",
+   "chain_sha256": "e9ee6e4d2110fcba0c2602092dfc5ccd18d8f363b24f3fb93181e71493d58cf1",
+   "column": 3,
+   "degree": 66,
+   "disk_verified": true,
+   "generator_sha256": {
+    "gen_2663_panels.py": "19e9c536b8c70f30fdaa783b244542a534a3a60ed2f1f8f2a13e6244a6728d4c",
+    "gen_2664_entry.py": "e8c111af49e68071d5b5a923cba63a3f015cf20be367a79bb0b32d8f4e95812a",
+    "generate_amp_pins_2657.py": "7ba562e34230775adde4f1aa79faac265ce39d3f75e3e6a9cdad2ffa27ed4981",
+    "generate_panel_analytic_all_2656.py": "03f28860d746cb659dda1470626677c96742ccb37d120767aa6dc70169239041",
+    "generate_panel_tables_all_2655.py": "0e0da6696c26e8b07bda5925aa6d06aa5825afe5815a6393ba10abdb915d41c0",
+    "generate_phase_pins_2658.py": "04bf0c8ef2080868d8f0904c73b24f98e882c5c8bed2cfde315cee8a8d0484df",
+    "offdiagonal_residual_pricing_2624.py": "134c739ab2b535d84decb5c58aafe7d924d56a846e5a7e15c7fc5b68edea6f5d"
+   },
+   "module_count": 951,
+   "modules_sha256_count": 951,
+   "payload": "2664_entry_29_3.json",
+   "psi_exact": "455504578664518847662929392619453058701178665625/713623846352979940529142984724747568191373312",
+   "radius_exact": "27292010362673683961057012550625/5070602400912917605986812821504",
+   "row": 29,
+   "vacuous_panels": 46
+  }
+ ],
+ "purpose": "committed byte evidence for the record-2664 off-diagonal entry chains (regenerated deterministically; per-entry payloads untracked)",
+ "record": 2664,
+ "regeneration": "gen_2664_entry.py --row=R --col=C --degree=D --emit followed by the same invocation in dry mode (byte-stability gate); rebuild must reproduce chain_sha256"
+}

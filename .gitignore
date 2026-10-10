@@ -64,11 +64,20 @@ _precompress_backup_*/
 
 # record-2664 off-diagonal entry chains: regenerated deterministically from
 # the committed generators + capture and byte-pinned per module by
-# results/2664_entry_{row}_{col}.json manifests.  One chain is ~160-212 MB
-# (869 entries would be ~137-184 GB), so the batch is not byte-committed;
-# the manifest sha256 list plus the regeneration check is the byte evidence.
+# results/2664_entry_{row}_{col}.json payloads.  One chain is ~160-212 MB of
+# sources plus ~0.5-0.8 GB of oleans (869 entries would be ~150-190 GB of
+# sources and ~600-700 GB of oleans), so neither the chains nor the payloads
+# are byte-committed; the committed byte evidence is the aggregate
+# results/2664_offdiag_manifest.json (per-entry chain sha256, verified
+# against the on-disk modules) plus the deterministic regeneration gate.
 /ConnesWeilRH/Dev/OffDiagE*/
 /ConnesWeilRH/Dev/C1RouteAOffDiagEntry*.lean
+/results/2664_entry_[0-9]*_[0-9]*.json
+
+# full 870-entry survey: ~376 MB of per-rung exact boxes, regenerable in
+# ~37 minutes; the committed projection is
+# results/2664_offdiag_survey_summary.json
+/results/2664_offdiag_survey.json
 
 # raw timing-probe logs carry local workspace paths; numbers are reported in
 # the records, the logs stay on disk as untracked evidence

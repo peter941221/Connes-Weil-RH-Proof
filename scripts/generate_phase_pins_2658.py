@@ -154,6 +154,8 @@ def render_panel(panel, psi, prefix="ConnesWeilRH.Dev"):
         source = source.replace(
             "namespace ConnesWeilRH.Dev\n",
             f"namespace {prefix}\n\nopen ConnesWeilRH.Dev\n", 1)
+        assert source.count("end ConnesWeilRH.Dev") == 1, panel
+        source = source.replace("end ConnesWeilRH.Dev", f"end {prefix}", 1)
     return source, dict(
         panel=panel, tag=tag, phase=str(phase), real=str(real),
         imag=str(imag), radius=str(radius))

@@ -1,0 +1,53 @@
+{
+ "record": 2664,
+ "entry": [29, 3],
+ "degree": 66,
+ "purpose": "end-to-end build evidence for the trial off-diagonal entry: the trial chain was emitted by the fixed renderers, byte-gated, synced, smoke-built, then umbrella-built; this artifact binds the build verdicts to the module set",
+ "smoke": {
+  "targets": ["ConnesWeilRH.Dev.OffDiagE29_03.C1RouteAComplexPanelTable2655P000",
+              "ConnesWeilRH.Dev.OffDiagE29_03.C1RouteAPanelTrueBall2662P000",
+              "ConnesWeilRH.Dev.OffDiagE29_03.C1RouteAPanelTrueBall2662P189"],
+  "class": "normal",
+  "jobs": 3750,
+  "exit": 0,
+  "footer_build_completed": 1,
+  "error_lines": 0,
+  "uses_sorry": 0,
+  "target_oleans": "3/3",
+  "axiom_lists": "exactly [propext, Classical.choice, Quot.sound] on every printed theorem, including the row-29 rfl ties (panelBetaTie2662P000, storedWidth_three_eq2662P000, capturedModulations2584_three_eq2662P000)"
+ },
+ "umbrella": {
+  "target": "ConnesWeilRH.Dev.C1RouteAOffDiagEntry2664E29_03",
+  "class": "heavy",
+  "jobs": 4691,
+  "exit": 0,
+  "start_utc": "2026-10-10T21:12:41Z",
+  "end_utc": "2026-10-10T21:19:39Z",
+  "wall_seconds": 418,
+  "footer_build_completed": 1,
+  "error_lines": 0,
+  "uses_sorry": 0,
+  "sorryAx": 0,
+  "entry_oleans": 950,
+  "umbrella_olean": true,
+  "axiom_records": 1739,
+  "axiom_nonstandard": 0,
+  "warning_lines": 80,
+  "warning_lines_entry_path": 0,
+  "warning_breakdown": "3 Lake package local-changes notices plus 77 pre-existing ConnesWeilRH/Source warnings (flexible simp, line length, unused variable); zero warnings on the 951 new modules",
+  "log": "WSL resource-runner log entry2664_umbrella.log (heavy class); acceptance read from the whole log, not a tail window"
+ },
+ "sizes_bytes": {
+  "chain_sources": 212432808,
+  "chain_oleans": 835175837,
+  "note": "one entry chain is ~212 MB of Lean sources and ~835 MB of oleans; the measured full-batch projection (869 chains) is ~150-190 GB of sources plus ~600-700 GB of oleans, over the available disk (WSL root 279 GB free, Windows source tree ~123 GB free). The full-870 monolithic Lean batch is therefore hardware-scoped infeasible on this machine; the scoped plan is a class-covering sample plus a wave protocol with artifact-level assembly (see the record)"
+ },
+ "byte_binding": {
+  "manifest": "results/2664_offdiag_manifest.json",
+  "note": "the per-entry payload results/2664_entry_29_3.json (untracked, regenerable) carries modules_sha256 for all 951 modules; the manifest holds the canonical chain digest verified against the on-disk modules"
+ },
+ "lean_built": true,
+ "membership_claimed": false,
+ "producer_go": false,
+ "rh_claim": false
+}

@@ -43,6 +43,16 @@ Bars (60 significant digits, step 10^(e-60), e = floor(log10 |x|)):
 
 Recon only: no Lean claim.  Out: results/2663_budget_recon.json and
 results/2663_bars.json
+
+v4 (record 2664): entry scope.  `--row=R --col=C` (off-diagonal) switches
+every read to the entry's mirror directory ConnesWeilRH/Dev/OffDiagE{R}_{C}/
+(the suffixes `{.lean,}`, `_Table/`, `_Phase/` are passthrough), takes the
+owner multiplier and `beta` from the capture via
+`offdiagonal_residual_pricing_2624.entry_parameters`, asserts the wire tie
+`beta == Re(node_R) * r_{C}^2` against the entry trueball's node literal and
+the four-probe table literals, extracts the home rectangle
+`analyticMomentInterval2597_row_{R:02d}` element `C`, and writes
+results/2664_budget_recon_{R}_{C}.json + results/2664_bars_{R}_{C}.json.
 """
 
 import json
@@ -79,20 +89,73 @@ def main():
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-    # ---- owner multiplier and coefficient (exact literals) ----
-    p2661 = S.read("C1RouteAPanelCenterNormalization2661P095.lean")
-    r3 = S.rats(p2661, "widthEntry3_2661")[0]
-    r3sq = r3 ** 2
-    node_re = S.rats(p2661, "nodeEntry0_2661")[0]
+    # ---- scope: legacy (0,3) lane, or an entry-scoped chain (2664+) ----
+    args = sys.argv[1:]
+    row = col = None
+    for a in args:
+        if a.startswith("--row="):
+            row = int(a.split("=", 1)[1])
+        elif a.startswith("--col="):
+            col = int(a.split("=", 1)[1])
+        else:
+            raise SystemExit(f"unknown argument {a}")
+    if ((row is None) != (col is None)) or (row is not None and row == col):
+        raise SystemExit("usage: recon_2663_budget.py [--row=R --col=C]")
+    entry = row is not None
+    if not entry:
+        col = 3  # the committed (0,3) home rectangle
 
-    betas = {}
-    for k in (0, 94, 95, 109, 189):
-        s = S.slots(k)
-        betas[k] = S.rats(S.read(s["table_module"]), f"complexPanelBeta2648P{s['tag']}")[0]
-    beta = betas[95]
-    assert len(set(betas.values())) == 1, betas
-    assert beta == node_re * r3sq, (beta, node_re * r3sq)
-    print(f"beta = {beta}  (== Re(node0) * r3^2: OK)")
+    def rd(name):
+        if entry:
+            with open(os.path.join(
+                    ROOT, "ConnesWeilRH", "Dev",
+                    f"OffDiagE{row:02d}_{col:02d}", name),
+                    encoding="utf-8") as fh:
+                return fh.read()
+        return S.read(name)
+
+    def slots_k(k):
+        if not entry:
+            return S.slots(k)
+        import gen_2664_entry as EN
+        return S.slots(k, md=EN.entry_modules(f"{k:03d}"),
+                       dev=os.path.join(ROOT, "ConnesWeilRH", "Dev",
+                                        f"OffDiagE{row:02d}_{col:02d}"))
+
+    # ---- owner multiplier and coefficient (exact literals) ----
+    if entry:
+        import offdiagonal_residual_pricing_2624 as P
+        capture = json.loads(
+            open(os.path.join(ROOT, "results", "2275_gap_owner_audit.json"),
+                 encoding="utf-8").read())["owner_capture"]
+        params_e = P.entry_parameters(capture, row, col)
+        r3sq = params_e["radius"]
+        beta = params_e["beta"]
+        node_re = S.rats(rd(f"C1RouteAPanelTrueBall2662P000.lean"),
+                         f"nodeEntry{row}_2662P000")[0]
+        betas = {}
+        for k in (0, 94, 95, 109, 189):
+            s = slots_k(k)
+            betas[k] = S.rats(rd(s["table_module"]),
+                              f"complexPanelBeta2648P{s['tag']}")[0]
+        assert len(set(betas.values())) == 1, betas
+        assert betas[95] == beta, (betas[95], beta)
+        assert beta == node_re * r3sq, (beta, node_re * r3sq)
+        print(f"entry ({row},{col}): beta == Re(node{row}) * r{col}^2: OK")
+    else:
+        p2661 = S.read("C1RouteAPanelCenterNormalization2661P095.lean")
+        r3 = S.rats(p2661, "widthEntry3_2661")[0]
+        r3sq = r3 ** 2
+        node_re = S.rats(p2661, "nodeEntry0_2661")[0]
+
+        betas = {}
+        for k in (0, 94, 95, 109, 189):
+            s = S.slots(k)
+            betas[k] = S.rats(S.read(s["table_module"]), f"complexPanelBeta2648P{s['tag']}")[0]
+        beta = betas[95]
+        assert len(set(betas.values())) == 1, betas
+        assert beta == node_re * r3sq, (beta, node_re * r3sq)
+        print(f"beta = {beta}  (== Re(node0) * r3^2: OK)")
 
     # ---- edge bar (base 2) ----
     a0bar = F(4000, 13) - abs(beta)
@@ -104,10 +167,10 @@ def main():
     # ---- per-panel charges, centers, bars (exact) ----
     rows = []
     for k in range(190):
-        s = S.slots(k)
+        s = slots_k(k)
         tag = s["tag"]
-        ph = S.read(s["phase_module"] + ".lean")
-        tb = S.read(s["table_module"])
+        ph = rd(s["phase_module"] + ".lean")
+        tb = rd(s["table_module"])
         ph_val = S.pair(ph, f"phaseValue2658P{tag}")
         integral = S.pair(tb, f"complexPanelIntegral2648P{tag}")
         m1 = abs(ph_val[0]) + abs(ph_val[1])
@@ -151,18 +214,19 @@ def main():
     scaled_hi_im = r3sq * HI_im
     scaled_cbar = r3sq * CBAR
 
-    # ---- home rectangle: analyticMomentInterval2597_row_00 element 3 ----
+    # ---- home rectangle: analyticMomentInterval2597 row {row} element {col} ----
     iv = S.read("C1RouteACorrectionAnalyticIntervals2597.lean")
-    m = re.search(r"noncomputable def analyticMomentInterval2597_row_00"
+    rn = f"row_{row:02d}" if entry else "row_00"
+    m = re.search(r"noncomputable def analyticMomentInterval2597_" + rn +
                   r"[^\n]*?:=\s*!\[(.*)\n\s*\]\s*$", iv, re.S | re.M)
     if not m:
-        m = re.search(r"noncomputable def analyticMomentInterval2597_row_00"
+        m = re.search(r"noncomputable def analyticMomentInterval2597_" + rn +
                       r"[^\n]*?:=\s*(!\[.*?\])\n", iv, re.S)
     fields = re.findall(
         r"(reLo|reHi|imLo|imHi) := \(\((-?\d+)\s*:\s*ℝ\)\s*/\s*(\d+)\)",
         m.group(1))
     assert len(fields) == 120, len(fields)
-    quad = {f[0]: F(int(f[1]), int(f[2])) for f in fields[12:16]}
+    quad = {f[0]: F(int(f[1]), int(f[2])) for f in fields[4 * col:4 * col + 4]}
     re_lo, re_hi = quad["reLo"], quad["reHi"]
     im_lo, im_hi = quad["imLo"], quad["imHi"]
     re_ctr, im_ctr = (re_lo + re_hi) / 2, (im_lo + im_hi) / 2
@@ -248,11 +312,15 @@ def main():
         top=[dict(tag=r["tag"], n=r["n"], charge=str(r["charge"]),
                   res=str(r["res"])) for r in worst],
     )
-    out_path = os.path.join(ROOT, "results", "2663_budget_recon.json")
+    out_name = (f"2664_budget_recon_{row}_{col}.json" if entry
+                else "2663_budget_recon.json")
+    out_path = os.path.join(ROOT, "results", out_name)
+    if entry:
+        out["entry"] = [row, col]
     with open(out_path, "w", encoding="utf-8", newline="\n") as fh:
         json.dump(out, fh, indent=1, sort_keys=True)
         fh.write("\n")
-    print("wrote results/2663_budget_recon.json")
+    print(f"wrote results/{out_name}")
 
     bars = dict(
         sigdig=SIGDIG, edge_pow2=EDGE_POW2,
@@ -265,11 +333,15 @@ def main():
         sums=dict(LO_re=fstr(LO_re), HI_re=fstr(HI_re),
                   LO_im=fstr(LO_im), HI_im=fstr(HI_im), CBAR=fstr(CBAR)),
     )
-    bars_path = os.path.join(ROOT, "results", "2663_bars.json")
+    if entry:
+        bars["entry"] = [row, col]
+    bars_name = (f"2664_bars_{row}_{col}.json" if entry
+                 else "2663_bars.json")
+    bars_path = os.path.join(ROOT, "results", bars_name)
     with open(bars_path, "w", encoding="utf-8", newline="\n") as fh:
         json.dump(bars, fh, indent=1, sort_keys=True)
         fh.write("\n")
-    print("wrote results/2663_bars.json")
+    print(f"wrote results/{bars_name}")
     return 0 if ok else 1
 
 

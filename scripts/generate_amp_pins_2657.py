@@ -276,6 +276,8 @@ def render_panel(index, params, vacuous, prefix="ConnesWeilRH.Dev"):
         module = module.replace(
             "namespace ConnesWeilRH.Dev\n",
             f"namespace {prefix}\n\nopen ConnesWeilRH.Dev\n", 1)
+        assert module.count("end ConnesWeilRH.Dev") == 1, index
+        module = module.replace("end ConnesWeilRH.Dev", f"end {prefix}", 1)
     return module, dict(
         panel=index, tag=tag, vacuous=index in vacuous,
         amp_arg=str(n_amp), amp_value=str(amp_value),
