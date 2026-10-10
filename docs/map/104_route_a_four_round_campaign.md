@@ -5477,3 +5477,28 @@ Remaining to the membership: the DATA/sum modules (190-arm decide sums),
 the per-panel generated consumer facts, and the assembly sandwich ending
 in the row 00 element-3 comparison.  Evidence:
 docs/proofs/2663_entry_03_tiling_and_budget.md.
+
+Record 2663 (part 2): the first unconditional off-diagonal membership.
+All three part-1 remainders are closed and the assembly is green:
+entry03Mem2663 proves (analyticMomentInterval2597 0 3).Mem
+(ownerMomentMatrix2351 capturedModulations2584 capturedNodes2584 0 3) --
+the first of the 870 off-diagonal entries (30 diagonals closed by 2644).
+Chain: owner = r3^2 * Re(int) via 2618 normalization; the three-piece
+split (entrySplit2663 at -19/20, 19/20); the center tiling decomposed as
+embedPair(sum c_k) + deviation with ||sum diff|| <= CBAR through
+norm_sum_le_abs_re_add_abs_im_of_le2663 + entryPanelsBall2663; per-panel
+bars through the five forall-k Panels facts and the decide+kernel bar
+sums; edge slices through the 2^-302 bars; four coordinate bounds close
+against the exact barriers rectRe/Im{Lo,Hi}2663_{le,ge}2663 (12/12
+axiom-trio).  Support: generated Bars/Rect/B00..B09 (12/13 modules
+byte-identical across the generator fix, determinism gate) + the 190-arm
+Panels module (interval_cases over the literal bars).  Final run: footer
+Build completed successfully (4882 jobs), [4882/4882] Built Assembly (61s),
+0 errors, 0 warnings in the two new modules, 19/19 + 5/5 + 12/12 axiom
+records exactly [propext, Classical.choice, Quot.sound], 0 sorry; Panels
+frozen at 4be904729b115f8e12e82779d9e26891, Assembly at
+ffcd37e18fab7e292efd837a637d6f31.  Evidence:
+docs/proofs/2663_entry_03_membership.md; build logs
+results/build_2663_membership_final.log (repo-ignored).  No producer,
+SourceRH, or RH claim.  Next: the remaining 869 off-diagonal entries on
+this template.
