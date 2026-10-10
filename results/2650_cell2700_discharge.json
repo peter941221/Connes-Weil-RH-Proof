@@ -1,0 +1,58 @@
+{
+  "record": 2650,
+  "module": "ConnesWeilRH.Dev.C1RouteACell2700Discharge2650",
+  "scope": "cell2700, sigma=+1/2, modulations fixed at nodeModulation2541; the 2551 coefficient-ball hypothesis discharged against the record-2338 coefficient region",
+  "consumes": [
+    "ConnesWeilRH.Dev.C1RouteABoundaryIntegral2551",
+    "ConnesWeilRH.Dev.C1RouteACenterNode2540",
+    "ConnesWeilRH.Dev.C1RouteABaseCoefficientBoxes2540"
+  ],
+  "theorem_chain": [
+    "baseCoefficient_error_of_box2540 : box membership -> coefficient ball (pre-existing, C1RouteACenterNode2540)",
+    "baseCoefficientCenter_mem2540 : the exact-rational center tuple sits in its own boxes (pre-existing)",
+    "boundaryCellIntegralBound2551 : conditional boundary-integral certificate (pre-existing)",
+    "cell2700_boxDischarge2650 : the 2551 bound holds for EVERY coefficient tuple in the record-2338 base boxes",
+    "cell2700_center_discharge2650 : UNCONDITIONAL - zero premises - the bound holds at the exact-rational center owner",
+    "cell2700_upper_value2650 : boundaryCellIntegralUpper2551 = 57/500000000000 (rfl)"
+  ],
+  "certificate": {
+    "integral_upper_exact": "57/500000000000",
+    "integral_upper_float": 1.14e-10,
+    "interval": {
+      "left_node_index": 2700,
+      "left_position_exact": "-7929856121/2560000000",
+      "right_node_index": 2701,
+      "right_position_exact": "-158531586419/51200000000"
+    },
+    "sigma": "+1/2",
+    "coefficient_region": {
+      "boxes": "baseCoefficientBox2540 (record-2338 exact base coefficient rectangles)",
+      "boxes_source_sha256": "7efde152db5e18c2d312cae16309172154044b443477bca75b9619b3070eb258",
+      "center_tuple": "baseCoefficientCenter2540 (exact rational midpoints)",
+      "ball_radius": "1/10^30 (baseCoefficientError2540)"
+    }
+  },
+  "what_was_discharged": {
+    "before": "the 2551 certificate was conditional: forall i, ||coefficients i - center i|| <= 1/10^30 (an ad-hoc ball premise, exact_coefficient_membership=False in the 2546/2551 payloads)",
+    "after": [
+      "region form: the premise weakens to membership in the record-2338 boxes - the certified region of the interpolation repair - via baseCoefficient_error_of_box2540 (box half-widths sum <= 1/10^30, baseBox_widths2540)",
+      "unconditional form: instantiating at the exact-rational center tuple leaves a zero-premise theorem; cell2700 is the first cell of the 20480-obligation grid with no coefficient premise left"
+    ]
+  },
+  "lane_a_audit_effect": {
+    "unknown_rank_1": "coefficient-ball discharge margin per cell: RESOLVED at pilot scale for cell2700 - the ball is implied by the certified record-2338 region, and the certificate survives discharge with the 1.14e-10 upper intact",
+    "still_open": "unknown_rank_3 exact-owner transfer composition (asserting a live external computation's coefficients lie in the boxes); unknown_rank_2 minus-sign chain boundary certification"
+  },
+  "build_evidence": {
+    "acceptance": "trio from log: Built line [3925/3925] Built ConnesWeilRH.Dev.C1RouteACell2700Discharge2650 (1.2s) + Build completed successfully (3925 jobs); 0 'error:'; 0 'uses sorry'; 0 module warnings",
+    "axioms": "cell2700_boxDischarge2650 and cell2700_center_discharge2650 depend on [propext, Classical.choice, Quot.sound] only",
+    "note": "full 3925-job chain rebuilt: the WSL build mirror had drifted to an old branch (proof/s2-percommon-source-data, 25304 sources differing from main, 8354 files missing); repaired by force checkout to origin/main before this build"
+  },
+  "locks": {
+    "full_grid_certificate": false,
+    "exact_owner_transfer": false,
+    "producer_go": false,
+    "source_rh": false,
+    "rh_claim": false
+  }
+}
