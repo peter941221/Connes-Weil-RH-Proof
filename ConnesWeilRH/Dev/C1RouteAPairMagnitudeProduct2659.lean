@@ -56,10 +56,24 @@ theorem pairMagnitude_add_mul_le2659 (a da b : RatPair2542) :
     positivity
   exact le_trans hmul (mul_le_mul_of_nonneg_right hadd hb)
 
+theorem pairMagnitude_add_mul_le_of_radius2659
+    (a da b : RatPair2542) (r : ℚ)
+    (hda : pairMagnitude2542 da ≤ r) :
+    pairMagnitude2542 (pairMul2542 (pairAdd2542 a da) b) ≤
+      (pairMagnitude2542 a + r) * pairMagnitude2542 b := by
+  have hmain := pairMagnitude_add_mul_le2659 a da b
+  have hright : 0 ≤ pairMagnitude2542 b := by
+    unfold pairMagnitude2542
+    positivity
+  have hsum : pairMagnitude2542 a + pairMagnitude2542 da ≤
+      pairMagnitude2542 a + r := by linarith
+  exact le_trans hmain (mul_le_mul_of_nonneg_right hsum hright)
+
 #print axioms pairMagnitude_mul_le2659
 #print axioms pairMagnitude_add_le2659
 #print axioms pairMagnitude_sub_le2659
 #print axioms pairMagnitude_scale_eq2659
 #print axioms pairMagnitude_add_mul_le2659
+#print axioms pairMagnitude_add_mul_le_of_radius2659
 
 end ConnesWeilRH.Dev
