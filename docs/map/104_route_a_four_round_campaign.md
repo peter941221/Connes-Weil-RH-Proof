@@ -5368,3 +5368,57 @@ byte-identically as the primary gate. The full static comparison is not
 yet assembled into a single consumer theorem. Evidence:
 docs/proofs/2626_static_coordinate_rows_extension.md and
 results/2626_static_coordinate_rows_validation.json.
+
+Records 2628-2645: the diagonal entry campaign (moment partition lane).
+The 2628-2631 groundwork (K-stack pilot through owner-04, probe archive
+in `_probe/`) was consolidated by records 2632-2633: the 180-panel
+derivative-replay batch (2632 single-panel replay verified; 2633 full
+batch, 298k theorems, green).  Records 2634-2644 then certified all 30
+diagonal entries (d = 0..29) through the parameterized membership
+generator (2635), with the project-local `Matrix.cons_val_5..29` family
+(2637) unblocking owners 5..29.  Record 2645 assembled the 30 capstones
+into ONE quantified partition theorem - a forall-statement over all 30
+diagonal entries that compiles once (123s) and never recompiles as
+consumers land.  Evidence: docs/proofs/2632 through 2645 and the entry
+batch JSONs in results/.
+
+Records 2646-2656: the complex off-diagonal engine and the entry (0,3)
+panel covers.  2646 phase engine (`phaseExp2646` ball with shared cos/sin
+radius) + analytic containment bridge; 2647 complex list helpers and
+real-part-variation stability; 2648 first complex panel table (P109,
+trailing-zero slot law); 2649 analytic containment certificate pilot
+(4.142e-3 + 3.57e-57).  2655/2656 scaled both lanes to the full 190
+panels (table cover 502cf0c3, analytic cover 28ff56bd; umbrella-collision
+law forced per-panel P{TAG} names).  Evidence: docs/proofs/2646-2649,
+2655, 2656.
+
+Records 2650-2654: the boundary-discharge lane (separate front).  2650
+first unconditional cell certificate (cell2700, coefficient-ball
+discharged at the composition top); 2651 cell5440; 2652 twelve
+unconditional boundary certificates + audit correction; 2653 live-tuple
+transfer seam (SHAPE proven, the live change-integral premise
+explicitly left open - conditional-seam doctrine); 2654 grid scale-out
+end-to-end at a fresh record (cells 2703/2704 both signs, discharge
+brick green first try).  Evidence: docs/proofs/2650-2654.
+
+Records 2657-2660: the entry (0,3) assembly chain - the first consumer
+of the 2645 partition theorem side and the 2656 analytic covers.  2657
+certified exponential amplitude pins; 2658 the 190 phase-rotation pins
+(reusing the 2646 engine); 2659 the P095 assembly pricing audit + the
+exact-rational Lean interface (panelAssemblyCenter2659P095,
+panelAssemblyCharge2659P095, pair-magnitude product family).  Record
+2660 closes the ball-replacement step: the true panel value
+(amp(c) * rot(c) * integral exp(phase - phase 0)) lies in the L1 ball
+around the assembly center of radius
+panelAssemblyCharge2659P095 + panelResidualCharge2660P095, with the
+record-2659 charge CORRECTED in place (the 2658 phase radius is a
+per-coordinate radius; both phase slots carry the factor 2; corrected
+float charge 3.0108388912202296e-87, a soundness fix).  Green build, 0
+errors, 0 sorry, 8/8 declarations on the exact standard axiom trio.
+Remaining obligations to entry (0,3) containment: the identity
+`integral F = F(c) * integral exp(phase - phase 0)` for the actual
+integrand, the 190-panel partition sum, and the comparison against
+`analyticMomentInterval2597_row_03`.  Evidence:
+docs/proofs/2657_exponential_amplitude_pins.md through
+docs/proofs/2660_panel095_ball.md,
+results/2659_panel095_assembly_pricing.json.

@@ -38,11 +38,15 @@ def main():
     # L1 product enclosure: |ab|_1 <= |a|_1 |b|_1.  This is deliberately
     # conservative and is the quantity the Lean error-propagation lemma must
     # reproduce before any cancellation-sensitive tightening.
+    # Correction (record 2660): the record-2658 phase radius is a
+    # PER-COORDINATE radius (cos and sin each bounded separately), so the L1
+    # rotation error is at most 2 * rot_radius.  Both phase slots carry the
+    # factor 2 now; the fix is a soundness fix, not a tightening.
     amp_scale = amp_center + amp_radius
-    rot_scale = l1(rot_center) + rot_radius
+    rot_scale = l1(rot_center) + 2 * rot_radius
     int_scale = l1(integral)
     charge = (amp_radius * rot_scale * int_scale
-              + amp_scale * rot_radius * int_scale)
+              + amp_scale * 2 * rot_radius * int_scale)
     residual = an.get("residual_upper")
     payload = {
         "record": 2659, "panel": panel,

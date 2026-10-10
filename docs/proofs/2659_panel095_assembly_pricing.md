@@ -30,3 +30,13 @@ L1 product charge.  Its three declarations audit to exactly
 `[propext, Classical.choice, Quot.sound]`.  The file intentionally stops
 before replacing centers by their error balls and before claiming the
 analytic panel containment; those are the next assembly obligations.
+
+Erratum (record 2660)
+
+The original charge carried one phase radius in each of its two phase
+slots.  The record-2658 phase radius is a PER-COORDINATE radius, so the L1
+rotation error is at most `2 * phaseRadius2658P095` and BOTH phase slots
+must carry the factor 2.  `panelAssemblyCharge2659P095` and the pricing
+script were corrected in place; the corrected float charge is
+3.0108388912202296e-87 (was 1.7925e-87).  Soundness fix, not a
+tightening; the consumer theorem is record 2660.
