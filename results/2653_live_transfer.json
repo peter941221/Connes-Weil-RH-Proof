@@ -1,0 +1,53 @@
+{
+  "record": 2653,
+  "date": "2026-10-10",
+  "module": "ConnesWeilRH/Dev/C1RouteALiveTransfer2653.lean",
+  "title": "Live-tuple transfer seam: stability composition over the cell2700 certificate",
+  "build": {
+    "line": "info: [3929/3929] Built ConnesWeilRH.Dev.C1RouteALiveTransfer2653 (51s)",
+    "completed": "Build completed successfully (3929 jobs).",
+    "errors": 0,
+    "uses_sorry": 0,
+    "module_warnings": 0,
+    "axioms": "[propext, Classical.choice, Quot.sound]"
+  },
+  "theorems": [
+    {
+      "name": "capBase_gap_2653",
+      "statement": "forall i : Fin 30, ||capBaseCoef2452 i - baseCoefficientCenter2540 i|| <= liveCoefGapUpper2653",
+      "role": "certifies that the live 2275-capture tuple is OUTSIDE the 1/10^30 certificate ball"
+    },
+    {
+      "name": "cell2700_live_transfer_2653",
+      "statement": "conditional: hchange : integral ||P(c) - P(center)|| <= baseTransformChangeUpper2653 implies integral ||P(c)|| <= boundaryCellIntegralUpper2551 + baseTransformChangeUpper2653",
+      "role": "the transfer seam SHAPE: certificate extends by the change integral"
+    },
+    {
+      "name": "cell2700_capBase_transfer_2653",
+      "statement": "specialization of the seam at the live tuple capBaseCoef2452",
+      "role": "names the live consumer as the seam's intended instance"
+    }
+  ],
+  "exact_constants": {
+    "liveCoefGapUpper2653": {
+      "rational": "140194220516106903860480051346980943113331538318398858303892543363689367112949993980881/30354201441027016733116592294117482916287606860189680019559568902170379456331382784",
+      "float": 4.61861007243034e3,
+      "attained_at_family": 0,
+      "definition": "exact maximum over the 30 families of |dre| + |dim| between capBaseCoef2452 and the record-2338 box centers"
+    },
+    "baseTransformChangeUpper2653": {
+      "source": "results/2338_exact_interpolation_repair.json:base_transform_change_strip_upper.upper_exact",
+      "float": 1.2545656433407221e-7,
+      "scope_2338": "all Im(z), 0 <= Re(z) <= 1; coefficient triangle bound"
+    }
+  },
+  "audit_corrections": [
+    "the earlier float-derived gap estimate 147795/32 = 4618.59375 is BELOW the true maximum 4618.61007243... and was falsified inside Lean (norm_num reduced the case-0 goal to False); replaced by the exact rational",
+    "results/2338 owner_transfer_to_live_consumer = false is confirmed and made precise: the 2338 strip constant covers the 2338-internal repair delta, NOT the live-tuple delta"
+  ],
+  "open_obligations": [
+    "unknown #1 residue: certify integral ||P(capBaseCoef2452) - P(baseCoefficientCenter2540)|| over the cell2700 edge span - the seam premise for the live tuple is NOT covered by the 2338 constant (live gap ~4.6e3 at family 0 vs the 2338-internal delta scale); needs its own per-seam enclosure",
+    "same seam shape applies to the 2453-54/2455-59 bricks once the live change integral is certified"
+  ],
+  "scope": "cell2700 edge span [edgeLeftPosition2548, edgeRightPosition2548] only; conditional transfer theorem; no full-grid claim, no Weil-positivity conclusion (integral of norms), Producer GO / SourceRH / RH untouched"
+}
