@@ -1,0 +1,43 @@
+{
+  "record": 2651,
+  "module": "ConnesWeilRH.Dev.C1RouteACell5440Discharge2651",
+  "scope": "cell5440, sigma=+1/2, modulations fixed at nodeModulation2541, interval endpointLeftPosition2544..endpointRightPosition2544; 2546 coefficient-ball hypothesis discharged by the 2650 pattern",
+  "consumes": [
+    "ConnesWeilRH.Dev.C1RouteACellIntegral2546",
+    "ConnesWeilRH.Dev.C1RouteACenterNode2540",
+    "ConnesWeilRH.Dev.C1RouteABaseCoefficientBoxes2540",
+    "ConnesWeilRH.Dev.C1RouteACell2700Discharge2650 (pattern, not import)"
+  ],
+  "theorem_chain": [
+    "cellIntegralBound2546 : conditional cell5440 certificate (pre-existing)",
+    "baseCoefficient_error_of_box2540 : box membership -> coefficient ball (pre-existing bridge)",
+    "cell5440_boxDischarge2651 : region form - the 2546 bound holds for EVERY coefficient tuple in the record-2338 base boxes",
+    "cell5440_center_discharge2651 : UNCONDITIONAL - zero premises - the bound holds at the exact-rational center owner",
+    "cell5440_upper_value2651 : cellIntegralUpper2546 = 379207837/500000000000 (rfl)"
+  ],
+  "certificate": {
+    "integral_upper_exact": "379207837/500000000000",
+    "integral_upper_float": 0.000758415674,
+    "sigma": "+1/2",
+    "coefficient_region": "baseCoefficientBox2540 (record-2338), centers baseCoefficientCenter2540, ball radius 1/10^30"
+  },
+  "inventory_effect": {
+    "sigma_plus_half_conditionals": "ZERO remaining - cell2700 (2650) and cell5440 (2651) were the only two sigma=+1/2 conditional entries in the lane-A audit inventory",
+    "remaining_unknowns": [
+      "unknown #2: sigma=-1/2 boundary chain (2547-2551 pipeline rerun at sigma=-1/2)",
+      "unknown #3: exact-owner transfer composition (live external tuple -> box membership)"
+    ]
+  },
+  "build_evidence": {
+    "acceptance": "trio from log: Built line [3917/3917] Built ConnesWeilRH.Dev.C1RouteACell5440Discharge2651 (1.2s) + Build completed successfully (3917 jobs); 0 'error:'; 0 'uses sorry'; 0 module warnings",
+    "axioms": "cell5440_boxDischarge2651 and cell5440_center_discharge2651 depend on [propext, Classical.choice, Quot.sound] only",
+    "note": "first build after the 2650 mirror repair - full graph replayed, only the new module compiled (one build, green first try)"
+  },
+  "locks": {
+    "full_grid_certificate": false,
+    "exact_owner_transfer": false,
+    "producer_go": false,
+    "source_rh": false,
+    "rh_claim": false
+  }
+}
