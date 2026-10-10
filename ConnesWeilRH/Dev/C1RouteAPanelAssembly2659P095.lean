@@ -1,6 +1,7 @@
 import ConnesWeilRH.Dev.C1RouteAAmpPin2657P095
 import ConnesWeilRH.Dev.C1RouteAPhasePin2658P095
 import ConnesWeilRH.Dev.C1RouteAComplexPanelTable2655P095
+import ConnesWeilRH.Dev.C1RouteAPairMagnitudeProduct2659
 
 namespace ConnesWeilRH.Dev
 
@@ -34,6 +35,18 @@ theorem panelAssemblyCenter2659P095_replay :
       pairScale2542 ampValue2657P095
         (pairMul2542 phaseValue2658P095 complexPanelIntegral2648P095) := by
   rfl
+
+theorem panelAssemblyCenter2659P095_l1_le :
+    pairMagnitude2542 panelAssemblyCenter2659P095 ≤
+      ampValue2657P095 *
+        (pairMagnitude2542 phaseValue2658P095
+          * pairMagnitude2542 complexPanelIntegral2648P095) := by
+  unfold panelAssemblyCenter2659P095
+  have hamp : 0 < ampValue2657P095 := by
+    norm_num [ampValue2657P095]
+  have hpair := pairMagnitude_mul_le2659 phaseValue2658P095 complexPanelIntegral2648P095
+  have hscaled := mul_le_mul_of_nonneg_left hpair (le_of_lt hamp)
+  simpa [pairScale2542, pairMagnitude2542, abs_of_pos hamp, mul_add] using hscaled
 
 theorem panelAssemblyCharge2659P095_positive :
     0 < panelAssemblyCharge2659P095 := by
