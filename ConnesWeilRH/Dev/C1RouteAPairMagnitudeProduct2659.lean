@@ -46,9 +46,20 @@ theorem pairMagnitude_scale_eq2659 (q : ℚ) (a : RatPair2542) :
       |q| * pairMagnitude2542 a := by
   simp [pairMagnitude2542, pairScale2542, abs_mul, mul_add]
 
+theorem pairMagnitude_add_mul_le2659 (a da b : RatPair2542) :
+    pairMagnitude2542 (pairMul2542 (pairAdd2542 a da) b) ≤
+      (pairMagnitude2542 a + pairMagnitude2542 da) * pairMagnitude2542 b := by
+  have hmul := pairMagnitude_mul_le2659 (pairAdd2542 a da) b
+  have hadd := pairMagnitude_add_le2659 a da
+  have hb : 0 ≤ pairMagnitude2542 b := by
+    unfold pairMagnitude2542
+    positivity
+  exact le_trans hmul (mul_le_mul_of_nonneg_right hadd hb)
+
 #print axioms pairMagnitude_mul_le2659
 #print axioms pairMagnitude_add_le2659
 #print axioms pairMagnitude_sub_le2659
 #print axioms pairMagnitude_scale_eq2659
+#print axioms pairMagnitude_add_mul_le2659
 
 end ConnesWeilRH.Dev
