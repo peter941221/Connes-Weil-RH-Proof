@@ -70,14 +70,25 @@ def panel_center(index):
     return -CUT + (2 * index + 1) * HALF_WIDTH
 
 
-def column_parameters(capture, column):
+def entry_parameters(capture, row, column):
+    """Exact (radius, beta, psi) of entry (row, column) of the moment matrix.
+
+    Generalizes the record-2624 row-0 scope: the record-2663 closing note
+    calibrated the degree on row 0 only, while the exact triples are
+    entry-specific (record 2664 measured 870 distinct off-diagonal triples).
+    """
     width = Fraction(float.fromhex(capture["families_hex"][column][0]))
     modulation = Fraction(float.fromhex(capture["families_hex"][column][1]))
-    node_real = Fraction(float.fromhex(capture["nodes_hex"][ROW][0]))
-    node_imag = Fraction(float.fromhex(capture["nodes_hex"][ROW][1]))
+    node_real = Fraction(float.fromhex(capture["nodes_hex"][row][0]))
+    node_imag = Fraction(float.fromhex(capture["nodes_hex"][row][1]))
     radius = width * width
     return {"radius": radius, "beta": node_real * radius,
             "psi": (node_imag + modulation) * radius}
+
+
+def column_parameters(capture, column):
+    """Historical row-0 (ROW) scope of entry_parameters."""
+    return entry_parameters(capture, ROW, column)
 
 
 def _exp_i(theta):

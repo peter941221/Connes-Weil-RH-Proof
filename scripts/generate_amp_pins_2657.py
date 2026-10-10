@@ -229,57 +229,75 @@ def build_pin(argument: F, tag: str, label: str):
     return value, radius
 
 
+def render_panel(index, params, vacuous, prefix="ConnesWeilRH.Dev"):
+    """Emit one amp pin module for entry parameters `params`.
+
+    `vacuous` is the set of cut-adjacent panels that carry the extra supRe
+    pin (derived from the entry's own analytic payload).  Entry-scoped
+    lanes pass `prefix`; the module content itself depends on the entry
+    only through `params["beta"]`.
+    """
+    tag = f"{index:03d}"
+    beta = params["beta"]
+    center = panel_center(index)
+    n_amp = beta * center - 30 / (1 - center * center)
+    amp_value, amp_radius = build_pin(n_amp, tag, "amp")
+
+    sup_block = ""
+    n_sup = None
+    if index in vacuous:
+        bound = abs(center) + HALF_WIDTH
+        n_sup = (beta * HALF_WIDTH + 30 / (1 - center * center)
+                 - 30 / (1 - bound * bound))
+        sup_value, sup_radius = build_pin(n_sup, tag, "sup")
+        sup_block = (SUP_TEMPLATE
+                     .replace("@@SN@@", q(n_sup))
+                     .replace("@@SV@@", q(sup_value))
+                     .replace("@@SR@@", q(sup_radius))
+                     .replace("@@RECORD@@", str(RECORD))
+                     .replace("@@TAG@@", tag)
+                     .replace("@@INDEX@@", str(INDEX)))
+        sup_note = f"supRe pin radius for panel {tag} likewise"
+    else:
+        sup_note = "no supRe pin (non-vacuous panel)"
+
+    module = (MODULE_TEMPLATE
+              .replace("@@TAG@@", tag)
+              .replace("@@RECORD@@", str(RECORD))
+              .replace("@@INDEX@@", str(INDEX))
+              .replace("@@N@@", q(n_amp))
+              .replace("@@V@@", q(amp_value))
+              .replace("@@R@@", q(amp_radius))
+              .replace("@@SUPNOTE@@",
+                       f"({sup_note})" if index in vacuous else sup_note)
+              .replace("@@SUPBLOCK@@", sup_block))
+    if prefix != "ConnesWeilRH.Dev":
+        assert module.count("namespace ConnesWeilRH.Dev\n") == 1, index
+        module = module.replace(
+            "namespace ConnesWeilRH.Dev\n",
+            f"namespace {prefix}\n\nopen ConnesWeilRH.Dev\n", 1)
+    return module, dict(
+        panel=index, tag=tag, vacuous=index in vacuous,
+        amp_arg=str(n_amp), amp_value=str(amp_value),
+        amp_radius=str(amp_radius),
+        underflowed=amp_value == 0,
+        sup_arg=(str(n_sup) if index in vacuous else None))
+
+
 def main():
     capture = json.loads(
         (ROOT / "results/2275_gap_owner_audit.json").read_text())["owner_capture"]
     params = column_parameters(capture, 3)
-    beta = params["beta"]
     analytic = json.loads(
         (ROOT / "results/2656_panel_analytic.json").read_text())
     vacuous = {p["panel"] for p in analytic["panels"] if F(p["var"]) >= 1}
     reports = []
     for index in range(190):
         tag = f"{index:03d}"
-        center = panel_center(index)
-        n_amp = beta * center - 30 / (1 - center * center)
-        amp_value, amp_radius = build_pin(n_amp, tag, "amp")
-
-        sup_block = ""
-        n_sup = None
-        if index in vacuous:
-            bound = abs(center) + HALF_WIDTH
-            n_sup = (beta * HALF_WIDTH + 30 / (1 - center * center)
-                     - 30 / (1 - bound * bound))
-            sup_value, sup_radius = build_pin(n_sup, tag, "sup")
-            sup_block = (SUP_TEMPLATE
-                         .replace("@@SN@@", q(n_sup))
-                         .replace("@@SV@@", q(sup_value))
-                         .replace("@@SR@@", q(sup_radius))
-                         .replace("@@RECORD@@", str(RECORD))
-                         .replace("@@TAG@@", tag)
-                         .replace("@@INDEX@@", str(INDEX)))
-            sup_note = f"supRe pin radius for panel {tag} likewise"
-        else:
-            sup_note = "no supRe pin (non-vacuous panel)"
-
-        module = (MODULE_TEMPLATE
-                  .replace("@@TAG@@", tag)
-                  .replace("@@RECORD@@", str(RECORD))
-                  .replace("@@INDEX@@", str(INDEX))
-                  .replace("@@N@@", q(n_amp))
-                  .replace("@@V@@", q(amp_value))
-                  .replace("@@R@@", q(amp_radius))
-                  .replace("@@SUPNOTE@@",
-                           f"({sup_note})" if index in vacuous else sup_note)
-                  .replace("@@SUPBLOCK@@", sup_block))
+        module, report = render_panel(index, params, vacuous)
         out = ROOT / f"ConnesWeilRH/Dev/C1RouteAAmpPin{RECORD}P{tag}.lean"
         out.write_text(module, encoding="utf-8", newline="\n")
-        reports.append(dict(
-            panel=index, tag=tag, vacuous=index in vacuous,
-            amp_arg=str(n_amp), amp_value=str(amp_value),
-            amp_radius=str(amp_radius),
-            underflowed=amp_value == 0,
-            sup_arg=(str(n_sup) if index in vacuous else None)))
+        reports.append(report)
 
     imports = "\n".join(
         f"import ConnesWeilRH.Dev.C1RouteAAmpPin{RECORD}P{index:03d}"

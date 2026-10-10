@@ -61,3 +61,18 @@ _precompress_backup_*/
 /ConnesWeilRH/Dev/C1RouteAReplayProbeCbv2567.lean
 /ConnesWeilRH/Dev/C1RouteAReplayProbeDecide2567.lean
 /ConnesWeilRH/Dev/C1RouteAReplayProbeRfl2567.lean
+
+# record-2664 off-diagonal entry chains: regenerated deterministically from
+# the committed generators + capture and byte-pinned per module by
+# results/2664_entry_{row}_{col}.json manifests.  One chain is ~160-212 MB
+# (869 entries would be ~137-184 GB), so the batch is not byte-committed;
+# the manifest sha256 list plus the regeneration check is the byte evidence.
+/ConnesWeilRH/Dev/OffDiagE*/
+/ConnesWeilRH/Dev/C1RouteAOffDiagEntry*.lean
+
+# raw timing-probe logs carry local workspace paths; numbers are reported in
+# the records, the logs stay on disk as untracked evidence
+/results/timing_*_probe.txt
+
+# local probe launchers and staging areas (disposal pending review)
+/_probe/

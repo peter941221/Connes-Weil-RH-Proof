@@ -71,8 +71,27 @@ def slots_ok(k):
         assert part in text, (mod, part)
 
 
-def render(k):
-    s = S.slots(k)
+def render(k, entry=None):
+    """Render the trueball module for panel k.
+
+    Legacy mode (`entry=None`) reads the committed entry-(0,3) modules and
+    reproduces the committed bytes.  Entry-scoped mode passes
+
+        entry = {"row", "col", "prefix", "dev",
+                 "node_re_lit", "node_im_lit", "modules"}
+
+    where `prefix` is the entry namespace (e.g.
+    `ConnesWeilRH.Dev.OffDiagE29_03`), `dev` the entry's mirror directory,
+    the two literals are the exact double-wrapped `((num : ℝ) / den)`
+    spellings of the entry's captured node, and `modules` the four family
+    module-name map for `gen_2663_slots.slots`.  Column literals
+    (modulation, width) are column-scoped and stay unchanged.
+    """
+    legacy = entry is None
+    if legacy:
+        s = S.slots(k)
+    else:
+        s = S.slots(k, md=entry["modules"], dev=entry["dev"])
     tag = s["tag"]
     text = read(TEMPLATE)
     # ---- slot 1: analytic exponential body (def + exp_le call: 2 sites) ----
@@ -100,8 +119,8 @@ def render(k):
         assert "P094" not in text
     # ---- numeric-token invariance: literal COUNT unchanged ----
     assert len(RATLIKE.findall(read(TEMPLATE))) == len(RATLIKE.findall(text))
-    # ---- P109 name overrides ----
-    if k == 109:
+    # ---- P109 name overrides (legacy lane only; entries are uniform) ----
+    if legacy and k == 109:
         for a, b in P109_OVERRIDES:
             assert a in text, a
             text = text.replace(a, b)
@@ -109,6 +128,41 @@ def render(k):
         assert "Table2655P109" not in text
     # ---- header sanity ----
     assert f"P{tag} panel" in text.split("\n")[3] or f"P{tag}" in text[:400]
+    if entry is not None:
+        row, col = entry["row"], entry["col"]
+
+        def swap(old, new, n):
+            assert text.count(old) == n, (old[:48], text.count(old))
+            return text.replace(old, new)
+
+        text = swap("capturedNodes2584_zero_eq2662",
+                    f"capturedNodes2584_row{row:02d}_eq2662", 3)
+        text = swap("nodeEntry0_2662", f"nodeEntry{row}_2662", 4)
+        text = swap("capturedNodes2584 0", f"capturedNodes2584 {row}", 5)
+        text = swap("((4255901647865119 : ℝ) / 4503599627370496)",
+                    entry["node_re_lit"], 1)
+        text = swap("((5524291025718029 : ℝ) / 140737488355328)",
+                    entry["node_im_lit"], 1)
+        # the single-wrapped modulation fraction must survive unchanged
+        assert text.count("(5524291025718029 : ℝ) / 140737488355328") == 1
+        text = swap("Captured node 0", f"Captured node {row}", 1)
+        text = swap("(0,3)", f"({row},{col})", 5)
+        # ---- scope: the four family imports + the namespace ----
+        prefix = entry["prefix"]
+        fams = ("C1RouteAComplexPanelTable2655", "C1RouteAComplexPanelAnalytic2656",
+                "C1RouteAAmpPin2657", "C1RouteAPhasePin2658")
+        for fam in fams:
+            old = f"import ConnesWeilRH.Dev.{fam}P{tag}"
+            assert text.count(old) == 1, old
+            text = text.replace(old, f"import {prefix}.{fam}P{tag}")
+        assert text.count("namespace ConnesWeilRH.Dev\n") == 1
+        text = text.replace("namespace ConnesWeilRH.Dev\n",
+                            f"namespace {prefix}\n\nopen ConnesWeilRH.Dev\n", 1)
+        for m in re.finditer(rf"^import {re.escape(prefix)}\.(\S+)$", text, re.M):
+            fn = m.group(1) + ".lean"
+            assert os.path.exists(os.path.join(entry["dev"], fn)), \
+                f"entry import missing on disk: {fn}"
+        return text, s
     slots_ok(k)
     # ---- every import of the rendered module must exist on disk ----
     for m in re.finditer(r"^import ConnesWeilRH\.Dev\.(\S+)$", text, re.M):

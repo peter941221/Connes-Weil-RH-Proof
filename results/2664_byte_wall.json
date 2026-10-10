@@ -1,0 +1,70 @@
+{
+ "record": 2664,
+ "purpose": "size profile of one entry chain and the batch projection; basis of the manifest-pin policy",
+ "committed_0_3_chain": {
+  "modules": 948,
+  "bytes": 157276288,
+  "per_family": {
+   "C1RouteAComplexPanelTable2655P": {
+    "modules": 189,
+    "bytes": 146957705
+   },
+   "C1RouteAComplexPanelAnalytic2656P": {
+    "modules": 189,
+    "bytes": 6461929
+   },
+   "C1RouteAAmpPin2657P": {
+    "modules": 190,
+    "bytes": 494583
+   },
+   "C1RouteAPhasePin2658P": {
+    "modules": 190,
+    "bytes": 402015
+   },
+   "C1RouteAPanelTrueBall2662P": {
+    "modules": 190,
+    "bytes": 2960056
+   }
+  },
+  "note": "on disk and in git today (2655P109 replaced by 2648P109)"
+ },
+ "staged_29_3_degree66_chain": {
+  "modules": 760,
+  "bytes": 209443994,
+  "per_family": {
+   "C1RouteAComplexPanelTable2655P": {
+    "modules": 190,
+    "bytes": 202041848
+   },
+   "C1RouteAComplexPanelAnalytic2656P": {
+    "modules": 190,
+    "bytes": 6505752
+   },
+   "C1RouteAAmpPin2657P": {
+    "modules": 190,
+    "bytes": 487205
+   },
+   "C1RouteAPhasePin2658P": {
+    "modules": 190,
+    "bytes": 409189
+   },
+   "C1RouteAPanelTrueBall2662P": {
+    "modules": 0,
+    "bytes": 0
+   }
+  },
+  "note": "probe staging dir _probe/stage_E29_03 (render validation)"
+ },
+ "batch_projection": {
+  "offdiag_entries": 869,
+  "committed_profile_bytes": 136673094272,
+  "staged_profile_bytes": 182006830786
+ },
+ "disk": {
+  "total": 2047184203776,
+  "free": 131793809408
+ },
+ "verdict": "one entry chain is ~157 MB (committed profile) / ~209 MB (degree-66 profile); the 869-entry batch is 137-182 GB, beyond the free disk and ~450x the repo pack, so entry chains are regenerated deterministically and byte-pinned by manifest sha256 lists instead of being committed",
+ "membership_claimed": false,
+ "producer_go": false
+}

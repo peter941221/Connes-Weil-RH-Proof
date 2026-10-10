@@ -90,17 +90,39 @@ def ceil_frac(x: F) -> int:
     return -((-x.numerator) // x.denominator)
 
 
-def slots(k):
+def slots(k, md=None, dev=None):
+    """Per-panel slots for the trueball render.
+
+    Legacy callers read the committed entry-(0,3) modules from DEV with the
+    2648/2649 pilot fallbacks.  Entry-scoped lanes (record 2664+) pass
+    `md` = {"amp", "phase", "table", "analytic"} module names (no ".lean")
+    and `dev` = the entry's mirror directory; the pilot fallbacks then do
+    not apply (each entry has its own uniform 190-panel set).
+    """
     tag = f"{k:03d}"
-    amp = read(f"C1RouteAAmpPin2657P{tag}.lean")
-    ph = read(f"C1RouteAPhasePin2658P{tag}.lean")
-    tb_name = f"C1RouteAComplexPanelTable2655P{tag}.lean"
-    if not exists(tb_name):
-        tb_name = f"C1RouteAComplexPanelTable2648P{tag}.lean"
-    tb = read(tb_name)
-    an_name = (f"C1RouteAComplexPanelAnalytic2649P109.lean" if k == 109
-               else f"C1RouteAComplexPanelAnalytic2656P{tag}.lean")
-    an = read(an_name)
+    dev = dev or DEV
+
+    def rd(name):
+        with open(os.path.join(dev, name), encoding="utf-8") as fh:
+            return fh.read()
+
+    if md is not None:
+        amp_name = md["amp"]
+        ph_name = md["phase"]
+        tb_name = md["table"] + ".lean"
+        an_name = md["analytic"] + ".lean"
+    else:
+        amp_name = f"C1RouteAAmpPin2657P{tag}"
+        ph_name = f"C1RouteAPhasePin2658P{tag}"
+        tb_name = f"C1RouteAComplexPanelTable2655P{tag}.lean"
+        if not exists(tb_name):
+            tb_name = f"C1RouteAComplexPanelTable2648P{tag}.lean"
+        an_name = (f"C1RouteAComplexPanelAnalytic2649P109.lean" if k == 109
+                   else f"C1RouteAComplexPanelAnalytic2656P{tag}.lean")
+    amp = rd(amp_name + ".lean")
+    ph = rd(ph_name + ".lean")
+    tb = rd(tb_name)
+    an = rd(an_name)
     eE, eE_body = eE_spelling(an)
     deficit = None
     # 2656 spelling: (((K / L) : ℚ) ^ 2);  2649 spelling: (((K : ℚ) / L) ^ 2)
@@ -111,8 +133,8 @@ def slots(k):
             deficit = (int(m.group(1)), int(m.group(2)))
             break
     return dict(
-        k=k, tag=tag, amp_module=f"C1RouteAAmpPin2657P{tag}",
-        phase_module=f"C1RouteAPhasePin2658P{tag}", table_module=tb_name,
+        k=k, tag=tag, amp_module=amp_name,
+        phase_module=ph_name, table_module=tb_name,
         analytic_module=an_name,
         center=rats(tb, f"complexPanelCenter2648P{tag}")[0],
         amp_val=rats(amp, f"ampValue2657P{tag}")[0],

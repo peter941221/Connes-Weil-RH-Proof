@@ -2,7 +2,6 @@
 
 import hashlib
 import json
-import math
 import mpmath as mp
 import sys
 from fractions import Fraction as F
@@ -132,6 +131,34 @@ end ConnesWeilRH.Dev
 """
 
 
+def render_panel(panel, psi, prefix="ConnesWeilRH.Dev"):
+    """Emit one rotation-pin module for the entry's `psi`.
+
+    The module content depends on the entry only through `psi`; entry-scoped
+    lanes pass `prefix` (the pin engine `phaseExp2646` is shared).
+    """
+    tag = f"{panel:03d}"
+    phase = psi * panel_center(panel)
+    reduced = phase / (1 << INDEX)
+    (real, imag), radius = compact_ball((F(0), reduced), INDEX)
+    validate_phase(phase, (real, imag), radius, tag)
+    source = (TEMPLATE.replace("@@RECORD@@", str(RECORD))
+              .replace("@@TAG@@", tag)
+              .replace("@@INDEX@@", str(INDEX))
+              .replace("@@ARG@@", q(phase))
+              .replace("@@RE@@", q(real))
+              .replace("@@IM@@", q(imag))
+              .replace("@@RAD@@", q(radius)))
+    if prefix != "ConnesWeilRH.Dev":
+        assert source.count("namespace ConnesWeilRH.Dev\n") == 1, panel
+        source = source.replace(
+            "namespace ConnesWeilRH.Dev\n",
+            f"namespace {prefix}\n\nopen ConnesWeilRH.Dev\n", 1)
+    return source, dict(
+        panel=panel, tag=tag, phase=str(phase), real=str(real),
+        imag=str(imag), radius=str(radius))
+
+
 def main() -> None:
     capture = json.loads(
         (ROOT / "results/2275_gap_owner_audit.json").read_text())["owner_capture"]
@@ -140,22 +167,10 @@ def main() -> None:
 
     for panel in range(190):
         tag = f"{panel:03d}"
-        phase = psi * panel_center(panel)
-        reduced = phase / (1 << INDEX)
-        (real, imag), radius = compact_ball((F(0), reduced), INDEX)
-        validate_phase(phase, (real, imag), radius, tag)
-        source = (TEMPLATE.replace("@@RECORD@@", str(RECORD))
-                  .replace("@@TAG@@", tag)
-                  .replace("@@INDEX@@", str(INDEX))
-                  .replace("@@ARG@@", q(phase))
-                  .replace("@@RE@@", q(real))
-                  .replace("@@IM@@", q(imag))
-                  .replace("@@RAD@@", q(radius)))
+        source, report = render_panel(panel, psi)
         (ROOT / f"ConnesWeilRH/Dev/C1RouteAPhasePin{RECORD}P{tag}.lean").write_text(
             source, encoding="utf-8", newline="\n")
-        reports.append(dict(
-            panel=panel, tag=tag, phase=str(phase), real=str(real),
-            imag=str(imag), radius=str(radius)))
+        reports.append(report)
 
     imports = "\n".join(
         f"import ConnesWeilRH.Dev.C1RouteAPhasePin{RECORD}P{p:03d}"

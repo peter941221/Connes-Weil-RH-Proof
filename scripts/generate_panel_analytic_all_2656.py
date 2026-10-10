@@ -648,6 +648,61 @@ end ConnesWeilRH.Dev
 """
 
 
+def render_panel(index, prefix="ConnesWeilRH.Dev"):
+    """Emit one panel analytic-containment module.
+
+    The module content depends only on the panel center and the record
+    naming; the entry (row, column) enters solely through the imported
+    table module and the namespace, so entry-scoped lanes pass `prefix`
+    (e.g. `ConnesWeilRH.Dev.OffDiagE29_03`) and get the sibling import
+    rewritten to their own scoped table module.
+    """
+    import re
+    tag = f"{index:03d}"
+    center = panel_center(index)
+    b = abs(center) + HALF
+    dlow = 1 - b * b
+    factor = 2 * abs(center) + HALF
+    delta = 30 * factor * HALF / (dlow * dlow)
+    var = Fraction(1, 25) + delta
+    twoabs = 2 * abs(center)
+    if center > 0:
+        abssign = f"abs_of_pos (by norm_num : (0 : ℝ) < ({q(center)} : ℝ))"
+        betasign = f"abs_of_pos (by norm_num : (0 : ℝ) < 2 * ({q(center)} : ℝ))"
+    else:
+        abssign = f"abs_of_neg (by norm_num : ({q(center)} : ℝ) < 0)"
+        betasign = f"abs_of_neg (by norm_num : 2 * ({q(center)} : ℝ) < 0)"
+    body = TEMPLATE
+    for key, value in {
+        "@@TAG@@": tag, "@@RECORD@@": str(RECORD),
+        "@@R@@": f"{RECORD}P{tag}",
+        "@@CENTER@@": q(center), "@@B@@": q(b), "@@DLOW@@": q(dlow),
+        "@@FACTOR@@": q(factor), "@@TWOABS@@": q(twoabs),
+        "@@DELTA@@": q(delta), "@@VAR@@": q(var),
+        "@@DPRE@@": "2648", "@@ABSSIGN@@": abssign, "@@BETASIGN@@": betasign,
+    }.items():
+        body = body.replace(key, value)
+    # bare-word type tokens (and the QQQ emitted by q()) -> real types
+    body = re.sub(r"\bQQQ\b|\bQQT\b", "ℚ", body)
+    body = re.sub(r"\bRR\b", "ℝ", body)
+    body = re.sub(r"\bCC\b", "ℂ", body)
+    if prefix != "ConnesWeilRH.Dev":
+        old_import = f"import ConnesWeilRH.Dev.C1RouteAComplexPanelTable2655P{tag}"
+        assert body.count(old_import) == 1, index
+        body = body.replace(
+            old_import,
+            f"import {prefix}.C1RouteAComplexPanelTable2655P{tag}")
+        assert body.count("namespace ConnesWeilRH.Dev\n") == 1, index
+        body = body.replace(
+            "namespace ConnesWeilRH.Dev\n",
+            f"namespace {prefix}\n\nopen ConnesWeilRH.Dev\n", 1)
+    return body, dict(
+        panel=index, center=str(center), b=str(b), dlow=str(dlow),
+        delta=str(delta), var=str(var),
+        residual_upper=None,
+        module=f"C1RouteAComplexPanelAnalytic{RECORD}P{tag}.lean")
+
+
 def main():
     capture = json.loads(
         (ROOT / "results/2275_gap_owner_audit.json").read_text())["owner_capture"]
@@ -657,42 +712,11 @@ def main():
     for index in range(190):
         if index in SKIP:
             continue
-        center = panel_center(index)
         tag = f"{index:03d}"
-        trec = 2655
-        b = abs(center) + HALF
-        dlow = 1 - b * b
-        factor = 2 * abs(center) + HALF
-        delta = 30 * factor * HALF / (dlow * dlow)
-        var = Fraction(1, 25) + delta
-        twoabs = 2 * abs(center)
-        if center > 0:
-            abssign = f"abs_of_pos (by norm_num : (0 : ℝ) < ({q(center)} : ℝ))"
-            betasign = f"abs_of_pos (by norm_num : (0 : ℝ) < 2 * ({q(center)} : ℝ))"
-        else:
-            abssign = f"abs_of_neg (by norm_num : ({q(center)} : ℝ) < 0)"
-            betasign = f"abs_of_neg (by norm_num : 2 * ({q(center)} : ℝ) < 0)"
-        body = TEMPLATE
-        for key, value in {
-            "@@TAG@@": tag, "@@DPRE@@": str(trec), "@@RECORD@@": str(RECORD),
-            "@@R@@": f"{RECORD}P{tag}",
-            "@@CENTER@@": q(center), "@@B@@": q(b), "@@DLOW@@": q(dlow),
-            "@@FACTOR@@": q(factor), "@@TWOABS@@": q(twoabs),
-            "@@DELTA@@": q(delta), "@@VAR@@": q(var),
-            "@@DPRE@@": "2648", "@@ABSSIGN@@": abssign, "@@BETASIGN@@": betasign,
-        }.items():
-            body = body.replace(key, value)
-        # bare-word type tokens (and the QQQ emitted by q()) -> real types
-        import re
-        body = re.sub(r"\bQQQ\b|\bQQT\b", "ℚ", body)
-        body = re.sub(r"\bRR\b", "ℝ", body)
-        body = re.sub(r"\bCC\b", "ℂ", body)
+        body, row = render_panel(index)
         out = ROOT / f"ConnesWeilRH/Dev/C1RouteAComplexPanelAnalytic{RECORD}P{tag}.lean"
         out.write_text(body, encoding="utf-8", newline="\n")
-        emitted.append(dict(
-            panel=index, center=str(center), b=str(b), dlow=str(dlow),
-            delta=str(delta), var=str(var),
-            residual_upper=None, module=out.name))
+        emitted.append(row)
     payload = dict(
         record=RECORD, entry=[ROW, 3], panel_count=190, emitted=len(emitted),
         pilot_panel=109, pilot_record=2649,

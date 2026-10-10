@@ -30,6 +30,42 @@ RECORD = 2655
 SKIP = {109}  # pilot panel, committed at record 2648
 
 
+def render_panel(index, params, degree, prefix="ConnesWeilRH.Dev"):
+    """Emit one panel table module for entry parameters `params`.
+
+    Legacy callers pass the row-0 (0,3) parameters and the default prefix.
+    Entry-scoped lanes (record 2664+) pass `prefix` = the entry namespace
+    (e.g. `ConnesWeilRH.Dev.OffDiagE29_03`); the module text then declares
+    that namespace and opens the parent, and no import rewrite is needed
+    because the only import is the shared generic layer.
+    """
+    center = panel_center(index)
+    tables = g.panel_tables(params["beta"], params["psi"], center, degree)
+    tables["beta"], tables["psi"], tables["center"] = \
+        params["beta"], params["psi"], center
+
+    # per-panel regression against the 2624 pricing pipeline itself
+    reference = build_complex_panel(params["beta"], params["psi"], center, degree)
+    assert tables["modulus_bound"] == reference["residual_modulus_upper"], \
+        f"panel {index}: residual upper diverges from the 2624 pipeline"
+    assert tables["integral"] == reference["integral"], \
+        f"panel {index}: integral diverges from the 2624 pipeline"
+
+    g.RECORD = RECORD
+    g.TAG = f"{index:03d}"
+    source = g.build_module(tables)
+    if prefix != "ConnesWeilRH.Dev":
+        assert source.count("namespace ConnesWeilRH.Dev\n") == 1, index
+        source = source.replace(
+            "namespace ConnesWeilRH.Dev\n",
+            f"namespace {prefix}\n\nopen ConnesWeilRH.Dev\n", 1)
+    return source, dict(
+        panel=index, center=str(center),
+        residual_upper=str(tables["modulus_bound"]),
+        integral_re=str(tables["integral"][0]),
+        integral_im=str(tables["integral"][1]))
+
+
 def main():
     capture = json.loads(
         (ROOT / "results/2275_gap_owner_audit.json").read_text())["owner_capture"]
@@ -38,29 +74,11 @@ def main():
     for index in range(190):
         if index in SKIP:
             continue
-        center = panel_center(index)
-        tables = g.panel_tables(pilot["beta"], pilot["psi"], center, DEGREE)
-        tables["beta"], tables["psi"], tables["center"] = \
-            pilot["beta"], pilot["psi"], center
-
-        # per-panel regression against the 2624 pricing pipeline itself
-        reference = build_complex_panel(pilot["beta"], pilot["psi"], center, DEGREE)
-        assert tables["modulus_bound"] == reference["residual_modulus_upper"], \
-            f"panel {index}: residual upper diverges from the 2624 pipeline"
-        assert tables["integral"] == reference["integral"], \
-            f"panel {index}: integral diverges from the 2624 pipeline"
-
-        g.RECORD = RECORD
-        g.TAG = f"{index:03d}"
-        source = g.build_module(tables)
+        source, report = render_panel(index, pilot, DEGREE)
         out = ROOT / f"ConnesWeilRH/Dev/C1RouteAComplexPanelTable{RECORD}P{g.TAG}.lean"
         out.write_text(source, encoding="utf-8", newline="\n")
-        reports.append(dict(
-            panel=index, center=str(center),
-            residual_upper=str(tables["modulus_bound"]),
-            integral_re=str(tables["integral"][0]),
-            integral_im=str(tables["integral"][1])))
-        print(index, f"{float(tables['modulus_bound']):.6e}", flush=True)
+        reports.append(report)
+        print(index, f"{float(report['residual_upper']):.6e}", flush=True)
 
     imports = "\n".join(
         f"import ConnesWeilRH.Dev.C1RouteAComplexPanelTable2648P109"
