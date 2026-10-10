@@ -69,11 +69,33 @@ theorem pairMagnitude_add_mul_le_of_radius2659
       pairMagnitude2542 a + r := by linarith
   exact le_trans hmain (mul_le_mul_of_nonneg_right hsum hright)
 
+theorem pairMagnitude_two_radius_product2659
+    (a da b db : RatPair2542) (ra rb : ℚ)
+    (hda : pairMagnitude2542 da ≤ ra)
+    (hdb : pairMagnitude2542 db ≤ rb)
+    (hra : 0 ≤ ra) :
+    pairMagnitude2542
+        (pairMul2542 (pairAdd2542 a da) (pairAdd2542 b db)) ≤
+      (pairMagnitude2542 a + ra) * (pairMagnitude2542 b + rb) := by
+  have hleft := pairMagnitude_add_mul_le_of_radius2659
+    a da (pairAdd2542 b db) ra hda
+  have hright := pairMagnitude_add_le2659 b db
+  have hb : 0 ≤ pairMagnitude2542 a + ra := by
+    have ha : 0 ≤ pairMagnitude2542 a := by
+      unfold pairMagnitude2542
+      positivity
+    exact add_nonneg ha hra
+  have hprod :
+      pairMagnitude2542 (pairAdd2542 b db) ≤ pairMagnitude2542 b + rb :=
+    le_trans hright (add_le_add_right hdb _)
+  exact le_trans hleft (mul_le_mul_of_nonneg_left hprod hb)
+
 #print axioms pairMagnitude_mul_le2659
 #print axioms pairMagnitude_add_le2659
 #print axioms pairMagnitude_sub_le2659
 #print axioms pairMagnitude_scale_eq2659
 #print axioms pairMagnitude_add_mul_le2659
 #print axioms pairMagnitude_add_mul_le_of_radius2659
+#print axioms pairMagnitude_two_radius_product2659
 
 end ConnesWeilRH.Dev
