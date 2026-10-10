@@ -5418,7 +5418,7 @@ errors, 0 sorry, 8/8 declarations on the exact standard axiom trio.
 Remaining obligations to entry (0,3) containment: the identity
 `integral F = F(c) * integral exp(phase - phase 0)` for the actual
 integrand, the 190-panel partition sum, and the comparison against
-`analyticMomentInterval2597_row_03`.  Evidence:
+`analyticMomentInterval2597_row_00` element 3.  Evidence:
 docs/proofs/2657_exponential_amplitude_pins.md through
 docs/proofs/2660_panel095_ball.md,
 results/2659_panel095_assembly_pricing.json.
@@ -5437,5 +5437,43 @@ panelResidualCharge2660P095).  Green build, 0 errors, 0 sorry, 0 warnings,
 10/10 declarations on the exact standard axiom trio.  Remaining to (0,3):
 the 189 further panel instantiations plus the two edge slices (46
 vacuous-VAR panels routed via monotone bounds), the partition sum, and the
-row_03 comparison; then the 870 off-diagonal memberships.  Evidence:
+`analyticMomentInterval2597_row_00` element-3 comparison; then the 870
+off-diagonal memberships.  Evidence:
 docs/proofs/2661_panel095_center_normalization.md, _b2661b.log.
+
+Record 2662: the 190-panel true-ball batch LANDS.  Every panel k of the
+(0,3) tiling carries `panelTrueBall2662P{tag}` -- the true panel integral
+of the ACTUAL normalized integrand in its certified L1 ball at the exact
+captured parameters -- machine-generated from the committed P094 pilot
+template by scripts/gen_2663_slots.py + gen_2663_panels.py (all numeric
+slots read back from committed Lean literals, no float display text).
+Panel 109 keeps its 2648/2655 pilot table; the other 189 use their 2655
+tables.  Full-batch Linux build green (log2662_p3.log / log2663_batch.log
+on disk; *.log is repo-ignored): 1739 axiom records, every one exactly
+[propext, Classical.choice, Quot.sound], 0 sorryAx, 0 errors; all 190
+sources md5-identical between the Windows tree and the building workspace
+(scripts/census_2662_mirror.sh, 0/190 mismatches).  The batch supplies the
+per-panel hypothesis of the partition sum.  Evidence:
+docs/proofs/2662_panel_true_ball_batch.md, results/targets_2663.txt,
+results/closure_2663.txt.
+
+Record 2663 (part 1): the tiling brick and the exact ledger.  The hand
+module C1RouteAEntryTiling2663 proves what the (0,3) membership assembly
+consumes: the base-2 edge decay on 19/20 <= |u| <= 1 (|Re(node0)| r3^2 <=
+51923/10000, exponent <= -605/2, e^(-a0bar) <= 2^-302, each slice <=
+(1/20) 2^-302, edgeBar2663_total), the 190-panel tiling of [-19/20,
+19/20] (adjacent-intervals Ico sum, per-panel shift identity, centered
+ball form), and the coordinate glue for the generated assembly (Finset
+sum re/im, norm <= L1 triangle, Rat.cast sum, pair-embedding sum).  Green
+build: 0 errors, 0 warnings, 0 sorry, 23/23 declarations on the exact
+trio; frozen at md5 8f85469c5251d6d1b6c4c61a815ea249.
+scripts/recon_2663_budget.py (v3) is the exact-rational 190-panel ledger:
+total = r3sq*sum(charge+res) + edge = 3.274933e-67 vs margins 132.02x
+(re) / 132.04x (im); the four strict-coordinate barriers
+r3sq*(LO -(CBAR+EBAR)) >= reLo, r3sq*(HI +(CBAR+EBAR)) <= reHi and the im
+analogues all hold exactly, frozen in results/2663_budget_recon.json;
+per-panel 60-significant-digit floor/ceil bars in results/2663_bars.json.
+Remaining to the membership: the DATA/sum modules (190-arm decide sums),
+the per-panel generated consumer facts, and the assembly sandwich ending
+in the row 00 element-3 comparison.  Evidence:
+docs/proofs/2663_entry_03_tiling_and_budget.md.
