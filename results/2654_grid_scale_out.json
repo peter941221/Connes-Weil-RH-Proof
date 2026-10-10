@@ -1,0 +1,37 @@
+{
+  "record": 2654,
+  "date": "2026-10-10",
+  "title": "Grid scale-out: cells 2703/2704 both signs, generator batch + discharge",
+  "generator": {
+    "script": "scripts/generate_signed_cells_2558.py",
+    "extension": "--record N / --payload NAME flags: a fresh-record run emits rename-based modules under the new record number and its own payload, without touching the 2558 owner table (guard: start >= 2703 or record = 2558)",
+    "modules_emitted": 40,
+    "payloads": ["results/2654_signed_cell_inputs_minus.json", "results/2654_signed_cell_inputs_plus.json"]
+  },
+  "build": {
+    "line": "info: [3954/3954] Built ConnesWeilRH.Dev.C1RouteAGridScaleDischarge2654 (46s)",
+    "completed": "Build completed successfully (3954 jobs).",
+    "errors": 0,
+    "uses_sorry": 0,
+    "module_warnings": 0,
+    "axioms": "[propext, Classical.choice, Quot.sound]"
+  },
+  "cells": [
+    {"index": 2703, "sign": -1, "upper": "2283/1000000000000", "float": 2.283e-9, "span": "batchN02703MinusPosition2654..batchN02704MinusPosition2654"},
+    {"index": 2704, "sign": -1, "upper": "2203/1000000000000", "float": 2.203e-9, "span": "batchN02704MinusPosition2654..batchN02705MinusPosition2654"},
+    {"index": 2703, "sign": 1, "upper": "13/125000000000", "float": 1.04e-10, "span": "batchN02703PlusPosition2654..batchN02704PlusPosition2654"},
+    {"index": 2704, "sign": 1, "upper": "101/1000000000000", "float": 1.01e-10, "span": "batchN02704PlusPosition2654..batchN02705PlusPosition2654"}
+  ],
+  "theorems": {
+    "per_cell": [
+      "batchC02703MinusCellBoxDischarge2654 / batchC02703MinusCellCenterDischarge2654",
+      "batchC02704MinusCellBoxDischarge2654 / batchC02704MinusCellCenterDischarge2654",
+      "batchC02703PlusCellBoxDischarge2654 / batchC02703PlusCellCenterDischarge2654",
+      "batchC02704PlusCellBoxDischarge2654 / batchC02704PlusCellCenterDischarge2654"
+    ],
+    "forms": "region (record-2338 box membership premise, via baseCoefficient_error_of_box2540) + unconditional (exact-rational center tuple, zero premises)",
+    "discharge_brick": "ConnesWeilRH/Dev/C1RouteAGridScaleDischarge2654.lean — GREEN FIRST TRY"
+  },
+  "significance": "first scale-out of the proven 2553-2559 pipeline to fresh cells under a NEW record number end-to-end (generate -> build -> discharge): the pipeline, the discharge pattern, and the audit loop reproduce verbatim; sigma = -1/2 side now has unconditional certificates beyond the boundary cells (2700/2701/2702) for the first time",
+  "scope": "cells 2703/2704 both signs only; integral-of-norms certificates (no Weil-positivity conclusion); no full-grid claim; Producer GO, SourceRH, RH out of scope"
+}

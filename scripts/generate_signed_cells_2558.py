@@ -182,17 +182,22 @@ if __name__ == "__main__":
     parser.add_argument("--start",type=int,default=2700)
     parser.add_argument("--cells",type=int,default=2)
     parser.add_argument("--sign",type=int,choices=(-1,1),default=-1)
+    parser.add_argument("--record",type=int,default=2558)
+    parser.add_argument("--payload",type=str,default=None)
     args = parser.parse_args()
     assert args.cells > 0 and 0 <= args.start < args.start+args.cells <= 10240
+    # the endpoint() owner table pins index 2702 to records 2557/2558; a
+    # fresh-record run must not cross it
+    assert args.start >= 2703 or args.record == 2558
     for index in range(args.start,args.start+args.cells+1):
-        if endpoint(index,args.sign)[1] == 2558:
-            module,source = render_endpoint(index,args.sign)
+        if endpoint(index,args.sign,args.record)[1] == args.record:
+            module,source = render_endpoint(index,args.sign,args.record)
             write(module,source)
-            module,source,_ = render_value(index,args.sign)
+            module,source,_ = render_value(index,args.sign,record=args.record)
             write(module,source)
     reports = []
     for index in range(args.start,args.start+args.cells):
-        cell = Cell(index,args.sign)
+        cell = Cell(index,args.sign,args.record)
         write(cell.module("Midpoint"),cell.render_midpoint())
         for side in ("Left","Right"):
             write(cell.module(side+"Bounds"),cell.render_norm(side))
@@ -203,4 +208,5 @@ if __name__ == "__main__":
         write(cell.module("Integral"),source)
         reports.append(dict(index=index,sign=args.sign,**info))
         print(reports[-1],flush=True)
-    (ROOT/"results/2558_signed_cell_inputs.json").write_text(json.dumps(reports,indent=2)+"\n")
+    payload = args.payload or "2558_signed_cell_inputs.json"
+    (ROOT/"results"/payload).write_text(json.dumps(reports,indent=2)+"\n")
