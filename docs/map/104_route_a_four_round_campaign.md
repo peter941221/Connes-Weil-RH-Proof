@@ -5803,3 +5803,13 @@ entries all disk_verified (degrees 55 x22, 58 x7, 60 x8, 63 x6, 66 x1).
 The non-psi ladder subgroups are now ALL closed (58/60/63 + the 66
 outlier); remaining backlog: 825 degree-55 main-group members. Evidence
 docs/proofs/2664_wave5_six_degree63.md.
+
+Repaired-owner full-grid C3' interface audit -> record 2667. The current
+2422/2424 artifacts replay at 776611 nodes and 39 spans with all
+same-expression directed controls passing. The four assembled channel uppers
+sum to 146704.626104729, about 0.00196651 of knownError2109. This is a
+numerical interface audit only: mathematical pointwise dominance, Lean import,
+actual-owner identity, coefficient membership, and the signed infinite-xi tail
+remain open. The producer gate, SourceRH, and RH therefore remain false.
+Evidence docs/proofs/2667_current_fullgrid_c3p_interface_audit.md and
+results/2667_current_fullgrid_audit.json.
