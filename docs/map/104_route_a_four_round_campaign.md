@@ -5697,3 +5697,34 @@ ladder" phrasing): degree-55 class = 834 members (833 besides hand-written
 ~7.8 GB against 239 GB free; between-wave deletion DEFERRED (no
 pressure).  Evidence: docs/proofs/2664_wave2_eight_entries.md.  No
 producer, SourceRH, or RH claim.
+
+Deg 55 -> record 2664 wave 3: the degree-58 ladder subgroup closes -- seven
+entries certified, ladder render path validated under the fixed renderer.
+(17,3), (18,3), (23,2), (24,2), (25,2), (26,2), (27,2) all prove
+entry{RRCC}Mem2663 at degree 58 in the bars-ladder lane; every audited leaf
+exactly [propext, Classical.choice, Quot.sound], no sorryAx, 0 errors / 0
+uses-sorry over 14 builds, 15/15 census gates, 965 oleans and the identical
+1856-record footprint (115 fresh + 1741 replay; DEGREE-independent) on
+every entry.  First degree-58 builds post-fix (wave-1 (29,3) at 66 predates
+the verbatim-spelling fix), so the ladder path is validated end to end
+post-fix.  All frozen branch (betas 2.1632/2.6912; the banner 51923/10000).
+Prep clone _probe/batch_wave3_prep_2664.py adds per-entry --degree=58 and
+asserts first_pass_degree == 58 plus the rung AT 58 inside=True (the wave-2
+clone defaulted to 55); the (27,2) thin-margin adjudication (survey 0.0351
+over box, thinnest in the ladder) RESOLVES AT 58 -- recon exact-rational
+barriers pass at ratio 27.7/27.5 (with wave-2's (16,3) 1.1543 -> 33.9, the
+measured pattern: thin box-screen margins open ~25-1000x under exact
+recomputation; the screen decides ORDER, the recon decides DEGREE).  Driver
+03:37:02Z -> BATCH-DONE 04:29:44Z (52 min 42 s, 7 fresh entries; umbrella
+356-411 s, assembly 33-35 s).  All seven carry the FIXED chain-renderer
+hash c3199d0c.. (no lag).  Preemption: the build-evidence assembler's
+constant degree label 55 (erratum 2's class) now derives from the entry
+payload, with a scratch regression control reproducing wave-2 tag (22,2)
+BYTE-IDENTICALLY (3313 B); psi=0 and wave-2 build payloads stay
+byte-frozen.  Manifest now 30 entries, all chain digests disk-verified.
+Class accounting: degree-55 class 9/834 done -> 825 remain; non-psi ladder
+8/22 (66: (29,3); 58: these seven) -> 14 remain (60: 8, 63: 6); psi=0 14/14
+via the exact-zero route; total 31/870 memberships landed.  Disk: seven
+wave trees ~7.1 GB against ~207 GB free; between-wave deletion DEFERRED (no
+pressure).  Evidence: docs/proofs/2664_wave3_seven_degree58.md.  No
+producer, SourceRH, or RH claim.
