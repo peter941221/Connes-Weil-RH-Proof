@@ -5863,3 +5863,14 @@ compiles and these declarations audit to the standard axiom trio. MPFR
 rounding, binary64 endpoint conversion, the full evaluator, live-owner
 `chargeRest` identity, signed infinite-xi tail, Producer GO, SourceRH, and RH
 remain open. Evidence: docs/proofs/2672_interval_bump_bridge.md.
+
+Formal quotient-geometry bridge -> record 2673. `endpointAbsMax`,
+`endpointAbsMinOrZero`, and `mem_oneSubSqDiv` prove the exact-real enclosure
+of `1 - (x / radius)^2` on a positive-radius box, including intervals that
+cross zero. `mem_bumpFromBoxes` composes it with the 2672 reciprocal and
+exponential theorem for the `exp(-30/q)` bump branch. Audit examples cover
+crossing-zero, positive-only, and negative-only input intervals. MPFR rounding,
+binary64 endpoint conversion, the full evaluator, live-owner `chargeRest`
+identity, signed infinite-xi tail, Producer GO, SourceRH, and RH remain open.
+Evidence:
+docs/proofs/2673_interval_geometry_bridge.md.

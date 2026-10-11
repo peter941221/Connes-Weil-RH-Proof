@@ -324,6 +324,117 @@ theorem RealInterval2429.mem_cosEndpointHull {a x b : ℝ}
     ring
   · exact RealInterval2429.cos_chord_error hab hax hxb
 
+def RealInterval2429.endpointAbsMax (a : RealInterval2429) : ℝ :=
+  max |a.lo| |a.hi|
+
+noncomputable def RealInterval2429.endpointAbsMinOrZero (a : RealInterval2429) : ℝ :=
+  if a.lo ≤ 0 ∧ 0 ≤ a.hi then 0 else min |a.lo| |a.hi|
+
+theorem RealInterval2429.abs_le_endpointAbsMax {a : RealInterval2429} {x : ℝ}
+    (hx : a.Mem x) : |x| ≤ a.endpointAbsMax := by
+  exact abs_le_max_abs_abs hx.1 hx.2
+
+theorem RealInterval2429.endpointAbsMinOrZero_le_abs
+    {a : RealInterval2429} {x : ℝ} (hx : a.Mem x) :
+    a.endpointAbsMinOrZero ≤ |x| := by
+  by_cases hcross : a.lo ≤ 0 ∧ 0 ≤ a.hi
+  · simp [RealInterval2429.endpointAbsMinOrZero, hcross]
+  · rcases not_and_or.mp hcross with hlo | hhi
+    · have hlo' : 0 < a.lo := lt_of_not_ge hlo
+      have hxpos : 0 < x := lt_of_lt_of_le hlo' hx.1
+      simp only [RealInterval2429.endpointAbsMinOrZero, hcross, if_false,
+        abs_of_pos hlo', abs_of_pos hxpos]
+      exact (min_le_left _ _).trans hx.1
+    · have hhi' : a.hi < 0 := lt_of_not_ge hhi
+      have hxneg : x < 0 := lt_of_le_of_lt hx.2 hhi'
+      simp only [RealInterval2429.endpointAbsMinOrZero, hcross, if_false,
+        abs_of_neg hhi', abs_of_neg hxneg]
+      exact (min_le_right _ _).trans (neg_le_neg hx.2)
+
+noncomputable def RealInterval2429.oneSubSqDiv (xBox radiusBox : RealInterval2429) :
+    RealInterval2429 :=
+  { lo := 1 - (xBox.endpointAbsMax / radiusBox.lo) ^ 2
+    hi := 1 - (xBox.endpointAbsMinOrZero / radiusBox.hi) ^ 2 }
+
+theorem RealInterval2429.mem_oneSubSqDiv
+    {xBox radiusBox : RealInterval2429} {x radius : ℝ}
+    (hx : xBox.Mem x) (hr : radiusBox.Mem radius)
+    (hrlo : 0 < radiusBox.lo) :
+    (xBox.oneSubSqDiv radiusBox).Mem (1 - (x / radius) ^ 2) := by
+  have hrpos : 0 < radius := lt_of_lt_of_le hrlo hr.1
+  have hinv : (radiusBox.invPositive).Mem radius⁻¹ :=
+    RealInterval2429.mem_invPositive hrlo hr
+  have hxmax : |x| ≤ xBox.endpointAbsMax :=
+    RealInterval2429.abs_le_endpointAbsMax hx
+  have hxmin : xBox.endpointAbsMinOrZero ≤ |x| :=
+    RealInterval2429.endpointAbsMinOrZero_le_abs hx
+  have hscaledAbs : |x / radius| = |x| * radius⁻¹ := by
+    rw [abs_div, abs_of_pos hrpos, div_eq_mul_inv]
+  have hmaxNonneg : 0 ≤ xBox.endpointAbsMax := by
+    exact le_trans (abs_nonneg xBox.lo) (le_max_left _ _)
+  have hminNonneg : 0 ≤ xBox.endpointAbsMinOrZero := by
+    by_cases hcross : xBox.lo ≤ 0 ∧ 0 ≤ xBox.hi
+    · simp [RealInterval2429.endpointAbsMinOrZero, hcross]
+    · simp only [RealInterval2429.endpointAbsMinOrZero, hcross, if_false]
+      exact le_min (abs_nonneg xBox.lo) (abs_nonneg xBox.hi)
+  have hscaledMax : |x / radius| ≤ xBox.endpointAbsMax / radiusBox.lo := by
+    rw [hscaledAbs, div_eq_mul_inv]
+    calc
+      |x| * radius⁻¹ ≤ xBox.endpointAbsMax * radius⁻¹ :=
+        mul_le_mul_of_nonneg_right hxmax (inv_nonneg.mpr hrpos.le)
+      _ ≤ xBox.endpointAbsMax * radiusBox.lo⁻¹ :=
+        mul_le_mul_of_nonneg_left hinv.2 hmaxNonneg
+  have hscaledMin : xBox.endpointAbsMinOrZero / radiusBox.hi ≤ |x / radius| := by
+    rw [div_eq_mul_inv, hscaledAbs]
+    calc
+      xBox.endpointAbsMinOrZero * radiusBox.hi⁻¹ ≤
+          |x| * radiusBox.hi⁻¹ :=
+        mul_le_mul_of_nonneg_right hxmin
+          (inv_nonneg.mpr (le_of_lt
+            (lt_of_lt_of_le hrlo (le_trans hr.1 hr.2))))
+      _ ≤ |x| * radius⁻¹ :=
+        mul_le_mul_of_nonneg_left hinv.1 (abs_nonneg x)
+  have hsqMax : (x / radius) ^ 2 ≤
+      (xBox.endpointAbsMax / radiusBox.lo) ^ 2 := by
+    have hlo_pos : 0 < radiusBox.lo := hrlo
+    have hquot_nonneg : 0 ≤ xBox.endpointAbsMax / radiusBox.lo :=
+      div_nonneg hmaxNonneg hlo_pos.le
+    have hscaledMaxAbs : |x / radius| ≤
+        |xBox.endpointAbsMax / radiusBox.lo| := by
+      rw [abs_of_nonneg hquot_nonneg]
+      exact hscaledMax
+    exact sq_le_sq.mpr hscaledMaxAbs
+  have hsqMin : (xBox.endpointAbsMinOrZero / radiusBox.hi) ^ 2 ≤
+      (x / radius) ^ 2 := by
+    have hbox : radiusBox.lo ≤ radiusBox.hi := le_trans hr.1 hr.2
+    have hhi_pos : 0 < radiusBox.hi := lt_of_lt_of_le hrlo hbox
+    have hquot_nonneg : 0 ≤ xBox.endpointAbsMinOrZero / radiusBox.hi :=
+      div_nonneg hminNonneg hhi_pos.le
+    have hscaledMinAbs :
+        |xBox.endpointAbsMinOrZero / radiusBox.hi| ≤ |x / radius| := by
+      rw [abs_of_nonneg hquot_nonneg]
+      exact hscaledMin
+    exact sq_le_sq.mpr hscaledMinAbs
+  constructor
+  · dsimp [RealInterval2429.oneSubSqDiv, RealInterval2429.Mem]
+    linarith
+  · dsimp [RealInterval2429.oneSubSqDiv, RealInterval2429.Mem]
+    linarith
+
+noncomputable def RealInterval2429.bumpFromBoxes
+    (xBox radiusBox : RealInterval2429) : RealInterval2429 :=
+  (xBox.oneSubSqDiv radiusBox).expNegThirtyDiv
+
+theorem RealInterval2429.mem_bumpFromBoxes
+    {xBox radiusBox : RealInterval2429} {x radius : ℝ}
+    (hx : xBox.Mem x) (hr : radiusBox.Mem radius)
+    (hrlo : 0 < radiusBox.lo)
+    (hqlo : 0 < (xBox.oneSubSqDiv radiusBox).lo) :
+    (xBox.bumpFromBoxes radiusBox).Mem
+      (Real.exp (-30 / (1 - (x / radius) ^ 2))) := by
+  apply RealInterval2429.mem_expNegThirtyDiv hqlo
+  exact RealInterval2429.mem_oneSubSqDiv hx hr hrlo
+
 /-- A closed axis-aligned rectangle in `ℂ`, used only as the logical target of
 the directed interval evaluator.  The numerical construction of its endpoints
 is deliberately outside this file. -/

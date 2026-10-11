@@ -15,6 +15,9 @@ namespace ConnesWeilRH.Dev
 #print axioms RealInterval2429.mem_sub
 #print axioms RealInterval2429.mem_mul
 #print axioms RealInterval2429.mem_invPositive
+#print axioms RealInterval2429.endpointAbsMinOrZero_le_abs
+#print axioms RealInterval2429.mem_oneSubSqDiv
+#print axioms RealInterval2429.mem_bumpFromBoxes
 #print axioms RealInterval2429.mem_exp
 #print axioms RealInterval2429.mem_expNegThirtyDiv
 #print axioms RealInterval2429.abs_sub_chord_le_of_secondDeriv_bound
@@ -24,6 +27,29 @@ namespace ConnesWeilRH.Dev
 #print axioms RealInterval2429.mem_endpointHull_of_chord_error
 #print axioms RealInterval2429.mem_sinEndpointHull
 #print axioms RealInterval2429.mem_cosEndpointHull
+
+example : (RealInterval2429.oneSubSqDiv ⟨-3, 2⟩ ⟨4, 5⟩).Mem
+    (1 - ((-2 : ℝ) / 4) ^ 2) := by
+  apply RealInterval2429.mem_oneSubSqDiv <;>
+    norm_num [RealInterval2429.Mem]
+
+example : (RealInterval2429.oneSubSqDiv ⟨1, 3⟩ ⟨4, 5⟩).Mem
+    (1 - (2 / 4 : ℝ) ^ 2) := by
+  apply RealInterval2429.mem_oneSubSqDiv <;>
+    norm_num [RealInterval2429.Mem]
+
+example : (RealInterval2429.oneSubSqDiv ⟨-3, -1⟩ ⟨4, 5⟩).Mem
+    (1 - ((-2 : ℝ) / 4) ^ 2) := by
+  apply RealInterval2429.mem_oneSubSqDiv <;>
+    norm_num [RealInterval2429.Mem]
+
+example : (RealInterval2429.bumpFromBoxes ⟨-1, 1⟩ ⟨2, 21 / 10⟩).Mem
+    (Real.exp (-30 / (1 - ((-1 : ℝ) / 2) ^ 2))) := by
+  apply RealInterval2429.mem_bumpFromBoxes
+    (x := -1) (radius := 2) <;>
+    norm_num [RealInterval2429.Mem, RealInterval2429.bumpFromBoxes,
+      RealInterval2429.oneSubSqDiv, RealInterval2429.endpointAbsMax,
+      RealInterval2429.endpointAbsMinOrZero]
 
 example : (RealInterval2429.mul ⟨-3, -1⟩ ⟨2, 4⟩).Mem (-2 * 3) := by
   apply RealInterval2429.mem_mul <;> norm_num [RealInterval2429.Mem]
