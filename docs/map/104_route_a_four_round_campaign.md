@@ -5852,3 +5852,14 @@ norm bridge; MPFR operation soundness, radius literals, live-owner/
 `chargeRest` identity, and the signed infinite-xi tail remain open. Producer GO,
 SourceRH, and RH remain false. Evidence:
 docs/proofs/2671_interval_corner_norm_bridge.md.
+
+Formal bump bridge -> record 2672. `RealInterval2429.mem_invPositive`,
+`RealInterval2429.mem_exp`, and `RealInterval2429.mem_expNegThirtyDiv` prove
+the mathematical interval composition for the 2242 bump branch
+`exp(-30 / q)` when `q > 0`. The same module proves the exact-real
+trigonometric hull: `sin/cos` lie between their endpoint min/max values,
+expanded by `angle_width^2 / 8`, using the second-derivative bound. The source
+compiles and these declarations audit to the standard axiom trio. MPFR
+rounding, binary64 endpoint conversion, the full evaluator, live-owner
+`chargeRest` identity, signed infinite-xi tail, Producer GO, SourceRH, and RH
+remain open. Evidence: docs/proofs/2672_interval_bump_bridge.md.

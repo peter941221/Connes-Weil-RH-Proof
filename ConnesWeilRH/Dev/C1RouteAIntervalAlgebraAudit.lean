@@ -14,6 +14,16 @@ namespace ConnesWeilRH.Dev
 #print axioms RealInterval2429.mem_add
 #print axioms RealInterval2429.mem_sub
 #print axioms RealInterval2429.mem_mul
+#print axioms RealInterval2429.mem_invPositive
+#print axioms RealInterval2429.mem_exp
+#print axioms RealInterval2429.mem_expNegThirtyDiv
+#print axioms RealInterval2429.abs_sub_chord_le_of_secondDeriv_bound
+#print axioms RealInterval2429.abs_sub_chord_le_widthSq_eighth
+#print axioms RealInterval2429.sin_chord_error
+#print axioms RealInterval2429.cos_chord_error
+#print axioms RealInterval2429.mem_endpointHull_of_chord_error
+#print axioms RealInterval2429.mem_sinEndpointHull
+#print axioms RealInterval2429.mem_cosEndpointHull
 
 example : (RealInterval2429.mul ⟨-3, -1⟩ ⟨2, 4⟩).Mem (-2 * 3) := by
   apply RealInterval2429.mem_mul <;> norm_num [RealInterval2429.Mem]
