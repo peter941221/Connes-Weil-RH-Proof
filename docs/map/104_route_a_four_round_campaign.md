@@ -5814,3 +5814,28 @@ coefficient membership, and the signed infinite-xi tail remain open.
 The producer gate, SourceRH, and RH remain false.
 Evidence docs/proofs/2667_current_fullgrid_c3p_interface_audit.md and
 results/2667_current_fullgrid_audit.json.
+
+Repaired-owner point control -> record 2669. The 2338 midpoint-cast owner
+matches the 2665 treatment hashes; 5,047 distinct sample points across the
+four channels produce 20,188 high-precision containment checks with no
+failures. The same diagnostic found 10,023 cases where nearest-rounded
+`hypot` underestimates a box-corner norm, so proof-facing box magnitudes must
+use directed square/add/square-root arithmetic. This is a sampled control,
+not a continuum theorem. Evidence: docs/proofs/2669_repaired_owner_pointbox_control.md
+and results/2669_repaired_owner_pointbox_control.json.
+
+Radius audit: the global rounded support covers the exact maximum, but 24 of
+30 individual binary64 `width * width` radii are below their exact stored-width
+squares. The family edge slivers therefore remain an enclosure obligation.
+
+Direct continuous-box price -> record 2670. The 2242 interval hulls were
+priced over the corrected-profile support with MPFR upward rounding for each
+cell width, complex modulus, exponential weight, and accumulated sum. The
+512-cell price is above `knownError2109` (1.849x); 2,048 cells fall to 0.378x
+and 8,192 cells to 0.0899x, with `corr_D2` dominant. This shows numerical
+budget room for a direct cell-enclosure proof, avoiding a trapezoid remainder.
+The figures are rounded-radius design prices until the 24 family edge slivers
+are enclosed. It does not yet identify the computed integrals with live
+`chargeRest`, prove the evaluator in Lean, or close the signed infinite-xi
+tail. Producer GO, SourceRH, and RH remain false. Evidence: docs/proofs/2670_repaired_owner_continuous_box_price.md
+and results/2670_repaired_owner_continuous_box_price.json.
