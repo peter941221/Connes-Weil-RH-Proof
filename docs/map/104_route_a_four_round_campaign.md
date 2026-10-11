@@ -5791,3 +5791,15 @@ chain — the gate witness, prefix and source-zero obligations remain
 binding. No gate witness, no reopening, no RH claim. Artifact
 results/2666_gate_lambda_audit.json; evidence
 docs/proofs/2666_gate_lambda_audit.md.
+
+Off-diagonal wave 5 -> the degree-63 ladder subgroup closes, 6/6 GREEN
+((23,3), (24,3), (25,3), (26,3), (27,3), (28,3); record 2664 wave 5).
+Driver 48m36s, six sequential umbrella (heavy) + assembly (normal)
+cycles; all six recon verdicts frozen branch at banner 51923/10000 with
+the thinnest member (28,3) (survey margin 6.8242) passing at 63 without
+escalation; uniform non-psi footprint 115 fresh + 1741 replay = 1856
+axiom records, nonstandard=0, zero errors/sorryAx per entry; manifest 44
+entries all disk_verified (degrees 55 x22, 58 x7, 60 x8, 63 x6, 66 x1).
+The non-psi ladder subgroups are now ALL closed (58/60/63 + the 66
+outlier); remaining backlog: 825 degree-55 main-group members. Evidence
+docs/proofs/2664_wave5_six_degree63.md.
