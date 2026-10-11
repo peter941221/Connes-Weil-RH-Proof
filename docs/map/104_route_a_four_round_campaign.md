@@ -5662,3 +5662,38 @@ RH claim.  Next: the wave protocol over the 833 degree-55 entries
 (member (0,3) already landed) and the 23 ladder entries needing
 58/60/63/66/70-rung degrees (member (29,3) is wave-1), with per-wave
 byte re-verification and manifest refresh.
+
+Record 2664 wave 2 (degree-55 stress slice, eight non-psi entries): the
+rows 13-29 band of the bars-ladder lane is OPEN.  Entries (22,2), (15,3),
+(29,7), (21,2), (14,3), (28,7), (4,3), (16,3) all prove their
+entry{RRCC}Mem2663 membership at degree 55 (results/2664_assembly_*.json
+x8, results/2664_build_*.json x8, census 15/15 gates each; 16 builds, 0
+errors / 0 uses-sorry / 0 sorryAx; uniform footprint 1856 axiom records =
+115 fresh + 1741 replay, 965 oleans).  Three firsts: (4,3) (beta 7.777568,
+edge banner 4861/625) is the first GENERAL-branch entry in the bars-ladder
+(non-psi) lane; the wave opens the previously unbuilt rows 13-29; and the
+(16,3) thin-margin adjudication case (survey margin 1.1543 over box)
+resolves AT degree 55 (recon passes, certified margin ratio 33.9) -- no
+ladder rung.  Prep additions for a non-psi wave: the survey crossing check
+(psi_zero=False, first_pass_degree=55 for every planned entry, read before
+rendering) and the non-psi inverse gate (entryPhaseCancel2663 /
+entryImEqZero2663 must be ABSENT from the Assembly module); dry 950/950
+per entry.  Driver 02:02:35Z -> BATCH-DONE 03:00:55Z (58 min 20 s, 8 fresh
+entries; umbrella 340-391 s, assembly 32-38 s).  All eight carry the FIXED
+chain-renderer hash c3199d0c.. (no generator-hash lag this wave, contrast
+the psi=0 batch).  Manifest now 23 entries, all chain digests
+disk-verified.  Errata: (1) the psi=0 batch record's section-5 umbrella
+warning decomposition "3+76+1" misquoted its own artifacts -- the umbrella
+logs read 3+77+0 on every entry, and the single inherited Tiling:277
+style.show lives in the ASSEMBLY-stage log; (2) the build-evidence
+assembler's constant branch label "psi_zero" (correct for every prior
+all-psi=0 user) now derives from the recon payload; psi=0 payloads stay
+byte-frozen, the eight wave-2 payloads were re-assembled reading
+branch="bars_ladder".  Class accounting (correcting the psi=0-era "23
+ladder" phrasing): degree-55 class = 834 members (833 besides hand-written
+(0,3)), (0,3) + 8 done -> 825 remain; non-psi ladder = 22 (58: 7, 60: 8,
+63: 6, 66: 1), (29,3) done -> 21 remain; the ">70" bucket is exactly the
+14 psi=0 members (exact-zero route, no rung).  Disk: eight wave trees
+~7.8 GB against 239 GB free; between-wave deletion DEFERRED (no
+pressure).  Evidence: docs/proofs/2664_wave2_eight_entries.md.  No
+producer, SourceRH, or RH claim.
