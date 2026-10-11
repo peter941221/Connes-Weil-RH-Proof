@@ -5804,12 +5804,13 @@ The non-psi ladder subgroups are now ALL closed (58/60/63 + the 66
 outlier); remaining backlog: 825 degree-55 main-group members. Evidence
 docs/proofs/2664_wave5_six_degree63.md.
 
-Repaired-owner full-grid C3' interface audit -> record 2667. The current
-2422/2424 artifacts replay at 776611 nodes and 39 spans with all
-same-expression directed controls passing. The four assembled channel uppers
-sum to 146704.626104729, about 0.00196651 of knownError2109. This is a
-numerical interface audit only: mathematical pointwise dominance, Lean import,
-actual-owner identity, coefficient membership, and the signed infinite-xi tail
-remain open. The producer gate, SourceRH, and RH therefore remain false.
+Captured-owner full-grid interface audit -> record 2667. Erratum: the 2422
+worker loads 2303.load_owner(), which uses the 2275 captured coefficients;
+2665's repaired coefficients were not injected. The four captured-owner
+channel uppers sum to 146704.626104729, but that figure does not transfer to
+the repaired owner. A separate 2668 full-grid replay now injects the 2338
+repair. Mathematical pointwise dominance, Lean import, actual-owner identity,
+coefficient membership, and the signed infinite-xi tail remain open.
+The producer gate, SourceRH, and RH remain false.
 Evidence docs/proofs/2667_current_fullgrid_c3p_interface_audit.md and
 results/2667_current_fullgrid_audit.json.
