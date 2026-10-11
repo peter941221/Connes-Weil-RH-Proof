@@ -24,8 +24,10 @@ computed number is used as a proof upper bound.
 | max box-corner norm shortfall                  | 6.31e-12         |
 | nearest weighted input below box-corner target | 9945             |
 | nearest weighted input below sampled value    | 0                |
-| family radii rounded below exact width^2       | 24               |
-| rounded global support covers exact max         | yes              |
+| nearest family products below exact width^2     | 24               |
+| evaluator radii equal exact width^2             | 30 / 30           |
+| MPFR radius precision                           | 256 bits          |
+| outward global support covers exact max         | yes              |
 +-----------------------------------------------+------------------+
 ```
 
@@ -41,10 +43,12 @@ the rectangle norm using MPFR square, addition, and square root with upward
 rounding instead.
 
 There is a separate radius issue: 24 individual binary64 `width * width`
-values are below the exact square of their stored binary64 width. The maximum
-rounded radius still covers the exact maximum support radius, but that global
-fact does not cover each family on its own edge sliver. The sampled run therefore
-does not close the exact `storedWidth^2` owner transfer.
+values are below the exact square of their stored binary64 width. This control
+now loads each width exactly into 256-bit MPFR and squares it there. A binary64
+significand has at most 53 bits, so its square has at most 106 bits and is exact
+at this precision. The endpoint of the global partition is separately rounded
+outward. The sampled evaluator and reference therefore use the same exact
+`storedWidth^2` parameter, including each family edge.
 
 ## Nonclaims
 

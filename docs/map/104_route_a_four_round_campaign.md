@@ -5824,18 +5824,31 @@ use directed square/add/square-root arithmetic. This is a sampled control,
 not a continuum theorem. Evidence: docs/proofs/2669_repaired_owner_pointbox_control.md
 and results/2669_repaired_owner_pointbox_control.json.
 
-Radius audit: the global rounded support covers the exact maximum, but 24 of
-30 individual binary64 `width * width` radii are below their exact stored-width
-squares. The family edge slivers therefore remain an enclosure obligation.
+Radius audit: 24 of 30 ordinary binary64 `width * width` products round low.
+The 2669/2670 controls now load each stored width exactly into 256-bit MPFR and
+square it there (a 53-bit significand squares exactly within 106 bits); the
+global integration endpoint is separately rounded outward. This removes the
+family edge slivers from the numerical price. Lean still needs to prove the
+radius-literal bridge and evaluator soundness.
 
 Direct continuous-box price -> record 2670. The 2242 interval hulls were
 priced over the corrected-profile support with MPFR upward rounding for each
 cell width, complex modulus, exponential weight, and accumulated sum. The
-512-cell price is above `knownError2109` (1.849x); 2,048 cells fall to 0.378x
-and 8,192 cells to 0.0899x, with `corr_D2` dominant. This shows numerical
-budget room for a direct cell-enclosure proof, avoiding a trapezoid remainder.
-The figures are rounded-radius design prices until the 24 family edge slivers
-are enclosed. It does not yet identify the computed integrals with live
-`chargeRest`, prove the evaluator in Lean, or close the signed infinite-xi
-tail. Producer GO, SourceRH, and RH remain false. Evidence: docs/proofs/2670_repaired_owner_continuous_box_price.md
+2,048 cells price at 0.378x `knownError2109`; 8,192 cells price at 0.0899x,
+with `corr_D2` dominant. These reruns use exact MPFR `storedWidth^2` radii, so
+the earlier radius slivers are included. This shows numerical budget room for
+a direct cell-enclosure proof, avoiding a trapezoid remainder. It does not yet
+identify the computed integrals with live `chargeRest`, prove the evaluator in
+Lean, or close the signed infinite-xi tail. Producer GO, SourceRH, and RH remain
+false. Evidence: docs/proofs/2670_repaired_owner_continuous_box_price.md
 and results/2670_repaired_owner_continuous_box_price.json.
+
+Formal evaluator brick -> record 2671. `ComplexRect2427.normSq_le_cornerNormSq`
+and `ComplexRect2427.norm_le_cornerNorm` prove in Lean that every complex value
+inside an axis-aligned rectangle is bounded by the square/add/square-root
+corner norm used by the 2670 price. The source compiles in the Linux Mathlib
+v4.30 environment with the standard axiom trio. This closes only the rectangle
+norm bridge; MPFR operation soundness, radius literals, live-owner/
+`chargeRest` identity, and the signed infinite-xi tail remain open. Producer GO,
+SourceRH, and RH remain false. Evidence:
+docs/proofs/2671_interval_corner_norm_bridge.md.

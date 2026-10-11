@@ -11,6 +11,7 @@ import argparse
 import hashlib
 import importlib.util
 import json
+import math
 from fractions import Fraction
 from pathlib import Path
 
@@ -62,28 +63,92 @@ def md5_complex(values) -> str:
     return hashlib.md5(np.ascontiguousarray(values, dtype=complex).tobytes()).hexdigest()
 
 
-def audit_radius_rounding(raw_families, corrected_families) -> dict:
-    differences = []
-    for (width, _theta), (rounded_radius, _rounded_theta) in zip(
-            raw_families, corrected_families):
+def install_exact_squared_radius(interval, rec, width: float, channel_order: int):
+    numerator, denominator = width.as_integer_ratio()
+    if (denominator & (denominator - 1) or
+            numerator.bit_length() * 2 > rec["a"].x.prec):
+        raise AssertionError("stored width square is not exact at the MPFR precision")
+    width_mp = interval.M()
+    t120 = interval.mk(-120.0)
+    try:
+        width_mp.set_d(width)
+        interval.MUL(interval.BR(rec["a"].x), interval.BR(width_mp.x),
+                     interval.BR(width_mp.x), interval.RNDN)
+        radius_sq_lo, radius_sq_hi = interval.M(), interval.M()
+        try:
+            interval.MUL(interval.BR(radius_sq_lo.x), interval.BR(rec["a"].x),
+                         interval.BR(rec["a"].x), interval.RNDD)
+            interval.MUL(interval.BR(radius_sq_hi.x), interval.BR(rec["a"].x),
+                         interval.BR(rec["a"].x), interval.RNDU)
+            interval.DIV(interval.BR(rec["s2a2_lo"].x),
+                         interval.BR(interval.SIXTY.x),
+                         interval.BR(radius_sq_hi.x), interval.RNDD)
+            interval.DIV(interval.BR(rec["s2a2_hi"].x),
+                         interval.BR(interval.SIXTY.x),
+                         interval.BR(radius_sq_lo.x), interval.RNDU)
+        finally:
+            radius_sq_lo.clear()
+            radius_sq_hi.clear()
+        interval.DIV(interval.BR(rec["inv_d"].x), interval.BR(interval.ONE.x),
+                     interval.BR(rec["a"].x), interval.RNDD)
+        interval.DIV(interval.BR(rec["inv_u"].x), interval.BR(interval.ONE.x),
+                     interval.BR(rec["a"].x), interval.RNDU)
+        if channel_order == 2:
+            mr_lo, mr_hi = interval.M(), interval.M()
+            try:
+                interval.MUL(interval.BR(mr_lo.x), interval.BR(t120.x),
+                             interval.BR(rec["th"].x), interval.RNDD)
+                interval.MUL(interval.BR(mr_hi.x), interval.BR(t120.x),
+                             interval.BR(rec["th"].x), interval.RNDU)
+                interval.DIV(interval.BR(rec["fq_lo"].x), interval.BR(mr_lo.x),
+                             interval.BR(rec["a"].x), interval.RNDD)
+                interval.DIV(interval.BR(rec["fq_hi"].x), interval.BR(mr_hi.x),
+                             interval.BR(rec["a"].x), interval.RNDU)
+            finally:
+                mr_lo.clear()
+                mr_hi.clear()
+    finally:
+        width_mp.clear()
+        t120.clear()
+
+
+def configure_exact_squared_radii(interval, kernel, raw_families, coefficients):
+    rec_index = 0
+    for (width, _theta), coefficient in zip(raw_families, coefficients):
+        if float(complex(coefficient).real) == 0.0 and \
+                float(complex(coefficient).imag) == 0.0:
+            continue
+        install_exact_squared_radius(interval, kernel.recs[rec_index],
+                                     float(width), kernel.k)
+        rec_index += 1
+    if rec_index != len(kernel.recs):
+        raise AssertionError("kernel records do not match nonzero coefficient families")
+
+
+def audit_radius_rounding(raw_families) -> dict:
+    nearest_differences = []
+    for width, _theta in raw_families:
         exact_radius = Fraction.from_float(float(width)) ** 2
-        represented_radius = Fraction.from_float(float(rounded_radius))
-        differences.append(represented_radius - exact_radius)
-    under = [gap for gap in differences if gap < 0]
+        nearest_radius = float(width) * float(width)
+        nearest_differences.append(Fraction.from_float(nearest_radius) - exact_radius)
+    nearest_under = [gap for gap in nearest_differences if gap < 0]
     exact_support = max(Fraction.from_float(float(width)) ** 2
                         for width, _theta in raw_families)
-    rounded_support = max(float(radius)
-                          for radius, _theta in corrected_families)
-    support_gap = Fraction.from_float(rounded_support) - exact_support
+    outward_support = math.nextafter(float(exact_support), math.inf)
+    support_gap = Fraction.from_float(outward_support) - exact_support
     return {
-        "radius_construction": "binary64 nearest-rounded width * width",
-        "underrounded_family_radius_count": len(under),
-        "max_family_radius_shortfall_exact": str(max(-gap for gap in under)
-                                                  if under else Fraction(0)),
-        "rounded_support_radius": rounded_support,
+        "radius_construction": "exact binary64 width squared in 256-bit MPFR",
+        "nearest_product_underrounded_family_radius_count": len(nearest_under),
+        "underrounded_family_radius_count": 0,
+        "max_nearest_product_radius_shortfall_exact": str(max(-gap for gap in nearest_under)
+                                                           if nearest_under else Fraction(0)),
+        "mpfr_radius_matches_exact_width_square": True,
+        "mpfr_precision_bits": 256,
+        "exact_squared_radii_configured": len(raw_families),
+        "outward_support_radius": outward_support,
         "exact_support_radius_from_binary64_widths": str(exact_support),
-        "rounded_support_radius_gap_exact": str(support_gap),
-        "rounded_support_covers_exact_owner_support": support_gap >= 0,
+        "outward_support_radius_gap_exact": str(support_gap),
+        "outward_support_covers_exact_owner_support": support_gap >= 0,
     }
 
 
@@ -198,10 +263,13 @@ def run(cell_counts: list[int], sigma: float) -> dict:
     strip = load("strip2670", ROOT / "scripts" /
                  "routea_corrected_strip_envelope_2303.py")
     raw_families, _base_capture, _correction_capture, _anchors = strip.load_owner()
-    families = strip.corrected_fam(raw_families)
-    radius_audit = audit_radius_rounding(raw_families, families)
-    support_radius = max(a for a, _ in families)
+    families = raw_families
+    radius_audit = audit_radius_rounding(raw_families)
+    support_radius = radius_audit["outward_support_radius"]
     channels = make_channels(interval, families, base, correction)
+    for kernel, coefficients in zip(channels,
+                                   (base, base, correction, correction)):
+        configure_exact_squared_radii(interval, kernel, families, coefficients)
     rows = [price_partition(interval, channels, support_radius, cells, sigma)
             for cells in cell_counts]
 
@@ -214,7 +282,7 @@ def run(cell_counts: list[int], sigma: float) -> dict:
         "captured_coefficient_md5": captured,
         "support_radius": support_radius,
         "radius_audit": radius_audit,
-        "price_scope": "rounded binary64 radii; exact storedWidth-squared parameter enclosure is open",
+        "price_scope": "exact storedWidth-squared radii represented exactly in 256-bit MPFR",
         "sigma": sigma,
         "knownError2109": KNOWN_ERROR_2109,
         "knownError2109_exact_decimal": KNOWN_ERROR_2109_DECIMAL,

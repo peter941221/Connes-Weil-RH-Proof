@@ -16,48 +16,68 @@
   "owner_source": "2338 exact-interpolation coefficient-ball midpoints cast to binary64",
   "partitions": [
     {
-      "below_knownError2109": true,
+      "below_knownError2109": false,
       "budget": 74601530.30234718,
       "budget_exact_decimal": "74601530.30234718",
-      "budget_ratio": 0.378178419127894,
-      "cells": 2048,
-      "channel_box_evaluations": 8192,
+      "budget_ratio": 1.849171810916308,
+      "cells": 512,
+      "channel_box_evaluations": 2048,
       "channel_integral_upper": [
-        12.567619646512961,
-        32359.796716588808,
-        16299.281765809004,
-        28164017.148161292
+        53.024995086034096,
+        131578.29349602302,
+        79615.02045578965,
+        137739800.54737225
       ],
-      "max_cell_width_upper": 0.0064000000000010715,
-      "total_integral_upper": 28212688.794263337
+      "max_cell_width_upper": 0.025600000000000733,
+      "total_integral_upper": 137951046.88631916
     },
     {
       "below_knownError2109": true,
       "budget": 74601530.30234718,
       "budget_exact_decimal": "74601530.30234718",
-      "budget_ratio": 0.0898903870479224,
+      "budget_ratio": 0.3781784191278941,
+      "cells": 2048,
+      "channel_box_evaluations": 8192,
+      "channel_integral_upper": [
+        12.567619646512965,
+        32359.79671658881,
+        16299.281765809008,
+        28164017.1481613
+      ],
+      "max_cell_width_upper": 0.0064000000000010715,
+      "total_integral_upper": 28212688.794263344
+    },
+    {
+      "below_knownError2109": true,
+      "budget": 74601530.30234718,
+      "budget_exact_decimal": "74601530.30234718",
+      "budget_ratio": 0.08989038704792245,
       "cells": 8192,
       "channel_box_evaluations": 32768,
       "channel_integral_upper": [
         4.876877093733159,
-        13892.045979201905,
-        3884.533300400403,
-        6688178.977088603
+        13892.045979201906,
+        3884.533300400404,
+        6688178.977088607
       ],
       "max_cell_width_upper": 0.0016000000000016001,
-      "total_integral_upper": 6705960.433245299
+      "total_integral_upper": 6705960.433245303
     }
   ],
-  "price_scope": "rounded binary64 radii; exact storedWidth-squared parameter enclosure is open",
+  "price_scope": "exact storedWidth-squared radii represented exactly in 256-bit MPFR",
   "producer_go": false,
   "radius_audit": {
+    "exact_squared_radii_configured": 30,
     "exact_support_radius_from_binary64_widths": "2076918743413931858457251756481/316912650057057350374175801344",
-    "max_family_radius_shortfall_exact": "15875188686481/79228162514264337593543950336",
-    "radius_construction": "binary64 nearest-rounded width * width",
-    "rounded_support_covers_exact_owner_support": true,
-    "rounded_support_radius": 6.553600000000003,
-    "rounded_support_radius_gap_exact": "136909428672063/316912650057057350374175801344",
-    "underrounded_family_radius_count": 24
+    "max_nearest_product_radius_shortfall_exact": "15875188686481/79228162514264337593543950336",
+    "mpfr_precision_bits": 256,
+    "mpfr_radius_matches_exact_width_square": true,
+    "nearest_product_underrounded_family_radius_count": 24,
+    "outward_support_covers_exact_owner_support": true,
+    "outward_support_radius": 6.553600000000004,
+    "outward_support_radius_gap_exact": "418384405382719/316912650057057350374175801344",
+    "radius_construction": "exact binary64 width squared in 256-bit MPFR",
+    "underrounded_family_radius_count": 0
   },
   "record": 2670,
   "repaired_coefficient_md5": {
@@ -70,9 +90,9 @@
     "interval_evaluator": "539ed1b4238e9edd3583042132421f06ada4c3e723d86d9ced3ed1642dd90d07",
     "node_control": "c058f5f92d24ff001b3db9bb2f2431d603004a5fb9448a67b495fe933cb95b69",
     "repair_artifact": "7efde152db5e18c2d312cae16309172154044b443477bca75b9619b3070eb258",
-    "script": "3040dd8f898cc7fe714ff92aaa0ec90c50d43ff67da9eef032fe15021cddae98",
+    "script": "ee25def8d504b0c82b5dd6586b2a352ab82a32212d067c8bf49b76bd68bd0576",
     "strip_owner": "ed2b68b77acc84c0351131017e7605b45323ce1912dd13d70830f909d79dda3b"
   },
   "status": "CONTINUOUS_BOX_PRICE_PROBE_NOT_CERTIFICATE",
-  "support_radius": 6.553600000000003
+  "support_radius": 6.553600000000004
 }

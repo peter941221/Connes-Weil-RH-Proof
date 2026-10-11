@@ -9,6 +9,8 @@ namespace ConnesWeilRH.Dev
 #print axioms ComplexRect2427.mem_scale
 #print axioms ComplexRect2427.mem_sum
 #print axioms ComplexRect2427.mem_sumFinset
+#print axioms ComplexRect2427.normSq_le_cornerNormSq
+#print axioms ComplexRect2427.norm_le_cornerNorm
 #print axioms RealInterval2429.mem_add
 #print axioms RealInterval2429.mem_sub
 #print axioms RealInterval2429.mem_mul

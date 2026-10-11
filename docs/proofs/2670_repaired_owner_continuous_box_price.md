@@ -16,11 +16,13 @@ with hashes checked against the repaired treatment in 2665. The domain is the
 corrected-profile support `[-6.553600000000003, 6.553600000000003]`, and the
 weight parameter is `sigma = -0.5`.
 
-Scope warning: the evaluator receives binary64 nearest-rounded family radii.
-The global radius covers the largest exact support radius, but 24 individual
-family radii round below their exact `storedWidth^2` values. The prices below
-are therefore rounded-radius design prices until those thin family edge slivers
-are enclosed separately.
+Each family width is loaded as an exact binary64 operand and squared at 256-bit
+MPFR precision. Its 53-bit significand squares to at most 106 bits, so the
+radius stored in the interval evaluator is exactly `storedWidth^2`; all 30
+family radii are configured this way. The integration partition endpoint is
+rounded outward above the exact maximum support. This closes the numerical
+radius mismatch in the earlier 2670 run; the exact operation and interval
+soundness still need Lean proofs.
 
 ## Readback
 
@@ -48,10 +50,9 @@ itself.
 
 ## Remaining proof gates
 
-1. Prove once in Lean that the 2242 interval operations enclose the stated
-   continuous functions, including an outward enclosure for every exact
-   `storedWidth^2` radius (or a separate bound for each omitted edge sliver),
-   then replay the finite cell bounds and their sum.
+1. Prove once in Lean that the exact stored widths square to the evaluator's
+   radius literals and that the 2242 interval operations enclose the stated
+   continuous functions; then replay the finite cell bounds and their sum.
 2. Prove that these four repaired-owner integrals bound the exact `chargeRest`
    term for the owner used by the live producer, including coefficient-ball
    membership and owner identity.

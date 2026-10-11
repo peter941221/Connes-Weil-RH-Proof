@@ -1,5 +1,6 @@
 import Mathlib.Algebra.Order.BigOperators.Group.Finset
 import Mathlib.Algebra.Order.Group.Pointwise.Interval
+import Mathlib.Analysis.Complex.Norm
 import Mathlib.Data.Complex.BigOperators
 import Mathlib.Data.Real.Basic
 
@@ -249,5 +250,36 @@ theorem ComplexRect2427.mem_sumFinset {α : Type*} {term : α → ℂ}
   · simpa [ComplexRect2427.sumFinset] using
       (Finset.sum_le_sum (s := s)
         (fun i hi => (hterm i hi).2.2.2))
+
+/-! The natural interval evaluator prices a complex rectangle by taking the
+largest absolute endpoint in each coordinate, then applying square/add/sqrt.
+The following bridge is the logical soundness statement for that operation. -/
+
+def ComplexRect2427.cornerNormSq (r : ComplexRect2427) : ℝ :=
+  max |r.reLo| |r.reHi| ^ 2 + max |r.imLo| |r.imHi| ^ 2
+
+noncomputable def ComplexRect2427.cornerNorm (r : ComplexRect2427) : ℝ :=
+  Real.sqrt r.cornerNormSq
+
+theorem ComplexRect2427.normSq_le_cornerNormSq {z : ℂ}
+    {r : ComplexRect2427} (hz : r.Mem z) :
+    Complex.normSq z ≤ r.cornerNormSq := by
+  have hre : |z.re| ≤ max |r.reLo| |r.reHi| :=
+    abs_le_max_abs_abs hz.1 hz.2.1
+  have him : |z.im| ≤ max |r.imLo| |r.imHi| :=
+    abs_le_max_abs_abs hz.2.2.1 hz.2.2.2
+  have hre_sq : z.re ^ 2 ≤ (max |r.reLo| |r.reHi|) ^ 2 :=
+    sq_le_sq' (abs_le.mp hre).1 (abs_le.mp hre).2
+  have him_sq : z.im ^ 2 ≤ (max |r.imLo| |r.imHi|) ^ 2 :=
+    sq_le_sq' (abs_le.mp him).1 (abs_le.mp him).2
+  rw [Complex.normSq_apply, ComplexRect2427.cornerNormSq]
+  exact add_le_add (by simpa [pow_two] using hre_sq)
+    (by simpa [pow_two] using him_sq)
+
+theorem ComplexRect2427.norm_le_cornerNorm {z : ℂ}
+    {r : ComplexRect2427} (hz : r.Mem z) :
+    ‖z‖ ≤ r.cornerNorm := by
+  rw [Complex.norm_def, ComplexRect2427.cornerNorm]
+  exact Real.sqrt_le_sqrt (ComplexRect2427.normSq_le_cornerNormSq hz)
 
 end ConnesWeilRH.Dev
