@@ -1,0 +1,51 @@
+{
+  "record": 2665,
+  "leg": "l1_margin",
+  "status": "L1-MARGIN-SURVIVES-REPAIR",
+  "order_faithful_to_capture": {
+    "base": true,
+    "corr": true
+  },
+  "eps_cast": 9.081052295664025e-17,
+  "control": {
+    "q": -1675397327923.575,
+    "e_total": 1281535.3012791811,
+    "delta_q_cast": 0.0,
+    "margin_lo": 1675396046388.2737,
+    "margin_hi": 1675398609458.8762,
+    "gl_identity_ok": true,
+    "npts": 4001,
+    "base_md5": "d461872e14212dcba8efe1874de6f652",
+    "corr_md5": "c37e16a9dfeb4383c7bab1d23aa59566",
+    "q_plain": -1675397327885.4402,
+    "cancel_factor": 425.03096797790363
+  },
+  "control_q_drift_vs_committed": 0.0,
+  "treatment": {
+    "q": -1675397268663.944,
+    "e_total": 1281535.3009759188,
+    "delta_q_cast": 8.54194960134819,
+    "margin_lo": 1675395987120.101,
+    "margin_hi": 1675398550207.787,
+    "gl_identity_ok": true,
+    "npts": 4001,
+    "base_md5": "31be906860eab0d7ac6e1b7f2bd91790",
+    "corr_md5": "d769f6a5e34d372842fe93b2555f672b",
+    "q_plain": -1675397268626.0625,
+    "cancel_factor": 425.030982933114
+  },
+  "committed_q": -1675397327923.575,
+  "committed_margin_lo": 1675396046388.2737,
+  "charge_import": 1732278444.8676655,
+  "charge_uncond": 2126963424.526075,
+  "verdict_import": 1673663708675.2334,
+  "verdict_uncond": 1673269023695.575,
+  "timing_sec": 532.9876611232758,
+  "producer_go": false,
+  "rh_claim": false,
+  "provenance": {
+    "repair": "results/2338_exact_interpolation_repair.json",
+    "committed": "results/2249_l1_enclosure.json",
+    "rig": "scripts/routea_weighted_zero_l1_enclosure_2249.py"
+  }
+}

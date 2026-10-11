@@ -1,0 +1,35 @@
+{
+  "record": 2665,
+  "status": "WINDOW-MARGIN-SURVIVES-REPAIR",
+  "denom": 256,
+  "budget": 10000000.0,
+  "committed_2309_den256": 477248.9858117574,
+  "control_charge_hi": 477248.9858117574,
+  "control_drift_vs_committed": 0.0,
+  "eps_cast": 9.081052295664025e-17,
+  "treatment_charge_hi": 477248.98791684554,
+  "treatment_inflated": 477248.9879168456,
+  "treatment_vs_control": 4.410880279649909e-09,
+  "ratio_budget": 0.04772489879168456,
+  "margin": 9522751.012083154,
+  "monotone_screens": {
+    "rmax_base": 1.000000000013674,
+    "rmax_corr": 1.000762317948558,
+    "rmax": 1.000762317948558,
+    "rmax_squared": 1.001525217025771,
+    "hmargin_artifact_found": false
+  },
+  "timing_sec": 1882.7587220668793,
+  "producer_go": false,
+  "rh_claim": false,
+  "notes": [
+    "radii kept at the captured-owner 2302 object radii (over-cover)",
+    "verdict charge = treatment x (1 + eps_cast), certified homogeneity",
+    "C1 control reproduced the committed charge in the same process"
+  ],
+  "provenance": {
+    "repair": "results/2338_exact_interpolation_repair.json",
+    "committed": "results/2309_hgap_transform_certified.json",
+    "rig": "scripts/routea_hgap_transform_cert_2309.py"
+  }
+}

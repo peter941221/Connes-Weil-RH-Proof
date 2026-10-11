@@ -5738,3 +5738,26 @@ trio, 15/15 census gates, and 965-entry-olean census; the manifest now has
 the separately documented (0,3) lane. This closes the degree-60 subgroup
 only; the degree-55 remainder, partition sum, producer, SourceRH, and RH are
 still open. Evidence: docs/proofs/2664_wave4_eight_degree60.md.
+
+Margin re-measure -> record 2665: the first repair-owner uncertainty is now
+closed at measurement grade. All three certified Route-A margins survive the
+2338 exact-interpolation repair. Strip: 2340, 101/101 nodes fit the pin.
+Window: the 2309 rig at STEP_DENOM 256, control arm reproducing the
+committed 477248.9858117574 with drift exactly 0.0, treatment arm (repaired
+pair injected through the filon loader) reading 477248.98791684554 --
++4.41e-09 relative, 0.0477 of the 1e7 budget, margin 9522751.012, cast
+charged by the exact Fraction multiplier 9.08e-17. L1/hmargin: the 2249
+numeric chain re-executed verbatim with coefficients injected at the two
+solve sites; the rig's own solve is BITWISE the capture hex arrays (order
+faithfulness), control q drift 0.0, treatment q moves 3.54e-08 relative,
+margin ratio 0.9999999646, and after the 2109 known-error ledger both
+verdict channels keep +1.67e12. The monotone-inflation screen was rejected
+as invalid for the signed L1 value (re-measured instead), and the cast
+charge is the exact pointwise multiplicative difference against the ABSOLUTE
+kernel multiplier (a signed sum is not a bound; the first run's negative
+delta exposed it and was re-run). Status: M1-CLOSED-ALL-MARGINS-SURVIVE-
+REPAIR, measurement grade; artifacts results/2665_window_margin_repair.json
+and results/2665_l1_margin_repair.json; evidence
+docs/proofs/2665_m1_margin_repair_remeasure.md. Still open: the explicit
+Lean transfer (2340), producer composition, gate lambda, M2 grind, SourceRH,
+RH.
