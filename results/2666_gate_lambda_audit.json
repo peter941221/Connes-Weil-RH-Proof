@@ -1,0 +1,46 @@
+{
+  "record": 2666,
+  "title": "gate-lambda determination probe (audit grade)",
+  "consumer": "record 2354 scalar acceptance lanes; the same-owner four-point span tail budget shares this lambda",
+  "instrument": "committed 1918/1945 certified-class lambda values; no rig re-run, no Gram re-evaluation, no reopening",
+  "class": {
+    "cases": 18,
+    "vertex_Q_negative": 18,
+    "lambda_min": 40018.85139273456,
+    "lambda_median": 117797.11972407822,
+    "lambda_max": 195695.13149589527,
+    "K_min": 17.145421691571688,
+    "K_max": 24.03725625109136,
+    "lambda_over_halfK4_min": 0.9244278004092346,
+    "lambda_over_halfK4_median": 1.0491463191798975,
+    "lambda_over_halfK4_max": 1.1734885287841212
+  },
+  "lanes": [
+    {
+      "lane": "n=2",
+      "threshold": 256.0,
+      "min_lambda": 40018.85139273456,
+      "separation_factor": 156.3236382528694,
+      "verdict": "SEPARATED"
+    },
+    {
+      "lane": "n=3",
+      "threshold": 1e-13,
+      "min_lambda": 40018.85139273456,
+      "separation_factor": 4.001885139273456e+17,
+      "verdict": "SEPARATED"
+    }
+  ],
+  "repair_drift_envelope": {
+    "rmax_base_2665": 1.000000000013674,
+    "rmax_corr_2665": 1.000762317948558,
+    "statement": "lambda = Bs/(2C) is a degree-2/degree-2 rational function of the selected-function coefficients.  First-order drift under the 2338 repair is bounded by (condition constant) x per-coefficient envelope; the Gram-ratio condition constant is the named residual.  An exact check is the two-entry (Bs, C) re-run at the repaired pair, deliberately NOT executed here (frozen-family hazard, AGENTS 2ay)."
+  },
+  "verdict": "GATE-LAMBDA-SEPARATED-FROM-LANES (audit grade)",
+  "nonclaims": [
+    "no gate witness at the repaired owner (the signed physical-kernel gate remains the open producer bottleneck)",
+    "no repaired-owner Gram re-run and no annihilation-identity reuse beyond reading the committed lambda values",
+    "no lane acceptance: SEPARATED is a necessary-condition audit, not a tail pass (record 2354 ratios stay conditional)",
+    "record 2354 status 'actual gate lambda remains unproved' stands; this probe quantifies the separation"
+  ]
+}

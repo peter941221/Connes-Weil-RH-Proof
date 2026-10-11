@@ -5761,3 +5761,33 @@ and results/2665_l1_margin_repair.json; evidence
 docs/proofs/2665_m1_margin_repair_remeasure.md. Still open: the explicit
 Lean transfer (2340), producer composition, gate lambda, M2 grind, SourceRH,
 RH.
+
+Erratum (same day, record 2665): the "explicit Lean transfer (2340)" item
+was mis-scoped in the paragraph above — the grid-to-strip transfer shape is
+already committed (2312 C1RouteAStripTransfer.lean: exponential transfer +
+min-product transfer + grid consumer; 2313 C1RouteAGridSampling.lean: floor
+sampling + concrete 101-node consumer; 2314 C1RouteAOwnerSupport.lean:
+owner support at the pin). The 2340 grid max 706456.176 fits the 2313 node
+bound with 3.74x margin. The remaining A4 bricks are the 101-node
+min-product certificates on the actual owner (membership brick) and the
+owner identification of the producer wiring's b/c with correctedPhysical
+(2am). See the erratum section of docs/proofs/2665_m1_margin_repair_remeasure.md.
+
+Gate-lambda determination probe -> record 2666. The actual lambda of the
+committed four-point span construction (the quadratic vertex
+lam_vertex = Bs/(2C) of the gate form, committed per case in the 1918/1945
+artifacts) sits in [4.0019e4, 1.9570e5] over the 18 certified cases and
+therefore clears BOTH record-2354 scalar acceptance lanes: n=2 (lambda >=
+256) by >= 156.32x, n=3 (lambda >= 1e-13) by >= 4.0e17x. Structurally
+lambda tracks 0.5 K^4 (K = 3 + |rho|; ratio 0.92-1.17 across the class), a
+K-geometry scale rather than a coefficient scale. Repair-drift envelope:
+first-order lambda drift under the 2338 repair is bounded by (Gram-ratio
+condition constant) x (1.4e-11 base / 7.6e-4 correction, record 2665);
+the condition constant is the named residual, and the exact two-entry
+(Bs, C) re-run at the repaired pair is deliberately NOT executed (2ay
+frozen-family hazard). Status: GATE-LAMBDA-SEPARATED-FROM-LANES, audit
+grade; the lambda condition is not the binding constraint of the 2354
+chain — the gate witness, prefix and source-zero obligations remain
+binding. No gate witness, no reopening, no RH claim. Artifact
+results/2666_gate_lambda_audit.json; evidence
+docs/proofs/2666_gate_lambda_audit.md.

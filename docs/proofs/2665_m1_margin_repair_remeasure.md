@@ -121,3 +121,34 @@ Measurement grade only. Not discharged by this record: the explicit Lean
 transfer of 2340 (A4 inventory), the producer composition, gate lambda,
 detector health at the repaired owner beyond these margins, producer GO,
 SourceRH, RH.
+
+## Erratum (same day): the A4 "first brick" already exists
+
+The next-steps list of this record proposed writing the 2340 grid-to-strip
+transfer into Lean as the first A4 brick. Starting that brick surfaced that
+it was already committed, in three records:
+
++----------------------------------------------------------------------+
+| brick                                   | record | module             |
++-----------------------------------------+--------+--------------------+
+| exponential transfer law + grid         | 2312   | C1RouteAStrip-     |
+| consumer (min-product transfer)         |        | Transfer.lean      |
+| floor sampling + concrete 101-node      | 2313   | C1RouteAGrid-      |
+| node consumer                           |        | Sampling.lean      |
+| owner support at the pin                | 2314   | C1RouteAOwner-     |
+| (tsupport correctedPhysical subset      |        | Support.lean       |
+| [-stripRadius2303, stripRadius2303])    |        |                    |
++----------------------------------------------------------------------+
+
+The 2340 grid max 706456.176 fits the 2313 consumer's node bound
+`stripGridMax2303 = 2644542.8515` with 3.74x margin, so the measured side
+is compatible with the committed consumer shape. The remaining A4 bricks
+are NOT the transfer shape; they are (i) the 101-node min-product
+certificates on the actual owner (the membership brick: consumes the
+2560-2571 correction-second pricing, the 2455-2459 quadrature import and
+the 2514-2523 remainder gate), and (ii) the owner identification of the
+producer wiring's b/c with the correctedPhysical model (AGENTS 2am). A
+draft module written against the mis-scoped reading
+(`C1RouteAGridTransport2666.lean`) was deleted before any build; it was
+strictly dominated by the 2312/2313 theorems (weaker hypotheses shape,
+no new content).
