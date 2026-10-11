@@ -5618,3 +5618,47 @@ docs/proofs/2664_entry_00_04_membership_psi0.md.  No producer, SourceRH,
 or RH claim.  Next: the remaining 12 psi=0 entries ((1,0), (1,4),
 (2,3), (3,2), (4,0), (4,1), (5,6), (5,7), (6,5), (6,7), (7,5), (7,6)),
 then the 833 + 23 wave protocol.
+
+Record 2664 (psi=0 batch, twelve entries): the psi=0 BRANCH IS CLOSED --
+all 14 survey-class psi_zero entries certified.  The batch driver
+(_probe/batch_psi0_build_2664.sh, resumable, fail-fast) first certified
+six entries in a row and then stopped at (5,6): stage1 571 error lines,
+STAGE-FAIL, BATCH-STOP (driver-attested log preserved as
+_probe/batch_psi0_first_attempt_5_6_umbrella_fail.log; the underlying
+umbrella log was overwritten by the green relaunch of the same path,
+recorded explicitly).  Root cause: the CHAIN renderer
+(scripts/gen_2664_entry.py) built its node literals through the canonical
+`((n : Real) / d)` spelling, but the capture spells integer-valued node
+components BARE (`capturedNodes2584` rows 5/6/7 = <((1 : Real) / 2),
+(0 : Real)>, <(1 : Real), (0 : Real)>, <((3 : Real) / 2), (0 : Real)>),
+so all ~190 trueball kernel-rfl pins died ("Not a definitional equality"
+at the theorem line, "Type mismatch" at the rfl line).  Rows 0-4 were
+provably unaffected (canonical spelling == capture spelling slot by slot,
+asserted against the capture BEFORE any re-render); rows 5/6/7 diverge in
+exactly four slots (5.im, 6.re, 6.im, 7.im).  Fix: node_elements()
+verbatim <re, im> extraction with rational_spelling_value wire ties to
+nodes_hex; only the six affected trees re-emitted.  Differential gate:
+(1,0) and (2,3) dry 950/950 byte-stable + umbrella stable; (5,6) dry
+760/950 with the drifted set exactly the 190 C1RouteAPanelTrueBall*
+modules; post-emit dry 950/950 on each re-emitted tree.  Scratch
+negative/positive control (deleted after the run): canonical pin module
+exit 1 / 6 errors with the batch's exact signature vs verbatim twin exit
+0 / footer green (logs _probe/repro_2664_node_spell_bad.log / _good.log).
+Relaunch: 6 entries in 33 min 29 s; the resumed (5,6) umbrella needed
+98 s (the 760 node-independent family modules replay from cache; ~290 s
+fresh).  All 12 entries: 4691-job umbrella + 4886-job assembly, 0 errors
+/ 0 uses-sorry / 0 sorryAx, 965/965 entry oleans, 1739 umbrella + 1858
+assembly axiom records on the exact trio, 15/15 census gates each;
+(6,7) (beta 5.3824) and (7,6) (beta 6.0) build the edge-GENERAL branch.
+Manifest now 15 entries, all chain digests disk-verified (deferral
+resolved); chain digests and per-entry walls in the record's evidence
+table; the six first-attempt payloads carry the pre-fix generator hash
+74f16f8e.. while byte-verified identical under the fixed generator
+(c3199d0c..) -- the recorded generator-hash lag.  Evidence:
+results/2664_assembly_{R}_{C}.json, results/2664_build_{R}_{C}.json (12
+each), results/2664_offdiag_manifest.json,
+docs/proofs/2664_psi0_batch_twelve_entries.md.  No producer, SourceRH, or
+RH claim.  Next: the wave protocol over the 833 degree-55 entries
+(member (0,3) already landed) and the 23 ladder entries needing
+58/60/63/66/70-rung degrees (member (29,3) is wave-1), with per-wave
+byte re-verification and manifest refresh.

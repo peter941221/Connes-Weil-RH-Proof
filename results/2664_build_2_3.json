@@ -1,0 +1,66 @@
+{
+ "record": 2664,
+ "entry": [
+  2,
+  3
+ ],
+ "branch": "psi_zero",
+ "degree": 55,
+ "purpose": "end-to-end build evidence for the record-2664 psi=0 off-diagonal entry: the chain was emitted by the shared renderers plus the psi=0 insert path, byte-gated, synced with a full two-sided md5 comparison, built as one umbrella stage, then the assembly stage (batch driver, first attempt); this artifact binds the build verdicts to the module set",
+ "smoke": {
+  "targets": [],
+  "note": "no separate pre-build smoke was run for this entry (the psi=0 batch convention, recorded explicitly). Pre-build controls: the batch prep run (_probe/batch_psi0_prep_2664.py: per-entry emit/dry/recon/asm/hygiene, including the verbatim-spelling gates; logs on disk) and the generator byte-stability gate (_probe/gate_verbatim_spell_2664.py: 15/15 modules byte-identical on ten landed lanes, both recorded digests reproduced); this entry's first compile is the umbrella stage.",
+  "targets_note": "empty targets list means no smoke build was run; the umbrella stage in this artifact is the first compile of this tree"
+ },
+ "umbrella": {
+  "target": "ConnesWeilRH.Dev.C1RouteAOffDiagEntry2664E02_03",
+  "class": "heavy",
+  "jobs": 4691,
+  "exit": 0,
+  "start_utc": "2026-10-11T00:13:42Z",
+  "end_utc": "2026-10-11T00:18:33Z",
+  "wall_seconds": 291,
+  "footer_build_completed": 1,
+  "error_lines": 0,
+  "uses_sorry": 0,
+  "sorryAx": 0,
+  "entry_oleans": 965,
+  "umbrella_olean": true,
+  "axiom_records": 1739,
+  "axiom_nonstandard": 0,
+  "warning_lines": 80,
+  "warning_lines_entry_path": 0,
+  "warning_breakdown": "3 Lake package local-changes notices plus 77 pre-existing ConnesWeilRH/Source warnings and 0 entry-path warnings (closure totals per the cached-replay law; the fresh 15-module decomposition is in the assembly artifact)",
+  "log": "WSL resource-runner log entry2664_umbrella_2_3.log (heavy class); acceptance read from the whole log"
+ },
+ "assembly_stage": {
+  "target": "ConnesWeilRH.Dev.OffDiagE02_03.C1RouteAEntryAssembly2663",
+  "class": "normal",
+  "jobs": 4886,
+  "exit": 0,
+  "start_utc": "2026-10-11T00:18:33Z",
+  "end_utc": "2026-10-11T00:19:01Z",
+  "wall_seconds": 28,
+  "footer_build_completed": 1,
+  "error_lines": 0,
+  "uses_sorry": 0,
+  "sorryAx": 0,
+  "entry_oleans": 965,
+  "log": "WSL resource-runner log entry2664_asm_build_2_3.log; the full gated census lives in results/2664_assembly_2_3.json"
+ },
+ "sizes_bytes": {
+  "chain_sources": 86276143,
+  "chain_sources_note": "965 .lean files under the entry directory (950 chain + 15 assembly-half modules)",
+  "chain_oleans": 657728692,
+  "chain_oleans_note": "965 .olean files under .lake/build/lib/lean/.../OffDiagE02_03"
+ },
+ "byte_binding": {
+  "manifest": "results/2664_offdiag_manifest.json",
+  "assembly_artifact": "results/2664_assembly_2_3.json",
+  "note": "the per-entry payload results/2664_entry_2_3.json (untracked, regenerable) carries modules_sha256 for all 951 chain modules; the manifest holds the canonical chain digest verified against the on-disk modules and refreshes with the psi=0 wave (its strict extras check refuses while sibling wave trees await their assembly payloads by design); the assembly artifact holds the 15-module canonical digest"
+ },
+ "lean_built": true,
+ "membership_claimed": false,
+ "producer_go": false,
+ "rh_claim": false
+}

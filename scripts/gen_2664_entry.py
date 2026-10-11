@@ -90,6 +90,51 @@ def vector_elements(text, name):
     return elems
 
 
+def node_elements(text):
+    """Per-row `⟨re, im⟩` component spellings of `capturedNodes2584`,
+    VERBATIM from the capture source.
+
+    The trueball template's node sites are kernel-rfl pins against these
+    literals, and the capture spells integer-valued components bare
+    (`(0 : ℝ)`, `(1 : ℝ)`) — the canonical double-wrapped division spelling
+    `((n : ℝ) / 1)` is NOT present in the source and not defeq to it, so the
+    renderer must substitute the source's own spelling (verbatim-spelling
+    law; the rows 5/6/7 psi=0 lanes refused at the rfl pin otherwise)."""
+    m = re.search(r"def capturedNodes2584 : Fin 30 → ℂ :=\s*\n\s*!\[(.*?)\]"
+                  r"\s*\n", text, re.S)
+    assert m, "capturedNodes2584"
+    body = m.group(1)
+    rows, depth, cur = [], 0, ""
+    for ch in body:
+        if ch == "⟨":
+            depth += 1
+        elif ch == "⟩":
+            depth -= 1
+        if ch == "," and depth == 0:
+            rows.append(cur.strip())
+            cur = ""
+        else:
+            cur += ch
+    rows.append(cur.strip())
+    assert len(rows) == 30, len(rows)
+    out = []
+    for r in rows:
+        assert r.startswith("⟨") and r.endswith("⟩"), r
+        inner = r[1:-1]
+        d = 0
+        for i, ch in enumerate(inner):
+            if ch == "(":
+                d += 1
+            elif ch == ")":
+                d -= 1
+            elif ch == "," and d == 0:
+                out.append((inner[:i].strip(), inner[i + 1:].strip()))
+                break
+        else:
+            raise AssertionError(f"no component comma in {r}")
+    return out
+
+
 def rational_spelling_value(t):
     """Exact Fraction of a capture-module element spelling:
     `((num : ℝ) / den)` or `(num : ℝ)`."""
@@ -152,8 +197,16 @@ def render_entry(row, col, degree):
     prefix = f"ConnesWeilRH.Dev.OffDiagE{row:02d}_{col:02d}"
     outdir = ROOT / "ConnesWeilRH" / "Dev" / f"OffDiagE{row:02d}_{col:02d}"
 
-    node_re = F(float.fromhex(capture["nodes_hex"][row][0]))
-    node_im = F(float.fromhex(capture["nodes_hex"][row][1]))
+    # verbatim node-component spellings (kernel-rfl pins; see node_elements),
+    # wire-tied to the pricing capture hex floats
+    cap_src = (ROOT / "ConnesWeilRH/Dev/"
+               "C1RouteACorrectionCaptureParameters2584.lean").read_text(
+        encoding="utf-8")
+    node_re_lit, node_im_lit = node_elements(cap_src)[row]
+    assert rational_spelling_value(node_re_lit) == F(
+        float.fromhex(capture["nodes_hex"][row][0])), node_re_lit
+    assert rational_spelling_value(node_im_lit) == F(
+        float.fromhex(capture["nodes_hex"][row][1])), node_im_lit
 
     files = {}
     reports = {"tables": [], "analytic": [], "amp": [], "phase": [],
@@ -186,19 +239,21 @@ def render_entry(row, col, degree):
         files[f"C1RouteAPhasePin2658P{tag}.lean"] = src
         reports["phase"].append(rep)
 
-    return params, prefix, outdir, files, reports, vacuous, node_re, node_im, \
-        cslots
+    return params, prefix, outdir, files, reports, vacuous, node_re_lit, \
+        node_im_lit, cslots
 
 
 def render_trueball(outdir, row, col, prefix, files, reports,
-                    node_re, node_im, cslots):
+                    node_re_lit, node_im_lit, cslots):
     """Second stage: the trueball renderer reads the four family modules
     from the entry directory, so the first four families must be on disk
-    (or staged) before this stage runs."""
+    (or staged) before this stage runs.  The node literals are the capture's
+    own verbatim spellings (see node_elements) — the substituted sites are
+    kernel-rfl pins."""
     for k in range(190):
         tag = f"{k:03d}"
         ctx = {"row": row, "col": col, "prefix": prefix, "dev": str(outdir),
-               "node_re_lit": spell(node_re), "node_im_lit": spell(node_im),
+               "node_re_lit": node_re_lit, "node_im_lit": node_im_lit,
                "modules": entry_modules(tag)}
         ctx.update(cslots)
         src, _ = TP.render(k, entry=ctx)
