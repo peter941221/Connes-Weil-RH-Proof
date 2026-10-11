@@ -1,0 +1,238 @@
+{
+ "assembly_built": true,
+ "assembly_sha256": "974f70aa94e784973de0117eb4bc54adeddb64880142a49377f89c387f9ac62b",
+ "branch": "phase_carrying",
+ "build": {
+  "axiom_nonstandard": 0,
+  "axiom_records": 1856,
+  "chain_replay_records": 1741,
+  "entry_dir_oleans": 965,
+  "entry_path_warning_lines": 1,
+  "entry_path_warnings": [
+   "warning: ConnesWeilRH/Dev/OffDiagE28_02/C1RouteAEntryTiling2663.lean:277:4: The `show` tactic should only be used to indicate intermediate goal states for readability."
+  ],
+  "error_lines": 0,
+  "footer_build_completed": 1,
+  "fresh_print_sites": {
+   "C1RouteAEntryAssembly2663.lean": 20,
+   "C1RouteAEntryBars2663.lean": 5,
+   "C1RouteAEntryPanel2663B00.lean": 5,
+   "C1RouteAEntryPanel2663B01.lean": 5,
+   "C1RouteAEntryPanel2663B02.lean": 5,
+   "C1RouteAEntryPanel2663B03.lean": 5,
+   "C1RouteAEntryPanel2663B04.lean": 5,
+   "C1RouteAEntryPanel2663B05.lean": 5,
+   "C1RouteAEntryPanel2663B06.lean": 5,
+   "C1RouteAEntryPanel2663B07.lean": 5,
+   "C1RouteAEntryPanel2663B08.lean": 5,
+   "C1RouteAEntryPanel2663B09.lean": 5,
+   "C1RouteAEntryPanels2663.lean": 5,
+   "C1RouteAEntryRect2663.lean": 12,
+   "C1RouteAEntryTiling2663.lean": 23
+  },
+  "fresh_records": {
+   "C1RouteAEntryAssembly2663.lean": 20,
+   "C1RouteAEntryBars2663.lean": 5,
+   "C1RouteAEntryPanel2663B00.lean": 5,
+   "C1RouteAEntryPanel2663B01.lean": 5,
+   "C1RouteAEntryPanel2663B02.lean": 5,
+   "C1RouteAEntryPanel2663B03.lean": 5,
+   "C1RouteAEntryPanel2663B04.lean": 5,
+   "C1RouteAEntryPanel2663B05.lean": 5,
+   "C1RouteAEntryPanel2663B06.lean": 5,
+   "C1RouteAEntryPanel2663B07.lean": 5,
+   "C1RouteAEntryPanel2663B08.lean": 5,
+   "C1RouteAEntryPanel2663B09.lean": 5,
+   "C1RouteAEntryPanels2663.lean": 5,
+   "C1RouteAEntryRect2663.lean": 12,
+   "C1RouteAEntryTiling2663.lean": 23
+  },
+  "log": "WSL resource-runner log entry2664_asm_build_28_2.log (acceptance read from the whole log)",
+  "new_module_oleans": 15,
+  "replay_cross_build": {
+   "asm_only_files": [
+    "Dev/C1RouteAAdaptiveN05440Minus2542.lean",
+    "Dev/OffDiagE28_02/C1RouteAEntryAssembly2663.lean",
+    "Dev/OffDiagE28_02/C1RouteAEntryBars2663.lean",
+    "Dev/OffDiagE28_02/C1RouteAEntryPanel2663B00.lean",
+    "Dev/OffDiagE28_02/C1RouteAEntryPanel2663B01.lean",
+    "Dev/OffDiagE28_02/C1RouteAEntryPanel2663B02.lean",
+    "Dev/OffDiagE28_02/C1RouteAEntryPanel2663B03.lean",
+    "Dev/OffDiagE28_02/C1RouteAEntryPanel2663B04.lean",
+    "Dev/OffDiagE28_02/C1RouteAEntryPanel2663B05.lean",
+    "Dev/OffDiagE28_02/C1RouteAEntryPanel2663B06.lean",
+    "Dev/OffDiagE28_02/C1RouteAEntryPanel2663B07.lean",
+    "Dev/OffDiagE28_02/C1RouteAEntryPanel2663B08.lean",
+    "Dev/OffDiagE28_02/C1RouteAEntryPanel2663B09.lean",
+    "Dev/OffDiagE28_02/C1RouteAEntryPanels2663.lean",
+    "Dev/OffDiagE28_02/C1RouteAEntryRect2663.lean",
+    "Dev/OffDiagE28_02/C1RouteAEntryTiling2663.lean"
+   ],
+   "asm_records": 1856,
+   "note": "the asm log replays the cached closure's stored diagnostics; the asm-only set is the 15 fresh modules plus the one closure addition (the adaptive-node 2542 module, pulled by the assembly imports); the stage-1 umbrella log is untracked on-disk evidence",
+   "present": true,
+   "shared_files": 195,
+   "shared_per_file_identical": true,
+   "umbrella_log": "entry2664_umbrella_28_2.log",
+   "umbrella_only_files": [],
+   "umbrella_records": 1739
+  },
+  "sorryAx": 0,
+  "target": "ConnesWeilRH.Dev.OffDiagE28_02.C1RouteAEntryAssembly2663",
+  "umbrella_olean": true,
+  "uses_sorry": 0
+ },
+ "degree": 60,
+ "digest_convention": "sha256 over the canonical JSON of the modules_sha256 map: json.dumps(map, sort_keys=True, separators=(\",\", \":\")).encode(\"utf-8\")",
+ "edge_branch": "frozen",
+ "entry": [
+  28,
+  2
+ ],
+ "gates": {
+  "axioms_exact_trio": true,
+  "entry_olean_total_965": true,
+  "entry_warnings_only_known_show": true,
+  "footer_ok": true,
+  "fresh_print_counts_match": true,
+  "member_record_trio": true,
+  "membership_shape": true,
+  "new_module_oleans_15": true,
+  "replay_asm_only_expected": true,
+  "replay_shared_per_file_identical": true,
+  "replay_umbrella_only_empty": true,
+  "two_sided_byte_equal": true,
+  "zero_errors": true,
+  "zero_sorryAx": true,
+  "zero_uses_sorry": true
+ },
+ "membership_theorem": "entry2802Mem2663 : (analyticMomentInterval2597 28 2).Mem (ownerMomentMatrix2351 capturedModulations2584 capturedNodes2584 28 2)",
+ "modules": [
+  {
+   "bytes": 21081,
+   "name": "C1RouteAEntryTiling2663.lean",
+   "sha256": "28c4819538c221e8c44b7cec4216922d41964ed819590877ff48dfa16a8a622e"
+  },
+  {
+   "bytes": 217895,
+   "name": "C1RouteAEntryBars2663.lean",
+   "sha256": "689b4475b7d3aff65cf0757f37f1a444d84c5909605bdd717ce962a0121a4c2c"
+  },
+  {
+   "bytes": 9290,
+   "name": "C1RouteAEntryRect2663.lean",
+   "sha256": "7e1c3d28a77d8135bee42171b99d6c24bef21458bb1c12f94cbe80ad21816d39"
+  },
+  {
+   "bytes": 50530,
+   "name": "C1RouteAEntryPanel2663B00.lean",
+   "sha256": "55275e70ab8db9720103789077dff62a152be8298bd600b81912f2687346cbae"
+  },
+  {
+   "bytes": 50570,
+   "name": "C1RouteAEntryPanel2663B01.lean",
+   "sha256": "1490112bea4aa6decf3d1f6322c71d08a7aa371b15478a15a1fe4c794fbdcb44"
+  },
+  {
+   "bytes": 50570,
+   "name": "C1RouteAEntryPanel2663B02.lean",
+   "sha256": "5beda3d27c36b973c6a0058bf592854bafe70a5e956abac8acbad27cb0e74a47"
+  },
+  {
+   "bytes": 50570,
+   "name": "C1RouteAEntryPanel2663B03.lean",
+   "sha256": "a6166235ac83fcbba985f431f9e70ad9ef8a0f23332d01b3b6f56979b7bcba13"
+  },
+  {
+   "bytes": 50570,
+   "name": "C1RouteAEntryPanel2663B04.lean",
+   "sha256": "ae5ad090fbfa2179dab459d1ca4e44e519a200b2bef32055af6c3c4b206d7372"
+  },
+  {
+   "bytes": 50626,
+   "name": "C1RouteAEntryPanel2663B05.lean",
+   "sha256": "d1d1b90c3a0726514b128e9a7fbacc2077e3be4166c7ffb88f29b9ea7e044ede"
+  },
+  {
+   "bytes": 50646,
+   "name": "C1RouteAEntryPanel2663B06.lean",
+   "sha256": "e862c4c9174513f63f01f6400c9c89025e4490503a316d4317f4ea2dbfd3646b"
+  },
+  {
+   "bytes": 50646,
+   "name": "C1RouteAEntryPanel2663B07.lean",
+   "sha256": "d9332924503f79cf7f38d573991d315256e4dbf1e4d9d5ee9fe3cd42ca5b92b0"
+  },
+  {
+   "bytes": 50646,
+   "name": "C1RouteAEntryPanel2663B08.lean",
+   "sha256": "1393575378771f72efcedd69c83f5419318e5a2d4d950123976ea24f158c6cb5"
+  },
+  {
+   "bytes": 50646,
+   "name": "C1RouteAEntryPanel2663B09.lean",
+   "sha256": "897a9759862182de5bcf5f7d1e52c27d756a397a7892e354b2e3fe251089ac23"
+  },
+  {
+   "bytes": 185549,
+   "name": "C1RouteAEntryPanels2663.lean",
+   "sha256": "d474b0ee2499aca94328a9258efa8229776aabef1c52d3274430159c637955a6"
+  },
+  {
+   "bytes": 30176,
+   "name": "C1RouteAEntryAssembly2663.lean",
+   "sha256": "9b548a53eacfe1c6abba4ed070ab236a5dfd59f9558051db4994d6f6f185d3bc"
+  }
+ ],
+ "modules_sha256": {
+  "C1RouteAEntryAssembly2663.lean": "9b548a53eacfe1c6abba4ed070ab236a5dfd59f9558051db4994d6f6f185d3bc",
+  "C1RouteAEntryBars2663.lean": "689b4475b7d3aff65cf0757f37f1a444d84c5909605bdd717ce962a0121a4c2c",
+  "C1RouteAEntryPanel2663B00.lean": "55275e70ab8db9720103789077dff62a152be8298bd600b81912f2687346cbae",
+  "C1RouteAEntryPanel2663B01.lean": "1490112bea4aa6decf3d1f6322c71d08a7aa371b15478a15a1fe4c794fbdcb44",
+  "C1RouteAEntryPanel2663B02.lean": "5beda3d27c36b973c6a0058bf592854bafe70a5e956abac8acbad27cb0e74a47",
+  "C1RouteAEntryPanel2663B03.lean": "a6166235ac83fcbba985f431f9e70ad9ef8a0f23332d01b3b6f56979b7bcba13",
+  "C1RouteAEntryPanel2663B04.lean": "ae5ad090fbfa2179dab459d1ca4e44e519a200b2bef32055af6c3c4b206d7372",
+  "C1RouteAEntryPanel2663B05.lean": "d1d1b90c3a0726514b128e9a7fbacc2077e3be4166c7ffb88f29b9ea7e044ede",
+  "C1RouteAEntryPanel2663B06.lean": "e862c4c9174513f63f01f6400c9c89025e4490503a316d4317f4ea2dbfd3646b",
+  "C1RouteAEntryPanel2663B07.lean": "d9332924503f79cf7f38d573991d315256e4dbf1e4d9d5ee9fe3cd42ca5b92b0",
+  "C1RouteAEntryPanel2663B08.lean": "1393575378771f72efcedd69c83f5419318e5a2d4d950123976ea24f158c6cb5",
+  "C1RouteAEntryPanel2663B09.lean": "897a9759862182de5bcf5f7d1e52c27d756a397a7892e354b2e3fe251089ac23",
+  "C1RouteAEntryPanels2663.lean": "d474b0ee2499aca94328a9258efa8229776aabef1c52d3274430159c637955a6",
+  "C1RouteAEntryRect2663.lean": "7e1c3d28a77d8135bee42171b99d6c24bef21458bb1c12f94cbe80ad21816d39",
+  "C1RouteAEntryTiling2663.lean": "28c4819538c221e8c44b7cec4216922d41964ed819590877ff48dfa16a8a622e"
+ },
+ "producer_go": false,
+ "provenance": {
+  "assembly_template": {
+   "path": "ConnesWeilRH/Dev/C1RouteAEntryAssembly2663.lean",
+   "sha256": "5b8dd171243181def4aa73016b6f115896262e574e978738d0f4b829a5ac66dd"
+  },
+  "bars_slots": {
+   "path": "results/2664_bars_28_2.json",
+   "sha256": "483063037f5d14e691bbce959ecdd70ce32c7d10b72d329ec65522c14d05f655"
+  },
+  "generator": {
+   "path": "scripts/gen_2663_assembly.py",
+   "sha256": "fb584b91431e5382ba71643d193dea4cfa48619d54ef2556e5e76352a6af6297"
+  },
+  "pricing_helper": {
+   "path": "scripts/offdiagonal_residual_pricing_2624.py",
+   "sha256": "134c739ab2b535d84decb5c58aafe7d924d56a846e5a7e15c7fc5b68edea6f5d"
+  },
+  "recon_slots": {
+   "path": "results/2664_budget_recon_28_2.json",
+   "sha256": "468e94cbe934945cf46aba73a6903cdb0200daa52024fd815f4bc25bfda70e3f"
+  },
+  "slots_helper": {
+   "path": "scripts/gen_2663_slots.py",
+   "sha256": "54265be1479dd5ad029c4eff8232420d4b6d6bcd6e380210350aa4b0fbe01714"
+  },
+  "tiling_template": {
+   "path": "ConnesWeilRH/Dev/C1RouteAEntryTiling2663.lean",
+   "sha256": "e7fc648b16a7fb7155ab5c2d55df1bd79b69025cefc6251a2cbb662ae5ca633b"
+  }
+ },
+ "purpose": "assembly-half evidence for the record-2664 (28,2) entry: the 15 modules rendered by gen_2663_assembly.py --row=28 --col=2 from the committed (0,3) texts, byte-verified on both sides and built end-to-end; this artifact binds the membership theorem to the module set and the build log",
+ "record": 2664,
+ "rh_claim": false
+}

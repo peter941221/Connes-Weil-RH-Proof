@@ -5728,3 +5728,13 @@ via the exact-zero route; total 31/870 memberships landed.  Disk: seven
 wave trees ~7.1 GB against ~207 GB free; between-wave deletion DEFERRED (no
 pressure).  Evidence: docs/proofs/2664_wave3_seven_degree58.md.  No
 producer, SourceRH, or RH claim.
+
+Deg 60 -> record 2664 wave 4: the complete degree-60 ladder subgroup is now
+certified for (19,3), (20,3), (21,3), (22,3), (28,2), (29,2), (2,4), and
+(3,4). Seven entries use the frozen branch and (2,4) uses the general edge
+branch. All eight pass the umbrella/assembly evidence gates, exact axiom
+trio, 15/15 census gates, and 965-entry-olean census; the manifest now has
+38 disk-verified entries and the landed membership count is 39/870 including
+the separately documented (0,3) lane. This closes the degree-60 subgroup
+only; the degree-55 remainder, partition sum, producer, SourceRH, and RH are
+still open. Evidence: docs/proofs/2664_wave4_eight_degree60.md.
