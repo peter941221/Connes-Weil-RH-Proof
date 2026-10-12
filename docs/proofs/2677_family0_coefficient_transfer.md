@@ -33,9 +33,11 @@ family-specific rational screen before rendering Lean.
 
 The existing `record2677BaseM0AggregateSubset` and
 `record2677BaseM0CellContained` declarations connect the aggregate bridge to
-the 30-family finite-sum consumer. The latter discharges index 0 when the
-owner coefficient and modulation equal the exact Lean center, while retaining
-the other 29 family memberships as explicit hypotheses.
+the 30-family finite-sum consumer. The new
+`record2677BaseM0ExactCentersCellContained` consumer imports all 30 family
+bridges, expands `Fin 30`, and discharges every family premise for the exact
+Lean coefficient and modulation centers. This removes the previous 29
+explicit hypotheses from the exact-center specialization.
 
 This does not establish the binary64 repaired-owner identity used by the
 numeric replay. Nor does it cover the other three channels. Consequently it
@@ -48,4 +50,6 @@ second build (`Build completed successfully (3935 jobs)`). The audited family
 theorems use exactly `[propext, Classical.choice, Quot.sound]`, with no
 `sorryAx`. The generator
 `scripts/generate_routea_family_bridges_2677.py` reproduces every source from
-`results/2677_cell4096_coefficient_enclosure_screen.json`.
+`results/2677_cell4096_coefficient_enclosure_screen.json`. The exact-center
+consumer and its audit also pass (`Build completed successfully (3909 jobs)`)
+with the same standard axiom set and no `sorryAx`.

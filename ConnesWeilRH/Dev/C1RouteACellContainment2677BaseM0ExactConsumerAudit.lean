@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteACellContainment2677BaseM0ExactConsumer
+
+namespace ConnesWeilRH.Dev
+
+#print axioms record2677BaseM0ExactCentersCellContained
+
+end ConnesWeilRH.Dev

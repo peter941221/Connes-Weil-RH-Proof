@@ -5977,3 +5977,14 @@ family premises, and the other channels, repaired-owner identity, 8192-cell
 sum, `chargeRest`, signed tail, Producer GO, SourceRH, and RH remain open.
 Evidence: `docs/proofs/2677_family0_coefficient_transfer.md`,
 `scripts/generate_routea_family_bridges_2677.py`, and the family audit modules.
+
+Record 2677 exact-center consumer (2026-10-13):
+`C1RouteACellContainment2677BaseM0ExactConsumer.lean` imports all 30
+base-M0 family bridges, expands the `Fin 30` family index, and proves
+`record2677BaseM0ExactCentersCellContained` for the exact Lean coefficient and
+modulation centers. The previous family-0 aggregate consumer retained 29
+family premises; this specialization discharges all of them. Linux-native
+consumer plus audit build: 3909 jobs, zero errors, and the audited theorem
+uses only `[propext, Classical.choice, Quot.sound]`. The repaired binary64
+owner identity, other channels, 8192-cell closure, `chargeRest`, signed tail,
+Producer GO, SourceRH, and RH remain open.
