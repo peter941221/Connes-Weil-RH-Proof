@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteARepairedOwnerBaseD22682Family28
+
+namespace ConnesWeilRH.Dev
+
+#print axioms record2681Family28D2FactorMem
+#print axioms record2681Family28BaseD2CellRectMem
+
+end ConnesWeilRH.Dev

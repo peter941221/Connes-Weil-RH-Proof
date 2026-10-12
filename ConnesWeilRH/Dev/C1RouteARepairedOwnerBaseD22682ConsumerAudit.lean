@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteARepairedOwnerBaseD22682Consumer
+
+namespace ConnesWeilRH.Dev
+
+#print axioms record2682RepairedOwnerBaseD2CellContained
+
+end ConnesWeilRH.Dev
