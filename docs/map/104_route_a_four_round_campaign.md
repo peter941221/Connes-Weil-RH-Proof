@@ -5896,3 +5896,15 @@ standard axiom trio. The remaining load-bearing premise is the continuum
 containment of each 2242 rectangle for the actual repaired-owner channel.
 Evidence: docs/proofs/2675_repaired_owner_cell_certificate.md and
 results/2675_repaired_owner_cell_price_certificate.json.
+
+Aggregate-coordinate screen -> record 2676. For cell 4096, the four exact-
+rational channel aggregate rectangles were rounded outward to denominator-
+2^160 dyadics and screened inside their record-2675 rectangles. Lean proves
+the four coordinate-subset comparisons; the narrowest screen margin is 4.0716
+binary64 ulps. The axiom audit is exactly the standard trio. This does not
+prove the aggregate encloses the 30 family rectangles or prove actual
+per-family continuum containment, so the record-2675 conditional premise is
+still open. The 8192-cell Lean sum, live-owner `chargeRest`, signed infinite-
+xi tail, Producer GO, SourceRH, and RH remain open. Evidence:
+docs/proofs/2676_cell4096_aggregate_coordinate_containment.md and
+results/2676_cell4096_containment_screen.json.

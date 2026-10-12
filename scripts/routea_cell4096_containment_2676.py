@@ -35,6 +35,8 @@ if hasattr(sys, "set_int_max_str_digits"):
 ROOT = Path(__file__).resolve().parents[1]
 CELL_ARTIFACT = ROOT / "results/2675_repaired_owner_cell_price_certificate.json"
 OUTPUT = ROOT / "results/2676_cell4096_containment_screen.json"
+AGGREGATE_LEAN_OUTPUT = ROOT / "ConnesWeilRH/Dev/C1RouteACellContainment2676Aggregates.lean"
+AGGREGATE_DYADIC_BITS = 160
 
 EXP_ORDER = 30          # Real.exp_bound order for exp(-1/2)
 TRIG_K = 12             # cos/sin Taylor index: error |a|^(2K+2)*(2K+3)/((2K+2)!*(2K+2))
@@ -324,6 +326,73 @@ def containment(agg, exported):
     return inside, margins
 
 
+def dyadic_outer(rect, bits=AGGREGATE_DYADIC_BITS):
+    scale = 1 << bits
+    result = []
+    for index, value in enumerate(rect):
+        scaled = value * scale
+        if index in (0, 2):
+            result.append(scaled.numerator // scaled.denominator)
+        else:
+            result.append(-((-scaled.numerator) // scaled.denominator))
+    return result
+
+
+def render_aggregate_lean(report: dict, output: Path) -> None:
+    targets = {
+        "base_M0": "record2675BaseM0Rect",
+        "base_D2": "record2675BaseD2Rect",
+        "correction_M0": "record2675CorrectionM0Rect",
+        "correction_D2": "record2675CorrectionD2Rect",
+    }
+    lines = [
+        "import ConnesWeilRH.Dev.C1RouteACellIntegralCharge2675",
+        "",
+        "namespace ConnesWeilRH.Dev",
+        "",
+        "/- Screened exact-rational aggregate outputs, rounded outward to",
+        "   160-bit dyadic coordinates. The sum replay and familywise",
+        "   continuous containment remain separate proof obligations. -/",
+        "",
+    ]
+    for name, target in targets.items():
+        values = dyadic_outer([
+            Fraction(value) for value in report["channels"][name]["aggregate_exact"]
+        ])
+        ident = "record2676" + "".join(part.title() for part in name.split("_")) + "Aggregate"
+        coord_names = []
+        for field, value in zip(("reLo", "reHi", "imLo", "imHi"), values):
+            coord = f"{ident}{field[0].upper()}{field[1:]}"
+            coord_names.append(coord)
+            lines.extend([
+                f"def {coord} : ℚ :=",
+                f"  ({value} : ℚ) / (2 : ℚ) ^ {AGGREGATE_DYADIC_BITS}",
+            ])
+        lines.extend([
+            f"def {ident} : ComplexRect2427 :=",
+            f"  ComplexRect2427.mk ({coord_names[0]} : ℝ)",
+            f"    ({coord_names[1]} : ℝ)",
+            f"    ({coord_names[2]} : ℝ)",
+            f"    ({coord_names[3]} : ℝ)",
+        ])
+        lines.extend([
+            "",
+            f"theorem {ident}Subset :",
+            f"    {target}.reLo ≤ {ident}.reLo ∧",
+            f"      {ident}.reHi ≤ {target}.reHi ∧",
+            f"      {target}.imLo ≤ {ident}.imLo ∧",
+            f"      {ident}.imHi ≤ {target}.imHi := by",
+            f"  norm_num [{ident}, {target},",
+            *[f"    {coord}," for coord in coord_names],
+            "    binary64Value2674, binary64ExponentBits2674,",
+            "    binary64Significand2674, binary64FractionBits2674,",
+            "    binary64Sign2674]",
+            "",
+        ])
+    lines.append("end ConnesWeilRH.Dev")
+    output.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path, default=OUTPUT)
@@ -478,6 +547,7 @@ def main() -> None:
         }
 
     report["status"] = "CELL4096_CONTAINMENT_SCREEN_PASS"
+    render_aggregate_lean(report, AGGREGATE_LEAN_OUTPUT)
     args.output.write_text(
         json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(json.dumps({

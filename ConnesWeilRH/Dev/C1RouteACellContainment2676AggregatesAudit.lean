@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1RouteACellContainment2676Aggregates
+
+namespace ConnesWeilRH.Dev
+
+#print axioms record2676BaseM0AggregateSubset
+#print axioms record2676BaseD2AggregateSubset
+#print axioms record2676CorrectionM0AggregateSubset
+#print axioms record2676CorrectionD2AggregateSubset
+
+end ConnesWeilRH.Dev
