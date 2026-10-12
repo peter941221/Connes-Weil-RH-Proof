@@ -1,0 +1,34 @@
+{
+  "captured_coefficient_md5": {
+    "base": "d461872e14212dcba8efe1874de6f652",
+    "correction": "c37e16a9dfeb4383c7bab1d23aa59566"
+  },
+  "channels": 4,
+  "checked_point_channel_values": 404,
+  "containment_failures_recorded": 0,
+  "continuum_enclosure_proved": false,
+  "evaluator": "scripts/routea_weighted_zero_zero_count_certificate_2242.py",
+  "first_failures": [],
+  "lean_numeric_imported": false,
+  "mpmath_dps": 90,
+  "nodes": 101,
+  "owner_source": "2338 exact-interpolation coefficient-ball midpoints cast to binary64",
+  "producer_go": false,
+  "public_hull_ulp_margin": 4,
+  "record": 2669,
+  "repair_arrays_match_2665_treatment": true,
+  "repair_artifact_sha256": "7efde152db5e18c2d312cae16309172154044b443477bca75b9619b3070eb258",
+  "repair_source": "results/2338_exact_interpolation_repair.json",
+  "repaired_coefficient_md5": {
+    "base": "31be906860eab0d7ac6e1b7f2bd91790",
+    "correction": "d769f6a5e34d372842fe93b2555f672b"
+  },
+  "rh_claim": false,
+  "source_sha256": "539ed1b4238e9edd3583042132421f06ada4c3e723d86d9ced3ed1642dd90d07",
+  "status": "REPAIRED_OWNER_POINTBOX_5001_CONTROL_PASS",
+  "stored_operands_converted_exactly": true,
+  "strip": "scripts/routea_corrected_strip_envelope_2303.py",
+  "strip_source_sha256": "ed2b68b77acc84c0351131017e7605b45323ce1912dd13d70830f909d79dda3b",
+  "worst_relative_violation": 0.0,
+  "worst_row": null
+}

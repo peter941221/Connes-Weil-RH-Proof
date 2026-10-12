@@ -1,0 +1,27 @@
+== exp_bound / exp_bound' anywhere
+/home/peter/rh/.lake/packages/mathlib/Mathlib/Analysis/Complex/Exponential.lean:373:theorem exp_bound {x : ℂ} (hx : ‖x‖ ≤ 1) {n : ℕ} (hn : 0 < n) :
+/home/peter/rh/.lake/packages/mathlib/Mathlib/Analysis/Complex/Exponential.lean:403:theorem exp_bound' {x : ℂ} {n : ℕ} (hx : ‖x‖ / n.succ ≤ 1 / 2) :
+/home/peter/rh/.lake/packages/mathlib/Mathlib/Analysis/Complex/Exponential.lean:528:nonrec theorem exp_bound {x : ℝ} (hx : |x| ≤ 1) {n : ℕ} (hn : 0 < n) :
+/home/peter/rh/.lake/packages/mathlib/Mathlib/Analysis/Complex/Exponential.lean:534:theorem exp_bound' {x : ℝ} (h1 : 0 ≤ x) (h2 : x ≤ 1) {n : ℕ} (hn : 0 < n) :
+/home/peter/rh/.lake/packages/mathlib/Mathlib/Analysis/Complex/Exponential.lean:612:theorem exp_bound_div_one_sub_of_interval' {x : ℝ} (h1 : 0 < x) (h2 : x < 1) :
+/home/peter/rh/.lake/packages/mathlib/Mathlib/Analysis/Complex/Exponential.lean:629:theorem exp_bound_div_one_sub_of_interval {x : ℝ} (h1 : 0 ≤ x) (h2 : x < 1) :
+== add_one_le_exp anywhere
+/home/peter/rh/.lake/packages/mathlib/Mathlib/Analysis/Complex/Exponential.lean:272:private theorem add_one_le_exp_of_nonneg {x : ℝ} (hx : 0 ≤ x) : x + 1 ≤ exp x := by
+/home/peter/rh/.lake/packages/mathlib/Mathlib/Analysis/Complex/Exponential.lean:277:theorem one_le_exp {x : ℝ} (hx : 0 ≤ x) : 1 ≤ exp x := by linarith [add_one_le_exp_of_nonneg hx]
+/home/peter/rh/.lake/packages/mathlib/Mathlib/Analysis/Complex/Exponential.lean:644:theorem add_one_le_exp (x : ℝ) : x + 1 ≤ Real.exp x := by
+== exp_le_one anywhere
+/home/peter/rh/.lake/packages/mathlib/Mathlib/Probability/Distributions/Exponential.lean:146:          (sub_nonneg.2 (Real.exp_le_one_iff.2 <| by nlinarith))]
+/home/peter/rh/.lake/packages/mathlib/Mathlib/Probability/Distributions/Exponential.lean:168:  · simp only [sub_nonneg, exp_le_one_iff, Left.neg_nonpos_iff]
+/home/peter/rh/.lake/packages/mathlib/Mathlib/Probability/Distributions/Gaussian/Fernique.lean:198:    simp only [neg_mul, Pi.one_apply, Real.exp_le_one_iff, Left.neg_nonpos_iff]
+/home/peter/rh/.lake/packages/mathlib/Mathlib/NumberTheory/NumberField/CanonicalEmbedding/NormLeOne.lean:662:      pow_le_one_iff_of_nonneg (Real.exp_nonneg _) Module.finrank_pos.ne', Real.exp_le_one_iff,
+== exp_neg anywhere
+/home/peter/rh/.lake/packages/mathlib/Mathlib/Analysis/Normed/Algebra/Exponential.lean:641:theorem exp_neg (x : 𝔸) : exp (-x) = (exp x)⁻¹ :=
+/home/peter/rh/.lake/packages/mathlib/Mathlib/Analysis/Normed/Algebra/MatrixExponential.lean:177:theorem exp_neg (A : Matrix m m 𝔸) : exp (-A) = (exp A)⁻¹ := by
+/home/peter/rh/.lake/packages/mathlib/Mathlib/Analysis/Complex/Exponential.lean:161:theorem exp_neg : exp (-x) = (exp x)⁻¹ := by
+== norm_image_sub_le_of_norm_deriv_le anywhere
+/home/peter/rh/.lake/packages/mathlib/Mathlib/NumberTheory/Transcendental/Liouville/Basic.lean
+/home/peter/rh/.lake/packages/mathlib/Mathlib/Computability/AkraBazzi/AkraBazzi.lean
+/home/peter/rh/.lake/packages/mathlib/Mathlib/Analysis/Calculus/FDeriv/Symmetric.lean
+/home/peter/rh/.lake/packages/mathlib/Mathlib/Analysis/Calculus/MeanValue.lean
+== exp_mul_I anywhere
+/home/peter/rh/.lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/PolarCoord.lean:66:    · convert! Complex.arg_mul_cos_add_sin_mul_I hr ⟨hθ.1, hθ.2.le⟩

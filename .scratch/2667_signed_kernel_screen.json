@@ -1,0 +1,68 @@
+{
+  "record": 2278,
+  "status": "SIGNED-KERNEL-OSCILLATORY-SCREEN",
+  "certificate": false,
+  "hgap_closed": false,
+  "screen": {
+    "nodes": 65536,
+    "xi_max": 160.0,
+    "dy": 0.00020000000000042206,
+    "frequency_step": 0.0762939453125,
+    "support_half_width": 6.553600000000003,
+    "convolution_support": 13.107200000000006,
+    "prime_power_count": 41136,
+    "xi_points": 1573,
+    "signed_integral_40_to_xi_max": 7.327732627330754e-29,
+    "negative_absolute_mass": 2.7704688941932117e-28,
+    "absolute_integral_40_to_xi_max": 1.7972225184406989e-28,
+    "signed_to_absolute_ratio": 0.4077253958340351,
+    "base_md5": "d461872e14212dcba8efe1874de6f652",
+    "corr_md5": "c37e16a9dfeb4383c7bab1d23aa59566"
+  },
+  "nonclaims": [
+    "finite FFT range is not the infinite tail",
+    "FFT values are not directed enclosures",
+    "no selected-detector readback",
+    "no hgap supplier, producer GO or RH claim"
+  ],
+  "input_sha256": {
+    "results\\2275_gap_owner_audit.json": "743fe372bef89b5730c38274d5a5517ac9ea4d3421989d46c49d4af3e78b5e74"
+  },
+  "refinement": {
+    "coarse": {
+      "nodes": 65536,
+      "xi_max": 160.0,
+      "dy": 0.00020000000000042206,
+      "frequency_step": 0.0762939453125,
+      "support_half_width": 6.553600000000003,
+      "convolution_support": 13.107200000000006,
+      "prime_power_count": 41136,
+      "xi_points": 1573,
+      "signed_integral_40_to_xi_max": 7.327732627330754e-29,
+      "negative_absolute_mass": 2.7704688941932117e-28,
+      "absolute_integral_40_to_xi_max": 1.7972225184406989e-28,
+      "signed_to_absolute_ratio": 0.4077253958340351,
+      "base_md5": "d461872e14212dcba8efe1874de6f652",
+      "corr_md5": "c37e16a9dfeb4383c7bab1d23aa59566"
+    },
+    "fine": {
+      "nodes": 131072,
+      "xi_max": 160.0,
+      "dy": 9.999999999976694e-05,
+      "frequency_step": 0.0762939453125,
+      "support_half_width": 6.553600000000003,
+      "convolution_support": 13.107200000000006,
+      "prime_power_count": 41136,
+      "xi_points": 1573,
+      "signed_integral_40_to_xi_max": 1.3833629427953825e-29,
+      "negative_absolute_mass": 6.025250243161343e-29,
+      "absolute_integral_40_to_xi_max": 3.8878849665020597e-29,
+      "signed_to_absolute_ratio": 0.3558137534197669,
+      "base_md5": "d461872e14212dcba8efe1874de6f652",
+      "corr_md5": "c37e16a9dfeb4383c7bab1d23aa59566"
+    },
+    "signed_relative_change": 4.2970427359601615,
+    "absolute_relative_change": 3.6226226699748905,
+    "trust_status": "FFT-TAIL-UNTRUSTED"
+  }
+}

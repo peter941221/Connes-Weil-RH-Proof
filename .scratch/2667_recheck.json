@@ -1,0 +1,33 @@
+{
+  "2665_control_hashes": {
+    "base": "d461872e14212dcba8efe1874de6f652",
+    "correction": "c37e16a9dfeb4383c7bab1d23aa59566"
+  },
+  "2665_repaired_treatment_hashes": {
+    "base": "31be906860eab0d7ac6e1b7f2bd91790",
+    "correction": "d769f6a5e34d372842fe93b2555f672b"
+  },
+  "artifact": "results\\2422_repaired_shared_geometry_776611.json",
+  "bridge": "results\\2424_repaired_span_composite_bridge.json",
+  "capture_hashes": {
+    "base": "d461872e14212dcba8efe1874de6f652",
+    "correction": "c37e16a9dfeb4383c7bab1d23aa59566"
+  },
+  "captured_owner_matches_2665_control": true,
+  "captured_owner_matches_repaired_treatment": false,
+  "captured_window_ratio_is_repaired_owner_bound": false,
+  "current_parent_and_span_bridge_match": true,
+  "lean_numeric_imported": false,
+  "nodes": 776611,
+  "owner_source": "2275 captured coefficients",
+  "pointwise_mathematical_term_dominance_proved": false,
+  "producer_go": false,
+  "record": 2426,
+  "repaired_owner_fullgrid_replayed": false,
+  "rh_claim": false,
+  "same_expression_controls_pass": true,
+  "source_hashes_match": true,
+  "span": 20001,
+  "span_count": 39,
+  "status": "CAPTURED_OWNER_INTERFACE_PASS_REPAIR_TRANSFER_OPEN"
+}

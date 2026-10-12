@@ -1,0 +1,9 @@
+/home/peter/verify-2628-current :: /home/peter/verify-2628-current/ConnesWeilRH/Dev/C1RouteAIntervalAlgebra.lean
+/home/peter/verify-2628-current :: NEWLOG 2628_recursive_actual.log
+/home/peter/cwrh-native :: /home/peter/cwrh-native/ConnesWeilRH/Dev/C1RouteAIntervalAlgebra.lean
+/home/peter/cwrh-native :: NEWLOG 2580_span_only.log
+/home/peter/rh-cert :: NEWLOG alpha-983-tail.log
+/home/peter/rh :: /home/peter/rh/ConnesWeilRH/Dev/C1RouteAIntervalAlgebra.lean
+/home/peter/rh :: NEWLOG zprobe2628-realerror.log
+/home/peter/membership-2581-verify :: /home/peter/membership-2581-verify/ConnesWeilRH/Dev/C1RouteAIntervalAlgebra.lean
+/home/peter/membership-2581-verify :: NEWLOG 2571_full_build.log

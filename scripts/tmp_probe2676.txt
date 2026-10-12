@@ -1,0 +1,13 @@
+== exp_bound'
+37:theorem exp_bound_sq (x z : ℂ) (hz : ‖z‖ ≤ 1) :
+56:    have : ‖exp (x + z) - exp x - z • exp x‖ ≤ ‖exp x‖ * ‖z‖ ^ 2 := exp_bound_sq x z hz
+84:    convert! exp_bound hx.out.le hn using 1
+== add_one_le_exp / exp_le_one / exp_neg
+== Convex taylor remainder
+== iteratedDeriv cos/sin bounds
+514:theorem abs_iteratedDeriv_sin_le_one (n : ℕ) (x : ℝ) :
+519:  | n + 2 => by simpa using abs_iteratedDeriv_sin_le_one n x
+521:theorem abs_iteratedDeriv_cos_le_one (n : ℕ) (x : ℝ) :
+526:  | n + 2 => by simpa using abs_iteratedDeriv_cos_le_one n x
+== exp_mul_I / cos_exp forms
+== exp_le_exp / exp_le_exp_iff

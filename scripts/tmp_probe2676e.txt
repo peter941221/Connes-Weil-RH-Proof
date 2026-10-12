@@ -1,0 +1,7 @@
+== exp_mul_I statement
+/home/peter/rh/.lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean:1204:theorem exp_mul_I_antiperiodic : Function.Antiperiodic (fun x => exp (x * I)) π := by
+/home/peter/rh/.lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean:1207:theorem exp_mul_I_periodic : Function.Periodic (fun x => exp (x * I)) (2 * π) :=
+/home/peter/rh/.lake/packages/mathlib/Mathlib/Analysis/Complex/Trigonometric.lean:511:theorem exp_mul_I : exp (x * I) = cos x + sin x * I :=
+/home/peter/rh/.lake/packages/mathlib/Mathlib/Analysis/Complex/Trigonometric.lean:539:theorem cos_add_sin_mul_I_pow (n : ℕ) (z : ℂ) :
+== Complex.exp_bound re-projection usability: re_exp
+== Real cos defined via Complex

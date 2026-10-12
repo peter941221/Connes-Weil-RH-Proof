@@ -1,0 +1,8 @@
+==
+/home/peter/rh/.lake/packages/mathlib/Mathlib/NumberTheory/LSeries/HurwitzZetaEven.lean:506:      RCLike.norm_ofNat, Complex.norm_exp_ofReal_mul_I, add_zero, norm_one,
+/home/peter/rh/.lake/packages/mathlib/Mathlib/NumberTheory/LSeries/HurwitzZetaOdd.lean:396:      RCLike.norm_ofNat, norm_mul, norm_neg, norm_I, one_mul, norm_exp_ofReal_mul_I]
+/home/peter/rh/.lake/packages/mathlib/Mathlib/Analysis/Complex/Poisson.lean:114:  simp only [Complex.norm_mul, norm_real, norm_eq_abs, norm_exp_ofReal_mul_I, mul_one, sq_abs,
+/home/peter/rh/.lake/packages/mathlib/Mathlib/Analysis/Complex/Poisson.lean:149:  simp only [Complex.ext_iff, exp_ofReal_mul_I, add_re, sub_re, mul_re, div_re, ofReal_re,
+/home/peter/rh/.lake/packages/mathlib/Mathlib/Analysis/Complex/Trigonometric.lean:528:theorem exp_ofReal_mul_I_re (x : ℝ) : (exp (x * I)).re = Real.cos x := by
+/home/peter/rh/.lake/packages/mathlib/Mathlib/Analysis/Complex/Trigonometric.lean:532:theorem exp_ofReal_mul_I_im (x : ℝ) : (exp (x * I)).im = Real.sin x := by
+== how does Real.cos relate: def search

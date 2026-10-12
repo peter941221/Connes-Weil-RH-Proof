@@ -1,0 +1,158 @@
+{
+  "cell_right_bits": "0x3f5a36e2eb1c4000",
+  "channels": {
+    "base_D2": {
+      "aggregate_float": [
+        -32476.56727364922,
+        -30037.172347348624,
+        -3090.7071900735705,
+        6449.515644691007
+      ],
+      "exported_float": [
+        -32476.578880155943,
+        -30036.988316600695,
+        -3091.207999497927,
+        6449.82946384714
+      ],
+      "inside_exported": true,
+      "margin_ulps": {
+        "im_hi_ulps": 345047811187.41785,
+        "im_lo_ulps": 1101291570760.3223,
+        "re_hi_ulps": 50585986804.20591,
+        "re_lo_ulps": 3190372275.0061145
+      }
+    },
+    "base_M0": {
+      "aggregate_float": [
+        13.235495878560286,
+        14.31176767345645,
+        -2.5590674877844264,
+        1.7752746632029137
+      ],
+      "exported_float": [
+        13.235495878560277,
+        14.311767673456458,
+        -2.5590674877844286,
+        1.7752746632029146
+      ],
+      "inside_exported": true,
+      "margin_ulps": {
+        "im_hi_ulps": 4.208918266635712,
+        "im_lo_ulps": 4.505863802625712,
+        "re_hi_ulps": 4.558125125884868,
+        "re_lo_ulps": 4.569544196437085
+      }
+    },
+    "correction_D2": {
+      "aggregate_float": [
+        -5237346.279188672,
+        5234395.416634181,
+        -1788872.0182450644,
+        1675289.8172211042
+      ],
+      "exported_float": [
+        -5238057.728538276,
+        5235452.753636739,
+        -1788881.3377114744,
+        1675290.0551326792
+      ],
+      "inside_exported": true,
+      "margin_ulps": {
+        "im_hi_ulps": 1021822434.2976108,
+        "im_lo_ulps": 40026803447.29656,
+        "re_hi_ulps": 1135306961710.362,
+        "re_lo_ulps": 763912922327.4248
+      }
+    },
+    "correction_M0": {
+      "aggregate_float": [
+        -3353.3125504561485,
+        3343.600110317954,
+        -1068.6776103325742,
+        1139.3369880590294
+      ],
+      "exported_float": [
+        -3353.3125504561503,
+        3343.600110317956,
+        -1068.6776103325753,
+        1139.3369880590303
+      ],
+      "inside_exported": true,
+      "margin_ulps": {
+        "im_hi_ulps": 4.071597403971936,
+        "im_lo_ulps": 4.713353109026472,
+        "re_hi_ulps": 4.395233306522,
+        "re_lo_ulps": 4.447649858634637
+      }
+    }
+  },
+  "exp_pin_order": 30,
+  "owner_coefficient_convention": "exact rational midpoint cast to binary64; subsequent interval arithmetic is exact",
+  "provenance": {
+    "captured_coefficients_md5": {
+      "base": "d461872e14212dcba8efe1874de6f652",
+      "correction": "c37e16a9dfeb4383c7bab1d23aa59566"
+    },
+    "families_bitwise_anchors": {
+      "base_bitwise": true,
+      "corr_bitwise": true,
+      "families_bitwise": true
+    },
+    "owner_coefficients_md5": {
+      "base": "31be906860eab0d7ac6e1b7f2bd91790",
+      "correction": "d769f6a5e34d372842fe93b2555f672b"
+    },
+    "theta_bitwise_match": true,
+    "theta_signed_zero_families": [
+      5,
+      6,
+      7
+    ],
+    "width_bitwise_match": true
+  },
+  "record": 2676,
+  "status": "CELL4096_CONTAINMENT_SCREEN_PASS",
+  "trig_k": 12,
+  "unrounded_midpoint_diagnostic": {
+    "channels": {
+      "base_D2": {
+        "inside_exported": true,
+        "margin_ulps": {
+          "im_hi_ulps": 345047811187.73065,
+          "im_lo_ulps": 1101291570759.5356,
+          "re_hi_ulps": 50585986804.83113,
+          "re_lo_ulps": 3190372274.3790693
+        }
+      },
+      "base_M0": {
+        "inside_exported": true,
+        "margin_ulps": {
+          "im_hi_ulps": 3.154683688303729,
+          "im_lo_ulps": 4.909347446063244,
+          "re_hi_ulps": 3.829819415073073,
+          "re_lo_ulps": 5.297225854015443
+        }
+      },
+      "correction_D2": {
+        "inside_exported": true,
+        "margin_ulps": {
+          "im_hi_ulps": 1021822457.5949719,
+          "im_lo_ulps": 40026803423.93574,
+          "re_hi_ulps": 1135306961711.864,
+          "re_lo_ulps": 763912922325.9436
+        }
+      },
+      "correction_M0": {
+        "inside_exported": false,
+        "margin_ulps": {
+          "im_hi_ulps": -11.115253686733606,
+          "im_lo_ulps": 19.86803883186763,
+          "re_hi_ulps": 2.3292456705949998,
+          "re_lo_ulps": 6.537853000993592
+        }
+      }
+    },
+    "reason": "2670 and 2675 price the binary64 midpoint-cast coefficients",
+    "status": "DIAGNOSTIC_ONLY_NOT_THE_REPAIRED_OWNER"
+  }
+}
