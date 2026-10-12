@@ -287,8 +287,13 @@ def channel_rects(per_family, coefficients):
                RImul(fam["phi_box"], fam["sin_box"])[1])
         k0.append(CRmul(c_point, mid))
         # familySecondValue2346 = (c * phi * e^{i theta x}) * factor: the
-        # phi weight rides in mid, exactly as in the k = 0 channel.
-        k2.append(CRmul(CRmul(c_point, mid), fam["factor_rect"]))
+        # phi weight rides in mid, exactly as in the k = 0 channel.  The Lean
+        # bridge consumes a 160-bit factor rectangle before this multiplication;
+        # mirror that staged outward rounding here so the final family box is
+        # an enclosure of the proof object rather than of an unrounded twin.
+        factor = tuple(Fraction(v, 1 << AGGREGATE_DYADIC_BITS)
+                       for v in dyadic_outer(fam["factor_rect"]))
+        k2.append(CRmul(CRmul(c_point, mid), factor))
     return k0, k2
 
 
