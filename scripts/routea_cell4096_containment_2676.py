@@ -345,21 +345,50 @@ def render_aggregate_lean(report: dict, output: Path) -> None:
         "correction_M0": "record2675CorrectionM0Rect",
         "correction_D2": "record2675CorrectionD2Rect",
     }
+    family_rects = report["_lean_family_rectangles"]
     lines = [
-        "import ConnesWeilRH.Dev.C1RouteACellIntegralCharge2675",
+        "import ConnesWeilRH.Dev.C1RouteACellContainment2676",
         "",
         "namespace ConnesWeilRH.Dev",
         "",
-        "/- Screened exact-rational aggregate outputs, rounded outward to",
-        "   160-bit dyadic coordinates. The sum replay and familywise",
-        "   continuous containment remain separate proof obligations. -/",
+        "open ConnesWeilRH.Dev.C1RouteAOwnerScaleAudit",
+        "",
+        "/- Per-family boxes are rounded outward to 160-bit dyadics. Their",
+        "   finite sums are proved below and transferred to the record-2675",
+        "   outer rectangles. Familywise function containment is still an",
+        "   explicit premise at this layer. -/",
+        "",
+        "theorem fin30SumChain2676 {α : Type*} [AddCommMonoid α]",
+        "    (f : Fin 30 → α) :",
+        "    (∑ i : Fin 30, f i) =",
+        "      f 0 + (f 1 + (f 2 + (f 3 + (f 4 + (f 5 + (f 6 + (f 7 +",
+        "      (f 8 + (f 9 + (f 10 + (f 11 + (f 12 + (f 13 + (f 14 +",
+        "      (f 15 + (f 16 + (f 17 + (f 18 + (f 19 + (f 20 + (f 21 +",
+        "      (f 22 + (f 23 + (f 24 + (f 25 + (f 26 + (f 27 + (f 28 + f 29",
+        "      )))))))))))))))))))))))))))) := by",
+        "  simp only [Fin.sum_univ_succ, Fin.sum_univ_zero, add_zero]",
+        "  rfl",
         "",
     ]
     for name, target in targets.items():
-        values = dyadic_outer([
-            Fraction(value) for value in report["channels"][name]["aggregate_exact"]
-        ])
         ident = "record2676" + "".join(part.title() for part in name.split("_")) + "Aggregate"
+        family_ident = ident.removesuffix("Aggregate") + "FamilyRects"
+        boxes = family_rects[name]
+        coordinate_sums = [sum(box[k] for box in boxes) for k in range(4)]
+        values = coordinate_sums
+        lines.append(f"noncomputable def {family_ident} : Fin 30 → ComplexRect2427 :=")
+        lines.append("  ![")
+        for index, box in enumerate(boxes):
+            coords = [
+                f"({value} : ℚ) / (2 : ℚ) ^ {AGGREGATE_DYADIC_BITS}"
+                for value in box
+            ]
+            suffix = "," if index < len(boxes) - 1 else "]"
+            lines.append(
+                "    ComplexRect2427.mk " + " ".join(f"({coord} : ℝ)" for coord in coords)
+                + suffix
+            )
+        lines.append("")
         coord_names = []
         for field, value in zip(("reLo", "reHi", "imLo", "imHi"), values):
             coord = f"{ident}{field[0].upper()}{field[1:]}"
@@ -369,13 +398,24 @@ def render_aggregate_lean(report: dict, output: Path) -> None:
                 f"  ({value} : ℚ) / (2 : ℚ) ^ {AGGREGATE_DYADIC_BITS}",
             ])
         lines.extend([
-            f"def {ident} : ComplexRect2427 :=",
+            f"noncomputable def {ident} : ComplexRect2427 :=",
             f"  ComplexRect2427.mk ({coord_names[0]} : ℝ)",
             f"    ({coord_names[1]} : ℝ)",
             f"    ({coord_names[2]} : ℝ)",
             f"    ({coord_names[3]} : ℝ)",
         ])
         lines.extend([
+            "",
+            f"theorem {ident}FamilySumEq :",
+            f"    ComplexRect2427.sumFinset {family_ident} Finset.univ = {ident} := by",
+            f"  ext <;> simp only [ComplexRect2427.sumFinset]",
+            f"  all_goals rw [fin30SumChain2676]",
+            f"  all_goals simp [{family_ident}]",
+            f"  all_goals norm_num [{family_ident}, {ident},",
+            *[f"    {coord}," for coord in coord_names],
+            "    binary64Value2674, binary64ExponentBits2674,",
+            "    binary64Significand2674, binary64FractionBits2674,",
+            "    binary64Sign2674]",
             "",
             f"theorem {ident}Subset :",
             f"    {target}.reLo ≤ {ident}.reLo ∧",
@@ -389,6 +429,45 @@ def render_aggregate_lean(report: dict, output: Path) -> None:
             "    binary64Sign2674]",
             "",
         ])
+        if name.endswith("_M0"):
+            lines.extend([
+                f"theorem {name}CellSumContained",
+                "    {coefficients : Fin 30 → ℂ} {modulations : Fin 30 → ℝ}",
+                f"    (hfamily : ∀ index position, position ∈ Set.Icc 0 record2675CellRight →",
+                f"      ({family_ident} index).Mem",
+                "      (externalFamilyValue2344 (coefficients index) (modulations index)",
+                "        (storedWidth index ^ 2) position)) :",
+                f"    ∀ position ∈ Set.Icc 0 record2675CellRight,",
+                f"      {target}.Mem (externalPhysical2344 coefficients modulations position) := by",
+                "  intro position hposition",
+                "  have hsum := externalPhysicalFamilySumMem2676",
+                f"    (rect := {family_ident}) (fun index => hfamily index position hposition)",
+                f"  rw [{ident}FamilySumEq] at hsum",
+                f"  exact rectSubset2676 ({ident}Subset).1 ({ident}Subset).2.1",
+                f"    ({ident}Subset).2.2.1 ({ident}Subset).2.2.2 hsum",
+                "",
+            ])
+        else:
+            lines.extend([
+                f"theorem {name}CellSumContained",
+                "    {coefficients : Fin 30 → ℂ} {modulations : Fin 30 → ℝ}",
+                f"    (hfamily : ∀ index position, position ∈ Set.Icc 0 record2675CellRight →",
+                f"      ({family_ident} index).Mem",
+                "      (familySecondValue2346 (coefficients index) (modulations index)",
+                "        (storedWidth index ^ 2) position)) :",
+                f"    ∀ position ∈ Set.Icc 0 record2675CellRight,",
+                f"      {target}.Mem",
+                "        (deriv (deriv (correctedPhysical coefficients modulations)) position) := by",
+                "  intro position hposition",
+                "  have hsum := correctedPhysicalSecondDerivativeFamilySumMem2676",
+                f"    (rect := {family_ident}) (fun index => hfamily index position hposition)",
+                f"  rw [{ident}FamilySumEq] at hsum",
+                f"  exact rectSubset2676 ({ident}Subset).1",
+                f"    ({ident}Subset).2.1",
+                f"    ({ident}Subset).2.2.1",
+                f"    ({ident}Subset).2.2.2 hsum",
+                "",
+            ])
     lines.append("end ConnesWeilRH.Dev")
     output.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
@@ -523,8 +602,13 @@ def main() -> None:
         "correction_M0": k0_corr,
         "correction_D2": k2_corr,
     }
+    lean_family_rectangles = {}
     for name, rects in channel_rectangles.items():
-        agg = aggregate(rects)
+        family_boxes = [dyadic_outer(rect) for rect in rects]
+        lean_family_rectangles[name] = family_boxes
+        scale = 1 << AGGREGATE_DYADIC_BITS
+        agg = tuple(Fraction(sum(box[k] for box in family_boxes), scale)
+                    for k in range(4))
         inside, margins = containment(agg, exported[name])
         report["channels"][name] = {
             "aggregate_float": [float(v) for v in agg],
@@ -547,7 +631,9 @@ def main() -> None:
         }
 
     report["status"] = "CELL4096_CONTAINMENT_SCREEN_PASS"
+    report["_lean_family_rectangles"] = lean_family_rectangles
     render_aggregate_lean(report, AGGREGATE_LEAN_OUTPUT)
+    del report["_lean_family_rectangles"]
     args.output.write_text(
         json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(json.dumps({

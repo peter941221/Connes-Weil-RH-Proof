@@ -6,5 +6,13 @@ namespace ConnesWeilRH.Dev
 #print axioms record2676BaseD2AggregateSubset
 #print axioms record2676CorrectionM0AggregateSubset
 #print axioms record2676CorrectionD2AggregateSubset
+#print axioms record2676BaseM0AggregateFamilySumEq
+#print axioms record2676BaseD2AggregateFamilySumEq
+#print axioms record2676CorrectionM0AggregateFamilySumEq
+#print axioms record2676CorrectionD2AggregateFamilySumEq
+#print axioms base_M0CellSumContained
+#print axioms base_D2CellSumContained
+#print axioms correction_M0CellSumContained
+#print axioms correction_D2CellSumContained
 
 end ConnesWeilRH.Dev

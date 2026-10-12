@@ -444,6 +444,13 @@ structure ComplexRect2427 where
   imLo : ℝ
   imHi : ℝ
 
+@[ext] theorem ComplexRect2427.ext {a b : ComplexRect2427}
+    (hreLo : a.reLo = b.reLo) (hreHi : a.reHi = b.reHi)
+    (himLo : a.imLo = b.imLo) (himHi : a.imHi = b.imHi) : a = b := by
+  cases a
+  cases b
+  simp_all
+
 def ComplexRect2427.Mem (z : ℂ) (r : ComplexRect2427) : Prop :=
   r.reLo ≤ z.re ∧ z.re ≤ r.reHi ∧
   r.imLo ≤ z.im ∧ z.im ≤ r.imHi
