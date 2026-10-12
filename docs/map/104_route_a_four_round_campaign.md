@@ -5874,3 +5874,13 @@ binary64 endpoint conversion, the full evaluator, live-owner `chargeRest`
 identity, signed infinite-xi tail, Producer GO, SourceRH, and RH remain open.
 Evidence:
 docs/proofs/2673_interval_geometry_bridge.md.
+
+Binary64 endpoint bridge -> record 2674. The Lean decoder maps finite IEEE-754
+64-bit patterns to exact rationals, and lower/upper endpoint certificates feed
+directly into `RealInterval2429` membership. A runtime control forms
+`1 + 2^-200` in 256-bit MPFR; RNDD and RNDU return `1.0` and its next binary64
+neighbor, with exact rational containment. This proves the certificate
+interface and one conversion control only. It does not prove MPFR internals,
+the 2242 evaluator, 2670 cells, live-owner `chargeRest`, or the tail. Evidence:
+docs/proofs/2674_binary64_endpoint_bridge.md and
+results/2674_binary64_endpoint_control.json.

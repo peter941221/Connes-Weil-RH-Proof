@@ -1,0 +1,17 @@
+{
+  "record": 2674,
+  "status": "MPFR-DIRECTED-BINARY64-CONTROL-PASS",
+  "precision_bits": 256,
+  "exact_value": "1606938044258990275541962092341162602522202993782792835301377/1606938044258990275541962092341162602522202993782792835301376",
+  "round_down_bits": "0x3ff0000000000000",
+  "round_down_exact": "1",
+  "round_up_bits": "0x3ff0000000000001",
+  "round_up_exact": "4503599627370497/4503599627370496",
+  "exact_containment": true,
+  "scope": "one exact dyadic MPFR value and its two binary64 directed conversions",
+  "nonclaims": [
+    "does not verify MPFR internals or its operation implementation",
+    "does not certify the 2242 interval evaluator or any 2670 cell",
+    "does not close owner transfer, the infinite tail, Producer GO, or RH"
+  ]
+}
