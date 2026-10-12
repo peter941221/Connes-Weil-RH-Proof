@@ -1,0 +1,52 @@
+{
+  "2677_screen_provenance": {
+    "2675_certificate_sha256": "6168e30299e4f9558f80fcfd7bf70fd543c50ca9d3186dc809630647f8381cdd",
+    "actual_live_owner_identity_proved": false,
+    "capture_owner_md5": {
+      "base": "d461872e14212dcba8efe1874de6f652",
+      "correction": "c37e16a9dfeb4383c7bab1d23aa59566"
+    },
+    "capture_sha256": "743fe372bef89b5730c38274d5a5517ac9ea4d3421989d46c49d4af3e78b5e74",
+    "captured_families_bitwise_anchors": {
+      "base_bitwise": true,
+      "corr_bitwise": true,
+      "families_bitwise": true
+    },
+    "coefficient_interval_contains_midpoint_cast": false,
+    "midpoint_owner_md5": {
+      "base": "31be906860eab0d7ac6e1b7f2bd91790",
+      "correction": "d769f6a5e34d372842fe93b2555f672b"
+    },
+    "modulation_bitwise_match": true,
+    "repair_sha256": "7efde152db5e18c2d312cae16309172154044b443477bca75b9619b3070eb258",
+    "width_bitwise_match": true
+  },
+  "analytic_box": {
+    "imag_hi": "-1759094067167753276954092748573370242761103492760734919885414785510680105387135052443729170980135/30354201441027016733116592294117482916287606860189680019559568902170379456331382784",
+    "imag_lo": "-1759094067167753276954092748573370242761103493961045728881986667019315854517016563294162656091431/30354201441027016733116592294117482916287606860189680019559568902170379456331382784",
+    "real_hi": "1029958043662742919083030690926986257114696146950562142978937597542914700097215284327812214596639/3794275180128377091639574036764685364535950857523710002444946112771297432041422848",
+    "real_lo": "1029958043662742919083030690926986257114696146845916396333578468618594587017243791503545078686751/3794275180128377091639574036764685364535950857523710002444946112771297432041422848"
+  },
+  "exact_outside_gaps": {
+    "imag_lower_gap": "50413310336487524643525506093773496880742579983832769553674897283650110650393305/30354201441027016733116592294117482916287606860189680019559568902170379456331382784",
+    "imag_upper_gap": "0",
+    "real_lower_gap": "55630128524288529712078820709994774819031145904758335870014963360093551691867167/3794275180128377091639574036764685364535950857523710002444946112771297432041422848",
+    "real_upper_gap": "0"
+  },
+  "failure_mechanism": "the binary64 cast of the 2338 analytic midpoint is outside the narrow 2338 coefficient rectangle; exact-center 2677 rectangles cannot be consumed by the repaired owner",
+  "lean_imported": false,
+  "producer_go": false,
+  "record": 2678,
+  "repaired_owner_bit_patterns": {
+    "imag": "0xc2ca5a877020782a",
+    "real": "0x42eedc401ee43eb1"
+  },
+  "repaired_owner_exact": {
+    "imag": "-3708943571368981/64",
+    "real": "8686417255612081/32"
+  },
+  "required_next_step": "recompute all 30 family rectangles from the repaired binary64 point owner, prove their aggregate remains inside record 2675, then connect the resulting rectangles to the 2675 integral charge",
+  "rh_claim": false,
+  "scope": "family 0, base M0, cell 4096",
+  "status": "OWNER_ALIGNMENT_NO_GO"
+}
