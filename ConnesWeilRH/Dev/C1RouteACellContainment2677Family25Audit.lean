@@ -1,0 +1,13 @@
+import ConnesWeilRH.Dev.C1RouteACellContainment2677Family25
+
+namespace ConnesWeilRH.Dev
+
+#print axioms record2677Family25BaseM0Mem
+#print axioms record2677Family25BaseM0CenterMem
+#print axioms record2677Family25PhiMem
+#print axioms record2677Family25TrigMem
+#print axioms record2677Family25BaseM0CellMem
+#print axioms record2677Family25BaseM0Subset
+#print axioms record2677Family25BaseM0CellRectMem
+
+end ConnesWeilRH.Dev

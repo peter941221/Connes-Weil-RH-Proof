@@ -5962,3 +5962,18 @@ explicit hypotheses. The Linux-native audit reports exactly
 `[propext, Classical.choice, Quot.sound]` for both new declarations and no
 `sorryAx`. This removes one family premise from one base-M0 cell consumer; it
 does not prove the repaired-owner identity or any additional cell/channel.
+
+Record 2677 family bridge expansion (2026-10-13): the generator now renders
+all family-specific phi/cosine/sine literals from the exact rational screen,
+with separate signed modulation branches and an exact zero-modulation branch
+for families 5, 6, and 7. Families 1 through 29 each prove the base-M0
+coefficient-aware product containment, the dyadic family-box subset, and the
+whole-cell membership at the exact Lean coefficient center. The Linux-native
+batch completed 3906 jobs with zero errors and zero `uses sorry`; the separate
+29-module audit batch completed 3935 jobs and reports only
+`[propext, Classical.choice, Quot.sound]`. This closes all 30 base-M0
+family-specific bridges, but the aggregate consumer still retains 29 explicit
+family premises, and the other channels, repaired-owner identity, 8192-cell
+sum, `chargeRest`, signed tail, Producer GO, SourceRH, and RH remain open.
+Evidence: `docs/proofs/2677_family0_coefficient_transfer.md`,
+`scripts/generate_routea_family_bridges_2677.py`, and the family audit modules.
