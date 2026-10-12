@@ -1,0 +1,792 @@
+{
+  "actual_owner_identity_proved": false,
+  "captured_coefficients_md5": {
+    "base": "d461872e14212dcba8efe1874de6f652",
+    "correction": "c37e16a9dfeb4383c7bab1d23aa59566"
+  },
+  "cell": {
+    "budget_exact": "3730076515117359/50000000",
+    "cell_accumulation": [
+      {
+        "left": {
+          "bits": "0x0000000000000000",
+          "exact": "0"
+        },
+        "mpfr_result_rounded_up_to_binary64": true,
+        "op": "ADD",
+        "result": {
+          "bits": "0x3f97d1ff630bfcb3",
+          "exact": "6704819272940723/288230376151711744"
+        },
+        "right": {
+          "bits": "0x3f97d1ff630bfcb3",
+          "exact": "6704819272940723/288230376151711744"
+        }
+      },
+      {
+        "left": {
+          "bits": "0x3f97d1ff630bfcb3",
+          "exact": "6704819272940723/288230376151711744"
+        },
+        "mpfr_result_rounded_up_to_binary64": true,
+        "op": "ADD",
+        "result": {
+          "bits": "0x404a801473b447ad",
+          "exact": "7459174723372973/140737488355328"
+        },
+        "right": {
+          "bits": "0x404a7d1a33c7e62d",
+          "exact": "7455900885837357/140737488355328"
+        }
+      },
+      {
+        "left": {
+          "bits": "0x404a801473b447ad",
+          "exact": "7459174723372973/140737488355328"
+        },
+        "mpfr_result_rounded_up_to_binary64": true,
+        "op": "ADD",
+        "result": {
+          "bits": "0x404d5565472c1b85",
+          "exact": "8256667798739845/140737488355328"
+        },
+        "right": {
+          "bits": "0x4016aa869bbe9eb9",
+          "exact": "6379944602934969/1125899906842624"
+        }
+      },
+      {
+        "left": {
+          "bits": "0x404d5565472c1b85",
+          "exact": "8256667798739845/140737488355328"
+        },
+        "mpfr_result_rounded_up_to_binary64": true,
+        "op": "ADD",
+        "result": {
+          "bits": "0x40c1696a1ea9e753",
+          "exact": "4900979105982291/549755813888"
+        },
+        "right": {
+          "bits": "0x40c14c14b962bb37",
+          "exact": "4868726497393463/549755813888"
+        }
+      }
+    ],
+    "cell_charge_below_budget": true,
+    "cell_endpoints": {
+      "width_upper": {
+        "left": {
+          "bits": "0x3f5a36e2eb1c4000",
+          "exact": "450359962737/281474976710656"
+        },
+        "mpfr_result_rounded_up_to_binary64": true,
+        "op": "SUB",
+        "result": {
+          "bits": "0x3f5a36e2eb1c4000",
+          "exact": "450359962737/281474976710656"
+        },
+        "right": {
+          "bits": "0x0000000000000000",
+          "exact": "0"
+        }
+      },
+      "x_hi": {
+        "bits": "0x3f5a36e2eb1c4000",
+        "exact": "450359962737/281474976710656"
+      },
+      "x_lo": {
+        "bits": "0x0000000000000000",
+        "exact": "0"
+      }
+    },
+    "cell_total_upper": {
+      "bits": "0x40c1696a1ea9e753",
+      "exact": "4900979105982291/549755813888"
+    },
+    "channels": [
+      {
+        "corner_norm_chain": {
+          "imag_abs_max": {
+            "bits": "0x400478f8600253f8",
+            "exact": "720313461525119/281474976710656"
+          },
+          "imag_square": {
+            "left": {
+              "bits": "0x400478f8600253f8",
+              "exact": "720313461525119/281474976710656"
+            },
+            "mpfr_result_rounded_up_to_binary64": true,
+            "op": "MUL",
+            "result": {
+              "bits": "0x401a31ff8cb59760",
+              "exact": "230416345050299/35184372088832"
+            },
+            "right": {
+              "bits": "0x400478f8600253f8",
+              "exact": "720313461525119/281474976710656"
+            }
+          },
+          "norm_square": {
+            "left": {
+              "bits": "0x40699a7446d8f8e2",
+              "exact": "3603349306637425/17592186044416"
+            },
+            "mpfr_result_rounded_up_to_binary64": true,
+            "op": "ADD",
+            "result": {
+              "bits": "0x406a6c04433ea59d",
+              "exact": "7437114958325149/35184372088832"
+            },
+            "right": {
+              "bits": "0x401a31ff8cb59760",
+              "exact": "230416345050299/35184372088832"
+            }
+          },
+          "norm_upper": {
+            "argument": {
+              "bits": "0x406a6c04433ea59d",
+              "exact": "7437114958325149/35184372088832"
+            },
+            "mpfr_result_rounded_up_to_binary64": true,
+            "op": "SQRT",
+            "result": {
+              "bits": "0x402d13d84068257d",
+              "exact": "8184593839039869/562949953421312"
+            }
+          },
+          "real_abs_max": {
+            "bits": "0x402c9fa00332e418",
+            "exact": "1007101118143619/70368744177664"
+          },
+          "real_square": {
+            "left": {
+              "bits": "0x402c9fa00332e418",
+              "exact": "1007101118143619/70368744177664"
+            },
+            "mpfr_result_rounded_up_to_binary64": true,
+            "op": "MUL",
+            "result": {
+              "bits": "0x40699a7446d8f8e2",
+              "exact": "3603349306637425/17592186044416"
+            },
+            "right": {
+              "bits": "0x402c9fa00332e418",
+              "exact": "1007101118143619/70368744177664"
+            }
+          }
+        },
+        "name": "base_M0",
+        "rectangle_endpoints": {
+          "im_hi": {
+            "bits": "0x3ffc678667bdfba1",
+            "exact": "7995126311680929/4503599627370496"
+          },
+          "im_lo": {
+            "bits": "0xc00478f8600253f8",
+            "exact": "-720313461525119/281474976710656"
+          },
+          "re_hi": {
+            "bits": "0x402c9fa00332e418",
+            "exact": "1007101118143619/70368744177664"
+          },
+          "re_lo": {
+            "bits": "0x402a7892ea7184b3",
+            "exact": "7450921788343475/562949953421312"
+          }
+        },
+        "weighted_charge_chain": {
+          "charge_upper": {
+            "left": {
+              "bits": "0x3f97d1ff630bfcb3",
+              "exact": "6704819272940723/288230376151711744"
+            },
+            "mpfr_result_rounded_up_to_binary64": true,
+            "op": "MUL",
+            "result": {
+              "bits": "0x3f97d1ff630bfcb3",
+              "exact": "6704819272940723/288230376151711744"
+            },
+            "right": {
+              "bits": "0x3ff0000000000000",
+              "exact": "1"
+            }
+          },
+          "weight_upper": {
+            "argument": {
+              "bits": "0x8000000000000000",
+              "exact": "0"
+            },
+            "mpfr_result_rounded_up_to_binary64": true,
+            "op": "EXP",
+            "result": {
+              "bits": "0x3ff0000000000000",
+              "exact": "1"
+            }
+          },
+          "width_times_norm": {
+            "left": {
+              "bits": "0x3f5a36e2eb1c4000",
+              "exact": "450359962737/281474976710656"
+            },
+            "mpfr_result_rounded_up_to_binary64": true,
+            "op": "MUL",
+            "result": {
+              "bits": "0x3f97d1ff630bfcb3",
+              "exact": "6704819272940723/288230376151711744"
+            },
+            "right": {
+              "bits": "0x402d13d84068257d",
+              "exact": "8184593839039869/562949953421312"
+            }
+          },
+          "width_upper": {
+            "left": {
+              "bits": "0x3f5a36e2eb1c4000",
+              "exact": "450359962737/281474976710656"
+            },
+            "mpfr_result_rounded_up_to_binary64": true,
+            "op": "SUB",
+            "result": {
+              "bits": "0x3f5a36e2eb1c4000",
+              "exact": "450359962737/281474976710656"
+            },
+            "right": {
+              "bits": "0x0000000000000000",
+              "exact": "0"
+            }
+          }
+        }
+      },
+      {
+        "corner_norm_chain": {
+          "imag_abs_max": {
+            "bits": "0x40b931d457be20ae",
+            "exact": "3545831246336087/549755813888"
+          },
+          "imag_square": {
+            "left": {
+              "bits": "0x40b931d457be20ae",
+              "exact": "3545831246336087/549755813888"
+            },
+            "mpfr_result_rounded_up_to_binary64": true,
+            "op": "MUL",
+            "result": {
+              "bits": "0x4183d62960e6d4dc",
+              "exact": "1395874441311543/33554432"
+            },
+            "right": {
+              "bits": "0x40b931d457be20ae",
+              "exact": "3545831246336087/549755813888"
+            }
+          },
+          "norm_square": {
+            "left": {
+              "bits": "0x41cf6eeff7e1269f",
+              "exact": "8847701212997279/8388608"
+            },
+            "mpfr_result_rounded_up_to_binary64": true,
+            "op": "ADD",
+            "result": {
+              "bits": "0x41d0562946f7c9f7",
+              "exact": "4598334911662583/4194304"
+            },
+            "right": {
+              "bits": "0x4183d62960e6d4dc",
+              "exact": "1395874441311543/33554432"
+            }
+          },
+          "norm_upper": {
+            "argument": {
+              "bits": "0x41d0562946f7c9f7",
+              "exact": "4598334911662583/4194304"
+            },
+            "mpfr_result_rounded_up_to_binary64": true,
+            "op": "SQRT",
+            "result": {
+              "bits": "0x40e02adb3e1ac432",
+              "exact": "2275360377758233/68719476736"
+            }
+          },
+          "real_abs_max": {
+            "bits": "0x40dfb7250c5f5a85",
+            "exact": "8927094027278981/274877906944"
+          },
+          "real_square": {
+            "left": {
+              "bits": "0x40dfb7250c5f5a85",
+              "exact": "8927094027278981/274877906944"
+            },
+            "mpfr_result_rounded_up_to_binary64": true,
+            "op": "MUL",
+            "result": {
+              "bits": "0x41cf6eeff7e1269f",
+              "exact": "8847701212997279/8388608"
+            },
+            "right": {
+              "bits": "0x40dfb7250c5f5a85",
+              "exact": "8927094027278981/274877906944"
+            }
+          }
+        },
+        "name": "base_D2",
+        "rectangle_endpoints": {
+          "im_hi": {
+            "bits": "0x40b931d457be20ae",
+            "exact": "3545831246336087/549755813888"
+          },
+          "im_lo": {
+            "bits": "0xc0a8266a7ee9025d",
+            "exact": "-6797638278644317/2199023255552"
+          },
+          "re_hi": {
+            "bits": "0xc0dd553f40944585",
+            "exact": "-8256504479368581/274877906944"
+          },
+          "re_lo": {
+            "bits": "0xc0dfb7250c5f5a85",
+            "exact": "-8927094027278981/274877906944"
+          }
+        },
+        "weighted_charge_chain": {
+          "charge_upper": {
+            "left": {
+              "bits": "0x404a7d1a33c7e62d",
+              "exact": "7455900885837357/140737488355328"
+            },
+            "mpfr_result_rounded_up_to_binary64": true,
+            "op": "MUL",
+            "result": {
+              "bits": "0x404a7d1a33c7e62d",
+              "exact": "7455900885837357/140737488355328"
+            },
+            "right": {
+              "bits": "0x3ff0000000000000",
+              "exact": "1"
+            }
+          },
+          "weight_upper": {
+            "argument": {
+              "bits": "0x8000000000000000",
+              "exact": "0"
+            },
+            "mpfr_result_rounded_up_to_binary64": true,
+            "op": "EXP",
+            "result": {
+              "bits": "0x3ff0000000000000",
+              "exact": "1"
+            }
+          },
+          "width_times_norm": {
+            "left": {
+              "bits": "0x3f5a36e2eb1c4000",
+              "exact": "450359962737/281474976710656"
+            },
+            "mpfr_result_rounded_up_to_binary64": true,
+            "op": "MUL",
+            "result": {
+              "bits": "0x404a7d1a33c7e62d",
+              "exact": "7455900885837357/140737488355328"
+            },
+            "right": {
+              "bits": "0x40e02adb3e1ac432",
+              "exact": "2275360377758233/68719476736"
+            }
+          },
+          "width_upper": {
+            "left": {
+              "bits": "0x3f5a36e2eb1c4000",
+              "exact": "450359962737/281474976710656"
+            },
+            "mpfr_result_rounded_up_to_binary64": true,
+            "op": "SUB",
+            "result": {
+              "bits": "0x3f5a36e2eb1c4000",
+              "exact": "450359962737/281474976710656"
+            },
+            "right": {
+              "bits": "0x0000000000000000",
+              "exact": "0"
+            }
+          }
+        }
+      },
+      {
+        "corner_norm_chain": {
+          "imag_abs_max": {
+            "bits": "0x4091cd591365d2b6",
+            "exact": "2505428532652379/2199023255552"
+          },
+          "imag_square": {
+            "left": {
+              "bits": "0x4091cd591365d2b6",
+              "exact": "2505428532652379/2199023255552"
+            },
+            "mpfr_result_rounded_up_to_binary64": true,
+            "op": "MUL",
+            "result": {
+              "bits": "0x4133cea8c5b958df",
+              "exact": "5575248824588511/4294967296"
+            },
+            "right": {
+              "bits": "0x4091cd591365d2b6",
+              "exact": "2505428532652379/2199023255552"
+            }
+          },
+          "norm_square": {
+            "left": {
+              "bits": "0x4165729421f41847",
+              "exact": "6036955061295175/536870912"
+            },
+            "mpfr_result_rounded_up_to_binary64": true,
+            "op": "ADD",
+            "result": {
+              "bits": "0x4167ec693aab4363",
+              "exact": "6733861164368739/536870912"
+            },
+            "right": {
+              "bits": "0x4133cea8c5b958df",
+              "exact": "5575248824588511/4294967296"
+            }
+          },
+          "norm_upper": {
+            "argument": {
+              "bits": "0x4167ec693aab4363",
+              "exact": "6733861164368739/536870912"
+            },
+            "mpfr_result_rounded_up_to_binary64": true,
+            "op": "SQRT",
+            "result": {
+              "bits": "0x40abab29511e341a",
+              "exact": "3894009157065229/1099511627776"
+            }
+          },
+          "real_abs_max": {
+            "bits": "0x40aa32a0069d0708",
+            "exact": "921751535198433/274877906944"
+          },
+          "real_square": {
+            "left": {
+              "bits": "0x40aa32a0069d0708",
+              "exact": "921751535198433/274877906944"
+            },
+            "mpfr_result_rounded_up_to_binary64": true,
+            "op": "MUL",
+            "result": {
+              "bits": "0x4165729421f41847",
+              "exact": "6036955061295175/536870912"
+            },
+            "right": {
+              "bits": "0x40aa32a0069d0708",
+              "exact": "921751535198433/274877906944"
+            }
+          }
+        },
+        "name": "correction_M0",
+        "rectangle_endpoints": {
+          "im_hi": {
+            "bits": "0x4091cd591365d2b6",
+            "exact": "2505428532652379/2199023255552"
+          },
+          "im_lo": {
+            "bits": "0xc090b2b5df7ba75f",
+            "exact": "-4700093835618143/4398046511104"
+          },
+          "re_hi": {
+            "bits": "0x40aa1f3341a8db3a",
+            "exact": "3676327199927709/1099511627776"
+          },
+          "re_lo": {
+            "bits": "0xc0aa32a0069d0708",
+            "exact": "-921751535198433/274877906944"
+          }
+        },
+        "weighted_charge_chain": {
+          "charge_upper": {
+            "left": {
+              "bits": "0x4016aa869bbe9eb9",
+              "exact": "6379944602934969/1125899906842624"
+            },
+            "mpfr_result_rounded_up_to_binary64": true,
+            "op": "MUL",
+            "result": {
+              "bits": "0x4016aa869bbe9eb9",
+              "exact": "6379944602934969/1125899906842624"
+            },
+            "right": {
+              "bits": "0x3ff0000000000000",
+              "exact": "1"
+            }
+          },
+          "weight_upper": {
+            "argument": {
+              "bits": "0x8000000000000000",
+              "exact": "0"
+            },
+            "mpfr_result_rounded_up_to_binary64": true,
+            "op": "EXP",
+            "result": {
+              "bits": "0x3ff0000000000000",
+              "exact": "1"
+            }
+          },
+          "width_times_norm": {
+            "left": {
+              "bits": "0x3f5a36e2eb1c4000",
+              "exact": "450359962737/281474976710656"
+            },
+            "mpfr_result_rounded_up_to_binary64": true,
+            "op": "MUL",
+            "result": {
+              "bits": "0x4016aa869bbe9eb9",
+              "exact": "6379944602934969/1125899906842624"
+            },
+            "right": {
+              "bits": "0x40abab29511e341a",
+              "exact": "3894009157065229/1099511627776"
+            }
+          },
+          "width_upper": {
+            "left": {
+              "bits": "0x3f5a36e2eb1c4000",
+              "exact": "450359962737/281474976710656"
+            },
+            "mpfr_result_rounded_up_to_binary64": true,
+            "op": "SUB",
+            "result": {
+              "bits": "0x3f5a36e2eb1c4000",
+              "exact": "450359962737/281474976710656"
+            },
+            "right": {
+              "bits": "0x0000000000000000",
+              "exact": "0"
+            }
+          }
+        }
+      },
+      {
+        "corner_norm_chain": {
+          "imag_abs_max": {
+            "bits": "0x413b4bd15674425a",
+            "exact": "3841593420947757/2147483648"
+          },
+          "imag_square": {
+            "left": {
+              "bits": "0x413b4bd15674425a",
+              "exact": "3841593420947757/2147483648"
+            },
+            "mpfr_result_rounded_up_to_binary64": true,
+            "op": "MUL",
+            "result": {
+              "bits": "0x428748a4e482e328",
+              "exact": "819224688745573/256"
+            },
+            "right": {
+              "bits": "0x413b4bd15674425a",
+              "exact": "3841593420947757/2147483648"
+            }
+          },
+          "norm_square": {
+            "left": {
+              "bits": "0x42b8f43b77660b90",
+              "exact": "438995980279993/16"
+            },
+            "mpfr_result_rounded_up_to_binary64": true,
+            "op": "ADD",
+            "result": {
+              "bits": "0x42bbdd5013f667f5",
+              "exact": "7843160373225461/256"
+            },
+            "right": {
+              "bits": "0x428748a4e482e328",
+              "exact": "819224688745573/256"
+            }
+          },
+          "norm_upper": {
+            "argument": {
+              "bits": "0x42bbdd5013f667f5",
+              "exact": "7843160373225461/256"
+            },
+            "mpfr_result_rounded_up_to_binary64": true,
+            "op": "SQRT",
+            "result": {
+              "bits": "0x41551d5f4c4d0816",
+              "exact": "2971634825069579/536870912"
+            }
+          },
+          "real_abs_max": {
+            "bits": "0x4153fb4a6ea05f01",
+            "exact": "5624321659657985/1073741824"
+          },
+          "real_square": {
+            "left": {
+              "bits": "0x4153fb4a6ea05f01",
+              "exact": "5624321659657985/1073741824"
+            },
+            "mpfr_result_rounded_up_to_binary64": true,
+            "op": "MUL",
+            "result": {
+              "bits": "0x42b8f43b77660b90",
+              "exact": "438995980279993/16"
+            },
+            "right": {
+              "bits": "0x4153fb4a6ea05f01",
+              "exact": "5624321659657985/1073741824"
+            }
+          }
+        },
+        "name": "correction_D2",
+        "rectangle_endpoints": {
+          "im_hi": {
+            "bits": "0x4139901a0e1d2cde",
+            "exact": "3597657999054447/2147483648"
+          },
+          "im_lo": {
+            "bits": "0xc13b4bd15674425a",
+            "exact": "-3841593420947757/2147483648"
+          },
+          "re_hi": {
+            "bits": "0x4153f8bf303b9597",
+            "exact": "5621524589155735/1073741824"
+          },
+          "re_lo": {
+            "bits": "0xc153fb4a6ea05f01",
+            "exact": "-5624321659657985/1073741824"
+          }
+        },
+        "weighted_charge_chain": {
+          "charge_upper": {
+            "left": {
+              "bits": "0x40c14c14b962bb37",
+              "exact": "4868726497393463/549755813888"
+            },
+            "mpfr_result_rounded_up_to_binary64": true,
+            "op": "MUL",
+            "result": {
+              "bits": "0x40c14c14b962bb37",
+              "exact": "4868726497393463/549755813888"
+            },
+            "right": {
+              "bits": "0x3ff0000000000000",
+              "exact": "1"
+            }
+          },
+          "weight_upper": {
+            "argument": {
+              "bits": "0x8000000000000000",
+              "exact": "0"
+            },
+            "mpfr_result_rounded_up_to_binary64": true,
+            "op": "EXP",
+            "result": {
+              "bits": "0x3ff0000000000000",
+              "exact": "1"
+            }
+          },
+          "width_times_norm": {
+            "left": {
+              "bits": "0x3f5a36e2eb1c4000",
+              "exact": "450359962737/281474976710656"
+            },
+            "mpfr_result_rounded_up_to_binary64": true,
+            "op": "MUL",
+            "result": {
+              "bits": "0x40c14c14b962bb37",
+              "exact": "4868726497393463/549755813888"
+            },
+            "right": {
+              "bits": "0x41551d5f4c4d0816",
+              "exact": "2971634825069579/536870912"
+            }
+          },
+          "width_upper": {
+            "left": {
+              "bits": "0x3f5a36e2eb1c4000",
+              "exact": "450359962737/281474976710656"
+            },
+            "mpfr_result_rounded_up_to_binary64": true,
+            "op": "SUB",
+            "result": {
+              "bits": "0x3f5a36e2eb1c4000",
+              "exact": "450359962737/281474976710656"
+            },
+            "right": {
+              "bits": "0x0000000000000000",
+              "exact": "0"
+            }
+          }
+        }
+      }
+    ],
+    "same_cell_256bit_reference_upper": {
+      "bits": "0x40c1696a1ea9e752",
+      "exact": "2450489552991145/274877906944"
+    },
+    "sigma": {
+      "bits": "0xbfe0000000000000",
+      "exact": "-1/2"
+    },
+    "upward_binary64_chain_dominates_256bit_control": true,
+    "weight_chain": {
+      "exp_upper": {
+        "argument": {
+          "bits": "0x8000000000000000",
+          "exact": "0"
+        },
+        "mpfr_result_rounded_up_to_binary64": true,
+        "op": "EXP",
+        "result": {
+          "bits": "0x3ff0000000000000",
+          "exact": "1"
+        }
+      },
+      "exponent_upper": {
+        "left": {
+          "bits": "0xbfe0000000000000",
+          "exact": "-1/2"
+        },
+        "mpfr_result_rounded_up_to_binary64": true,
+        "op": "MUL",
+        "result": {
+          "bits": "0x8000000000000000",
+          "exact": "0"
+        },
+        "right": {
+          "bits": "0x0000000000000000",
+          "exact": "0"
+        }
+      }
+    },
+    "weight_endpoint": {
+      "bits": "0x0000000000000000",
+      "exact": "0"
+    }
+  },
+  "cell_index": 4096,
+  "continuum_enclosure_proved": false,
+  "infinite_xi_tail_closed": false,
+  "mpfr_precision_bits": 256,
+  "owner_coefficients_md5": {
+    "base": "31be906860eab0d7ac6e1b7f2bd91790",
+    "correction": "d769f6a5e34d372842fe93b2555f672b"
+  },
+  "partition_cells": 8192,
+  "producer_go": false,
+  "record": 2675,
+  "rh_claim": false,
+  "scope": "the final 2242 rectangle endpoints and the one-cell scalar price; the theorem that each rectangle contains its mathematical channel value is not proved by this artifact",
+  "source_sha256": {
+    "continuous_price_probe": "ee25def8d504b0c82b5dd6586b2a352ab82a32212d067c8bf49b76bd68bd0576",
+    "exporter": "2876e7e2d872d5c5d05403986cc9da2c37e7509d554c1b3299c8a15192c1d370",
+    "interval_evaluator": "539ed1b4238e9edd3583042132421f06ada4c3e723d86d9ced3ed1642dd90d07",
+    "mpfr_binding": "799e9b85cd48cf8242b3187b5a23a354606a27d63a80e7bae81881b8be485523",
+    "owner_capture_artifact": "743fe372bef89b5730c38274d5a5517ac9ea4d3421989d46c49d4af3e78b5e74",
+    "repair_artifact": "7efde152db5e18c2d312cae16309172154044b443477bca75b9619b3070eb258",
+    "repair_reread_artifact": "d7abee60026005e2569060930c7198b08d371b441e3a64017343972f0256c245",
+    "strip_owner": "ed2b68b77acc84c0351131017e7605b45323ce1912dd13d70830f909d79dda3b"
+  },
+  "status": "ONE_CELL_DIRECTED_BINARY64_PRICE_CERTIFICATE",
+  "support_radius_binary64": {
+    "bits": "0x401a36e2eb1c4331",
+    "exact": "7378697629483825/1125899906842624"
+  }
+}

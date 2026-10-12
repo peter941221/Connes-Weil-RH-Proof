@@ -5884,3 +5884,15 @@ interface and one conversion control only. It does not prove MPFR internals,
 the 2242 evaluator, 2670 cells, live-owner `chargeRest`, or the tail. Evidence:
 docs/proofs/2674_binary64_endpoint_bridge.md and
 results/2674_binary64_endpoint_control.json.
+
+One-cell repaired-owner certificate -> record 2675. Cell 4096 of the 8192
+partition is exported with the four final 2242 rectangle hulls, binary64 bit
+patterns, exact rational endpoints, and an upward-rounded width/weight/
+corner-norm/charge chain. Lean proves the four rational corner-norm bounds,
+the conditional cell integral bound, the four charges, their conditional
+integral sum, and the
+exact comparison with `knownError2109`; all audited declarations use the
+standard axiom trio. The remaining load-bearing premise is the continuum
+containment of each 2242 rectangle for the actual repaired-owner channel.
+Evidence: docs/proofs/2675_repaired_owner_cell_certificate.md and
+results/2675_repaired_owner_cell_price_certificate.json.

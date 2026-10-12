@@ -1,0 +1,20 @@
+import ConnesWeilRH.Dev.C1RouteACellIntegralCharge2675
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ComplexRect2427.cornerNorm_le_of_sq_le
+#print axioms weightedNormIntegral_le_of_cellRectangle
+#print axioms record2675BaseM0CornerNorm
+#print axioms record2675BaseD2CornerNorm
+#print axioms record2675CorrectionM0CornerNorm
+#print axioms record2675CorrectionD2CornerNorm
+#print axioms record2675CellWeightLeOne
+#print axioms record2675BaseM0Charge
+#print axioms record2675BaseD2Charge
+#print axioms record2675CorrectionM0Charge
+#print axioms record2675CorrectionD2Charge
+#print axioms record2675FourChannelCellChargeLeTotal
+#print axioms record2675FourChannelIntegralCharge
+#print axioms record2675CellTotalBelowKnownError
+
+end ConnesWeilRH.Dev
