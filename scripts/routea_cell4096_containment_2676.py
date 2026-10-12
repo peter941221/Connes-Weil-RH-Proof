@@ -24,9 +24,13 @@ import json
 import math
 import re
 import struct
+import sys
 from fractions import Fraction
 from pathlib import Path
 from types import SimpleNamespace
+
+if hasattr(sys, "set_int_max_str_digits"):
+    sys.set_int_max_str_digits(0)
 
 ROOT = Path(__file__).resolve().parents[1]
 CELL_ARTIFACT = ROOT / "results/2675_repaired_owner_cell_price_certificate.json"
@@ -444,13 +448,20 @@ def main() -> None:
         },
         "channels": {},
     }
-    for name, rects in (("base_M0", k0_base), ("base_D2", k2_base),
-                        ("correction_M0", k0_corr), ("correction_D2", k2_corr)):
+    channel_rectangles = {
+        "base_M0": k0_base,
+        "base_D2": k2_base,
+        "correction_M0": k0_corr,
+        "correction_D2": k2_corr,
+    }
+    for name, rects in channel_rectangles.items():
         agg = aggregate(rects)
         inside, margins = containment(agg, exported[name])
         report["channels"][name] = {
             "aggregate_float": [float(v) for v in agg],
+            "aggregate_exact": [str(v) for v in agg],
             "exported_float": [float(v) for v in exported[name]],
+            "exported_exact": [str(v) for v in exported[name]],
             "inside_exported": inside,
             "margin_ulps": margins,
         }
