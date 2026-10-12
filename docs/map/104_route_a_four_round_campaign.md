@@ -5908,3 +5908,57 @@ still open. The 8192-cell Lean sum, live-owner `chargeRest`, signed infinite-
 xi tail, Producer GO, SourceRH, and RH remain open. Evidence:
 docs/proofs/2676_cell4096_aggregate_coordinate_containment.md and
 results/2676_cell4096_containment_screen.json.
+
+Coefficient-enclosure reprice -> record 2677. Replacing the midpoint
+coefficients by the exact record-2338 coefficient rectangles preserves the
+four aggregate corner-norm budgets. The aggregate-coordinate screen is not a
+pass: `correction_M0` escapes the old 2675 coordinate hull, so consumption
+must use the independently checked norm budget. Lean proves the four
+finite-sum aggregate equalities and four aggregate corner-norm bounds.
+Record 2677 family 0 now also has a conditional coefficient-aware product
+rectangle theorem: coefficient, bump, cosine, and sine membership imply the
+external family value belongs to the exact product rectangle. It does not yet
+prove the continuous factor memberships, the binary64 repaired-owner identity,
+or transfer that rectangle to the outward-rounded family box consumed by the
+aggregate proof. Thus no 2675 continuum premise is discharged. The 8192-cell
+Lean sum, live-owner `chargeRest`, signed infinite-xi tail, Producer GO,
+SourceRH, and RH remain open. Evidence:
+`docs/proofs/2677_family0_coefficient_transfer.md`,
+`results/2677_cell4096_coefficient_enclosure_screen.json`, and the 2677 Lean
+aggregate/family-0 audit modules.
+
+Follow-up on the family-0 bridge: `record2677Family0BaseM0CenterMem` now
+discharges the coefficient premise for the exact Lean center owner
+`baseCoefficientCenter2540 0` through `baseCoefficientCenter_mem2540`.
+This removes one conditional input for that owner, but the theorem still
+lands in the coefficient-aware product rectangle. The dyadic family-box
+subset, the three whole-cell factor memberships, the binary64 repaired-owner
+identity, and the `chargeRest` consumer remain open.
+
+Next record-2677 step: Family 0, base M0 is now closed over cell 4096. In
+`C1RouteACellContainment2677Family0.lean`, `record2677Family0PhiMem` proves the
+bump enclosure using order-30/order-5 Taylor pins and the monotone bump
+argument; `record2677Family0TrigMem` proves the cosine/sine boxes by the
+order-26 complex-exponential endpoint pins plus the cell-wide chord error.
+`record2677Family0BaseM0Subset` proves the exact coefficient-aware product
+rectangle is contained in the outward-rounded 160-bit dyadic family box, and
+`record2677Family0BaseM0CellRectMem` composes these into a cell-wide membership
+for `baseCoefficientCenter2540 0`. The new declarations audit to exactly
+`[propext, Classical.choice, Quot.sound]`; the generator emits the proof from
+the 2677 rational screen.
+
+Scope remains narrow: this closes one of 120 family/channel memberships at
+the exact Lean center. The 119 remaining memberships, identity with the
+binary64 repaired owner, all 8192 cell consumers, full `chargeRest`, signed
+infinite-xi tail, Producer GO, SourceRH, and RH remain open. Evidence:
+`docs/proofs/2677_family0_coefficient_transfer.md`,
+`scripts/generate_routea_family0_bridge_2677.py`, and the 2677 audit module.
+
+The follow-up aggregate consumer is now compiled as well. `record2677BaseM0AggregateSubset`
+proves the exact family-0 aggregate rectangle lies inside the record-2675
+base-M0 rectangle, and `record2677BaseM0CellContained` consumes family 0 through
+the finite 30-family sum while leaving the other 29 family memberships as
+explicit hypotheses. The Linux-native audit reports exactly
+`[propext, Classical.choice, Quot.sound]` for both new declarations and no
+`sorryAx`. This removes one family premise from one base-M0 cell consumer; it
+does not prove the repaired-owner identity or any additional cell/channel.

@@ -1,0 +1,14 @@
+import ConnesWeilRH.Dev.C1RouteACellContainment2677Aggregates
+
+namespace ConnesWeilRH.Dev
+
+#print axioms record2677BaseM0AggregateFamilySumEq
+#print axioms record2677BaseM0AggregateCornerNormLe
+#print axioms record2677BaseD2AggregateFamilySumEq
+#print axioms record2677BaseD2AggregateCornerNormLe
+#print axioms record2677CorrectionM0AggregateFamilySumEq
+#print axioms record2677CorrectionM0AggregateCornerNormLe
+#print axioms record2677CorrectionD2AggregateFamilySumEq
+#print axioms record2677CorrectionD2AggregateCornerNormLe
+
+end ConnesWeilRH.Dev
