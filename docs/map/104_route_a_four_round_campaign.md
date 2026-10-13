@@ -6110,3 +6110,17 @@ tail, Producer GO, `SourceRH`, and RH remain open.
 
 Evidence: [2690](../proofs/2690_offdiag_entry_01_03_membership.md),
 `results/2664_assembly_1_3.json`, and `results/2664_offdiag_manifest.json`.
+
+## Record 2691 - off-diagonal entry (20,2) membership
+
+Record 2691 adds the degree-55 phase-carrying membership `entry2002Mem2663`
+for `analyticMomentInterval2597 20 2` and the corresponding
+`ownerMomentMatrix2351 capturedModulations2584 capturedNodes2584 20 2`. The
+chain is byte-stable, both Lean builds pass with zero errors and exactly the
+standard axiom trio, and the refreshed manifest contains 46 disk-verified
+off-diagonal entries. This advances the analytic owner-matrix interface only;
+the static consumer, selected-detector signed C3' budget, `chargeRest`, signed
+tail, Producer GO, `SourceRH`, and RH remain open.
+
+Evidence: [2691](../proofs/2691_offdiag_entry_20_02_membership.md),
+`results/2664_assembly_20_2.json`, and `results/2664_offdiag_manifest.json`.
