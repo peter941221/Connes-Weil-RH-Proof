@@ -1,0 +1,4 @@
+import ConnesWeilRH.Dev.C1RouteACorrectionCapturedOwnerExactInterval2702
+
+#print axioms
+  ConnesWeilRH.Dev.capturedActualCorrectionOwner2584_mem_of_exactInterval2702
