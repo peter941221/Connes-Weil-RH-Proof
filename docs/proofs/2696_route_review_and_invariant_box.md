@@ -1,10 +1,10 @@
 # Record 2696: route review and invariant coefficient box
 
 Status: ROUTE RETARGETED; GENERIC FIXED-POINT MEMBERSHIP LEMMA ADDED.
-The theorem source now uses the explicit `Set.MapsTo` name required by the
-current Mathlib namespace layout. A Linux-native compile is still pending:
-the local WSL launcher rejects its inherited localhost proxy before Lake emits
-Lean diagnostics.
+The theorem source uses the explicit `Set.MapsTo` name required by the current
+Mathlib namespace layout and invokes `exists_fixedPoint'` on the restricted
+contraction. A Linux-native compile now passes; the audit reports exactly
+`[propext, Classical.choice, Quot.sound]` and no `sorryAx`.
 No coefficient membership, producer GO, SourceRH, or RH claim is made.
 
 The recent off-diagonal matrix-entry commits advance the conditional

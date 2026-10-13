@@ -18,8 +18,10 @@ theorem fixedPoint_mem_of_complete_invariant_set2696
     (hfinite : Ne (edist x (f x)) ⊤)
     (hy : IsFixedPt f y) :
     s y := by
+  have hrestrict : ContractingWith K (Set.MapsTo.restrict f s s hinvariant) :=
+    hf.restrict hinvariant
   have hexists :=
-    hf.exists_fixedPoint' hcomplete hinvariant (hf.restrict hinvariant) hx hfinite
+    hrestrict.exists_fixedPoint' (s := s) hcomplete hinvariant (x := x) hx hfinite
   let z := Classical.choose hexists
   have hspec := Classical.choose_spec hexists
   have hz : s z := hspec.1
