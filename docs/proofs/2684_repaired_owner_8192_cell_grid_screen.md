@@ -21,8 +21,9 @@ Evidence from `results/2684_repaired_owner_8192_cell_grid_screen.json`:
 cells                         8192
 cell adjacency                8191/8191 bitwise continuous
 cell 4096 replay              endpoints, four rectangles, charge: PASS
-total upper sum               7200470187264645 / 1073741824
-total                         6705960.433245302
+rounded total upper (binary64) 7200470187264645 / 1073741824
+exact sum of cell bit patterns proved in record 2685
+rounded upper decimal        6705960.433245306
 knownError2109 ratio          0.08989038704792249
 worst cell                    4033, 11492.407134352972
 below knownError2109          true
@@ -30,8 +31,12 @@ below knownError2109          true
 
 The independent readback checked the index permutation, adjacent endpoint
 bit patterns, and cell-4096 equality against the 2675 JSON artifact. The
-screen therefore finds no failed cell and keeps the continuous-box numerical
-price below the committed budget by about 11.1x.
+`total_upper_sum.exact` field is the exact rational decoding of the final
+binary64 rendering, not the exact rational sum of the 8192 cell totals. Record
+2685 recomputes that sum from every stored cell-total bit pattern in Lean and
+proves the displayed binary64 value is above it. The screen therefore finds
+no failed cell and keeps the numerical price below the committed budget by
+about 11.1x.
 
 The artifact still has these explicit false fields: `continuum_enclosure_proved`,
 `lean_numeric_imported`, `actual_owner_identity_proved`,

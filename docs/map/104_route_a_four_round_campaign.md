@@ -5988,3 +5988,30 @@ consumer plus audit build: 3909 jobs, zero errors, and the audited theorem
 uses only `[propext, Classical.choice, Quot.sound]`. The repaired binary64
 owner identity, other channels, 8192-cell closure, `chargeRest`, signed tail,
 Producer GO, SourceRH, and RH remain open.
+
+## Record 2685 - exact finite-grid price sum
+
+Record 2685 closes the exact finite-price ledger for the full record-2684
+grid. The generated Lean module decodes all 8192 cell-total bit patterns via
+`binary64Value2674`, proves 256 rational chunk sums of 32 cells, composes the
+exact sum, proves the composed ledger length is 8192 and the record-2684
+rounded binary64 total is an upper bound for that sum,
+and proves the exact sum is below `knownError2109`. Its companion audit uses
+only the standard axiom trio. This corrects an artifact-label ambiguity:
+`total_upper_sum.exact` is the exact value of the rounded binary64 aggregate,
+not the exact rational sum of cell values. The rounded aggregate is upward for
+this artifact and Lean checks that direction.
+
+This is arithmetic closure for the sampled-price artifact only. The
+parameterized integral theorem still needs each cell's rectangle membership,
+weight, norm, price, and integrability facts for the actual repaired owner;
+the evaluator-continuum bridge, `chargeRest` identity, and signed full-line
+tail remain open. The next shortest proof step is to instantiate one complete
+cell from the bit-pattern certificate into
+`weightedNormIntegral_le_of_partition2684`, then determine whether that
+certificate interface scales to all 8192 cells without adding unsupported
+analytic premises. Do not mark `continuum_enclosure_proved`, `producer_go`, or
+`rh_claim` true from record 2685.
+
+Evidence: [2685](../proofs/2685_repaired_owner_exact_grid_sum.md),
+`ConnesWeilRH/Dev/C1RouteAWeightedPartitionSum2685.lean`, and its audit module.

@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.C1RouteAWeightedPartitionSum2685
+
+namespace ConnesWeilRH.Dev
+
+#print axioms record2684GridChargeExact2685
+#print axioms record2684RoundedTotalUpper2685
+#print axioms record2684GridChargeBelowKnownError2685
+
+end ConnesWeilRH.Dev
