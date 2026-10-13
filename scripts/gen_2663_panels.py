@@ -217,6 +217,15 @@ def render(k, entry=None):
             fn = m.group(1) + ".lean"
             assert os.path.exists(os.path.join(entry["dev"], fn)), \
                 f"entry import missing on disk: {fn}"
+        # Keep this bridge definitionally equal instead of invoking `simpa`
+        # on the very large entry-specific rational residual.  Lean 4.30's
+        # simplifier can leave an unresolved HSub metavariable for some
+        # off-diagonal entries; the theorem already has exactly the target
+        # type after unfolding these two local definitions.
+        old_bridge = (
+            f"simpa [ampExpArg2662P{tag}, deficitSq2662P{tag}] using h)")
+        assert text.count(old_bridge) == 1, (tag, text.count(old_bridge))
+        text = text.replace(old_bridge, "exact h)")
         return text, s
     slots_ok(k)
     # ---- every import of the rendered module must exist on disk ----

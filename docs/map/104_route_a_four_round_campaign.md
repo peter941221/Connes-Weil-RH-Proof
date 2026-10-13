@@ -6154,3 +6154,21 @@ tail, Producer GO, `SourceRH`, and RH remain open.
 
 Evidence: [2693](../proofs/2693_offdiag_entry_19_02_membership.md),
 `results/2664_assembly_19_2.json`, and `results/2664_offdiag_manifest.json`.
+
+## Record 2694 - off-diagonal entry (13,3) membership
+
+Record 2694 adds the degree-55 phase-carrying membership `entry1303Mem2663`
+for `analyticMomentInterval2597 13 3` and the corresponding
+`ownerMomentMatrix2351 capturedModulations2584 capturedNodes2584 13 3`. The
+entry ledger passes both axes with margins about `2401.5671x` and
+`2391.3427x`; the chain is byte-stable, both Lean builds pass with zero errors
+and exactly the standard axiom trio, and the refreshed manifest contains 49
+disk-verified parameterized entries. The generated entry-scoped bridge was
+changed from `simpa` to definitionally equal `exact h` after Lean 4.30 exposed
+an `HSub` simplifier failure on the large P148 residual; the legacy lane stays
+byte-stable. This advances the analytic owner-matrix interface only; the
+static consumer, selected-detector signed C3' budget, `chargeRest`, signed
+tail, Producer GO, `SourceRH`, and RH remain open.
+
+Evidence: [2694](../proofs/2694_offdiag_entry_13_03_membership.md),
+`results/2664_assembly_13_3.json`, and `results/2664_offdiag_manifest.json`.
