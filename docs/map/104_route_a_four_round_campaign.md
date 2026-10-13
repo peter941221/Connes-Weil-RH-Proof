@@ -6002,16 +6002,62 @@ only the standard axiom trio. This corrects an artifact-label ambiguity:
 not the exact rational sum of cell values. The rounded aggregate is upward for
 this artifact and Lean checks that direction.
 
-This is arithmetic closure for the sampled-price artifact only. The
-parameterized integral theorem still needs each cell's rectangle membership,
-weight, norm, price, and integrability facts for the actual repaired owner;
-the evaluator-continuum bridge, `chargeRest` identity, and signed full-line
-tail remain open. The next shortest proof step is to instantiate one complete
-cell from the bit-pattern certificate into
-`weightedNormIntegral_le_of_partition2684`, then determine whether that
-certificate interface scales to all 8192 cells without adding unsupported
-analytic premises. Do not mark `continuum_enclosure_proved`, `producer_go`, or
+This is arithmetic closure for the sampled-price artifact only. Record 2686
+now instantiates a parameterized four-channel integral consumer for cell 4096;
+it still does not import or prove the other 8191 cells' rectangle facts. The
+evaluator-continuum bridge, `chargeRest` identity, and signed full-line tail
+remain open. Do not mark `continuum_enclosure_proved`, `producer_go`, or
 `rh_claim` true from record 2685.
 
 Evidence: [2685](../proofs/2685_repaired_owner_exact_grid_sum.md),
 `ConnesWeilRH/Dev/C1RouteAWeightedPartitionSum2685.lean`, and its audit module.
+
+## Record 2686 - parameterized four-channel cell integral consumer
+
+`weightedFourNormIntegral_le_of_cellRectangles2686` generalizes the local
+rectangle-to-integral step to four complex channels on an arbitrary interval.
+`weightedFourNormIntegral_le_of_partitionRectangles2686` composes it over an
+arbitrary finite partition, with separate per-cell rectangles, norm bounds,
+channel prices, and total prices. Both derive interval integrability from the
+four channel continuity proofs, so integrability is no longer a caller-supplied
+analytic premise.
+
+`record2686RepairedOwnerCellCharge` instantiates this theorem for cell 4096
+using the four repaired-owner bridges from records 2679, 2680, 2682, and 2683.
+Linux-native Lean 4.30 builds the consumer and audit; the generic cell theorem,
+finite-partition theorem, and concrete instance use exactly
+`[propext, Classical.choice, Quot.sound]` with no `sorryAx`.
+
+This is one concrete cell connected to the exact 8192-cell price ledger, not an
+8192-cell continuum proof. The remaining cell bridges, global partition
+instantiation, evaluator-continuum link, `chargeRest`, signed infinite-xi tail,
+Producer GO, `SourceRH`, and RH remain open. The next proof step is to make the
+cell rectangle certificate itself parameterized by the cell index, then feed
+that family into the existing finite-partition consumer without copying 8192
+theorem bodies. Evidence: [2686](../proofs/2686_repaired_owner_cell_charge.md),
+`ConnesWeilRH/Dev/C1RouteARepairedOwnerCellCharge2686.lean`, and its audit.
+
+## Record 2687 - exact 2048-cell price screen
+
+The 2048-cell repaired-owner screen reads `0.37817841912789424` of
+`knownError2109`. The generator decodes every stored binary64 cell charge as
+an exact rational, proves 64 chunk sums of 32 cells, composes the exact total,
+and proves that total is below `knownError2109`. The Lean build and axiom audit
+pass with exactly `[propext, Classical.choice, Quot.sound]` and no `sorryAx`.
+
+The JSON field `total_upper_sum` is a nearest-rounded aggregate, not a proved
+upper bound. For this screen it is below the exact sum by about `5.59e-11`.
+Record 2687 therefore does not use that field as a bound; the budget theorem
+compares the exact rational cell sum directly. This corrects the initial
+2687 generator, which incorrectly assumed the rounded aggregate was upward.
+
+This closes arithmetic for the sampled 2048-cell price ledger only. It does
+not prove the four actual channel functions lie in each cell rectangle, nor
+does it connect the finite prices to the continuum integral. Next, parameterize
+the per-cell rectangle certificate and feed the verified cell family into the
+2686 finite-partition consumer. The evaluator-continuum link, `chargeRest`,
+signed infinite-xi tail, Producer GO, `SourceRH`, and RH remain open.
+
+Evidence: [2687](../proofs/2687_repaired_owner_2048_grid_screen.md),
+`results/2687_repaired_owner_2048_grid_screen.json`,
+`scripts/generate_routea_partition_sum_2687.py`, and the Lean/audit modules.

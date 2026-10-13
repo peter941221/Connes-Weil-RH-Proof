@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.C1RouteARepairedOwnerCellCharge2686
+
+namespace ConnesWeilRH.Dev
+
+#print axioms weightedFourNormIntegral_le_of_cellRectangles2686
+#print axioms weightedFourNormIntegral_le_of_partitionRectangles2686
+#print axioms record2686RepairedOwnerCellCharge
+
+end ConnesWeilRH.Dev
