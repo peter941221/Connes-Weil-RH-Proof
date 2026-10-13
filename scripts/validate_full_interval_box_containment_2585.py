@@ -16,6 +16,10 @@ def rational_expr(text: str) -> Fraction:
     tree = ast.parse(expression, mode="eval")
 
     def evaluate(node):
+        # Generated Lean literals may wrap a denominator in a singleton tuple
+        # to preserve a parenthesized rational expression.
+        if isinstance(node, ast.Tuple) and len(node.elts) == 1:
+            return evaluate(node.elts[0])
         if isinstance(node, ast.Constant) and isinstance(node.value, int):
             return Fraction(node.value)
         if isinstance(node, ast.UnaryOp) and isinstance(node.op, (ast.UAdd, ast.USub)):
