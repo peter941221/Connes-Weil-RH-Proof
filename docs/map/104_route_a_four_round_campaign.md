@@ -6172,3 +6172,22 @@ tail, Producer GO, `SourceRH`, and RH remain open.
 
 Evidence: [2694](../proofs/2694_offdiag_entry_13_03_membership.md),
 `results/2664_assembly_13_3.json`, and `results/2664_offdiag_manifest.json`.
+
+## Record 2695 - off-diagonal analytic certificate bridge
+
+Record 2695 composes the diagonal socket `socket_diagonal_split2646` with
+the integrated analytic certificate `2601`. The primary bridge accepts the
+full 30 by 30 containment to `2601`; the certified diagonal partition remains
+internal to it. Its companion split theorem consumes the existing `(0,3)`
+assembly theorem, reducing the explicit pointwise caller premise count from
+870 to 869. The 49 manifest-listed entries remain caller-supplied
+`h_manifest` premises because their generated Lean declarations are not
+imported. A Linux Lean build and axiom audit remain pending.
+
+The candidate-inverse membership, defect-entry identity, operator defect
+identity, selected-detector signed C3' budget, `chargeRest`, signed tail,
+Producer GO, `SourceRH`, and RH remain open. No producer or RH claim is made.
+
+Evidence: [2695](../proofs/2695_offdiag_analytic_certificate_bridge.md),
+`ConnesWeilRH/Dev/C1RouteACorrectionAnalyticOffDiagCertificate2695.lean`,
+and its audit module.
