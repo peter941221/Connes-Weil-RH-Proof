@@ -6061,3 +6061,19 @@ signed infinite-xi tail, Producer GO, `SourceRH`, and RH remain open.
 Evidence: [2687](../proofs/2687_repaired_owner_2048_grid_screen.md),
 `results/2687_repaired_owner_2048_grid_screen.json`,
 `scripts/generate_routea_partition_sum_2687.py`, and the Lean/audit modules.
+
+## Record 2688 - cell 1024 base-M0 formal bridge
+
+Record 2688 instantiates one adjacent positive-side cell from the 2048-cell
+price screen. All 30 family bump/trigonometric containments, the exact family
+rectangle aggregate, and the weighted base-M0 cell integral consumer compile
+under Lean 4.30 with the standard axiom trio only. The endpoint is imported
+from the record-2687 binary64 bits, so the cell boundary is the artifact's
+actual decoded value.
+
+This is one continuum cell and one of four channels. It reduces a concrete
+`weightedFourNormIntegral_le_of_partitionRectangles2686` premise, but it is not
+an 8192-cell enclosure and does not establish the live-owner identity,
+`chargeRest`, signed tail, selected-detector C3' margin, Producer GO,
+`SourceRH`, or RH. Evidence: [2688](../proofs/2688_cell1024_base_m0_bridge.md)
+and the generated modules listed there.

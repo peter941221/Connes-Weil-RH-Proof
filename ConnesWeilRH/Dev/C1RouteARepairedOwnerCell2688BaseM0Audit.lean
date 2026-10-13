@@ -1,0 +1,11 @@
+import ConnesWeilRH.Dev.C1RouteARepairedOwnerCell2688BaseM0Consumer
+
+namespace ConnesWeilRH.Dev
+
+#print axioms record2688BaseM0AggregateFamilySumEq
+#print axioms record2688BaseM0AggregateSubset
+#print axioms record2688BaseM0CellContained
+#print axioms record2688BaseM0CellContainedForIntegral
+#print axioms record2688BaseM0IntegralCharge
+
+end ConnesWeilRH.Dev
