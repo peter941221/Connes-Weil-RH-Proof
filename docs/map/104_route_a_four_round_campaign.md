@@ -6077,3 +6077,36 @@ an 8192-cell enclosure and does not establish the live-owner identity,
 `chargeRest`, signed tail, selected-detector C3' margin, Producer GO,
 `SourceRH`, or RH. Evidence: [2688](../proofs/2688_cell1024_base_m0_bridge.md)
 and the generated modules listed there.
+
+## Record 2689 - cell 1024 correction-M0 formal bridge
+
+Record 2689 repeats the same one-cell construction for the repaired correction
+M0 channel, using the record-2338 coefficient-ball midpoint casts and the
+record-2687 endpoint bits. All 30 family containments, the exact family
+aggregate, the cell rectangle subset, and the weighted correction-M0 integral
+charge compile under Lean 4.30. The audit reports only
+`[propext, Classical.choice, Quot.sound]` and no `sorryAx`; the generator and
+Python syntax check pass.
+
+This removes one more local rectangle/integral premise from the finite-partition
+consumer. It remains one cell and one channel: the other channels and cells,
+the repaired-owner identity with the live selected detector, `chargeRest`, the
+signed infinite-xi tail, the selected-detector signed C3' margin, Producer GO,
+SourceRH, and RH remain open. Do not mechanically expand this family until the
+owner-identification question is resolved, because the local certificate prices
+an externally generated repaired coefficient vector rather than proving the
+live selected-owner coefficient equality. Evidence: [2689](../proofs/2689_cell1024_correction_m0_bridge.md).
+
+## Record 2690 - off-diagonal entry (1,3) membership
+
+Record 2690 adds the degree-55 phase-carrying membership `entry0103Mem2663`
+for `analyticMomentInterval2597 1 3` and the corresponding
+`ownerMomentMatrix2351 capturedModulations2584 capturedNodes2584 1 3`. The
+chain is byte-stable, both Lean builds pass with zero errors and exactly the
+standard axiom trio, and the refreshed manifest contains 45 disk-verified
+off-diagonal entries. This advances the analytic owner-matrix interface only;
+the static consumer, selected-detector signed C3' budget, `chargeRest`, signed
+tail, Producer GO, `SourceRH`, and RH remain open.
+
+Evidence: [2690](../proofs/2690_offdiag_entry_01_03_membership.md),
+`results/2664_assembly_1_3.json`, and `results/2664_offdiag_manifest.json`.
