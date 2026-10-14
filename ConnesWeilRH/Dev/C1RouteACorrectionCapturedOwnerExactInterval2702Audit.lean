@@ -2,3 +2,9 @@ import ConnesWeilRH.Dev.C1RouteACorrectionCapturedOwnerExactInterval2702
 
 #print axioms
   ConnesWeilRH.Dev.capturedActualCorrectionOwner2584_mem_of_exactInterval2702
+#print axioms
+  ConnesWeilRH.Dev.correctionCoefficientBoxSet2570_isClosed
+#print axioms
+  ConnesWeilRH.Dev.correctionCoefficientCenter_mem_boxSet2570
+#print axioms
+  ConnesWeilRH.Dev.capturedActualCorrectionOwner2584_mem_of_fixedPoint_invariant_box2696
