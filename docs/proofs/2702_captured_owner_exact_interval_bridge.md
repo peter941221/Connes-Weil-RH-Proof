@@ -42,9 +42,13 @@ box-radius ratios `0.9999999438559326` and `0.999999941431241`. These external
 arithmetic readings do not prove that the analytic matrix-integral intervals
 contain their Lean-defined values.
 
-The attempted combined build of the 2600 static-defect audit and the 2695
-49-entry facade exited with status 1 after reporting progress at 4269 of 5936
-jobs; the cause was not established and no final audit was produced. Those two
-targets remain UNVERIFIED. The Row02 module, 2702 bridge, and candidate-inverse
-module used for the successful checks had source hashes matching mainline. No
-producer GO, `SourceRH`, or RH claim follows from these checks.
+The 2600 static-defect audit and 2695 49-entry facade were retried from the
+Linux-native checkout. The existing Row00--Row29 object files were present, but
+the 2600 aggregate object was absent, so its audit wrapper reported that the
+`C1RouteACorrectionStaticDefectBounds2600.olean` object did not exist. A second
+aggregate rebuild was terminated when the WSL instance crashed; the kernel log
+recorded an `agetty` SIGSEGV and `WaitForBootProcess` failure. No Lean source
+diagnostic or final audit was produced, and the 2695 audit object was not
+verified. Both targets therefore remain UNVERIFIED. The Row02, 2702, and
+candidate-inverse sources used for successful checks had hashes matching
+mainline. No producer GO, `SourceRH`, or RH claim follows from these checks.
