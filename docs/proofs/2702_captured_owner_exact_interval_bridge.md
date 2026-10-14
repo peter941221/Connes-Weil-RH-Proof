@@ -30,3 +30,21 @@ captured correction owner lies in the 2338 intervals, and discharge the
 contraction-map invariance, finite-displacement, and actual-owner fixed-point
 premises. The 49-entry manifest facade and the 2600 static-defect consumer have
 not yet passed a complete build in this verification run.
+
+Verification follow-up, 2026-10-14: under Linux-native Lean 4.30, the 2600
+Row02 module builds successfully in 3912 Lake jobs. Its row theorem
+`candidateInverseDefectEntryBound2600_row_02` reads back exactly
+`[propext, Classical.choice, Quot.sound]`. The 2702 four-declaration audit and
+the 2600 candidate-inverse membership audit also read back only this standard
+axiom trio. The 2351 exact-rational checker reruns as
+`EXACT_NEUMANN_AND_BOX_PASS`, with eta `5.873158307277732e-38` and maximum
+box-radius ratios `0.9999999438559326` and `0.999999941431241`. These external
+arithmetic readings do not prove that the analytic matrix-integral intervals
+contain their Lean-defined values.
+
+The attempted combined build of the 2600 static-defect audit and the 2695
+49-entry facade exited with status 1 after reporting progress at 4269 of 5936
+jobs; the cause was not established and no final audit was produced. Those two
+targets remain UNVERIFIED. The Row02 module, 2702 bridge, and candidate-inverse
+module used for the successful checks had source hashes matching mainline. No
+producer GO, `SourceRH`, or RH claim follows from these checks.
