@@ -72,3 +72,11 @@ crashed with `Wsl/Service/E_UNEXPECTED` while checking the current worktree
 cache, before a Lean target build started; this is not a Lean source
 diagnostic. No analytic integral containment or owner interval premise was
 closed by this follow-up.
+
+Build retry, 2026-10-14: after Ubuntu started successfully, the focused
+`lake build -Kjobs=2` for the 2600 aggregate audit exited 1 without returning
+Lake/Lean diagnostics. The aggregate and audit `.olean` files remain absent.
+A second run redirected output to a Linux temporary log and also exited 1;
+the subsequent WSL call to read that log ended with
+`Wsl/Service/E_UNEXPECTED`. No Lean source error was recovered. Treat this
+target as UNVERIFIED; the retry does not change the mathematical status.
