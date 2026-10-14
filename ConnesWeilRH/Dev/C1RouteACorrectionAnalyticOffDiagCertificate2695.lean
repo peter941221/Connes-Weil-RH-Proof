@@ -79,7 +79,7 @@ theorem capturedActualCorrectionOwner2584_realizes_of_remaining_offdiag_certific
   · exact h_remaining i j hne hknown
 
 /-! Concrete 2600 consumer: the candidate-inverse membership premise and all
-49 manifest memberships are now discharged by imported proof-producing
+50 manifest memberships are now discharged by imported proof-producing
 assemblies.  Only the off-diagonal entries outside the 2664 manifest remain
 as an explicit premise. -/
 

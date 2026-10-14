@@ -1,4 +1,5 @@
 import ConnesWeilRH.Dev.OffDiagE00_01.C1RouteAEntryAssembly2663
+import ConnesWeilRH.Dev.OffDiagE00_02.C1RouteAEntryAssembly2663
 import ConnesWeilRH.Dev.OffDiagE00_04.C1RouteAEntryAssembly2663
 import ConnesWeilRH.Dev.OffDiagE01_00.C1RouteAEntryAssembly2663
 import ConnesWeilRH.Dev.OffDiagE01_03.C1RouteAEntryAssembly2663
@@ -50,11 +51,11 @@ import ConnesWeilRH.Dev.OffDiagE29_07.C1RouteAEntryAssembly2663
 
 namespace ConnesWeilRH.Dev
 
-/-! The 49 manifest entries from record 2664 are imported as proof-producing
+/-! The 50 manifest entries from record 2664 are imported as proof-producing
 assembly modules.  This facade gives the 2695 consumer one quantified
 membership theorem without treating the manifest JSON as a proof. -/
 
-def parameterizedOffdiagManifest2664 (i j : Fin 30) : Prop :=
+def parameterizedOffdiagManifest2664Base (i j : Fin 30) : Prop :=
   (i = 0 ∧ j = 1) ∨
   (i = 0 ∧ j = 4) ∨
   (i = 1 ∧ j = 0) ∨
@@ -105,8 +106,11 @@ def parameterizedOffdiagManifest2664 (i j : Fin 30) : Prop :=
   (i = 29 ∧ j = 3) ∨
   (i = 29 ∧ j = 7)
 
-theorem parameterizedOffdiagManifest2664_mem
-    (i j : Fin 30) (h : parameterizedOffdiagManifest2664 i j) :
+def parameterizedOffdiagManifest2664 (i j : Fin 30) : Prop :=
+  parameterizedOffdiagManifest2664Base i j ∨ (i = 0 ∧ j = 2)
+
+theorem parameterizedOffdiagManifest2664Base_mem
+    (i j : Fin 30) (h : parameterizedOffdiagManifest2664Base i j) :
     (analyticMomentInterval2597 i j).Mem
       (ownerMomentMatrix2351 capturedModulations2584 capturedNodes2584 i j) := by
   rcases h with ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩
@@ -160,6 +164,17 @@ theorem parameterizedOffdiagManifest2664_mem
     ConnesWeilRH.Dev.OffDiagE29_02.entry2902Mem2663,
     ConnesWeilRH.Dev.OffDiagE29_03.entry2903Mem2663,
     ConnesWeilRH.Dev.OffDiagE29_07.entry2907Mem2663]
+
+#print axioms parameterizedOffdiagManifest2664Base_mem
+
+theorem parameterizedOffdiagManifest2664_mem
+    (i j : Fin 30) (h : parameterizedOffdiagManifest2664 i j) :
+    (analyticMomentInterval2597 i j).Mem
+      (ownerMomentMatrix2351 capturedModulations2584 capturedNodes2584 i j) := by
+  rcases h with hbase | h02
+  · exact parameterizedOffdiagManifest2664Base_mem i j hbase
+  · rcases h02 with ⟨rfl, rfl⟩
+    exact ConnesWeilRH.Dev.OffDiagE00_02.entry0002Mem2663
 
 #print axioms parameterizedOffdiagManifest2664_mem
 
