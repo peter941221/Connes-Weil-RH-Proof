@@ -52,3 +52,23 @@ diagnostic or final audit was produced, and the 2695 audit object was not
 verified. Both targets therefore remain UNVERIFIED. The Row02, 2702, and
 candidate-inverse sources used for successful checks had hashes matching
 mainline. No producer GO, `SourceRH`, or RH claim follows from these checks.
+
+Verification follow-up, 2026-10-14: the 2351 Fraction-only checker and its 17
+adversarial tests were rerun on Windows Python 3.14. The result is
+`EXACT_NEUMANN_AND_BOX_PASS`, eta `5.873158307277732e-38`, and maximum box
+ratios `0.9999999438559326` and `0.999999941431241`. The 2600 Fraction replay
+also passed all 900 entries and reproduced entry digest
+`c21ccf6a5f1d994f8370bb7517d8a0603cf9cd60ef5cdffbd7db5ae35d87952` and witness
+hash `c8737256f4daeddfec9fa2bbab0ee54b0643acce69c87aeb46983696b61581ea`.
+These checks validate rational reconstruction only; their output explicitly
+keeps `lean_verified: false` and `analytic_interval_soundness:
+external_premise_required`.
+
+Coverage count from the committed 2664 manifest: 49 distinct manifest-listed
+off-diagonal entries plus the separate `(0,3)` theorem account for 50 of 870
+off-diagonal positions; 820 remain explicit in the 2695 split. The 49-entry
+Lean facade and 2600 aggregate audit remain UNVERIFIED. A WSL invocation
+crashed with `Wsl/Service/E_UNEXPECTED` while checking the current worktree
+cache, before a Lean target build started; this is not a Lean source
+diagnostic. No analytic integral containment or owner interval premise was
+closed by this follow-up.
