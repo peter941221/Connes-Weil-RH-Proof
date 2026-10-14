@@ -80,3 +80,10 @@ A second run redirected output to a Linux temporary log and also exited 1;
 the subsequent WSL call to read that log ended with
 `Wsl/Service/E_UNEXPECTED`. No Lean source error was recovered. Treat this
 target as UNVERIFIED; the retry does not change the mathematical status.
+
+Third retry, 2026-10-14: the same audit target was run with `-Kjobs=1` and
+stdout/stderr redirected to the Windows-mounted ignored build-log directory.
+It exited 1 with a zero-byte log, the Ubuntu distribution stopped again, and
+the aggregate/audit `.olean` files are still absent. No Lean compiler process
+or source diagnostic was observed after termination. This confirms a repeatable
+WSL/build-launch interruption, not a source-level verdict.
