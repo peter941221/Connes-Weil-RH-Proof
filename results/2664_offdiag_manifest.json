@@ -84,6 +84,33 @@
   },
   {
    "assembly_modules": 15,
+   "assembly_payload": "2664_assembly_11_9.json",
+   "assembly_sha256": "20de8b21669547479b689a53cea003c7957d6db387065ba080ab9169d555d07f",
+   "beta_exact": "15706697997067857697999130365369/10141204801825835211973625643008",
+   "capture_sha256": "743fe372bef89b5730c38274d5a5517ac9ea4d3421989d46c49d4af3e78b5e74",
+   "chain_sha256": "3c11c311d207d4a89c9884e00ec8352fa3918a6d0b95444ee74846bcd535fdc3",
+   "column": 9,
+   "degree": 55,
+   "disk_verified": true,
+   "generator_sha256": {
+    "gen_2663_panels.py": "be8fe218edb5fa7357c6eac916aae5d2cdf75486706e50188600a5522f578b9c",
+    "gen_2664_entry.py": "c3199d0c107c1c8ec206b4265a13c6376d9de7ef3184bed1107b8ab355e1c5fc",
+    "generate_amp_pins_2657.py": "7ba562e34230775adde4f1aa79faac265ce39d3f75e3e6a9cdad2ffa27ed4981",
+    "generate_panel_analytic_all_2656.py": "03f28860d746cb659dda1470626677c96742ccb37d120767aa6dc70169239041",
+    "generate_panel_tables_all_2655.py": "0e0da6696c26e8b07bda5925aa6d06aa5825afe5815a6393ba10abdb915d41c0",
+    "generate_phase_pins_2658.py": "04bf0c8ef2080868d8f0904c73b24f98e882c5c8bed2cfde315cee8a8d0484df",
+    "offdiagonal_residual_pricing_2624.py": "134c739ab2b535d84decb5c58aafe7d924d56a846e5a7e15c7fc5b68edea6f5d"
+   },
+   "module_count": 951,
+   "modules_sha256_count": 951,
+   "payload": "2664_entry_11_9.json",
+   "psi_exact": "29392338250135463094058778091015324422217284779/1427247692705959881058285969449495136382746624",
+   "radius_exact": "15706697997067857697999130365369/5070602400912917605986812821504",
+   "row": 11,
+   "vacuous_panels": 46
+  },
+  {
+   "assembly_modules": 15,
    "assembly_payload": "2664_assembly_13_3.json",
    "assembly_sha256": "4a79cba5c81a150bada94495b673cd50774e6353af7458c58b9952438d068df7",
    "beta_exact": "27292010362673683961057012550625/10141204801825835211973625643008",

@@ -17,6 +17,7 @@ import ConnesWeilRH.Dev.OffDiagE06_05.C1RouteAEntryAssembly2663
 import ConnesWeilRH.Dev.OffDiagE06_07.C1RouteAEntryAssembly2663
 import ConnesWeilRH.Dev.OffDiagE07_05.C1RouteAEntryAssembly2663
 import ConnesWeilRH.Dev.OffDiagE07_06.C1RouteAEntryAssembly2663
+import ConnesWeilRH.Dev.OffDiagE11_09.C1RouteAEntryAssembly2663
 import ConnesWeilRH.Dev.OffDiagE13_03.C1RouteAEntryAssembly2663
 import ConnesWeilRH.Dev.OffDiagE14_03.C1RouteAEntryAssembly2663
 import ConnesWeilRH.Dev.OffDiagE15_03.C1RouteAEntryAssembly2663
@@ -51,7 +52,7 @@ import ConnesWeilRH.Dev.OffDiagE29_07.C1RouteAEntryAssembly2663
 
 namespace ConnesWeilRH.Dev
 
-/-! The 50 manifest entries from record 2664 are imported as proof-producing
+/-! The 51 manifest entries from record 2664 are imported as proof-producing
 assembly modules.  This facade gives the 2695 consumer one quantified
 membership theorem without treating the manifest JSON as a proof. -/
 
@@ -107,7 +108,8 @@ def parameterizedOffdiagManifest2664Base (i j : Fin 30) : Prop :=
   (i = 29 ∧ j = 7)
 
 def parameterizedOffdiagManifest2664 (i j : Fin 30) : Prop :=
-  parameterizedOffdiagManifest2664Base i j ∨ (i = 0 ∧ j = 2)
+  parameterizedOffdiagManifest2664Base i j ∨
+    (i = 0 ∧ j = 2) ∨ (i = 11 ∧ j = 9)
 
 theorem parameterizedOffdiagManifest2664Base_mem
     (i j : Fin 30) (h : parameterizedOffdiagManifest2664Base i j) :
@@ -171,10 +173,12 @@ theorem parameterizedOffdiagManifest2664_mem
     (i j : Fin 30) (h : parameterizedOffdiagManifest2664 i j) :
     (analyticMomentInterval2597 i j).Mem
       (ownerMomentMatrix2351 capturedModulations2584 capturedNodes2584 i j) := by
-  rcases h with hbase | h02
+  rcases h with hbase | h02 | h119
   · exact parameterizedOffdiagManifest2664Base_mem i j hbase
   · rcases h02 with ⟨rfl, rfl⟩
     exact ConnesWeilRH.Dev.OffDiagE00_02.entry0002Mem2663
+  · rcases h119 with ⟨rfl, rfl⟩
+    exact ConnesWeilRH.Dev.OffDiagE11_09.entry1109Mem2663
 
 #print axioms parameterizedOffdiagManifest2664_mem
 
