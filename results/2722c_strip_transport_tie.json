@@ -1,0 +1,163 @@
+{
+  "record": 2722,
+  "name": "2722C strip transport tie",
+  "verdict": "STRIP-TRANSPORT-GREEN",
+  "smoke": false,
+  "wired_hypotheses_removed": 0,
+  "premise_status": "three black-box strip premises replaced by two identification equalities and three artifact-tied pins on the explicit cardinal sum",
+  "map103_freeze_unchanged": true,
+  "producer_GO": false,
+  "rh_claim": false,
+  "pins": {
+    "wiredQ": "13/50000000000000000",
+    "wiredC4": 61000000,
+    "wiredC2": 29000000
+  },
+  "numeric_tie": {
+    "C4_star": 60524298.630698465,
+    "C4_pin": 61000000,
+    "C4_margin": 475701.3693015352,
+    "C2_star": 28161344.216206506,
+    "C2_pin": 29000000,
+    "C2_margin": 838655.7837934941,
+    "q_star_T64": 2.5248153557101123e-16,
+    "q_pin": 2.6e-16,
+    "q_margin": 7.51846442898877e-18
+  },
+  "anchor_rel": {
+    "C4": 0.0,
+    "C2": 0.0,
+    "q": 0.0
+  },
+  "tail_extension": {
+    "base_quartic": {
+      "range": [
+        600.0,
+        10000000.0
+      ],
+      "cells": 200,
+      "max_weighted_envelope": 1.1898956334001585e-60,
+      "vs_artifact_star": 1.9659800449081664e-68,
+      "vs_wired_pin": 1.9506485793445222e-68,
+      "last_cells": [
+        "5.35568873316e-497",
+        "2.62531675025e-499",
+        "1.28690975108e-501",
+        "6.30833102623e-504",
+        "3.0922945749e-506",
+        "1.01047498808e-508"
+      ],
+      "last_cell_ratios": [
+        0.004901921827531189,
+        0.004901921838411912,
+        0.004901921848773944,
+        0.004901921858642213,
+        0.0032677190468214717
+      ],
+      "tail_strictly_decreasing_mp": true
+    },
+    "corr_quadratic": {
+      "range": [
+        600.0,
+        10000000.0
+      ],
+      "cells": 200,
+      "max_weighted_envelope": 6.957424828256015e-10,
+      "vs_artifact_star": 2.4705584985009712e-17,
+      "vs_wired_pin": 2.3991120097434535e-17,
+      "last_cells": [
+        "4.57826017544e-257",
+        "2.1172489197e-258",
+        "9.79137084217e-260",
+        "4.52809158087e-261",
+        "2.09404987485e-262",
+        "1.18420200589e-264"
+      ],
+      "last_cell_ratios": [
+        0.04624570991087436,
+        0.046245723641971326,
+        0.04624573671922926,
+        0.04624574917378305,
+        0.005655080235270115
+      ],
+      "tail_strictly_decreasing_mp": true
+    },
+    "base_contract": {
+      "range": [
+        600.0,
+        10000000.0
+      ],
+      "cells": 200,
+      "max_weighted_envelope": 1.1772430803309982e-68,
+      "vs_artifact_star": 4.662689798953218e-53,
+      "vs_wired_pin": 4.5278580012730705e-53,
+      "last_cells": [
+        "1.91106969508e-521",
+        "7.70700623898e-524",
+        "3.10809937766e-526",
+        "1.25344153907e-528",
+        "5.05490817418e-531",
+        "1.57487120162e-533"
+      ],
+      "last_cell_ratios": [
+        0.004032823218746253,
+        0.00403282322769785,
+        0.004032823236222721,
+        0.004032823244341371,
+        0.003115528803598139
+      ],
+      "tail_strictly_decreasing_mp": true
+    }
+  },
+  "checks": {
+    "A1_identification_call": true,
+    "A2_cardinalSum_verbatim": true,
+    "A3_spelling_((sigma : Complex) + (t : Co": true,
+    "A3_spelling_64 \u2264 |t| \u2192": true,
+    "A3_spelling_\u2016t / (2 * Real.pi)\u2016 ^ 4": true,
+    "A3_spelling_\u2016t / (2 * Real.pi)\u2016 ^ 2": true,
+    "A3_spelling_wiredQRowB2721": true,
+    "A3_spelling_wiredC4RowB2721": true,
+    "A3_spelling_wiredC2RowB2721": true,
+    "A3_spelling_Set.Icc (0 : Real) 1": true,
+    "A3m_no_cubic_weight": true,
+    "A4_binder_hNorm": true,
+    "A4_binder_hIm": true,
+    "A4_binder_hvanish": true,
+    "A4_binder_hsupport": true,
+    "A4_binder_hgate24": true,
+    "A4_binder_hprefix": true,
+    "A4m_gate_guard_fires": true,
+    "A5_parent_call": true,
+    "B1_C4_tie": true,
+    "B2_C2_tie": true,
+    "B3_q_tie": true,
+    "B4_positive_q": true,
+    "C0_D_table_controls": true,
+    "C1_anchor_rel": {
+      "C4": 0.0,
+      "C2": 0.0,
+      "q": 0.0
+    },
+    "C1_anchor_C4": true,
+    "C1_anchor_C2": true,
+    "C1_anchor_q": true,
+    "C2_base_quartic_below_pin": true,
+    "C2_base_quartic_tail_decreasing": true,
+    "C2_corr_quadratic_below_pin": true,
+    "C2_corr_quadratic_tail_decreasing": true,
+    "C2_base_contract_below_pin": true,
+    "C2_base_contract_tail_decreasing": true,
+    "D1_pin_control_feasible": true,
+    "D2_weight_control_feasible": true
+  },
+  "failures": [],
+  "elapsed_s": 34.11,
+  "provenance": {
+    "C1StripTransport2722C.lean": "f70bc529f670c03a6fd90a048ff12e10d357497089deb7adae46b2e33d219e0a",
+    "C1ExplicitFiniteNodeCorrection.lean": "3e251d1d88aa563e064d0f38b8baffb4c7db4d3561ee0a56088a3cf491a0e061",
+    "C1FourPointRowBWired2721.lean": "40e493fe3f3c9169e4ba516da52d33d798ecdebe88c9c52e07a2c8275668870c",
+    "results/2720_p3_certified_strip_constants.json": "4f9d7ef7529cd0a9278a77e46e5650ae42ae8d48d2d91104ddcf1fd7adfa8573",
+    "checker": "864561dfbce06071e1353127cc28900d40ed4e16d0e410e6f1e9186109c59b3d"
+  }
+}

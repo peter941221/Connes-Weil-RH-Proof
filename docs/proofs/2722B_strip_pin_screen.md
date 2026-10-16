@@ -7,6 +7,9 @@ strip-envelope constants at pipeline grade — by 4.79e7 (quartic),
 reproducible no-go on the mechanism, not a lower bound on the true
 derivatives. The three wired strip premises therefore must travel the
 cancellation-preserving transport lane (rung 2722C).
+[Erratum 2722C: "cancellation-preserving" is a mislabel of the 2720
+envelope; the lane is the record-2720 DECAY-envelope transport. See
+section 7. The verdict and the routing are unchanged.]
 
 Consumer and premise (binding-route audit):
 
@@ -85,6 +88,10 @@ Cross-reads (same-run reproduction anchors, instrument-laws 2bj/2573):
 
 ## 3. Why the gap has this size (mechanism, not arithmetic luck)
 
+[Erratum 2722C: the attribution in this section — cancellation as the
+source of the gap — is superseded; the readings and the verdict stand.
+See section 7.]
+
 The 2720 certified constants `C4_star = 6.052430e7` and `q_star_T64 =
 2.5248e-16` are obtained from an interval envelope that dominates the
 SAMPLED cardinal sum — the cancellation between the 8 (resp. 3 active)
@@ -120,8 +127,10 @@ D table.
   here).
 - The live route for `hcontract`/`hquartic`/`hquadratic` becomes rung
   2722C: transport the record-2720 certified envelope (a cancellation-
-  preserving object by construction) into Lean as the wired hypotheses
-  for the actual owner — which requires the owner identification
+  preserving object by construction) [Erratum 2722C: a per-term decay
+  envelope, not cancellation-preserving — section 7] into Lean as the
+  wired hypotheses for the actual owner — which requires the owner
+  identification
   between the pipeline cardinal and `laplaceAt base.test`/
   `laplaceAt correction.test` and the support facts from storedWidth
   data (clearing the record-2ay slab guard), plus a numeric tie
@@ -140,3 +149,59 @@ D table.
 
 Provenance hashes (script, artifact, and its two committed inputs) are
 inside `results/2722b_strip_pin_screen.json` under `provenance`.
+
+## 7. Erratum (2026-10-17, landed with record 2722C): the envelope is a per-term decay majorant, not cancellation-preserving
+
+What this record claimed (kept above on record): that the 2720 certified
+constants "dominate the SAMPLED cardinal sum — the cancellation between
+the 8 (resp. 3 active) cardinal terms is inside the certified object",
+and that the tabled gaps `4.79e7 / 1.08e6 / 5.633e4` "are exactly the
+classic `sum_z |term_z| / |sum_z term_z|` cancellation factor".
+
+What the source shows. `scripts/p3_certified_strip_constants_2720.py`,
+`envelope_cell` (lines 281-318), accumulates inside a `for cz in consts`
+loop
+
+    total += cz["c_abs"] * MQ * Psi10 * PAD_UP,
+
+i.e. it sums ABSOLUTE-VALUE bounds of the individual cardinal terms —
+the same triangle move the bridge pin makes. The envelope therefore
+certifies `C(t) >= sum_z |term_z(s)| >= |cardinal(s)|` and preserves NO
+inter-term cancellation. The claim "cancellation is inside the
+certified object" is false, and with it the cancellation-factor
+attribution of the gap.
+
+Correct attribution. The two competing prices are both non-cancellation
+majorants, of DIFFERENT objects with different decay structure:
+
+- the 2720 envelope is POINTWISE in t and per-node: each cardinal term's
+  seed-Laplace factor is bounded by the rung ladder
+  `Psi_z = min(3 * Ez, min_k Ez * D_k * 2^k / tau_z^k)` with
+  `tau_z = |t - Im z|` (line 298-310), raised to the tenth seed power —
+  once `|t|` moves away from a node's own height that term decays like
+  `tau_z^{-10k}`, and the tenth power makes it `tau_z^{-120}` at
+  `k = K_MAX = 12`, against a `MQ_z ~ t^m` growth factor;
+- the 2722A/B bridge pin prices ONE t-independent derivative moment,
+  `exp B * ||f^(K)||_1` of the whole function, and reattaches decay
+  only through a single global IBP power `|s|^{-K}` — no per-node
+  height separation and no ten-factor decay product survive that route.
+
+So the measured factors quantify the price difference between a
+per-node vertical-decay envelope and a global derivative-moment pin on
+the same owner, not a cancellation blindness of the pin. The AGENTS 2n
+and 2u pattern citations in section 3 remain valid as facts about
+those instruments; they do not apply to this comparison.
+
+What does NOT change: every reading in section 2 (the pin values, the
+ratios, the U-shape, the cross-read anchors); the verdict
+`NO-GO-TRIANGLE-LADDER-AT-PIPELINE-GRADE` at the stated quantifier
+"every order priceable on the depth-58 ladder"; the routing to rung
+2722C; and the scope law that a failed sufficient bound is not a lower
+bound.
+
+Why the correction matters: had the label stuck, the 2722C transport
+would have needed checked node values and inter-term cancellation in
+Lean. The true structure (a pointwise per-term envelope of the
+transform's modulus) makes the transport a pure rewrite through the
+record-1958 identity `laplaceAt_correction` plus artifact-tied pins —
+see `docs/proofs/2722C_strip_transport.md`.

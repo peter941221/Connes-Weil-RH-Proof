@@ -1014,7 +1014,7 @@ Record 2722B runs `scripts/strip_pin_screen_2722b.py` and prices the
 targets; 56-node correction owner, 3 active terms; support radius
 B = 10; certified seed ladder re-run to depth 58, its first 12
 entries anchored to the committed 2720 table at drift 1.089e-16).
-Every wired strip premise fails by the cancellation-gap magnitude:
+Every wired strip premise fails at pipeline grade:
 `hquartic` pin 2.9222e15 vs C4 = 6.1e7 (ratio 4.79e7), `hquadratic`
 pin 3.1340e13 vs C2 = 2.9e7 (ratio 1.08e6), and `hcontract` has a
 U-shaped pin/budget ladder over the measurable orders K = 0..51 with
@@ -1022,16 +1022,72 @@ minimum 5.633e4 at K = 48, rising again at the depth-58 ladder's cap
 (K = 51, tail >= 1.77x per order past the budget factor; K = 51 is
 the largest priceable order, so the measurement quantifier is
 K in [0, 51]).
-Mechanism: the triangle step sums |term_z| and structurally discards
-the cardinal-term cancellation that the 2720 certified envelope keeps
-inside its object -- the same cancellation-blindness family as the
-ledger's per-node split and floor laws. Scope (sufficient-bound
+Mechanism [erratum, landed with 2722C; see
+`docs/proofs/2722B_strip_pin_screen.md` section 7]: the 2720 certified
+envelope is NOT cancellation-preserving -- `envelope_cell` sums
+absolute-value term bounds (`total += c_abs * MQ * Psi^10 * PAD_UP`),
+the same triangle move. The gap instead prices two different
+non-cancellation majorants: the envelope is pointwise in t with
+per-node vertical decay rungs `min(3*Ez, Ez*D_k*2^k/tau_z^k)` raised to
+the tenth seed power, while the bridge pin is one t-independent
+derivative moment `exp B * derivOrderL1 K f` with a single global IBP
+power; height separation and the ten-factor decay product do not
+survive the pin route. Scope (sufficient-bound
 discipline): a failed sufficient pin is NOT a lower bound on the true
 derivatives; the ruling freezes the triangle-ladder discharge of
 `hcontract`/`hquartic`/`hquadratic` on this owner class and routes
-the three premises to the cancellation-preserving 2722C transport
+the three premises to the 2720 decay-envelope 2722C transport
 (2720 envelope identified with Lean `laplaceAt` at the actual owner,
 2ay slab guard cleared from storedWidth data). No wired hypothesis
 removed; no producer GO; no RH claim; map-103 freeze unchanged.
 Evidence: `results/2722b_strip_pin_screen.json`,
 `docs/proofs/2722B_strip_pin_screen.md`.
+
+## 2722C the decay-envelope transport lands: the three wired strip
+premises become artifact-tied cardinal-sum pins (obligation relocated,
+not shrunk in count; freeze unchanged)
+
+Record 2722C lands `ConnesWeilRH/Dev/C1StripTransport2722C.lean` plus
+paired audit. The 2720 certified object is re-expressed concretely:
+the row-B strip functions are the record-1958 finite-node corrections
+(`cardinalOwner nodes seed y = correction nodes seed y`; base: target
+nodes with `y = 1`, correction: owner nodes with stored 1980 values),
+and the Lean identity `laplaceAt_cardinalOwner` -- verbatim the 1958
+`laplaceAt_correction` -- says the strip transform IS the pipeline
+cardinal sum in the source `exp (s * x)` convention. Three transport
+lemmas (`hcontractOfCardinalPin`, `hquarticOfCardinalPin`,
+`hquadraticOfCardinalPin`) rewrite the wired strip shapes from
+`laplaceAt (cardinalOwner ...)` to pins on the explicit `cardinalSum`;
+the variant `fourPointContradictionRowBWired2722C` (parent 2721C
+untouched, 2ab doctrine) carries TWO identification equalities plus
+THREE cardinal-sum pins in place of the three abstract-owner
+premises. Net effect: zero wired hypotheses removed; the strip
+obligation moves from an abstract owner to a concrete finite sum whose
+certification exists at artifact grade (the 2720 envelope) and stays
+named hypotheses per the proxy-tie doctrine. Checker
+`scripts/check_strip_transport_2722c.py`, 36 checks,
+STRIP-TRANSPORT-GREEN: transcription guards (1958-RHS token equality,
+measured wired-shape counts 9/3/3/3/3/3/3/9, per-file binder
+diff-vs-2721C, feasibility-checked mutation controls), exact-Fraction
+pin tie to the committed 2720 row-B renders (C4\* 6.0524e7 ≤ 61000000,
+margin 4.757e5; C2\* 2.8161e7 ≤ 29000000, margin 8.387e5; q\*(64)
+2.5248e-16 ≤ 2.6e-16, margin 7.52e-18), same-run anchor reproduction
+at drift 0.0, and an envelope tail extension over `t ∈ [600, 1e7]`
+(1.05 cells, both signs, three channels: maxima 1.19e-60 / 6.96e-10 /
+1.18e-68, at most 4.66e-53 of the star constants, mp-strictly
+decreasing; the quantifier is the registered scan, beyond 1e7 the
+formula's power law is a stated tendency). The tail monotonicity gate
+runs in mp-native precision after a float-render underflow made the
+base channels' last cells display as 0.0 (restructure disclosed in the
+checker comment; the reading, not the object, moved). Lean
+acceptance: Linux-native build green (footer 3865 jobs), Built
+C1StripTransport2722C 43 s / Audit 1.3 s, 0 error, 0 sorry,
+five-declaration axiom census exactly `[propext, Classical.choice,
+Quot.sound]`, zero entry-path warnings (the log's 300 warnings are all
+cached-closure replay). The 2722B mechanism paragraph is erratum'd in
+its own record (envelope = per-term decay majorant, NOT
+cancellation-preserving; all readings and the NO-GO verdict
+unchanged). No wired hypothesis removed; no producer GO; no RH claim;
+map-103 freeze unchanged. Evidence:
+`results/2722c_strip_transport_tie.json`,
+`docs/proofs/2722C_strip_transport.md`.
