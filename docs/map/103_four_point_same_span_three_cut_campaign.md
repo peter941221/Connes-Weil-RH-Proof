@@ -977,3 +977,30 @@ transfer brick, clearing the 2ay slab guard from storedWidth data),
 hgate24 (owner-grade P5 gate sign, the RH core), hprefix. Freeze
 unchanged; no reopening, no producer GO, no RH claim.
 Evidence: `docs/proofs/2721C_hmult_cap_discharge.md`.
+
+## 2722A the strip-envelope IBP bridge lands (mechanism; zero wired
+premises removed; freeze unchanged)
+
+Record 2722A commits `C1StripEnvelopeIbpBridge2722.lean`: the iterated
+Laplace-side integration-by-parts bridge
+`‖s‖^k * ‖laplaceAt f s‖ ≤ exp (|s.re| * B) * derivOrderL1 k f` under
+`Function.support f.test ⊆ Set.Icc (-B) B`, packaged in the verbatim
+shapes of the three wired strip envelopes as two corollaries --
+`wiredStripDecayOfLadderPin` (weighted-power form: `hquartic` at k=4 on
+`base`, `hquadratic` at k=2 on `correction`, from one pin
+`exp B * derivOrderL1 k f ≤ C`) and `wiredContractOfDecayPin`
+(threshold form: `hcontract` at T=64 from one pin
+`exp B * derivOrderL1 k f ≤ q * T^k`, at an ARBITRARY ladder order k,
+so the order is a free discharge parameter against the certified 2720
+`D_1..D_12` table). The three quantified functional premises are thus
+reduced to three scalar pins plus concrete-owner support facts -- a
+strictly smaller, finitely checkable obligation; the pins remain named
+hypotheses (proxy-tie doctrine), the numeric tie to 2720 constants is
+the 2722B screen, and the Lean `laplaceAt`/pipeline-cardinal
+identification with the 2ay slab guard cleared from storedWidth data is
+the 2722C owner-identification duty. Acceptance: Linux-native focused
+audit build green (footer 3644 jobs, 0 error / 0 sorry / 0 warnings on
+the module), nine-declaration axiom census exactly the standard trio
+(`results/2722a_axiom_census.json`, Windows/Linux md5 parity). Freeze
+unchanged; no wired hypothesis removed; no producer GO; no RH claim.
+Evidence: `docs/proofs/2722A_strip_envelope_ibp_bridge.md`.

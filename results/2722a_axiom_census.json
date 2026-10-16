@@ -1,0 +1,60 @@
+{
+  "record": "2722A",
+  "title": "strip-envelope integration-by-parts bridge",
+  "build_command": "LEAN_NUM_THREADS=1 lake build ConnesWeilRH.Dev.C1StripEnvelopeIbpBridge2722Audit",
+  "workspace": "Linux native workspace",
+  "log_footer": "Build completed successfully (3644 jobs).",
+  "footer_ok": true,
+  "job_count": 3644,
+  "error_lines": 0,
+  "sorryAx_lines": 0,
+  "uses_sorry_lines": 0,
+  "warnings_on_new_module": 0,
+  "axiom_records": [
+    {
+      "name": "derivativeShiftZero_support_subset",
+      "axioms": "propext, Classical.choice, Quot.sound"
+    },
+    {
+      "name": "derivOrderL1_shift_zero",
+      "axioms": "propext, Classical.choice, Quot.sound"
+    },
+    {
+      "name": "norm_pow_laplaceAt_le_exp_mul_derivOrderL1",
+      "axioms": "propext, Classical.choice, Quot.sound"
+    },
+    {
+      "name": "im_ofReal_add_mul_I",
+      "axioms": "propext, Classical.choice, Quot.sound"
+    },
+    {
+      "name": "re_ofReal_add_mul_I",
+      "axioms": "propext, Classical.choice, Quot.sound"
+    },
+    {
+      "name": "abs_le_norm_ofReal_add_mul_I",
+      "axioms": "propext, Classical.choice, Quot.sound"
+    },
+    {
+      "name": "exp_weight_le_exp",
+      "axioms": "propext, Classical.choice, Quot.sound"
+    },
+    {
+      "name": "wiredStripDecayOfLadderPin",
+      "axioms": "propext, Classical.choice, Quot.sound"
+    },
+    {
+      "name": "wiredContractOfDecayPin",
+      "axioms": "propext, Classical.choice, Quot.sound"
+    }
+  ],
+  "record_count": 9,
+  "all_trio": true,
+  "md5": {
+    "module_linux": "c219afaf167f9ad14456dd45e9e5df33",
+    "module_windows": "c219afaf167f9ad14456dd45e9e5df33",
+    "audit_linux": "09f0da9f6dea033ccb79129128e63d68",
+    "audit_windows": "09f0da9f6dea033ccb79129128e63d68"
+  },
+  "parity": true
+}

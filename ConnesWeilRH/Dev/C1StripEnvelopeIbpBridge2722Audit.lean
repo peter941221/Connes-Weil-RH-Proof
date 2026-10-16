@@ -1,0 +1,15 @@
+import ConnesWeilRH.Dev.C1StripEnvelopeIbpBridge2722
+
+namespace ConnesWeilRH.Source.C1StripEnvelopeIbpBridge2722
+
+#print axioms derivativeShiftZero_support_subset
+#print axioms derivOrderL1_shift_zero
+#print axioms norm_pow_laplaceAt_le_exp_mul_derivOrderL1
+#print axioms im_ofReal_add_mul_I
+#print axioms re_ofReal_add_mul_I
+#print axioms abs_le_norm_ofReal_add_mul_I
+#print axioms exp_weight_le_exp
+#print axioms wiredStripDecayOfLadderPin
+#print axioms wiredContractOfDecayPin
+
+end ConnesWeilRH.Source.C1StripEnvelopeIbpBridge2722
