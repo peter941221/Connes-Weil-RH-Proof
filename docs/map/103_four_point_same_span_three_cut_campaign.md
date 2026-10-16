@@ -791,3 +791,23 @@ This does not reopen the frozen Route-B family or supply the scaled-tail
 certificate itself. It strictly narrows the producer target: prove a matching
 coefficient-scaled tail on the selected owner, together with the already
 required gate and prefix transport. No route ruling or RH claim changes.
+
+## 2716 exact-contract repricing (paper; no ruling change)
+
+Record [2716](../proofs/2716_g1_joint_acceptance_repricing.md) re-prices
+all 35 stored rows of `results/2033_gate_tail_pairing.json` under the
+exact record-2708 contract with the honest multiplicity factor
+`beta_s/m = 4*128.65*(3/4)^s/m` priced and the gate branch read exactly
+(section 5 admits non-vertex branches). Verdict is two-sided. The 16
+registered-pattern rows (C>0, b>0, det<0) stay dead at honest grade at
+both geometries (min A_n = 37.2 even at the record-2710 geometry), so
+the DEAD_ON_CURRENT_FAMILY freeze core is confirmed, not weakened. New
+fact: 11 non-vertex stored rows are honestly joint-compatible at the
+2710 geometry, 4 of them at n=3 and 2 of those P4-screen-admissible —
+(gamma_1, N=4, n=3) with joint lambda >= 1381.5, and (gamma_3, N=5, n=3)
+with joint lambda > 15.86. n=2 is honestly dead at the stored constants
+at both geometries, so the G1 witness index reduces to n=3. The stored
+rows remain sampled B5 measurements; the reopen probe target is thereby
+sharpened to a complete-owner n=3 gate certificate (the 2708 P5 duty)
+plus the standing P2/P3/P4 premises. No route ruling, no producer GO,
+no family reopening changes here.
