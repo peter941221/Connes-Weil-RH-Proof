@@ -833,3 +833,23 @@ rung (G2 zero-set identification plus re-measurement) stands, the decay
 constants stay sampled (P3), and the DEAD_ON_CURRENT_FAMILY freeze is
 unchanged until the rig and the complete-owner rung land.  No route
 ruling, no producer GO, no RH claim changes here.
+
+## 2718 model-grade P5 gate sign rig (G1 swing 2b)
+
+RIG GREEN: the forward-error shadow rig
+(`scripts/g1_gate_sign_rig_2718.py`, 6.3 s, WSL) rebuilds both n=3
+candidate rows BITWISE from the committed producers and certifies all
+four sign claims at model grade: (14.1347,4,3) C<0 and det<0 (branch
+rays, L+ corner range [1381.5309, 1381.5367], joint >= 1381.53);
+(21.0220,5,3) C<0 and det>0 (branch all, corner-robust).  Two NAMED
+observational premises (seed GL tail 4.8e-6 = 10x the 600-vs-1200
+spread, corroborated at u=0 where truth is exactly 59049; grid lift
+10x the 0.02-vs-0.01 movement) carry 5-7 orders of headroom; the
+certified roundoff classes alone already certify (1.7e8 / 8.9e7
+margins).  Supersedes the record-2030 pattern-frame reading of the sign
+half (branch-exact 2708 section 5); its vertex-centered budget does not
+transfer to channel boxes (a ~ 2141 amplification).  Model grade only:
+the owner is the stored under-approximation; the complete-owner rung
+(G2 + re-measurement), certified C4/C2 (P3), and the P4 identification
+stand; the freeze is unchanged until the complete-owner rung fires.
+No route ruling, no producer GO, no RH claim changes here.
