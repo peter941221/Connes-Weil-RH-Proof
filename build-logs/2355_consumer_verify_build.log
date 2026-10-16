@@ -1,0 +1,1503 @@
+warning: plausible: repository '/home/peter/projects/Connes-Weil-RH-Proof/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/peter/projects/Connes-Weil-RH-Proof/.lake/packages/LeanSearchClient' has local changes
+✔ [2913/2916] Built ConnesWeilRH.Basic (39s)
+✔ [2914/2916] Built ConnesWeilRH.Source.CCM25Concrete.PrimePowerTest (1.2s)
+✔ [2915/2918] Built ConnesWeilRH.Source.CCM25Concrete.CommonSourceTest (1.3s)
+✔ [2916/2918] Built ConnesWeilRH.Source.CCM25Concrete.FinitePrime (1.1s)
+✔ [2917/2927] Built ConnesWeilRH.Source.CCM25Concrete.FinitePrimeExact (1.2s)
+✔ [2918/2927] Built ConnesWeilRH.Source.CCM25Concrete.PrimePowerEvaluation (1.3s)
+✔ [2919/2930] Built ConnesWeilRH.Source.CCM25Concrete.PrimePowerPairing (1.4s)
+✔ [2920/2930] Built ConnesWeilRH.Source.CCM25Concrete.PrimePowerArithmetic (1.7s)
+✔ [2921/2930] Built ConnesWeilRH.Source.RHDefinition (1.3s)
+⚠ [2922/2934] Built ConnesWeilRH.Source.CCM25Concrete.PrimePowerSupport (1.3s)
+warning: ConnesWeilRH/Source/CCM25Concrete/PrimePowerSupport.lean:512:4: Try this: intro n hn
+✔ [2923/2934] Built ConnesWeilRH.Source.CC20RHExit (1.3s)
+✔ [2924/2936] Built ConnesWeilRH.Source.CCM25Concrete.PrimePowerTerm (1.3s)
+⚠ [2925/2936] Built ConnesWeilRH.Source.CCM25Concrete.FinitePrimeCertificate (1.5s)
+warning: ConnesWeilRH/Source/CCM25Concrete/FinitePrimeCertificate.lean:93:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+✔ [2926/2936] Built ConnesWeilRH.Source.CC20TestSpace (1.1s)
+✔ [2927/2936] Built ConnesWeilRH.Source.CCM25Concrete.FinitePrimeInterface (1.2s)
+✔ [2928/2936] Built ConnesWeilRH.Source.CCM25Concrete.Rows (1.4s)
+⚠ [2929/2942] Built ConnesWeilRH.Source.CCM25Concrete.FinitePrimeSourceData (1.4s)
+warning: ConnesWeilRH/Source/CCM25Concrete/FinitePrimeSourceData.lean:249:9: unused variable `hn`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+✔ [2930/2942] Built ConnesWeilRH.Source.Objects (1.3s)
+✔ [2932/2942] Built ConnesWeilRH.Source.ObjectDerivations (1.2s)
+✔ [2934/2942] Built ConnesWeilRH.Source.CC20TraceModel (1.2s)
+✔ [2936/2942] Built ConnesWeilRH.Source.CC20Concrete.TraceScale (1.6s)
+⚠ [2937/2942] Built ConnesWeilRH.Source.CC20YoshidaCriterion (1.4s)
+warning: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: `simp [nodeValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: Try this:
+  [apply] simp only [reduceCtorEq] at h ⊢
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:145:4: `exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) h.symm` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: `simp [nodeValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: Try this:
+  [apply] simp only [reduceCtorEq] at h ⊢
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:146:4: `exact
+  (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+    (by simpa [criticalVanishingPointValue] using h.symm)` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: `simp [nodeValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: Try this:
+  [apply] simp only [reduceCtorEq] at h ⊢
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:148:4: `exact (standard_source_nontrivial_zero_ne_cc20_one hrho) h.symm` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: `simp [nodeValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: Try this:
+  [apply] simp only [reduceCtorEq] at h ⊢
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:149:4: `exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) h` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: `simp [nodeValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: Try this:
+  [apply] simp only [reduceCtorEq] at h ⊢
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:149:4: `exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) h` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: `simp [nodeValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: Try this:
+  [apply] simp only [reduceCtorEq] at h ⊢
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:150:4: `exact
+  (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+    (by simpa [criticalVanishingPointValue] using h)` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: `simp [nodeValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: Try this:
+  [apply] simp only [reduceCtorEq] at h ⊢
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:150:4: `exact
+  (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+    (by simpa [criticalVanishingPointValue] using h)` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: `simp [nodeValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: Try this:
+  [apply] simp only [reduceCtorEq] at h ⊢
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:152:4: `exact (standard_source_nontrivial_zero_ne_cc20_one hrho) h` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: `simp [nodeValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:144:4: Try this:
+  [apply] simp only [reduceCtorEq] at h ⊢
+info: ConnesWeilRH/Source/CC20YoshidaCriterion.lean:152:4: `exact (standard_source_nontrivial_zero_ne_cc20_one hrho) h` uses `⊢`!
+⚠ [2938/2942] Built ConnesWeilRH.Source.AnalyticCoreBase (2.5s)
+warning: ConnesWeilRH/Source/AnalyticCoreBase.lean:3491:2: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+✔ [2939/2943] Built ConnesWeilRH.Source.CC20ConcreteTestSpace (1.3s)
+✔ [2940/2947] Built ConnesWeilRH.Source.CC20YoshidaMellin (1.5s)
+⚠ [2942/2949] Built ConnesWeilRH.Source.CC20YoshidaConstruction (4.9s)
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `h`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `⊢`!
+warning: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:162:4: `simp [nodeValue, targetValue, criticalVanishingPointValue] at h ⊢` is a flexible tactic modifying `h`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20YoshidaConstruction.lean:164:4: `first
+| rfl
+| exfalso
+  first
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_zero hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff) (by simpa [criticalVanishingPointValue] using h)
+  |
+    exact
+      (standard_source_nontrivial_zero_ne_cc20_half_of_off_line hoff)
+        (by simpa [criticalVanishingPointValue] using h.symm)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h)
+  | exact (standard_source_nontrivial_zero_ne_cc20_one hrho) (by simpa [criticalVanishingPointValue] using h.symm)
+  | have hre := congrArg Complex.re h
+    norm_num [Complex.I_re] at hre` uses `h`!
+⚠ [3454/3460] Built ConnesWeilRH.Source.CCM25Concrete.CompactLogConvolution (2.0s)
+warning: ConnesWeilRH/Source/CCM25Concrete/CompactLogConvolution.lean:160:14: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+✔ [3458/3461] Built ConnesWeilRH.Source.CC20YoshidaTail (1.9s)
+✔ [3459/3461] Built ConnesWeilRH.Source.CC20Concrete.WindowContainment (1.3s)
+✔ [3460/3470] Built ConnesWeilRH.Source.CC20YoshidaNearZeros (7.2s)
+✔ [3467/3475] Built ConnesWeilRH.Source.CC20Concrete.GlobalLogHaar (2.5s)
+✔ [3468/3475] Built ConnesWeilRH.Source.CCM25Concrete.SelectedWeilSquare (1.7s)
+✔ [3470/3479] Built ConnesWeilRH.Source.CCM25Concrete.SelectedWeilFormula (2.1s)
+✔ [3471/3479] Built ConnesWeilRH.Source.CCM25Concrete.SelectedArchimedeanIntegrability (1.6s)
+⚠ [3472/3479] Built ConnesWeilRH.Dev.MellinLogLiftProbe (1.2s)
+warning: ConnesWeilRH/Dev/MellinLogLiftProbe.lean:60:16: This simp argument is unused:
+  Real.exp_pos u
+
+Hint: Omit it from the simp argument list.
+  simp ̵[̵R̵e̵a̵l̵.̵e̵x̵p̵_̵p̵o̵s̵ ̵u̵]̵
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ConnesWeilRH/Dev/MellinLogLiftProbe.lean:65:16: '' starts on column 16, but all commands should start at the beginning of the line.
+
+Note: This linter can be disabled with `set_option linter.style.whitespace false`
+✔ [3473/3479] Built ConnesWeilRH.Source.CCM25Concrete.SelectedYoshidaBridge (1.6s)
+⚠ [3474/3479] Built ConnesWeilRH.Dev.MellinConvolutionIdentity (1.5s)
+warning: ConnesWeilRH/Dev/MellinConvolutionIdentity.lean:182:16: '' starts on column 16, but all commands should start at the beginning of the line.
+
+Note: This linter can be disabled with `set_option linter.style.whitespace false`
+⚠ [3475/3479] Built ConnesWeilRH.Source.CC20YoshidaConvolution (2.7s)
+warning: ConnesWeilRH/Source/CC20YoshidaConvolution.lean:101:9: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Source/CC20YoshidaConvolution.lean:259:22: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Source/CC20YoshidaConvolution.lean:261:22: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Source/CC20YoshidaConvolution.lean:541:27: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Source/CC20YoshidaConvolution.lean:541:40: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Source/CC20YoshidaConvolution.lean:557:28: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Source/CC20YoshidaConvolution.lean:558:43: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Source/CC20YoshidaConvolution.lean:1590:27: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Source/CC20YoshidaConvolution.lean:1591:27: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+✔ [3476/3479] Built ConnesWeilRH.Dev.C1SameOwnerWeil (1.5s)
+✔ [3477/3479] Built ConnesWeilRH.Dev.C1LogPositiveBridge (1.4s)
+✔ [3478/3496] Built ConnesWeilRH.Dev.C1HealthyTestSpace (1.3s)
+⚠ [3516/3529] Built ConnesWeilRH.Source.CC20ZetaCounting (2.0s)
+warning: ConnesWeilRH/Source/CC20ZetaCounting.lean:460:46: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+✔ [3517/3529] Built ConnesWeilRH.Dev.C1SpectralWeil (1.9s)
+⚠ [3518/3531] Built ConnesWeilRH.Dev.C1XiGrowth (1.9s)
+warning: ConnesWeilRH/Dev/C1XiGrowth.lean:56:10: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+info: ConnesWeilRH/Dev/C1XiGrowth.lean:64:4: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+warning: ConnesWeilRH/Dev/C1XiGrowth.lean:63:76: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+info: ConnesWeilRH/Dev/C1XiGrowth.lean:162:12: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+info: ConnesWeilRH/Dev/C1XiGrowth.lean:200:10: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+✔ [3519/3531] Built ConnesWeilRH.Dev.C1SpectralSummability (3.9s)
+⚠ [3521/3533] Built ConnesWeilRH.Dev.C1XiVerticalFunctional (1.4s)
+warning: ConnesWeilRH/Dev/C1XiVerticalFunctional.lean:111:83: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Dev/C1XiVerticalFunctional.lean:154:53: 'ring' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ConnesWeilRH/Dev/C1XiVerticalFunctional.lean:154:53: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+warning: ConnesWeilRH/Dev/C1XiVerticalFunctional.lean:161:49: 'ring' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ConnesWeilRH/Dev/C1XiVerticalFunctional.lean:161:49: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+✔ [3523/3533] Built ConnesWeilRH.Dev.C1XiLocalPrincipalPart (1.4s)
+✔ [3524/3533] Built ConnesWeilRH.Dev.C1XiArithmeticRightLine (1.5s)
+⚠ [3526/3533] Built ConnesWeilRH.Dev.C1XiResidue (1.8s)
+info: ConnesWeilRH/Dev/C1XiResidue.lean:280:73: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+warning: ConnesWeilRH/Dev/C1XiResidue.lean:280:69: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [3528/3538] Built ConnesWeilRH.Dev.C1XiArithmeticIntervalReadback (1.9s)
+warning: ConnesWeilRH/Dev/C1XiArithmeticIntervalReadback.lean:192:8: `simp [verticalPoint]` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Dev/C1XiArithmeticIntervalReadback.lean:193:8: `exact hc` uses `⊢`!
+warning: ConnesWeilRH/Dev/C1XiArithmeticIntervalReadback.lean:231:8: `simp [verticalPoint]` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Dev/C1XiArithmeticIntervalReadback.lean:232:8: `exact p.1.2` uses `⊢`!
+warning: ConnesWeilRH/Dev/C1XiArithmeticIntervalReadback.lean:234:8: `simp [verticalPoint]` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Dev/C1XiArithmeticIntervalReadback.lean:235:8: `exact p.1.2` uses `⊢`!
+✔ [3529/3538] Built ConnesWeilRH.Dev.C1XiArithmeticPrimePowerReadback (2.2s)
+✔ [3531/3538] Built ConnesWeilRH.Dev.C1XiArithmeticPrimePowerAssembly (1.6s)
+✔ [3533/3538] Built ConnesWeilRH.Dev.C1XiCenterTwoPrimePower (1.9s)
+⚠ [3535/3538] Built ConnesWeilRH.Dev.C1XiCenterTwoPole (2.1s)
+warning: ConnesWeilRH/Dev/C1XiCenterTwoPole.lean:69:6: `simp` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Dev/C1XiCenterTwoPole.lean:69:6: Try this:
+  [apply] simp only [neg_add_rev, add_re, neg_re, mul_re, ofReal_re, I_re, mul_zero, ofReal_im, I_im, mul_one, sub_self,
+    neg_zero, zero_add, Left.neg_neg_iff]
+info: ConnesWeilRH/Dev/C1XiCenterTwoPole.lean:70:6: `exact ha` uses `⊢`!
+info: ConnesWeilRH/Dev/C1XiCenterTwoPole.lean:526:4: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+info: ConnesWeilRH/Dev/C1XiCenterTwoPole.lean:543:4: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+✔ [3536/3538] Built ConnesWeilRH.Dev.C1XiGammaEulerProduct (1.8s)
+⚠ [3537/3539] Built ConnesWeilRH.Dev.C1XiCenterTwoGamma (4.2s)
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:113:4: `simp` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:113:4: Try this:
+  [apply] simp only [one_div, add_re, natCast_re, inv_re, re_ofNat, normSq_ofNat, div_self_mul_self']
+info: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:114:4: `positivity` uses `⊢`!
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:159:4: `simp` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:159:4: Try this:
+  [apply] simp only [one_div, add_re, natCast_re, inv_re, re_ofNat, normSq_ofNat, div_self_mul_self']
+info: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:160:4: `positivity` uses `⊢`!
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:197:55: This simp argument is unused:
+  mul_zero
+
+Hint: Omit it from the simp argument list.
+  simp only [add_re, mul_re, ofReal_re, ofReal_im, m̵u̵l̵_̵z̵e̵r̵o̵,̵ ̵sub_re, sub_im,
+  ̵  ̵ ̵ ̵ ̵ ̵ ̵ ̵zero_mul, sub_zero, add_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:198:28: This simp argument is unused:
+  add_zero
+
+Hint: Omit it from the simp argument list.
+  simp only [add_re, mul_re, ofReal_re, ofReal_im, mul_zero, sub_re, sub_im,
+  ̵  ̵ ̵ ̵ ̵ ̵ ̵ ̵zero_mul, sub_zero,̵ ̵a̵d̵d̵_̵z̵e̵r̵o̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:217:34: This simp argument is unused:
+  add_zero
+
+Hint: Omit it from the simp argument list.
+  simp only [neg_re, mul_re, ofReal_re, ofReal_im, mul_zero, sub_zero,
+  ̵  ̵ ̵ ̵ ̵ ̵ ̵ ̵add_re, sub_re, zero_mul,̵ ̵a̵d̵d̵_̵z̵e̵r̵o̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:188:63: 'ring' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:188:63: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:184:60: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+info: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:498:16: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:497:12: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:498:12: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:537:10: This simp argument is unused:
+  Function.comp_def
+
+Hint: Omit it from the simp argument list.
+  simp [F̵u̵n̵c̵t̵i̵o̵n̵.̵c̵o̵m̵p̵_̵d̵e̵f̵,̵ ̵Complex.ofReal_inv, Complex.ofReal_add]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:752:14: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:881:4: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:901:74: 'simp' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:901:74: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:963:4: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1007:2: 'push_cast' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1017:14: This simp argument is unused:
+  sub_zero
+
+Hint: Omit it from the simp argument list.
+  simp only [add_re, ofReal_re, mul_re, ofReal_im, I_re, I_im,
+  ̵  ̵ ̵ ̵mul_zero, s̵u̵b̵_̵z̵e̵r̵o̵,̵ ̵add_zero] at hre
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1017:24: This simp argument is unused:
+  add_zero
+
+Hint: Omit it from the simp argument list.
+  simp only [add_re, ofReal_re, mul_re, ofReal_im, I_re, I_im,
+  ̵  ̵ ̵ ̵mul_zero, sub_zero,̵ ̵a̵d̵d̵_̵z̵e̵r̵o̵] at hre
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1193:13: This simp argument is unused:
+  Nat.cast_one
+
+Hint: Omit it from the simp argument list.
+  simp only [N̵a̵t̵.̵c̵a̵s̵t̵_̵o̵n̵e̵,̵ ̵Real.norm_eq_abs, norm_neg, abs_mul]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1193:45: This simp argument is unused:
+  norm_neg
+
+Hint: Omit it from the simp argument list.
+  simp only [Nat.cast_one, Real.norm_eq_abs, n̵o̵r̵m̵_̵n̵e̵g̵,̵ ̵abs_mul]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1217:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1273:49: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1314:4: `simp [verticalPoint] at hre` is a flexible tactic modifying `hre`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1315:4: `exact (by positivity : 0 < (n : Real) + 1).ne' hre` uses `hre`!
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1320:4: 'push_cast' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1537:47: unused variable `hy`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1592:6: This simp argument is unused:
+  add_re
+
+Hint: Omit it from the simp argument list.
+  simp only [neg_re, mul_re, ofReal_re, ofReal_im, mul_zero, sub_zero,
+  ̵  ̵ ̵ ̵ ̵ ̵a̵d̵d̵_̵r̵e̵,̵ ̵zero_mul, add_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1592:14: This simp argument is unused:
+  zero_mul
+
+Hint: Omit it from the simp argument list.
+  simp only [neg_re, mul_re, ofReal_re, ofReal_im, mul_zero, sub_zero,
+  ̵  ̵ ̵ ̵ ̵ ̵add_re, z̵e̵r̵o̵_̵m̵u̵l̵,̵ ̵add_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1592:24: This simp argument is unused:
+  add_zero
+
+Hint: Omit it from the simp argument list.
+  simp only [neg_re, mul_re, ofReal_re, ofReal_im, mul_zero, sub_zero,
+  ̵  ̵ ̵ ̵ ̵ ̵add_re, zero_mul,̵ ̵a̵d̵d̵_̵z̵e̵r̵o̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1640:4: The `show` tactic should only be used to indicate intermediate goal states for readability.
+However, this tactic invocation changed the goal. Please use `change` instead for these purposes.
+
+Note: This linter can be disabled with `set_option linter.style.show false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1620:69: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1629:69: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1649:60: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1654:69: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+info: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1744:6: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:1945:6: 'push_cast' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+info: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:2102:39: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+warning: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:2102:35: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+info: ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean:2396:4: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+✔ [3538/3547] Built ConnesWeilRH.Dev.C1XiFiniteFactor (1.5s)
+✔ [3563/3568] Built ConnesWeilRH.Dev.C1XiAnalyticLog (1.6s)
+✔ [3564/3568] Built ConnesWeilRH.Dev.C1XiFiniteRegularization (1.5s)
+✔ [3565/3568] Built ConnesWeilRH.Dev.C1XiFiniteRegularizationCauchy (1.4s)
+✔ [3566/3576] Built ConnesWeilRH.Dev.C1XiFiniteRectangleBoundary (1.6s)
+⚠ [3567/3576] Built ConnesWeilRH.Dev.C1XiFiniteRectanglePrincipalPart (2.5s)
+info: ConnesWeilRH/Dev/C1XiFiniteRectanglePrincipalPart.lean:179:63: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+warning: ConnesWeilRH/Dev/C1XiFiniteRectanglePrincipalPart.lean:179:59: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+✔ [3568/3576] Built ConnesWeilRH.Dev.C1XiFinitePrincipalPart (1.6s)
+✔ [3569/3576] Built ConnesWeilRH.Dev.C1XiFiniteLocalResidue (1.5s)
+✔ [3570/3577] Built ConnesWeilRH.Dev.C1XiFiniteCommonCircle (1.4s)
+✔ [3571/3582] Built ConnesWeilRH.Dev.C1XiFiniteSupportReindex (1.4s)
+✔ [3573/3582] Built ConnesWeilRH.Dev.C1XiFiniteRectangleSupportReindex (1.5s)
+✔ [3575/3587] Built ConnesWeilRH.Dev.C1XiFiniteHeightRectangle (2.0s)
+✔ [3577/3595] Built ConnesWeilRH.Dev.C1XiQuantitativeHeight (1.0s)
+✔ [3579/3595] Built ConnesWeilRH.Dev.C1XiGlobalZeroSum (2.1s)
+✔ [3580/3595] Built ConnesWeilRH.Dev.C1XiQuantitativePrincipalBound (1.5s)
+✔ [3582/3595] Built ConnesWeilRH.Dev.C1XiContourDecay (2.0s)
+⚠ [3583/3595] Built ConnesWeilRH.Dev.C1XiGlobalWeightedZeroSum (3.0s)
+warning: ConnesWeilRH/Dev/C1XiGlobalWeightedZeroSum.lean:230:36: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Dev/C1XiGlobalWeightedZeroSum.lean:278:46: This simp argument is unused:
+  norm_mul
+
+Hint: Omit it from the simp argument list.
+  simp [weightedRegularizedZeroDeriv, n̵o̵r̵m̵_̵m̵u̵l̵,̵ ̵norm_neg, norm_algebraMap, Real.norm_eq_abs,
+  ̲  ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲abs_of_nonneg, norm_inv, pow_two]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ConnesWeilRH/Dev/C1XiGlobalWeightedZeroSum.lean:278:66: This simp argument is unused:
+  norm_algebraMap
+
+Hint: Omit it from the simp argument list.
+  simp [weightedRegularizedZeroDeriv, norm_mul, norm_neg, n̵o̵r̵m̵_̵a̵l̵g̵e̵b̵r̵a̵M̵a̵p̵,̵Real.norm_eq_abs, abs_of_nonneg,
+  ̲  ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲norm_inv, pow_two]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ConnesWeilRH/Dev/C1XiGlobalWeightedZeroSum.lean:279:12: This simp argument is unused:
+  Real.norm_eq_abs
+
+Hint: Omit it from the simp argument list.
+  simp [weightedRegularizedZeroDeriv, norm_mul, norm_neg, norm_algebraMap, R̵e̵a̵l̵.̵n̵o̵r̵m̵_̵e̵q̵_̵a̵b̵s̵,̵ ̵abs_of_nonneg,
+  ̲  ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲norm_inv, pow_two]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ConnesWeilRH/Dev/C1XiGlobalWeightedZeroSum.lean:279:30: This simp argument is unused:
+  abs_of_nonneg
+
+Hint: Omit it from the simp argument list.
+  simp [weightedRegularizedZeroDeriv, norm_mul, norm_neg, norm_algebraMap, Real.norm_eq_abs,
+  ̲  ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲a̵b̵s̵_̵o̵f̵_̵n̵o̵n̵n̵e̵g̵,̵ ̵norm_inv, pow_two]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+✔ [3584/3595] Built ConnesWeilRH.Dev.C1XiCofactorBorel (2.3s)
+✔ [3585/3596] Built ConnesWeilRH.Dev.C1XiHABridge (1.3s)
+✔ [3586/3596] Built ConnesWeilRH.Dev.C1XiCenterTwoHorizontal (1.4s)
+✔ [3588/3598] Built ConnesWeilRH.Dev.C1XiCenterTwoHorizontalDecay (1.7s)
+✔ [3589/3602] Built ConnesWeilRH.Dev.C1XiCenterTwoHorizontalBoundary (1.6s)
+✔ [3591/3606] Built ConnesWeilRH.Dev.C1XiCenterTwoFiniteRectangle (1.4s)
+⚠ [3594/3606] Built ConnesWeilRH.Dev.C1XiCenterTwoVerticalFold (1.6s)
+warning: ConnesWeilRH/Dev/C1XiCenterTwoVerticalFold.lean:117:49: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [3595/3606] Built ConnesWeilRH.Source.CC20YoshidaFullProduct (1.0s)
+warning: ConnesWeilRH/Source/CC20YoshidaFullProduct.lean:254:56: 'ring' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ConnesWeilRH/Source/CC20YoshidaFullProduct.lean:254:56: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+warning: ConnesWeilRH/Source/CC20YoshidaFullProduct.lean:254:10: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ConnesWeilRH/Source/CC20YoshidaFullProduct.lean:254:24: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+✔ [3596/3606] Built ConnesWeilRH.Source.DirichletEta (3.1s)
+⚠ [3597/3606] Built ConnesWeilRH.Dev.C1XiCenterTwoRectangleAssembly (1.4s)
+warning: ConnesWeilRH/Dev/C1XiCenterTwoRectangleAssembly.lean:79:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoRectangleAssembly.lean:83:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+✔ [3598/3606] Built ConnesWeilRH.Source.ZetaHalfNonvanishing (1.4s)
+⚠ [3599/3606] Built ConnesWeilRH.Dev.C1XiCenterTwoSpectralLimit (1.6s)
+warning: ConnesWeilRH/Dev/C1XiCenterTwoSpectralLimit.lean:64:2: Try this: intro n hn rho hrho
+warning: ConnesWeilRH/Dev/C1XiCenterTwoSpectralLimit.lean:112:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+⚠ [3600/3607] Built ConnesWeilRH.Dev.C1XiCenterTwoArithmeticAssembly (1.6s)
+warning: ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean:60:0: Please, write a comment here or remove this line, but do not place empty lines within commands!
+Context:
+                                                                        ↓
+  ⏎      hheight.atTop_mul_const_of_neg' (by norm_num : (-1 : Real) < 0)⏎⏎  have hpoleIntervals : Tendsto⏎
+
+Note: This linter can be disabled with `set_option linter.style.emptyLine false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean:68:0: Please, write a comment here or remove this line, but do not place empty lines within commands!
+Context:
+                                                                           ↓
+  ⏎    tendsto_selected_intervalIntegral_elementaryPole_centerTwo F hheight⏎⏎  have hgammaIntervals : Tendsto⏎
+
+Note: This linter can be disabled with `set_option linter.style.emptyLine false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean:76:0: Please, write a comment here or remove this line, but do not place empty lines within commands!
+Context:
+                                                                       ↓
+  ⏎    intervalIntegral_tendsto_integral hgamma.integrable hneg hheight⏎⏎  have hprimeIntervals : Tendsto⏎
+
+Note: This linter can be disabled with `set_option linter.style.emptyLine false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean:84:0: Please, write a comment here or remove this line, but do not place empty lines within commands!
+Context:
+                                                                              ↓
+  ⏎    tendsto_selected_intervalIntegral_arithmeticLSeries_centerTwo F hheight⏎⏎  have hpoleNorm : Tendsto⏎
+
+Note: This linter can be disabled with `set_option linter.style.emptyLine false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean:103:0: Please, write a comment here or remove this line, but do not place empty lines within commands!
+Context:
+                                                           ↓
+  ⏎    simpa only [Function.comp_apply, K, hread] using hre⏎⏎  have hgammaNorm : Tendsto⏎
+
+Note: This linter can be disabled with `set_option linter.style.emptyLine false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean:122:0: Please, write a comment here or remove this line, but do not place empty lines within commands!
+Context:
+                                                           ↓
+  ⏎    simpa only [Function.comp_apply, K, hread] using hre⏎⏎  have hprimeNorm : Tendsto⏎
+
+Note: This linter can be disabled with `set_option linter.style.emptyLine false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean:141:0: Please, write a comment here or remove this line, but do not place empty lines within commands!
+Context:
+                                                           ↓
+  ⏎    simpa only [Function.comp_apply, K, hread] using hre⏎⏎  have hcomponents : Tendsto⏎
+
+Note: This linter can be disabled with `set_option linter.style.emptyLine false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean:160:0: Please, write a comment here or remove this line, but do not place empty lines within commands!
+Context:
+                                                  ↓
+  ⏎      (hpoleNorm.add hgammaNorm).add hprimeNorm⏎⏎  have htotal : Tendsto⏎
+
+Note: This linter can be disabled with `set_option linter.style.emptyLine false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean:170:0: Please, write a comment here or remove this line, but do not place empty lines within commands!
+Context:
+                                                            ↓
+  ⏎      tendsto_selected_normalized_centerTwoRightLine_re F⏎⏎  have hpoint : ∀ n : Nat,⏎
+
+Note: This linter can be disabled with `set_option linter.style.emptyLine false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean:194:0: Please, write a comment here or remove this line, but do not place empty lines within commands!
+Context:
+                                          ↓
+  ⏎    simp only [mul_add, Complex.add_re]⏎⏎  have htotal' : Tendsto⏎
+
+Note: This linter can be disabled with `set_option linter.style.emptyLine false`
+warning: ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean:213:0: Please, write a comment here or remove this line, but do not place empty lines within commands!
+Context:
+                     ↓
+  ⏎    exact hpoint n⏎⏎  have hbalance : -spectralWeilValue F =⏎
+
+Note: This linter can be disabled with `set_option linter.style.emptyLine false`
+✔ [3601/3608] Built ConnesWeilRH.Dev.C1CenterTwoCriterionBridge (1.3s)
+⚠ [3602/3608] Built ConnesWeilRH.Source.CC20Concrete.GlobalLogCrossing (1.9s)
+warning: ConnesWeilRH/Source/CC20Concrete/GlobalLogCrossing.lean:258:13: unused variable `hb`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+✔ [3603/3608] Built ConnesWeilRH.Dev.C1CenterTwoRHExit (1.3s)
+✔ [3605/3608] Built ConnesWeilRH.Dev.C1HealthyYoshidaDetector (1.4s)
+✔ [3606/3608] Built ConnesWeilRH.Dev.C1HealthyYoshidaInterpolation (1.4s)
+✔ [3607/3621] Built ConnesWeilRH.Dev.C1HealthyYoshidaMinimalInterpolation (1.9s)
+✔ [3617/3623] Built ConnesWeilRH.Source.CC20Concrete.GlobalLogConvolution (5.1s)
+✔ [3619/3630] Built ConnesWeilRH.Source.CC20Concrete.GlobalConvolutionCrossing (1.5s)
+⚠ [3621/3632] Built ConnesWeilRH.Source.CC20Concrete.PositiveTrace (2.0s)
+warning: ConnesWeilRH/Source/CC20Concrete/PositiveTrace.lean:68:2: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: ConnesWeilRH/Source/CC20Concrete/PositiveTrace.lean:628:0: automatically included section variable(s) unused in theorem `ConnesWeilRH.Source.CC20Concrete.PositiveTrace.diag_term_le_opNorm`:
+  [CompleteSpace H]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace H] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+✔ [3622/3632] Built ConnesWeilRH.Source.CCM25Concrete.SelectedSingleCrossing (1.6s)
+⚠ [3624/3633] Built ConnesWeilRH.Source.CC20Concrete.ContinuousKernelHilbertSchmidt (2.4s)
+warning: ConnesWeilRH/Source/CC20Concrete/ContinuousKernelHilbertSchmidt.lean:43:0: automatically included section variable(s) unused in theorem `ConnesWeilRH.Source.CC20Concrete.ContinuousKernelHilbertSchmidt.continuous_sectionToLp`:
+  [T2Space X]
+  [T2Space Y]
+  [CompactSpace Y]
+  [MeasurableSpace Y]
+  [BorelSpace Y]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [T2Space X] [T2Space Y] [CompactSpace Y] [MeasurableSpace Y] [BorelSpace Y] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ConnesWeilRH/Source/CC20Concrete/ContinuousKernelHilbertSchmidt.lean:128:0: automatically included section variable(s) unused in theorem `ConnesWeilRH.Source.CC20Concrete.ContinuousKernelHilbertSchmidt.norm_continuousMap_toLp_sq`:
+  [T2Space Y]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [T2Space Y] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ConnesWeilRH/Source/CC20Concrete/ContinuousKernelHilbertSchmidt.lean:375:6: `simp [coefficient, inner_conj_symm]` is a flexible tactic modifying `⊢`. Try `simp?` and use the suggested `simp only [...]`. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: ConnesWeilRH/Source/CC20Concrete/ContinuousKernelHilbertSchmidt.lean:375:6: Try this:
+  [apply] simp only [RCLike.inner_apply]
+info: ConnesWeilRH/Source/CC20Concrete/ContinuousKernelHilbertSchmidt.lean:376:6: `rw [← basis.tsum_inner_mul_inner (sectionToLp μX rightKernel y) (sectionToLp μX leftKernel y)]` uses `⊢`!
+✔ [3625/3633] Built ConnesWeilRH.Dev.C1SpectralTailBound (2.6s)
+⚠ [3626/3633] Built ConnesWeilRH.Source.CCM25Concrete.SelectedCrossingKernel (1.7s)
+warning: ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingKernel.lean:213:4: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingKernel.lean:216:4: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+info: ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingKernel.lean:250:18: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+warning: ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingKernel.lean:416:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+warning: ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingKernel.lean:422:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+⚠ [3627/3633] Built ConnesWeilRH.Source.CCM25Concrete.SelectedCrossingOperatorBridge (24s)
+warning: ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingOperatorBridge.lean:329:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+warning: ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingOperatorBridge.lean:369:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+warning: ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingOperatorBridge.lean:449:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+info: ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingOperatorBridge.lean:613:6: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+info: ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingOperatorBridge.lean:671:8: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+warning: ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingOperatorBridge.lean:1191:10: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+info: ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingOperatorBridge.lean:1397:8: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+info: ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingOperatorBridge.lean:2442:6: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+✔ [3628/3633] Built ConnesWeilRH.Source.CCM25Concrete.UnscaledYoshidaSelectedOwner (2.3s)
+⚠ [3629/3633] Built ConnesWeilRH.Dev.C1HealthyYoshidaUnscaledOrbit (2.4s)
+warning: ConnesWeilRH/Dev/C1HealthyYoshidaUnscaledOrbit.lean:673:5: unused variable `hbaseLower`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ConnesWeilRH/Dev/C1HealthyYoshidaUnscaledOrbit.lean:673:34: unused variable `hbaseUpper`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ConnesWeilRH/Dev/C1HealthyYoshidaUnscaledOrbit.lean:667:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+warning: ConnesWeilRH/Dev/C1HealthyYoshidaUnscaledOrbit.lean:905:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+⚠ [3630/3633] Built ConnesWeilRH.Dev.C1HealthyYoshidaSpectralPrefix (1.5s)
+warning: ConnesWeilRH/Dev/C1HealthyYoshidaSpectralPrefix.lean:72:8: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+⚠ [3631/3633] Built ConnesWeilRH.Dev.C1HealthyYoshidaClosedPrefix (1.5s)
+warning: ConnesWeilRH/Dev/C1HealthyYoshidaClosedPrefix.lean:136:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+⚠ [3632/3633] Built ConnesWeilRH.Dev.C1HealthyYoshidaSpectralNegativity (2.4s)
+warning: ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativity.lean:321:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+⚠ [3633/3633] Built ConnesWeilRH.Dev.C1HealthyYoshidaSpectralNegativityAudit (1.3s)
+info: ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativityAudit.lean:9:0: exists_healthyDetectorData_of_sourceNontrivialZero_right : ∀ (rho : ↑CC20YoshidaNearZeros.sourceNontrivialZeroSet),
+  (↑rho).re ≠ 1 / 2 → 1 / 2 < (↑rho).re → ∃ g, C1HealthyYoshidaDetector.HealthyYoshidaDetectorData (↑rho) g
+info: ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativityAudit.lean:10:0: selectedOwner_spectralWeilValue_neg_of_closedBall_square_zero_control_and_fourthOrderTail : ∀
+  (base correction : CCM25Concrete.CompactLogConvolution.CompactLogTest) (n : ℕ)
+  (rho : ↑CC20YoshidaNearZeros.sourceNontrivialZeroSet),
+  (↑rho).re ≠ 1 / 2 →
+    1 / 2 < (↑rho).re →
+      ∀ (T epsilon : ℝ),
+        C1SpectralTailBound.FourthOrderSpectralTail
+            (CCM25Concrete.UnscaledYoshidaSelectedOwner.selectedOwner base correction n).convolutionSquare (↑rho) T
+            epsilon →
+          ∀ (n0 : ℕ),
+            T ≤ 2 ^ (n0 + 1) →
+              2 * |(↑rho).im| ≤ 2 ^ (n0 + 1) →
+                CC20YoshidaNearZeros.dyadicShellIndex |(↑rho).im| < n0 + 1 →
+                  ∀ (routeNodes : Finset ℂ),
+                    (∀
+                        (w :
+                          CC20YoshidaNearZeros.FiniteMellinNode
+                            (C1HealthyYoshidaUnscaledOrbit.healthyUnscaledTargetNodes ↑rho)),
+                        CC20YoshidaConvolution.CompactLogTest.laplaceAt
+                            ((CC20YoshidaConvolution.CompactLogTest.convolutionIterate base n).convolution correction)
+                            ↑w =
+                          C1HealthyYoshidaUnscaledOrbit.healthyUnscaledTargetValue (↑rho) w) →
+                      (∀
+                          (w :
+                            CC20YoshidaNearZeros.FiniteMellinNode
+                              (CC20YoshidaNearZeros.sourceNontrivialZerosInClosedBallFinset (↑rho)
+                                  (2 ^ (n0 + 1) + 2 + dist 2 ↑rho) ∪
+                                routeNodes)),
+                          ↑w ∉ C1HealthyYoshidaUnscaledOrbit.healthyUnscaledTargetNodes ↑rho →
+                            CC20YoshidaConvolution.CompactLogTest.laplaceAt
+                                (CCM25Concrete.UnscaledYoshidaSelectedOwner.selectedOwner base correction
+                                    n).convolutionSquare
+                                (↑w - 1 / 2) =
+                              0) →
+                        4 * epsilon ^ 2 * C1SpectralSummability.spectralMultiplicityConstant * (3 / 4) ^ n0 <
+                            ↑(C1SpectralWeil.xiMultiplicity rho) →
+                          C1SpectralWeil.spectralWeilValue
+                              (CCM25Concrete.UnscaledYoshidaSelectedOwner.selectedOwner base correction
+                                  n).convolutionSquare <
+                            0
+info: ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativityAudit.lean:11:0: spectralWeilValue_neg_of_finite_prefix_residual_and_tail : ∀ (F : CCM25Concrete.CompactLogConvolution.CompactLogTest)
+  (rho : ↑CC20YoshidaNearZeros.sourceNontrivialZeroSet) (N : ℕ)
+  (S : Finset ↑CC20YoshidaNearZeros.sourceNontrivialZeroSet) (delta : ℝ),
+  S ⊆ spectralHeightShellPrefix N →
+    (∑ z ∈ S, C1SpectralWeil.spectralTerm F z).re ≤ -↑(C1SpectralWeil.xiMultiplicity rho) →
+      (∑ z ∈ spectralHeightShellPrefix N \ S, C1SpectralWeil.spectralTerm F z).re ≤ delta →
+        ∑' (m : ℕ) (z : ↑(C1SpectralWeil.spectralHeightShell (m + N))), ‖C1SpectralWeil.spectralTerm F ↑z‖ <
+            ↑(C1SpectralWeil.xiMultiplicity rho) - delta →
+          C1SpectralWeil.spectralWeilValue F < 0
+info: ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativityAudit.lean:12:0: selectedOwner_healthyDetectorData_of_closedBall_square_zero_control_and_fourthOrderTail : ∀
+  (base correction : CCM25Concrete.CompactLogConvolution.CompactLogTest) (n : ℕ)
+  (rho : ↑CC20YoshidaNearZeros.sourceNontrivialZeroSet),
+  (↑rho).re ≠ 1 / 2 →
+    1 / 2 < (↑rho).re →
+      ∀ (T epsilon : ℝ),
+        C1SpectralTailBound.FourthOrderSpectralTail
+            (CCM25Concrete.UnscaledYoshidaSelectedOwner.selectedOwner base correction n).convolutionSquare (↑rho) T
+            epsilon →
+          ∀ (n0 : ℕ),
+            T ≤ 2 ^ (n0 + 1) →
+              2 * |(↑rho).im| ≤ 2 ^ (n0 + 1) →
+                CC20YoshidaNearZeros.dyadicShellIndex |(↑rho).im| < n0 + 1 →
+                  ∀ (routeNodes : Finset ℂ),
+                    (∀
+                        (w :
+                          CC20YoshidaNearZeros.FiniteMellinNode
+                            (C1HealthyYoshidaUnscaledOrbit.healthyUnscaledTargetNodes ↑rho)),
+                        CC20YoshidaConvolution.CompactLogTest.laplaceAt
+                            ((CC20YoshidaConvolution.CompactLogTest.convolutionIterate base n).convolution correction)
+                            ↑w =
+                          C1HealthyYoshidaUnscaledOrbit.healthyUnscaledTargetValue (↑rho) w) →
+                      (∀
+                          (w :
+                            CC20YoshidaNearZeros.FiniteMellinNode
+                              (CC20YoshidaNearZeros.sourceNontrivialZerosInClosedBallFinset (↑rho)
+                                  (2 ^ (n0 + 1) + 2 + dist 2 ↑rho) ∪
+                                routeNodes)),
+                          ↑w ∉ C1HealthyYoshidaUnscaledOrbit.healthyUnscaledTargetNodes ↑rho →
+                            CC20YoshidaConvolution.CompactLogTest.laplaceAt
+                                (CCM25Concrete.UnscaledYoshidaSelectedOwner.selectedOwner base correction
+                                    n).convolutionSquare
+                                (↑w - 1 / 2) =
+                              0) →
+                        4 * epsilon ^ 2 * C1SpectralSummability.spectralMultiplicityConstant * (3 / 4) ^ n0 <
+                            ↑(C1SpectralWeil.xiMultiplicity rho) →
+                          C1HealthyYoshidaDetector.HealthyYoshidaDetectorData (↑rho)
+                            (CCM25Concrete.UnscaledYoshidaSelectedOwner.selectedOwner base correction n).sourceTest
+info: ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativityAudit.lean:13:0: healthy_sourceRH_of_right_healthyDetectorData_and_spectral_nonneg : (∀
+    (rho : ↑CC20YoshidaNearZeros.sourceNontrivialZeroSet),
+    1 / 2 < (↑rho).re → ∃ g, C1HealthyYoshidaDetector.HealthyYoshidaDetectorData (↑rho) g) →
+  (∀ (g : CCM25Concrete.CompactLogConvolution.CompactLogTest),
+      CC20VanishesOn C1.healthyCC20TestSpace cc20TripleFiniteVanishingSet g →
+        0 ≤ C1SpectralWeil.spectralWeilValue g.convolutionSquare) →
+    RHDefinitionBridge.standard.SourceRH
+info: ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativityAudit.lean:14:0: healthy_sourceRH_of_right_detector_specific_qw_nonneg : (∀ (rho : ↑CC20YoshidaNearZeros.sourceNontrivialZeroSet),
+    1 / 2 < (↑rho).re → ∃ g, C1HealthyYoshidaDetector.HealthyYoshidaDetectorData (↑rho) g ∧ 0 ≤ C1SameOwnerWeil.qw g) →
+  RHDefinitionBridge.standard.SourceRH
+info: ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativityAudit.lean:16:0: 'ConnesWeilRH.Source.C1HealthyYoshidaSpectralNegativity.exists_healthyDetectorData_of_sourceNontrivialZero_right' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativityAudit.lean:17:0: 'ConnesWeilRH.Source.C1HealthyYoshidaSpectralNegativity.selectedOwner_spectralWeilValue_neg_of_closedBall_square_zero_control_and_fourthOrderTail' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+warning: ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativityAudit.lean:17:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+info: ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativityAudit.lean:18:0: 'ConnesWeilRH.Source.C1HealthyYoshidaSpectralNegativity.spectralWeilValue_neg_of_finite_prefix_residual_and_tail' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativityAudit.lean:19:0: 'ConnesWeilRH.Source.C1HealthyYoshidaSpectralNegativity.selectedOwner_healthyDetectorData_of_closedBall_square_zero_control_and_fourthOrderTail' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+warning: ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativityAudit.lean:19:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+info: ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativityAudit.lean:20:0: 'ConnesWeilRH.Source.C1HealthyYoshidaSpectralNegativity.healthy_sourceRH_of_right_healthyDetectorData_and_spectral_nonneg' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativityAudit.lean:21:0: 'ConnesWeilRH.Source.C1HealthyYoshidaSpectralNegativity.healthy_sourceRH_of_right_detector_specific_qw_nonneg' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Build completed successfully (3633 jobs).
