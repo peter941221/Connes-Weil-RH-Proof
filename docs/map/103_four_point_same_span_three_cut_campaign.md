@@ -873,3 +873,30 @@ Owner arithmetic closes exactly (19+4+8-4 = 27, 48+4+8-4 = 56).  Still
 separating this from a reopen motion: the Lean-formal bricks only
 (Lean P2 shell-prefix identification, certified C4/C2 = P3, P4); the
 freeze stands.  No route ruling, no producer GO, no RH claim here.
+
+## 2720 P3 certified strip constants (P3 brick)
+
+P3 GREEN AT MODEL GRADE: the certified-constants instrument
+(`scripts/p3_certified_strip_constants_2720.py`, 51 s, WSL) replaces
+the sampled record-2033 C4/C2 with certified interval envelopes at
+both candidate rows and carries a ZERO-FAIL coverage bugcatch on both
+(envelope dominates the L300 pipeline cardinal on 3 sigmas x 81
+heights x 2 signs x 2 channels; worst sampled/envelope 6.0e-4 / 3.3e-4).
+Certified: (14.1347,4) C4* = 1.538e7, C2* = 8.401e6, q*(32) =
+3.836e-6; (21.0220,5) C4* = 6.052e7, C2* = 2.816e7, q*(64) = 2.525e-16
+(D ladder D_1 = 2.0046 encloses 2, D_2 = 8.1257 encloses 8; seed-power
+inflation ~1e4-1e5 from the mass-piece floor Psi^10).  Joint repricing
+(2033 formulas verbatim, two lanes): PAIR lane (certified T = 2^(N+1),
+q*(T)) closes the tail constraint at ROW B (21.0220,5,3) at its OWN
+stored index n = 3 with lam_min = 3.2e-19 -- eight orders below the
+2718 gate floor 15.86, so gate and tail are now jointly consistent at
+row B at model grade; row A (14.1347,4,3) fails at n = 3 (lim 1.74e10)
+and closes at n = 4 (lim 0.256, lam_min 8.9e4) -- an absorption
+reading, NOT a new gate row.  KEEP-Q lane (sampled 2^-14 contraction
+kept) closes only at n = 6 both rows.  Six instrument defects found
+and fixed en route (IBP 2^k denominator, active-node subset,
+max-derivative Lipschitz tail, cell-merge teleport, non-strict clamp
+spin, coverage absolute-pad/sign) -- all caught or confirmed by the
+bugcatch.  Still separating from a reopen motion: numeric enclosures
+are not Lean theorems; Lean strip absorption, P2 shell-prefix, and P4
+stand; no producer GO, no SourceRH, no RH claim here.

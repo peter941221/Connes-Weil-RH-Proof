@@ -1,0 +1,253 @@
+{
+  "record": 2720,
+  "date": "2026-10-16",
+  "status": "P3-CERTIFIED-CONSTANTS-REPRICED",
+  "seed_identity": {
+    "seed": "f_tilde^{*10}, f_tilde = 2 f(2u), f = smooth_seed_raw",
+    "transform": "L_pow(s) = L1(s/2)^10",
+    "seed0": 59049.0,
+    "mass_note": "laplaceAt smoothSeed 0 = 3 (Lean-certified); a4-style float corroboration in records 2718"
+  },
+  "D_table": {
+    "1": 2.0046324729639364,
+    "2": 8.12573321436917,
+    "3": 83.4119572937344,
+    "4": 1535.1255241247966,
+    "5": 60789.26405627037,
+    "6": 5610215.472694907,
+    "7": 1103017559.7738538,
+    "8": 343562284413.0762,
+    "9": 144740095704175.4,
+    "10": 7.732936240215179e+16,
+    "11": 5.070991937615652e+19,
+    "12": 3.9952824537331284e+22
+  },
+  "D_closed_form_checks": {
+    "1": true,
+    "2": true
+  },
+  "sliver_convention": {
+    "rule": "neighbor-cell iv sup x 8 x width on (0, 1/4096]",
+    "safety": 8,
+    "worst_observed_fraction": 0.0
+  },
+  "method_notes": [
+    "sigma eliminated by endpoint maxima per factor",
+    "continuum cover by INTERVAL cells everywhere: every factor is bounded at its cell-worst point (MQ at endpoint max, Psi at closest approach with the mass-piece floor), so the cell value is a sound sup; no Lipschitz/derivative machinery (the earlier max-derivative dPsi inflated the tail by 1e10: removed)",
+    "correction envelope carries the FULL owner node list in every product and c_z denominator (only +-1 nodes contribute terms), matching the sampled cardinal object",
+    "tail: geometric ladder x1.05 to 1e4 both signs (step sets the (hi/lo)^k* Psi-slack: 1.05^12 = 1.8); compact zone 0.05 cells with 0.005 refinement near active heights",
+    "coverage: envelope must dominate the L300 pipeline cardinal on the 2033-style grid (relative 1e-9 pad): convention bugcatch",
+    "repricing lanes: PAIR uses the certified (T=2^(N+1), q*(T)) pair (contraction premise priced at q*^2n); KEEP-Q keeps the sampled 2^-14 contraction and prices certified C4*C2 against the 2033 F_max budget"
+  ],
+  "rows": [
+    {
+      "gamma": 14.134725141734693,
+      "N": 4,
+      "rho": [
+        0.55,
+        14.134725141734693
+      ],
+      "H": 17.145421691571688,
+      "radius": 48.208904068660146,
+      "owner_cardinality": 27,
+      "corr_active": 3,
+      "certified": {
+        "q_star_T16": 69595.42277324523,
+        "q_star_T32": 3.836236458817285e-06,
+        "q_star_T64": 5.4321649608100686e-18,
+        "C4_star": 15384633.320472037,
+        "C2_star_corr": 8401029.662478011,
+        "base_sup_unweighted": 18505712.434745986,
+        "corr_sup_unweighted": 2024288.0695916896
+      },
+      "sampled_2033": {
+        "base_C4": 152.96406643093619,
+        "correction_C2": 683.8644420520491,
+        "q": 6.103515625e-05
+      },
+      "inflation": {
+        "F_C4": 100576.78041279227,
+        "F_C2": 12284.641729974033,
+        "q_pair_over_q": 0.0628528981412624
+      },
+      "coverage": {
+        "fails": 0,
+        "worst_sampled_over_envelope": 0.0006048707378806735,
+        "worst_points": []
+      },
+      "repricing": {
+        "T_pair": 32,
+        "q_pair": 3.836236458817285e-06,
+        "n_table": [
+          {
+            "n": 3,
+            "F_total": 1235549713.7254229,
+            "F_max": 2.3244746927486477,
+            "lim_keepq": 2.8253405610794992e+17,
+            "lim_sampled": 0.18507610690648518,
+            "lam_min_keepq": null,
+            "lam_min_sampled": 65245.268055109904,
+            "joint_keepq": false,
+            "lim_pair": 17418977207.722313,
+            "lam_min_pair": null,
+            "joint_pair": false
+          },
+          {
+            "n": 4,
+            "F_total": 1235549713.7254229,
+            "F_max": 38084.193365993844,
+            "lim_keepq": 1052521378.2040399,
+            "lim_sampled": 6.894622255358293e-10,
+            "lam_min_keepq": null,
+            "lam_min_sampled": 2.2691297321132535,
+            "joint_keepq": false,
+            "lim_pair": 0.25635003898833275,
+            "lam_min_pair": 88624.79453844149,
+            "joint_pair": true
+          },
+          {
+            "n": 5,
+            "F_total": 1235549713.7254229,
+            "F_max": 623971424.1084431,
+            "lim_keepq": 3.920947679147273,
+            "lim_sampled": 2.568446939944585e-18,
+            "lam_min_keepq": null,
+            "lam_min_sampled": 0.00013849305138061784,
+            "joint_keepq": false,
+            "lim_pair": 3.772629225336278e-12,
+            "lam_min_pair": 0.16784777559757072,
+            "joint_pair": true
+          },
+          {
+            "n": 6,
+            "F_total": 1235549713.7254229,
+            "F_max": 10223147812592.732,
+            "lim_keepq": 1.4606668349904094e-08,
+            "lim_sampled": 9.568210467489753e-27,
+            "lam_min_keepq": 10.44529619403533,
+            "lam_min_sampled": 8.452945017009108e-09,
+            "joint_keepq": true,
+            "lim_pair": 5.552069088044561e-23,
+            "lam_min_pair": 6.439025056127501e-07,
+            "joint_pair": true
+          }
+        ]
+      },
+      "branch_2718": {
+        "branch": "rays",
+        "lambda_min": 1381.53
+      }
+    },
+    {
+      "gamma": 21.022039638771556,
+      "N": 5,
+      "rho": [
+        0.55,
+        21.022039638771556
+      ],
+      "H": 24.02923323790201,
+      "radius": 87.0719873427753,
+      "owner_cardinality": 56,
+      "corr_active": 3,
+      "certified": {
+        "q_star_T16": 500640.26437825646,
+        "q_star_T32": 0.004902526506922337,
+        "q_star_T64": 2.5248153557101123e-16,
+        "C4_star": 60524298.630698465,
+        "C2_star_corr": 28161344.216206506,
+        "base_sup_unweighted": 18106182.341737904,
+        "corr_sup_unweighted": 2864710.008676995
+      },
+      "sampled_2033": {
+        "base_C4": 624.4643392815566,
+        "correction_C2": 1913.288591837906,
+        "q": 6.103515625e-05
+      },
+      "inflation": {
+        "F_C4": 96921.94545541448,
+        "F_C2": 14718.816772515589,
+        "q_pair_over_q": 4.136657478795448e-12
+      },
+      "coverage": {
+        "fails": 0,
+        "worst_sampled_over_envelope": 0.0003302474455696471,
+        "worst_points": []
+      },
+      "repricing": {
+        "T_pair": 64,
+        "q_pair": 2.5248153557101123e-16,
+        "n_table": [
+          {
+            "n": 3,
+            "F_total": 1426576356.3939955,
+            "F_max": null,
+            "lim_keepq": 1.8956786938458233e+20,
+            "lim_sampled": 93.14824679222116,
+            "lam_min_keepq": null,
+            "lam_min_sampled": null,
+            "joint_keepq": false,
+            "lim_pair": 9.498654737582071e-49,
+            "lam_min_pair": 3.2493066735050853e-19,
+            "joint_pair": true
+          },
+          {
+            "n": 4,
+            "F_total": 1426576356.3939955,
+            "F_max": 1697.5891731051013,
+            "lim_keepq": 706195344718.4799,
+            "lim_sampled": 3.470042600937976e-07,
+            "lam_min_keepq": null,
+            "lam_min_sampled": 196.50923290282907,
+            "joint_keepq": false,
+            "lim_pair": 6.055100387972672e-80,
+            "lam_min_pair": 8.203899384676985e-35,
+            "joint_pair": true
+          },
+          {
+            "n": 5,
+            "F_total": 1426576356.3939955,
+            "F_max": 27813301.01215398,
+            "lim_keepq": 2630.78266649872,
+            "lim_sampled": 1.2926916036523789e-15,
+            "lam_min_keepq": null,
+            "lam_min_sampled": 0.011986906868744087,
+            "joint_keepq": false,
+            "lim_pair": 3.8599403516965665e-111,
+            "lam_min_pair": 2.071333114313319e-50,
+            "joint_pair": true
+          },
+          {
+            "n": 6,
+            "F_total": 1426576356.3939955,
+            "F_max": 455693123783.1308,
+            "lim_keepq": 9.800429144869447e-06,
+            "lim_sampled": 4.815651489989381e-24,
+            "lam_min_keepq": 1046.9933354949876,
+            "lam_min_sampled": 7.316227073848202e-07,
+            "joint_keepq": true,
+            "lim_pair": 2.460593312086085e-142,
+            "lam_min_pair": 5.229733653809117e-66,
+            "joint_pair": true
+          }
+        ]
+      },
+      "branch_2718": {
+        "branch": "all",
+        "lambda_min": 15.86
+      }
+    }
+  ],
+  "nonclaims": [
+    "model-grade owner constants (stored binary64 nodes); the node-radius transfer brick stays open",
+    "numeric certified enclosures, not Lean theorems; the Lean forall-strip absorption is a separate brick",
+    "no producer GO, no map-103 reopening, no SourceRH, no RH claim"
+  ],
+  "provenance": {
+    "script": "scripts/p3_certified_strip_constants_2720.py",
+    "script_sha256": "f16ce609d50c195d1c25c02a2e33ee00fa859575ee874491ec82b750f2ed19b8",
+    "producer_modules": {
+      "fourpoint_actual_owner_1980.py": "7c6792479033bfd9ea24a7bdb9a104b849e1268af0b42e310330627aaa418c69",
+      "fourpoint_powered_seed_1981.py": "be376c26b2f1b15f1a838759e08903a3c260652cfe9c87c491e5151de5c2bc8b"
+    }
+  }
+}
