@@ -1,0 +1,21 @@
+{
+  "scope": "source signature and wiring audit; not compiled coverage",
+  "source_sha256": {
+    "ConnesWeilRH/Dev/C1RouteACorrectionAnalyticOffDiagCertificate2695.lean": "a7b61e4002f8025365441b65ec2aac69ad5e66dc6f9aa7ab1d0a7a322e05ff18",
+    "ConnesWeilRH/Dev/C1RouteAEntryManifest2664.lean": "e8050a715b43918d35796319a862a30d6c05a58aa259609825c24eef9046978f",
+    "ConnesWeilRH/Dev/C1RouteAPanelComposition2662.lean": "25f068e1912f7c7e6711021ac030e006121cb2a6c0ac5c8fb360e61a712f2c49"
+  },
+  "wired_offdiagonal_positions": 52,
+  "remaining_positions": 818,
+  "remaining_named_premises": [
+    "h_remaining",
+    "hdefect_entry",
+    "hdefect_matrix"
+  ],
+  "existing_generic_composition": "ConnesWeilRH/Dev/C1RouteAPanelComposition2662.lean",
+  "decision": "STOP_UNBOUNDED_ENTRY_AND_AGGREGATE_CAMPAIGN",
+  "reason": "Enumerating memberships leaves both defect identities and all later producer obligations open.",
+  "restart_gate": "A bounded target with owner, removed premise, consumer, resource budget and stop condition; frozen-family work also requires its named-hypothesis reopening gate.",
+  "producer_go": false,
+  "rh_claim": false
+}

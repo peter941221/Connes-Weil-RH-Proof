@@ -1,0 +1,16 @@
+{
+  "root": ".lake/build",
+  "count": 69994,
+  "bytes": 150192552428,
+  "before": {
+    "total": 1081101176832,
+    "used": 865917349888,
+    "free": 160191471616
+  },
+  "after": {
+    "total": 1081101176832,
+    "used": 715541213184,
+    "free": 310567608320
+  },
+  "preserved": "source, olean, ilean, certificates, active build and package caches"
+}

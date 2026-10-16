@@ -1,0 +1,31 @@
+{
+  "scope": "exact algebra controls only, no RH owner evaluated",
+  "leibniz_coefficients": {
+    "2": [
+      3,
+      3,
+      1
+    ],
+    "4": [
+      5,
+      10,
+      10,
+      5,
+      1
+    ]
+  },
+  "examples": [
+    {
+      "threshold": 2,
+      "gate": "-3/4",
+      "tail_cost": "698896/1010025",
+      "pass_joint": true
+    },
+    {
+      "threshold": 4,
+      "gate": "-3/4",
+      "tail_cost": "2795584/1357225",
+      "pass_joint": false
+    }
+  ]
+}

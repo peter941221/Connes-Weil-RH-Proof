@@ -1,0 +1,32 @@
+{
+  "stats": {
+    "setup_files": 69994,
+    "setup_bytes": 150192552428
+  },
+  "schemas": {
+    "dynlibs,importArts,isModule,name,options,package,plugins": 69994
+  },
+  "bad": [],
+  "samples": {
+    "dynlibs,importArts,isModule,name,options,package,plugins": {
+      "path": ".lake/build/ir/ConnesWeilRH.setup.json",
+      "value": {
+        "plugins": [],
+        "package": "ConnesWeilRH",
+        "options": {
+          "weak.linter.mathlibStandardSet": true,
+          "relaxedAutoImplicit": false,
+          "pp.unicode.fun": true,
+          "maxSynthPendingDepth": 3
+        },
+        "name": "ConnesWeilRH",
+        "isModule": false,
+        "importArts": {
+          "omitted_entries": 4130,
+          "description": "Generated transitive import artifact paths omitted from the public inventory; all files were parsed before cleanup."
+        },
+        "dynlibs": []
+      }
+    }
+  }
+}

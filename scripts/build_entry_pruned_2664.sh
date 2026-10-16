@@ -28,7 +28,7 @@ fi
 echo "preflight: ${free_kib} KiB free (threshold ${min_free_kib} KiB)"
 
 flock -w 60 /tmp/connes-weil-rh-lake.lock \
-  lake build -Kjobs=2 "$target"
+  env LEAN_NUM_THREADS=1 lake build "$target"
 
 # The pruner re-checks every source and assembly digest before deleting any
 # generated output.  A failed provenance check leaves the build intact.

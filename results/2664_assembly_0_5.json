@@ -1,0 +1,30 @@
+{
+ "assembly_built": true,
+ "assembly_sha256": "8a39104ff23aed3f6c59417be660e88ba0763b31c6d5b72c1cb139d370c7b380",
+ "degree": 55,
+ "digest_convention": "sha256 over source bytes for modules_sha256; canonical map digest is sha256(json.dumps(map, sort_keys=True, separators=(\\\",\\\", \\\" :\\\")))",
+ "entry": [
+  0,
+  5
+ ],
+ "modules_sha256": {
+  "C1RouteAEntryAssembly2663.lean": "0646e27322a4787090a7b5f34ab0fc1c32e73559e9d2c09ab506dfbe092988f7",
+  "C1RouteAEntryBars2663.lean": "43abcb96f56dedac3844a5c87aa62f5c2d8f69349804198bb8d455ff2eca7e38",
+  "C1RouteAEntryPanel2663B00.lean": "e082fa22737714df3ff470ed9b14edb7c5519c0772eccabfafe528d98c65ea1b",
+  "C1RouteAEntryPanel2663B01.lean": "eb4e093e37b5c0c2a84b3245bd14ca86cd3cb98042eab94e3154bde59fc4c552",
+  "C1RouteAEntryPanel2663B02.lean": "56951278baa321721715544feea46481f1752f05db2b006dfd69d3501cba9a4b",
+  "C1RouteAEntryPanel2663B03.lean": "afc95940cbb0add4b7d156c72b1dfc3d7d0d81d20b181aae4d96f65939acbfb4",
+  "C1RouteAEntryPanel2663B04.lean": "0e44dc08687106bc9116b7262c277d8abead46d39c5cf262887011e8922f3920",
+  "C1RouteAEntryPanel2663B05.lean": "d35becf22853b7beb7bbdcca5c220014b80dcfcb179bf85c50442c3d979a4429",
+  "C1RouteAEntryPanel2663B06.lean": "2401ffd39f79bb84c0496f6a631227bc3f100c22d4cda2b6aa75d7448f4e5eec",
+  "C1RouteAEntryPanel2663B07.lean": "4dd30573834f17c4bc9664467ec7002c6d0c1d84176a107a561c184727193970",
+  "C1RouteAEntryPanel2663B08.lean": "f51f4b20e1c5b237e1074d19cb79e34822bee23eedcf0871cb7fa3ebf4af0f15",
+  "C1RouteAEntryPanel2663B09.lean": "cfde1fde381f6c947c5df7b8e6ff299ff80e3024f04843da8234d2711a722ad2",
+  "C1RouteAEntryPanels2663.lean": "28c0b7cbc7ed3dbaf6d365bf575386ca73dd3600a8563af0404e7a9d3b7a8b0d",
+  "C1RouteAEntryRect2663.lean": "ddc773bbfd27100bc47a6dae9081edbaaa9dddd20583f60b5b2ecee598d7ae37",
+  "C1RouteAEntryTiling2663.lean": "f475bb42bc467decc42e1eb8be2abbe85d3e41520cd80c37f967f3edb998f7fc"
+ },
+ "purpose": "assembly-half evidence for record-2664 entry (0,5)",
+ "record": 2664,
+ "rh_claim": false
+}

@@ -1,0 +1,171 @@
+{
+  "scope": "stored sampled rows; unit proxy only; not complete-owner certification",
+  "source_sha256": "ef82d9e8c3b77f01744e4b6b19ee7fe9afac2f2b64b02c544789c3793fb489b8",
+  "rows": [
+    {
+      "gamma": 14.134725141734693,
+      "N": 4,
+      "n": 0,
+      "old_proxy": 2.1447633577852578e+28,
+      "new_proxy": 4.4577713112924094e+20,
+      "old_replay_relative_difference": 0.0,
+      "new_proxy_pass": false,
+      "geometric_ratio": 2.0784443631560492e-08
+    },
+    {
+      "gamma": 21.022039638771556,
+      "N": 3,
+      "n": 0,
+      "old_proxy": 2.29438815988423e+31,
+      "new_proxy": 4.865311559818997e+22,
+      "old_replay_relative_difference": 0.0,
+      "new_proxy_pass": false,
+      "geometric_ratio": 2.120526790054779e-09
+    },
+    {
+      "gamma": 21.022039638771556,
+      "N": 3,
+      "n": 2,
+      "old_proxy": 396780719778377.2,
+      "new_proxy": 675805.9380855891,
+      "old_replay_relative_difference": 2.220446049250313e-16,
+      "new_proxy_pass": false,
+      "geometric_ratio": 1.7032227232791503e-09
+    },
+    {
+      "gamma": 21.022039638771556,
+      "N": 4,
+      "n": 0,
+      "old_proxy": 2.47601280975711e+31,
+      "new_proxy": 5.229101500119829e+22,
+      "old_replay_relative_difference": 0.0,
+      "new_proxy_pass": false,
+      "geometric_ratio": 2.111904057811716e-09
+    },
+    {
+      "gamma": 21.022039638771556,
+      "N": 4,
+      "n": 2,
+      "old_proxy": 410952348833826.06,
+      "new_proxy": 726210.856483154,
+      "old_replay_relative_difference": 0.0,
+      "new_proxy_pass": false,
+      "geometric_ratio": 1.767141272081661e-09
+    },
+    {
+      "gamma": 21.022039638771556,
+      "N": 5,
+      "n": 0,
+      "old_proxy": 2.74210207484361e+31,
+      "new_proxy": 5.752573511015255e+22,
+      "old_replay_relative_difference": 2.220446049250313e-16,
+      "new_proxy_pass": false,
+      "geometric_ratio": 2.0978699384643955e-09
+    },
+    {
+      "gamma": 21.022039638771556,
+      "N": 5,
+      "n": 2,
+      "old_proxy": 436597874919584.4,
+      "new_proxy": 798772.123122649,
+      "old_replay_relative_difference": 2.220446049250313e-16,
+      "new_proxy_pass": false,
+      "geometric_ratio": 1.8295373592227686e-09
+    },
+    {
+      "gamma": 30.424876125859512,
+      "N": 3,
+      "n": 0,
+      "old_proxy": 2.403970773128601e+34,
+      "new_proxy": 4.554548377402707e+24,
+      "old_replay_relative_difference": 2.220446049250313e-16,
+      "new_proxy_pass": false,
+      "geometric_ratio": 1.8945939061793494e-10
+    },
+    {
+      "gamma": 30.424876125859512,
+      "N": 3,
+      "n": 2,
+      "old_proxy": 4.479451733727767e+17,
+      "new_proxy": 63242918.54020178,
+      "old_replay_relative_difference": 2.220446049250313e-16,
+      "new_proxy_pass": false,
+      "geometric_ratio": 1.411845071663971e-10
+    },
+    {
+      "gamma": 30.424876125859512,
+      "N": 3,
+      "n": 3,
+      "old_proxy": 510701261.0822901,
+      "new_proxy": 0.23516266520709303,
+      "old_replay_relative_difference": 0.0,
+      "new_proxy_pass": true,
+      "geometric_ratio": 4.604701087064692e-10
+    },
+    {
+      "gamma": 30.424876125859512,
+      "N": 4,
+      "n": 0,
+      "old_proxy": 2.7761110760245574e+34,
+      "new_proxy": 5.205246037812275e+24,
+      "old_replay_relative_difference": 0.0,
+      "new_proxy_pass": false,
+      "geometric_ratio": 1.8750136054592903e-10
+    },
+    {
+      "gamma": 30.424876125859512,
+      "N": 4,
+      "n": 2,
+      "old_proxy": 5.277751902005696e+17,
+      "new_proxy": 72281533.26382455,
+      "old_replay_relative_difference": 2.220446049250313e-16,
+      "new_proxy_pass": false,
+      "geometric_ratio": 1.3695515553953097e-10
+    },
+    {
+      "gamma": 30.424876125859512,
+      "N": 4,
+      "n": 3,
+      "old_proxy": 560491649.8489498,
+      "new_proxy": 0.26874244612755616,
+      "old_replay_relative_difference": 0.0,
+      "new_proxy_pass": true,
+      "geometric_ratio": 4.794762708775076e-10
+    },
+    {
+      "gamma": 30.424876125859512,
+      "N": 5,
+      "n": 0,
+      "old_proxy": 3.185304948973134e+34,
+      "new_proxy": 5.913177294674498e+24,
+      "old_replay_relative_difference": 2.220446049250313e-16,
+      "new_proxy_pass": false,
+      "geometric_ratio": 1.8563928381741802e-10
+    },
+    {
+      "gamma": 30.424876125859512,
+      "N": 5,
+      "n": 2,
+      "old_proxy": 6.184529675260251e+17,
+      "new_proxy": 82115991.05334832,
+      "old_replay_relative_difference": 0.0,
+      "new_proxy_pass": false,
+      "geometric_ratio": 1.3277645247921427e-10
+    },
+    {
+      "gamma": 30.424876125859512,
+      "N": 5,
+      "n": 3,
+      "old_proxy": 623222132.765189,
+      "new_proxy": 0.30527953898255233,
+      "old_replay_relative_difference": 0.0,
+      "new_proxy_pass": true,
+      "geometric_ratio": 4.898406570191118e-10
+    }
+  ],
+  "gate_rows": 16,
+  "proxy_passes": 3,
+  "producer_go": false,
+  "family_reopened": false,
+  "rh_claim": false
+}
