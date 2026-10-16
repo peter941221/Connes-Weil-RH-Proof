@@ -1,0 +1,264 @@
+{
+  "binder_diff": {
+    "new": [
+      "hIm",
+      "hNorm",
+      "hcontractPin",
+      "hgate24",
+      "hprefix",
+      "hquadraticPin",
+      "hquarticPin",
+      "hsub",
+      "htri",
+      "hy"
+    ],
+    "parent": [
+      "hIm",
+      "hNorm",
+      "hbase",
+      "hcontractPin",
+      "hcorr",
+      "hgate24",
+      "hprefix",
+      "hquadraticPin",
+      "hquarticPin",
+      "hsupport",
+      "hvanish"
+    ]
+  },
+  "build_census": {
+    "entry_path_warnings": 0,
+    "error_lines": 0,
+    "footer_ok": true,
+    "log_present": true,
+    "records": 5,
+    "sorry_lines": 0
+  },
+  "carrier_growth_radius": "5 * (2 * r + 1)",
+  "checks": {
+    "A1_shifted_triple_literal": {
+      "detail": "def shiftedCC20Triple2722D : Finset ℂ := {(1 / 2 : ℂ), 1, (3 / 2 : ℂ)}",
+      "pass": true
+    },
+    "A2_vanish_data_binders": {
+      "detail": "",
+      "pass": true
+    },
+    "A2_vanish_statement": {
+      "detail": "theorem carrier_cc20Vanishes2722D (targets nodes : Finset ℂ)",
+      "pass": true
+    },
+    "A3_support_statement": {
+      "detail": "",
+      "pass": true
+    },
+    "A4_carrier_def_body": {
+      "detail": "",
+      "pass": true
+    },
+    "A4_carrier_def_single_declaration": {
+      "detail": "",
+      "pass": true
+    },
+    "A5_hcontractPin": {
+      "detail": "(hcontractPin : ∀ sigma ∈ Set.Icc (0 : Real) 1, ",
+      "pass": true
+    },
+    "A5_hquadraticPin": {
+      "detail": "(hquadraticPin : ∀ sigma ∈ Set.Icc (0 : Real) 1,",
+      "pass": true
+    },
+    "A5_hquarticPin": {
+      "detail": "(hquarticPin : ∀ sigma ∈ Set.Icc (0 : Real) 1, ∀",
+      "pass": true
+    },
+    "A5_rho_caps": {
+      "detail": "(hNorm : ‖rho.1‖ ≤ wiredRhoNormCapRowB2721) (hIm",
+      "pass": true
+    },
+    "A6_def_carrier_count8": {
+      "detail": "count=8",
+      "pass": true
+    },
+    "A6_gate_prefix_anchors": {
+      "detail": "",
+      "pass": true
+    },
+    "A6_main_theorem_uses_no_unfolded_carrier": {
+      "detail": "",
+      "pass": true
+    },
+    "A7_conclusion_is_False": {
+      "detail": "",
+      "pass": true
+    },
+    "A7_refine_verbatim": {
+      "detail": "refine fourPointContradictionRowBWired2722C targets nodes (e",
+      "pass": true
+    },
+    "A8_axiom_census": {
+      "detail": "records=5 decls_ok=True trio_ok=True footer=True err=0 sorry=0",
+      "pass": true
+    },
+    "A8_build_census": {
+      "entry_path_warnings": 0,
+      "error_lines": 0,
+      "footer_ok": true,
+      "log_present": true,
+      "records": 5,
+      "sorry_lines": 0
+    },
+    "A8_entry_warnings_zero": {
+      "detail": "n=0",
+      "pass": true
+    },
+    "B_added_exactly3": {
+      "detail": "hsub,htri,hy",
+      "pass": true
+    },
+    "B_new_labels": {
+      "detail": "hIm,hNorm,hcontractPin,hgate24,hprefix,hquadraticPin,hquarticPin,hsub,htri,hy",
+      "pass": true
+    },
+    "B_parent_labels": {
+      "detail": "hIm,hNorm,hbase,hcontractPin,hcorr,hgate24,hprefix,hquadraticPin,hquarticPin,hsupport,hvanish",
+      "pass": true
+    },
+    "B_removed_exactly4": {
+      "detail": "hbase,hcorr,hsupport,hvanish",
+      "pass": true
+    },
+    "C1_pin_constant_swap_mutation_rejected": {
+      "detail": "guard must fail on the mutated text",
+      "pass": true
+    },
+    "C1_pin_constant_swap_original_passes": {
+      "detail": "",
+      "pass": true
+    },
+    "C2_databinder_drop_mutation_rejected": {
+      "detail": "guard must fail on the mutated text",
+      "pass": true
+    },
+    "C2_databinder_drop_original_passes": {
+      "detail": "",
+      "pass": true
+    },
+    "C3_hvanish_reinsert_mutation_rejected": {
+      "detail": "guard must fail on the mutated text",
+      "pass": true
+    },
+    "C3_hvanish_reinsert_original_passes": {
+      "detail": "",
+      "pass": true
+    },
+    "C4_B_term_perturb_mutation_rejected": {
+      "detail": "guard must fail on the mutated text",
+      "pass": true
+    },
+    "C4_B_term_perturb_original_passes": {
+      "detail": "",
+      "pass": true
+    },
+    "C5_triple_shift_wrong_mutation_rejected": {
+      "detail": "guard must fail on the mutated text",
+      "pass": true
+    },
+    "C5_triple_shift_wrong_original_passes": {
+      "detail": "",
+      "pass": true
+    },
+    "C6_unnamed_carrier_mutation_rejected": {
+      "detail": "guard must fail on the mutated text",
+      "pass": true
+    },
+    "C6_unnamed_carrier_original_passes": {
+      "detail": "",
+      "pass": true
+    },
+    "D1_exit_triple_membership": {
+      "detail": "",
+      "pass": true
+    },
+    "D2_shifted_triple_derivation": {
+      "detail": "arms=3 shifted=['1/2', '1', '3/2'] parsed=['1/2', '1', '3/2']",
+      "pass": true
+    },
+    "E_parent_freeze_blob_match": {
+      "detail": "{\"ConnesWeilRH/Dev/C1StripTransport2722C.lean\": true, \"ConnesWeilRH/Dev/C1FourPointRowBWired2721.lean\": true, \"ConnesWeilRH/Dev/C1ExplicitFiniteNodeCorrection.lean\": true}",
+      "pass": true
+    }
+  },
+  "checks_total": 36,
+  "date": "2026-10-17",
+  "elapsed_s": 0.19,
+  "failures": [],
+  "finite_data_conditions_added": [
+    "hsub",
+    "htri",
+    "hy"
+  ],
+  "map103_freeze_unchanged": true,
+  "name": "rowB cardinal carrier instantiation",
+  "parent_blob_continuity": {
+    "ConnesWeilRH/Dev/C1ExplicitFiniteNodeCorrection.lean": {
+      "head_blob": "5d2f629b6a55c6b30e873fed5d275b9bf19e1749",
+      "live_blob": "5d2f629b6a55c6b30e873fed5d275b9bf19e1749",
+      "match": true
+    },
+    "ConnesWeilRH/Dev/C1FourPointRowBWired2721.lean": {
+      "head_blob": "e8f520ca25a2af92037b9e1b4851675218f58cc7",
+      "live_blob": "e8f520ca25a2af92037b9e1b4851675218f58cc7",
+      "match": true
+    },
+    "ConnesWeilRH/Dev/C1StripTransport2722C.lean": {
+      "head_blob": "256d28f74344d620ef2066709ac7bb9cffb20cd5",
+      "live_blob": "256d28f74344d620ef2066709ac7bb9cffb20cd5",
+      "match": true
+    }
+  },
+  "producer_GO": false,
+  "provenance": {
+    "checker_sha256": "d6f55827400dcdfbc1af4339556e355b313ada5b2ca51e190dab6cded3d7ddf1"
+  },
+  "record": "2722D",
+  "rh_claim": false,
+  "rh_core_premises_still_named": [
+    "hNorm",
+    "hIm",
+    "hcontractPin",
+    "hquarticPin",
+    "hquadraticPin",
+    "hgate24",
+    "hprefix"
+  ],
+  "shifted_triple": [
+    "1/2",
+    "1",
+    "3/2"
+  ],
+  "smoke": false,
+  "sources": {
+    "C1RowBCardinalCarrier2722D.lean": {
+      "md5": "4737ef342f86557f53d4c6aa2f9157c6",
+      "sha256": "caca061793129e580dc2738c5682002cfbedb5854027018df91161d4bd809e6a"
+    },
+    "C1RowBCardinalCarrier2722DAudit.lean": {
+      "md5": "9fb30ee1ad43093c30dc5f0deaf40940",
+      "sha256": "2b15104a1d9c10887d792c27b44eeb7697dc4d3eee9b88abecd200dae4e67c1a"
+    }
+  },
+  "transport_premises_proved": [
+    "hbase",
+    "hcorr",
+    "hsupport",
+    "hvanish"
+  ],
+  "verdict": "CARRIER-INSTANTIATION-GREEN",
+  "wired_hypotheses_removed_this_round": [
+    "hbase",
+    "hcorr",
+    "hsupport",
+    "hvanish"
+  ]
+}

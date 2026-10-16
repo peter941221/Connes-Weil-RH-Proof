@@ -1091,3 +1091,65 @@ unchanged). No wired hypothesis removed; no producer GO; no RH claim;
 map-103 freeze unchanged. Evidence:
 `results/2722c_strip_transport_tie.json`,
 `docs/proofs/2722C_strip_transport.md`.
+
+## 2722D the carrier instantiation: the transport premises become
+theorems (CARRIER-INSTANTIATION-GREEN; first premise removals on the
+transport lane; freeze unchanged)
+
+Record 2722D lands `ConnesWeilRH/Dev/C1RowBCardinalCarrier2722D.lean`
+plus paired audit and instantiates the 2722C variant at the
+record-1958 explicit cardinal carrier family
+`base = correction targets (explicitSeed r hr) (fun _ => 1)`,
+`correction = correction nodes (explicitSeed r hr) y`. The four
+transport-side named premises of the variant are DISCHARGED, not
+relocated: `hbase`/`hcorr` are definitional (`rfl` at the instantiated
+owners); `hvanish` follows from the centered 1958 master brick —
+`healthyCC20TestSpace.mellinAt` is `laplaceAt` by
+`healthyMellinReadoff`, and
+`selectedOwner_explicit_base_and_correction_target` reads the source
+test at `s - 1/2` as `y s` — so vanishing at the absolute CC20 triple
+`{0, 1/2, 1}` is the FINITE DATA condition `y = 0` on the shifted
+triple `{1/2, 1, 3/2} ⊆ targets ⊆ nodes` (design-stage catch: the node
+over `w = 1` is `s = 3/2`, not `2`); `hsupport` follows from the
+support growth chain `explicitSeed_correction_support` (Icc +-2r) ->
+`Ioo (-(2r+1)) (2r+1)` ->
+`convolutionIterate_convolution_support_subset_Ioo` at n = 3 -> radius
+`(3+1)(2r+1) + (2r+1) = 5 * (2 * r + 1)` ->
+`halfDensityShift_support_subset`. The new theorem
+`fourPointContradictionRowBCarrier2722D` carries TEN named hypotheses:
+the seven RH-core/pin items (`hNorm`, `hIm`, `hcontractPin`,
+`hquarticPin`, `hquadraticPin`, `hgate24`, `hprefix`) plus the three
+finite data conditions (`hsub`, `htri`, `hy`); the binder diff
+(removed `{hvanish, hsupport, hbase, hcorr}` exactly, added
+`{hsub, htri, hy}` exactly) is machine-asserted. Honesty line: the
+witness is NOT produced — nodes stay quantified, and any concrete
+reopen witness must include the shifted triple with vanishing `y`
+AND re-price the three cardinal pins for its own node set (the 2720
+D-ladder constants are stored-list specific; enlarging the owner moves
+`Q_z`, the node products and the envelope). Pins stay named hypotheses
+per the proxy-tie doctrine; their Lean-grade certification, `hgate24`
+(P5 sign), `hprefix` (P2) and the tail beyond the registered 2722C
+scan remain the open list, unchanged in kind from 2722C. Lean
+acceptance: Linux-native build green (footer 3866 jobs; fresh Built
+2722D 46 s / Audit 1.3 s), 0 error, 0 sorry, five-declaration census
+exactly `[propext, Classical.choice, Quot.sound]`, zero entry-path
+warnings (300 log warnings all cached-closure replay). Iteration
+disclosure: build 1 died on a 13-error dot-projection parse family
+(`)` newline `.field` = argument token in Lean 4), build 2 on one
+`ICgate` continuation misattach — cured by the named-carrier def
+`carrierSourceTest2722D`, which restores the parent's proven line
+layout at all eight gate/prefix sites; all reads from the full log,
+never the wrapper exit code. Checker
+`scripts/check_rowB_carrier_2722d.py`, 36/36 GREEN
+(`results/2722d_rowB_carrier.json`): transcription guards (triple
+literal, vanishing/support statements, pin quantifiers verbatim
+through `Set.Icc (0 : Real) 1` / `64 ≤ |t|` / weight exponents `^ 4` /
+`^ 2`, def-carrier count 8 with no unfolded carrier in the main
+theorem, refine verbatim), binder diff, six feasibility-checked
+mutation controls, exact-Fraction derivation of the shifted triple
+from the committed `criticalVanishingPointValue` arms, and parent blob
+continuity for the 2721C/2722C/1958 modules. No producer GO; no RH
+claim; map-103 `DEAD_ON_CURRENT_FAMILY` freeze unchanged (premise
+discharge under the reopen motion). Evidence:
+`results/2722d_rowB_carrier.json`,
+`docs/proofs/2722D_rowB_cardinal_carrier.md`.
