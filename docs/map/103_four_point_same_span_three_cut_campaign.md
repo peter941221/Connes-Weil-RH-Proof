@@ -1193,3 +1193,39 @@ sufficient-bound support at model grade, not a discharged Lean
 theorem; no producer GO; no RH claim; `DEAD_ON_CURRENT_FAMILY`
 freeze unchanged. Evidence: `results/2722e_witness_data_screen.json`,
 `docs/proofs/2722E_stored_rowB_witness_screen.md`.
+
+## 2722F stored row-B capture (2026-10-17)
+
+The 2722E routing decision executed: the stored row-B configuration
+(gamma_2 = 21.022039638771556, re = 0.55, N = 5; 8 targets, 56 nodes,
+value table, radius) is now exact Lean data in
+`ConnesWeilRH.Source.C1RowBStoredCapture2722F` (binary64 values are
+dyadic rationals, so the capture carries no error radius). The three
+finite-data legs are theorems with zero premises —
+`storedTargetsSubset2722F`, `storedTripleSubset2722F`,
+`storedYVanishes2722F` (the last decided by nine
+imaginary-part negations via `intro h; exact absurd (congrArg
+Complex.im h) (by norm_num)`).
+`fourPointContradictionRowBStored2722F` instantiates the 2722D
+contradiction at the capture: `wired_hypotheses_removed = 3`
+(logical 10 -> 7); the seven named hypotheses remaining are exactly
+`hNorm`, `hIm`, the three cardinal pins, `hgate24`, `hprefix`; `rho`
+stays a named carrier point. Build green (footer 3867 jobs, 0 error,
+0 sorry, 0 entry warnings, five-declaration trio census); checker
+22/22 with four feasibility-checked mutation controls and the build
+census carried inside `results/2722f_rowB_capture_check.json`.
+Instrument laws: bare `norm_num` cannot refute a complex-numeral
+equality (use the `congrArg` projection shape); `norm_num at h`
+closes the goal itself so a trailing `exact h` is dead code; Finset
+membership unfolds to a disjunction with NO `x ∈ ∅` tail, so the
+last-element chain is `(n-1)` `Or.inr` + bare `exact rfl`.
+The pins remain named hypotheses (2722E screen is their current
+numeric support; Lean certification is the next named brick). No
+producer GO; no RH claim; the `DEAD_ON_CURRENT_FAMILY` freeze is
+unchanged — this section records premise removal inside the frozen
+family's contradiction audit, not a family reopening. Evidence:
+`docs/proofs/2722F_rowB_stored_capture.md`,
+`results/2722f_rowB_capture_data.json`,
+`results/2722f_rowB_capture_check.json`,
+`scripts/generate_rowB_capture_2722f.py`,
+`scripts/check_rowB_capture_2722f.py`.

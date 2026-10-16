@@ -1,0 +1,142 @@
+{
+ "build_attestation": {
+  "footer_jobs": 3867,
+  "full": true,
+  "log": "_build_2722f_b2.log",
+  "log_sha256": "d6e7ed7cd047eac02294c177b831ece7107dd370e8d3c1a09e9aa2519ddb0c99"
+ },
+ "checks": [
+  {
+   "detail": "targets == owner[48:56], 8 entries",
+   "id": "P1",
+   "pass": true
+  },
+  {
+   "detail": "triple at owner 53/54/55",
+   "id": "P2",
+   "pass": true
+  },
+  {
+   "detail": "nonzero values exactly at [48, 49, 52]",
+   "id": "P3",
+   "pass": true
+  },
+  {
+   "detail": "rho/candidate reprs tied; radius=87.071987 in (87, 88)",
+   "id": "P4",
+   "pass": true
+  },
+  {
+   "detail": "module radius literal == payload radius: True",
+   "id": "S1",
+   "pass": true
+  },
+  {
+   "detail": "targets finset 8 == 8, order-exact",
+   "id": "S2",
+   "pass": true
+  },
+  {
+   "detail": "nodes finset 56 == 56, order-exact",
+   "id": "S3",
+   "pass": true
+  },
+  {
+   "detail": "ite guards == owner[48/49/52], values 1,-1,-1, else 0",
+   "id": "S4",
+   "pass": true
+  },
+  {
+   "detail": "nine negation theorems carry the probe shape",
+   "id": "S5",
+   "pass": true
+  },
+  {
+   "detail": "captured-leg statements verbatim (hsub/htri/hy/hRadius)",
+   "id": "S6",
+   "pass": true
+  },
+  {
+   "detail": "binders ['rho', 'hNorm', 'hIm', 'hcontractPin', 'hquarticPin', 'hquadraticPin', 'hgate24', 'hprefix']; application sequence complete",
+   "id": "S7",
+   "pass": true
+  },
+  {
+   "detail": "audit pins 5 decls: ['storedHRadius2722F', 'storedTargetsSubset2722F', 'storedTripleSubset2722F', 'storedYVanishes2722F', 'fourPointContradictionRowBStored2722F']",
+   "id": "S8",
+   "pass": true
+  },
+  {
+   "detail": "perturbed targets numerator is rejected by S2 comparator",
+   "id": "K1",
+   "pass": true
+  },
+  {
+   "detail": "perturbed radius is rejected by S1 comparator",
+   "id": "K2",
+   "pass": true
+  },
+  {
+   "detail": "renamed hgate24 binder is rejected by the S7 binder set",
+   "id": "K3",
+   "pass": true
+  },
+  {
+   "detail": "flipped ite branch value is rejected by S4 comparator",
+   "id": "K4",
+   "pass": true
+  },
+  {
+   "detail": "footer jobs 3867",
+   "id": "B1",
+   "pass": true
+  },
+  {
+   "detail": "error lines: 0",
+   "id": "B2",
+   "pass": true
+  },
+  {
+   "detail": "sorry occurrences: 0",
+   "id": "B3",
+   "pass": true
+  },
+  {
+   "detail": "axiom records: 5, trio-exact",
+   "id": "B4",
+   "pass": true
+  },
+  {
+   "detail": "entry-file warnings: 0",
+   "id": "B5",
+   "pass": true
+  },
+  {
+   "detail": "both entry modules in Built lines",
+   "id": "B6",
+   "pass": true
+  }
+ ],
+ "full_attestation": true,
+ "n_checks": 22,
+ "n_failed": 0,
+ "provenance": {
+  "audit_sha256": "4d948f526aada0d05e94bc7946f21526603ef0a05d22f244c5221553e769f1e6",
+  "checker_sha256": "a9e23015e7abc966f29f087ae6ace74fb0728038a5c0b862359c3caa29c90b53",
+  "generator_sha256": "e8d541e8ee2f2d7efdebb7d39d94d73cdd431fdf919c529b5bc95dfcf4664601",
+  "module_sha256": "2244175cc4b92d483f07d8b9b746aae3dc8220a27c6035400e1a554bc1d6f2e7",
+  "payload_sha256": "c1391b21e49791ae8dbd51c87462664ca378ba7fa769abec9ebbc15ac2ed24bb",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+ },
+ "schema": "2722F_ROWB_CAPTURE_CHECK_V1",
+ "semantic_notes": {
+  "freeze": "DEAD_ON_CURRENT_FAMILY unchanged",
+  "named_hypotheses_remaining": 7,
+  "pin_certification": "named hypotheses only (Lean brick open)",
+  "producer_go": false,
+  "rh_claim": false,
+  "rho_stays_named": true,
+  "wired_hypotheses_removed": 3
+ },
+ "verdict": "2722F-ROWB-CAPTURE-CHECK-GREEN"
+}
