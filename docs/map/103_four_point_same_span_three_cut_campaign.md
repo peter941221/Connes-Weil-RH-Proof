@@ -900,3 +900,27 @@ spin, coverage absolute-pad/sign) -- all caught or confirmed by the
 bugcatch.  Still separating from a reopen motion: numeric enclosures
 are not Lean theorems; Lean strip absorption, P2 shell-prefix, and P4
 stand; no producer GO, no SourceRH, no RH claim here.
+
+## 2721 analytic seed premise (premise-status change, freeze unchanged)
+
+2721 GREEN: the 2718 observational seed premise
+(E_seed = 10 x observed GL-600-vs-GL-1200 spread) is RETIRED and
+replaced by the computed-and-certified bound B_seed_cert = 3.5173e-06
+(D_float 4.797e-07 over the 27512-point evaluation class + certified
+split-rule GL-1200 tail 2.710e-13 at a* = 0.02 via the closed-form
+logistic poles c y^2 - (c+2) y + 1 = 0, c = i pi (2k+1), amplified
+10 Lmax^9 at the tightened Lmax = 4.7008) -- 1.36x TIGHTER than the
+retired assumption.  The grid premise is NARROWED: x10 inflation gone,
+measured two-rung ladder (0.02->0.01, 0.01->0.005) + ONE named ratio-2
+continuation premise charged at the pipeline float floor (rung ratios
+5749/18635/3630 >> 4; oscillatory prime channel is cancellation-floor
+class, EM absolute mass vacuous).  All four 2718 sign claims
+re-certify GREEN at the new premises (worst margin ratio 1.92e+05);
+same-run reprice of the committed 2718 artifact bitwise (0 drifted
+fields, both rows; a1/a3/a5/a6 anchors green).  Rig:
+scripts/seed_premise_rig_2721.py (WSL, 28 s; recon 2721A = 1991cb95
+GO evidence).  Premise status: E_seed analytic, M_grid = one named
+premise.  Freeze unchanged -- no reopening, no route ruling, no
+producer GO, no RH claim.  Next brick: 2721B Lean absorption (pin
+2720 C4*/C2*/q* + corner as explicit hypotheses, proxy-tie 2657
+pattern).
