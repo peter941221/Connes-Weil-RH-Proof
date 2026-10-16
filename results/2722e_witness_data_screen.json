@@ -1,0 +1,232 @@
+{
+  "record": 2722,
+  "name": "2722E stored row-B witness data-leg screen",
+  "verdict": "STORED-WITNESS-DATA-LEG-GREEN",
+  "lane": "map-103 reopen motion, premise-shrink lane (2721B/C, 2722A/B/C/D): decides the witness-data question left open by the 2722D residual (1)",
+  "decision": "the stored row-B configuration satisfies every data-side leg of fourPointContradictionRowBCarrier2722D: the shifted CC20 triple {1/2, 1, 3/2} is contained in the record-1980 healthy targets EXACTLY (binary64-exact values), the stored correction values vanish there EXACTLY, targets sit inside the owner list, the stored rho respects both wired caps, and the three cardinal-sum pins hold at artifact-grade with margins re-priced bitwise the same 2722C tie. No node-set enlargement is required for the finite-data legs; any future gate-index enlargement must re-earn the thin pin headroom reported here.",
+  "pin_margins_frac_of_pin": {
+    "C4_frac_of_pin": 0.007798383103303856,
+    "C2_frac_of_pin": 0.02891916495839635,
+    "q_frac_of_pin": 0.028917170880726043
+  },
+  "numeric_tie": {
+    "C4_star": 60524298.630698465,
+    "C4_pin": 61000000.0,
+    "C4_margin": 475701.3693015352,
+    "C2_star": 28161344.216206506,
+    "C2_pin": 29000000.0,
+    "C2_margin": 838655.7837934941,
+    "q_star_T64": 2.5248153557101123e-16,
+    "q_pin": 2.6e-16,
+    "q_margin": 7.51846442898877e-18
+  },
+  "anchor_rel_E3": {
+    "C4": 0.0,
+    "C2": 0.0,
+    "q": 0.0
+  },
+  "tail_extension": {
+    "base_quartic": {
+      "range": [
+        600.0,
+        10000000.0
+      ],
+      "cells": 200,
+      "max_weighted_envelope": 1.1898956334001585e-60,
+      "vs_wired_pin": 1.9506485793445222e-68,
+      "last_cells": [
+        "5.35568873316e-497",
+        "2.62531675025e-499",
+        "1.28690975108e-501",
+        "6.30833102623e-504",
+        "3.0922945749e-506",
+        "1.01047498808e-508"
+      ],
+      "last_cell_ratios": [
+        0.004901921827531189,
+        0.004901921838411912,
+        0.004901921848773944,
+        0.004901921858642213,
+        0.0032677190468214717
+      ],
+      "tail_strictly_decreasing_mp": true
+    },
+    "corr_quadratic": {
+      "range": [
+        600.0,
+        10000000.0
+      ],
+      "cells": 200,
+      "max_weighted_envelope": 6.957424828256015e-10,
+      "vs_wired_pin": 2.3991120097434535e-17,
+      "last_cells": [
+        "4.57826017544e-257",
+        "2.1172489197e-258",
+        "9.79137084217e-260",
+        "4.52809158087e-261",
+        "2.09404987485e-262",
+        "1.18420200589e-264"
+      ],
+      "last_cell_ratios": [
+        0.04624570991087436,
+        0.046245723641971326,
+        0.04624573671922926,
+        0.04624574917378305,
+        0.005655080235270115
+      ],
+      "tail_strictly_decreasing_mp": true
+    },
+    "base_contract": {
+      "range": [
+        600.0,
+        10000000.0
+      ],
+      "cells": 200,
+      "max_weighted_envelope": 1.1772430803309982e-68,
+      "vs_wired_pin": 4.5278580012730705e-53,
+      "last_cells": [
+        "1.91106969508e-521",
+        "7.70700623898e-524",
+        "3.10809937766e-526",
+        "1.25344153907e-528",
+        "5.05490817418e-531",
+        "1.57487120162e-533"
+      ],
+      "last_cell_ratios": [
+        0.004032823218746253,
+        0.00403282322769785,
+        0.004032823236222721,
+        0.004032823244341371,
+        0.003115528803598139
+      ],
+      "tail_strictly_decreasing_mp": true
+    }
+  },
+  "wired_pins": {
+    "wiredQ": "13/50000000000000000",
+    "wiredC4": "61000000",
+    "wiredC2": "29000000",
+    "rhoNormCap": "22",
+    "rhoImCap": "421/20"
+  },
+  "configuration": {
+    "gamma": 21.022039638771556,
+    "N": 5,
+    "rho": [
+      0.55,
+      21.022039638771556
+    ],
+    "targets": [
+      [
+        0.55,
+        21.022039638771556
+      ],
+      [
+        0.44999999999999996,
+        21.022039638771556
+      ],
+      [
+        0.55,
+        -21.022039638771556
+      ],
+      [
+        0.44999999999999996,
+        -21.022039638771556
+      ],
+      [
+        1.05,
+        21.022039638771556
+      ],
+      [
+        0.5,
+        0.0
+      ],
+      [
+        1.0,
+        0.0
+      ],
+      [
+        1.5,
+        0.0
+      ]
+    ],
+    "owner_cardinality": 56,
+    "corr_active": 3,
+    "triple_owner_indices": [
+      53,
+      54,
+      55
+    ]
+  },
+  "wired_hypotheses_removed": 0,
+  "residuals_named": [
+    "hgate24: P5 gate sign on the carrier source test (RH core, map-103 frozen premise -- untouched by this screen)",
+    "hprefix: P2 six-shell prefix bound (RH core, frozen)",
+    "Lean-grade discharge of the three cardinal pins (2720 D-ladder + interval-cell envelope inside Lean; 2722D residual (2))",
+    "model-to-Lean transfer: exact-rational capture of the stored 8-target / 56-owner lists and values, explicitSeed identification for the model seed, and the node-radius owner transfer brick (2720 nonclaims)"
+  ],
+  "map103_freeze_unchanged": true,
+  "producer_GO": false,
+  "rh_claim": false,
+  "checks": {
+    "E1.triple_in_targets[0]": true,
+    "E1.triple_in_targets[1]": true,
+    "E1.triple_in_targets[2]": true,
+    "E1.targets_subset_owner": true,
+    "E1.triple_owner_count": true,
+    "E1.hy_stored_y_zero_on_triple": true,
+    "E1.base_y_one_everywhere": true,
+    "E1.targets_distinct": true,
+    "E1.owner_distinct": true,
+    "E1.cardinalities_match_2720": true,
+    "E1.corr_active_match_2720": true,
+    "E1.triple_binary64_exact": true,
+    "E2.hNorm": true,
+    "E2.hNorm_margin": true,
+    "E2.hIm": true,
+    "E3.D_table_controls": true,
+    "E3.anchor_rel": {
+      "C4": 0.0,
+      "C2": 0.0,
+      "q": 0.0
+    },
+    "E3.anchor_C4_bitwise": true,
+    "E3.anchor_C2_bitwise": true,
+    "E3.anchor_q_bitwise": true,
+    "E3.tie_equals_2722C": true,
+    "E3.pin_q": true,
+    "E3.pin_C4": true,
+    "E3.pin_C2": true,
+    "E3.q_positive": true,
+    "E3.margins_frac_of_pin": {
+      "C4_frac_of_pin": 0.007798383103303856,
+      "C2_frac_of_pin": 0.02891916495839635,
+      "q_frac_of_pin": 0.028917170880726043
+    },
+    "E4.anchor_rel_base_quartic": 0.0,
+    "E4.anchor_base_quartic": true,
+    "E4.base_quartic_below_pin": true,
+    "E4.base_quartic_tail_decreasing": true,
+    "E4.anchor_rel_corr_quadratic": 0.0,
+    "E4.anchor_corr_quadratic": true,
+    "E4.corr_quadratic_below_pin": true,
+    "E4.corr_quadratic_tail_decreasing": true,
+    "E4.anchor_rel_base_contract": 0.0,
+    "E4.anchor_base_contract": true,
+    "E4.base_contract_below_pin": true,
+    "E4.base_contract_tail_decreasing": true,
+    "E5.m1_feasible_drop_triple": true,
+    "E5.m2_feasible_flip_y": true,
+    "E5.m3_feasible_raise_im": true,
+    "E5.m4_feasible_lower_pin": true
+  },
+  "failures": [],
+  "elapsed_s": 26.31,
+  "provenance": {
+    "scripts/p3_certified_strip_constants_2720.py": "f16ce609d50c195d1c25c02a2e33ee00fa859575ee874491ec82b750f2ed19b8",
+    "results/2720_p3_certified_strip_constants.json": "4f9d7ef7529cd0a9278a77e46e5650ae42ae8d48d2d91104ddcf1fd7adfa8573",
+    "results/2722c_strip_transport_tie.json": "5899ce2523c77205e45f2fb7fd26ffd9397d0cc7a3c174a17890a88e329dab5b",
+    "C1FourPointRowBWired2721.lean": "40e493fe3f3c9169e4ba516da52d33d798ecdebe88c9c52e07a2c8275668870c",
+    "checker": "73685ad6e6ec1a245eb783dab5dacaa2ef2521f73de8af2cdfa9306b896b3052"
+  }
+}

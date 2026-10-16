@@ -1153,3 +1153,43 @@ claim; map-103 `DEAD_ON_CURRENT_FAMILY` freeze unchanged (premise
 discharge under the reopen motion). Evidence:
 `results/2722d_rowB_carrier.json`,
 `docs/proofs/2722D_rowB_cardinal_carrier.md`.
+
+## 2722E the stored witness data-leg screen: the finite-data, cap and
+pin legs hold on the stored row-B configuration exactly
+
+The 2722D residual (1) asked whether a reopen witness must include the
+shifted CC20 triple `{1/2, 1, 3/2}` in its targets with `y = 0` there
+and re-price the three cardinal pins for the enlarged list. The screen
+answers on the stored class: the record-1980 healthy-target builder
+already ends its list with the triple as exact dyadic values (stored
+owner indices 53-55), the stored correction values vanish there
+exactly, the base coefficients are `1` exactly, and `targets ⊆ owner`
+holds entrywise. All checked in exact Fraction arithmetic (binary64
+`as_integer_ratio` lifting; the triple values are dyadic, so a Lean
+capture carries zero error radius). Both wired rho caps hold
+(`‖rho‖² = 442.228651 ≤ 484`; `|Im rho| ≤ 421/20` with exact margin
+`≈ 2.796e-2`). The three cardinal pins reprice on the stored lists in
+the same run to bitwise the committed 2722C tie (anchors `rel 0.0`):
+margins `475701.37` (0.780% of pin) / `838655.78` (2.892%) /
+`7.518e-18` (2.892%), and the 2722C tail extension `[600, 1e7]`
+re-anchors bitwise, sitting at `≤ 1.95e-68 / 2.40e-17 / 4.53e-53` of
+the pins, mp-strictly decreasing. Checker
+`scripts/witness_data_screen_2722e.py`, 37/37 GREEN, WSL python
+3.12.3/numpy 2.5.3/mpmath 1.4.1 (the committed runs' environment,
+which is what makes the bitwise anchors achievable), 26.3 s;
+artifact `results/2722e_witness_data_screen.json`. Routing
+consequences: witness search is CLOSED on the data legs (no future
+node-list enumeration to satisfy `htri`/`hsub`/`hy`); the reopen
+obstruction is exactly `{hgate24, hprefix}` plus the Lean-side bricks
+(pin certification, exact capture of the stored lists, `explicitSeed`
+identification, node-radius transfer); any gate-index enlargement must
+re-earn the 0.78% / 2.89% / 2.89% pin headroom, and this screen is the
+reusable reprice gate. First-run disclosure: the E2 cap regex
+`(\S+)` captured `421` from the spaced literal `421 / 20` and the
+spelling assert fired (multi-token capture law, second instance);
+fixed by whole-line capture before any artifact was trusted. Screen
+status: `wired_hypotheses_removed = 0`; envelope passing is
+sufficient-bound support at model grade, not a discharged Lean
+theorem; no producer GO; no RH claim; `DEAD_ON_CURRENT_FAMILY`
+freeze unchanged. Evidence: `results/2722e_witness_data_screen.json`,
+`docs/proofs/2722E_stored_rowB_witness_screen.md`.
