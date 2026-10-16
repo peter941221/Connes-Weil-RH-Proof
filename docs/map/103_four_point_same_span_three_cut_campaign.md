@@ -938,7 +938,8 @@ controls firing; Linux-native audit build green, zero error lines, zero
 sorry; three declarations axiom-clean to the exact standard trio,
 `results/2721b_axiom_census.json`). The reopen-motion residual is now a
 formal named-hypothesis list on one Lean statement: hNorm/hIm interval
-pins, hmult (2354 cap instantiation -- possibly immediate),
+pins, hmult (CLOSED next by 2721C -- the 2354 coarse cap has no
+hypotheses; see the 2721C section below),
 hvanish/hsupport (g-construction for
 `(selectedOwner base correction 3).sourceTest`), the three strip
 envelopes hcontract/hquartic/hquadratic (2720 certified constants,
@@ -951,3 +952,28 @@ closure. Freeze unchanged -- no reopening, no route ruling, no producer
 GO, no RH claim. Evidence: `docs/proofs/2721_seed_premise_analytic.md`
 S8, `results/2721b_wired_check.json`, `results/2721b_axiom_census.json`,
 `results/2721_seed_premise_rig_smoke.json`.
+
+## 2721C hmult discharged (first hypothesis actually REMOVED; freeze unchanged)
+
+Record 2721C proves `wiredMultCapDischargedRowB2721C :
+spectralMultiplicityConstant <= 515` from the ZERO-HYPOTHESIS coarse
+cap `C1RouteAMultiplicityBound.spectralMultiplicityConstant_le_coarse`
+(<= 128.65, closed derivation inside that module, paired audit) by
+`.trans` + `norm_num`, and adds the variant
+`fourPointContradictionRowBWired2721C` carrying EIGHT named
+hypotheses where the parent carries nine (2ab doctrine: parent
+statement untouched). Acceptance: Linux-native incremental build green
+(3862 jobs, 0 error / 0 sorry lines), five-declaration axiom census
+all exactly the standard trio, checker 43/43 PASS with new guards
+import/discharge/binder-region/variant-call/cap-identity
+(`results/2721b_axiom_census.json` rebuilt from
+`build-logs/2721c_audit_build.log`). Instrument laws: line-anchored
+`#print` guards (prefix-shadowing = the 2049 word-boundary law at
+text-guard granularity); binder guards written against the BINDING
+SITE region, with a global count pin as the transcription side.
+Remaining reopen-motion obligations: hNorm/hIm pins,
+hvanish/hsupport, the three strip envelopes (the big 2720->Lean
+transfer brick, clearing the 2ay slab guard from storedWidth data),
+hgate24 (owner-grade P5 gate sign, the RH core), hprefix. Freeze
+unchanged; no reopening, no producer GO, no RH claim.
+Evidence: `docs/proofs/2721C_hmult_cap_discharge.md`.

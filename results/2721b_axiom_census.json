@@ -14,10 +14,20 @@
    "Classical.choice",
    "Quot.sound",
    "propext"
+  ],
+  "ConnesWeilRH.Source.C1FourPointRowBWired2721.wiredMultCapDischargedRowB2721C": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "ConnesWeilRH.Source.C1FourPointRowBWired2721.fourPointContradictionRowBWired2721C": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
   ]
  },
  "footer_green": true,
  "error_lines": 0,
  "sorry_lines": 0,
- "log": "build-logs/2721b_audit_build.log"
+ "log": "build-logs/2721c_audit_build.log"
 }

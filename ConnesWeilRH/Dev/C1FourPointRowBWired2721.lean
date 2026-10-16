@@ -5,6 +5,7 @@ Authors: ConnesWeilRH contributors
 -/
 
 import ConnesWeilRH.Dev.C1FourPointContradictionAssembly
+import ConnesWeilRH.Dev.C1RouteAMultiplicityBound
 
 /-!
 # Record 2721 wired four-point row-B contradiction at pinned constants
@@ -316,6 +317,72 @@ theorem fourPointContradictionRowBWired2721
         (selectedOwner base correction 3).sourceTest rho.1)
       (selectedOwner base correction 3).sourceTest 24)
     hnonneg hneg
+
+/-- Record 2721C: the multiplicity premise of the 2721B contradiction
+is DISCHARGED, not renamed.  The coarse cap theorem
+`C1RouteAMultiplicityBound.spectralMultiplicityConstant_le_coarse`
+carries no hypotheses (`spectralMultiplicityConstant ≤ 128.65`), and
+128.65 ≤ 515 is the pin `wiredMultCapRowB2721`. -/
+theorem wiredMultCapDischargedRowB2721C :
+    spectralMultiplicityConstant ≤ wiredMultCapRowB2721 :=
+  C1RouteAMultiplicityBound.spectralMultiplicityConstant_le_coarse.trans
+    (by norm_num [wiredMultCapRowB2721] :
+      (128.65 : Real) ≤ wiredMultCapRowB2721)
+
+/-- Record 2721C: the wired row-B contradiction with one hypothesis
+fewer than the parent: `hmult` is supplied internally from
+`wiredMultCapDischargedRowB2721C`.  The parent
+`fourPointContradictionRowBWired2721` is untouched for existing
+callers (2ab doctrine).  Residual reopen-motion obligations (eight
+named hypotheses): the rho interval pins `hNorm`/`hIm`, the
+g-construction obligations `hvanish`/`hsupport`, the three strip
+envelopes `hcontract`/`hquartic`/`hquadratic` at the record-2720
+certified constants, the gate corner `hgate24`, and the shell-prefix
+bound `hprefix`.  No producer GO, no RH claim. -/
+theorem fourPointContradictionRowBWired2721C
+    (base correction : CompactLogTest) (rho : sourceNontrivialZeroSet)
+    {B : Real}
+    (hNorm : ‖rho.1‖ ≤ wiredRhoNormCapRowB2721)
+    (hIm : |rho.1.im| ≤ wiredRhoImCapRowB2721)
+    (hvanish : CC20VanishesOn C1.healthyCC20TestSpace
+      cc20TripleFiniteVanishingSet (selectedOwner base correction 3).sourceTest)
+    (hsupport : Function.support
+      (selectedOwner base correction 3).sourceTest.test ⊆ Set.Ioo (-B) B)
+    (hcontract : ∀ sigma ∈ Set.Icc (0 : Real) 1, ∀ t : Real,
+      64 ≤ |t| →
+        ‖laplaceAt base ((sigma : Complex) + (t : Complex) * Complex.I)‖ ≤
+          wiredQRowB2721)
+    (hquartic : ∀ sigma ∈ Set.Icc (0 : Real) 1, ∀ t : Real,
+      ‖t / (2 * Real.pi)‖ ^ 4 *
+        ‖laplaceAt base ((sigma : Complex) + (t : Complex) * Complex.I)‖ ≤
+          wiredC4RowB2721)
+    (hquadratic : ∀ sigma ∈ Set.Icc (0 : Real) 1, ∀ t : Real,
+      ‖t / (2 * Real.pi)‖ ^ 2 *
+        ‖laplaceAt correction ((sigma : Complex) + (t : Complex) * Complex.I)‖ ≤
+          wiredC2RowB2721)
+    (hgate24 : ICgate
+        ((fullFunctionalEquationOrbitAnnihilator
+          (selectedOwner base correction 3).sourceTest rho.1).convolutionSquare) -
+      24 * (ICgate ((fullFunctionalEquationOrbitAnnihilator
+          (selectedOwner base correction 3).sourceTest rho.1).involution.convolution
+            (selectedOwner base correction 3).sourceTest) +
+        ICgate (((selectedOwner base correction 3).sourceTest).involution.convolution
+          (fullFunctionalEquationOrbitAnnihilator
+            (selectedOwner base correction 3).sourceTest rho.1))) +
+      24 ^ 2 * ICgate
+        (((selectedOwner base correction 3).sourceTest).convolutionSquare) ≤ 0)
+    (hprefix : (∑ k ∈ Finset.range 6, ∑' z : spectralHeightShell k,
+        spectralTerm
+          (annihilatorDetectorSpanVector
+            (fullFunctionalEquationOrbitAnnihilator
+              (selectedOwner base correction 3).sourceTest rho.1)
+            (selectedOwner base correction 3).sourceTest 24).convolutionSquare
+          z.1).re ≤
+      -((xiMultiplicity rho : Real) * 24 ^ 2)) :
+    False :=
+  fourPointContradictionRowBWired2721 base correction rho hNorm hIm
+    wiredMultCapDischargedRowB2721C hvanish hsupport hcontract hquartic
+    hquadratic hgate24 hprefix
 
 end
 

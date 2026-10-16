@@ -186,6 +186,16 @@ def main() -> int:
         f"2 * 421/20 = {float(2 * PIN_RHO_IM)} < 64 = 2^(5+1)",
     )
 
+    # 2721C: the discharge chain transits exactly at the coarse-cap
+    # value; the Lean theorem literal and the 2354 artifact cap must
+    # be the SAME rational, else the .trans step is a different fact.
+    check(
+        "lean_coarse_cap_eq_artifact_cap",
+        mult_cap == Fraction(2573, 20),
+        f"2354 artifact cap {mult_cap} == Lean coarse-cap literal 128.65 "
+        "(the 2721C .trans chain closes at this exact value)",
+    )
+
     # ---------- 3. statement transcription guards ----------
     for key, line in DEF_LINES.items():
         check(f"def_literal_{key}", src.count(line) == 1, f"'{line}' exactly once")
@@ -195,20 +205,58 @@ def main() -> int:
         "wiredHsmallTailRowB2721",
         "wiredEtaBudgetRowB2721",
         "fourPointContradictionRowBWired2721",
+        "wiredMultCapDischargedRowB2721C",
+        "fourPointContradictionRowBWired2721C",
     ]
     for decl in audit_prints:
+        # line-anchored: the parent theorem's print line is a strict
+        # prefix of the 2721C variant's, so an unanchored substring
+        # count double-hits (record-2049 word-boundary law, here at
+        # line granularity).
         check(
-            f"audit_print_{decl.split('RowB')[0]}",
-            audit_src.count(f"#print axioms {decl}") == 1,
+            f"audit_print_{decl}",
+            audit_src.count(f"#print axioms {decl}\n") == 1,
             "audit module prints axioms once",
         )
+
+    # ---------- 3b. record 2721C hmult-discharge guards ----------
+    check(
+        "import_coarse_cap_module",
+        src.count("import ConnesWeilRH.Dev.C1RouteAMultiplicityBound") == 1,
+        "coarse-cap module imported exactly once",
+    )
+    check(
+        "discharge_uses_coarse_cap",
+        src.count(
+            "C1RouteAMultiplicityBound.spectralMultiplicityConstant_le_coarse"
+            ".trans") == 1,
+        "discharge composes the zero-hypothesis coarse cap by .trans",
+    )
+    check(
+        "hmult_binders_at_two",
+        src.count("(hmult : spectralMultiplicityConstant ≤ wiredMultCapRowB2721)") == 2,
+        "the text `hmult : ...` binds only the eta-budget (147) and the "
+        "parent contradiction (187) -- the 2721C variant adds none",
+    )
+    variant_sig = src.split("theorem fourPointContradictionRowBWired2721C", 1)
+    check(
+        "variant_drops_hmult_binder",
+        len(variant_sig) == 2
+        and "(hmult" not in variant_sig[1].split("False :=", 1)[0],
+        "no hmult binder inside the variant's own signature block",
+    )
+    check(
+        "variant_calls_parent_with_discharge",
+        src.count("wiredMultCapDischargedRowB2721C hvanish hsupport hcontract hquartic") == 1,
+        "variant feeds the discharge into the parent at the hmult slot",
+    )
 
     # ---------- 4. axiom census evidence ----------
     cens = census["census"]
     check(
         "census_trio_all_decls",
-        len(cens) == 3 and all(sorted(v) == TRIO for v in cens.values()),
-        f"{list(cens.values())} all exactly the standard trio",
+        len(cens) == len(audit_prints) and all(sorted(v) == TRIO for v in cens.values()),
+        f"{list(cens.values())} all exactly the standard trio ({len(cens)} decls)",
     )
     check(
         "census_build_green",
@@ -239,13 +287,16 @@ def main() -> int:
     # ---------- verdict ----------
     ok_all = all(c["ok"] for c in checks)
     payload = {
-        "record": "2721B",
+        "record": "2721B+C",
         "date": "2026-10-16",
         "status": "PASS" if ok_all else "FAIL",
         "checks": checks,
         "nonclaims": [
-            "conditional theorem: hypotheses (strip envelopes, g-construction, "
-            "gate corner at lambda=24, shell prefix) remain open obligations",
+            "hmult discharged 2721C (zero-hypothesis 2354 coarse cap); "
+            "variant fourPointContradictionRowBWired2721C carries the "
+            "remaining eight named hypotheses (strip envelopes, "
+            "g-construction, rho interval pins, gate corner at "
+            "lambda=24, shell prefix)",
             "no producer GO, no map-103 reopening, no RH claim",
         ],
         "provenance": {

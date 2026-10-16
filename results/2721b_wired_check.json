@@ -1,5 +1,5 @@
 {
- "record": "2721B",
+ "record": "2721B+C",
  "date": "2026-10-16",
  "status": "PASS",
  "checks": [
@@ -62,6 +62,11 @@
    "check": "rho_height_chain_exact",
    "ok": true,
    "detail": "2 * 421/20 = 42.1 < 64 = 2^(5+1)"
+  },
+  {
+   "check": "lean_coarse_cap_eq_artifact_cap",
+   "ok": true,
+   "detail": "2354 artifact cap 2573/20 == Lean coarse-cap literal 128.65 (the 2721C .trans chain closes at this exact value)"
   },
   {
    "check": "def_literal_q",
@@ -139,24 +144,59 @@
    "detail": "present in main module"
   },
   {
-   "check": "audit_print_wiredHsmallTail",
+   "check": "audit_print_wiredHsmallTailRowB2721",
    "ok": true,
    "detail": "audit module prints axioms once"
   },
   {
-   "check": "audit_print_wiredEtaBudget",
+   "check": "audit_print_wiredEtaBudgetRowB2721",
    "ok": true,
    "detail": "audit module prints axioms once"
   },
   {
-   "check": "audit_print_fourPointContradiction",
+   "check": "audit_print_fourPointContradictionRowBWired2721",
    "ok": true,
    "detail": "audit module prints axioms once"
+  },
+  {
+   "check": "audit_print_wiredMultCapDischargedRowB2721C",
+   "ok": true,
+   "detail": "audit module prints axioms once"
+  },
+  {
+   "check": "audit_print_fourPointContradictionRowBWired2721C",
+   "ok": true,
+   "detail": "audit module prints axioms once"
+  },
+  {
+   "check": "import_coarse_cap_module",
+   "ok": true,
+   "detail": "coarse-cap module imported exactly once"
+  },
+  {
+   "check": "discharge_uses_coarse_cap",
+   "ok": true,
+   "detail": "discharge composes the zero-hypothesis coarse cap by .trans"
+  },
+  {
+   "check": "hmult_binders_at_two",
+   "ok": true,
+   "detail": "the text `hmult : ...` binds only the eta-budget (147) and the parent contradiction (187) -- the 2721C variant adds none"
+  },
+  {
+   "check": "variant_drops_hmult_binder",
+   "ok": true,
+   "detail": "no hmult binder inside the variant's own signature block"
+  },
+  {
+   "check": "variant_calls_parent_with_discharge",
+   "ok": true,
+   "detail": "variant feeds the discharge into the parent at the hmult slot"
   },
   {
    "check": "census_trio_all_decls",
    "ok": true,
-   "detail": "[['Classical.choice', 'Quot.sound', 'propext'], ['Classical.choice', 'Quot.sound', 'propext'], ['Classical.choice', 'Quot.sound', 'propext']] all exactly the standard trio"
+   "detail": "[['Classical.choice', 'Quot.sound', 'propext'], ['Classical.choice', 'Quot.sound', 'propext'], ['Classical.choice', 'Quot.sound', 'propext'], ['Classical.choice', 'Quot.sound', 'propext'], ['Classical.choice', 'Quot.sound', 'propext']] all exactly the standard trio (5 decls)"
   },
   {
    "check": "census_build_green",
@@ -180,7 +220,7 @@
   }
  ],
  "nonclaims": [
-  "conditional theorem: hypotheses (strip envelopes, g-construction, gate corner at lambda=24, shell prefix) remain open obligations",
+  "hmult discharged 2721C (zero-hypothesis 2354 coarse cap); variant fourPointContradictionRowBWired2721C carries the remaining eight named hypotheses (strip envelopes, g-construction, rho interval pins, gate corner at lambda=24, shell prefix)",
   "no producer GO, no map-103 reopening, no RH claim"
  ],
  "provenance": {

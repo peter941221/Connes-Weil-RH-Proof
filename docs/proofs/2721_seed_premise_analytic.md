@@ -264,8 +264,10 @@ predicate) before the control counts as coverage.
 Residual obligations -- now the formal reopen-motion list, i.e. the
 named hypotheses of one Lean statement rather than prose:
 hNorm/hIm (2719-grade enclosing intervals into Lean pins),
-hmult (instantiate the 2354 cap theorem at 515 -- check whether its own
-hypotheses discharge it outright, the cheapest next strike),
+hmult (CLOSED in the immediately following strike, record 2721C --
+the 2354 coarse cap theorem has no hypotheses, so the discharge is
+`le_coarse.trans norm_num`, and the eight-hypothesis variant
+`fourPointContradictionRowBWired2721C` replaces it),
 hvanish/hsupport (g-construction obligations for
 `(selectedOwner base correction 3).sourceTest`),
 hcontract/hquartic/hquadratic (Lean re-proof of the three 2720 strip
@@ -280,6 +282,8 @@ hprefix (P2 shell-prefix on the actual span vector).
 
 Status unchanged by this absorption: the wired theorem is interface
 packaging under the core-progress gate, not closure. No reopening, no
-route ruling, no producer GO, no RH claim. Next strike per this list:
-hmult probe, then the strip-envelope absorption lane (scope it under
-the bounded-progress rule before any batch).
+route ruling, no producer GO, no RH claim. Next strike per this list
+was the hmult probe -- CLOSED immediately after by record 2721C
+(`fourPointContradictionRowBWired2721C`, eight hypotheses); the queue
+head is now the strip-envelope absorption lane (scope it under the
+bounded-progress rule before any batch).
