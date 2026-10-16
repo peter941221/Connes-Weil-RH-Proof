@@ -811,3 +811,25 @@ rows remain sampled B5 measurements; the reopen probe target is thereby
 sharpened to a complete-owner n=3 gate certificate (the 2708 P5 duty)
 plus the standing P2/P3/P4 premises. No route ruling, no producer GO,
 no family reopening changes here.
+
+## 2717 P5 n=3 probe (paper; no ruling change)
+
+Record [2717](../proofs/2717_p5_n3_probe.md) runs the named-hypothesis
+probe's pricing rung on the two P4-screen-admissible n=3 candidate rows
+that record 2716 identified.  Recovering all six gate channels from the
+stored record-2032 rows (arch plus prime, exact rational subtraction),
+the exact worst-case flip budgets are percent-grade: ONE channel
+enclosure of relative width 3.36% discharges both gate signs at
+(gamma_1, N=4, n=3) and one of width 2.92% at (gamma_2, N=5, n=3),
+certifying the rays / all branch respectively; the joint lambda interval
+then follows from the record-2716 constants with no further gate-side
+input (the branches are unbounded above).  The 0.02/0.01 grid pair
+agrees to 1e-9..1e-10, eight orders under the budgets, and the joint
+survives both grids, both geometries and the 3/2 sensitivity.  The
+certification rig is therefore priced as a bounded percent-grade
+instrument, not a 1e-12 one.  This is a sampled-grade margin ledger on
+the record-1980 owner model: no enclosure is built, the complete-owner
+rung (G2 zero-set identification plus re-measurement) stands, the decay
+constants stay sampled (P3), and the DEAD_ON_CURRENT_FAMILY freeze is
+unchanged until the rig and the complete-owner rung land.  No route
+ruling, no producer GO, no RH claim changes here.
