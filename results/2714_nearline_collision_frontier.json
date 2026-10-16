@@ -1,0 +1,152 @@
+{
+  "record": 2714,
+  "title": "near-line collision frontier (paper arithmetic)",
+  "scope": "stored-constant evaluation of the record-2708 contract with the record-2713 collision floor; not complete-owner certification, no gate witness, no RH claim",
+  "inputs": {
+    "q_supplier": "2^-52 (record 2354, 2353 supplier at T=128)",
+    "D4": 746785658244,
+    "D2": 71280628476,
+    "K_multProxy2248": 128.65,
+    "N_shell": 6,
+    "m_floor": 1,
+    "d_new_geometry": 10.5625,
+    "d_old_geometry_44pow4": 3748096.0,
+    "L_log_conservative": 6.5536,
+    "delta_y_proxy": 2,
+    "lambda_2666_min": 40018.85139273456,
+    "lambda_2666_max": 195695.13149589527
+  },
+  "anchors": {
+    "ratio_old_n2_256": 0.7603893268552536,
+    "committed_2354_n2_256": 0.7603893268553,
+    "ratio_old_n3_1e-13": 0.24566148347756045,
+    "committed_2354_n3_1e-13": 0.2456614834776
+  },
+  "w_tilde": 137.3816162109375,
+  "rows": [
+    {
+      "n": 1,
+      "lambda": "lane_n2_edge_256",
+      "ratio_old_geometry": 1.5422527785523225e+31,
+      "ratio_new_geometry": 2.198006373491935e+17,
+      "geometric_gain": 70165983008601.195,
+      "ratio_new_pass": false,
+      "delta_star_new": 0.4754490737405761
+    },
+    {
+      "n": 1,
+      "lambda": "lane_n3_edge_1e-13",
+      "ratio_old_geometry": 1.0105927265515347e+62,
+      "ratio_new_geometry": 2.2617480067138442e+45,
+      "geometric_gain": 4.4681932892243496e+16,
+      "ratio_new_pass": false,
+      "delta_star_new": 48229375677168.766
+    },
+    {
+      "n": 1,
+      "lambda": "audit_lambda_min",
+      "ratio_old_geometry": 6.445725298959089e+26,
+      "ratio_new_geometry": 2.028336452992952e+17,
+      "geometric_gain": 3177838316.4430003,
+      "ratio_new_pass": false,
+      "delta_star_new": 0.4567299905082116
+    },
+    {
+      "n": 1,
+      "lambda": "audit_lambda_max",
+      "ratio_old_geometry": 2.9216119055252895e+25,
+      "ratio_new_geometry": 2.0274850124562787e+17,
+      "geometric_gain": 144100296.06018072,
+      "ratio_new_pass": false,
+      "delta_star_new": 0.4566341190253576
+    },
+    {
+      "n": 2,
+      "lambda": "lane_n2_edge_256",
+      "ratio_old_geometry": 0.7603893268552536,
+      "ratio_new_geometry": 1.0837008109215008e-14,
+      "geometric_gain": 70165983008601.195,
+      "ratio_new_pass": true,
+      "delta_star_new": 1.055709017406983e-16
+    },
+    {
+      "n": 2,
+      "lambda": "lane_n3_edge_1e-13",
+      "ratio_old_geometry": 4.982606831732588e+30,
+      "ratio_new_geometry": 111512786247381.39,
+      "geometric_gain": 4.4681932892243496e+16,
+      "ratio_new_pass": false,
+      "delta_star_new": 0.010709072668017853
+    },
+    {
+      "n": 2,
+      "lambda": "audit_lambda_min",
+      "ratio_old_geometry": 3.177987933839277e-05,
+      "ratio_new_geometry": 1.0000470815004977e-14,
+      "geometric_gain": 3177838316.4430003,
+      "ratio_new_pass": true,
+      "delta_star_new": 1.0141443029980915e-16
+    },
+    {
+      "n": 2,
+      "lambda": "audit_lambda_max",
+      "ratio_old_geometry": 1.4404658828107282e-06,
+      "ratio_new_geometry": 9.99627288905184e-15,
+      "geometric_gain": 144100296.06018072,
+      "ratio_new_pass": true,
+      "delta_star_new": 1.0139314255427525e-16
+    },
+    {
+      "n": 3,
+      "lambda": "lane_n2_edge_256",
+      "ratio_old_geometry": 3.749008829396445e-32,
+      "ratio_new_geometry": 5.343057516826748e-46,
+      "geometric_gain": 70165983008601.195,
+      "ratio_new_pass": true,
+      "delta_star_new": 2.3441449168592653e-32
+    },
+    {
+      "n": 3,
+      "lambda": "lane_n3_edge_1e-13",
+      "ratio_old_geometry": 0.24566148347756045,
+      "ratio_new_geometry": 5.498004843926655e-18,
+      "geometric_gain": 4.4681932892243496e+16,
+      "ratio_new_pass": true,
+      "delta_star_new": 2.377891809683475e-18
+    },
+    {
+      "n": 3,
+      "lambda": "audit_lambda_min",
+      "ratio_old_geometry": 1.5668690239186908e-36,
+      "ratio_new_geometry": 4.93061278735071e-46,
+      "geometric_gain": 3177838316.4430003,
+      "ratio_new_pass": true,
+      "delta_star_new": 2.2518527109618246e-32
+    },
+    {
+      "n": 3,
+      "lambda": "audit_lambda_max",
+      "ratio_old_geometry": 7.102045126587843e-38,
+      "ratio_new_geometry": 4.9285430500585585e-46,
+      "geometric_gain": 144100296.06018072,
+      "ratio_new_pass": true,
+      "delta_star_new": 2.2513800280571428e-32
+    }
+  ],
+  "lane_2033_cross_check": {
+    "gamma": 30.424876125859512,
+    "N": 3,
+    "n": 3,
+    "lambda_row": 9273.466244246969,
+    "base_C4": 2287.120275034904,
+    "radius": 48.45940884642866,
+    "correction_C2": 4657.984604094599,
+    "c2_budget": 9605.364765793767,
+    "delta_star": 2.5780377488544326e-05,
+    "source_sha256": "ef82d9e8c3b77f01744e4b6b19ee7fe9afac2f2b64b02c544789c3793fb489b8"
+  },
+  "delta_y_sensitivity": "floor and delta* scale linearly with |F(rho)-F(1-conj(rho))|; the +1/-1 proxy pair is the strongest-floor case",
+  "producer_go": false,
+  "family_reopened": false,
+  "rh_claim": false
+}
