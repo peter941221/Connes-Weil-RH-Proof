@@ -924,3 +924,30 @@ premise.  Freeze unchanged -- no reopening, no route ruling, no
 producer GO, no RH claim.  Next brick: 2721B Lean absorption (pin
 2720 C4*/C2*/q* + corner as explicit hypotheses, proxy-tie 2657
 pattern).
+
+## 2721B Lean absorption (wired contradiction landed; freeze unchanged)
+
+Record 2721B landed `ConnesWeilRH/Dev/C1FourPointRowBWired2721.lean`:
+one theorem `fourPointContradictionRowBWired2721` composes the row-B
+(gamma_2, N=5, n=3) contradiction at pinned constants -- q 26/10^17,
+C4 61000000, C2 29000000, rhoNorm 22, rhoIm 421/20, mult 515,
+lambda 24 -- with every numeric premise an explicit hypothesis
+(proxy-tie 2657 pattern; pins bound to the 2720/2718/2354 renders by
+`scripts/check_four_point_wired_2721.py`, 35/35 PASS, mutation
+controls firing; Linux-native audit build green, zero error lines, zero
+sorry; three declarations axiom-clean to the exact standard trio,
+`results/2721b_axiom_census.json`). The reopen-motion residual is now a
+formal named-hypothesis list on one Lean statement: hNorm/hIm interval
+pins, hmult (2354 cap instantiation -- possibly immediate),
+hvanish/hsupport (g-construction for
+`(selectedOwner base correction 3).sourceTest`), the three strip
+envelopes hcontract/hquartic/hquadratic (2720 certified constants,
+artifact grade; the actual-owner Lean re-proof must clear the 2ay
+slab/interpolation guard from storedWidth data), hgate24 (owner-grade
+P5 sign at lambda = 24; model grade carries 5-7 orders of margin), and
+hprefix (P2 shell prefix). Numeric enclosures remain not-theorems: this
+absorption is interface packaging under the core-progress gate, not
+closure. Freeze unchanged -- no reopening, no route ruling, no producer
+GO, no RH claim. Evidence: `docs/proofs/2721_seed_premise_analytic.md`
+S8, `results/2721b_wired_check.json`, `results/2721b_axiom_census.json`,
+`results/2721_seed_premise_rig_smoke.json`.

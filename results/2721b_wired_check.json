@@ -1,0 +1,196 @@
+{
+ "record": "2721B",
+ "date": "2026-10-16",
+ "status": "PASS",
+ "checks": [
+  {
+   "check": "pin_q_dominates_q_star_T64",
+   "ok": true,
+   "detail": "pin 2.600000e-16 > render 2.524815e-16, slack 7.518464e-18 (1.341e+14 ulp)"
+  },
+  {
+   "check": "pin_C4_dominates_C4_star",
+   "ok": true,
+   "detail": "pin 61000000 >= render 6.052430e+07, slack 4.757014e+05 ulp-scale ok"
+  },
+  {
+   "check": "pin_C2_dominates_C2_star_corr",
+   "ok": true,
+   "detail": "pin 29000000 >= render 2.816134e+07, slack 8.386558e+05 ulp-scale ok"
+  },
+  {
+   "check": "pin_mult_dominates_2354_cap",
+   "ok": true,
+   "detail": "pin 515 >= 2354 cap 2573/20 (1.286500e+02) via C1RouteAMultiplicityBound.spectralMultiplicityConstant_le_coarse"
+  },
+  {
+   "check": "pin_rho_norm_dominates_triangle_bound",
+   "ok": true,
+   "detail": "triangle bound 2.157204e+01 = |5.500000e-01| + |2.102204e+01| < 22"
+  },
+  {
+   "check": "pin_rho_im_dominates_gamma2",
+   "ok": true,
+   "detail": "pin 421/20 = 21.05 > |Im rho| 2.102204e+01"
+  },
+  {
+   "check": "pin_lambda_covers_branch_all",
+   "ok": true,
+   "detail": "branch 'all' (parabola <= 0 at every lambda > 0), lambda_min 15.86 < pin 24; 2718 row branch_center all, robust True"
+  },
+  {
+   "check": "tail_closes_at_own_index_n3",
+   "ok": true,
+   "detail": "2720 row B: T_pair 64, n=3 joint_pair True, lam_min_pair 3.249e-19"
+  },
+  {
+   "check": "hsmall_pi_pin_chain_exact",
+   "ok": true,
+   "detail": "25^4 (25^4+24)^2 (4e9) (q^3 C4 C2)^2 = 2.305097e-37 < 1 (margin 1.000000e+00); (44/7)^12 = 3.804133e+09 < 4e9 ok"
+  },
+  {
+   "check": "pi_exponent_bound_exact",
+   "ok": true,
+   "detail": "(44/7)^12 = 3.804133e+09 < 4000000000"
+  },
+  {
+   "check": "eta_budget_exact",
+   "ok": true,
+   "detail": "4 (1/24)^2 * 515 * (3/4)^5 = 13905/16384 = 13905/16384 = 0.848694 < 1"
+  },
+  {
+   "check": "rho_height_chain_exact",
+   "ok": true,
+   "detail": "2 * 421/20 = 42.1 < 64 = 2^(5+1)"
+  },
+  {
+   "check": "def_literal_q",
+   "ok": true,
+   "detail": "'def wiredQRowB2721 : Real := 26 / 10 ^ 17' exactly once"
+  },
+  {
+   "check": "def_literal_C4",
+   "ok": true,
+   "detail": "'def wiredC4RowB2721 : Real := 61000000' exactly once"
+  },
+  {
+   "check": "def_literal_C2",
+   "ok": true,
+   "detail": "'def wiredC2RowB2721 : Real := 29000000' exactly once"
+  },
+  {
+   "check": "def_literal_rho_norm",
+   "ok": true,
+   "detail": "'def wiredRhoNormCapRowB2721 : Real := 22' exactly once"
+  },
+  {
+   "check": "def_literal_rho_im",
+   "ok": true,
+   "detail": "'def wiredRhoImCapRowB2721 : Real := 421 / 20' exactly once"
+  },
+  {
+   "check": "def_literal_mult",
+   "ok": true,
+   "detail": "'def wiredMultCapRowB2721 : Real := 515' exactly once"
+  },
+  {
+   "check": "consumer_selectedOwner_fullOrbit_span_fourthOrderSpectralTail_of_q",
+   "ok": true,
+   "detail": "present in main module"
+  },
+  {
+   "check": "consumer_qw_neg_of_spectralHeightShellPrefix_and_coefficient_scaled_tail",
+   "ok": true,
+   "detail": "present in main module"
+  },
+  {
+   "check": "consumer_annihilatorDetectorSpanVector_qw_nonneg_of_gate",
+   "ok": true,
+   "detail": "present in main module"
+  },
+  {
+   "check": "consumer_false_of_qw_nonneg_and_neg",
+   "ok": true,
+   "detail": "present in main module"
+  },
+  {
+   "check": "consumer_annihilator_span_gate_eq_parabola",
+   "ok": true,
+   "detail": "present in main module"
+  },
+  {
+   "check": "consumer_orbitWindowSemiLocalGate_iff",
+   "ok": true,
+   "detail": "present in main module"
+  },
+  {
+   "check": "consumer_xiMultiplicity_pos",
+   "ok": true,
+   "detail": "present in main module"
+  },
+  {
+   "check": "consumer_fullFunctionalEquationOrbitAnnihilator_support_subset_Icc",
+   "ok": true,
+   "detail": "present in main module"
+  },
+  {
+   "check": "consumer_fullFunctionalEquationOrbitAnnihilator_vanishesOn_cc20Triple",
+   "ok": true,
+   "detail": "present in main module"
+  },
+  {
+   "check": "audit_print_wiredHsmallTail",
+   "ok": true,
+   "detail": "audit module prints axioms once"
+  },
+  {
+   "check": "audit_print_wiredEtaBudget",
+   "ok": true,
+   "detail": "audit module prints axioms once"
+  },
+  {
+   "check": "audit_print_fourPointContradiction",
+   "ok": true,
+   "detail": "audit module prints axioms once"
+  },
+  {
+   "check": "census_trio_all_decls",
+   "ok": true,
+   "detail": "[['Classical.choice', 'Quot.sound', 'propext'], ['Classical.choice', 'Quot.sound', 'propext'], ['Classical.choice', 'Quot.sound', 'propext']] all exactly the standard trio"
+  },
+  {
+   "check": "census_build_green",
+   "ok": true,
+   "detail": "footer green=True, errors=0, sorry=0"
+  },
+  {
+   "check": "mutation_q_pin_below_render_fires",
+   "ok": true,
+   "detail": "q pin 25/10^17 < render -> domination check fails (control fires)"
+  },
+  {
+   "check": "mutation_mult_below_cap_fires",
+   "ok": true,
+   "detail": "mult pin 128 < 2354 cap 128.65 -> check would fail (control fires)"
+  },
+  {
+   "check": "mutation_C4_C2_swap_fires",
+   "ok": true,
+   "detail": "C2 pin 29000000 < C4* 6.052430e+07 -> swapped pin would fail (control fires)"
+  }
+ ],
+ "nonclaims": [
+  "conditional theorem: hypotheses (strip envelopes, g-construction, gate corner at lambda=24, shell prefix) remain open obligations",
+  "no producer GO, no map-103 reopening, no RH claim"
+ ],
+ "provenance": {
+  "lean_main": "C1FourPointRowBWired2721.lean",
+  "lean_audit": "C1FourPointRowBWired2721Audit.lean",
+  "artifacts": [
+   "results/2720_p3_certified_strip_constants.json",
+   "results/2718_gate_sign_rig.json",
+   "results/2354_same_owner_tail_acceptance.json",
+   "results/2721b_axiom_census.json"
+  ]
+ }
+}

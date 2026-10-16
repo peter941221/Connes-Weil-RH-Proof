@@ -216,3 +216,70 @@ NOT certified here (unchanged from 2718/2719/2720):
 - Pointwise-f <= 1 tightening of the amplification base: 2 sinh(2r)/r
   beats measure x e^{remax} by 155x here; check the pointwise envelope
   before charging a power-difference amplification.
+
+## S8. Outcome addendum: 2721B Lean absorption (this commit)
+
+Wired contradiction LANDED.
+`ConnesWeilRH/Dev/C1FourPointRowBWired2721.lean` states
+`fourPointContradictionRowBWired2721` (base correction : CompactLogTest)
+(rho : sourceNontrivialZeroSet) ... : False, composing
+`orbitWindowSemiLocalGate_iff` + `annihilator_span_gate_eq_parabola` ->
+`annihilatorDetectorSpanVector_qw_nonneg_of_gate` against
+`qw_neg_of_spectralHeightShellPrefix_and_coefficient_scaled_tail` ->
+`false_of_qw_nonneg_and_neg`, with every numeric premise an explicit
+hypothesis at the pinned row-B constants (proxy-tie 2657 pattern):
+q = 26/10^17 (over the 2720 render 2.5248e-16, slack 1.34e14 ulp),
+C4 = 61000000, C2 = 29000000, rhoNorm = 22, rhoIm = 421/20,
+mult = 515 (over the 2354 cap 2573/20 = 128.65), lambda = 24 (branch
+'all', above the 2718 gate floor 15.86). The two scalar acceptance
+chains re-derive in exact Fractions: hsmall 2.305e-37 < 1, eta
+13905/16384 = 0.8487 < 1, height chain 2 * 421/20 = 42.1 < 64.
+
+Acceptance: `scripts/check_four_point_wired_2721.py` 35/35 PASS
+(`results/2721b_wired_check.json` -- exact-rational pin binding to the
+2720/2718/2354 renders, def-literal and consumer-name transcription
+guards, mutation controls); Linux-native audit build green (3815 jobs,
+zero `error:` lines, zero `uses sorry`); the three declarations
+`wiredHsmallTailRowB2721`, `wiredEtaBudgetRowB2721`,
+`fourPointContradictionRowBWired2721` each print exactly
+[propext, Classical.choice, Quot.sound] (`results/2721b_axiom_census.json`);
+Windows/WSL source md5 parity checked both modules.
+`results/2721_seed_premise_rig_smoke.json` is kept as the S-rig smoke
+evidence (2718 fork-smoke precedent).
+
+Incident (record-local law): the first checker run FAILed on
+`mutation_mult_514_fires` -- the control asserted that a pin of 514
+would violate the multiplicity cap, but the cap is 128.65 and the live
+pin 515: the rejection case was arithmetically impossible, so the
+control could never fire. Fixed to pin 128 (strictly below 2573/20)
+before any verdict was read; the FAIL artifact on disk was stale by 8
+seconds (script mtime newer than artifact) -- caught only by the
+standing re-run-on-fix law (trust the artifact mtime/content, never the
+memory of the final run). Second instance of the control-premise family
+(AGENTS 2ah "control hurdle copied from intuition is a bug").
+Generalized check: every negative control's own asserted inequality must
+be verified feasible (the perturbed value must actually fail the
+predicate) before the control counts as coverage.
+
+Residual obligations -- now the formal reopen-motion list, i.e. the
+named hypotheses of one Lean statement rather than prose:
+hNorm/hIm (2719-grade enclosing intervals into Lean pins),
+hmult (instantiate the 2354 cap theorem at 515 -- check whether its own
+hypotheses discharge it outright, the cheapest next strike),
+hvanish/hsupport (g-construction obligations for
+`(selectedOwner base correction 3).sourceTest`),
+hcontract/hquartic/hquadratic (Lean re-proof of the three 2720 strip
+envelopes ON the actual owner -- numeric enclosures are not Lean
+theorems, and the 2ay slab/interpolation guard must be discharged from
+storedWidth data, not stored floats; the 2720 instrument's fine cells
+hugging every active height and the zero-fail coverage through h = 200
+say the obstruction does not fire on this owner, at artifact grade),
+hgate24 (owner-grade P5 sign certificate at lambda = 24 -- model grade
+done with 5-7 orders of margin, owner grade open),
+hprefix (P2 shell-prefix on the actual span vector).
+
+Status unchanged by this absorption: the wired theorem is interface
+packaging under the core-progress gate, not closure. No reopening, no
+route ruling, no producer GO, no RH claim. Next strike per this list:
+hmult probe, then the strip-envelope absorption lane (scope it under
+the bounded-progress rule before any batch).

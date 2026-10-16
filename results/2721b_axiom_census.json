@@ -1,0 +1,23 @@
+{
+ "census": {
+  "ConnesWeilRH.Source.C1FourPointRowBWired2721.wiredHsmallTailRowB2721": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "ConnesWeilRH.Source.C1FourPointRowBWired2721.wiredEtaBudgetRowB2721": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "ConnesWeilRH.Source.C1FourPointRowBWired2721.fourPointContradictionRowBWired2721": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ]
+ },
+ "footer_green": true,
+ "error_lines": 0,
+ "sorry_lines": 0,
+ "log": "build-logs/2721b_audit_build.log"
+}
