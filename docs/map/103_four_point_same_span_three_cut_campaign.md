@@ -1004,3 +1004,34 @@ the module), nine-declaration axiom census exactly the standard trio
 (`results/2722a_axiom_census.json`, Windows/Linux md5 parity). Freeze
 unchanged; no wired hypothesis removed; no producer GO; no RH claim.
 Evidence: `docs/proofs/2722A_strip_envelope_ibp_bridge.md`.
+
+## 2722B the triangle-ladder pin screen fires: NO-GO at pipeline grade
+(named reproducible no-go; pin discharge of the three wired strip
+premises frozen on this owner class; freeze unchanged)
+
+Record 2722B runs `scripts/strip_pin_screen_2722b.py` and prices the
+2722A bridge pins on the concrete row-B cardinal owners (8 base
+targets; 56-node correction owner, 3 active terms; support radius
+B = 10; certified seed ladder re-run to depth 58, its first 12
+entries anchored to the committed 2720 table at drift 1.089e-16).
+Every wired strip premise fails by the cancellation-gap magnitude:
+`hquartic` pin 2.9222e15 vs C4 = 6.1e7 (ratio 4.79e7), `hquadratic`
+pin 3.1340e13 vs C2 = 2.9e7 (ratio 1.08e6), and `hcontract` has a
+U-shaped pin/budget ladder over the measurable orders K = 0..51 with
+minimum 5.633e4 at K = 48, rising again at the depth-58 ladder's cap
+(K = 51, tail >= 1.77x per order past the budget factor; K = 51 is
+the largest priceable order, so the measurement quantifier is
+K in [0, 51]).
+Mechanism: the triangle step sums |term_z| and structurally discards
+the cardinal-term cancellation that the 2720 certified envelope keeps
+inside its object -- the same cancellation-blindness family as the
+ledger's per-node split and floor laws. Scope (sufficient-bound
+discipline): a failed sufficient pin is NOT a lower bound on the true
+derivatives; the ruling freezes the triangle-ladder discharge of
+`hcontract`/`hquartic`/`hquadratic` on this owner class and routes
+the three premises to the cancellation-preserving 2722C transport
+(2720 envelope identified with Lean `laplaceAt` at the actual owner,
+2ay slab guard cleared from storedWidth data). No wired hypothesis
+removed; no producer GO; no RH claim; map-103 freeze unchanged.
+Evidence: `results/2722b_strip_pin_screen.json`,
+`docs/proofs/2722B_strip_pin_screen.md`.
