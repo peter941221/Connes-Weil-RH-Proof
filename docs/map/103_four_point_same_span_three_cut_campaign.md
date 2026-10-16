@@ -853,3 +853,23 @@ the owner is the stored under-approximation; the complete-owner rung
 (G2 + re-measurement), certified C4/C2 (P3), and the P4 identification
 stand; the freeze is unchanged until the complete-owner rung fires.
 No route ruling, no producer GO, no RH claim changes here.
+
+## 2719 G2 complete-owner identification (G2 rung)
+
+G2 IDENTIFICATION GREEN: the zero-set identification probe
+(`scripts/g2_complete_owner_id_2719.py`, 45 s, WSL) certifies the
+stored record-1980 known lists EQUAL the complete source-zero sets in
+both candidate balls: (14.1347,4) 14 upper + 5 conjugates = 19, exact
+phase counts N(62.3436) = 14 / N(34.0742) = 5 with residual 0.0,
+Hardy-Z agreement, Trudgian uppers 17/7, pins worst 7.8e-15, edge
+margins 1.14/2.77; (21.0220,5) 33 + 15 = 48, exact N(108.094) = 33 /
+N(66.050) = 15 residual 0.0, Hardy-Z 33, Trudgian 36/18, pins worst
+2.2e-14, margins 0.93/1.03.  Fifteen-check discipline, zero failed
+checks; Platt-Trudgian simplicity import covers the whole ball (all
+heights << 3e12).  Because nothing was missing, the 2718 gate sign
+certificates were computed at the COMPLETE owner already -- the
+re-measurement clause is a NO-OP and rung (ii) closes at model grade.
+Owner arithmetic closes exactly (19+4+8-4 = 27, 48+4+8-4 = 56).  Still
+separating this from a reopen motion: the Lean-formal bricks only
+(Lean P2 shell-prefix identification, certified C4/C2 = P3, P4); the
+freeze stands.  No route ruling, no producer GO, no RH claim here.

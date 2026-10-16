@@ -1,0 +1,787 @@
+{
+  "record": 2719,
+  "date": "2026-10-16",
+  "status": "G2-COMPLETE-OWNER-IDENTIFIED",
+  "dps": 60,
+  "rows": [
+    {
+      "gamma": 14.134725141734693,
+      "N": 4,
+      "rho": [
+        0.55,
+        14.134725141734693
+      ],
+      "radius": 48.208904068660146,
+      "radius_matches_stored": true,
+      "walk_indices_processed": 14,
+      "known_matches_stored_count": true,
+      "mirror_elementwise_equal": true,
+      "n_upper_listed": 14,
+      "n_conj_listed": 5,
+      "geometry": {
+        "delta": 0.050000000000000044,
+        "W": 48.20887813983309,
+        "t_plus": 62.34360328156778,
+        "t_conj": 34.0741529980984,
+        "t_minus_signed": -34.0741529980984
+      },
+      "count_t_plus": {
+        "t": 62.34360328156778,
+        "theta_over_pi": 12.722332181657071,
+        "S_phase": 1.2776678183429282,
+        "identity_value": 14.0,
+        "count": 14,
+        "residual_from_integer": 0.0
+      },
+      "count_t_conj": {
+        "t": 34.0741529980984,
+        "theta_over_pi": 3.620703210685603,
+        "S_phase": 1.379296789314397,
+        "identity_value": 5.0,
+        "count": 5,
+        "residual_from_integer": 0.0
+      },
+      "E2_exact_upper_count": true,
+      "E3_exact_conj_count": true,
+      "hardy_z_count": 14,
+      "hardy_z_first_beyond": null,
+      "E4_hardy_z_agreement": true,
+      "trudgian_t_plus": {
+        "t": 62.34360328156778,
+        "upper_2014": 17.021260980734112,
+        "floor_2014": 17,
+        "upper_2012": 16.4228845640914,
+        "floor_2012": 16,
+        "validity_T_ge_e": true
+      },
+      "trudgian_t_conj": {
+        "t": 34.0741529980984,
+        "upper_2014": 7.809114136081261,
+        "floor_2014": 7,
+        "upper_2012": 7.218554861133987,
+        "floor_2012": 7,
+        "validity_T_ge_e": true
+      },
+      "E5_trudgian_upper_ge_exact": true,
+      "E6_PT_applicability": true,
+      "pt_height_limit": 3000000000000.0,
+      "edge_margins": {
+        "min_included_margin": 1.1390907828805297,
+        "min_excluded_margin": 2.768939358149318,
+        "bar": 1e-06,
+        "ok": true
+      },
+      "E7_edge_margins": true,
+      "E8_zetazero4_ok": true,
+      "E8_spurious_rejected": true,
+      "E8_values": {
+        "zetazero4_gap": 3.1189753058409133e-19,
+        "spurious_abs_zeta": 2.845101349134501
+      },
+      "build_owner_radius_matches": true,
+      "owner_cardinality": 27,
+      "owner_cardinality_matches_stored": true,
+      "min_separation": 0.050000000000000044,
+      "E9_separation_ok": true,
+      "n_targets": 8,
+      "pins": [
+        {
+          "gamma": 14.134725141734695,
+          "sign": "upper",
+          "abs_zeta": 6.668186342283778e-16,
+          "ok": true
+        },
+        {
+          "gamma": 14.134725141734695,
+          "sign": "conj",
+          "abs_zeta": 6.668186342283778e-16,
+          "ok": true
+        },
+        {
+          "gamma": 21.022039638771556,
+          "sign": "upper",
+          "abs_zeta": 1.160916404432883e-15,
+          "ok": true
+        },
+        {
+          "gamma": 21.022039638771556,
+          "sign": "conj",
+          "abs_zeta": 1.160916404432883e-15,
+          "ok": true
+        },
+        {
+          "gamma": 25.01085758014569,
+          "sign": "upper",
+          "abs_zeta": 8.49884485575286e-16,
+          "ok": true
+        },
+        {
+          "gamma": 25.01085758014569,
+          "sign": "conj",
+          "abs_zeta": 8.49884485575286e-16,
+          "ok": true
+        },
+        {
+          "gamma": 30.424876125859512,
+          "sign": "upper",
+          "abs_zeta": 1.0578057324100325e-15,
+          "ok": true
+        },
+        {
+          "gamma": 30.424876125859512,
+          "sign": "conj",
+          "abs_zeta": 1.0578057324100325e-15,
+          "ok": true
+        },
+        {
+          "gamma": 32.93506158773919,
+          "sign": "upper",
+          "abs_zeta": 2.7490910092466363e-15,
+          "ok": true
+        },
+        {
+          "gamma": 32.93506158773919,
+          "sign": "conj",
+          "abs_zeta": 2.7490910092466363e-15,
+          "ok": true
+        },
+        {
+          "gamma": 37.586178158825675,
+          "sign": "upper",
+          "abs_zeta": 6.666942710405275e-15,
+          "ok": true
+        },
+        {
+          "gamma": 37.586178158825675,
+          "sign": "conj",
+          "abs_zeta": 6.666942710405275e-15,
+          "ok": true
+        },
+        {
+          "gamma": 40.9187190121475,
+          "sign": "upper",
+          "abs_zeta": 4.794581520531557e-15,
+          "ok": true
+        },
+        {
+          "gamma": 40.9187190121475,
+          "sign": "conj",
+          "abs_zeta": 4.794581520531557e-15,
+          "ok": true
+        },
+        {
+          "gamma": 43.327073280915,
+          "sign": "upper",
+          "abs_zeta": 4.3167091771724725e-15,
+          "ok": true
+        },
+        {
+          "gamma": 43.327073280915,
+          "sign": "conj",
+          "abs_zeta": 4.3167091771724725e-15,
+          "ok": true
+        },
+        {
+          "gamma": 48.00515088116716,
+          "sign": "upper",
+          "abs_zeta": 1.9998078013891557e-15,
+          "ok": true
+        },
+        {
+          "gamma": 48.00515088116716,
+          "sign": "conj",
+          "abs_zeta": 1.9998078013891557e-15,
+          "ok": true
+        },
+        {
+          "gamma": 49.7738324776723,
+          "sign": "upper",
+          "abs_zeta": 2.4488081356777964e-15,
+          "ok": true
+        },
+        {
+          "gamma": 49.7738324776723,
+          "sign": "conj",
+          "abs_zeta": 2.4488081356777964e-15,
+          "ok": true
+        },
+        {
+          "gamma": 52.970321477714464,
+          "sign": "upper",
+          "abs_zeta": 7.545642507843105e-15,
+          "ok": true
+        },
+        {
+          "gamma": 52.970321477714464,
+          "sign": "conj",
+          "abs_zeta": 7.545642507843105e-15,
+          "ok": true
+        },
+        {
+          "gamma": 56.44624769706339,
+          "sign": "upper",
+          "abs_zeta": 7.79378304633177e-15,
+          "ok": true
+        },
+        {
+          "gamma": 56.44624769706339,
+          "sign": "conj",
+          "abs_zeta": 7.79378304633177e-15,
+          "ok": true
+        },
+        {
+          "gamma": 59.34704400260235,
+          "sign": "upper",
+          "abs_zeta": 8.571734057827425e-16,
+          "ok": true
+        },
+        {
+          "gamma": 59.34704400260235,
+          "sign": "conj",
+          "abs_zeta": 8.571734057827425e-16,
+          "ok": true
+        },
+        {
+          "gamma": 60.83177852460981,
+          "sign": "upper",
+          "abs_zeta": 2.025276320396503e-16,
+          "ok": true
+        },
+        {
+          "gamma": 60.83177852460981,
+          "sign": "conj",
+          "abs_zeta": 2.025276320396503e-16,
+          "ok": true
+        }
+      ],
+      "pins_all_ok": true,
+      "pins_worst": 7.79378304633177e-15,
+      "n_pin_evaluations": 28,
+      "failed_checks": [],
+      "verdict": "COMPLETE-OWNER-IDENTIFIED"
+    },
+    {
+      "gamma": 21.022039638771556,
+      "N": 5,
+      "rho": [
+        0.55,
+        21.022039638771556
+      ],
+      "radius": 87.0719873427753,
+      "radius_matches_stored": true,
+      "walk_indices_processed": 33,
+      "known_matches_stored_count": true,
+      "mirror_elementwise_equal": true,
+      "n_upper_listed": 33,
+      "n_conj_listed": 15,
+      "geometry": {
+        "delta": 0.050000000000000044,
+        "W": 87.07197298683671,
+        "t_plus": 108.09401262560827,
+        "t_conj": 66.04993334806515,
+        "t_minus_signed": -66.04993334806515
+      },
+      "count_t_plus": {
+        "t": 108.09401262560827,
+        "theta_over_pi": 31.618019150848465,
+        "S_phase": 1.381980849151534,
+        "identity_value": 33.0,
+        "count": 33,
+        "residual_from_integer": 0.0
+      },
+      "count_t_conj": {
+        "t": 66.04993334806515,
+        "theta_over_pi": 14.09317184834023,
+        "S_phase": 0.9068281516597696,
+        "identity_value": 15.0,
+        "count": 15,
+        "residual_from_integer": 0.0
+      },
+      "E2_exact_upper_count": true,
+      "E3_exact_conj_count": true,
+      "hardy_z_count": 33,
+      "hardy_z_first_beyond": null,
+      "E4_hardy_z_agreement": true,
+      "trudgian_t_plus": {
+        "t": 108.09401262560827,
+        "upper_2014": 36.01241558336039,
+        "floor_2014": 36,
+        "upper_2012": 35.412129377924956,
+        "floor_2012": 35,
+        "validity_T_ge_e": true
+      },
+      "trudgian_t_conj": {
+        "t": 66.04993334806515,
+        "upper_2014": 18.402327148649594,
+        "floor_2014": 18,
+        "upper_2012": 17.803541722055495,
+        "floor_2012": 17,
+        "validity_T_ge_e": true
+      },
+      "E5_trudgian_upper_ge_exact": true,
+      "E6_PT_applicability": true,
+      "pt_height_limit": 3000000000000.0,
+      "edge_margins": {
+        "min_included_margin": 0.9254012871179071,
+        "min_excluded_margin": 1.0298770136135715,
+        "bar": 1e-06,
+        "ok": true
+      },
+      "E7_edge_margins": true,
+      "E8_zetazero4_ok": true,
+      "E8_spurious_rejected": true,
+      "E8_values": {
+        "zetazero4_gap": 3.1189753058409133e-19,
+        "spurious_abs_zeta": 2.845101349134501
+      },
+      "build_owner_radius_matches": true,
+      "owner_cardinality": 56,
+      "owner_cardinality_matches_stored": true,
+      "min_separation": 0.050000000000000044,
+      "E9_separation_ok": true,
+      "n_targets": 8,
+      "pins": [
+        {
+          "gamma": 14.134725141734695,
+          "sign": "upper",
+          "abs_zeta": 6.668186342283778e-16,
+          "ok": true
+        },
+        {
+          "gamma": 14.134725141734695,
+          "sign": "conj",
+          "abs_zeta": 6.668186342283778e-16,
+          "ok": true
+        },
+        {
+          "gamma": 21.022039638771556,
+          "sign": "upper",
+          "abs_zeta": 1.160916404432883e-15,
+          "ok": true
+        },
+        {
+          "gamma": 21.022039638771556,
+          "sign": "conj",
+          "abs_zeta": 1.160916404432883e-15,
+          "ok": true
+        },
+        {
+          "gamma": 25.01085758014569,
+          "sign": "upper",
+          "abs_zeta": 8.49884485575286e-16,
+          "ok": true
+        },
+        {
+          "gamma": 25.01085758014569,
+          "sign": "conj",
+          "abs_zeta": 8.49884485575286e-16,
+          "ok": true
+        },
+        {
+          "gamma": 30.424876125859512,
+          "sign": "upper",
+          "abs_zeta": 1.0578057324100325e-15,
+          "ok": true
+        },
+        {
+          "gamma": 30.424876125859512,
+          "sign": "conj",
+          "abs_zeta": 1.0578057324100325e-15,
+          "ok": true
+        },
+        {
+          "gamma": 32.93506158773919,
+          "sign": "upper",
+          "abs_zeta": 2.7490910092466363e-15,
+          "ok": true
+        },
+        {
+          "gamma": 32.93506158773919,
+          "sign": "conj",
+          "abs_zeta": 2.7490910092466363e-15,
+          "ok": true
+        },
+        {
+          "gamma": 37.586178158825675,
+          "sign": "upper",
+          "abs_zeta": 6.666942710405275e-15,
+          "ok": true
+        },
+        {
+          "gamma": 37.586178158825675,
+          "sign": "conj",
+          "abs_zeta": 6.666942710405275e-15,
+          "ok": true
+        },
+        {
+          "gamma": 40.9187190121475,
+          "sign": "upper",
+          "abs_zeta": 4.794581520531557e-15,
+          "ok": true
+        },
+        {
+          "gamma": 40.9187190121475,
+          "sign": "conj",
+          "abs_zeta": 4.794581520531557e-15,
+          "ok": true
+        },
+        {
+          "gamma": 43.327073280915,
+          "sign": "upper",
+          "abs_zeta": 4.3167091771724725e-15,
+          "ok": true
+        },
+        {
+          "gamma": 43.327073280915,
+          "sign": "conj",
+          "abs_zeta": 4.3167091771724725e-15,
+          "ok": true
+        },
+        {
+          "gamma": 48.00515088116716,
+          "sign": "upper",
+          "abs_zeta": 1.9998078013891557e-15,
+          "ok": true
+        },
+        {
+          "gamma": 48.00515088116716,
+          "sign": "conj",
+          "abs_zeta": 1.9998078013891557e-15,
+          "ok": true
+        },
+        {
+          "gamma": 49.7738324776723,
+          "sign": "upper",
+          "abs_zeta": 2.4488081356777964e-15,
+          "ok": true
+        },
+        {
+          "gamma": 49.7738324776723,
+          "sign": "conj",
+          "abs_zeta": 2.4488081356777964e-15,
+          "ok": true
+        },
+        {
+          "gamma": 52.970321477714464,
+          "sign": "upper",
+          "abs_zeta": 7.545642507843105e-15,
+          "ok": true
+        },
+        {
+          "gamma": 52.970321477714464,
+          "sign": "conj",
+          "abs_zeta": 7.545642507843105e-15,
+          "ok": true
+        },
+        {
+          "gamma": 56.44624769706339,
+          "sign": "upper",
+          "abs_zeta": 7.79378304633177e-15,
+          "ok": true
+        },
+        {
+          "gamma": 56.44624769706339,
+          "sign": "conj",
+          "abs_zeta": 7.79378304633177e-15,
+          "ok": true
+        },
+        {
+          "gamma": 59.34704400260235,
+          "sign": "upper",
+          "abs_zeta": 8.571734057827425e-16,
+          "ok": true
+        },
+        {
+          "gamma": 59.34704400260235,
+          "sign": "conj",
+          "abs_zeta": 8.571734057827425e-16,
+          "ok": true
+        },
+        {
+          "gamma": 60.83177852460981,
+          "sign": "upper",
+          "abs_zeta": 2.025276320396503e-16,
+          "ok": true
+        },
+        {
+          "gamma": 60.83177852460981,
+          "sign": "conj",
+          "abs_zeta": 2.025276320396503e-16,
+          "ok": true
+        },
+        {
+          "gamma": 65.1125440480816,
+          "sign": "upper",
+          "abs_zeta": 9.622894137220615e-15,
+          "ok": true
+        },
+        {
+          "gamma": 65.1125440480816,
+          "sign": "conj",
+          "abs_zeta": 9.622894137220615e-15,
+          "ok": true
+        },
+        {
+          "gamma": 67.07981052949417,
+          "sign": "upper",
+          "abs_zeta": 1.058248402980891e-14,
+          "ok": true
+        },
+        {
+          "gamma": 67.07981052949417,
+          "sign": "conj",
+          "abs_zeta": 1.058248402980891e-14,
+          "ok": true
+        },
+        {
+          "gamma": 69.54640171117398,
+          "sign": "upper",
+          "abs_zeta": 1.2454939415804993e-14,
+          "ok": true
+        },
+        {
+          "gamma": 69.54640171117398,
+          "sign": "conj",
+          "abs_zeta": 1.2454939415804993e-14,
+          "ok": true
+        },
+        {
+          "gamma": 72.0671576744819,
+          "sign": "upper",
+          "abs_zeta": 7.936402200816488e-15,
+          "ok": true
+        },
+        {
+          "gamma": 72.0671576744819,
+          "sign": "conj",
+          "abs_zeta": 7.936402200816488e-15,
+          "ok": true
+        },
+        {
+          "gamma": 75.70469069908393,
+          "sign": "upper",
+          "abs_zeta": 1.2543277824394556e-14,
+          "ok": true
+        },
+        {
+          "gamma": 75.70469069908393,
+          "sign": "conj",
+          "abs_zeta": 1.2543277824394556e-14,
+          "ok": true
+        },
+        {
+          "gamma": 77.1448400688748,
+          "sign": "upper",
+          "abs_zeta": 8.5609983118655e-15,
+          "ok": true
+        },
+        {
+          "gamma": 77.1448400688748,
+          "sign": "conj",
+          "abs_zeta": 8.5609983118655e-15,
+          "ok": true
+        },
+        {
+          "gamma": 79.33737502024937,
+          "sign": "upper",
+          "abs_zeta": 6.329110547037484e-16,
+          "ok": true
+        },
+        {
+          "gamma": 79.33737502024937,
+          "sign": "conj",
+          "abs_zeta": 6.329110547037484e-16,
+          "ok": true
+        },
+        {
+          "gamma": 82.91038085408603,
+          "sign": "upper",
+          "abs_zeta": 4.330134721269215e-15,
+          "ok": true
+        },
+        {
+          "gamma": 82.91038085408603,
+          "sign": "conj",
+          "abs_zeta": 4.330134721269215e-15,
+          "ok": true
+        },
+        {
+          "gamma": 84.73549298051705,
+          "sign": "upper",
+          "abs_zeta": 2.7213572575263908e-15,
+          "ok": true
+        },
+        {
+          "gamma": 84.73549298051705,
+          "sign": "conj",
+          "abs_zeta": 2.7213572575263908e-15,
+          "ok": true
+        },
+        {
+          "gamma": 87.42527461312523,
+          "sign": "upper",
+          "abs_zeta": 7.596839915687335e-15,
+          "ok": true
+        },
+        {
+          "gamma": 87.42527461312523,
+          "sign": "conj",
+          "abs_zeta": 7.596839915687335e-15,
+          "ok": true
+        },
+        {
+          "gamma": 88.80911120763446,
+          "sign": "upper",
+          "abs_zeta": 1.473998180376794e-14,
+          "ok": true
+        },
+        {
+          "gamma": 88.80911120763446,
+          "sign": "conj",
+          "abs_zeta": 1.473998180376794e-14,
+          "ok": true
+        },
+        {
+          "gamma": 92.49189927055849,
+          "sign": "upper",
+          "abs_zeta": 2.0905025173378786e-14,
+          "ok": true
+        },
+        {
+          "gamma": 92.49189927055849,
+          "sign": "conj",
+          "abs_zeta": 2.0905025173378786e-14,
+          "ok": true
+        },
+        {
+          "gamma": 94.65134404051989,
+          "sign": "upper",
+          "abs_zeta": 1.2513987259314613e-15,
+          "ok": true
+        },
+        {
+          "gamma": 94.65134404051989,
+          "sign": "conj",
+          "abs_zeta": 1.2513987259314613e-15,
+          "ok": true
+        },
+        {
+          "gamma": 95.87063422824531,
+          "sign": "upper",
+          "abs_zeta": 3.1561500045397634e-15,
+          "ok": true
+        },
+        {
+          "gamma": 95.87063422824531,
+          "sign": "conj",
+          "abs_zeta": 3.1561500045397634e-15,
+          "ok": true
+        },
+        {
+          "gamma": 98.83119421819369,
+          "sign": "upper",
+          "abs_zeta": 1.802444881765381e-14,
+          "ok": true
+        },
+        {
+          "gamma": 98.83119421819369,
+          "sign": "conj",
+          "abs_zeta": 1.802444881765381e-14,
+          "ok": true
+        },
+        {
+          "gamma": 101.31785100573138,
+          "sign": "upper",
+          "abs_zeta": 2.1663068099031808e-14,
+          "ok": true
+        },
+        {
+          "gamma": 101.31785100573138,
+          "sign": "conj",
+          "abs_zeta": 2.1663068099031808e-14,
+          "ok": true
+        },
+        {
+          "gamma": 103.72553804047834,
+          "sign": "upper",
+          "abs_zeta": 3.2537612149115056e-15,
+          "ok": true
+        },
+        {
+          "gamma": 103.72553804047834,
+          "sign": "conj",
+          "abs_zeta": 3.2537612149115056e-15,
+          "ok": true
+        },
+        {
+          "gamma": 105.44662305232609,
+          "sign": "upper",
+          "abs_zeta": 1.0275589438875036e-14,
+          "ok": true
+        },
+        {
+          "gamma": 105.44662305232609,
+          "sign": "conj",
+          "abs_zeta": 1.0275589438875036e-14,
+          "ok": true
+        },
+        {
+          "gamma": 107.1686111842764,
+          "sign": "upper",
+          "abs_zeta": 2.0476252063089414e-14,
+          "ok": true
+        },
+        {
+          "gamma": 107.1686111842764,
+          "sign": "conj",
+          "abs_zeta": 2.0476252063089414e-14,
+          "ok": true
+        }
+      ],
+      "pins_all_ok": true,
+      "pins_worst": 2.1663068099031808e-14,
+      "n_pin_evaluations": 66,
+      "failed_checks": [],
+      "verdict": "COMPLETE-OWNER-IDENTIFIED"
+    }
+  ],
+  "imports": {
+    "trudgian_2014": {
+      "source": "T. S. Trudgian, J. Number Theory 134 (2014), Theorem 1 (arXiv:1208.5846)",
+      "bound": "|S(T)| <= 0.111 log T + 0.275 log log T + 2.450",
+      "validity": "T >= e",
+      "first_registered": "record 2245"
+    },
+    "trudgian_2012": {
+      "source": "comparison table of arXiv:1208.5846",
+      "bound": "|S(T)| <= 0.17 log T + 1.998",
+      "validity": "T >= e",
+      "first_registered": "record 2245"
+    },
+    "platt_trudgian_2021": {
+      "source": "D. Platt, T. Trudgian, Bull. LMS 53 (2021) 792-797",
+      "content": "all zeros with 0 < Im <= 3e12 are simple and on the critical line; exact counts certified",
+      "role": "all in-ball source zeros lie on the critical line and are simple",
+      "first_registered": "record 2245"
+    },
+    "riemann_von_mangoldt": {
+      "identity": "N(T) = 1 + theta(T)/pi + S(T); with Z real, N(T) = (theta(T) + Phi(T))/pi exactly",
+      "first_registered": "record 2245"
+    }
+  },
+  "owner_convention": "source zeros = nontrivial zeros (completed-source convention); orbit and healthy-target/real-axis pins are separate construction nodes (record-2245 impact note)",
+  "nonclaims": [
+    "cited-import + numeric certificate at model grade; no Lean theorem (the finite-set -> shell-prefix identification in Lean is the separate formal brick)",
+    "the owner-model constants (rho floats, radius convention) are the stored record-1980 model constants",
+    "no producer GO, no gate sign change, no SourceRH, no RH claim",
+    "P3 (certified C4/C2) and P4 (shell identification in Lean) unchanged"
+  ],
+  "provenance": {
+    "script": "scripts/g2_complete_owner_id_2719.py",
+    "script_sha256": "e530e42bfa931fd1cedb373ce956259c09adcfcbf86b05e1a95429841cef8626",
+    "producer_modules": {
+      "fourpoint_actual_owner_1980.py": "7c6792479033bfd9ea24a7bdb9a104b849e1268af0b42e310330627aaa418c69",
+      "routea_weighted_zero_owner_count_brick_2245.py": "1761aff26d7a381d3d3b5d564ec67231500d5b29f649b04b75516f6710c47c5b"
+    }
+  }
+}
