@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RepresentativePhaseBoxPositive2776
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms representativePhaseExpBox_positive2776
