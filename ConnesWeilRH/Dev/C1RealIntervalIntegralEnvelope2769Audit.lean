@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RealIntervalIntegralEnvelope2769
+
+open ConnesWeilRH.Dev
+
+#print axioms intervalIntegral_norm_le_endpointAbsMax2769
