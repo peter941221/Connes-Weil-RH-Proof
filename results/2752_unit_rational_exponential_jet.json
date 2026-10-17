@@ -1,0 +1,27 @@
+{
+  "record": "2752",
+  "status": "GREEN",
+  "theorem": "unitRationalExponentialJet_mem2752",
+  "build": "lake build ConnesWeilRH.Dev.C1UnitRationalExponentialJet2752Audit",
+  "jobs": 3659,
+  "errors": 0,
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "files": {
+    "ConnesWeilRH/Dev/C1UnitRationalExponentialJet2752.lean": "07fc3ac734933f9d70f615013c344e224e2eb091c18ea960e4d540965a133f2c",
+    "ConnesWeilRH/Dev/C1UnitRationalExponentialJet2752Audit.lean": "350f21175309ba610d2a62a03bd8c1797478bec7eeda0a122f8a6e1b904bce8b",
+    "docs/proofs/2752_unit_rational_exponential_jet.md": "62ae360d0a6ac4ff2dd45e4bba56413d674e802f8b6508e0baeb2ca849d3f848"
+  },
+  "claims": {
+    "generated_e0_consumed": true,
+    "unit_box_only": true,
+    "outward_replay": false,
+    "finite_integral": false,
+    "D4_D7": false,
+    "pins": false,
+    "RH": false
+  }
+}
