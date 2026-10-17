@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1RepresentativeClosedChildIntegral2770
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms leftChildD4D7_integral_bounds2770
+#print axioms rightChildD4D7_integral_bounds2770
