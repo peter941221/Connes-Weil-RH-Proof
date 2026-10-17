@@ -1,0 +1,6 @@
+{
+  "record": "2771",
+  "status": "PASS",
+  "checks": {"linux_native_audit_build": true, "jobs": 3679, "errors": 0, "declarations": 2, "standard_axioms": ["propext", "Classical.choice", "Quot.sound"]},
+  "nonclaims": ["No numerical D4/D7 pin, Producer GO or RH claim."]
+}
