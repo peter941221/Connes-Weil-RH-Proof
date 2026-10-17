@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RepresentativeTransitionD4D7Mem2778
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms representativeTransitionD4D7_mem2778
