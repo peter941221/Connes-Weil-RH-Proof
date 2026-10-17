@@ -1,31 +1,17 @@
 {
   "record": "2742",
-  "status": "GREEN",
-  "theorems": [
-    "rationalPhaseExpBox_lo_pos2742",
-    "rationalPhaseExpBox_hi_pos2742",
-    "rationalPhaseExpBox_ordered2742"
-  ],
-  "build": "lake build ConnesWeilRH.Dev.C1RationalPhaseBoxInvariants2742Audit",
-  "jobs": 3660,
-  "errors": 0,
-  "axioms": [
-    "propext",
-    "Classical.choice",
-    "Quot.sound"
-  ],
-  "files": {
-    "ConnesWeilRH/Dev/C1RationalPhaseBoxInvariants2742.lean": "b401ee747f2ff603644855d1094b8cda88bff6481bff3c560b88bacbb58559d1",
-    "ConnesWeilRH/Dev/C1RationalPhaseBoxInvariants2742Audit.lean": "ec80012ead9c415563d167f015a1738f365201261dccb163f35b75e1a90cda67",
-    "docs/proofs/2742_rational_phase_box_invariants.md": "4bba164d7220c0ecd450092b3c7b03d26c4b78b25367bd417116461d6c1c7c55"
+  "status": "PASS",
+  "checks": {
+    "footer": true,
+    "no_errors": true,
+    "decl_audit": true,
+    "source_copy": true,
+    "audit_copy": true,
+    "standard_axioms": true
   },
-  "claims": {
-    "box_endpoint_positivity": true,
-    "box_endpoint_ordering": true,
-    "outward_replay": false,
-    "finite_integral": false,
-    "D4_D7": false,
-    "pins": false,
-    "RH": false
-  }
+  "source_sha256": "b401ee747f2ff603644855d1094b8cda88bff6481bff3c560b88bacbb58559d1",
+  "checker_sha256": "4b7491cc2c16d6c1c3f1096a3fe790813637d98cfad9259208882c1f4f4141c5",
+  "nonclaims": [
+    "No outward replay, finite integration, D4/D7, pins or RH claim."
+  ]
 }
