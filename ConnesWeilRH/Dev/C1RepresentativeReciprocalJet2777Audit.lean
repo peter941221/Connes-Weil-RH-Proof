@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RepresentativeReciprocalJet2777
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms representativeRationalReciprocalJet_mem2777
