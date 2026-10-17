@@ -2,6 +2,7 @@
   "record": 2743,
   "status": "PASS",
   "checks": {
+    "independent_samples_contained": true,
     "two_cells": true,
     "all_ordered": true,
     "all_finite": true,
@@ -10,37 +11,42 @@
   "cells": [
     {
       "cell": "left",
+      "independent_derivative_checks": 24,
+      "sampled_derivatives_contained": true,
       "orders": 8,
       "ordered": true,
       "widths": [
-        3.637460127293225e-23,
-        7.302481663997968e-22,
-        3.2922411646108194e-20,
-        2.1939751580511646e-18,
-        1.9251130808289325e-16,
-        2.0941069023194562e-14,
-        2.7181318248987008e-12,
-        4.1000635886536916e-10
+        3.757489332219178e-05,
+        0.0010346628414862676,
+        0.03514526742605123,
+        1.336857901386991,
+        56.4300802555272,
+        2653.274473671669,
+        138293.99256582194,
+        7928621.469988958
       ],
       "finite": true
     },
     {
       "cell": "right",
+      "independent_derivative_checks": 24,
+      "sampled_derivatives_contained": true,
       "orders": 8,
       "ordered": true,
       "widths": [
-        3.6251351226182606e-23,
-        7.276625190933978e-22,
-        3.279996292059837e-20,
-        2.1854090212881736e-18,
-        1.9172306038506705e-16,
-        2.0851275177894977e-14,
-        2.7059451456430432e-12,
-        4.080873116328738e-10
+        3.758714772603191e-05,
+        0.0010348464595163146,
+        0.03514616919148223,
+        1.3366955054813103,
+        56.41508321964592,
+        2652.184186728434,
+        138217.02476533625,
+        7923053.069450713
       ],
       "finite": true
     }
   ],
+  "supersedes": "Original 2743 PASS withdrawn: collapsed coordinate cells, reversed phase endpoints, wrong exponential recurrence coefficients.",
   "method": "independent Fraction interval recurrence through order 7",
   "nonclaims": [
     "Not a Lean theorem",
