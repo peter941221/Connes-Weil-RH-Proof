@@ -13,3 +13,7 @@ jet recurrence. It remains infrastructure rather than a completed replay.
 Rational-box subtraction is now included, with endpoints `a.lo-b.hi` and
 `a.hi-b.lo` and a proof that membership is preserved. This covers the phase
 recurrence's subtraction operation.
+
+The bridge now proves that rational-box addition and subtraction embed exactly
+as the corresponding `RealInterval2429` operations, so replay arithmetic can
+be consumed by existing semantic interval theorems.

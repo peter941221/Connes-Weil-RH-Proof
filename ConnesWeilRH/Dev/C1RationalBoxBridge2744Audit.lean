@@ -4,3 +4,5 @@ open ConnesWeilRH.Dev
 #print axioms RationalBox2744.mem_add
 #print axioms RationalBox2744.mem_nsmul
 #print axioms RationalBox2744.mem_sub
+#print axioms RationalBox2744.toRealInterval_add
+#print axioms RationalBox2744.toRealInterval_sub

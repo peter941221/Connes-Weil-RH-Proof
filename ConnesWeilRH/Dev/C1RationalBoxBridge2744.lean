@@ -46,6 +46,22 @@ theorem RationalBox2744.mem_sub {a b : RationalBox2744} {x y : ℝ}
   norm_num only [Rat.cast_sub]
   constructor <;> linarith [hx.1, hx.2, hy.1, hy.2]
 
+theorem RationalBox2744.toRealInterval_add (a b : RationalBox2744) :
+    (a.add b).toRealInterval =
+      a.toRealInterval.add b.toRealInterval := by
+  cases a
+  cases b
+  simp [RationalBox2744.add, RationalBox2744.toRealInterval,
+    RealInterval2429.add, Rat.cast_add]
+
+theorem RationalBox2744.toRealInterval_sub (a b : RationalBox2744) :
+    (a.sub b).toRealInterval =
+      a.toRealInterval.sub b.toRealInterval := by
+  cases a
+  cases b
+  simp [RationalBox2744.sub, RationalBox2744.toRealInterval,
+    RealInterval2429.sub, Rat.cast_sub]
+
 def RationalBox2744.nsmul (c : ℚ) (hc : 0 ≤ c) (a : RationalBox2744) : RationalBox2744 :=
   { lo := c * a.lo
     hi := c * a.hi
