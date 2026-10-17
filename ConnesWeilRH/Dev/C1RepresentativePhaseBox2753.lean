@@ -1,0 +1,45 @@
+import ConnesWeilRH.Dev.C1RationalE0Box2751
+import ConnesWeilRH.Dev.C1SeedIntervalJet2734
+import ConnesWeilRH.Dev.C1SeedRationalPhaseBox2736
+
+namespace ConnesWeilRH.Dev
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+noncomputable section
+
+def representativePhaseZeroBox2753 : RationalBox2744 :=
+  { lo := -100, hi := 0, ordered := by norm_num }
+
+theorem representativePhaseZeroBox_mem2753 {x : ℝ}
+    (hx : representativeCell2736.Mem x) :
+    representativePhaseZeroBox2753.Mem
+      (transitionPhase2731 x) := by
+  have hlo : 0 < representativeCell2736.lo := by
+    norm_num [representativeCell2736]
+  have hhi : representativeCell2736.hi < 1 := by
+    norm_num [representativeCell2736]
+  have hp := phaseJetInterval_mem2734 representativeCell2736 0 hlo hhi hx
+  simp only [representativePhaseZeroBox2753, RationalBox2744.Mem,
+    Rat.cast_neg, Rat.cast_ofNat]
+  have hP : (phaseJetInterval2734 representativeCell2736 0).hi ≤ 0 := by
+    have h := hp.2
+    rw [show (phaseJetInterval2734 representativeCell2736 0).hi =
+      (1 - representativeCell2736.hi)⁻¹ - representativeCell2736.hi⁻¹ by
+      simp [phaseJetInterval2734, reciprocalJetInterval2734,
+        reflectedCoordinateJetInterval2734, coordinateJetInterval2734,
+        RealInterval2429.sub, RealInterval2429.invPositive,
+        RealInterval2429.point]]
+    norm_num [representativeCell2736]
+  constructor
+  · have h := hp.1
+    rw [show (phaseJetInterval2734 representativeCell2736 0).lo =
+      (1 - representativeCell2736.lo)⁻¹ - representativeCell2736.lo⁻¹ by
+      simp [phaseJetInterval2734, reciprocalJetInterval2734,
+        reflectedCoordinateJetInterval2734, coordinateJetInterval2734,
+        RealInterval2429.sub, RealInterval2429.invPositive,
+        RealInterval2429.point]] at h
+    norm_num [representativeCell2736] at h ⊢
+    linarith
+  · exact le_trans hp.2 (by simpa using hP)
+
+end
+end ConnesWeilRH.Dev

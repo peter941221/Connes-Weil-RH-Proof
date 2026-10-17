@@ -1,0 +1,27 @@
+{
+  "record": "2753",
+  "status": "GREEN",
+  "theorem": "representativePhaseZeroBox_mem2753",
+  "build": "lake build ConnesWeilRH.Dev.C1RepresentativePhaseBox2753Audit",
+  "jobs": 3664,
+  "errors": 0,
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "files": {
+    "ConnesWeilRH/Dev/C1RepresentativePhaseBox2753.lean": "51a3e1b7fbfeda1a6549fa921f7fff9ff8b63e40b49f976e652aa7e7debfa915",
+    "ConnesWeilRH/Dev/C1RepresentativePhaseBox2753Audit.lean": "4c3689edccb24dcd5d7dd32899b296c187128c49bf6b07112e826871bdff7d6f",
+    "docs/proofs/2753_representative_phase_box.md": "b871f12a74a66cde3e9c7e8a1c95b8e496ae72634ccaaddae2d177d91026cd78"
+  },
+  "claims": {
+    "representative_phase_slot_generation": true,
+    "uniform_phase_generation": false,
+    "outward_replay": false,
+    "finite_integral": false,
+    "D4_D7": false,
+    "pins": false,
+    "RH": false
+  }
+}
