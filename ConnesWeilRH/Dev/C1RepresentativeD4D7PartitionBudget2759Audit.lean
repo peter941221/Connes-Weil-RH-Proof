@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RepresentativeD4D7PartitionBudget2759
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms representativeD4D7Partition_budget2759
