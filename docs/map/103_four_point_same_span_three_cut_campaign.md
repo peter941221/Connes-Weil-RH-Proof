@@ -1465,3 +1465,21 @@ with weight 2: exponent 55+2-40=17. Thus the D_4-only global reduction is
 WITHDRAWN. Candidate split = rungs {1,2,3,4} inside 600, rung 7 outside.
 No new Lean pin, carrier transfer, or rho-quantified producer follows.
 Reopen authority is unchanged. See `docs/proofs/2729_full_line_envelope_reaudit.md`.
+
+
+## 2730 endpoint-safe D4/D7 calculation (2026-10-17)
+
+Directed interval sums on 8192 dyadic cells plus an analytic endpoint
+majorant give rational upper readings D4=1400.650854 or less and
+D7=592705255 or less. Integer proof targets 1500 and 2e9 are feasible.
+Endpoint uses real derivative recurrences for E=exp(-1/x+1/(1-x)),
+R=1/(1+E), T=ER; no neighboring-cell proxy. Conditional tail repricing
+at D7=2e9 gives C2 tail <1e-4, leaving the stored pin unchanged.
+Six run controls and rational/hash/partition readback checks pass.
+
+These are paper-plus-interval bounds, NOT Lean derivOrderL1 theorems.
+Next required formal step is jet/derivative semantic correctness and
+endpoint inequalities, before cell replay or carrier re-seeding.
+Evidence: `docs/proofs/2730_seed_derivative_bounds.md`,
+`scripts/seed_derivative_bounds_2730.py`,
+`results/2730_seed_derivative_bounds.json`. No producer/RH claim.
