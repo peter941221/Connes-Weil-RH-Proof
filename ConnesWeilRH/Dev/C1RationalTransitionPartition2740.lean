@@ -63,6 +63,19 @@ theorem partitionRationalTransitionJet_mem2740 {x : ℝ} (n : ℕ)
     exact Or.inr (rationalSeedTransitionJet_mem2738 rightCell2740 4 n
       (by norm_num) hlo hhi hP hcap hright)
 
+theorem representativeCell_partition2740 {x : ℝ}
+    (hx : representativeCell2736.Mem x) :
+    leftCell2740.Mem x ∨ rightCell2740.Mem x := by
+  by_cases hxm : x ≤ (representativeCell2736.lo + representativeCell2736.hi) / 2
+  · left
+    constructor
+    · exact hx.1
+    · exact hxm
+  · right
+    constructor
+    · exact le_of_not_ge hxm
+    · exact hx.2
+
 end
 end ConnesWeilRH.Source.C1ExplicitSmoothSeed
 

@@ -1,3 +1,4 @@
 import ConnesWeilRH.Dev.C1RationalTransitionPartition2740
 open ConnesWeilRH.Source.C1ExplicitSmoothSeed
 #print axioms partitionRationalTransitionJet_mem2740
+#print axioms representativeCell_partition2740
