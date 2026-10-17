@@ -1,0 +1,11 @@
+import ConnesWeilRH.Dev.C1SmoothSeedMassThree2728
+namespace ConnesWeilRH.Source.C1ExplicitSmoothSeed
+#print axioms smoothTransition_add_one_sub
+#print axioms smoothTransition_one_sub
+#print axioms integral_smoothTransition_zero_one
+#print axioms norm_smoothSeed_test_eq
+#print axioms smoothSeedRaw_eq_zero_of_notMem_Icc
+#print axioms integral_smoothSeedRaw_eq_three
+#print axioms l1Mass_smoothSeed_eq_three
+#print axioms smoothSeed_l1Mass_le_three
+end ConnesWeilRH.Source.C1ExplicitSmoothSeed

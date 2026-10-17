@@ -1371,7 +1371,7 @@ with the same-run scan straddling the true crossing to ~2e-6. Verdict
 `l1Mass smoothSeed <= 3` is load-bearing (the committed `<= 4` is too
 weak for this lane); the residual numeric obligation of the three wired
 pins is `{l1Mass smoothSeed <= 3 brick, D-table pins k = 1..12}` on top
-of the unchanged wiring obstruction `{hgate24, hprefix, htarget/hzero
+of the surviving wiring obstruction `{hgate24, htarget/hzero
 bricks, rho caps}`. Instrument laws: never bound a parameter-lane sup by
 a two-point power fit — the argmax cell moves with the parameter (C4
 `(22.3, 22.4) -> (22.0, 22.1)`, C2 `(19.6, 19.7) -> (19.9, 20.0)`) and
@@ -1433,3 +1433,22 @@ Non-claims: the 16 pattern rows remain dead; Route A remains the binding
 producer lane; the rho-quantified duties are NOT covered by the reopen; no
 producer GO, no SourceRH, no RH claim. Evidence:
 `docs/proofs/2726_route_b_reopen.md`.
+
+
+## 2727-2728 reduced rung probe and exact seed mass (2026-10-17)
+
+Record 2728 proves `l1Mass smoothSeed = 3` and its `<= 3` consumer
+shape. Linux-native module plus audit: 3501 jobs, eight standard-trio
+axiom records. Record 2727 reproduces the full-table control bitwise and
+measures rungs {1,2,3,4} as sufficient for all three pins; rungs <= 3 fail.
+Orders 1, 2 and 3 already have Lean proofs. The remaining seed-derivative
+brick is an upper bound for order 4 (table value about 1535.125524).
+
+This is a measured reduction, not a proof of the wired pins. Remaining:
+D_4 upper-bound proof; kernel-checked finite envelope/cell coverage and
+infinite-frequency bound; poweredSeed carrier re-seed; rho-dependent
+{hgate24, htarget/hzero, caps}. No producer GO or RH claim.
+
+Evidence: `docs/proofs/2727_rung_collapse.md`,
+`docs/proofs/2728_smooth_seed_mass_three.md`,
+`results/2727_rungs_restriction_probe.json`, `results/2727_d4_margin.json`.
