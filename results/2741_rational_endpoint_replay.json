@@ -1,0 +1,45 @@
+{
+  "record": 2741,
+  "status": "PASS",
+  "checks": {
+    "two_cells": true,
+    "positive": true,
+    "ordered": true,
+    "shared_midpoint": true
+  },
+  "cells": [
+    {
+      "cell": "left",
+      "lo": "2049/8192",
+      "hi": "16787455/67108864",
+      "phase_lo": "-33538048/12587007",
+      "phase_hi": "-2250425558368256/844768389124095",
+      "exp_lo_positive": true,
+      "exp_hi_positive": true,
+      "ordered": true,
+      "width_float": 3.773490048300546e-05,
+      "exp_lo_digits": 616,
+      "exp_hi_digits": 1245
+    },
+    {
+      "cell": "right",
+      "lo": "16787455/67108864",
+      "hi": "8394751/33554432",
+      "phase_lo": "-2250425558368256/844768389124095",
+      "phase_hi": "-562537703669760/211209257234431",
+      "exp_lo_positive": true,
+      "exp_hi_positive": true,
+      "ordered": true,
+      "width_float": 3.774736995646497e-05,
+      "exp_lo_digits": 1247,
+      "exp_hi_digits": 1161
+    }
+  ],
+  "method": "exact Fraction evaluation of order-20 Taylor plus rational tail; diagnostic endpoint replay only",
+  "nonclaims": [
+    "No derivative-jet outward replay",
+    "No finite integral",
+    "No D4/D7",
+    "No pins or RH"
+  ]
+}
