@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RepresentativeD4D7PartitionIntegral2758
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms representativeD4D7Partition_integral_add2758
