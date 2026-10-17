@@ -1565,3 +1565,16 @@ jet, outward finite-cell replay, integration assembly, D4/D7, pins, carrier,
 rho-quantified duties, universal producer and RH remain open. Evidence:
 `docs/proofs/2737_rational_exp_jet.md`,
 `results/2737_rational_exp_jet.json`.
+
+## 2738 rational box through transition product (2026-10-17)
+
+`rationalSeedTransitionJet_mem2738` propagates the rational phase exponential
+box through the denominator reciprocal recurrence and the final product
+recurrence, proving exact-real containment of every finite derivative order on
+a valid cell under the explicit phase-box premises.
+
+Audit build: Linux 3661 jobs, 0 errors, standard axiom trio only. This closes
+the semantic jet chain; it does not certify floating-point outward replay,
+finite-region integration, D4/D7, pins, carrier, universal-rho duties or RH.
+Evidence: `docs/proofs/2738_rational_transition_jet.md`,
+`results/2738_rational_transition_jet.json`.
