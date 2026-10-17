@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RationalPhaseBoxInvariants2742
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+#print axioms rationalPhaseExpBox_lo_pos2742
+#print axioms rationalPhaseExpBox_hi_pos2742
+#print axioms rationalPhaseExpBox_ordered2742
