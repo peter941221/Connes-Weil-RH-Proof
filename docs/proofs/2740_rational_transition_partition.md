@@ -14,3 +14,11 @@ The cover premise is now discharged by `representativeCell_partition2740`:
 midpoint comparison proves every representative-cell point belongs to one of
 the two child cells. The audit prints both theorem leaves; 3663-job build,
 standard axiom trio only. Outward replay and integral assembly remain open.
+
+The end-to-end theorem `representativeRationalTransitionPartition_mem2740`
+combines the cover and child certificates: representative-cell membership alone
+now yields one of the two valid child transition-jet containments.
+
+The end-to-end consumer theorem now combines midpoint coverage and child
+certificates: representative-cell membership alone yields one valid child
+transition-jet containment. Audit prints all three theorem leaves.

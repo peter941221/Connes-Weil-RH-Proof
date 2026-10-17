@@ -76,6 +76,15 @@ theorem representativeCell_partition2740 {x : ℝ}
     · exact le_of_not_ge hxm
     · exact hx.2
 
+theorem representativeRationalTransitionPartition_mem2740 {x : ℝ} (n : ℕ)
+    (hx : representativeCell2736.Mem x) :
+    (rationalSeedTransitionJet2738 leftCell2740 4 n).Mem
+        (iteratedDeriv n Real.smoothTransition x) ∨
+    (rationalSeedTransitionJet2738 rightCell2740 4 n).Mem
+        (iteratedDeriv n Real.smoothTransition x) := by
+  exact partitionRationalTransitionJet_mem2740 n
+    (representativeCell_partition2740 hx)
+
 end
 end ConnesWeilRH.Source.C1ExplicitSmoothSeed
 

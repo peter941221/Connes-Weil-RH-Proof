@@ -3,7 +3,8 @@
   "status": "GREEN",
   "theorems": [
     "partitionRationalTransitionJet_mem2740",
-    "representativeCell_partition2740"
+    "representativeCell_partition2740",
+    "representativeRationalTransitionPartition_mem2740"
   ],
   "build": "lake build ConnesWeilRH.Dev.C1RationalTransitionPartition2740Audit",
   "jobs": 3663,
@@ -14,13 +15,14 @@
     "Quot.sound"
   ],
   "files": {
-    "ConnesWeilRH/Dev/C1RationalTransitionPartition2740.lean": "5cfaf38ed86954513dad7ea0929563931c1ae8a0f997aea9593e56eeb7e6aaf2",
-    "ConnesWeilRH/Dev/C1RationalTransitionPartition2740Audit.lean": "31a58241bce9da4c30b8534fad9b7f21e70a290ed2cfaa0eb09bb4de2afff327",
-    "docs/proofs/2740_rational_transition_partition.md": "ff97457e788a5253d08aef5dcfb48543f325c4e28b4a00f743f2f6fcaae51577"
+    "ConnesWeilRH/Dev/C1RationalTransitionPartition2740.lean": "1e4b74479d7e04d1ffe70473940854be7945025e49f89d012ba5423bee205916",
+    "ConnesWeilRH/Dev/C1RationalTransitionPartition2740Audit.lean": "1d126ae853496a1d9acd80528114fd630a3cc6da191e04feaf77539604028849",
+    "docs/proofs/2740_rational_transition_partition.md": "daac1e8405b82f08ccaa0ba37d045f8e4bce33ec4b3d32e76978ab89198f2317"
   },
   "claims": {
     "two_cell_exact_real_finite_cover": true,
     "cover_premise_discharged": true,
+    "end_to_end_representative_consumer": true,
     "outward_replay": false,
     "full_partition": false,
     "D4_D7": false,
