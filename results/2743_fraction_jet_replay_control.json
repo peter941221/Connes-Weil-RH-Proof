@@ -1,0 +1,50 @@
+{
+  "record": 2743,
+  "status": "PASS",
+  "checks": {
+    "two_cells": true,
+    "all_ordered": true,
+    "all_finite": true,
+    "orders_0_to_7": true
+  },
+  "cells": [
+    {
+      "cell": "left",
+      "orders": 8,
+      "ordered": true,
+      "widths": [
+        3.637460127293225e-23,
+        7.302481663997968e-22,
+        3.2922411646108194e-20,
+        2.1939751580511646e-18,
+        1.9251130808289325e-16,
+        2.0941069023194562e-14,
+        2.7181318248987008e-12,
+        4.1000635886536916e-10
+      ],
+      "finite": true
+    },
+    {
+      "cell": "right",
+      "orders": 8,
+      "ordered": true,
+      "widths": [
+        3.6251351226182606e-23,
+        7.276625190933978e-22,
+        3.279996292059837e-20,
+        2.1854090212881736e-18,
+        1.9172306038506705e-16,
+        2.0851275177894977e-14,
+        2.7059451456430432e-12,
+        4.080873116328738e-10
+      ],
+      "finite": true
+    }
+  ],
+  "method": "independent Fraction interval recurrence through order 7",
+  "nonclaims": [
+    "Not a Lean theorem",
+    "Not an outward floating-point certificate",
+    "No finite integral, D4/D7, pins or RH claim"
+  ]
+}
