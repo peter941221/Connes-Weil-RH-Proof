@@ -1,36 +1,17 @@
 {
   "record": "2740",
-  "status": "GREEN",
-  "theorems": [
-    "partitionRationalTransitionJet_mem2740",
-    "representativeCell_partition2740",
-    "representativeRationalTransitionPartition_mem2740",
-    "partitionCells_ordered2740",
-    "partitionCells_subset2740"
-  ],
-  "build": "lake build ConnesWeilRH.Dev.C1RationalTransitionPartition2740Audit",
-  "jobs": 3663,
-  "errors": 0,
-  "axioms": [
-    "propext",
-    "Classical.choice",
-    "Quot.sound"
-  ],
-  "files": {
-    "ConnesWeilRH/Dev/C1RationalTransitionPartition2740.lean": "83c860b0a3f44b48309dd7633cf60d27d924941a5b097316db3e166e54d8f7ed",
-    "ConnesWeilRH/Dev/C1RationalTransitionPartition2740Audit.lean": "0c161b79448e4a2eae636bfef30ea4f7b1aebc3af3b28ca25a450ce703c2fd3b",
-    "docs/proofs/2740_rational_transition_partition.md": "4895bc330e7ae5e7c4d5d25bbe293d41a89b698198ab8bf3d462a103aafe7bf8"
+  "status": "PASS",
+  "checks": {
+    "footer": true,
+    "no_errors": true,
+    "decl_audit": true,
+    "source_copy": true,
+    "audit_copy": true,
+    "standard_axioms": true
   },
-  "claims": {
-    "two_cell_exact_real_finite_cover": true,
-    "cover_premise_discharged": true,
-    "end_to_end_representative_consumer": true,
-    "ordered_shared_midpoint": true,
-    "child_subset_parent": true,
-    "outward_replay": false,
-    "full_partition": false,
-    "D4_D7": false,
-    "pins": false,
-    "RH": false
-  }
+  "source_sha256": "83c860b0a3f44b48309dd7633cf60d27d924941a5b097316db3e166e54d8f7ed",
+  "checker_sha256": "a5788539b22d99572da47f043d34981fefd454c032c91a87d437753a62788255",
+  "nonclaims": [
+    "No outward floating-point replay, full partition integral, D4/D7, pins or RH claim."
+  ]
 }
