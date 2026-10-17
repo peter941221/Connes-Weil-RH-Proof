@@ -1,0 +1,34 @@
+{
+  "record": 2746,
+  "checks": {
+    "baseline_passes": true,
+    "all_historical_faults_rejected": true
+  },
+  "mutations": {
+    "collapsed_coordinate_cells": {
+      "rejected": true,
+      "failed_samples": 24,
+      "first_failure": {
+        "x": "2049/8192",
+        "order": 0
+      }
+    },
+    "reversed_phase_endpoints": {
+      "rejected": true,
+      "failed_samples": 1,
+      "first_failure": {
+        "invariant": "Reversed interval endpoints"
+      }
+    },
+    "wrong_exponential_binomial": {
+      "rejected": true,
+      "failed_samples": 18,
+      "first_failure": {
+        "x": "2049/8192",
+        "order": 2
+      }
+    }
+  },
+  "status": "PASS",
+  "scope": "Diagnostic regression guards; not a continuum or Lean certificate."
+}

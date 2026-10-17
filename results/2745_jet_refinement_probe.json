@@ -56,7 +56,7 @@
       }
     }
   ],
-  "parent_sha256": "df1d430645a83c965d630032232c3a17a34b8073a36bf8077cae757c55f874f6",
+  "parent_sha256": "efeb8d1cd31afc793c2f463d88885b0f75c932700866c4a824f0ba7eb60c8214",
   "scope": "One representative cell only. Refinement viability, not global integral certification.",
   "nonclaims": [
     "No Lean replay",

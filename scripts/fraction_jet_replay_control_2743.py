@@ -6,7 +6,10 @@ import mpmath as mp
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 class I:
- def __init__(self,l,h=None): self.l=F(l); self.h=self.l if h is None else F(h)
+ def __init__(self,l,h=None):
+  self.l=F(l); self.h=self.l if h is None else F(h)
+  if self.l > self.h:
+   raise ValueError("Reversed interval endpoints")
  def add(self,o): return I(self.l+o.l,self.h+o.h)
  def sub(self,o): return I(self.l-o.h,self.h-o.l)
  def mul(self,o):
