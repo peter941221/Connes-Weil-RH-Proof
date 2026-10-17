@@ -113,7 +113,11 @@ the complete-owner zero-set identification is green (record 2719). Formal
 bricks 2722A-2725 landed; the active campaign card (record 2726, map 103
 §2726) removes the three wired cardinal pins, residual
 `{l1Mass smoothSeed <= 3, D-table pins k = 1..12}` plus the `poweredSeed`
-carrier re-seed; the rho-quantified duties `{hgate24, htarget/hzero, rho
+carrier re-seed. Record 2728 proves mass 3; record 2729 withdraws the
+D_4-only global reduction: the finite region can use rungs <=4 but the
+landed exterior bound uses rung 7. Full-table bounds still clear at
+conditional model grade; finite-cell and tail certification remain open;
+the rho-quantified duties `{hgate24, htarget/hzero, rho
 caps}` remain the analytic wall and are not covered by the reopen. Route A
 remains the binding producer lane.
 

@@ -1,5 +1,11 @@
 # 2727 — the D-ladder brick collapses to ONE order: rungs {1,2,3,4} suffice and D_4 has +0.29% slack
 
+Correction (record 2729): the D_4-only reduction below is WITHDRAWN for
+the full-line pins. The parent scan stops at 600; the degree-55 correction
+needs a rung >=6 under this termwise envelope. Historical finite-scan
+readings remain on record, not as global certificates. Section 6 is
+superseded; no D_4-only campaign follows.
+
 Verdict: the record-2726 campaign's residual numeric obligation
 `{l1Mass smoothSeed <= 3, D-table pins k = 1..12}` is RE-SCOPED by
 measurement to `{l1Mass smoothSeed <= 3, D_4 pin}` — orders 5..12 are

@@ -1,0 +1,235 @@
+{
+  "record": 2729,
+  "status": "MODEL-AUDIT-COMPLETE",
+  "checks": {
+    "crossing_cell_distance": true,
+    "endpoint_distance": true,
+    "external_distance_both_sides": true,
+    "tail_exact_monomial": true,
+    "reject_positive_tail_degree": true,
+    "legacy_bitwise_C4": true,
+    "legacy_bitwise_C2": true,
+    "legacy_bitwise_q": true
+  },
+  "legacy": {
+    "C4": 60524298.630698465,
+    "C2": 28161344.216206506,
+    "q": 2.5248153557101123e-16
+  },
+  "pins": {
+    "C4": 61000000.0,
+    "C2": 29000000.0,
+    "q": 2.6e-16
+  },
+  "results": {
+    "4": {
+      "finite": {
+        "C4": 60524298.630698465,
+        "C2": 28161344.216206506,
+        "q": 2.5248153557101133e-16
+      },
+      "tail": {
+        "C4": 4.5865870015252776e-45,
+        "C2": null,
+        "q": 5.515744083542568e-53
+      },
+      "tail_choices": {
+        "C4": [
+          {
+            "rung": 4,
+            "exponent": -29
+          },
+          {
+            "rung": 4,
+            "exponent": -29
+          },
+          {
+            "rung": 4,
+            "exponent": -29
+          },
+          {
+            "rung": 4,
+            "exponent": -29
+          },
+          {
+            "rung": 4,
+            "exponent": -29
+          },
+          {
+            "rung": 4,
+            "exponent": -29
+          },
+          {
+            "rung": 4,
+            "exponent": -29
+          },
+          {
+            "rung": 4,
+            "exponent": -29
+          }
+        ],
+        "C2": {
+          "unbounded_envelope_degree": 17
+        },
+        "q": [
+          {
+            "rung": 4,
+            "exponent": -33
+          },
+          {
+            "rung": 4,
+            "exponent": -33
+          },
+          {
+            "rung": 4,
+            "exponent": -33
+          },
+          {
+            "rung": 4,
+            "exponent": -33
+          },
+          {
+            "rung": 4,
+            "exponent": -33
+          },
+          {
+            "rung": 4,
+            "exponent": -33
+          },
+          {
+            "rung": 4,
+            "exponent": -33
+          },
+          {
+            "rung": 4,
+            "exponent": -33
+          }
+        ]
+      },
+      "global": {
+        "C4": 60524298.630698465,
+        "C2": null,
+        "q": 2.5248153557101133e-16
+      },
+      "clears": {
+        "C4": true,
+        "C2": false,
+        "q": true
+      }
+    },
+    "12": {
+      "finite": {
+        "C4": 60524298.630698465,
+        "C2": 28161344.216206506,
+        "q": 2.5248153557101123e-16
+      },
+      "tail": {
+        "C4": 8.474601388093152e-61,
+        "C2": 6.25612875163709e-08,
+        "q": 1.01913977541932e-68
+      },
+      "tail_choices": {
+        "C4": [
+          {
+            "rung": 7,
+            "exponent": -59
+          },
+          {
+            "rung": 7,
+            "exponent": -59
+          },
+          {
+            "rung": 7,
+            "exponent": -59
+          },
+          {
+            "rung": 7,
+            "exponent": -59
+          },
+          {
+            "rung": 7,
+            "exponent": -59
+          },
+          {
+            "rung": 7,
+            "exponent": -59
+          },
+          {
+            "rung": 7,
+            "exponent": -59
+          },
+          {
+            "rung": 7,
+            "exponent": -59
+          }
+        ],
+        "C2": [
+          {
+            "rung": 7,
+            "exponent": -13
+          },
+          {
+            "rung": 7,
+            "exponent": -13
+          },
+          {
+            "rung": 7,
+            "exponent": -13
+          }
+        ],
+        "q": [
+          {
+            "rung": 7,
+            "exponent": -63
+          },
+          {
+            "rung": 7,
+            "exponent": -63
+          },
+          {
+            "rung": 7,
+            "exponent": -63
+          },
+          {
+            "rung": 7,
+            "exponent": -63
+          },
+          {
+            "rung": 7,
+            "exponent": -63
+          },
+          {
+            "rung": 7,
+            "exponent": -63
+          },
+          {
+            "rung": 7,
+            "exponent": -63
+          },
+          {
+            "rung": 7,
+            "exponent": -63
+          }
+        ]
+      },
+      "global": {
+        "C4": 60524298.630698465,
+        "C2": 28161344.216206506,
+        "q": 2.5248153557101123e-16
+      },
+      "clears": {
+        "C4": true,
+        "C2": true,
+        "q": true
+      }
+    }
+  },
+  "parent_sha256": "f16ce609d50c195d1c25c02a2e33ee00fa859575ee874491ec82b750f2ed19b8",
+  "checker_sha256": "82e6bf0f6e943b45bd51d9abd269fde8355dd6c7364399cccc5897466730a04c",
+  "nonclaims": [
+    "Stored model constants and D-table are conditional inputs.",
+    "Padded mpf arithmetic is not a directed-rounding proof.",
+    "D-table endpoint sliver proof remains unaudited here.",
+    "No Lean pin or universal-rho producer is established."
+  ]
+}

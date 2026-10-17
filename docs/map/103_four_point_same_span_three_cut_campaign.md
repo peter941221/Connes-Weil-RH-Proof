@@ -1452,3 +1452,16 @@ infinite-frequency bound; poweredSeed carrier re-seed; rho-dependent
 Evidence: `docs/proofs/2727_rung_collapse.md`,
 `docs/proofs/2728_smooth_seed_mass_three.md`,
 `results/2727_rungs_restriction_probe.json`, `results/2727_d4_margin.json`.
+
+
+## 2729 full-line audit supersedes the D_4-only reduction (2026-10-17)
+
+2720/2727 finite scans stop at 600. A corrected clone fixes distance on
+cells crossing an active height and adds an analytic two-sided exterior
+bound. All eight controls pass; finite maxima are unchanged. Full-table
+model bounds still clear the three pins; correction exterior bound is
+6.25613e-8 using rung 7. Rungs <=4 cannot bound the degree-55 correction
+with weight 2: exponent 55+2-40=17. Thus the D_4-only global reduction is
+WITHDRAWN. Candidate split = rungs {1,2,3,4} inside 600, rung 7 outside.
+No new Lean pin, carrier transfer, or rho-quantified producer follows.
+Reopen authority is unchanged. See `docs/proofs/2729_full_line_envelope_reaudit.md`.

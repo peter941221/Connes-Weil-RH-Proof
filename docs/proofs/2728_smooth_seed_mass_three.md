@@ -89,3 +89,7 @@ Evidence:
   0 sorry, 8/8 standard trio),
 - `docs/proofs/2725_powered_seed_envelope.md`,
   `docs/proofs/2727_rung_collapse.md`.
+
+Correction (2729): the exact mass theorem is unchanged. The D_4-only
+seed-derivative residual quoted above is withdrawn for global pins;
+the correction envelope requires a rung >=6 or a different tail proof.
