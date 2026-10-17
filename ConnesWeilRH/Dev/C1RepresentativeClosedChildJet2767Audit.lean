@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1RepresentativeClosedChildJet2767
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms leftChildTransitionJet_mem_of_mem2767
+#print axioms rightChildTransitionJet_mem_of_mem2767
