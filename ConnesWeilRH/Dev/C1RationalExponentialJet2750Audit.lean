@@ -1,0 +1,3 @@
+import ConnesWeilRH.Dev.C1RationalExponentialJet2750
+open ConnesWeilRH.Dev
+#print axioms rationalExponentialJet_mem2750

@@ -1,0 +1,26 @@
+{
+  "record": "2750",
+  "status": "GREEN",
+  "theorem": "rationalExponentialJet_mem2750",
+  "build": "lake build ConnesWeilRH.Dev.C1RationalExponentialJet2750Audit",
+  "jobs": 3657,
+  "errors": 0,
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "files": {
+    "ConnesWeilRH/Dev/C1RationalExponentialJet2750.lean": "bcbac897f9194ecc8dce814a8ecaa232d3a868e724a76a0d456261d60f90f604",
+    "ConnesWeilRH/Dev/C1RationalExponentialJet2750Audit.lean": "7a839cc0d7d257f6f13d14e8463b274ad571e5b632af6d0213f3479dfaed3b80",
+    "docs/proofs/2750_rational_exponential_jet.md": "40a1ba17e1563bcf90cfbac60f9e8fe4c6e95708809adab881bb9982c12d587a"
+  },
+  "claims": {
+    "rational_exponential_jet_membership": true,
+    "outward_replay": false,
+    "finite_integral": false,
+    "D4_D7": false,
+    "pins": false,
+    "RH": false
+  }
+}
