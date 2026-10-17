@@ -16,9 +16,13 @@ theorem representativePhaseExpTail_le_one_div_2402774 :
           coordinateJetInterval2734, RealInterval2429.sub, RealInterval2429.invPositive,
           RealInterval2429.point]]
       norm_num [representativeCell2736]
-    have hord := (phaseJetInterval2734 representativeCell2736 0).ord
     have hPlo : (phaseJetInterval2734 representativeCell2736 0).lo ≤ 0 := by
-      linarith
+      rw [show (phaseJetInterval2734 representativeCell2736 0).lo =
+        (1 - representativeCell2736.lo)⁻¹ - representativeCell2736.lo⁻¹ by
+        simp [phaseJetInterval2734, reciprocalJetInterval2734, reflectedCoordinateJetInterval2734,
+          coordinateJetInterval2734, RealInterval2429.sub, RealInterval2429.invPositive,
+          RealInterval2429.point]]
+      norm_num [representativeCell2736]
     have htail : 0 ≤ expTail (-(phaseJetInterval2734 representativeCell2736 0).lo / 4) :=
       expTail_nonneg (by linarith)
     linarith

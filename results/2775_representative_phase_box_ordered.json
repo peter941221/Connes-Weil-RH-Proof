@@ -1,0 +1,1 @@
+{"record":"2775","theorem":"representativePhaseExpBox_ordered2775","build":"ConnesWeilRH.Dev.C1RepresentativePhaseBoxOrdered2775Audit","status":"passed","axioms":["propext","Classical.choice","Quot.sound"],"nonclaims":["qw>=0","SourceRH","RH"]}
