@@ -1383,3 +1383,53 @@ premise-blocker accounting inside the frozen family's contradiction
 audit. Evidence: `docs/proofs/2725_powered_seed_envelope.md`,
 `results/2725_envelope_bridge.json`,
 `scripts/envelope_bridge_2725.py`.
+
+## 2726 Route B REOPENED (route authority change; scoped to row B)
+
+The freeze's own reopen clause — "a named-hypothesis probe produces a
+complete-owner gate at or beyond the tail-closure index, or proves a q
+bound strong enough for the actual gate row and lambda" — is met at model
+grade, and the family is REOPENED (authorized 2026-10-17; AGENTS §2 and
+`docs/map/README.md` §B updated together in this commit; full record
+`docs/proofs/2726_route_b_reopen.md`). The satisfaction ledger:
+
+- named-hypothesis probe: 2716 exact-contract repricing (16/16 pattern rows
+  still DEAD at honest grade — the freeze core is unchanged; 11 non-vertex
+  rows honestly joint-compatible, 2 P4-admissible at n = 3);
+- complete-owner gate: 2718 sign rig (4/4 claims; margins 3.36% / 2.92%
+  channel-enclosure grade) + 2719 zero-set identification (stored lists ==
+  complete zero sets, residuals 0.0; re-measurement clause a NO-OP);
+- tail at the gate's own index: 2720 PAIR lane closes row B (21.022039638771556,
+  N = 5, n = 3) at its own stored index n = 3, lam_min = 3.2e-19 — eight
+  orders below the 2718 gate floor 15.86. Row A stays an absorption reading.
+- formal bricks landed: 2722A (IBP bridge), 2722C (transport), 2722D
+  (carrier), 2722F (stored capture, 3 finite-data legs proved), 2723
+  (hprefix proved from orbit data), 2725 (poweredSeed envelope theorem,
+  axiom trio 12/12).
+- changed hypotheses: branch-exact reading (2708 §5, superseding the
+  vertex-only frame), complete-owner identification (2719), seed-object
+  correction (2724: the wired pins were FALSE at `explicitSeed`, re-pointed
+  to `poweredSeed`).
+
+Campaign card (bounded progress gate): owner = stored row-B cardinal owners
+re-seeded to `poweredSeed` (support radius 5*(2r+1) ~ 875.7 -> ~105);
+premise to remove = the three wired cardinal pins; consumer =
+`fourPointContradictionRowBStored2723`; criterion = a Lean proof of the pins
+from a formalized D-ladder + rung envelope with the standard trio; residual =
+`{l1Mass smoothSeed <= 3, D-table pins k = 1..12}` + carrier re-seed + the
+rho-quantified duties `{hgate24, htarget, hzero, hNorm/hIm caps}`; budget =
+separate multi-session brick; stop = any rung that fails to price at the
+wired constants (2722B), or a proven `l1Mass > 3.002349604479395` (then
+re-price, never extend).
+
+Reconnaissance facts (2726 session): the D-table IS the certified enclosure
+of `derivOrderL1 k smoothSeed` (`= 2 int_0^1 ||T^(k)|| = 4 int_0^{1/2}
+|T^(k)|` via the committed `derivOrderL1_smoothSeed_eq` + mirror symmetry);
+orders 1 (= 2) and 2 (= 8) are already exact Lean; the open numeric orders
+are 3..12 plus `l1Mass = 3` (committed only `<= 4`; true value exactly 3 via
+the flat-transition support decomposition).
+
+Non-claims: the 16 pattern rows remain dead; Route A remains the binding
+producer lane; the rho-quantified duties are NOT covered by the reopen; no
+producer GO, no SourceRH, no RH claim. Evidence:
+`docs/proofs/2726_route_b_reopen.md`.

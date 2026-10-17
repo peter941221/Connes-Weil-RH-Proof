@@ -101,15 +101,21 @@ sign do not close it.
 
 ### B. Phase-balanced two-span spectral contradiction
 
-The current same-owner four-point family is frozen as
-`DEAD_ON_CURRENT_FAMILY`. Records 2032-2035 found gate rows at `n = 2, 3`,
-but the same-index tail first closes at `n = 4`; the gate and tail indices are
-disjoint. This is a scoped family no-go, not a global impossibility result for
-all future four-point constructions. Route B may reopen only after a named
-hypothesis produces a complete-owner gate at or beyond the tail-closure index,
-or proves an all-strip `q` bound that closes the actual gate row. Until then,
-do not treat this subcampaign as execution priority or spend Lean work on its
-current rows.
+REOPENED by record 2726 (2026-10-17, authorized): the family's own reopen
+clause ("a named hypothesis produces a complete-owner gate at or beyond the
+tail-closure index") was met at model grade by the row-B named-hypothesis
+probe. Records 2032-2035's frozen state stands for the original
+registered-pattern rows (16/16 still DEAD at honest grade, record 2716). The
+reopened candidate is the non-vertex row B (height 21.022039638771556,
+N = 5, n = 3): gate floor `lambda >= 15.86` with the tail closing at the same
+stored index `n = 3` (`lam_min = 3.2e-19`; records 2716/2717/2718/2720), and
+the complete-owner zero-set identification is green (record 2719). Formal
+bricks 2722A-2725 landed; the active campaign card (record 2726, map 103
+§2726) removes the three wired cardinal pins, residual
+`{l1Mass smoothSeed <= 3, D-table pins k = 1..12}` plus the `poweredSeed`
+carrier re-seed; the rho-quantified duties `{hgate24, htarget/hzero, rho
+caps}` remain the analytic wall and are not covered by the reopen. Route A
+remains the binding producer lane.
 
 - [090](090_finite_index_pinning_and_frozen_prime_domain.md): finite owner and
   pinned orbit.
@@ -769,6 +775,12 @@ R-B0/R-B4 remain prerequisites: only 1 of the 15 found rows survives a `+-1`
 and `+-2` support-radius change. Numbers, mechanism and the closing index are in
 `docs/proofs/2035_route_b_full_block_outcome.md` and map 103 section 2; this
 paragraph records current status only and changes no route ruling.
+
+UPDATE (record 2726, 2026-10-17): the R-B3 wall above was superseded at model
+grade for the non-vertex row B (gate floor `lambda >= 15.86` and the
+same-index tail `lam_min = 3.2e-19`, both at the stored index `n = 3`), and
+the family is REOPENED with the record-2726 campaign card — see §B above and
+map 103 §2726. The frozen pattern rows are untouched.
 
 ## Binding no-go results
 
