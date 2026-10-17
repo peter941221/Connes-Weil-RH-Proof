@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1RepresentativePartitionBranch2764
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms leftChild_of_lt_midpoint2764
+#print axioms rightChild_of_gt_midpoint2764
