@@ -1,0 +1,18 @@
+{
+  "record": 2735,
+  "status": "PASS",
+  "checks": {
+    "footer": true,
+    "no_errors": true,
+    "no_warnings": true,
+    "decl_audit": true,
+    "source_copy": true,
+    "audit_copy": true,
+    "standard_axioms": true
+  },
+  "source_sha256": "30be901f0f52e5847e8ad6faf15b85fdf112848466d3fb743855a99f45a17717",
+  "checker_sha256": "82e67a7419018b00b8f69caa3a2a9551e4261706c48817089e0bc13134cae9c4",
+  "nonclaims": [
+    "No interval endpoint rounding or D4/D7 integral certificate."
+  ]
+}

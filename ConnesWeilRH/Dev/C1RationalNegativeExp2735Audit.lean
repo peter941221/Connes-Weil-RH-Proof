@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RationalNegativeExp2735
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms rational_negative_exp_box2735
