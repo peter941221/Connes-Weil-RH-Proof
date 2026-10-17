@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RepresentativeD4D7BudgetSandwich2782
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms representativeD4D7Budget_sandwich2782
