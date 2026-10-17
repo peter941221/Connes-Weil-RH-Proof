@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1D4D7EndpointChargeOrdering2787
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms d4_endpoint_charge_lt_d7_endpoint_charge2787
+#print axioms d4_d7_endpoint_charge_order_and_tiny2787
