@@ -1,0 +1,17 @@
+import ConnesWeilRH.Dev.C1RouteAWeightedPartitionCell0Rectangle2798
+
+namespace ConnesWeilRH.Dev
+
+abbrev record2687Cell0Channel0_scalar_bounds2799 :=
+  record2687Cell0BaseM0Rect_scalar_bounds2798
+
+abbrev record2687Cell0Channel1_scalar_bounds2799 :=
+  record2687Cell0BaseM0Rect_scalar_bounds2798
+
+abbrev record2687Cell0Channel2_scalar_bounds2799 :=
+  record2687Cell0BaseM0Rect_scalar_bounds2798
+
+abbrev record2687Cell0Channel3_scalar_bounds2799 :=
+  record2687Cell0BaseM0Rect_scalar_bounds2798
+
+end ConnesWeilRH.Dev

@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteAWeightedPartitionCell0AllRectScalars2799
+
+open ConnesWeilRH.Dev
+
+#print axioms record2687Cell0Channel0_scalar_bounds2799
+#print axioms record2687Cell0Channel1_scalar_bounds2799
+#print axioms record2687Cell0Channel2_scalar_bounds2799
+#print axioms record2687Cell0Channel3_scalar_bounds2799
