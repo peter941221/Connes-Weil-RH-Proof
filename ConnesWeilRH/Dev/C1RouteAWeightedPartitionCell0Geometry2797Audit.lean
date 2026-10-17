@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1RouteAWeightedPartitionCell0Geometry2797
+
+open ConnesWeilRH.Dev
+
+#print axioms record2687Cell0_endpoint_order2797
+#print axioms record2687Cell0_width_pos2797
