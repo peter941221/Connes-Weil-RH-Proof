@@ -1,0 +1,66 @@
+{
+  "record": 2745,
+  "status": "PASS",
+  "checks": {
+    "all_samples_contained": true,
+    "width_contracts": true,
+    "charge_decreases": true
+  },
+  "rows": [
+    {
+      "pieces": 1,
+      "sampled_containment": true,
+      "upper_integral_diagnostic": {
+        "4": 0.053658776310006526,
+        "7": 926.299798932568
+      },
+      "max_width": {
+        "4": 112.8451928502377,
+        "7": 15853485.652293054
+      }
+    },
+    {
+      "pieces": 2,
+      "sampled_containment": true,
+      "upper_integral_diagnostic": {
+        "4": 0.05193762811152881,
+        "7": 684.3564096597316
+      },
+      "max_width": {
+        "4": 56.4300802555272,
+        "7": 7928621.469988958
+      }
+    },
+    {
+      "pieces": 4,
+      "sampled_containment": true,
+      "upper_integral_diagnostic": {
+        "4": 0.05107708128386729,
+        "7": 563.450374092797
+      },
+      "max_width": {
+        "4": 28.21691335729863,
+        "7": 3964989.237577482
+      }
+    },
+    {
+      "pieces": 8,
+      "sampled_containment": true,
+      "upper_integral_diagnostic": {
+        "4": 0.050646814638927284,
+        "7": 503.0041316963484
+      },
+      "max_width": {
+        "4": 14.108925270126138,
+        "7": 1982668.7079329242
+      }
+    }
+  ],
+  "parent_sha256": "df1d430645a83c965d630032232c3a17a34b8073a36bf8077cae757c55f874f6",
+  "scope": "One representative cell only. Refinement viability, not global integral certification.",
+  "nonclaims": [
+    "No Lean replay",
+    "No D4/D7 certificate",
+    "No pins or RH"
+  ]
+}
