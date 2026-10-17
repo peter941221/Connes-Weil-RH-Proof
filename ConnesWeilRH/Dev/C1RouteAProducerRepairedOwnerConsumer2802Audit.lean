@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RouteAProducerRepairedOwnerConsumer2802
+
+open ConnesWeilRH.Dev
+
+#print axioms a005_item5_producer_wired_repaired_owner_charge2802
