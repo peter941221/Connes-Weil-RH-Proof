@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1D4D7EndpointCharges2756
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms d4d7_endpoint_integral_charges2756
+#print axioms d4d7_endpoint_integral_charges_tiny2756

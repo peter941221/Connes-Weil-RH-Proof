@@ -1613,3 +1613,7 @@ This closes the owner-coherent jet interface needed by the D4/D7 consumer. It do
 ## 2755 explicit representative D4/D7 boxes (2026-10-17)
 
 The generic transition-jet output is now named as `representativeD4Box2755` and `representativeD7Box2755`, both `RealInterval2429` boxes on the same `representativeCell2736` owner. Lean proves each membership and their conjunction for every point in the owner cell. Linux-native audit: 3666/3666, zero errors, standard axiom trio only. This is an input-shape reduction for later integral/tail consumers; it is not an outward numerical replay, D4/D7 integral bound, pin, Producer GO, SourceRH, or RH result. Evidence: `docs/proofs/2755_explicit_d4_d7_boxes.md`, `results/2755_explicit_d4_d7_boxes.json`.
+
+## 2756 D4/D7 endpoint integral charges (2026-10-17)
+
+`d4d7_endpoint_integral_charges2756` combines the existing endpoint majorant and interval-integral theorem at orders 4 and 7, while `d4d7_endpoint_integral_charges_tiny2756` proves both charges are below 10^-1000. Linux-native audit: 3656/3656, zero errors, standard axiom trio only. This closes the endpoint contribution for these two derivative orders; finite interior replay, full D4/D7 numerical bounds, pins, Producer GO and RH remain open. Evidence: `docs/proofs/2756_d4_d7_endpoint_charges.md`, `results/2756_d4_d7_endpoint_charges.json`.
