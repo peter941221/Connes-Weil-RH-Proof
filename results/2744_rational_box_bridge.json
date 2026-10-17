@@ -1,0 +1,31 @@
+{
+  "record": "2744",
+  "status": "GREEN",
+  "theorems": [
+    "RationalBox2744.mem_toRealInterval",
+    "RationalBox2744.toRealInterval_ordered",
+    "RationalBox2744.mem_add"
+  ],
+  "build": "lake build ConnesWeilRH.Dev.C1RationalBoxBridge2744Audit",
+  "jobs": 2117,
+  "errors": 0,
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "files": {
+    "ConnesWeilRH/Dev/C1RationalBoxBridge2744.lean": "50b2c66141006baa1ecc71a22b4806e61ec2ef1287f1b1dc4a195547fa5f2c2b",
+    "ConnesWeilRH/Dev/C1RationalBoxBridge2744Audit.lean": "b71cdd85d2afc584ec28f15b71f97370d250e7dbd09a776a2fe3a261278993d9",
+    "docs/proofs/2744_rational_box_bridge.md": "83d6a867e155ec3856e53728cb19e16f0e7d653ad5bf8ffaf759d8370e44a795"
+  },
+  "claims": {
+    "rational_box_embedding": true,
+    "rational_addition": true,
+    "outward_replay": false,
+    "finite_integral": false,
+    "D4_D7": false,
+    "pins": false,
+    "RH": false
+  }
+}
