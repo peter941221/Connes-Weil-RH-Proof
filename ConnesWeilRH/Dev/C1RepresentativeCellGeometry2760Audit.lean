@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1RepresentativeCellGeometry2760
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms representativeCell2736_length_eq
+#print axioms representativeCell2736_length_pos
