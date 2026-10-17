@@ -1,26 +1,17 @@
 {
-  "record": "2738",
-  "status": "GREEN",
-  "theorem": "rationalSeedTransitionJet_mem2738",
-  "build": "lake build ConnesWeilRH.Dev.C1SeedRationalTransitionJet2738Audit",
-  "jobs": 3661,
-  "errors": 0,
-  "axioms": [
-    "propext",
-    "Classical.choice",
-    "Quot.sound"
-  ],
-  "files": {
-    "ConnesWeilRH/Dev/C1SeedRationalTransitionJet2738.lean": "82a8510e07b7265cb5db4ce7267a958fab39505463a198448553ceea6e6a8c47",
-    "ConnesWeilRH/Dev/C1SeedRationalTransitionJet2738Audit.lean": "279e7c2ce5617a8a517280328608cb54f1c66bc789a18ef805dd0c065cf9881e",
-    "docs/proofs/2738_rational_transition_jet.md": "26c9a12f6330b40900d1fb2caf7a87eb6952e621698cb5405f593921f37b55bd"
+  "record": 2738,
+  "status": "PASS",
+  "checks": {
+    "footer": true,
+    "no_errors": true,
+    "decl_audit": true,
+    "source_copy": true,
+    "audit_copy": true,
+    "standard_axioms": true
   },
-  "claims": {
-    "rational_box_to_reciprocal_jet": true,
-    "rational_box_to_transition_product_jet": true,
-    "finite_cell_replay": false,
-    "D4_D7": false,
-    "pins": false,
-    "RH": false
-  }
+  "source_sha256": "82a8510e07b7265cb5db4ce7267a958fab39505463a198448553ceea6e6a8c47",
+  "checker_sha256": "07bb2529087c0f60e34cdb3377437b122bbff3a28abd85df496b8f63c03d7352",
+  "nonclaims": [
+    "No floating-point outward replay, finite integration, D4/D7, pins, carrier or RH claim."
+  ]
 }
