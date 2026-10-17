@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1RepresentativeClosedChildD4D72768
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms leftClosedChildD4D7_mem2768
+#print axioms rightClosedChildD4D7_mem2768
