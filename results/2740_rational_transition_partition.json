@@ -1,0 +1,26 @@
+{
+  "record": "2740",
+  "status": "GREEN",
+  "theorem": "partitionRationalTransitionJet_mem2740",
+  "build": "lake build ConnesWeilRH.Dev.C1RationalTransitionPartition2740Audit",
+  "jobs": 3663,
+  "errors": 0,
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "files": {
+    "ConnesWeilRH/Dev/C1RationalTransitionPartition2740.lean": "f17efd34c343ee78f03467b45b0043bac34cb241b8a2b9a570d2d43b182c969d",
+    "ConnesWeilRH/Dev/C1RationalTransitionPartition2740Audit.lean": "99cc81b3ac9a9b723606abd417fecfe04e21239c0f6b0209f612c855cceaaa15",
+    "docs/proofs/2740_rational_transition_partition.md": "ae54c22f998f07b24102cf0743069264de5e2ec9fae2066723345aa9407fac6c"
+  },
+  "claims": {
+    "two_cell_exact_real_finite_cover": true,
+    "outward_replay": false,
+    "full_partition": false,
+    "D4_D7": false,
+    "pins": false,
+    "RH": false
+  }
+}

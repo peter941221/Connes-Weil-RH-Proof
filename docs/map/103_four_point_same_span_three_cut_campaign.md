@@ -1590,3 +1590,16 @@ Audit build: Linux 3662 jobs, 0 errors, standard axiom trio only. This does
 not certify a full partition, outward replay, D4/D7, pins, carrier,
  rho-quantified duties or RH. Evidence: `docs/proofs/2739_representative_rational_transition.md`,
 `results/2739_representative_rational_transition.json`.
+
+## 2740 two-cell rational transition partition (2026-10-17)
+
+The representative cell is split at its exact rational midpoint into
+`leftCell2740` and `rightCell2740`. `partitionRationalTransitionJet_mem2740`
+proves that a point in either child receives a valid rational transition-jet
+containment for every derivative order.
+
+Audit build: Linux 3663 jobs, 0 errors, standard axiom trio only. This remains
+an exact-real finite-cover semantic certificate; outward replay, full
+partition, integration, D4/D7, pins, carrier, rho duties and RH remain open.
+Evidence: `docs/proofs/2740_rational_transition_partition.md`,
+`results/2740_rational_transition_partition.json`.
