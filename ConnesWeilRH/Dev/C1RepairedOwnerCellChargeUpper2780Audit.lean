@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1RepairedOwnerCellChargeUpper2780
+
+open ConnesWeilRH.Dev
+
+#print axioms record2686RepairedOwnerCellCharge_constant_lt_10000_2790
+#print axioms record2686RepairedOwnerCellCharge_constant_pos_lt_10000_2790
