@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1D4D7EndpointTransitionCoef2784
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms endpointTransitionCoef_d4_d7_values2784
+#print axioms endpointTransitionCoef_d4_d7_pos2784

@@ -1,0 +1,1 @@
+{"record":"2784","theorems":["endpointTransitionCoef_d4_d7_values2784","endpointTransitionCoef_d4_d7_pos2784"],"build":"ConnesWeilRH.Dev.C1D4D7EndpointTransitionCoef2784Audit","status":"passed","jobs":3658,"axioms":["propext","Classical.choice","Quot.sound"],"nonclaims":["selected-detector coefficient identity","qw>=0","SourceRH","RH"]}
