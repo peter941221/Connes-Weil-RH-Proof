@@ -85,6 +85,16 @@ theorem representativeRationalTransitionPartition_mem2740 {x : ℝ} (n : ℕ)
   exact partitionRationalTransitionJet_mem2740 n
     (representativeCell_partition2740 hx)
 
+theorem partitionCells_ordered2740 :
+    representativeCell2736.lo ≤ leftCell2740.hi ∧
+    leftCell2740.hi = rightCell2740.lo ∧
+    rightCell2740.lo ≤ representativeCell2736.hi := by
+  constructor
+  · norm_num [leftCell2740, representativeCell2736]
+  constructor
+  · rfl
+  · norm_num [rightCell2740, representativeCell2736]
+
 end
 end ConnesWeilRH.Source.C1ExplicitSmoothSeed
 

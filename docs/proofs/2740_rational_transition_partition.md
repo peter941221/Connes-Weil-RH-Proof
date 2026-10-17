@@ -22,3 +22,7 @@ now yields one of the two valid child transition-jet containments.
 The end-to-end consumer theorem now combines midpoint coverage and child
 certificates: representative-cell membership alone yields one valid child
 transition-jet containment. Audit prints all three theorem leaves.
+
+The geometric invariant `partitionCells_ordered2740` proves endpoint ordering
+and exact midpoint sharing, which is the boundary condition needed before
+summing cell-level charges.
