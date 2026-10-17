@@ -1,0 +1,19 @@
+{
+  "record": 2736,
+  "status": "PASS",
+  "checks": {
+    "footer": true,
+    "no_errors": true,
+    "no_warnings": true,
+    "decl_audit": true,
+    "source_copy": true,
+    "audit_copy": true,
+    "representative_pins": true,
+    "standard_axioms": true
+  },
+  "source_sha256": "0f540485ac6be0717313302966ee883124a8e2c4ebed703c7e4ec1193d245452",
+  "checker_sha256": "976c53e0126a29b6f1626eba721393101886e8ab32917384818be12d718abf52",
+  "nonclaims": [
+    "No full-cell replay or D4/D7 integral certificate."
+  ]
+}

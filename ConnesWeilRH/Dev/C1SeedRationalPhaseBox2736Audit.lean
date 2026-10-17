@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1SeedRationalPhaseBox2736
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms rationalPhaseExpBox_mem2736
+#print axioms representativePhaseExpBox_mem2736
