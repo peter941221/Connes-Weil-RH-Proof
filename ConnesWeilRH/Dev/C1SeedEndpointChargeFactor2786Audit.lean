@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1SeedEndpointChargeFactor2786
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms seedEndpointCharge_factor2786
+#print axioms seedEndpointCharge_d4_d7_factor2786

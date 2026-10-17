@@ -1,0 +1,1 @@
+{"record":"2786","theorems":["seedEndpointCharge_factor2786","seedEndpointCharge_d4_d7_factor2786"],"build":"ConnesWeilRH.Dev.C1SeedEndpointChargeFactor2786Audit","status":"passed","jobs":3660,"axioms":["propext","Classical.choice","Quot.sound"],"nonclaims":["representative-cell transfer","selected-detector coefficient identity","qw>=0","SourceRH","RH"]}
