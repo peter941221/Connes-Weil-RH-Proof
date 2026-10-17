@@ -2,6 +2,7 @@ import ConnesWeilRH.Dev.C1RepresentativePartitionGeometry2761
 
 open ConnesWeilRH.Source.C1ExplicitSmoothSeed
 
+#print axioms midpointCell2740_eq
 #print axioms leftCell2740_length_eq
 #print axioms rightCell2740_length_eq
 #print axioms partitionCellLengths_sum2761

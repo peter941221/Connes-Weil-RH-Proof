@@ -2,6 +2,10 @@ import ConnesWeilRH.Dev.C1RepresentativeCellGeometry2760
 
 namespace ConnesWeilRH.Source.C1ExplicitSmoothSeed
 
+theorem midpointCell2740_eq :
+    leftCell2740.hi = (16787455 : ℝ) / 67108864 := by
+  norm_num [leftCell2740, representativeCell2736]
+
 theorem leftCell2740_length_eq :
     leftCell2740.hi - leftCell2740.lo = (2047 : ℝ) / 67108864 := by
   norm_num [leftCell2740, representativeCell2736]
