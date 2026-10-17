@@ -1,0 +1,29 @@
+{
+  "record": "2751",
+  "status": "GREEN",
+  "theorems": [
+    "unitExpBox_mem2751",
+    "unitExpBox_mem_of_half2751"
+  ],
+  "build": "lake build ConnesWeilRH.Dev.C1RationalE0Box2751Audit",
+  "jobs": 3658,
+  "errors": 0,
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "files": {
+    "ConnesWeilRH/Dev/C1RationalE0Box2751.lean": "9526b0d6eeb361b7aa5c9f7d7eef39281dbeb91093a78d9d19a5a69187d0b0ab",
+    "ConnesWeilRH/Dev/C1RationalE0Box2751Audit.lean": "4e8a857320679b26ea77a10657db639f3b05fa8202d83d6e8b30133ccad2ed65",
+    "docs/proofs/2751_rational_e0_box.md": "383313c0341d5ccc5aae933e9f9644b8e6b6c9fd1612bb0c610377c324c3d715"
+  },
+  "claims": {
+    "rational_e0_generation": true,
+    "outward_replay": false,
+    "finite_integral": false,
+    "D4_D7": false,
+    "pins": false,
+    "RH": false
+  }
+}
