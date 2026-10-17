@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1ChargeRestRepairedOwnerBridge2793
+
+open ConnesWeilRH.Dev
+
+#print axioms chargeRest_le_knownError_of_repaired_owner_bridge2793
+#print axioms chargeRest_le_knownError_of_repaired_owner_identity2793
