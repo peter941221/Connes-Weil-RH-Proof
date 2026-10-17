@@ -1229,3 +1229,70 @@ family's contradiction audit, not a family reopening. Evidence:
 `results/2722f_rowB_capture_check.json`,
 `scripts/generate_rowB_capture_2722f.py`,
 `scripts/check_rowB_capture_2722f.py`.
+
+
+## 2723 the wired `hprefix` proved from orbit data (2026-10-17)
+
+The 2708 contract's P2 duty landed on the stored row-B lane: the
+finite-set to shell-prefix identification is now a THEOREM, and the
+wired `hprefix` premise is REPLACED by pointwise orbit data in
+`ConnesWeilRH.Source.C1RowBPrefixTransport2723`.  Three theorems:
+`dyadicShellIndex_abs_im_lt_six_2723` (the shell-index side
+condition from the wired cap `421/20 < 64 = 2^6` by
+`Nat.find_min'`), `rowBSpanPrefix_re_le_negXiMult_sq_2723` (the wired
+`hprefix` shape at any source test `g`, proved from {hoff, h6,
+htarget, hzero} by `sum_spectralHeightShellPrefix_eq_shell_prefix`
+plus the 2722C full-orbit transport inequality, bridged by
+`simpa only [neg_mul]`), and `fourPointContradictionRowBStored2723`
+(the 2722F stored contradiction with `hprefix` replaced by
+{`hright`, `htarget`, `hzero`}).  Premise accounting: `hprefix`
+REMOVED (an analytic shell-sum sign estimate), count 7 -> 9 with
+`hright` (a first-order sign fact) and `htarget` / `hzero` (orbit
+interpolation and in-ball non-orbit vanishing EQUALITIES) added —
+obligation shrinks in kind, not count (2722C doctrine); every
+summation sign estimate in the chain is now inside a proved theorem.
+Build green (footer 3868 jobs, 0 error, 0 sorry, 0 entry warnings,
+five-declaration trio census); checker `check_rowB_prefix_2723.py`
+29/29 build-attested with four mutation controls and the hprefix token-stream tie
+machine-checked (`results/2723_rowB_prefix_check.json`).  Instrument
+laws this round: the `neg_mul` shape (`-a * b` vs `-(a * b)` are not
+defeq Real terms; bridge with `simpa only [neg_mul]`, never re-spell
+either side); final-newline check after every fresh write; audit-file
+`#print axioms` lines must fit 100 characters (bundle prefix is 60
+characters, so names stay <= 40); infeasible-control second instance
+(a `str.replace` mutation that did not literally occur re-checked the
+unmutated copy; fix = regex mutation + changed-text assertion inside
+the control).
+
+Reopen obstruction after 2723 (map-103 freeze unchanged):
+
+- `hprefix` — CLOSED (this record).  `htarget` / `hzero` remain
+  named residual duties; numeric support of their data legs is 2719
+  (stored lists == in-ball zero set) and the orbit-value tables;
+  Lean certification is a separate brick.
+- `hgate24` — model grade only (2716/2717/2718; 4/4 sign claims,
+  3.36% / 2.92% margins).  Lean brick shape: a certified evaluation
+  of the ICgate quadratic on the stored carrier (the 2718 rig's
+  interval certificates, imported as exact rational endpoints).
+- Three cardinal pins — named; the triangle-ladder mechanism is
+  frozen by 2722B (measured miss 4.79e7 / 1.08e6 / 5.63e4).  The only
+  surviving mechanism is the 2720 per-node-rung decay envelope
+  plugged into the 2722A scalar-pin shape; campaign card (bounded
+  progress gate): owner = stored row-B cardinal owners, premise to
+  remove = the three pins, consumer = 2723's contradiction, criterion
+  = a Lean proof of the pins from a formalized D-ladder + rung
+  envelope with the standard trio, budget = separate multi-session
+  brick, stop = any rung that fails to price at the wired constants.
+- `hNorm` / `hIm` — single-carrier-point caps (rho is one named
+  point; no uniform-in-rho quantifier is required by the consumer).
+  Provenance: 2716/2719 measurements (row-B zero `gamma_2` inside
+  the caps); the caps stay named premises.
+- The 813-entry remainder of the 818-entry degree campaign — PARKED
+  per 2706/2707: completing those entries discharges neither the
+  defect identity nor selected-detector positivity, and the priority
+  is the mathematical feasibility gate (this lane), not more entry
+  builds.  No reopen without a named changed hypothesis.
+
+Evidence: `docs/proofs/2723_rowB_prefix_transport.md`,
+`results/2723_rowB_prefix_check.json`,
+`scripts/check_rowB_prefix_2723.py`.

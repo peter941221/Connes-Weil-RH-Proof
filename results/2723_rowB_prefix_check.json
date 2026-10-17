@@ -1,0 +1,196 @@
+{
+  "schema": "2723_ROWB_PREFIX_CHECK_V1",
+  "verdict": "GREEN",
+  "grade": "build-attested",
+  "failures": [],
+  "checks_passed": 29,
+  "checks_total": 29,
+  "results": [
+    {
+      "check": "exists:C1RowBPrefixTransport2723.lean",
+      "ok": true,
+      "detail": "ConnesWeilRH/Dev/C1RowBPrefixTransport2723.lean"
+    },
+    {
+      "check": "exists:C1RowBPrefixTransport2723Audit.lean",
+      "ok": true,
+      "detail": "ConnesWeilRH/Dev/C1RowBPrefixTransport2723Audit.lean"
+    },
+    {
+      "check": "exists:C1RowBStoredCapture2722F.lean",
+      "ok": true,
+      "detail": "ConnesWeilRH/Dev/C1RowBStoredCapture2722F.lean"
+    },
+    {
+      "check": "P1.dev.mirror_sha256",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "P1.audit.mirror_sha256",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "P2.theorem:dyadicShellIndex_abs_im_lt_six_2723",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "P2.theorem:rowBSpanPrefix_re_le_negXiMult_sq_2723",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "P2.theorem:rowBSpanPrefix_of_imCap_2723",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "P2.theorem:storedRowBPrefix2723",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "P2.theorem:fourPointContradictionRowBStored2723",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "P3.audit_print_list",
+      "ok": true,
+      "detail": "got=['#print axioms ConnesWeilRH.Source.C1RowBPrefixTransport2723.dyadicShellIndex_abs_im_lt_six_2723', '#print axioms ConnesWeilRH.Source.C1RowBPrefixTransport2723.rowBSpanPrefix_re_le_negXiMult_sq_2723', '#print axioms ConnesWeilRH.Source.C1RowBPrefixTransport2723.rowBSpanPrefix_of_imCap_2723', '#print axioms ConnesWeilRH.Source.C1RowBPrefixTransport2723.storedRowBPrefix2723', '#print axioms ConnesWeilRH.Source.C1RowBPrefixTransport2723.fourPointContradictionRowBStored2723']"
+    },
+    {
+      "check": "P4.parent_binders",
+      "ok": true,
+      "detail": "got=['rho', 'hNorm', 'hIm', 'hcontractPin', 'hquarticPin', 'hquadraticPin', 'hgate24', 'hprefix']"
+    },
+    {
+      "check": "P4.variant_binders",
+      "ok": true,
+      "detail": "got=['rho', 'hNorm', 'hIm', 'hright', 'hcontractPin', 'hquarticPin', 'hquadraticPin', 'hgate24', 'htarget', 'hzero']"
+    },
+    {
+      "check": "P5.parent_application",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "P5.application_shape",
+      "ok": true,
+      "detail": "fourPointContradictionRowBStored2722F rho hNorm hIm hcontractPin hquarticPin hquadraticPin hgate24 (storedRowBPrefix2723 rho hright hIm htarget hzero)"
+    },
+    {
+      "check": "P6.parent_sum_count",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "check": "P6.stored_sum_count",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "check": "P6.hprefix_token_tie",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "K1.swapped_caps_rejected",
+      "ok": true,
+      "detail": "mutated=True"
+    },
+    {
+      "check": "K2.dropped_print_rejected",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "K3.dropped_hright_rejected",
+      "ok": true,
+      "detail": "mutated=True"
+    },
+    {
+      "check": "K4.order_flip_rejected",
+      "ok": true,
+      "detail": "mutated=True"
+    },
+    {
+      "check": "B1.footer",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "B1.error_lines",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "B1.sorry_lines",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "B1.axiom_records",
+      "ok": true,
+      "detail": "count=5"
+    },
+    {
+      "check": "B2.entry_warning_free",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "B3.olean:dev",
+      "ok": true,
+      "detail": "143752"
+    },
+    {
+      "check": "B3.olean:audit",
+      "ok": true,
+      "detail": "2016"
+    }
+  ],
+  "attestation": {
+    "full": true,
+    "log_basename": "2723_prefix_build.log",
+    "log_sha256": "1e9a9ac1bfd71edee4bb02743a322546c6dbb4aa9c161c40afc3ac3f18b8738a"
+  },
+  "premise_accounting": {
+    "parent_premises": [
+      "hNorm",
+      "hIm",
+      "hcontractPin",
+      "hquarticPin",
+      "hquadraticPin",
+      "hgate24",
+      "hprefix"
+    ],
+    "variant_premises": [
+      "hNorm",
+      "hIm",
+      "hright",
+      "hcontractPin",
+      "hquarticPin",
+      "hquadraticPin",
+      "hgate24",
+      "htarget",
+      "hzero"
+    ],
+    "removed": [
+      "hprefix"
+    ],
+    "added": [
+      "hright",
+      "htarget",
+      "hzero"
+    ],
+    "honesty": "hprefix was an analytic sign estimate; the replacements are pointwise orbit-data facts, and the summation sign argument now lives in the proved record-2722C transport theorem. Count grows, kind shrinks."
+  },
+  "provenance": {
+    "checker_sha256": "7ee2fd502e46309a88ca9cf328eddb23aa99f83d1ef31482ea7307707741dfeb",
+    "dev_sha256": "2ea6e86bb8226bfb0ef30a72de086919db3da245d45d37d4f6f5b781fe379763",
+    "audit_sha256": "0314ea6e9292e14b6454c6de68878184477f507591e741eda3e71c24a6374be6"
+  }
+}
