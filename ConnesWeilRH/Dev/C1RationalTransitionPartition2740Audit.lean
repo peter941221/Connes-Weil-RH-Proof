@@ -5,3 +5,4 @@ open ConnesWeilRH.Source.C1ExplicitSmoothSeed
 #print axioms representativeRationalTransitionPartition_mem2740
 #print axioms partitionCells_ordered2740
 #print axioms partitionCells_subset2740
+#print axioms representativeD4D7TransitionPartition_mem2740
