@@ -1,0 +1,399 @@
+{
+  "record": 2725,
+  "date": "2026-10-17",
+  "status": "PASS",
+  "verdict": "ENVELOPE-BRIDGE-L1MASS3-BEARING",
+  "object": "powered-seed endpoint envelope: ship theorem norm_cardinalSum_poweredSeed_le_endpoint_env",
+  "checks": {
+    "S1.hradius_def_present": true,
+    "S1.targets_count": true,
+    "S1.nodes_count": true,
+    "S1.y_literals_count": true,
+    "S1.targets_distinct": true,
+    "S1.nodes_distinct": true,
+    "S1.targets_subset_nodes": true,
+    "S1.triple_in_targets": true,
+    "S1.actives_in_nodes": true,
+    "S1.actives_distinct": true,
+    "S1.actives_same_height": true,
+    "S1.actives_radius_inside": true,
+    "S1.wired_pins_parsed": true,
+    "S1.tie_rho_re": true,
+    "S1.tie_rho_im": true,
+    "S1.tie_targets": true,
+    "S1.tie_base_nodes_eq_targets": true,
+    "S1.tie_nodes": true,
+    "S1.tie_actives": true,
+    "S1.anchor_owner_cardinality": true,
+    "S1.anchor_corr_active": true,
+    "S1.anchor_H_bitwise": true,
+    "S1.anchor_radius_bitwise": true,
+    "S2.d_table_controls": true,
+    "S2.p3_script_hash_matches_2720_provenance": true,
+    "S2.d_table_anchor_bitwise": true,
+    "S2.consts_counts": true,
+    "S2.anchor_C4_bitwise": true,
+    "S2.anchor_C2_bitwise": true,
+    "S2.anchor_q_bitwise": true,
+    "S2.tie_equals_2722C": true,
+    "S2.pin_q_l1u3": true,
+    "S2.pin_C4_l1u3": true,
+    "S2.pin_C2_l1u3": true,
+    "S3.clone_base_bitwise": true,
+    "S3.clone_corr_bitwise": true,
+    "S3.clone_q_bitwise": true,
+    "S3.clone_pointcells_bitwise": true,
+    "S3.mono_l1u4_ge_l1u3_pointcells": true,
+    "S4.monotone_l1u": true,
+    "S4.q_inert_l1u1000_bitwise": true,
+    "S4.clearing_bound_C4": true,
+    "S4.clearing_bound_C2": true,
+    "S5.coverage_l1u3_reanchor": true,
+    "S5.coverage_l1u4_clean": true
+  },
+  "failures": [],
+  "l1u3_lane": {
+    "sup_base": 18106182.341737904,
+    "sup_corr": 2864710.008676995,
+    "C4_star": 60524298.630698465,
+    "C2_star": 28161344.216206506,
+    "q_star_T64": 2.5248153557101123e-16,
+    "tie": {
+      "C4_star": 60524298.630698465,
+      "C4_pin": 61000000.0,
+      "C4_margin": 475701.3693015352,
+      "C2_star": 28161344.216206506,
+      "C2_pin": 29000000.0,
+      "C2_margin": 838655.7837934941,
+      "q_star_T64": 2.5248153557101123e-16,
+      "q_pin": 2.6e-16,
+      "q_margin": 7.51846442898877e-18
+    }
+  },
+  "l1u4_lane": {
+    "sup_base": 223696894.15477678,
+    "sup_corr": 21288761.484148253,
+    "C4_star": 645061739.1447207,
+    "C2_star": 215700251.18533155,
+    "q_star_T64": 2.5248153557101123e-16,
+    "clears": {
+      "C4": false,
+      "C2": false,
+      "q": true
+    },
+    "ratios_over_l1u3": {
+      "C4": 10.657896972597706,
+      "C2": 7.659444433096298,
+      "q": 1.0
+    }
+  },
+  "boundary_brackets": {
+    "C4": {
+      "Lstar_rigorous": 3.002349604479395,
+      "law": "value(l1u) <= value(3)*(l1u/3)^10 (min-homogeneity of the per-node Psi)",
+      "m_lo": 3.0023466021297907,
+      "value_at_m_lo": 60999390.00274501,
+      "clears_at_m_lo": true,
+      "m_hi": 3.002352606828999,
+      "value_at_m_hi": 61000610.00274493,
+      "clears_at_m_hi": false
+    },
+    "C2": {
+      "Lstar_rigorous": 3.0088165995432155,
+      "law": "value(l1u) <= value(3)*(l1u/3)^10 (min-homogeneity of the per-node Psi)",
+      "m_lo": 3.008813590726616,
+      "value_at_m_lo": 28999710.001305,
+      "clears_at_m_lo": true,
+      "m_hi": 3.008819608359815,
+      "value_at_m_hi": 29000290.001304988,
+      "clears_at_m_hi": false
+    }
+  },
+  "binding_classification": {
+    "C4_arg_cell": {
+      "l1u3": [
+        "cell",
+        22.300000000000047,
+        22.40000000000005,
+        1
+      ],
+      "l1u4": [
+        "cell",
+        22.000000000000043,
+        22.100000000000044,
+        1
+      ],
+      "detail_l1u3": [
+        {
+          "im": 21.022039638771556,
+          "binding": "crude",
+          "rung_k": null
+        },
+        {
+          "im": 21.022039638771556,
+          "binding": "crude",
+          "rung_k": null
+        },
+        {
+          "im": -21.022039638771556,
+          "binding": "rung",
+          "rung_k": 4
+        },
+        {
+          "im": -21.022039638771556,
+          "binding": "rung",
+          "rung_k": 4
+        },
+        {
+          "im": 21.022039638771556,
+          "binding": "crude",
+          "rung_k": null
+        },
+        {
+          "im": 0.0,
+          "binding": "rung",
+          "rung_k": 3
+        },
+        {
+          "im": 0.0,
+          "binding": "rung",
+          "rung_k": 3
+        },
+        {
+          "im": 0.0,
+          "binding": "rung",
+          "rung_k": 3
+        }
+      ],
+      "detail_l1u4": [
+        {
+          "im": 21.022039638771556,
+          "binding": "crude",
+          "rung_k": null
+        },
+        {
+          "im": 21.022039638771556,
+          "binding": "crude",
+          "rung_k": null
+        },
+        {
+          "im": -21.022039638771556,
+          "binding": "rung",
+          "rung_k": 4
+        },
+        {
+          "im": -21.022039638771556,
+          "binding": "rung",
+          "rung_k": 4
+        },
+        {
+          "im": 21.022039638771556,
+          "binding": "crude",
+          "rung_k": null
+        },
+        {
+          "im": 0.0,
+          "binding": "rung",
+          "rung_k": 3
+        },
+        {
+          "im": 0.0,
+          "binding": "rung",
+          "rung_k": 3
+        },
+        {
+          "im": 0.0,
+          "binding": "rung",
+          "rung_k": 3
+        }
+      ]
+    },
+    "C2_arg_cell": {
+      "l1u3": [
+        "cell",
+        19.60000000000001,
+        19.70000000000001,
+        1
+      ],
+      "l1u4": [
+        "cell",
+        19.900000000000013,
+        20.000000000000014,
+        1
+      ],
+      "detail_l1u3": [
+        {
+          "im": 21.022039638771556,
+          "binding": "crude",
+          "rung_k": null
+        },
+        {
+          "im": 21.022039638771556,
+          "binding": "crude",
+          "rung_k": null
+        },
+        {
+          "im": 21.022039638771556,
+          "binding": "crude",
+          "rung_k": null
+        }
+      ],
+      "detail_l1u4": [
+        {
+          "im": 21.022039638771556,
+          "binding": "rung",
+          "rung_k": 1
+        },
+        {
+          "im": 21.022039638771556,
+          "binding": "rung",
+          "rung_k": 1
+        },
+        {
+          "im": 21.022039638771556,
+          "binding": "rung",
+          "rung_k": 1
+        }
+      ]
+    },
+    "q_arg_cell": {
+      "l1u3": [
+        64.0,
+        67.2,
+        1
+      ],
+      "l1u4": [
+        64.0,
+        67.2,
+        1
+      ],
+      "detail_l1u3": [
+        {
+          "im": 21.022039638771556,
+          "binding": "rung",
+          "rung_k": 4
+        },
+        {
+          "im": 21.022039638771556,
+          "binding": "rung",
+          "rung_k": 4
+        },
+        {
+          "im": -21.022039638771556,
+          "binding": "rung",
+          "rung_k": 5
+        },
+        {
+          "im": -21.022039638771556,
+          "binding": "rung",
+          "rung_k": 5
+        },
+        {
+          "im": 21.022039638771556,
+          "binding": "rung",
+          "rung_k": 4
+        },
+        {
+          "im": 0.0,
+          "binding": "rung",
+          "rung_k": 4
+        },
+        {
+          "im": 0.0,
+          "binding": "rung",
+          "rung_k": 4
+        },
+        {
+          "im": 0.0,
+          "binding": "rung",
+          "rung_k": 4
+        }
+      ],
+      "detail_l1u4": [
+        {
+          "im": 21.022039638771556,
+          "binding": "rung",
+          "rung_k": 4
+        },
+        {
+          "im": 21.022039638771556,
+          "binding": "rung",
+          "rung_k": 4
+        },
+        {
+          "im": -21.022039638771556,
+          "binding": "rung",
+          "rung_k": 5
+        },
+        {
+          "im": -21.022039638771556,
+          "binding": "rung",
+          "rung_k": 5
+        },
+        {
+          "im": 21.022039638771556,
+          "binding": "rung",
+          "rung_k": 4
+        },
+        {
+          "im": 0.0,
+          "binding": "rung",
+          "rung_k": 4
+        },
+        {
+          "im": 0.0,
+          "binding": "rung",
+          "rung_k": 4
+        },
+        {
+          "im": 0.0,
+          "binding": "rung",
+          "rung_k": 4
+        }
+      ]
+    }
+  },
+  "coverage": {
+    "l1u3": {
+      "fails": 0,
+      "worst_sampled_over_envelope": 0.0003302474455696471
+    },
+    "l1u4": {
+      "fails": 0,
+      "worst_sampled_over_envelope": 0.0003302474455696471
+    }
+  },
+  "premise_ledger": {
+    "h1_l1Mass_le_l1u": "l1u = 3 (bitwise-anchored, pins clear); the certified lane proves clearing for every l1u within (C2: l1u <= 3.0088165995, C4: l1u <= 3.0023496045) [min-homogeneity law]; l1u = 4 fails the lane by 10.57x / 7.44x over the pins; q* is l1u-inert (l1u = 1000 bitwise equal).  The mass premise l1Mass smoothSeed <= 3 is load-bearing",
+    "h1n_0_le_l1u": "trivial",
+    "hne_rungs_nonempty": "rungs = {1..12}",
+    "hD_derivOrderL1_le_Dk": "12 certified D-table pins (artifact-grade; D_1 = 2, D_2 = 8 exact committed)",
+    "hDn_0_le_Dk": "trivial (certified D_k > 0)",
+    "wired_pins_still_named": true,
+    "wired_hypotheses_removed": 0
+  },
+  "mp_context_at_scan": {
+    "mp_dps": 60,
+    "iv_dps": 30
+  },
+  "nonclaims": [
+    "numeric certified enclosures in the mpf chain, not Lean theorems; the Lean-side numeric import of the D-table stays artifact-grade",
+    "model-grade stored binary64 nodes; the node-radius transfer brick stays open",
+    "the three wired pins remain named hypotheses (wired_hypotheses_removed = 0 at the wiring level); this record reduces their numeric premise set to the l1u requirement plus the D-table pins",
+    "no producer GO, no map-103 reopening, no SourceRH, no RH claim"
+  ],
+  "provenance": {
+    "checker": {
+      "path": "scripts/envelope_bridge_2725.py",
+      "sha256": "38e8bfad0bc9e88a123fe2e8d103ce89572adb99f17dd0768d8749b0e41a9ab9"
+    },
+    "frozen_2720_producer": "f16ce609d50c195d1c25c02a2e33ee00fa859575ee874491ec82b750f2ed19b8",
+    "capture_module": "2244175cc4b92d483f07d8b9b746aae3dc8220a27c6035400e1a554bc1d6f2e7",
+    "wired_module": "40e493fe3f3c9169e4ba516da52d33d798ecdebe88c9c52e07a2c8275668870c",
+    "ship_module": "d04e2ee3d91f46621fa93d98ade8dc0b0d13ba33602cacc1ce63199b88d2d9de",
+    "audit_module": "a1d9d4d5d34258485a713b5845ec8116e54150411dc48dcf6d2841f433deb89c",
+    "artifact_2720": "4f9d7ef7529cd0a9278a77e46e5650ae42ae8d48d2d91104ddcf1fd7adfa8573",
+    "artifact_2722c": "5899ce2523c77205e45f2fb7fd26ffd9397d0cc7a3c174a17890a88e329dab5b",
+    "p3_module_attributes_used": "CANDIDATES, Row_, certified_D_table, make_consts, scan_channel, q_star_at, envelope_cell, op, p81"
+  }
+}
