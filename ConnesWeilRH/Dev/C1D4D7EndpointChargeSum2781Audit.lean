@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1D4D7EndpointChargeSum2781
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms d4d7_endpoint_charge_sum_lt2781
