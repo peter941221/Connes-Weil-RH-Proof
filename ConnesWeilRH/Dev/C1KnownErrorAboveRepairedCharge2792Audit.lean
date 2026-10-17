@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1KnownErrorAboveRepairedCharge2792
+
+open ConnesWeilRH.Dev
+
+#print axioms knownError2109_gt_10000_2792
+#print axioms repairedOwnerTotal_lt_knownError2109_2792
