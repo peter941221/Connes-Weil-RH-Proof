@@ -1617,3 +1617,7 @@ The generic transition-jet output is now named as `representativeD4Box2755` and 
 ## 2756 D4/D7 endpoint integral charges (2026-10-17)
 
 `d4d7_endpoint_integral_charges2756` combines the existing endpoint majorant and interval-integral theorem at orders 4 and 7, while `d4d7_endpoint_integral_charges_tiny2756` proves both charges are below 10^-1000. Linux-native audit: 3656/3656, zero errors, standard axiom trio only. This closes the endpoint contribution for these two derivative orders; finite interior replay, full D4/D7 numerical bounds, pins, Producer GO and RH remain open. Evidence: `docs/proofs/2756_d4_d7_endpoint_charges.md`, `results/2756_d4_d7_endpoint_charges.json`.
+
+## 2757 representative-cell D4/D7 integral envelope (2026-10-17)
+
+See docs/proofs/2757_representative_cell_d4_d7_integral.md and esults/2757_representative_cell_d4_d7_integral.json; the representative-cell D4/D7 integral envelope is Lean-verified at 3667 jobs.

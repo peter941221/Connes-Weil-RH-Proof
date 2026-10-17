@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RepresentativeD4D7CellIntegral2757
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms representativeD4D7Cell_integral_bound2757
