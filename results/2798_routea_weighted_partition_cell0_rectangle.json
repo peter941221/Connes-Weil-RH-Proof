@@ -1,0 +1,1 @@
+{"record":"2798","theorem":"record2687Cell0BaseM0Rect_scalar_bounds2798","build":"ConnesWeilRH.Dev.C1RouteAWeightedPartitionCell0Rectangle2798Audit","status":"passed","jobs":3528,"axioms":["propext","Classical.choice","Quot.sound"],"nonclaims":["channel containment","chargeRest identity","qw>=0","SourceRH","RH"]}

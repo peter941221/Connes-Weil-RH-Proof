@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RouteAWeightedPartitionCell0Rectangle2798
+
+open ConnesWeilRH.Dev
+
+#print axioms record2687Cell0BaseM0Rect_scalar_bounds2798
