@@ -1,0 +1,26 @@
+{
+  "record": "2749",
+  "status": "GREEN",
+  "theorem": "rationalTransitionJet_mem2749",
+  "build": "lake build ConnesWeilRH.Dev.C1RationalTransitionJet2749Audit",
+  "jobs": 3656,
+  "errors": 0,
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "files": {
+    "ConnesWeilRH/Dev/C1RationalTransitionJet2749.lean": "4d045384ba586b280c4c6873c00fd8d0359041fa0ff7efe37b869ba0a466c50e",
+    "ConnesWeilRH/Dev/C1RationalTransitionJet2749Audit.lean": "45f18b0778cc256a3def5562d03a007f35b66911187ec6336c744e6058f8e644",
+    "docs/proofs/2749_rational_transition_jet.md": "28eff38524d6acd9b04032bc7216e863bd167251c7ea5efd22016b0f95364c6c"
+  },
+  "claims": {
+    "rational_transition_jet_composition": true,
+    "outward_replay": false,
+    "finite_integral": false,
+    "D4_D7": false,
+    "pins": false,
+    "RH": false
+  }
+}

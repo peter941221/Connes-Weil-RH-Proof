@@ -1,0 +1,3 @@
+import ConnesWeilRH.Dev.C1RationalTransitionJet2749
+open ConnesWeilRH.Dev
+#print axioms rationalTransitionJet_mem2749
