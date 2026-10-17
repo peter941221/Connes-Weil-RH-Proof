@@ -26,3 +26,7 @@ transition-jet containment. Audit prints all three theorem leaves.
 The geometric invariant `partitionCells_ordered2740` proves endpoint ordering
 and exact midpoint sharing, which is the boundary condition needed before
 summing cell-level charges.
+
+The reverse inclusion theorem `partitionCells_subset2740` proves that either
+child cell stays inside the representative cell, completing the two-way
+membership interface for the finite partition.

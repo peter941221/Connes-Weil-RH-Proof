@@ -95,6 +95,15 @@ theorem partitionCells_ordered2740 :
   · rfl
   · norm_num [rightCell2740, representativeCell2736]
 
+theorem partitionCells_subset2740 {x : ℝ}
+    (hx : leftCell2740.Mem x ∨ rightCell2740.Mem x) :
+    representativeCell2736.Mem x := by
+  rcases hx with hleft | hright
+  · exact ⟨hleft.1, le_trans hleft.2 (by
+      norm_num [leftCell2740, representativeCell2736])⟩
+  · exact ⟨le_trans (by
+      norm_num [rightCell2740, representativeCell2736]) hright.1, hright.2⟩
+
 end
 end ConnesWeilRH.Source.C1ExplicitSmoothSeed
 
