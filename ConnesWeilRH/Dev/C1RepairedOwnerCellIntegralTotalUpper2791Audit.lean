@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RepairedOwnerCellIntegralTotalUpper2791
+
+open ConnesWeilRH.Dev
+
+#print axioms record2686RepairedOwnerCellIntegralTotal_lt_10000_2791
