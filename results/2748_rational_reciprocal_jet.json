@@ -1,0 +1,26 @@
+{
+  "record": "2748",
+  "status": "GREEN",
+  "theorem": "rationalReciprocalJet_mem2748",
+  "build": "lake build ConnesWeilRH.Dev.C1RationalReciprocalJet2748Audit",
+  "jobs": 3657,
+  "errors": 0,
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "files": {
+    "ConnesWeilRH/Dev/C1RationalReciprocalJet2748.lean": "2d278db0457bec52e12a9660a06bcc6c966594cd2096a37e3b2a9d9ed7e273b7",
+    "ConnesWeilRH/Dev/C1RationalReciprocalJet2748Audit.lean": "6ab2e7d3bfc4d40ed356ca26a4d6b4d395aeef131f8a1f621a6a3c0baeb67ddb",
+    "docs/proofs/2748_rational_reciprocal_jet.md": "4e01abd26669bedfde0055d4d2dba9fd5a5e23eda34b047fe3f220feee0eeb87"
+  },
+  "claims": {
+    "rational_reciprocal_jet_membership": true,
+    "outward_replay": false,
+    "finite_integral": false,
+    "D4_D7": false,
+    "pins": false,
+    "RH": false
+  }
+}

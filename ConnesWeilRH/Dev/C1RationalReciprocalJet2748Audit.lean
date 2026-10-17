@@ -1,0 +1,3 @@
+import ConnesWeilRH.Dev.C1RationalReciprocalJet2748
+open ConnesWeilRH.Dev
+#print axioms rationalReciprocalJet_mem2748

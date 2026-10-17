@@ -24,17 +24,10 @@
   "files": {
     "ConnesWeilRH/Dev/C1RationalBoxBridge2744.lean": "de856784abb73a480b67c76481612d9553a16b2a252a2f1323975937be223fb7",
     "ConnesWeilRH/Dev/C1RationalBoxBridge2744Audit.lean": "792320fee0d233f0d0d9d71c7df76192bc9141b0fc85fbdb5ab21a5e1158f551",
-    "docs/proofs/2744_rational_box_bridge.md": "ed4c6f43c2fcf6925e67bdf8b907a1792fe1e45290451e91a943a0a40497637a"
+    "docs/proofs/2744_rational_box_bridge.md": "c718a14247439020c69252239346ed2b2c8b6d88c5fed2a761dc746e853fc366"
   },
   "claims": {
-    "rational_box_embedding": true,
-    "rational_addition": true,
-    "nonnegative_scaling": true,
-    "rational_subtraction": true,
-    "operation_compatibility": true,
-    "finite_sum": true,
-    "rational_multiplication": true,
-    "positive_inverse": true,
+    "rational_box_operations": true,
     "outward_replay": false,
     "finite_integral": false,
     "D4_D7": false,
