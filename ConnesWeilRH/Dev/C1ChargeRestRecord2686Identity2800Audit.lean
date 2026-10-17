@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1ChargeRestRecord2686Identity2800
+
+open ConnesWeilRH.Dev
+
+#print axioms record2686RepairedOwnerTotal_lt_10000_2800
+#print axioms chargeRest_le_knownError_of_record2686_total_identity2800
