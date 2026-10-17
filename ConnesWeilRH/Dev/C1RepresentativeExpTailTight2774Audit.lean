@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RepresentativeExpTailTight2774
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms representativePhaseExpTail_le_one_div_2402774

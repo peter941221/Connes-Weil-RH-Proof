@@ -1,0 +1,1 @@
+{"record":"2774","theorem":"representativePhaseExpTail_le_one_div_2402774","build":"ConnesWeilRH.Dev.C1RepresentativeExpTailTight2774Audit","status":"passed","axioms":["propext","Classical.choice","Quot.sound"],"claim":"endpoint expTail <= 1/240","nonclaims":["child box closure","SourceRH","RH"]}
