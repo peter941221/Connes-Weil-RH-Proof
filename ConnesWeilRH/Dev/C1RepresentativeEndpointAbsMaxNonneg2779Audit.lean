@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RepresentativeEndpointAbsMaxNonneg2779
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms representativeD4D7_endpointAbsMax_nonneg2779
