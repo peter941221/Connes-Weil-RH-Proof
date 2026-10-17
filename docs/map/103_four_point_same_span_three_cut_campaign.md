@@ -1620,4 +1620,4 @@ The generic transition-jet output is now named as `representativeD4Box2755` and 
 
 ## 2757 representative-cell D4/D7 integral envelope (2026-10-17)
 
-See docs/proofs/2757_representative_cell_d4_d7_integral.md and esults/2757_representative_cell_d4_d7_integral.json; the representative-cell D4/D7 integral envelope is Lean-verified at 3667 jobs.
+See `docs/proofs/2757_representative_cell_d4_d7_integral.md` and `results/2757_representative_cell_d4_d7_integral.json`; the representative-cell D4/D7 integral envelope is Lean-verified at 3667 jobs.
