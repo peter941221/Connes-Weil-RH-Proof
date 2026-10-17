@@ -1609,3 +1609,7 @@ Evidence: `docs/proofs/2740_rational_transition_partition.md`,
 `representativeD4D7TransitionPartition_mem2740` exposes order-4 and order-7 transition-jet memberships together on the same registered `representativeCell2736` owner. The theorem is Lean-checked in the Linux-native 3664-job audit and every audited declaration uses only `[propext, Classical.choice, Quot.sound]`.
 
 This closes the owner-coherent jet interface needed by the D4/D7 consumer. It does not prove numerical D4/D7 integral bounds, outward endpoint replay, cardinal pins, poweredSeed carrier transfer, or universal-rho producer obligations. Evidence: `results/2740_rational_transition_partition.json` and `docs/proofs/2754_d4_d7_owner_interface.md`.
+
+## 2755 explicit representative D4/D7 boxes (2026-10-17)
+
+The generic transition-jet output is now named as `representativeD4Box2755` and `representativeD7Box2755`, both `RealInterval2429` boxes on the same `representativeCell2736` owner. Lean proves each membership and their conjunction for every point in the owner cell. Linux-native audit: 3666/3666, zero errors, standard axiom trio only. This is an input-shape reduction for later integral/tail consumers; it is not an outward numerical replay, D4/D7 integral bound, pin, Producer GO, SourceRH, or RH result. Evidence: `docs/proofs/2755_explicit_d4_d7_boxes.md`, `results/2755_explicit_d4_d7_boxes.json`.

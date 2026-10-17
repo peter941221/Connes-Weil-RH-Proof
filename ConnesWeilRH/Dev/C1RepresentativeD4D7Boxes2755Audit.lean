@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RepresentativeD4D7Boxes2755
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms representativeD4Box_mem2755
+#print axioms representativeD7Box_mem2755
+#print axioms representativeD4D7Boxes_mem2755

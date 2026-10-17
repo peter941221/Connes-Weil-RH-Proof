@@ -1,0 +1,14 @@
+{
+  "record": "2755",
+  "status": "PASS",
+  "checks": {
+    "linux_native_audit_build": true,
+    "jobs": 3666,
+    "errors": 0,
+    "declarations": 3,
+    "standard_axioms": ["propext", "Classical.choice", "Quot.sound"]
+  },
+  "nonclaims": [
+    "No outward floating-point replay, integral bound, numerical pin, Producer GO or RH claim."
+  ]
+}
