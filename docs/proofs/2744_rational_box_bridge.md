@@ -21,3 +21,7 @@ be consumed by existing semantic interval theorems.
 The bridge now supports recursive finite sums with membership preservation,
 matching the existing Lean jet sum interface. This is the aggregation step
 needed before a rational recurrence can feed the semantic jet theorem.
+
+The replay bridge now includes rational-box multiplication with exact
+compatibility to `RealInterval2429.mul`; membership follows from the existing
+interval multiplication theorem.

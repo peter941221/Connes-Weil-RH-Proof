@@ -83,6 +83,32 @@ theorem RationalBox2744.mem_sum {r : ℕ → RationalBox2744} {v : ℕ → ℝ}
     · exact ih (fun j hj => h j (by omega))
     · exact h n (by omega)
 
+def RationalBox2744.mul (a b : RationalBox2744) : RationalBox2744 :=
+  { lo := min (min (a.lo * b.lo) (a.lo * b.hi))
+      (min (a.hi * b.lo) (a.hi * b.hi))
+    hi := max (max (a.lo * b.lo) (a.lo * b.hi))
+      (max (a.hi * b.lo) (a.hi * b.hi))
+    ordered := by
+      exact le_trans (min_le_left _ _)
+        (le_trans (min_le_left _ _)
+          (le_trans (le_max_left _ _) (le_max_left _ _))) }
+
+theorem RationalBox2744.toRealInterval_mul (a b : RationalBox2744) :
+    (a.mul b).toRealInterval =
+      a.toRealInterval.mul b.toRealInterval := by
+  cases a
+  cases b
+  simp [RationalBox2744.mul, RationalBox2744.toRealInterval,
+    RealInterval2429.mul, Rat.cast_mul]
+
+theorem RationalBox2744.mem_mul {a b : RationalBox2744} {x y : ℝ}
+    (hx : a.Mem x) (hy : b.Mem y) :
+    (a.mul b).Mem (x * y) := by
+  have h := RealInterval2429.mem_mul
+    (a := a.toRealInterval) (b := b.toRealInterval) hx hy
+  rw [← RationalBox2744.toRealInterval_mul] at h
+  exact h
+
 def RationalBox2744.nsmul (c : ℚ) (hc : 0 ≤ c) (a : RationalBox2744) : RationalBox2744 :=
   { lo := c * a.lo
     hi := c * a.hi
