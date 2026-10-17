@@ -1498,3 +1498,19 @@ bounds propagation/replay and integration partition, then the three
 poweredSeed pins and carrier. No D4/D7 integral theorem, universal-rho
 producer or RH claim follows. Evidence: `docs/proofs/2731_seed_jet_semantics.md`,
 `results/2731_seed_jet_semantics.json`.
+
+
+## 2732 actual endpoint derivative majorants proved (2026-10-17)
+
+For 0<x<=1/2 and n<=7, C1SeedEndpointMajorants2732 proves
+|T^(n)(x)| <= 8*d_n*x^(-2n)*exp(-1/x) for the actual Mathlib transition.
+The source phase derivatives, E/R/T magnitude inductions and finite
+b/c/d coefficient recurrences are proved, not supplied as hypotheses.
+Fourteen audited theorems, standard trio14/14, Linux build3654 jobs,
+readback27/27; coefficient tables match record2730 exactly.
+
+Endpoint-uniform maximization, endpoint integration, finite interval
+replay and the derivOrderL1 integration partition remain open. No D4/D7
+integral theorem, cardinal pin, carrier or universal-rho producer follows.
+See `docs/proofs/2732_seed_endpoint_majorants.md` and
+`results/2732_seed_endpoint_majorants.json`.

@@ -1,0 +1,18 @@
+import ConnesWeilRH.Dev.C1SeedEndpointMajorants2732
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms iteratedDeriv_inv2732
+#print axioms iteratedDeriv_reflected_inv2732
+#print axioms iteratedDeriv_transitionPhase2732
+#print axioms abs_iteratedDeriv_transitionPhase2732
+#print axioms endpointExpCoef_succ2732
+#print axioms endpointReciprocalCoef_succ2732
+#print axioms endpointTransitionCoef_eq2732
+#print axioms transitionExp_le_one2732
+#print axioms abs_iteratedDeriv_transitionExp2732
+#print axioms abs_iteratedDeriv_transitionExp_crude2732
+#print axioms abs_iteratedDeriv_transitionReciprocal2732
+#print axioms abs_iteratedDeriv_smoothTransition_majorant2732
+#print axioms transitionExp_le_endpoint_exp2732
+#print axioms abs_iteratedDeriv_smoothTransition_endpoint2732

@@ -1,0 +1,116 @@
+{
+  "record": 2732,
+  "status": "PASS",
+  "checks": {
+    "build_footer": true,
+    "no_errors": true,
+    "no_entry_warnings": true,
+    "declaration_audit_exact": true,
+    "no_admissions_or_new_axioms": true,
+    "axioms_iteratedDeriv_inv2732": true,
+    "axioms_iteratedDeriv_reflected_inv2732": true,
+    "axioms_iteratedDeriv_transitionPhase2732": true,
+    "axioms_abs_iteratedDeriv_transitionPhase2732": true,
+    "axioms_endpointExpCoef_succ2732": true,
+    "axioms_endpointReciprocalCoef_succ2732": true,
+    "axioms_endpointTransitionCoef_eq2732": true,
+    "axioms_transitionExp_le_one2732": true,
+    "axioms_abs_iteratedDeriv_transitionExp2732": true,
+    "axioms_abs_iteratedDeriv_transitionExp_crude2732": true,
+    "axioms_abs_iteratedDeriv_transitionReciprocal2732": true,
+    "axioms_abs_iteratedDeriv_smoothTransition_majorant2732": true,
+    "axioms_transitionExp_le_endpoint_exp2732": true,
+    "axioms_abs_iteratedDeriv_smoothTransition_endpoint2732": true,
+    "source_copy_.lean": true,
+    "olean_.lean": true,
+    "source_copy_Audit.lean": true,
+    "olean_Audit.lean": true,
+    "coefficient_tie_E": true,
+    "coefficient_tie_reciprocal": true,
+    "coefficient_tie_T": true,
+    "endpoint_order_domain_pins": true
+  },
+  "axioms": {
+    "iteratedDeriv_inv2732": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "iteratedDeriv_reflected_inv2732": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "iteratedDeriv_transitionPhase2732": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "abs_iteratedDeriv_transitionPhase2732": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "endpointExpCoef_succ2732": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "endpointReciprocalCoef_succ2732": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "endpointTransitionCoef_eq2732": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "transitionExp_le_one2732": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "abs_iteratedDeriv_transitionExp2732": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "abs_iteratedDeriv_transitionExp_crude2732": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "abs_iteratedDeriv_transitionReciprocal2732": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "abs_iteratedDeriv_smoothTransition_majorant2732": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "transitionExp_le_endpoint_exp2732": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "abs_iteratedDeriv_smoothTransition_endpoint2732": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_sha256": {
+    "ConnesWeilRH/Dev/C1SeedEndpointMajorants2732.lean": "49de3f5a38324c97ae3b43e683b41d9e3cca66d0f156147b3c92523654070c02",
+    "ConnesWeilRH/Dev/C1SeedEndpointMajorants2732Audit.lean": "9c52e970c59699e8a7f50059b9cb422d0f8d9b933cf92ebc51377ccb1bbf6156"
+  },
+  "build_log_sha256": "f9339377cb1ec90cfc1959063739b0f7f25b078956b5433b7fc444d99f081158",
+  "checker_sha256": "4d89306af985ac9db3c75f03e01a08dc97019aff42a12d34d5e7b66a9b0a79db",
+  "coefficient_reference_sha256": "b0503571d59e25a70f0848f2a57556c5e73b4cf33cc158281325c7bf41db188f",
+  "nonclaims": [
+    "Pointwise endpoint derivative bounds are proved; no endpoint integral or D4/D7 integral certificate is proved.",
+    "No carrier re-seed, gate or universal-rho producer is supplied."
+  ]
+}
