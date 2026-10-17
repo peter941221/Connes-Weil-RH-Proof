@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RepresentativePartitionCoverage2763
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms representativeCell2740_iff_childCoverage2763
