@@ -34,4 +34,17 @@ theorem RationalBox2744.mem_add {a b : RationalBox2744} {x y : ℝ}
   norm_num only [Rat.cast_add]
   constructor <;> linarith [hx.1, hx.2, hy.1, hy.2]
 
+def RationalBox2744.nsmul (c : ℚ) (hc : 0 ≤ c) (a : RationalBox2744) : RationalBox2744 :=
+  { lo := c * a.lo
+    hi := c * a.hi
+    ordered := by exact mul_le_mul_of_nonneg_left a.ordered hc }
+
+theorem RationalBox2744.mem_nsmul {c : ℚ} {a : RationalBox2744} {x : ℝ}
+    (hc : 0 ≤ c) (hx : a.Mem x) :
+    (RationalBox2744.nsmul c hc a).Mem ((c : ℝ) * x) := by
+  simp only [RationalBox2744.Mem, RationalBox2744.nsmul]
+  norm_num only [Rat.cast_mul]
+  have hcR : (0 : ℝ) ≤ c := by exact_mod_cast hc
+  constructor <;> nlinarith [hx.1, hx.2]
+
 end ConnesWeilRH.Dev
