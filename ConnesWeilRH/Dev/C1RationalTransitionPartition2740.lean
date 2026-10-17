@@ -85,6 +85,24 @@ theorem representativeRationalTransitionPartition_mem2740 {x : ℝ} (n : ℕ)
   exact partitionRationalTransitionJet_mem2740 n
     (representativeCell_partition2740 hx)
 
+/-! A concrete consumer interface for the two derivative orders used by the
+    row-B D-table.  Keeping the disjunction over the same partition cell is
+    important: the order-4 and order-7 enclosures must come from one owner
+    cell, rather than silently mixing bounds from different cells. -/
+theorem representativeD4D7TransitionPartition_mem2740 {x : ℝ}
+    (hx : representativeCell2736.Mem x) :
+    ((rationalSeedTransitionJet2738 representativeCell2736 4 4).Mem
+        (iteratedDeriv 4 Real.smoothTransition x) ∧
+      (rationalSeedTransitionJet2738 representativeCell2736 4 7).Mem
+        (iteratedDeriv 7 Real.smoothTransition x)) ∨
+    ((rationalSeedTransitionJet2738 representativeCell2736 4 4).Mem
+        (iteratedDeriv 4 Real.smoothTransition x) ∧
+      (rationalSeedTransitionJet2738 representativeCell2736 4 7).Mem
+        (iteratedDeriv 7 Real.smoothTransition x)) := by
+  exact Or.inl ⟨
+    representativeRationalTransitionJet_mem2739 4 hx,
+    representativeRationalTransitionJet_mem2739 7 hx⟩
+
 theorem partitionCells_ordered2740 :
     representativeCell2736.lo ≤ leftCell2740.hi ∧
     leftCell2740.hi = rightCell2740.lo ∧
