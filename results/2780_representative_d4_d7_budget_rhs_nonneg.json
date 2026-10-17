@@ -1,0 +1,1 @@
+{"record":"2780","theorem":"representativeD4D7Budget_rhs_nonneg2780","build":"ConnesWeilRH.Dev.C1RepresentativeD4D7BudgetRhsNonneg2780Audit","status":"passed","jobs":3674,"axioms":["propext","Classical.choice","Quot.sound"],"nonclaims":["qw>=0","SourceRH","RH"]}
