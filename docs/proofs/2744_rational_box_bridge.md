@@ -25,3 +25,6 @@ needed before a rational recurrence can feed the semantic jet theorem.
 The replay bridge now includes rational-box multiplication with exact
 compatibility to `RealInterval2429.mul`; membership follows from the existing
 interval multiplication theorem.
+
+The bridge now supports positive endpoint inversion, completing the basic
+operation set required by denominator reciprocal jet recurrence.

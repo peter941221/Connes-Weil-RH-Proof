@@ -109,6 +109,35 @@ theorem RationalBox2744.mem_mul {a b : RationalBox2744} {x y : ℝ}
   rw [← RationalBox2744.toRealInterval_mul] at h
   exact h
 
+def RationalBox2744.invPositive (a : RationalBox2744) (ha : 0 < a.lo) : RationalBox2744 :=
+  { lo := a.hi⁻¹
+    hi := a.lo⁻¹
+    ordered := by
+      have hhi : 0 < a.hi := lt_of_lt_of_le ha a.ordered
+      have hhiR : (0 : ℝ) < a.hi := by exact_mod_cast hhi
+      have hloR : (0 : ℝ) < a.lo := by exact_mod_cast ha
+      have hR := (inv_le_inv₀ hhiR hloR).2 (by exact_mod_cast a.ordered)
+      exact_mod_cast hR }
+
+theorem RationalBox2744.toRealInterval_invPositive (a : RationalBox2744)
+    (ha : 0 < a.lo) :
+    (a.invPositive ha).toRealInterval =
+      a.toRealInterval.invPositive := by
+  cases a
+  simp [RationalBox2744.invPositive, RationalBox2744.toRealInterval,
+    RealInterval2429.invPositive]
+
+theorem RationalBox2744.mem_invPositive {a : RationalBox2744} {x : ℝ}
+    (ha : 0 < a.lo) (hx : a.Mem x) :
+    (a.invPositive ha).Mem x⁻¹ := by
+  have haR : (0 : ℝ) < a.toRealInterval.lo := by
+    change (0 : ℝ) < a.lo
+    exact_mod_cast ha
+  have h := RealInterval2429.mem_invPositive
+    (a := a.toRealInterval) (x := x) haR hx
+  rw [← RationalBox2744.toRealInterval_invPositive] at h
+  exact h
+
 def RationalBox2744.nsmul (c : ℚ) (hc : 0 ≤ c) (a : RationalBox2744) : RationalBox2744 :=
   { lo := c * a.lo
     hi := c * a.hi
@@ -123,4 +152,5 @@ theorem RationalBox2744.mem_nsmul {c : ℚ} {a : RationalBox2744} {x : ℝ}
   constructor <;> nlinarith [hx.1, hx.2]
 
 end ConnesWeilRH.Dev
+
 
