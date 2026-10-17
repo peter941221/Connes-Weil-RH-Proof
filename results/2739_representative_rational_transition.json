@@ -1,0 +1,26 @@
+{
+  "record": "2739",
+  "status": "GREEN",
+  "theorem": "representativeRationalTransitionJet_mem2739",
+  "build": "lake build ConnesWeilRH.Dev.C1RepresentativeRationalTransition2739Audit",
+  "jobs": 3662,
+  "errors": 0,
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "files": {
+    "ConnesWeilRH/Dev/C1RepresentativeRationalTransition2739.lean": "8a87a75b5050748b02a06c912aecf22953d7b2c485dc7c8f398b85637e48a900",
+    "ConnesWeilRH/Dev/C1RepresentativeRationalTransition2739Audit.lean": "ae42c098d69270ffb06072cfab8fd7649b67dd6a1eff23ffcbdc541591c0cf91",
+    "docs/proofs/2739_representative_rational_transition.md": "7e3e02f78cd5b71da9f189b6f6ef442714a5d774a9423854a63bc6efe4bd690a"
+  },
+  "claims": {
+    "representative_cell_exact_real_containment": true,
+    "full_partition": false,
+    "outward_replay": false,
+    "D4_D7": false,
+    "pins": false,
+    "RH": false
+  }
+}

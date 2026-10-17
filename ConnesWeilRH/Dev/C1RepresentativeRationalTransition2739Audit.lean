@@ -1,0 +1,3 @@
+import ConnesWeilRH.Dev.C1RepresentativeRationalTransition2739
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+#print axioms representativeRationalTransitionJet_mem2739

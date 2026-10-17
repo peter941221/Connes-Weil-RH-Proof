@@ -1578,3 +1578,15 @@ the semantic jet chain; it does not certify floating-point outward replay,
 finite-region integration, D4/D7, pins, carrier, universal-rho duties or RH.
 Evidence: `docs/proofs/2738_rational_transition_jet.md`,
 `results/2738_rational_transition_jet.json`.
+
+## 2739 representative rational transition cell (2026-10-17)
+
+`representativeRationalTransitionJet_mem2739` instantiates the generic 2738
+certificate on `representativeCell2736` with rational scale m=4. The cell
+premises are discharged by exact rational arithmetic, yielding a finite-cell
+exact-real containment for every derivative order.
+
+Audit build: Linux 3662 jobs, 0 errors, standard axiom trio only. This does
+not certify a full partition, outward replay, D4/D7, pins, carrier,
+ rho-quantified duties or RH. Evidence: `docs/proofs/2739_representative_rational_transition.md`,
+`results/2739_representative_rational_transition.json`.
