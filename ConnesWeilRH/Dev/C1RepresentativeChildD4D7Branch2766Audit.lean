@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1RepresentativeChildD4D7Branch2766
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms leftChildD4D7_mem_of_lt_midpoint2766
+#print axioms rightChildD4D7_mem_of_gt_midpoint2766
