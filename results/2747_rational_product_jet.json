@@ -1,0 +1,28 @@
+{
+  "record": "2747",
+  "status": "GREEN",
+  "theorems": [
+    "rationalProductJet_mem2747"
+  ],
+  "build": "lake build ConnesWeilRH.Dev.C1RationalProductJet2747Audit",
+  "jobs": 2118,
+  "errors": 0,
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "files": {
+    "ConnesWeilRH/Dev/C1RationalProductJet2747.lean": "4428215222ca65f3b7bc0c1f44c04468ae1f1e42c82429558bc4cb3e8181c9c6",
+    "ConnesWeilRH/Dev/C1RationalProductJet2747Audit.lean": "6e14dc85607df2769431d839c6b8f549ebebc914f54f5be27a7373956f9de859",
+    "docs/proofs/2747_rational_product_jet.md": "dddfb194073af2eae2a14b0e424bd019c6902f7546979bdf2a37cdbf671f16bf"
+  },
+  "claims": {
+    "rational_product_jet_membership": true,
+    "outward_replay": false,
+    "finite_integral": false,
+    "D4_D7": false,
+    "pins": false,
+    "RH": false
+  }
+}

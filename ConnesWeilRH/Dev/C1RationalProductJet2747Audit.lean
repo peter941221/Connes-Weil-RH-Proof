@@ -1,0 +1,3 @@
+import ConnesWeilRH.Dev.C1RationalProductJet2747
+open ConnesWeilRH.Dev
+#print axioms rationalProductJet_mem2747
