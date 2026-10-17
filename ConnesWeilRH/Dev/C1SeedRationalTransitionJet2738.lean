@@ -1,4 +1,5 @@
 import ConnesWeilRH.Dev.C1SeedRationalExpJet2737
+import ConnesWeilRH.Dev.C1RationalPhaseBoxInvariants2742
 
 namespace ConnesWeilRH.Source.C1ExplicitSmoothSeed
 
@@ -44,23 +45,15 @@ theorem rationalSeedReciprocalJet_mem2738 (B : RealInterval2429) (m n : ℕ)
     (reciprocalJetInterval2734 (rationalSeedDenominatorJet2738 B m) n).Mem
       (iteratedDeriv n transitionReciprocal2731 x) := by
   have hdenlo : 0 < (rationalSeedDenominatorJet2738 B m 0).lo := by
-    change 0 < 1 + (rationalExpJet2737 B m 0).lo
+    simp only [rationalSeedDenominatorJet2738, RealInterval2429.add,
+      RealInterval2429.point, ite_true]
+    unfold rationalExpJet2737 exponentialJetInterval2734
+    change 0 < 1 + (rationalPhaseExpBox2736 (phaseJetInterval2734 B 0) m).lo
     have hphase := phaseJetInterval_mem2734 B 0 hlo hhi hx
     have hplo : (phaseJetInterval2734 B 0).lo ≤ 0 :=
       le_trans hphase.1 (le_trans hphase.2 hP)
-    have hEpos : 0 < (rationalExpJet2737 B m 0).lo := by
-      unfold rationalExpJet2737 exponentialJetInterval2734 rationalPhaseExpBox2736
-      change 0 < ((expTaylor (-(phaseJetInterval2734 B 0).lo / m) +
-        expTail (-(phaseJetInterval2734 B 0).lo / m)) ^ m)⁻¹
-      have hneg : 0 ≤ -(phaseJetInterval2734 B 0).lo := neg_nonneg.mpr hplo
-      have hw : 0 ≤ -(phaseJetInterval2734 B 0).lo / m := by positivity
-      have ht := one_le_expTaylor hw
-      have hr : 0 ≤ expTail (-(phaseJetInterval2734 B 0).lo / m) := by
-        unfold expTail
-        positivity
-      have hq : 0 < expTaylor (-(phaseJetInterval2734 B 0).lo / m) +
-          expTail (-(phaseJetInterval2734 B 0).lo / m) := by linarith
-      exact inv_pos.mpr (pow_pos hq m)
+    have hEpos := rationalPhaseExpBox_lo_pos2742
+      (phaseJetInterval2734 B 0) m hm (neg_nonneg.mpr hplo) hcap
     linarith
   have hf : ContDiffAt ℝ (⊤ : ℕ∞) (fun y => 1 + transitionExp2731 y) x :=
     contDiffAt_const.add (contDiffAt_transitionExp2731 ⊤
@@ -88,3 +81,4 @@ theorem rationalSeedTransitionJet_mem2738 (B : RealInterval2429) (m n : ℕ)
 
 end
 end ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
