@@ -1,0 +1,1 @@
+{"record":"2794","theorem":"record2687GridAverageChargeBelowKnownError2794","build":"ConnesWeilRH.Dev.C1RouteAWeightedPartitionAverage2794Audit","status":"passed","jobs":3527,"axioms":["propext","Classical.choice","Quot.sound"],"nonclaims":["continuum enclosure","chargeRest identity","qw>=0","SourceRH","RH"]}

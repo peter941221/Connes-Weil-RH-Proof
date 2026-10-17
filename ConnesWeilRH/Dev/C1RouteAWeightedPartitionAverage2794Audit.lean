@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RouteAWeightedPartitionAverage2794
+
+open ConnesWeilRH.Dev
+
+#print axioms record2687GridAverageChargeBelowKnownError2794
