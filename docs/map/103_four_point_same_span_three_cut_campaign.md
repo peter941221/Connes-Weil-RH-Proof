@@ -1283,6 +1283,10 @@ Reopen obstruction after 2723 (map-103 freeze unchanged):
   = a Lean proof of the pins from a formalized D-ladder + rung
   envelope with the standard trio, budget = separate multi-session
   brick, stop = any rung that fails to price at the wired constants.
+  RE-POINTED by 2724 (below): the certified constants apply to the
+  `poweredSeed` object, not the wired `explicitSeed`; the pins must
+  be re-instantiated at `poweredSeed` (record 2725) before this
+  mechanism is priced.
 - `hNorm` / `hIm` — single-carrier-point caps (rho is one named
   point; no uniform-in-rho quantifier is required by the consumer).
   Provenance: 2716/2719 measurements (row-B zero `gamma_2` inside
@@ -1296,3 +1300,46 @@ Reopen obstruction after 2723 (map-103 freeze unchanged):
 Evidence: `docs/proofs/2723_rowB_prefix_transport.md`,
 `results/2723_rowB_prefix_check.json`,
 `scripts/check_rowB_prefix_2723.py`.
+
+## 2724 the 2722E `explicitSeed` identification is FALSE: the wired
+## C4/C2 pins fall at the object they quantify
+
+The 2722E §4.4 residual ("explicitSeed identification for the model
+seed") is decided by rigorous two-sided accounting, not quadrature:
+the wired pins quantify `cardinalSum storedTargets2722F (explicitSeed
+storedRadius2722F storedHRadius2722F)` — transform `v |-> S(r v)` with
+`r = 87.0719873427753` and `L(0) = 3` — while every certified constant
+on this lane (`C4* = 6.0524299e7`, `C2* = 2.8161344e7`, `q* =
+2.5248e-16`) was computed for the model seed `v |-> S(v/2)^10`,
+`L(0) = 59049`, i.e. Lean `poweredSeed`
+(`C1ExplicitSmoothSeed.lean`, `poweredSeed_laplaceAt`). The streams
+alias at `S(0) = 3` and diverge: at `sigma = 0, t = 1/4` the base
+channel's explicit lower bound is `1.15071925488087e+95` =
+`1.886425e+87` of `wiredC4 = 6.1e7`, and at `t = Im rho` the
+correction channel's explicit lower is `9.02545872883296e+69` =
+`3.1122271e+62` of `wiredC2 = 2.9e7`; the model lanes in the same run
+reproduce the 2722E margins (`4.40e-8` / `2.30e-2` of pin, anchors
+bitwise `rel 0.0`, tail extensions re-anchored bitwise). The wired
+C4/C2 pins are FALSIFIED as written (no `|t|` threshold; one point
+suffices); the `q` pin is thresholded at `|t| >= 64` and is NOT
+directly falsified (deferred, `q_pin_status`), since the premise set
+is already unsatisfiable through C4/C2. Probe
+`scripts/screen_seed_object_2724.py` (60/60 green; machinery
+validated by `mp.quad` containment at four points and engine ties
+`2.5e-12`), artifact `results/2724_seed_object_screen.json`,
+`verdict = SEED-OBJECT-MISMATCH`. Routing: the surviving mechanism
+card in the 2723 reopen-obstruction list is re-pointed — re-seed the
+stored row-B carrier and pins
+at `poweredSeed` (record 2725; 2722D pattern; support radius
+`5*(2r+1) ~= 875.7` -> `~105`), where the 2720/2722C constants apply
+by construction; proving the three pins against the CURRENT explicit
+wiring is now a named no-go. Instrument laws: `str.find` miss `-1`
+must be sanitized before `min`; bound-vs-value tie confusion carries
+the 10th-power ratio signature `(S_up/S_true)^10`; read pin quantifier
+shapes (thresholds) before designing a falsifier. Screen status:
+`wired_hypotheses_removed = 0`; no producer GO; no RH claim;
+`DEAD_ON_CURRENT_FAMILY` freeze unchanged — premise-blocker accounting
+inside the frozen family's contradiction audit. Evidence:
+`docs/proofs/2724_seed_object_screen.md`,
+`results/2724_seed_object_screen.json`,
+`scripts/screen_seed_object_2724.py`.
