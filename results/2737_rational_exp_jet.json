@@ -1,0 +1,25 @@
+{
+  "record": "2737",
+  "status": "GREEN",
+  "theorem": "rationalExpJet_mem2737",
+  "build": "lake build ConnesWeilRH.Dev.C1SeedRationalExpJet2737Audit",
+  "jobs": 3660,
+  "errors": 0,
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "files": {
+    "ConnesWeilRH/Dev/C1SeedRationalExpJet2737.lean": "60a38ec71f0ab9ba9bcebd71f1d12cba3a8eaca0f70beb7cf56381ded4497c3d",
+    "ConnesWeilRH/Dev/C1SeedRationalExpJet2737Audit.lean": "5ce6e11883d9d7b4db426eebbc83212c7e439af0b0ebec7d399c3a9018a3b54d",
+    "docs/proofs/2737_rational_exp_jet.md": "4d7d7d8b6b4ab1d005cc41dad732574da88c1011a0900f09154b3c0253f464f1"
+  },
+  "claims": {
+    "rational_phase_box_to_exponential_jet": true,
+    "finite_cell_replay": false,
+    "D4_D7": false,
+    "pins": false,
+    "RH": false
+  }
+}

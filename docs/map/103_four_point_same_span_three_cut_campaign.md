@@ -1550,3 +1550,18 @@ D4/D7 are closed. No pin/carrier/gate/RH producer follows. Evidence:
 `docs/proofs/2734_seed_interval_jet_containment.md`,
 `results/2734_seed_interval_jet.json`,
 `results/2734_seed_interval_jet_control.json`.
+
+## 2737 rational phase box feeds exponential jet (2026-10-17)
+
+`rationalExpJet_mem2737` proves that the rational phase exponential box from
+2736 is a valid input to the exact exponential derivative-jet recurrence from
+2734. For every cell B with 0 < B.lo, B.hi < 1, the explicit scaling and cap
+premises, and every n <= N, the resulting interval contains the actual
+iterated derivative of `Real.smoothTransition`'s exponential factor.
+
+Audit build: Linux 3660 jobs, 0 errors, standard axiom trio only. This closes
+only the rational-e0-to-E-jet bridge. Reciprocal denominator jet, final product
+jet, outward finite-cell replay, integration assembly, D4/D7, pins, carrier,
+rho-quantified duties, universal producer and RH remain open. Evidence:
+`docs/proofs/2737_rational_exp_jet.md`,
+`results/2737_rational_exp_jet.json`.
