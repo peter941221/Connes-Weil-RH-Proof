@@ -9,3 +9,7 @@ is included.
 The bridge now also proves membership preservation under nonnegative rational
 scalar multiplication, which is the coefficient operation required by the
 jet recurrence. It remains infrastructure rather than a completed replay.
+
+Rational-box subtraction is now included, with endpoints `a.lo-b.hi` and
+`a.hi-b.lo` and a proof that membership is preserved. This covers the phase
+recurrence's subtraction operation.

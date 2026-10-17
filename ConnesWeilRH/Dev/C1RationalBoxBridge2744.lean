@@ -34,6 +34,18 @@ theorem RationalBox2744.mem_add {a b : RationalBox2744} {x y : ℝ}
   norm_num only [Rat.cast_add]
   constructor <;> linarith [hx.1, hx.2, hy.1, hy.2]
 
+def RationalBox2744.sub (a b : RationalBox2744) : RationalBox2744 :=
+  { lo := a.lo - b.hi
+    hi := a.hi - b.lo
+    ordered := by linarith [a.ordered, b.ordered] }
+
+theorem RationalBox2744.mem_sub {a b : RationalBox2744} {x y : ℝ}
+    (hx : a.Mem x) (hy : b.Mem y) :
+    (RationalBox2744.sub a b).Mem (x - y) := by
+  simp only [RationalBox2744.Mem, RationalBox2744.sub]
+  norm_num only [Rat.cast_sub]
+  constructor <;> linarith [hx.1, hx.2, hy.1, hy.2]
+
 def RationalBox2744.nsmul (c : ℚ) (hc : 0 ≤ c) (a : RationalBox2744) : RationalBox2744 :=
   { lo := c * a.lo
     hi := c * a.hi
