@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1D4D7EndpointChargePositivity2785
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms d4d7_endpoint_charge_pos2785
+#print axioms d4d7_endpoint_charge_pos_and_tiny2785
