@@ -1,0 +1,81 @@
+{
+  "record": 2731,
+  "status": "PASS",
+  "checks": {
+    "build_footer": true,
+    "no_errors": true,
+    "no_entry_warnings": true,
+    "declaration_audit_exact": true,
+    "no_admissions_or_new_axioms": true,
+    "axioms_contDiffAt_transitionPhase2731": true,
+    "axioms_contDiffAt_transitionExp2731": true,
+    "axioms_contDiffAt_transitionReciprocal2731": true,
+    "axioms_smoothTransition_eq_exp_mul_reciprocal2731": true,
+    "axioms_iteratedDeriv_smoothTransition_product2731": true,
+    "axioms_deriv_transitionExp2731": true,
+    "axioms_iteratedDeriv_transitionExp2731": true,
+    "axioms_iteratedDeriv_reciprocal_product2731": true,
+    "axioms_iteratedDeriv_transitionReciprocal2731": true,
+    "source_copy_.lean": true,
+    "olean_.lean": true,
+    "source_copy_Audit.lean": true,
+    "olean_Audit.lean": true
+  },
+  "axioms": {
+    "contDiffAt_transitionPhase2731": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "contDiffAt_transitionExp2731": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "contDiffAt_transitionReciprocal2731": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "smoothTransition_eq_exp_mul_reciprocal2731": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "iteratedDeriv_smoothTransition_product2731": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "deriv_transitionExp2731": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "iteratedDeriv_transitionExp2731": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "iteratedDeriv_reciprocal_product2731": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "iteratedDeriv_transitionReciprocal2731": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_sha256": {
+    "ConnesWeilRH/Dev/C1SeedJetSemantics2731.lean": "e7f93a399a09d890f589cc2ff4b635d6f7d8a6a7cdd7233459a205143545662f",
+    "ConnesWeilRH/Dev/C1SeedJetSemantics2731Audit.lean": "90a8cca645bf0a5af938b8cd666b4f8ff52489b2e66953c3e7070656a761dcb4"
+  },
+  "build_log_sha256": "f741d1a50f49dcccdec539a370912459eec4941057ff0846e80f850ca04082dd",
+  "checker_sha256": "2c520ce71204e8f8ff36915076d73ac67ad570bcfbd72c4dd2a2912d3f32b848",
+  "nonclaims": [
+    "No D4/D7 integral bound, endpoint certificate or interval replay is proved.",
+    "No carrier re-seed, gate or universal-rho producer is supplied."
+  ]
+}

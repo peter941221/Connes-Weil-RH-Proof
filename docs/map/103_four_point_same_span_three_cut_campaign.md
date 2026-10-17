@@ -1483,3 +1483,18 @@ endpoint inequalities, before cell replay or carrier re-seeding.
 Evidence: `docs/proofs/2730_seed_derivative_bounds.md`,
 `scripts/seed_derivative_bounds_2730.py`,
 `results/2730_seed_derivative_bounds.json`. No producer/RH claim.
+
+
+## 2731 interior derivative recurrences proved (2026-10-17)
+
+C1SeedJetSemantics2731 identifies actual Real.smoothTransition with
+E/(1+E) on (0,1), proves smoothness there, and proves all-order source
+product, exponential and solved reciprocal derivative recurrences.
+Nine theorems, standard trio 9/9; Linux audit build 3652 jobs; readback
+18/18. This advances the semantic bridge needed by record2730.
+
+Still open: phase-input derivative slots, endpoint majorants, interval
+bounds propagation/replay and integration partition, then the three
+poweredSeed pins and carrier. No D4/D7 integral theorem, universal-rho
+producer or RH claim follows. Evidence: `docs/proofs/2731_seed_jet_semantics.md`,
+`results/2731_seed_jet_semantics.json`.

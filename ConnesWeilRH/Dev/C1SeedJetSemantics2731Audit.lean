@@ -1,0 +1,13 @@
+import ConnesWeilRH.Dev.C1SeedJetSemantics2731
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms contDiffAt_transitionPhase2731
+#print axioms contDiffAt_transitionExp2731
+#print axioms contDiffAt_transitionReciprocal2731
+#print axioms smoothTransition_eq_exp_mul_reciprocal2731
+#print axioms iteratedDeriv_smoothTransition_product2731
+#print axioms deriv_transitionExp2731
+#print axioms iteratedDeriv_transitionExp2731
+#print axioms iteratedDeriv_reciprocal_product2731
+#print axioms iteratedDeriv_transitionReciprocal2731
