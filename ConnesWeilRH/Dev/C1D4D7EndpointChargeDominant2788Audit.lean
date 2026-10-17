@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1D4D7EndpointChargeDominant2788
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms d4d7_endpoint_charge_sum_le_twice_d7_2788
+#print axioms d4d7_endpoint_charge_sum_lt_twice_tiny2788
