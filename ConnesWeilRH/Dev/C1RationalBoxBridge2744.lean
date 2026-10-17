@@ -62,6 +62,27 @@ theorem RationalBox2744.toRealInterval_sub (a b : RationalBox2744) :
   simp [RationalBox2744.sub, RationalBox2744.toRealInterval,
     RealInterval2429.sub, Rat.cast_sub]
 
+def RationalBox2744.zero : RationalBox2744 :=
+  { lo := 0, hi := 0, ordered := le_rfl }
+
+def RationalBox2744.sum (r : ℕ → RationalBox2744) : ℕ → RationalBox2744
+  | 0 => RationalBox2744.zero
+  | n + 1 => RationalBox2744.add ((RationalBox2744.sum r) n) (r n)
+
+theorem RationalBox2744.mem_sum {r : ℕ → RationalBox2744} {v : ℕ → ℝ}
+    (n : ℕ) (h : ∀ j < n, (r j).Mem (v j)) :
+    ((RationalBox2744.sum r) n).Mem (∑ j ∈ Finset.range n, v j) := by
+  induction n with
+  | zero =>
+    simp only [RationalBox2744.sum, RationalBox2744.zero,
+      RationalBox2744.Mem, Finset.sum_range_zero]
+    norm_num
+  | succ n ih =>
+    rw [RationalBox2744.sum, Finset.sum_range_succ]
+    apply RationalBox2744.mem_add
+    · exact ih (fun j hj => h j (by omega))
+    · exact h n (by omega)
+
 def RationalBox2744.nsmul (c : ℚ) (hc : 0 ≤ c) (a : RationalBox2744) : RationalBox2744 :=
   { lo := c * a.lo
     hi := c * a.hi
@@ -76,3 +97,4 @@ theorem RationalBox2744.mem_nsmul {c : ℚ} {a : RationalBox2744} {x : ℝ}
   constructor <;> nlinarith [hx.1, hx.2]
 
 end ConnesWeilRH.Dev
+

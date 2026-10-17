@@ -6,3 +6,4 @@ open ConnesWeilRH.Dev
 #print axioms RationalBox2744.mem_sub
 #print axioms RationalBox2744.toRealInterval_add
 #print axioms RationalBox2744.toRealInterval_sub
+#print axioms RationalBox2744.mem_sum

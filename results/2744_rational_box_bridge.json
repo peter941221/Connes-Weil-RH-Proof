@@ -8,7 +8,8 @@
     "RationalBox2744.mem_nsmul",
     "RationalBox2744.mem_sub",
     "RationalBox2744.toRealInterval_add",
-    "RationalBox2744.toRealInterval_sub"
+    "RationalBox2744.toRealInterval_sub",
+    "RationalBox2744.mem_sum"
   ],
   "build": "lake build ConnesWeilRH.Dev.C1RationalBoxBridge2744Audit",
   "jobs": 2117,
@@ -19,9 +20,9 @@
     "Quot.sound"
   ],
   "files": {
-    "ConnesWeilRH/Dev/C1RationalBoxBridge2744.lean": "cacf0f1b7ef6a39cb9a27927a695915c72ad0935b7eb8b93cfe56d10feba262c",
-    "ConnesWeilRH/Dev/C1RationalBoxBridge2744Audit.lean": "ba2c08abf478cf4f5f17bec4c05f7172db36f3aa10793b0790597a70e824be79",
-    "docs/proofs/2744_rational_box_bridge.md": "8eb3e831be36d799c1bb529a18454522603a9add9b9140ddebeaf3b819290549"
+    "ConnesWeilRH/Dev/C1RationalBoxBridge2744.lean": "fa4c21a3600b0b2875d13268042cb34e7131c832e4d19ff03c74e3777cec991a",
+    "ConnesWeilRH/Dev/C1RationalBoxBridge2744Audit.lean": "ed37c56bdb20ed4c40c76518359c93edb92a42389f1ea6747f3e4ac0077b13ea",
+    "docs/proofs/2744_rational_box_bridge.md": "32e01f3ecc48328cf43681b40173f0f5042407cd5ad7ed1ae94291bd09239740"
   },
   "claims": {
     "rational_box_embedding": true,
@@ -29,6 +30,7 @@
     "nonnegative_scaling": true,
     "rational_subtraction": true,
     "operation_compatibility": true,
+    "finite_sum": true,
     "outward_replay": false,
     "finite_integral": false,
     "D4_D7": false,

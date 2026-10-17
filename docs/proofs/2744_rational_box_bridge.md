@@ -17,3 +17,7 @@ recurrence's subtraction operation.
 The bridge now proves that rational-box addition and subtraction embed exactly
 as the corresponding `RealInterval2429` operations, so replay arithmetic can
 be consumed by existing semantic interval theorems.
+
+The bridge now supports recursive finite sums with membership preservation,
+matching the existing Lean jet sum interface. This is the aggregation step
+needed before a rational recurrence can feed the semantic jet theorem.
