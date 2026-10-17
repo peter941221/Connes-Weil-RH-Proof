@@ -1,0 +1,115 @@
+{
+  "record": 2734,
+  "status": "PASS",
+  "checks": {
+    "build_footer": true,
+    "no_errors": true,
+    "no_entry_warnings": true,
+    "declaration_audit_exact": true,
+    "no_admissions_or_new_axioms": true,
+    "axioms_mem_sumJetIntervals2734": true,
+    "axioms_iteratedDeriv_reciprocal_general2734": true,
+    "axioms_reciprocalJetInterval_mem2734": true,
+    "axioms_exponentialJetInterval_mem2734": true,
+    "axioms_productJetInterval_mem2734": true,
+    "axioms_coordinateJetInterval_mem2734": true,
+    "axioms_reflectedCoordinateJetInterval_mem2734": true,
+    "axioms_phaseJetInterval_mem2734": true,
+    "axioms_seedExpJetInterval_mem2734": true,
+    "axioms_seedDenominatorJetInterval_mem2734": true,
+    "axioms_seedReciprocalJetInterval_mem2734": true,
+    "axioms_seedTransitionJetInterval_mem2734": true,
+    "axioms_norm_iteratedDeriv_le_seedCellJet2734": true,
+    "source_copy_.lean": true,
+    "olean_.lean": true,
+    "source_copy_Audit.lean": true,
+    "olean_Audit.lean": true,
+    "cell_binding_and_global_count_pins": true,
+    "one_cell_control": true,
+    "control_source_hash": true,
+    "dependency_source_C1RouteAIntervalAlgebra": true,
+    "dependency_source_C1SeedJetSemantics2731": true
+  },
+  "axioms": {
+    "mem_sumJetIntervals2734": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "iteratedDeriv_reciprocal_general2734": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "reciprocalJetInterval_mem2734": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "exponentialJetInterval_mem2734": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "productJetInterval_mem2734": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "coordinateJetInterval_mem2734": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "reflectedCoordinateJetInterval_mem2734": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "phaseJetInterval_mem2734": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "seedExpJetInterval_mem2734": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "seedDenominatorJetInterval_mem2734": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "seedReciprocalJetInterval_mem2734": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "seedTransitionJetInterval_mem2734": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "norm_iteratedDeriv_le_seedCellJet2734": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_sha256": {
+    "ConnesWeilRH/Dev/C1SeedIntervalJet2734.lean": "932f0388fbbbb0a41093fb953f0da2c2bf20ea59bd33ee9a0615f422fa801cd6",
+    "ConnesWeilRH/Dev/C1SeedIntervalJet2734Audit.lean": "cee5c14b0a3178df093ca44396362fd387da74d0b3ed9fa3e0ab95ed00a5b1f6"
+  },
+  "build_log_sha256": "16dc539d950b0e6850244d2eed9916d26c6afed55ac96c60e1c788e032896da4",
+  "checker_sha256": "ca9276684d198ab7e89eacfb7d917476d6bccbcaf2de900985aa172cf6b038ed",
+  "dependency_source_sha256": {
+    "ConnesWeilRH/Dev/C1RouteAIntervalAlgebra.lean": "51fc7f68c7f2bef2b56ce0d4db885f14048b88a8fe185a1254734d3ea55cf0fe",
+    "ConnesWeilRH/Dev/C1SeedJetSemantics2731.lean": "e7f93a399a09d890f589cc2ff4b635d6f7d8a6a7cdd7233459a205143545662f"
+  },
+  "control_sha256": "4999d16772f712e20352e39de9ff1edd92636d685d97a6afbfa5e7cca8fed67d",
+  "nonclaims": [
+    "Exact real interval-jet containment is proved; rational/floating endpoint replay and full D4/D7 integrals remain open.",
+    "No carrier re-seed, gate or universal-rho producer is supplied."
+  ]
+}

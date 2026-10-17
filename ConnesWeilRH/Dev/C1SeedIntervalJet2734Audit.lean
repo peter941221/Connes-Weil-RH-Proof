@@ -1,0 +1,17 @@
+import ConnesWeilRH.Dev.C1SeedIntervalJet2734
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms mem_sumJetIntervals2734
+#print axioms iteratedDeriv_reciprocal_general2734
+#print axioms reciprocalJetInterval_mem2734
+#print axioms exponentialJetInterval_mem2734
+#print axioms productJetInterval_mem2734
+#print axioms coordinateJetInterval_mem2734
+#print axioms reflectedCoordinateJetInterval_mem2734
+#print axioms phaseJetInterval_mem2734
+#print axioms seedExpJetInterval_mem2734
+#print axioms seedDenominatorJetInterval_mem2734
+#print axioms seedReciprocalJetInterval_mem2734
+#print axioms seedTransitionJetInterval_mem2734
+#print axioms norm_iteratedDeriv_le_seedCellJet2734

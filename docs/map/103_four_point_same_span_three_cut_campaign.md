@@ -1531,3 +1531,22 @@ seed-ladder integration assembly and full D4/D7 bounds still remain;
 no pin/carrier/gate/RH producer is claimed. Evidence:
 `docs/proofs/2733_seed_endpoint_integral.md`,
 `results/2733_seed_endpoint_integral.json`.
+
+
+## 2734 exact-real interval derivative containment proved (2026-10-17)
+
+C1SeedIntervalJet2734 reuses RealInterval2429 and proves sum/product,
+positive reciprocal and exponential derivative-jet containment. Its
+canonical cell evaluator encloses actual Real.smoothTransition derivatives
+for every natural order and every x in a cell strictly inside(0,1), with
+only geometric assumptions; no stored derivative bounds are inputs.
+
+13standard-trio theorems, Linux3654-job build,27/27 readbacks. The one-cell
+convention control passes34/34, with worst normalized endpoint deviation
+2.095e-39 or less; it is not a global/floating-point certificate.
+Exact exponential endpoints still need rational certification, followed
+by outward arithmetic replay and the finite integration partition before
+D4/D7 are closed. No pin/carrier/gate/RH producer follows. Evidence:
+`docs/proofs/2734_seed_interval_jet_containment.md`,
+`results/2734_seed_interval_jet.json`,
+`results/2734_seed_interval_jet_control.json`.
