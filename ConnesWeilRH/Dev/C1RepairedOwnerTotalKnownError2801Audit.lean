@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1RepairedOwnerTotalKnownError2801
+
+open ConnesWeilRH.Dev
+
+#print axioms record2686RepairedOwnerTotal_lt_knownError2109_2801
+#print axioms chargeRest_le_knownError_of_record2686_total_le2801

@@ -1,0 +1,1 @@
+{"record":"2801","theorems":["record2686RepairedOwnerTotal_lt_knownError2109_2801","chargeRest_le_knownError_of_record2686_total_le2801"],"build":"ConnesWeilRH.Dev.C1RepairedOwnerTotalKnownError2801Audit","status":"passed","jobs":3981,"axioms":["propext","Classical.choice","Quot.sound"],"nonclaims":["selected owner identity","full partition containment","qw>=0","SourceRH","RH"]}
