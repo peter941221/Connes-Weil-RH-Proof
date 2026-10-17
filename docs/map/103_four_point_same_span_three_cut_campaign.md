@@ -1284,9 +1284,10 @@ Reopen obstruction after 2723 (map-103 freeze unchanged):
   envelope with the standard trio, budget = separate multi-session
   brick, stop = any rung that fails to price at the wired constants.
   RE-POINTED by 2724 (below): the certified constants apply to the
-  `poweredSeed` object, not the wired `explicitSeed`; the pins must
-  be re-instantiated at `poweredSeed` (record 2725) before this
-  mechanism is priced.
+  `poweredSeed` object, not the wired `explicitSeed`. LANDED by 2725
+  (below): the envelope brick and the mass-constant tie
+  (`l1Mass smoothSeed <= 3` is load-bearing), so pricing this
+  mechanism reduces to `{l1Mass <= 3 brick, D-table pins k = 1..12}`.
 - `hNorm` / `hIm` — single-carrier-point caps (rho is one named
   point; no uniform-in-rho quantifier is required by the consumer).
   Provenance: 2716/2719 measurements (row-B zero `gamma_2` inside
@@ -1330,7 +1331,8 @@ validated by `mp.quad` containment at four points and engine ties
 `verdict = SEED-OBJECT-MISMATCH`. Routing: the surviving mechanism
 card in the 2723 reopen-obstruction list is re-pointed — re-seed the
 stored row-B carrier and pins
-at `poweredSeed` (record 2725; 2722D pattern; support radius
+at `poweredSeed` (record 2725, landed below: envelope brick + l1u tie;
+2722D pattern; support radius
 `5*(2r+1) ~= 875.7` -> `~105`), where the 2720/2722C constants apply
 by construction; proving the three pins against the CURRENT explicit
 wiring is now a named no-go. Instrument laws: `str.find` miss `-1`
@@ -1343,3 +1345,41 @@ inside the frozen family's contradiction audit. Evidence:
 `docs/proofs/2724_seed_object_screen.md`,
 `results/2724_seed_object_screen.json`,
 `scripts/screen_seed_object_2724.py`.
+
+## 2725 the powered-seed endpoint envelope is a Lean theorem and
+## `l1Mass smoothSeed <= 3` is load-bearing: l1u = 4 fails the pins
+
+The 2724 re-seed brick landed in both halves. Lean:
+`norm_cardinalSum_poweredSeed_le_endpoint_env`
+(`C1PoweredSeedEnvelope2725.lean`, 12 declarations) formalizes the 2720
+per-node-rung decay envelope at the exact cardinalSum-at-poweredSeed
+shape, hypotheses `{l1Mass smoothSeed <= l1u, 0 <= l1u, rungs.Nonempty,
+derivOrderL1 k smoothSeed <= D k, 0 <= D k}`; paired audit green, exact
+axiom trio 12/12, zero sorry, linux-native build 3873 jobs. Numeric tie
+(`scripts/envelope_bridge_2725.py`, artifact
+`results/2725_envelope_bridge.json`): the 2720/2722C certified constants
+re-anchor bitwise in the Lean-emitted shape at l1u = 3 (C4* =
+6.0524299e7, C2* = 2.8161344e7, q* = 2.5248e-16; margins
+0.780%/2.892%/2.892% of pin; clone bitwise on 324/324 point cells), and
+the committed `smoothSeed_l1Mass_le_four` reading l1u = 4 FAILS C4/C2 by
+10.5748x / 7.4379x over the pins while `q*(64)` is bitwise inert (up to
+l1u = 1000). The rigorous min-homogeneity law
+`value(l1u) <= value(3)*(l1u/3)^10` (the reverse is false in general)
+certifies clearing of both pins for every `l1u <= 3.002349604479395`,
+with the same-run scan straddling the true crossing to ~2e-6. Verdict
+`ENVELOPE-BRIDGE-L1MASS3-BEARING`: the mass premise
+`l1Mass smoothSeed <= 3` is load-bearing (the committed `<= 4` is too
+weak for this lane); the residual numeric obligation of the three wired
+pins is `{l1Mass smoothSeed <= 3 brick, D-table pins k = 1..12}` on top
+of the unchanged wiring obstruction `{hgate24, hprefix, htarget/hzero
+bricks, rho caps}`. Instrument laws: never bound a parameter-lane sup by
+a two-point power fit — the argmax cell moves with the parameter (C4
+`(22.3, 22.4) -> (22.0, 22.1)`, C2 `(19.6, 19.7) -> (19.9, 20.0)`) and
+the binding mix is cell-dependent (3 crude + 5 rung at the l1u = 3 C4
+argmax, so growth reads 10.66x against the crude power 17.76x); use the
+one-sided min-homogeneity law instead. `wired_hypotheses_removed = 0`;
+no producer GO; no RH claim; `DEAD_ON_CURRENT_FAMILY` freeze unchanged —
+premise-blocker accounting inside the frozen family's contradiction
+audit. Evidence: `docs/proofs/2725_powered_seed_envelope.md`,
+`results/2725_envelope_bridge.json`,
+`scripts/envelope_bridge_2725.py`.
