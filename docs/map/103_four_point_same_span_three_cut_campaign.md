@@ -1603,3 +1603,9 @@ an exact-real finite-cover semantic certificate; outward replay, full
 partition, integration, D4/D7, pins, carrier, rho duties and RH remain open.
 Evidence: `docs/proofs/2740_rational_transition_partition.md`,
 `results/2740_rational_transition_partition.json`.
+
+## 2754 same-owner D4/D7 consumer interface (2026-10-17)
+
+`representativeD4D7TransitionPartition_mem2740` exposes order-4 and order-7 transition-jet memberships together on the same registered `representativeCell2736` owner. The theorem is Lean-checked in the Linux-native 3664-job audit and every audited declaration uses only `[propext, Classical.choice, Quot.sound]`.
+
+This closes the owner-coherent jet interface needed by the D4/D7 consumer. It does not prove numerical D4/D7 integral bounds, outward endpoint replay, cardinal pins, poweredSeed carrier transfer, or universal-rho producer obligations. Evidence: `results/2740_rational_transition_partition.json` and `docs/proofs/2754_d4_d7_owner_interface.md`.
