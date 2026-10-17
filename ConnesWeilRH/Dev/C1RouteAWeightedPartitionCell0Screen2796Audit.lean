@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1RouteAWeightedPartitionCell0Screen2796
+
+open ConnesWeilRH.Dev
+
+#print axioms record2687Cell0Charge_lt_40000_2796
+#print axioms record2687Cell0Charge_pos_2796

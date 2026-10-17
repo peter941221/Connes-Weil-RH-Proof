@@ -1,0 +1,1 @@
+{"record":"2796","theorems":["record2687Cell0Charge_lt_40000_2796","record2687Cell0Charge_pos_2796"],"build":"ConnesWeilRH.Dev.C1RouteAWeightedPartitionCell0Screen2796Audit","status":"passed","jobs":3527,"axioms":["propext","Classical.choice","Quot.sound"],"nonclaims":["continuum enclosure","chargeRest identity","qw>=0","SourceRH","RH"]}
