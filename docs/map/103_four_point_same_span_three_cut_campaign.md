@@ -1514,3 +1514,20 @@ replay and the derivOrderL1 integration partition remain open. No D4/D7
 integral theorem, cardinal pin, carrier or universal-rho producer follows.
 See `docs/proofs/2732_seed_endpoint_majorants.md` and
 `results/2732_seed_endpoint_majorants.json`.
+
+
+## 2733 endpoint integral charge proved (2026-10-17)
+
+For orders1..7, C1SeedEndpointIntegral2733 proves the actual transition
+endpoint inequality 4*integral_0^(1/4096)|T^(n)| <= seedEndpointCharge(n).
+The charge is exactly32*d_n*(1/4096)*4096^(2n)/2^4096, matching2730
+in all seven exact-rational readbacks. Uniformity follows from the
+proved antitone t^(2n)*exp(-t) beyond t=2n; no sampled endpoint or
+underflow argument. Orders4/7 charges are proved <10^(-1000).
+
+Eight standard-trio theorems, Linux3655-job build,26/26 readbacks.
+Missing endpoint proof is now closed. Finite-region interval replay,
+seed-ladder integration assembly and full D4/D7 bounds still remain;
+no pin/carrier/gate/RH producer is claimed. Evidence:
+`docs/proofs/2733_seed_endpoint_integral.md`,
+`results/2733_seed_endpoint_integral.json`.

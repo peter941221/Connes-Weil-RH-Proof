@@ -1,0 +1,12 @@
+import ConnesWeilRH.Dev.C1SeedEndpointIntegral2733
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms hasDerivAt_pow_mul_exp_neg2733
+#print axioms antitoneOn_pow_mul_exp_neg2733
+#print axioms inverse_power_exp_uniform2733
+#print axioms exp_neg_4096_le_inv_pow2733
+#print axioms norm_iteratedDeriv_transition_uniform2733
+#print axioms transition_endpoint_integral_le_charge2733
+#print axioms seedEndpointCharge_four_lt2733
+#print axioms seedEndpointCharge_seven_lt2733
