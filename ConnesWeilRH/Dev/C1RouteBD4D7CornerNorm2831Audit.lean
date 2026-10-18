@@ -1,0 +1,3 @@
+import ConnesWeilRH.Dev.C1RouteBD4D7CornerNorm2831
+
+#print axioms ConnesWeilRH.Source.C1ExplicitSmoothSeed.routeB_d4d7_corner_norm2831
