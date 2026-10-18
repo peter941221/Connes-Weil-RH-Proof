@@ -1,0 +1,3 @@
+import ConnesWeilRH.Dev.C1RouteBExteriorTailIntegral2815
+
+#print axioms ConnesWeilRH.Source.C1ExplicitSmoothSeed.routeB_exterior_tail_integral_bound2815
