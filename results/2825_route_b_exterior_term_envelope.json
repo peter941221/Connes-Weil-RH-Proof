@@ -1,0 +1,1 @@
+{"record":"2825","theorems":["routeB_exterior_term_envelope2825"],"build":"ConnesWeilRH.Dev.C1RouteBExteriorTermEnvelope2825Audit","status":"passed","jobs":2948,"axioms":["propext","Classical.choice","Quot.sound"],"nonclaims":["node data","D-table","tail integral value","cardinal pins","SourceRH","RH"]}

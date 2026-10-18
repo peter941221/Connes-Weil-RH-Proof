@@ -1,0 +1,3 @@
+import ConnesWeilRH.Dev.C1RouteBExteriorTermEnvelope2825
+
+#print axioms ConnesWeilRH.Source.C1ExplicitSmoothSeed.routeB_exterior_term_envelope2825
