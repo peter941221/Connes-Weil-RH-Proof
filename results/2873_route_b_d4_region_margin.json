@@ -1,0 +1,41 @@
+{
+  "record": 2873,
+  "regions": [
+    {
+      "left": "0.000244140625",
+      "right": "0.1353",
+      "expected_sign": "+",
+      "q_left": "3.66608610521087576767244436164e-1779",
+      "q_right": "0.00195674830053721484679142681399",
+      "d4_min": "2.89607009049249516151240126853e-1750",
+      "d4_max": "2280.39644445682409543380223674",
+      "minimum_absolute_sample": "2.89607009049249516151240126853e-1750"
+    },
+    {
+      "left": "0.1354",
+      "right": "0.3028",
+      "expected_sign": "-",
+      "q_left": "0.00196770025596622314628585076853",
+      "q_right": "0.13374999078008814080800650015",
+      "d4_min": "-1721.76771107110541516403415806",
+      "d4_max": "-0.11612393561806975028636184348",
+      "minimum_absolute_sample": "0.11612393561806975028636184348"
+    },
+    {
+      "left": "0.3029",
+      "right": "0.5",
+      "expected_sign": "+",
+      "q_left": "0.133900223716773648196259062269",
+      "q_right": "0.5",
+      "d4_min": "-1.71448108692341247332367532246e-100",
+      "d4_max": "319.157806197097896597703714585",
+      "minimum_absolute_sample": "1.71448108692341247332367532246e-100"
+    }
+  ],
+  "claims": {
+    "high_precision_sample_only": true,
+    "uniform_sign_certificate": false,
+    "integral_bound_certificate": false
+  },
+  "decision": "extract endpoint factors or prove monotonicity; do not seek a uniform sign margin"
+}
