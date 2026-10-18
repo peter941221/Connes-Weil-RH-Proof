@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RouteBSplitD4D7Assembly2813
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms routeB_split_d4d7_target_2813

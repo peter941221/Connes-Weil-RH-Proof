@@ -1,0 +1,1 @@
+{"record":"2813","theorem":"routeB_split_d4d7_target_2813","build":"ConnesWeilRH.Dev.C1RouteBSplitD4D7Assembly2813Audit","status":"passed","jobs":3665,"axioms":["propext","Classical.choice","Quot.sound"],"remaining":["exact D4 exterior tail","exact D7 exterior tail","cardinal pins","SourceRH","RH"]}
