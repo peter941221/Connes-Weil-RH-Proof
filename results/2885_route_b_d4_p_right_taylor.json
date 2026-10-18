@@ -1,0 +1,23 @@
+{
+  "claims": {
+    "endpoint_sign_certificate": false,
+    "exact_formal_taylor_polynomial": true,
+    "remainder_bound": false
+  },
+  "coefficients": {
+    "10": "300116387/62370",
+    "12": "-33344636267/2027025",
+    "14": "-1056735076307/182432250",
+    "16": "429667469015296/10854718875",
+    "18": "200384116198016/15864589125",
+    "2": "223/6",
+    "20": "-3017679254639919616/38979295480125",
+    "4": "1891/15",
+    "6": "-386081/210",
+    "8": "1921426/567"
+  },
+  "leading_coefficient": "223/6",
+  "next_target": "bound the order-22 remainder on the undecided right cells",
+  "order": 20,
+  "record": 2885
+}
