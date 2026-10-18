@@ -65,6 +65,18 @@ theorem routeBExpNegOneRealPart2900 (z : ℂ)
   rw [hneg] at hn
   exact (Real.exp_eq_one_iff z.re).mp hn
 
+theorem routeBCoshZeroExpNegOne2900 (z : ℂ)
+    (h : Complex.cosh z = 0) : Complex.exp (2 * z) = -1 := by
+  rw [Complex.cosh] at h
+  have h2 : Complex.exp z + Complex.exp (-z) = 0 := by
+    apply (div_eq_zero_iff).mp h |>.resolve_right
+    norm_num
+  have hm := congrArg (fun w : ℂ => w * Complex.exp z) h2
+  dsimp at hm
+  rw [add_mul, ← Complex.exp_add, ← Complex.exp_add] at hm
+  simp at hm
+  exact by simpa [two_mul] using (eq_neg_of_add_eq_zero_left hm)
+
 theorem routeBCauchyRemainder2891
     (M : ℝ) (hM0 : 0 ≤ M) (hM : M ≤ 1377903608911726 / 10 ^ 14) :
     M * ((1 : ℝ) / 5) ^ 22 / (1 - (1 : ℝ) / 5) < 1 / 10 ^ 13 := by
