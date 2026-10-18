@@ -4,6 +4,9 @@ namespace ConnesWeilRH.Dev
 
 noncomputable section
 
+theorem routeBArgumentRadiusConstant2900 :
+    (40 : ℝ) / 399 < 3 / 2 := by norm_num
+
 theorem routeBCauchyRemainder2891
     (M : ℝ) (hM0 : 0 ≤ M) (hM : M ≤ 1377903608911726 / 10 ^ 14) :
     M * ((1 : ℝ) / 5) ^ 22 / (1 - (1 : ℝ) / 5) < 1 / 10 ^ 13 := by
