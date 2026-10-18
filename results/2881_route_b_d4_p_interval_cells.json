@@ -1,0 +1,26 @@
+{
+  "record": 2881,
+  "rows": [
+    {
+      "u_left": "0.000244140625",
+      "u_right": "0.1353",
+      "expected_sign": "negative",
+      "cells": 200,
+      "certified": 0,
+      "undecided": 200
+    },
+    {
+      "u_left": "0.3029",
+      "u_right": "0.4999",
+      "expected_sign": "positive",
+      "cells": 200,
+      "certified": 188,
+      "undecided": 12
+    }
+  ],
+  "claims": {
+    "outward_interval_cell_screen": true,
+    "global_sign_certificate": false
+  },
+  "next_target": "reduce undecided cells with Taylor correlation bounds"
+}
