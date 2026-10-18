@@ -47,6 +47,14 @@ theorem routeBSinTaylor20_eq_mathlib2919 {x : ℝ} (hx : 0 < x) :
   simp [routeBSinTaylor20, Real.iteratedDeriv_even_sin,
     Real.iteratedDeriv_odd_sin, smul_eq_mul, div_eq_mul_inv]
 
+theorem routeBTrigTaylor20_right_arithmetic2925 :
+    let x : ℝ := (52554181792962067 : ℝ) / 10 ^ 16
+    (-858 : ℝ) / 1000 < routeBSinTaylor20 x ∧
+      routeBSinTaylor20 x < (-854 : ℝ) / 1000 ∧
+      (515 : ℝ) / 1000 < routeBCosTaylor20 x ∧
+      routeBCosTaylor20 x < (518 : ℝ) / 1000 := by
+  norm_num [routeBSinTaylor20, routeBCosTaylor20]
+
 theorem routeBSinEndpoint_of_mathlibRemainder2923
     (hsinErr : 0 ≤ (1 : ℝ) / 10 ^ 20)
     (hrem : ‖Real.sin ((52523502177204355 : ℝ) / 10 ^ 16) -
