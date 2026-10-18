@@ -10,6 +10,11 @@ by 2807.
 The evaluator membership port, per-cell corner-norm comparison, and charge
 comparison to the 2804 ledger remain open.
 
+The 2804 ledger schema contains only `index`, `left`, `right`, and exact
+`charges[4]`/`charges[7]` strings. It contains no evaluator value, rectangle,
+norm slot, or endpoint absolute maximum. Therefore the concrete 2831/2832
+premises cannot be reconstructed from that artifact alone.
+
 The earlier 2755-2783 representative-cell chain is Lean-verified, but its
 partition and evaluator owner are different. It does not transfer to these
 8192 Route B cells without a new containment and charge proof.
