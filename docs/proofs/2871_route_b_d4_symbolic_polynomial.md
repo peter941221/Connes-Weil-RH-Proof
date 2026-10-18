@@ -3,7 +3,7 @@
 The fourth derivative was expanded without interval jet composition. Let
 `q = T(u)` and `phi(u) = 1/u - 1/(1-u)`. Since
 `q' = -phi' q (1-q)`, repeated symbolic differentiation expresses `T''''`
-as `q (q-1) P(u,q) / (u^8 (u-1)^8)`, where `P` is a polynomial of degree 3
+as `q (q-1) P(u,q) / (u^8 (u-1)^8)`, where `P` is a polynomial of degree 5
 in `q` and degree 11 in `u`.
 
 This removes the main dependency source in record 2870: `u`, `phi`, and `q`
