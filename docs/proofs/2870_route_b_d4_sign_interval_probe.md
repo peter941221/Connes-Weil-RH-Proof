@@ -1,7 +1,7 @@
 # 2870 Route B D4 sign interval probe
 
 Direct interval evaluation of the replay-owned fourth derivative does not
-certify the proposed signs, even after subdivision. On all three proposed
+certify the proposed `+,-,+` signs, even after subdivision. On all three proposed
 sign regions, 128, 512, and 2048 uniform cells produced zero sign-certified
 cells. The interval ranges straddle zero; near the small-u edge this is pure
 underflow/dependency, while in the middle and upper regions the reciprocal and

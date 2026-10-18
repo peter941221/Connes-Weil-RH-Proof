@@ -3,7 +3,8 @@
 This record completes the three requested steps at the diagnostic/interface
 level. The rational zero brackets are `[1353/10000, 677/5000]` and
 `[757/2500, 3029/10000]`. The fourth derivative has opposite signs at the
-ends of both brackets. Using the three outer intervals and endpoint variation
+ends of both brackets; its pointwise sign pattern away from the brackets is
+`+,-,+`. Using the three outer intervals and endpoint variation
 of the third derivative gives:
 
 ```text

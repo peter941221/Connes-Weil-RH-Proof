@@ -14,7 +14,8 @@ four times this integral                       = 1266.2297607019
 ```
 
 The last number is below the registered D4 target 1500. The fourth derivative
-changes sign at approximately `u = 0.1353562534` and `u = 0.3028109990`.
+changes sign at approximately `u = 0.1353562534` and `u = 0.3028109990`;
+the pointwise sign pattern is `+,-,+` across the three regions.
 The current cell charge instead integrates a per-cell supremum of an interval
 jet and converges near 4000, paying the same local peak repeatedly. This is a
 classic sup-before-integral loss.
