@@ -18,4 +18,26 @@ theorem routeBTrigTaylor20_left_arithmetic2916 :
       routeBCosTaylor20 x < (515 : ℝ) / 1000 := by
   norm_num [routeBSinTaylor20, routeBCosTaylor20]
 
+theorem routeBTrigTaylor20_left_of_remainder2917
+    (hsinErr hcosErr : ℝ)
+    (hsinErr_nonneg : 0 ≤ hsinErr) (hcosErr_nonneg : 0 ≤ hcosErr)
+    (hsinErr_small : hsinErr ≤ (1 : ℝ) / 10 ^ 20)
+    (hcosErr_small : hcosErr ≤ (1 : ℝ) / 10 ^ 20)
+    (hsin : |Real.sin ((52523502177204355 : ℝ) / 10 ^ 16) -
+      routeBSinTaylor20 ((52523502177204355 : ℝ) / 10 ^ 16)| ≤ hsinErr)
+    (hcos : |Real.cos ((52523502177204355 : ℝ) / 10 ^ 16) -
+      routeBCosTaylor20 ((52523502177204355 : ℝ) / 10 ^ 16)| ≤ hcosErr) :
+    (-867 : ℝ) / 1000 < Real.sin ((52523502177204355 : ℝ) / 10 ^ 16) ∧
+      Real.sin ((52523502177204355 : ℝ) / 10 ^ 16) < (-864 : ℝ) / 1000 ∧
+      (513 : ℝ) / 1000 < Real.cos ((52523502177204355 : ℝ) / 10 ^ 16) ∧
+      Real.cos ((52523502177204355 : ℝ) / 10 ^ 16) < (516 : ℝ) / 1000 := by
+  have harith := routeBTrigTaylor20_left_arithmetic2916
+  rcases harith with ⟨hslo, hshi, hclo, hchi⟩
+  rw [abs_le] at hsin hcos
+  constructor <;> constructor
+  · linarith
+  · linarith
+  · linarith
+  · linarith
+
 end ConnesWeilRH.Dev
