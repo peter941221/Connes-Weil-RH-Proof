@@ -9,4 +9,8 @@ by 2807.
 
 The evaluator membership port, per-cell corner-norm comparison, and charge
 comparison to the 2804 ledger remain open.
+
+The earlier 2755-2783 representative-cell chain is Lean-verified, but its
+partition and evaluator owner are different. It does not transfer to these
+8192 Route B cells without a new containment and charge proof.
 No finite integral, exterior tail, cardinal pin, SourceRH, or RH claim is made.
