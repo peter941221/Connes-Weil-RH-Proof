@@ -37,4 +37,20 @@ theorem routeBLocalStageT_mem_of_trig_bounds2910 (θ : ℝ)
   · norm_num [routeBLocalStageTRect2910, ComplexRect2427.mk]
     nlinarith
 
+theorem routeB_sin_bounds_of_endpoint2911 {a b θ : ℝ}
+    (ha : -(Real.pi / 2) ≤ a) (hb : b ≤ Real.pi / 2)
+    (hat : a ≤ θ) (htb : θ ≤ b) :
+    Real.sin a ≤ Real.sin θ ∧ Real.sin θ ≤ Real.sin b := by
+  constructor
+  · exact Real.monotoneOn_sin ⟨ha, htb.trans hb⟩ ⟨ha.trans hat, hb⟩ hat
+  · exact Real.monotoneOn_sin ⟨ha, hat.trans htb |>.trans hb⟩ ⟨hat, hb⟩ htb
+
+theorem routeB_cos_bounds_of_endpoint2911 {a b θ : ℝ}
+    (ha : 0 ≤ a) (hb : b ≤ Real.pi)
+    (hat : a ≤ θ) (htb : θ ≤ b) :
+    Real.cos b ≤ Real.cos θ ∧ Real.cos θ ≤ Real.cos a := by
+  constructor
+  · exact Real.antitoneOn_cos ⟨ha, htb.trans hb⟩ ⟨hat, hb⟩ htb
+  · exact Real.antitoneOn_cos ⟨ha, hat.trans htb |>.trans hb⟩ ⟨ha, hat⟩ hat
+
 end ConnesWeilRH.Dev
