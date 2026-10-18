@@ -18,4 +18,15 @@ theorem routeBSubcellArgumentNormClosed2934 {θ : ℝ}
       (40 : ℝ) / 399 := by
   exact routeBArgumentNormBound2900 _ (routeBSubcellTNormClosed2934 hθ hθ')
 
+theorem routeBSubcellExpNormClosed2935 {θ : ℝ}
+    (hθ : (107 : ℝ) * Real.pi / 64 ≤ θ)
+    (hθ' : θ ≤ (107 : ℝ) * Real.pi / 64 + Real.pi / 1024) :
+    ‖Complex.exp
+        (2 * ((1 / 20 : ℝ) * (Real.cos θ + Complex.I * Real.sin θ)) /
+          (1 - ((1 / 20 : ℝ) * (Real.cos θ + Complex.I * Real.sin θ)) ^ 2))‖ ≤
+      Real.exp ((40 : ℝ) / 399) := by
+  rw [Complex.norm_exp]
+  apply Real.exp_le_exp.mpr
+  exact (Complex.re_le_norm _).trans (routeBSubcellArgumentNormClosed2934 hθ hθ')
+
 end ConnesWeilRH.Dev
