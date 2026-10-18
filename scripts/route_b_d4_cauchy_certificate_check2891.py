@@ -20,6 +20,7 @@ def main():
     interval = load("2889_route_b_d4_cauchy_interval.json")
     remainder = load("2890_route_b_d4_cauchy_remainder.json")
     rows = interval["rows"]
+    cell_rows = interval["cell_rows"]
     ordered = sorted(rows, key=lambda row: row["angle_cells"])
     finest = ordered[-1]
     sampled_upper = Fraction(str(finest["rigorous_rectangle_upper"]))
@@ -31,6 +32,16 @@ def main():
         "all_interval_rows_are_positive": all(
             Fraction(str(row["rigorous_rectangle_upper"])) > 0
             for row in ordered
+        ),
+        "cell_rows_have_expected_partition": all(
+            sum(row["angle_cells"] == cells for row in cell_rows) == cells
+            for cells in (64, 256)
+        ),
+        "row_max_replays_cell_max": all(
+            Fraction(str(row["rigorous_rectangle_upper"])) ==
+            max(Fraction(str(cell["rigorous_rectangle_upper"]))
+                for cell in cell_rows if cell["angle_cells"] == row["angle_cells"])
+            for row in rows
         ),
         "refinement_does_not_increase_upper_bound": all(
             ordered[i + 1]["rigorous_rectangle_upper"] <=

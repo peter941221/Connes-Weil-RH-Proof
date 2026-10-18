@@ -2,6 +2,7 @@
   "all_checks_pass": true,
   "checks": {
     "all_interval_rows_are_positive": true,
+    "cell_rows_have_expected_partition": true,
     "finest_interval_is_below_declared_M": true,
     "interval_artifact_marks_nonformal": true,
     "interval_generator_hash_matches": true,
@@ -9,6 +10,7 @@
     "remainder_artifact_marks_nonformal": true,
     "remainder_formula_replays": true,
     "remainder_generator_hash_matches": true,
+    "row_max_replays_cell_max": true,
     "tail_below_truncation_margin": true
   },
   "claims": {

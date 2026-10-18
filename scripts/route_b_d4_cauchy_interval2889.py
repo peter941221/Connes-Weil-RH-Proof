@@ -32,19 +32,27 @@ def abs_upper(value):
 
 def main():
     rows = []
+    cell_rows = []
     radius = iv.mpf("0.05")
     for cells in (64, 256):
         maximum = 0.0
         for k in range(cells):
-            theta = iv.mpf([2 * 3.141592653589793 * k / cells,
-                            2 * 3.141592653589793 * (k + 1) / cells])
+            theta_lo = 2 * 3.141592653589793 * k / cells
+            theta_hi = 2 * 3.141592653589793 * (k + 1) / cells
+            theta = iv.mpf([theta_lo, theta_hi])
             t = radius * (iv.cos(theta) + 1j * iv.sin(theta))
-            maximum = max(maximum, abs_upper(h_of(t, z_of(t))))
+            upper = abs_upper(h_of(t, z_of(t)))
+            maximum = max(maximum, upper)
+            cell_rows.append({"angle_cells": cells, "cell": k,
+                              "theta_lo": repr(theta_lo),
+                              "theta_hi": repr(theta_hi),
+                              "rigorous_rectangle_upper": upper})
         rows.append({"radius": "0.05", "angle_cells": cells,
                      "rigorous_rectangle_upper": maximum,
                      "order_22_scale": maximum * (0.01 / 0.05)**22})
     generator_sha256 = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
     payload = {"record": 2889, "generator_sha256": generator_sha256, "rows": rows,
+               "cell_rows": cell_rows,
                "claims": {"outward_complex_rectangle_enclosure": True,
                           "full_cauchy_remainder_certificate": False},
                "next_target": "integrate the complex-circle bound with a proved Cauchy remainder theorem"}
