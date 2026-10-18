@@ -1,0 +1,74 @@
+{
+  "record": 2882,
+  "rows": [
+    {
+      "u_left": "0.000244140625",
+      "u_right": "0.1353",
+      "expected_sign": "negative",
+      "cells": 2000,
+      "certified": 1513,
+      "undecided_count": 487,
+      "undecided_first": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "undecided_last": [
+        477,
+        478,
+        479,
+        480,
+        481,
+        482,
+        483,
+        484,
+        485,
+        486
+      ]
+    },
+    {
+      "u_left": "0.3029",
+      "u_right": "0.4999",
+      "expected_sign": "positive",
+      "cells": 2000,
+      "certified": 1989,
+      "undecided_count": 11,
+      "undecided_first": [
+        1989,
+        1990,
+        1991,
+        1992,
+        1993,
+        1994,
+        1995,
+        1996,
+        1997,
+        1998
+      ],
+      "undecided_last": [
+        1990,
+        1991,
+        1992,
+        1993,
+        1994,
+        1995,
+        1996,
+        1997,
+        1998,
+        1999
+      ]
+    }
+  ],
+  "claims": {
+    "refined_outward_screen": true,
+    "global_sign_certificate": false
+  },
+  "decision": "focus Taylor endpoint cells; interior cells are interval-certified"
+}
