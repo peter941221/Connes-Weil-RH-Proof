@@ -1,0 +1,3 @@
+import ConnesWeilRH.Dev.C1RouteBExteriorDistance2819
+
+#print axioms ConnesWeilRH.Source.C1ExplicitSmoothSeed.routeB_exterior_distance_lower_bound2819

@@ -1,0 +1,1 @@
+{"record":"2819","theorems":["routeB_exterior_distance_lower_bound2819"],"build":"ConnesWeilRH.Dev.C1RouteBExteriorDistance2819Audit","status":"passed","jobs":2943,"axioms":["propext","Classical.choice","Quot.sound"],"nonclaims":["node list","D-table","row-B coefficients","tail constants","cardinal pins","SourceRH","RH"]}
