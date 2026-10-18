@@ -1,6 +1,7 @@
 import Mathlib.Analysis.Complex.CauchyIntegral
 import Mathlib.Data.Int.Basic
 import Mathlib.Tactic
+import Mathlib.Analysis.Real.Pi.Bounds
 
 namespace ConnesWeilRH.Dev
 
@@ -90,6 +91,8 @@ theorem routeBOddIntegerAbs2900 (k : ℤ) : 1 ≤ |2 * k + 1| := by
   · have hn : 2 * k + 1 ≤ -1 := by omega
     rw [abs_of_nonpos (by omega)]
     omega
+
+theorem routeBPiLower2900 : (3 : ℝ) < Real.pi := Real.pi_gt_three
 
 theorem routeBCauchyRemainder2891
     (M : ℝ) (hM0 : 0 ≤ M) (hM : M ≤ 1377903608911726 / 10 ^ 14) :
