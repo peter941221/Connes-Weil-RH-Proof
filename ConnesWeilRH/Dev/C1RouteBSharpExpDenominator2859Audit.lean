@@ -1,0 +1,4 @@
+import ConnesWeilRH.Dev.C1RouteBSharpExpDenominator2859
+
+#print axioms ConnesWeilRH.Dev.routeB_sharp_exponential_replay_mem2859
+#print axioms ConnesWeilRH.Dev.routeB_sharp_denominator_mem2859
