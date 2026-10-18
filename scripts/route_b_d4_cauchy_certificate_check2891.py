@@ -12,13 +12,23 @@ def main():
     interval = load("2889_route_b_d4_cauchy_interval.json")
     remainder = load("2890_route_b_d4_cauchy_remainder.json")
     rows = interval["rows"]
-    finest = max(rows, key=lambda row: row["angle_cells"])
+    ordered = sorted(rows, key=lambda row: row["angle_cells"])
+    finest = ordered[-1]
     sampled_upper = Fraction(str(finest["rigorous_rectangle_upper"]))
     declared_M = Fraction(remainder["M"])
     ratio = Fraction(remainder["r_over_R"])
     declared_tail = Fraction(remainder["remainder_bound"])
     recomputed_tail = declared_M * ratio**22 / (1 - ratio)
     checks = {
+        "all_interval_rows_are_below_declared_M": all(
+            Fraction(str(row["rigorous_rectangle_upper"])) <= declared_M
+            for row in ordered
+        ),
+        "refinement_does_not_increase_upper_bound": all(
+            ordered[i + 1]["rigorous_rectangle_upper"] <=
+            ordered[i]["rigorous_rectangle_upper"]
+            for i in range(len(ordered) - 1)
+        ),
         "finest_interval_is_below_declared_M": sampled_upper <= declared_M,
         "remainder_formula_replays": declared_tail == recomputed_tail,
         "tail_below_truncation_margin": declared_tail < Fraction(remainder["truncated_lower_bound"]),
