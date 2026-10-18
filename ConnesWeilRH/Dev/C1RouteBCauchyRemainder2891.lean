@@ -26,6 +26,25 @@ theorem routeBSquareNormBound2900 (t : ℂ)
   have ht0 : 0 ≤ ‖t‖ := norm_nonneg t
   nlinarith
 
+theorem routeBComplexNormTwo2900 : ‖(2 : ℂ)‖ = 2 := by
+  rw [Complex.norm_def]
+  rw [Real.sqrt_eq_iff_eq_sq (by norm_num) (by norm_num)]
+  norm_num [Complex.normSq]
+
+theorem routeBArgumentNormBound2900 (t : ℂ)
+    (ht : ‖t‖ ≤ (1 : ℝ) / 20) (hden : t ^ 2 ≠ 1) :
+    ‖2 * t / (1 - t ^ 2)‖ ≤ (40 : ℝ) / 399 := by
+  have hsq := routeBSquareNormBound2900 t ht
+  have hrev := routeBReverseTriangle2900 t
+  have hlower : (399 : ℝ) / 400 ≤ ‖1 - t ^ 2‖ := by
+    linarith
+  have hpos : 0 < ‖1 - t ^ 2‖ := by positivity
+  rw [norm_div, norm_mul, routeBComplexNormTwo2900]
+  calc
+    2 * ‖t‖ / ‖1 - t ^ 2‖ ≤ 2 * ((1 : ℝ) / 20) / ((399 : ℝ) / 400) := by
+      gcongr
+    _ = (40 : ℝ) / 399 := by norm_num
+
 theorem routeBCauchyRemainder2891
     (M : ℝ) (hM0 : 0 ≤ M) (hM : M ≤ 1377903608911726 / 10 ^ 14) :
     M * ((1 : ℝ) / 5) ^ 22 / (1 - (1 : ℝ) / 5) < 1 / 10 ^ 13 := by
