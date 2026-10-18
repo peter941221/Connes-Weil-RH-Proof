@@ -9,12 +9,12 @@ noncomputable def routeBSourceNorm2834 (i : ℕ) (n : ℕ) : ℝ :=
   (seedTransitionJetInterval2734 (routeBSeedCell2809 i) n).endpointAbsMax
 
 noncomputable def routeBSourceCharge2834 (i : ℕ) (n : ℕ) : ℝ :=
-  (routeBSeedEndpoint2833 (i + 1) - routeBSeedEndpoint2833 i) *
+  4 * (routeBSeedEndpoint2833 (i + 1) - routeBSeedEndpoint2833 i) *
     routeBSourceNorm2834 i n
 
 theorem routeBSourceCharge_eq_width_norm2834 (i n : ℕ) :
     routeBSourceCharge2834 i n =
-      ((2047 : ℝ) / 33554432) * routeBSourceNorm2834 i n := by
+      4 * ((2047 : ℝ) / 33554432) * routeBSourceNorm2834 i n := by
   unfold routeBSourceCharge2834
   rw [routeBSeedEndpoint2833_cell_width]
 
