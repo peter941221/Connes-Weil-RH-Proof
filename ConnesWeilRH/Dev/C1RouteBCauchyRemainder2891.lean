@@ -164,6 +164,14 @@ theorem routeBComposedTanhDifferentiableAt2900 (t : ℂ)
     Complex.cosh (2 * x / (1 - x ^ 2))) t
   exact (hs.div hc hq).differentiableAt
 
+/-! The centered quotient used by the Cauchy step.  Centering removes the
+removable value at the origin from the later power-series statement. -/
+noncomputable def routeBCenteredQ2900 (t : ℂ) : ℂ :=
+  (1 + Complex.tanh (2 * t / (1 - t ^ 2))) / 2
+
+theorem routeBCenteredQ_zero2900 : routeBCenteredQ2900 0 = (1 : ℂ) / 2 := by
+  simp [routeBCenteredQ2900]
+
 theorem routeBCauchyRemainder2891
     (M : ℝ) (hM0 : 0 ≤ M) (hM : M ≤ 1377903608911726 / 10 ^ 14) :
     M * ((1 : ℝ) / 5) ^ 22 / (1 - (1 : ℝ) / 5) < 1 / 10 ^ 13 := by
