@@ -1,0 +1,21 @@
+{
+  "claims": {
+    "exact_symbolic_factorisation": true,
+    "integral_bound_certificate": false,
+    "sign_certificate": false
+  },
+  "coordinate_change": {
+    "logistic_identity": "z = tanh(2*t/(1-t^2))/(2*t)",
+    "r": "2*q - 1",
+    "t": "2*u - 1",
+    "z": "r/t"
+  },
+  "exact_factorisation": "t*(t*z - 1)*(t*z + 1)*(24*t**10*z**3 + 36*t**10*z**2 + 18*t**10*z + 3*t**10 + 96*t**8*z**3 + 144*t**8*z**2 + 68*t**8*z + 9*t**8 + 144*t**6*z**3 + 72*t**6*z**2 - 148*t**6*z - 114*t**6 + 96*t**4*z**3 - 144*t**4*z**2 - 240*t**4*z + 18*t**4 + 24*t**2*z**3 - 108*t**2*z**2 + 50*t**2*z + 63*t**2 - 4*z + 21)/512",
+  "factor_t_removed": "(t*z - 1)*(t*z + 1)*(24*t**10*z**3 + 36*t**10*z**2 + 18*t**10*z + 3*t**10 + 96*t**8*z**3 + 144*t**8*z**2 + 68*t**8*z + 9*t**8 + 144*t**6*z**3 + 72*t**6*z**2 - 148*t**6*z - 114*t**6 + 96*t**4*z**3 - 144*t**4*z**2 - 240*t**4*z + 18*t**4 + 24*t**2*z**3 - 108*t**2*z**2 + 50*t**2*z + 63*t**2 - 4*z + 21)/512",
+  "next_target": "certify the sign of factor_t_removed on the owner-coherent z interval",
+  "record": 2874,
+  "remaining_variables": [
+    "t^2",
+    "z"
+  ]
+}
