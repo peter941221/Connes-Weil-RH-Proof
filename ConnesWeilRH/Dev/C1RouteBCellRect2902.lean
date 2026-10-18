@@ -44,6 +44,14 @@ noncomputable def routeBCellRect2902 : ComplexRect2427 :=
   ComplexRect2427.mk ((12.38798369147758383550008930781557878573645385892358563185294828556948 : ℚ) : ℝ) ((13.75960204634963355062811181245732141228968461863747844108312595734489 : ℚ) : ℝ)
     ((-0.4018516673523189155353809936589514532296302852328021989462456756841968 : ℚ) : ℝ) ((0.7315648100385260157546419408619820736028488292369928838707634870253127 : ℚ) : ℝ)
 
+theorem routeBCellRect_mem_of_component_bounds2902 {z : ℂ}
+    (hreLo : routeBCellRect2902.reLo ≤ z.re)
+    (hreHi : z.re ≤ routeBCellRect2902.reHi)
+    (himLo : routeBCellRect2902.imLo ≤ z.im)
+    (himHi : z.im ≤ routeBCellRect2902.imHi) :
+    ComplexRect2427.Mem z routeBCellRect2902 :=
+  ⟨hreLo, hreHi, himLo, himHi⟩
+
 theorem routeBCellRectNormBound2902 {z : ℂ}
     (hz : ComplexRect2427.Mem z routeBCellRect2902) :
     ‖z‖ ≤ (1377903608911727 : ℝ) / 10 ^ 14 := by
