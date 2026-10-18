@@ -99,6 +99,29 @@ theorem routeBExpAt103Over1000Upper2943 :
     norm_num [routeBExpTaylor20, Finset.sum_range_succ, Nat.factorial]
   linarith
 
+theorem routeBExpAt103Over1000TightUpper2943 :
+    Real.exp ((103 : ℝ) / 1000) < (11085 : ℝ) / 10000 := by
+  have hrem := routeBExpTaylorRemainderBound2943 (x := (103 : ℝ) / 1000)
+    (by norm_num) (by norm_num)
+  rw [routeBExpTaylor20_eq_mathlib2943 (by norm_num)] at hrem
+  rw [Real.norm_eq_abs] at hrem
+  have h1 : Real.exp (1 : ℝ) ≤ 3 := routeBExpOneLtThree2943.le
+  have hbound :
+      |Real.exp ((103 : ℝ) / 1000) - routeBExpTaylor20 ((103 : ℝ) / 1000)| ≤
+        3 * ((103 : ℝ) / 1000) ^ 21 / (Nat.factorial 20 : ℝ) := by
+    calc
+      _ ≤ Real.exp 1 * ((103 : ℝ) / 1000) ^ 21 /
+          (Nat.factorial 20 : ℝ) := hrem
+      _ ≤ 3 * ((103 : ℝ) / 1000) ^ 21 /
+          (Nat.factorial 20 : ℝ) := by gcongr
+  rw [abs_le] at hbound
+  have hpoly :
+      routeBExpTaylor20 ((103 : ℝ) / 1000) +
+          3 * ((103 : ℝ) / 1000) ^ 21 / (Nat.factorial 20 : ℝ) <
+        (11085 : ℝ) / 10000 := by
+    norm_num [routeBExpTaylor20, Finset.sum_range_succ, Nat.factorial]
+  linarith
+
 theorem routeBExpAtDoubledLowerEndpoint2943 :
     (1107736 : ℝ) / 10 ^ 6 <
       Real.exp ((10231836241932215 : ℝ) / 10 ^ 17) := by
