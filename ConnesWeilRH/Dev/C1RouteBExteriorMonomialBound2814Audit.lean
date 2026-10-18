@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1RouteBExteriorMonomialBound2814
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms routeB_exterior_monomial_bound2814
+#print axioms routeB_exterior_monomial_scaled_bound2814

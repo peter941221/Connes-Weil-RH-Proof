@@ -1,0 +1,1 @@
+{"record":"2814","theorems":["routeB_exterior_monomial_bound2814","routeB_exterior_monomial_scaled_bound2814"],"build":"ConnesWeilRH.Dev.C1RouteBExteriorMonomialBound2814Audit","status":"passed","jobs":2943,"axioms":["propext","Classical.choice","Quot.sound"],"nonclaims":["row-B constants","tail integral","cardinal pins","SourceRH","RH"]}
