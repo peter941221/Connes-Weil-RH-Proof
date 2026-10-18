@@ -1,0 +1,1 @@
+{"record":"2822","theorems":["routeB_finite_node_product_envelope2822"],"build":"ConnesWeilRH.Dev.C1RouteBFiniteNodeProductEnvelope2822Audit","status":"passed","jobs":839,"axioms":["propext","Classical.choice","Quot.sound"],"nonclaims":["node values","D-table","row-B coefficients","tail value","cardinal pins","SourceRH","RH"]}
