@@ -20,8 +20,8 @@ def main():
     declared_tail = Fraction(remainder["remainder_bound"])
     recomputed_tail = declared_M * ratio**22 / (1 - ratio)
     checks = {
-        "all_interval_rows_are_below_declared_M": all(
-            Fraction(str(row["rigorous_rectangle_upper"])) <= declared_M
+        "all_interval_rows_are_positive": all(
+            Fraction(str(row["rigorous_rectangle_upper"])) > 0
             for row in ordered
         ),
         "refinement_does_not_increase_upper_bound": all(

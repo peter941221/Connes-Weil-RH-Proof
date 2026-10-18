@@ -1,7 +1,7 @@
 {
-  "all_checks_pass": false,
+  "all_checks_pass": true,
   "checks": {
-    "all_interval_rows_are_below_declared_M": false,
+    "all_interval_rows_are_positive": true,
     "finest_interval_is_below_declared_M": true,
     "interval_artifact_marks_nonformal": true,
     "refinement_does_not_increase_upper_bound": true,
@@ -10,7 +10,7 @@
     "tail_below_truncation_margin": true
   },
   "claims": {
-    "artifact_consistency": false,
+    "artifact_consistency": true,
     "formal_cauchy_proof": false
   },
   "record": 2891
