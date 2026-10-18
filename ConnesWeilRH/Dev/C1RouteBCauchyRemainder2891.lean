@@ -1,6 +1,7 @@
 import Mathlib.Analysis.Complex.CauchyIntegral
 import Mathlib.Analysis.Calculus.FDeriv.Basic
 import Mathlib.Analysis.Calculus.Deriv.Basic
+import Mathlib.Analysis.Calculus.FDeriv.Analytic
 import Mathlib.Data.Int.Basic
 import Mathlib.Tactic
 import Mathlib.Analysis.Real.Pi.Bounds
@@ -236,6 +237,14 @@ theorem routeBCenteredQ_fderiv_zero2900 :
     convert h using 1
     ext z
     simp
+
+theorem routeBCenteredQ_fderiv_eq_cauchySeries_deriv2900 :
+    fderiv ℂ routeBCenteredQ2900 0 =
+      (continuousMultilinearCurryFin1 ℂ ℂ ℂ)
+        ((cauchyPowerSeries routeBCenteredQ2900 (0 : ℂ) (1 / 20 : NNReal)).changeOrigin 0 1) := by
+  have h := routeBCenteredQ_hasFPowerSeriesOnBall2900.fderiv_eq
+    (y := (0 : ℂ)) (by norm_num)
+  simpa using h
 
 theorem routeBCauchyRemainder2891
     (M : ℝ) (hM0 : 0 ≤ M) (hM : M ≤ 1377903608911726 / 10 ^ 14) :
