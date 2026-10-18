@@ -40,4 +40,11 @@ theorem routeBTrigTaylor20_left_of_remainder2917
   · linarith
   · linarith
 
+theorem routeBSinTaylor20_eq_mathlib2919 {x : ℝ} (hx : 0 < x) :
+    taylorWithinEval Real.sin 20 (Set.Icc 0 x) 0 x = routeBSinTaylor20 x := by
+  rw [taylor_within_apply]
+  simp_rw [Real.iteratedDerivWithin_sin_Icc _ hx]
+  simp [routeBSinTaylor20, Real.iteratedDeriv_even_sin,
+    Real.iteratedDeriv_odd_sin, smul_eq_mul, div_eq_mul_inv]
+
 end ConnesWeilRH.Dev
