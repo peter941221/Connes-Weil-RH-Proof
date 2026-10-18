@@ -42,6 +42,12 @@ def main():
             and Fraction(cell["im_lo"]) <= Fraction(cell["im_hi"])
             for cell in cell_rows
         ),
+        "cell_rectangles_fit_declared_M_squared": all(
+            max(abs(Fraction(cell["re_lo"])), abs(Fraction(cell["re_hi"]))) ** 2
+            + max(abs(Fraction(cell["im_lo"])), abs(Fraction(cell["im_hi"]))) ** 2
+            <= Fraction(remainder["M"]) ** 2
+            for cell in cell_rows if cell["angle_cells"] == 256
+        ),
         "row_max_replays_cell_max": all(
             Fraction(str(row["rigorous_rectangle_upper"])) ==
             max(Fraction(str(cell["rigorous_rectangle_upper"]))
