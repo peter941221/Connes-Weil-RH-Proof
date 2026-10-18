@@ -1,0 +1,3 @@
+import ConnesWeilRH.Dev.C1RouteBSharpReciprocal2860
+
+#print axioms ConnesWeilRH.Dev.routeB_sharp_reciprocal_mem2860
