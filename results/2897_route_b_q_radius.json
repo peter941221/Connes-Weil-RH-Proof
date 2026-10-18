@@ -1,0 +1,14 @@
+{
+  "record": 2897,
+  "nearest_tanh_pole_equation": "2*t/(1-t^2) = i*pi/2",
+  "quadratic": "t^2 + (4*i/pi)*t - 1 = 0",
+  "root_real_abs": "0.6176678248388560336601857413470185093492",
+  "root_imag_abs": "0.7864391000953832670367656075174892034694",
+  "root_modulus": "1.0",
+  "candidate_convergence_radius": "1",
+  "claims": {
+    "nearest_pole_numeric_identification": true,
+    "power_series_radius_certificate": false
+  },
+  "next_target": "formalize radius-one lower bound and Q series identity"
+}
