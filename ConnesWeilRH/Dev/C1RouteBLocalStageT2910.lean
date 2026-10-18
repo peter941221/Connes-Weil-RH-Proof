@@ -19,4 +19,22 @@ theorem routeBLocalArgumentNormBound2910 {z : ℂ}
     ‖2 * z / (1 - z ^ 2)‖ ≤ (40 : ℝ) / 399 := by
   exact routeBArgumentNormBound2900 z (routeBLocalStageTNormBound2910 hz)
 
+theorem routeBLocalStageT_mem_of_trig_bounds2910 (θ : ℝ)
+    (hcosLo : (25705137209661075168200042786183425 : ℝ) / 10 ^ 36 ≤ Real.cos θ)
+    (hcosHi : Real.cos θ ≤ (25836589950882496741573972243482671 : ℝ) / 10 ^ 36)
+    (hsinLo : (-42886430500013610185049943566981453 : ℝ) / 10 ^ 36 ≤ Real.sin θ)
+    (hsinHi : Real.sin θ ≤ (-4280736641875972244182228337837814 : ℝ) / 10 ^ 35) :
+    ComplexRect2427.Mem
+      ((1 / 20 : ℝ) * (Real.cos θ + Complex.I * Real.sin θ))
+      routeBLocalStageTRect2910 := by
+  constructor
+  · norm_num [routeBLocalStageTRect2910, ComplexRect2427.mk]
+    nlinarith
+  · norm_num [routeBLocalStageTRect2910, ComplexRect2427.mk]
+    nlinarith
+  · norm_num [routeBLocalStageTRect2910, ComplexRect2427.mk]
+    nlinarith
+  · norm_num [routeBLocalStageTRect2910, ComplexRect2427.mk]
+    nlinarith
+
 end ConnesWeilRH.Dev
