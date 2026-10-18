@@ -180,6 +180,15 @@ theorem routeBCenteredQ_differentiableAt2900 (t : ℂ)
     (fun x : ℂ => (1 + Complex.tanh (2 * x / (1 - x ^ 2))) / 2) t
   exact (differentiableAt_const (c := (1 : ℂ)) |>.add h).div_const 2
 
+theorem routeBCenteredQ_neg2900 (t : ℂ) :
+    routeBCenteredQ2900 (-t) = 1 - routeBCenteredQ2900 t := by
+  rw [routeBCenteredQ2900, routeBCenteredQ2900]
+  have harg : 2 * (-t) / (1 - (-t) ^ 2) =
+      -(2 * t / (1 - t ^ 2)) := by
+    field_simp
+  rw [harg, Complex.tanh_neg]
+  ring
+
 theorem routeBCauchyRemainder2891
     (M : ℝ) (hM0 : 0 ≤ M) (hM : M ≤ 1377903608911726 / 10 ^ 14) :
     M * ((1 : ℝ) / 5) ^ 22 / (1 - (1 : ℝ) / 5) < 1 / 10 ^ 13 := by
