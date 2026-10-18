@@ -77,6 +77,10 @@ theorem routeBCoshZeroExpNegOne2900 (z : ℂ)
   simp at hm
   exact by simpa [two_mul] using (eq_neg_of_add_eq_zero_left hm)
 
+theorem routeBImaginaryDecomposition2900 (z : ℂ) (hz : z.re = 0) :
+    z = z.im * Complex.I := by
+  apply Complex.ext <;> simp [hz]
+
 theorem routeBCauchyRemainder2891
     (M : ℝ) (hM0 : 0 ≤ M) (hM : M ≤ 1377903608911726 / 10 ^ 14) :
     M * ((1 : ℝ) / 5) ^ 22 / (1 - (1 : ℝ) / 5) < 1 / 10 ^ 13 := by
