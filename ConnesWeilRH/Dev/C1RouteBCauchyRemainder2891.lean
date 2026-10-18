@@ -210,6 +210,13 @@ theorem routeBCenteredQ_analyticAt_zero2900 :
     AnalyticAt ℂ routeBCenteredQ2900 0 :=
   routeBCenteredQ_hasFPowerSeriesOnBall2900.analyticAt
 
+theorem routeBCenteredQ_cauchyPowerSeries_coeff_zero2900
+    (v : Fin 0 → ℂ) :
+    (cauchyPowerSeries routeBCenteredQ2900 (0 : ℂ) (1 / 20 : NNReal)) 0 v =
+      (1 : ℂ) / 2 := by
+  rw [routeBCenteredQ_hasFPowerSeriesOnBall2900.coeff_zero v]
+  exact routeBCenteredQ_zero2900
+
 theorem routeBCauchyRemainder2891
     (M : ℝ) (hM0 : 0 ≤ M) (hM : M ≤ 1377903608911726 / 10 ^ 14) :
     M * ((1 : ℝ) / 5) ^ 22 / (1 - (1 : ℝ) / 5) < 1 / 10 ^ 13 := by
