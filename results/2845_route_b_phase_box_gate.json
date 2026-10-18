@@ -1,0 +1,10 @@
+{
+  "record": 2845,
+  "status": "PHASE_GATE_FAIL",
+  "owner": "Route B cell 4096",
+  "first_failed_order": 2,
+  "tested_orders": "0..7",
+  "failure": "Python phase box was not shown to contain Lean phaseJetInterval2734",
+  "action": "measure endpoint delta; correct convention or prove outward inflation",
+  "nonclaims": ["recurrence unsoundness", "ledger domination", "SourceRH", "RH"]
+}
