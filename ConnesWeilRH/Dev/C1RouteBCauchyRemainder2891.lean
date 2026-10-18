@@ -102,6 +102,36 @@ theorem routeBCosineZeroMagnitude2900 (k : ℤ) :
   rw [abs_div, abs_mul, abs_of_pos (show (0 : ℝ) < Real.pi by positivity)]
   nlinarith [abs_nonneg (((2 * k + 1 : ℤ) : ℝ))]
 
+theorem routeBImaginaryNorm2900 (r : ℝ) :
+    ‖(r : ℂ) * Complex.I‖ = |r| := by
+  have hs : ‖(r : ℂ) * Complex.I‖ ^ 2 = |r| ^ 2 := by
+    rw [Complex.sq_norm, Complex.normSq_mul, Complex.normSq_ofReal,
+      Complex.normSq_I]
+    ring_nf
+    rw [sq_abs]
+  nlinarith [norm_nonneg ((r : ℂ) * Complex.I), abs_nonneg r]
+
+theorem routeBCoshNonzeroSmall2900 (z : ℂ) (hz : ‖z‖ < 3 / 2) :
+    Complex.cosh z ≠ 0 := by
+  intro hzero
+  have hexp := routeBCoshZeroExpNegOne2900 z hzero
+  have hreal := routeBExpNegOneRealPart2900 (2 * z) hexp
+  have hzreal : z.re = 0 := by simpa using hreal
+  have hdecomp := routeBImaginaryDecomposition2900 z hzreal
+  rw [hdecomp, Complex.cosh_mul_I] at hzero
+  obtain ⟨k, hk⟩ := Complex.cos_eq_zero_iff.mp hzero
+  have hmag := routeBCosineZeroMagnitude2900 k
+  have himag : |z.im| < 3 / 2 := by
+    have hnorm : ‖z.im * Complex.I‖ < 3 / 2 := by
+      rw [← hdecomp]
+      exact hz
+    rw [routeBImaginaryNorm2900] at hnorm
+    exact hnorm
+  have hkeq : z.im = ((2 * k + 1 : ℤ) : ℝ) * Real.pi / 2 := by
+    exact_mod_cast hk
+  rw [hkeq] at himag
+  linarith
+
 theorem routeBCauchyRemainder2891
     (M : ℝ) (hM0 : 0 ≤ M) (hM : M ≤ 1377903608911726 / 10 ^ 14) :
     M * ((1 : ℝ) / 5) ^ 22 / (1 - (1 : ℝ) / 5) < 1 / 10 ^ 13 := by
