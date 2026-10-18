@@ -94,6 +94,14 @@ theorem routeBOddIntegerAbs2900 (k : ℤ) : 1 ≤ |2 * k + 1| := by
 
 theorem routeBPiLower2900 : (3 : ℝ) < Real.pi := Real.pi_gt_three
 
+theorem routeBCosineZeroMagnitude2900 (k : ℤ) :
+    (3 : ℝ) / 2 ≤ |((2 * k + 1 : ℤ) : ℝ) * Real.pi / 2| := by
+  have hk : (1 : ℝ) ≤ |((2 * k + 1 : ℤ) : ℝ)| := by
+    exact_mod_cast (routeBOddIntegerAbs2900 k)
+  have hp : (3 : ℝ) < Real.pi := routeBPiLower2900
+  rw [abs_div, abs_mul, abs_of_pos (show (0 : ℝ) < Real.pi by positivity)]
+  nlinarith [abs_nonneg (((2 * k + 1 : ℤ) : ℝ))]
+
 theorem routeBCauchyRemainder2891
     (M : ℝ) (hM0 : 0 ≤ M) (hM : M ≤ 1377903608911726 / 10 ^ 14) :
     M * ((1 : ℝ) / 5) ^ 22 / (1 - (1 : ℝ) / 5) < 1 / 10 ^ 13 := by
