@@ -5,7 +5,7 @@ from fractions import Fraction
 from pathlib import Path
 
 # Conservative rational upper bound for the 256-cell enclosure in record 2889.
-M = Fraction(1377903608911726, 10**14)
+M = Fraction(1377903608911727, 10**14)
 ratio = Fraction(1, 5)  # r/R = 0.01/0.05
 remainder = M * ratio**22 / (1 - ratio)
 truncated_lower = Fraction(2828590559115742395042857430835243113655208021407,

@@ -1,6 +1,6 @@
 # 2890 Route B D4 Cauchy remainder assembly
 
-Using the conservative rational circle bound `M = 13.77903608911726`, radius
+Using the conservative rational circle bound `M = 13.77903608911727`, radius
 `R = 0.05`, target radius `r = 0.01`, and order-22 tail, the geometric Cauchy
 remainder formula gives
 

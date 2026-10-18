@@ -2,9 +2,10 @@
 import json
 import hashlib
 from pathlib import Path
-from mpmath import iv
+from mpmath import iv, mp
 
 iv.dps = 30
+mp.dps = 80
 
 
 def z_of(t):
@@ -25,9 +26,16 @@ def h_of(t, z):
 def abs_upper(value):
     re = value.real
     im = value.imag
-    re_max = max(abs(float(re.a)), abs(float(re.b)))
-    im_max = max(abs(float(im.a)), abs(float(im.b)))
-    return (re_max**2 + im_max**2) ** 0.5
+    # Keep interval endpoints in arbitrary precision.  Converting to binary64
+    # before forming the modulus can round an outward endpoint inward.
+    def endpoint(x):
+        # ivmpf stores each endpoint as an exact (sign, mantissa, exponent,
+        # bit-count) tuple; converting that tuple avoids the interval repr and
+        # avoids a binary64 round-trip.
+        return mp.mpf(x._mpi_[0])
+    re_max = max(abs(endpoint(re.a)), abs(endpoint(re.b)))
+    im_max = max(abs(endpoint(im.a)), abs(endpoint(im.b)))
+    return mp.sqrt(re_max**2 + im_max**2)
 
 
 def main():
@@ -35,7 +43,7 @@ def main():
     cell_rows = []
     radius = iv.mpf("0.05")
     for cells in (64, 256):
-        maximum = 0.0
+        maximum = mp.mpf("0")
         for k in range(cells):
             theta_lo = 2 * 3.141592653589793 * k / cells
             theta_hi = 2 * 3.141592653589793 * (k + 1) / cells
@@ -46,10 +54,10 @@ def main():
             cell_rows.append({"angle_cells": cells, "cell": k,
                               "theta_lo": repr(theta_lo),
                               "theta_hi": repr(theta_hi),
-                              "rigorous_rectangle_upper": upper})
+                              "rigorous_rectangle_upper": mp.nstr(upper, 70)})
         rows.append({"radius": "0.05", "angle_cells": cells,
-                     "rigorous_rectangle_upper": maximum,
-                     "order_22_scale": maximum * (0.01 / 0.05)**22})
+                     "rigorous_rectangle_upper": mp.nstr(maximum, 70),
+                     "order_22_scale": mp.nstr(maximum * (mp.mpf("0.01") / mp.mpf("0.05"))**22, 70)})
     generator_sha256 = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
     payload = {"record": 2889, "generator_sha256": generator_sha256, "rows": rows,
                "cell_rows": cell_rows,

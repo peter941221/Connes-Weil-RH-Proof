@@ -268,11 +268,11 @@ theorem routeBCenteredQ_cauchySeries_coeff_one2900 :
   simpa using hv.symm
 
 theorem routeBCauchyRemainder2891
-    (M : ℝ) (hM0 : 0 ≤ M) (hM : M ≤ 1377903608911726 / 10 ^ 14) :
+    (M : ℝ) (hM0 : 0 ≤ M) (hM : M ≤ 1377903608911727 / 10 ^ 14) :
     M * ((1 : ℝ) / 5) ^ 22 / (1 - (1 : ℝ) / 5) < 1 / 10 ^ 13 := by
   calc
     M * ((1 : ℝ) / 5) ^ 22 / (1 - (1 : ℝ) / 5) ≤
-        (1377903608911726 / 10 ^ 14) * ((1 : ℝ) / 5) ^ 22 /
+        (1377903608911727 / 10 ^ 14) * ((1 : ℝ) / 5) ^ 22 /
           (1 - (1 : ℝ) / 5) := by
       gcongr
     _ < 1 / 10 ^ 13 := by norm_num
@@ -282,7 +282,7 @@ The conclusion is the same rational Cauchy tail, with no numerical value hidden
 inside the theorem. -/
 theorem routeBCauchyTailOfCircleBound2891
     (circleSup : ℝ) (hSup0 : 0 ≤ circleSup)
-    (hSup : circleSup ≤ 1377903608911726 / 10 ^ 14) :
+    (hSup : circleSup ≤ 1377903608911727 / 10 ^ 14) :
     circleSup * ((1 : ℝ) / 5) ^ 22 / (1 - (1 : ℝ) / 5) < 1 / 10 ^ 13 :=
   routeBCauchyRemainder2891 circleSup hSup0 hSup
 
@@ -291,7 +291,7 @@ records only the decimal-to-rational comparison; it deliberately does not
 claim that the interval generator is a formal complex-analysis certificate. -/
 theorem routeBIntervalArtifactUpperBounds2891 :
     (1618808853723429 : ℝ) / 10 ^ 14 ≤ 17 ∧
-    (1377903608911726 : ℝ) / 10 ^ 14 ≤ 1377903608911726 / 10 ^ 14 := by
+    (1377903608911727 : ℝ) / 10 ^ 14 ≤ 1377903608911727 / 10 ^ 14 := by
   constructor <;> norm_num
 
 /-! Maximum-modulus bridge: once a certified bound is supplied on the
