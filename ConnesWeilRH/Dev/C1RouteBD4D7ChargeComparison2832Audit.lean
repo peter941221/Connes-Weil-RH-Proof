@@ -1,0 +1,3 @@
+import ConnesWeilRH.Dev.C1RouteBD4D7ChargeComparison2832
+
+#print axioms ConnesWeilRH.Source.C1ExplicitSmoothSeed.routeB_d4d7_charge_comparison2832
