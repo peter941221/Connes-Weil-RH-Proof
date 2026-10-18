@@ -1,0 +1,11 @@
+{
+  "record": 2851,
+  "status": "PRICING_GATE_FAIL",
+  "owner": "Route B cell 4096",
+  "initial_box": "[1/32,1/4]",
+  "tested_orders": "0..7",
+  "target_contains_replay": "false for all 8 slots",
+  "cause": "Lean-proved e0 is wider than Python tight exp stage targets",
+  "action": "recompute exp targets under [1/32,1/4] or prove a tighter e0 bound",
+  "nonclaims": ["recurrence unsoundness", "ledger domination", "SourceRH", "RH"]
+}
