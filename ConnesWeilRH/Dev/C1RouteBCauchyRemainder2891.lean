@@ -246,6 +246,14 @@ theorem routeBCenteredQ_fderiv_eq_cauchySeries_deriv2900 :
     (y := (0 : ℂ)) (by norm_num)
   simpa using h
 
+theorem routeBCenteredQ_cauchySeries_coeff_one2900 :
+    (cauchyPowerSeries routeBCenteredQ2900 (0 : ℂ) (1 / 20 : NNReal)).changeOrigin 0 1
+      (fun _ => (1 : ℂ)) = 1 := by
+  have h := routeBCenteredQ_fderiv_eq_cauchySeries_deriv2900
+  rw [routeBCenteredQ_fderiv_zero2900] at h
+  have hv := congrArg (fun L => L (1 : ℂ)) h
+  simpa using hv.symm
+
 theorem routeBCauchyRemainder2891
     (M : ℝ) (hM0 : 0 ≤ M) (hM : M ≤ 1377903608911726 / 10 ^ 14) :
     M * ((1 : ℝ) / 5) ^ 22 / (1 - (1 : ℝ) / 5) < 1 / 10 ^ 13 := by
