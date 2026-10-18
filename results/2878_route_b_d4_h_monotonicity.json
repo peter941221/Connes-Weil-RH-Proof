@@ -1,0 +1,32 @@
+{
+  "record": 2878,
+  "rows": [
+    {
+      "u_left": "0.000244140625",
+      "u_right": "0.1353",
+      "dHdt_min": "-1197.9568436912388734983166019",
+      "dHdt_max": "-125.776710403920436641209553182",
+      "sampled_sign_changes": 0
+    },
+    {
+      "u_left": "0.1354",
+      "u_right": "0.3028",
+      "dHdt_min": "-125.521110891424621305580480694",
+      "dHdt_max": "85.1457867348349409994287610772",
+      "sampled_sign_changes": 1
+    },
+    {
+      "u_left": "0.3029",
+      "u_right": "0.5",
+      "dHdt_min": "0.0",
+      "dHdt_max": "85.7268480203343590788857666437",
+      "sampled_sign_changes": 0
+    }
+  ],
+  "claims": {
+    "owner_path_derivative_scan": true,
+    "monotonicity_certificate": false,
+    "sign_certificate": false
+  },
+  "next_target": "prove dHdt signs on the two outer regions with interval bounds"
+}
