@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RouteBEndpointD4D7Tail2803
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms routeB_endpoint_d4d7_integral_sum_lt2803
