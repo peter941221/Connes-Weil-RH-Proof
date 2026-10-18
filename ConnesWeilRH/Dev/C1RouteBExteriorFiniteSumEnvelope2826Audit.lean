@@ -1,0 +1,3 @@
+import ConnesWeilRH.Dev.C1RouteBExteriorFiniteSumEnvelope2826
+
+#print axioms ConnesWeilRH.Source.C1ExplicitSmoothSeed.routeB_exterior_finite_sum_envelope2826

@@ -1,0 +1,1 @@
+{"record":"2826","theorems":["routeB_exterior_finite_sum_envelope2826"],"build":"ConnesWeilRH.Dev.C1RouteBExteriorFiniteSumEnvelope2826Audit","status":"passed","jobs":3327,"axioms":["propext","Classical.choice","Quot.sound"],"nonclaims":["node data","D-table","tail integral value","cardinal pins","SourceRH","RH"]}
