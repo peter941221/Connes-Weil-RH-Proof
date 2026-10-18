@@ -55,6 +55,16 @@ theorem routeBDenominatorNonzero2900 (t : ℂ)
   rw [hone] at hsq
   norm_num at hsq
 
+theorem routeBExpNegOneRealPart2900 (z : ℂ)
+    (h : Complex.exp z = -1) : z.re = 0 := by
+  have hn := congrArg norm h
+  rw [Complex.norm_exp] at hn
+  have hneg : ‖(-1 : ℂ)‖ = 1 := by
+    rw [Complex.norm_def, Complex.normSq]
+    norm_num
+  rw [hneg] at hn
+  exact (Real.exp_eq_one_iff z.re).mp hn
+
 theorem routeBCauchyRemainder2891
     (M : ℝ) (hM0 : 0 ≤ M) (hM : M ≤ 1377903608911726 / 10 ^ 14) :
     M * ((1 : ℝ) / 5) ^ 22 / (1 - (1 : ℝ) / 5) < 1 / 10 ^ 13 := by
