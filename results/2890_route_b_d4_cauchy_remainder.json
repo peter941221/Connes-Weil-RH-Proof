@@ -1,0 +1,17 @@
+{
+  "M": "688951804455863/50000000000000",
+  "claims": {
+    "complex_circle_interval_source": true,
+    "formal_analytic_bridge": false,
+    "full_endpoint_sign_certificate": false,
+    "rational_geometric_assembly": true
+  },
+  "formula": "M*(r/R)^22/(1-r/R)",
+  "margin_ratio": 1.944386925269657e-16,
+  "next_target": "formalize the Cauchy theorem and connect M to the interval artifact",
+  "r_over_R": "1/5",
+  "record": 2890,
+  "remainder_bound": "688951804455863/95367431640625000000000000000",
+  "remainder_bound_decimal": 7.22418327309111e-15,
+  "truncated_lower_bound": "2828590559115742395042857430835243113655208021407/76131436484619140625000000000000000000000000000"
+}
