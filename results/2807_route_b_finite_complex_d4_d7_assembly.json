@@ -1,0 +1,1 @@
+{"record":"2807","theorem":"routeB_finite_complex_d4d7_assembly2807","build":"ConnesWeilRH.Dev.C1RouteBFiniteComplexD4D7Assembly2807Audit","status":"passed","jobs":2628,"axioms":["propext","Classical.choice","Quot.sound"],"nonclaims":["ledger row certificates","evaluator soundness","exterior D7 tail","cardinal pins","SourceRH","RH"]}

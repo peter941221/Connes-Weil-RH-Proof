@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RouteBFiniteComplexD4D7Assembly2807
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms routeB_finite_complex_d4d7_assembly2807
