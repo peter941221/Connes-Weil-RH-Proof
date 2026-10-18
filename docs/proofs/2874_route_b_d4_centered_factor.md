@@ -10,6 +10,6 @@ polynomial `H` contains only even powers of `t` and the owner-coherent ratio
 a uniform sign margin at that endpoint.
 
 The logistic identity is
-`z = tanh(2t/(1-t^2)) / (2t)`, with the continuous endpoint value `z = 1`.
+`z = tanh(2t/(1-t^2)) / t`, with the continuous endpoint value `z = 2`.
 The JSON artifact freezes the exact factorisation. It is an algebraic bridge,
 not yet a sign or integral certificate.

@@ -5,7 +5,7 @@
     "sign_certificate": false
   },
   "coordinate_change": {
-    "logistic_identity": "z = tanh(2*t/(1-t^2))/(2*t)",
+    "logistic_identity": "z = tanh(2*t/(1-t^2))/t",
     "r": "2*q - 1",
     "t": "2*u - 1",
     "z": "r/t"

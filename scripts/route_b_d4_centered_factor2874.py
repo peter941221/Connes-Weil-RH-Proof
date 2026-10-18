@@ -19,7 +19,7 @@ payload = {
         "t": "2*u - 1",
         "r": "2*q - 1",
         "z": "r/t",
-        "logistic_identity": "z = tanh(2*t/(1-t^2))/(2*t)",
+        "logistic_identity": "z = tanh(2*t/(1-t^2))/t",
     },
     "exact_factorisation": str(centred),
     "factor_t_removed": str(factor_t),
