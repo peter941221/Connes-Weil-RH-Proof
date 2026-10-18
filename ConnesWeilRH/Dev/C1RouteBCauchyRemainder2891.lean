@@ -141,6 +141,16 @@ theorem routeBComposedCoshNonzero2900 (t : ℂ)
     linarith [routeBArgumentRadiusConstant2900]
   exact routeBCoshNonzeroSmall2900 _ hstrict
 
+theorem routeBInnerHasDerivAt2900 (t : ℂ) (hden : 1 - t ^ 2 ≠ 0) :
+    HasDerivAt (fun x : ℂ => 2 * x / (1 - x ^ 2))
+      ((2 * (1 - t ^ 2) - (2 * t) * (-2 * t)) / (1 - t ^ 2) ^ 2) t := by
+  have hn : HasDerivAt (fun x : ℂ => 2 * x) 2 t := by
+    convert (hasDerivAt_id t).const_mul 2 using 1 <;> simp [id] <;> ring
+  have hd : HasDerivAt (fun x : ℂ => 1 - x ^ 2) (-2 * t) t := by
+    convert (hasDerivAt_const t (1 : ℂ)).sub ((hasDerivAt_id t).pow 2) using 1 <;>
+      simp [id] <;> ring
+  convert hn.div hd hden using 1 <;> ring
+
 theorem routeBCauchyRemainder2891
     (M : ℝ) (hM0 : 0 ≤ M) (hM : M ≤ 1377903608911726 / 10 ^ 14) :
     M * ((1 : ℝ) / 5) ^ 22 / (1 - (1 : ℝ) / 5) < 1 / 10 ^ 13 := by
