@@ -29,8 +29,15 @@ theorem norm_le_of_rect_mem_of_sq_bound2902 {z : ℂ} (r : ComplexRect2427)
         _ ≤ max |r.imLo| |r.imHi| := le_max_left _ _
   have hsqz : Complex.normSq z ≤ B ^ 2 := by
     rw [Complex.normSq_apply]
-    nlinarith [sq_nonneg (max |r.reLo| |r.reHi|),
-      sq_nonneg (max |r.imLo| |r.imHi|)]
+    have hre2 : z.re ^ 2 ≤ (max |r.reLo| |r.reHi|) ^ 2 := by
+      have hA : 0 ≤ max |r.reLo| |r.reHi| :=
+        (abs_nonneg _).trans (le_max_left _ _)
+      exact (sq_le_sq).2 (by simpa [abs_of_nonneg hA] using hre)
+    have him2 : z.im ^ 2 ≤ (max |r.imLo| |r.imHi|) ^ 2 := by
+      have hA : 0 ≤ max |r.imLo| |r.imHi| :=
+        (abs_nonneg _).trans (le_max_left _ _)
+      exact (sq_le_sq).2 (by simpa [abs_of_nonneg hA] using him)
+    nlinarith
   rw [Complex.norm_def]
   have hsqrt : Real.sqrt (Complex.normSq z) ≤ Real.sqrt (B ^ 2) :=
     Real.sqrt_le_sqrt hsqz
@@ -57,6 +64,5 @@ theorem routeBCellRectNormBound2902 {z : ℂ}
     ‖z‖ ≤ (1377903608911727 : ℝ) / 10 ^ 14 := by
   apply norm_le_of_rect_mem_of_sq_bound2902 routeBCellRect2902 hz (by norm_num)
   norm_num [routeBCellRect2902, ComplexRect2427.mk]
-  nlinarith
 
 end ConnesWeilRH.Dev

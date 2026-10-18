@@ -11,6 +11,5 @@ theorem routeBLocalStageExpNormBound2907 {z : ℂ}
     ‖z‖ ≤ 2 := by
   apply norm_le_of_rect_mem_of_sq_bound2902 routeBLocalStageExpRect2907 hz (by norm_num)
   norm_num [routeBLocalStageExpRect2907, ComplexRect2427.mk]
-  nlinarith
 
 end ConnesWeilRH.Dev
