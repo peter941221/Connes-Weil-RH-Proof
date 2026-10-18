@@ -1,0 +1,20 @@
+{
+  "record": 2804,
+  "status": "CONTROL-PASS",
+  "checks": {
+    "row_count": true,
+    "indices": true,
+    "nonnegative": true,
+    "first_left": true,
+    "last_right": true,
+    "adjacent": true,
+    "aggregate_4": true,
+    "endpoint_4": true,
+    "aggregate_7": true,
+    "endpoint_7": true
+  },
+  "nonclaims": [
+    "Does not prove evaluator-to-Lean soundness.",
+    "Does not prove finite integral, exterior tail, pins, SourceRH, or RH."
+  ]
+}
