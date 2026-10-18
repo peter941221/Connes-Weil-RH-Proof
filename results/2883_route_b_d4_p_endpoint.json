@@ -1,0 +1,17 @@
+{
+  "P_at_t0": "2 - z",
+  "P_at_t_minus1": "128*(z - 1)*(z + 1)*(9*z**2 - 2)",
+  "claims": {
+    "exact_endpoint_factorisation": true,
+    "global_P_sign_certificate": false
+  },
+  "owner_endpoint_values": {
+    "P_t0_z2": 0,
+    "P_tminus1_z1": 0
+  },
+  "partial_derivatives_right": {
+    "dPdt_t0_z2": 0,
+    "dPdz_t0_z2": -1
+  },
+  "record": 2883
+}
