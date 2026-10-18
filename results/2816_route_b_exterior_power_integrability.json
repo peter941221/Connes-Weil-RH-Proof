@@ -1,0 +1,1 @@
+{"record":"2816","theorems":["routeB_exterior_power_integrable2816"],"build":"ConnesWeilRH.Dev.C1RouteBExteriorPowerIntegrability2816Audit","status":"passed","jobs":2700,"axioms":["propext","Classical.choice","Quot.sound"],"nonclaims":["row-B constants","tail value","cardinal pins","SourceRH","RH"]}

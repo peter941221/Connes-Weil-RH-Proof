@@ -1,0 +1,3 @@
+import ConnesWeilRH.Dev.C1RouteBExteriorPowerIntegrability2816
+
+#print axioms ConnesWeilRH.Source.C1ExplicitSmoothSeed.routeB_exterior_power_integrable2816
