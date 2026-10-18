@@ -1,0 +1,26 @@
+{
+  "claims": {
+    "analytic_extension_certificate": false,
+    "convergence_radius_certificate": false,
+    "exact_rational_series": true
+  },
+  "coefficients": {
+    "0": "1/2",
+    "1": "1",
+    "11": "41617/155925",
+    "13": "-5993633/6081075",
+    "15": "-441300421/638512875",
+    "17": "6982395467/10854718875",
+    "19": "1575917664301/1856156927625",
+    "21": "-76042249455971/194896477400625",
+    "3": "-1/3",
+    "5": "-13/15",
+    "7": "67/315",
+    "9": "3083/2835"
+  },
+  "constant_term": "1/2",
+  "definition": "Q(t) = (1 + tanh(2*t/(1-t^2)))/2",
+  "next_target": "prove the series identity and radius bound in Lean",
+  "order": 21,
+  "record": 2896
+}
