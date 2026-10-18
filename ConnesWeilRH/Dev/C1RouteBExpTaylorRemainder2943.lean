@@ -3,6 +3,9 @@ import Mathlib.Analysis.SpecialFunctions.ExpDeriv
 
 namespace ConnesWeilRH.Dev
 
+theorem routeBExpOneLtThree2943 : Real.exp 1 < 3 := by
+  exact Real.exp_one_lt_d9.trans (by norm_num)
+
 theorem routeBExpTaylorRemainderBound2943 {x : ℝ} (hx : 0 ≤ x) :
     ‖Real.exp x -
         taylorWithinEval Real.exp 20 (Set.Icc 0 x) 0 x‖ ≤
