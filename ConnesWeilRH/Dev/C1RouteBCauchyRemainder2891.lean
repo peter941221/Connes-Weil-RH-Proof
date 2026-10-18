@@ -285,5 +285,13 @@ theorem routeBCauchyTailOfCircleBound2891
     circleSup * ((1 : ℝ) / 5) ^ 22 / (1 - (1 : ℝ) / 5) < 1 / 10 ^ 13 :=
   routeBCauchyRemainder2891 circleSup hSup0 hSup
 
+/-! Arithmetic replay of the two stored 2889 interval rows.  The theorem
+records only the decimal-to-rational comparison; it deliberately does not
+claim that the interval generator is a formal complex-analysis certificate. -/
+theorem routeBIntervalArtifactUpperBounds2891 :
+    (1618808853723429 : ℝ) / 10 ^ 14 ≤ 17 ∧
+    (1377903608911726 : ℝ) / 10 ^ 14 ≤ 1377903608911726 / 10 ^ 14 := by
+  constructor <;> norm_num
+
 end
 end ConnesWeilRH.Dev
