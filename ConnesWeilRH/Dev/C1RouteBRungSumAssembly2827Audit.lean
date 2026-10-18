@@ -1,0 +1,3 @@
+import ConnesWeilRH.Dev.C1RouteBRungSumAssembly2827
+
+#print axioms ConnesWeilRH.Source.C1ExplicitSmoothSeed.routeB_rung_sum_assembly2827

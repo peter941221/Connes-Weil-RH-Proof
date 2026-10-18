@@ -1,0 +1,1 @@
+{"record":"2827","theorems":["routeB_rung_sum_assembly2827"],"build":"ConnesWeilRH.Dev.C1RouteBRungSumAssembly2827Audit","status":"passed","jobs":3328,"axioms":["propext","Classical.choice","Quot.sound"],"nonclaims":["D-table","row-B constants","tail value","cardinal pins","SourceRH","RH"]}
