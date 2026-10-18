@@ -1,0 +1,8 @@
+{
+  "record": 2853,
+  "status": "PROBE_INCONCLUSIVE",
+  "target": "exp(-8/3) > 1/16 and exp(-13/5) < 1/8",
+  "method": "Real.exp_bound Taylor order 10",
+  "result": "remainder bound did not close the rational inequalities",
+  "nonclaims": ["mathematical no-go", "ledger domination", "SourceRH", "RH"]
+}
