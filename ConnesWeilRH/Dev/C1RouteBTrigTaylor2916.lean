@@ -47,4 +47,21 @@ theorem routeBSinTaylor20_eq_mathlib2919 {x : ℝ} (hx : 0 < x) :
   simp [routeBSinTaylor20, Real.iteratedDeriv_even_sin,
     Real.iteratedDeriv_odd_sin, smul_eq_mul, div_eq_mul_inv]
 
+theorem routeBSinEndpoint_of_mathlibRemainder2923
+    (hsinErr : 0 ≤ (1 : ℝ) / 10 ^ 20)
+    (hrem : ‖Real.sin ((52523502177204355 : ℝ) / 10 ^ 16) -
+      taylorWithinEval Real.sin 20
+        (Set.Icc 0 ((52523502177204355 : ℝ) / 10 ^ 16)) 0
+        ((52523502177204355 : ℝ) / 10 ^ 16)‖ ≤ hsinErr) :
+    (-867 : ℝ) / 1000 <
+        Real.sin ((52523502177204355 : ℝ) / 10 ^ 16) ∧
+      Real.sin ((52523502177204355 : ℝ) / 10 ^ 16) < (-864 : ℝ) / 1000 := by
+  have hpoly := routeBSinTaylor20_eq_mathlib2919
+    (x := (52523502177204355 : ℝ) / 10 ^ 16) (by norm_num)
+  rw [hpoly] at hrem
+  have h := routeBTrigTaylor20_left_of_remainder2917
+    (1 / 10 ^ 20) (1 / 10 ^ 20) (by positivity) (by positivity)
+    (by rfl) (by rfl) (by simpa [Real.norm_eq_abs] using hrem)
+  exact h.1.trans h.2.1
+
 end ConnesWeilRH.Dev
