@@ -1,0 +1,3 @@
+import ConnesWeilRH.Dev.C1RouteBTightExponentialReplay2850
+
+#print axioms ConnesWeilRH.Dev.routeB_tight_exponential_replay_mem2850
