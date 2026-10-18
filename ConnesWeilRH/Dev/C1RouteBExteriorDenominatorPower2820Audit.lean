@@ -1,0 +1,3 @@
+import ConnesWeilRH.Dev.C1RouteBExteriorDenominatorPower2820
+
+#print axioms ConnesWeilRH.Source.C1ExplicitSmoothSeed.routeB_exterior_denominator_power2820

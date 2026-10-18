@@ -1,0 +1,1 @@
+{"record":"2820","theorems":["routeB_exterior_denominator_power2820"],"build":"ConnesWeilRH.Dev.C1RouteBExteriorDenominatorPower2820Audit","status":"passed","jobs":2945,"axioms":["propext","Classical.choice","Quot.sound"],"nonclaims":["node list","D-table","row-B coefficients","tail constants","cardinal pins","SourceRH","RH"]}
