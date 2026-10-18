@@ -47,6 +47,20 @@ matching support theorem or a genuine semi-local extension.
 
 ## Current producer state
 
+## Route priority status (2026-10-18)
+
+Route A is `FROZEN_MAINTENANCE`, not `DEAD` or `CLOSED`.  The active desk
+priority is Route B because its centered analytic/Cauchy interface is currently
+the shortest path to a same-owner gate.  Route A remains the binding producer
+contract and the fallback route.
+
+While frozen, Route A work is limited to dependency fixes, audit repairs, and
+compatibility work required by a successful Route B handoff.  New generic
+mechanism campaigns and reopening of closed Route-A no-go branches are paused.
+Route A returns to active status if Route B's formal D4/Cauchy bridge fails its
+named margin, or if Route B reaches its gate but cannot be connected to the
+existing `SourceRH` consumer.
+
 The selected orbit detector, its strict spectral negativity, its
 support-derived finite visible-prime owner, and the contradiction consumer are
 formal. Detector-specific semi-local nonnegativity is open.
