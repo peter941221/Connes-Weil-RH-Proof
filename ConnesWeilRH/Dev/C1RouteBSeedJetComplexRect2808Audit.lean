@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RouteBSeedJetComplexRect2808
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms seedJetComplexRect_mem2808

@@ -1,0 +1,1 @@
+{"record":"2808","theorem":"seedJetComplexRect_mem2808","build":"ConnesWeilRH.Dev.C1RouteBSeedJetComplexRect2808Audit","status":"passed","jobs":3656,"axioms":["propext","Classical.choice","Quot.sound"],"nonclaims":["ledger row import","corner norm pricing","finite integral","exterior D7 tail","cardinal pins","SourceRH","RH"]}
