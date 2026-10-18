@@ -1,4 +1,5 @@
 import Mathlib.Analysis.Complex.CauchyIntegral
+import Mathlib.Analysis.Complex.AbsMax
 import Mathlib.Analysis.Calculus.FDeriv.Basic
 import Mathlib.Analysis.Calculus.Deriv.Basic
 import Mathlib.Analysis.Calculus.FDeriv.Analytic
@@ -292,6 +293,25 @@ theorem routeBIntervalArtifactUpperBounds2891 :
     (1618808853723429 : ℝ) / 10 ^ 14 ≤ 17 ∧
     (1377903608911726 : ℝ) / 10 ^ 14 ≤ 1377903608911726 / 10 ^ 14 := by
   constructor <;> norm_num
+
+/-! Maximum-modulus bridge: once a certified bound is supplied on the
+boundary circle, it propagates to the closed disk.  The boundary certificate
+itself remains an explicit premise; this theorem does not promote sampled
+interval data to a formal analytic bound. -/
+theorem routeBCenteredQ_norm_le_of_frontier_bound2901 (C : ℝ)
+    (hC : ∀ z ∈ frontier (Metric.ball (0 : ℂ) (1 / 20 : ℝ)),
+      ‖routeBCenteredQ2900 z‖ ≤ C)
+    {z : ℂ} (hz : z ∈ Metric.closedBall (0 : ℂ) (1 / 20 : ℝ)) :
+    ‖routeBCenteredQ2900 z‖ ≤ C := by
+  have hz' : z ∈ closure (Metric.ball (0 : ℂ) (1 / 20 : ℝ)) := by
+    rw [closure_ball 0 (by norm_num)]
+    exact hz
+  apply Complex.norm_le_of_forall_mem_frontier_norm_le
+    (U := Metric.ball (0 : ℂ) (1 / 20 : ℝ))
+    (Metric.isBounded_ball) ?_ hC hz'
+  exact DifferentiableOn.diffContOnCl_ball (U := Metric.closedBall (0 : ℂ) (1 / 20 : ℝ))
+    (fun t ht => (routeBCenteredQ_differentiableAt2900 t
+      (mem_closedBall_zero_iff.mp ht)).differentiableWithinAt) Set.Subset.rfl
 
 end
 end ConnesWeilRH.Dev
