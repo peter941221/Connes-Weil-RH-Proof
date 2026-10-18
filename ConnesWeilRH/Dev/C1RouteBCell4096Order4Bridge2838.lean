@@ -29,6 +29,22 @@ theorem routeB_cell4096_order4_norm_bound2838 {x : ℝ}
     (routeBSeedCell2809_mem_unit 4096 (by norm_num)).1
     (routeBSeedCell2809_mem_unit 4096 (by norm_num)).2 hx
 
+theorem routeB_cell4096_order7_mem2839 {x : ℝ}
+    (hx : (routeBSeedCell2809 4096).Mem x) :
+    (seedTransitionJetInterval2734 (routeBSeedCell2809 4096) 7).Mem
+      (iteratedDeriv 7 Real.smoothTransition x) := by
+  exact seedTransitionJetInterval_mem2734 (routeBSeedCell2809 4096) 7
+    (routeBSeedCell2809_mem_unit 4096 (by norm_num)).1
+    (routeBSeedCell2809_mem_unit 4096 (by norm_num)).2 hx
+
+theorem routeB_cell4096_order7_norm_bound2839 {x : ℝ}
+    (hx : (routeBSeedCell2809 4096).Mem x) :
+    ‖iteratedDeriv 7 Real.smoothTransition x‖ ≤
+      (seedTransitionJetInterval2734 (routeBSeedCell2809 4096) 7).endpointAbsMax := by
+  exact norm_iteratedDeriv_le_seedCellJet2734 (routeBSeedCell2809 4096) 7
+    (routeBSeedCell2809_mem_unit 4096 (by norm_num)).1
+    (routeBSeedCell2809_mem_unit 4096 (by norm_num)).2 hx
+
 theorem routeB_cell4096_order4_interval2838 :
     (routeBSeedCell2809 4096).lo = (8392704 : ℝ) / 33554432 ∧
       (routeBSeedCell2809 4096).hi = (8394751 : ℝ) / 33554432 := by
