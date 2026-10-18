@@ -45,6 +45,16 @@ theorem routeBArgumentNormBound2900 (t : ℂ)
       gcongr
     _ = (40 : ℝ) / 399 := by norm_num
 
+theorem routeBDenominatorNonzero2900 (t : ℂ)
+    (ht : ‖t‖ ≤ (1 : ℝ) / 20) : t ^ 2 ≠ 1 := by
+  intro hbad
+  have hsq := routeBSquareNormBound2900 t ht
+  have hone : ‖t ^ 2‖ = 1 := by
+    rw [hbad]
+    exact routeBComplexNormOne2900
+  rw [hone] at hsq
+  norm_num at hsq
+
 theorem routeBCauchyRemainder2891
     (M : ℝ) (hM0 : 0 ≤ M) (hM : M ≤ 1377903608911726 / 10 ^ 14) :
     M * ((1 : ℝ) / 5) ^ 22 / (1 - (1 : ℝ) / 5) < 1 / 10 ^ 13 := by
