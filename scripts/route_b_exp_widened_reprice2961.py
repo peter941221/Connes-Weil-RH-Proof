@@ -15,14 +15,14 @@ def main() -> None:
         iv.mpf([t["re_lo"], t["re_hi"]]),
         iv.mpf([t["im_lo"], t["im_hi"]]),
     )
-    ee = iv.mpc(iv.mpf(["1.0914", "1.0922"]), iv.mpf(["-0.1893", "-0.1887"]))
+    ee = iv.mpc(iv.mpf(["1.0914", "1.0923"]), iv.mpf(["-0.1893", "-0.1887"]))
     zz = (ee - 1) / (ee + 1) / tt
     hh = base.h_of(tt, zz)
     payload = {
         "record": 2961,
         "formal_exp_rectangle": {
             "re_lo": "1.0914",
-            "re_hi": "1.0922",
+            "re_hi": "1.0923",
             "im_lo": "-0.1893",
             "im_hi": "-0.1887",
         },
@@ -38,3 +38,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
