@@ -16,4 +16,8 @@ theorem routeBLocalEndpointAngle_right2915 :
         (52554181792962070 : ℝ) / 10 ^ 16 := by
   constructor <;> nlinarith [Real.pi_gt_d20, Real.pi_lt_d20]
 
+theorem routeBLocalTaylorRemainderBudget2915 :
+    ((526 : ℝ) / 100) ^ 21 / (Nat.factorial 20 : ℝ) < (1 : ℝ) / 10 ^ 20 := by
+  norm_num
+
 end ConnesWeilRH.Dev
