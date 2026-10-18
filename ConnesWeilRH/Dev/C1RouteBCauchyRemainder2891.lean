@@ -220,6 +220,11 @@ theorem routeBCenteredQ_analyticAt_of_norm_lt2900 (t : ℂ)
   rw [mem_eball_zero_iff]
   exact_mod_cast ht
 
+theorem routeBCenteredQ_analyticOnNhd_ball2900 :
+    AnalyticOnNhd ℂ routeBCenteredQ2900
+      (Metric.eball (0 : ℂ) (ENNReal.ofNNReal (1 / 20 : NNReal))) :=
+  routeBCenteredQ_hasFPowerSeriesOnBall2900.analyticOnNhd
+
 theorem routeBCenteredQ_cauchyPowerSeries_coeff_zero2900
     (v : Fin 0 → ℂ) :
     (cauchyPowerSeries routeBCenteredQ2900 (0 : ℂ) (1 / 20 : NNReal)) 0 v =
