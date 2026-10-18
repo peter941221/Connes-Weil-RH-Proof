@@ -2,6 +2,7 @@ import Mathlib.Analysis.Complex.CauchyIntegral
 import Mathlib.Data.Int.Basic
 import Mathlib.Tactic
 import Mathlib.Analysis.Real.Pi.Bounds
+import Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp
 
 namespace ConnesWeilRH.Dev
 
@@ -150,6 +151,18 @@ theorem routeBInnerHasDerivAt2900 (t : ℂ) (hden : 1 - t ^ 2 ≠ 0) :
     convert (hasDerivAt_const t (1 : ℂ)).sub ((hasDerivAt_id t).pow 2) using 1 <;>
       simp [id] <;> ring
   convert hn.div hd hden using 1 <;> ring
+
+theorem routeBComposedTanhDifferentiableAt2900 (t : ℂ)
+    (ht : ‖t‖ ≤ (1 : ℝ) / 20) :
+    DifferentiableAt ℂ (fun x : ℂ => Complex.tanh (2 * x / (1 - x ^ 2))) t := by
+  have hden := routeBDenominatorNonzero2900 t ht
+  have hi := routeBInnerHasDerivAt2900 t (sub_ne_zero.mpr (Ne.symm hden))
+  have hs := (Complex.hasDerivAt_sinh (2 * t / (1 - t ^ 2))).comp t hi
+  have hc := (Complex.hasDerivAt_cosh (2 * t / (1 - t ^ 2))).comp t hi
+  have hq := routeBComposedCoshNonzero2900 t ht
+  change DifferentiableAt ℂ (fun x : ℂ => Complex.sinh (2 * x / (1 - x ^ 2)) /
+    Complex.cosh (2 * x / (1 - x ^ 2))) t
+  exact (hs.div hc hq).differentiableAt
 
 theorem routeBCauchyRemainder2891
     (M : ℝ) (hM0 : 0 ≤ M) (hM : M ≤ 1377903608911726 / 10 ^ 14) :
