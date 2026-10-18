@@ -21,11 +21,16 @@ def main():
         b = lo + (hi - lo) * (j + 1) / subdivisions
         theta = iv.mpf([a, b])
         t = radius * (iv.cos(theta) + 1j * iv.sin(theta))
+        value = base.h_of(t, base.z_of(t))
         rows.append({
             "subcell": j,
             "theta_lo": repr(a),
             "theta_hi": repr(b),
-            "upper": str(base.abs_upper(base.h_of(t, base.z_of(t)))),
+            "re_lo": base.endpoint_text(value.real.a),
+            "re_hi": base.endpoint_text(value.real.b),
+            "im_lo": base.endpoint_text(value.imag.a),
+            "im_hi": base.endpoint_text(value.imag.b),
+            "upper": str(base.abs_upper(value)),
         })
     payload = {
         "record": 2905,
