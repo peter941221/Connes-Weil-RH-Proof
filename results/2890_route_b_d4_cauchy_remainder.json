@@ -7,6 +7,7 @@
     "rational_geometric_assembly": true
   },
   "formula": "M*(r/R)^22/(1-r/R)",
+  "generator_sha256": "aff7a7a255cce87e6528718cbf6483e82183c8047c6ac745476042ae2b3eba37",
   "margin_ratio": 1.944386925269657e-16,
   "next_target": "formalize the Cauchy theorem and connect M to the interval artifact",
   "r_over_R": "1/5",

@@ -1,5 +1,6 @@
 """Assemble the Cauchy geometric remainder from the interval-circle bound."""
 import json
+import hashlib
 from fractions import Fraction
 from pathlib import Path
 
@@ -11,6 +12,7 @@ truncated_lower = Fraction(2828590559115742395042857430835243113655208021407,
                            76131436484619140625000000000000000000000000000)
 payload = {
     "record": 2890,
+    "generator_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
     "formula": "M*(r/R)^22/(1-r/R)",
     "M": str(M),
     "r_over_R": str(ratio),

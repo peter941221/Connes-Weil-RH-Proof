@@ -1,6 +1,7 @@
 """Cross-check the Route B D4 Cauchy enclosure and remainder artifacts."""
 import json
 import os
+import hashlib
 from pathlib import Path
 from fractions import Fraction
 
@@ -9,6 +10,10 @@ def load(name):
     override = os.environ.get("D4_CAUCHY_REMAINDER_OVERRIDE") if "2890" in name else None
     path = Path(override) if override else Path("results", name)
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def generator_hash(script):
+    return hashlib.sha256(Path("scripts", script).read_bytes()).hexdigest()
 
 
 def main():
@@ -37,6 +42,8 @@ def main():
         "tail_below_truncation_margin": declared_tail < Fraction(remainder["truncated_lower_bound"]),
         "interval_artifact_marks_nonformal": interval["claims"]["full_cauchy_remainder_certificate"] is False,
         "remainder_artifact_marks_nonformal": remainder["claims"]["formal_analytic_bridge"] is False,
+        "interval_generator_hash_matches": interval.get("generator_sha256") == generator_hash("route_b_d4_cauchy_interval2889.py"),
+        "remainder_generator_hash_matches": remainder.get("generator_sha256") == generator_hash("route_b_d4_cauchy_remainder2890.py"),
     }
     payload = {"record": 2891, "checks": checks,
                "all_checks_pass": all(checks.values()),

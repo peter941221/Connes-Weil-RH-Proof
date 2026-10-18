@@ -1,5 +1,6 @@
 """Outward complex-rectangle enclosure for the right Cauchy circle."""
 import json
+import hashlib
 from pathlib import Path
 from mpmath import iv
 
@@ -42,7 +43,8 @@ def main():
         rows.append({"radius": "0.05", "angle_cells": cells,
                      "rigorous_rectangle_upper": maximum,
                      "order_22_scale": maximum * (0.01 / 0.05)**22})
-    payload = {"record": 2889, "rows": rows,
+    generator_sha256 = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+    payload = {"record": 2889, "generator_sha256": generator_sha256, "rows": rows,
                "claims": {"outward_complex_rectangle_enclosure": True,
                           "full_cauchy_remainder_certificate": False},
                "next_target": "integrate the complex-circle bound with a proved Cauchy remainder theorem"}

@@ -4,9 +4,11 @@
     "all_interval_rows_are_positive": true,
     "finest_interval_is_below_declared_M": true,
     "interval_artifact_marks_nonformal": true,
+    "interval_generator_hash_matches": true,
     "refinement_does_not_increase_upper_bound": true,
     "remainder_artifact_marks_nonformal": true,
     "remainder_formula_replays": true,
+    "remainder_generator_hash_matches": true,
     "tail_below_truncation_margin": true
   },
   "claims": {
