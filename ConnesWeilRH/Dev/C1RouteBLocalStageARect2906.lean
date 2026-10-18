@@ -11,6 +11,5 @@ theorem routeBLocalStageANormBound2906 {z : ℂ}
     ‖z‖ ≤ (40 : ℝ) / 399 := by
   apply norm_le_of_rect_mem_of_sq_bound2902 routeBLocalStageARect2906 hz (by norm_num)
   norm_num [routeBLocalStageARect2906, ComplexRect2427.mk]
-  nlinarith
 
 end ConnesWeilRH.Dev
