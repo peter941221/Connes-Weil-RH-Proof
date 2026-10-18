@@ -2,7 +2,7 @@
 
 For `r = 2q - 1 = t z`, the logistic differential equation gives
 
-`z' = (2 t (1+t^2) (1-t^2 z^2)/(1-t^2)^2 - z) / t`.
+`z' = (2 (1+t^2) (1-t^2 z^2)/(1-t^2)^2 - z) / t`.
 
 Substituting this into the exact centred residual produces
 

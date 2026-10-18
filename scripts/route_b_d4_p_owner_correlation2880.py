@@ -13,7 +13,7 @@ for _ in range(4):
 numerator, _ = s.fraction(jet)
 H_SYMBOLIC = s.factor(numerator.subs({U: (1 + T) / 2, Q: (1 + T * Z) / 2}) /
                      (T * (T * Z - 1) * (T * Z + 1)))
-z_prime = (2*T*(1+T**2)*(1-T**2*Z**2)/(1-T**2)**2-Z)/T
+z_prime = (2*(1+T**2)*(1-T**2*Z**2)/(1-T**2)**2-Z)/T
 derivative = s.factor(s.diff(H_SYMBOLIC, T) + s.diff(H_SYMBOLIC, Z) * z_prime)
 numerator_p, _ = s.fraction(derivative)
 P_EVAL = s.lambdify((T, Z), s.factor(-numerator_p / 2), "mpmath")

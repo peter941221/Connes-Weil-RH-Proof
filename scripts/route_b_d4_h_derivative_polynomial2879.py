@@ -11,7 +11,7 @@ H = (24*t**10*z**3 + 36*t**10*z**2 + 18*t**10*z + 3*t**10
      + 24*t**2*z**3 - 108*t**2*z**2 + 50*t**2*z + 63*t**2 - 4*z + 21)
 
 # From r = t*z and r' = 2(1+t^2)(1-r^2)/(1-t^2)^2.
-z_prime = (2*t*(1+t**2)*(1-t**2*z**2)/(1-t**2)**2 - z) / t
+z_prime = (2*(1+t**2)*(1-t**2*z**2)/(1-t**2)**2 - z) / t
 derivative = s.factor(s.diff(H, t) + s.diff(H, z) * z_prime)
 numerator, denominator = s.fraction(derivative)
 P = s.factor(-numerator / 2)
