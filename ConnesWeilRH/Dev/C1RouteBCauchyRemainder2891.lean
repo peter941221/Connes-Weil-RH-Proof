@@ -1,4 +1,6 @@
 import Mathlib.Analysis.Complex.CauchyIntegral
+import Mathlib.Analysis.Calculus.FDeriv.Basic
+import Mathlib.Analysis.Calculus.Deriv.Basic
 import Mathlib.Data.Int.Basic
 import Mathlib.Tactic
 import Mathlib.Analysis.Real.Pi.Bounds
@@ -226,6 +228,14 @@ theorem routeBCenteredQ_hasDerivAt_zero2900 :
   have hsum := (hasDerivAt_const (0 : ℂ) (1 : ℂ)).add hq
   have hhalf := hsum.div_const (2 : ℂ)
   convert hhalf using 1 <;> simp [routeBCenteredQ2900]
+
+theorem routeBCenteredQ_fderiv_zero2900 :
+    fderiv ℂ routeBCenteredQ2900 0 = 1 :=
+  by
+    have h := routeBCenteredQ_hasDerivAt_zero2900.hasFDerivAt.fderiv
+    convert h using 1
+    ext z
+    simp
 
 theorem routeBCauchyRemainder2891
     (M : ℝ) (hM0 : 0 ≤ M) (hM : M ≤ 1377903608911726 / 10 ^ 14) :
