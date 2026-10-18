@@ -217,6 +217,16 @@ theorem routeBCenteredQ_cauchyPowerSeries_coeff_zero2900
   rw [routeBCenteredQ_hasFPowerSeriesOnBall2900.coeff_zero v]
   exact routeBCenteredQ_zero2900
 
+theorem routeBCenteredQ_hasDerivAt_zero2900 :
+    HasDerivAt routeBCenteredQ2900 1 0 := by
+  have hi := routeBInnerHasDerivAt2900 (0 : ℂ) (by norm_num)
+  have hs := (Complex.hasDerivAt_sinh (2 * (0 : ℂ) / (1 - (0 : ℂ) ^ 2))).comp 0 hi
+  have hc := (Complex.hasDerivAt_cosh (2 * (0 : ℂ) / (1 - (0 : ℂ) ^ 2))).comp 0 hi
+  have hq := hs.div hc (by simp)
+  have hsum := (hasDerivAt_const (0 : ℂ) (1 : ℂ)).add hq
+  have hhalf := hsum.div_const (2 : ℂ)
+  convert hhalf using 1 <;> simp [routeBCenteredQ2900]
+
 theorem routeBCauchyRemainder2891
     (M : ℝ) (hM0 : 0 ≤ M) (hM : M ≤ 1377903608911726 / 10 ^ 14) :
     M * ((1 : ℝ) / 5) ^ 22 / (1 - (1 : ℝ) / 5) < 1 / 10 ^ 13 := by
