@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RouteBCell4096Order4Bridge2838
+
+#print axioms ConnesWeilRH.Source.C1ExplicitSmoothSeed.routeB_cell4096_order4_mem2838
+#print axioms ConnesWeilRH.Source.C1ExplicitSmoothSeed.routeB_cell4096_order4_norm_bound2838
+#print axioms ConnesWeilRH.Source.C1ExplicitSmoothSeed.routeB_cell4096_order4_interval2838
