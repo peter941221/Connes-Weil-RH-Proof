@@ -1,0 +1,55 @@
+"""Outward complex-rectangle enclosure for the right Cauchy circle."""
+import json
+from pathlib import Path
+from mpmath import iv
+
+iv.dps = 30
+
+
+def z_of(t):
+    a = 2 * t / (1 - t * t)
+    e = iv.exp(2 * a)
+    return (e - 1) / (e + 1) / t
+
+
+def h_of(t, z):
+    y = t * t
+    return (24*y**5*z**3 + 36*y**5*z**2 + 18*y**5*z + 3*y**5
+            + 96*y**4*z**3 + 144*y**4*z**2 + 68*y**4*z + 9*y**4
+            + 144*y**3*z**3 + 72*y**3*z**2 - 148*y**3*z - 114*y**3
+            + 96*y**2*z**3 - 144*y**2*z**2 - 240*y**2*z + 18*y**2
+            + 24*y*z**3 - 108*y*z**2 + 50*y*z + 63*y - 4*z + 21)
+
+
+def abs_upper(value):
+    re = value.real
+    im = value.imag
+    re_max = max(abs(float(re.a)), abs(float(re.b)))
+    im_max = max(abs(float(im.a)), abs(float(im.b)))
+    return (re_max**2 + im_max**2) ** 0.5
+
+
+def main():
+    rows = []
+    radius = iv.mpf("0.05")
+    for cells in (64, 256):
+        maximum = 0.0
+        for k in range(cells):
+            theta = iv.mpf([2 * 3.141592653589793 * k / cells,
+                            2 * 3.141592653589793 * (k + 1) / cells])
+            t = radius * (iv.cos(theta) + 1j * iv.sin(theta))
+            maximum = max(maximum, abs_upper(h_of(t, z_of(t))))
+        rows.append({"radius": "0.05", "angle_cells": cells,
+                     "rigorous_rectangle_upper": maximum,
+                     "order_22_scale": maximum * (0.01 / 0.05)**22})
+    payload = {"record": 2889, "rows": rows,
+               "claims": {"outward_complex_rectangle_enclosure": True,
+                          "full_cauchy_remainder_certificate": False},
+               "next_target": "integrate the complex-circle bound with a proved Cauchy remainder theorem"}
+    out = Path("results/2889_route_b_d4_cauchy_interval.json")
+    out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2))
+
+
+if __name__ == "__main__":
+    main()

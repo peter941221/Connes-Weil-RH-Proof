@@ -1,0 +1,22 @@
+{
+  "record": 2889,
+  "rows": [
+    {
+      "radius": "0.05",
+      "angle_cells": 64,
+      "rigorous_rectangle_upper": 16.18808853723429,
+      "order_22_scale": 6.78977645040758e-15
+    },
+    {
+      "radius": "0.05",
+      "angle_cells": 256,
+      "rigorous_rectangle_upper": 13.77903608911726,
+      "order_22_scale": 5.7793466184728774e-15
+    }
+  ],
+  "claims": {
+    "outward_complex_rectangle_enclosure": true,
+    "full_cauchy_remainder_certificate": false
+  },
+  "next_target": "integrate the complex-circle bound with a proved Cauchy remainder theorem"
+}
