@@ -172,6 +172,14 @@ noncomputable def routeBCenteredQ2900 (t : ℂ) : ℂ :=
 theorem routeBCenteredQ_zero2900 : routeBCenteredQ2900 0 = (1 : ℂ) / 2 := by
   simp [routeBCenteredQ2900]
 
+theorem routeBCenteredQ_differentiableAt2900 (t : ℂ)
+    (ht : ‖t‖ ≤ (1 : ℝ) / 20) :
+    DifferentiableAt ℂ routeBCenteredQ2900 t := by
+  have h := routeBComposedTanhDifferentiableAt2900 t ht
+  change DifferentiableAt ℂ
+    (fun x : ℂ => (1 + Complex.tanh (2 * x / (1 - x ^ 2))) / 2) t
+  exact (differentiableAt_const (c := (1 : ℂ)) |>.add h).div_const 2
+
 theorem routeBCauchyRemainder2891
     (M : ℝ) (hM0 : 0 ≤ M) (hM : M ≤ 1377903608911726 / 10 ^ 14) :
     M * ((1 : ℝ) / 5) ^ 22 / (1 - (1 : ℝ) / 5) < 1 / 10 ^ 13 := by
