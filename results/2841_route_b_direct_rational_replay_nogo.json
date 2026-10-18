@@ -1,0 +1,16 @@
+{
+  "record": 2841,
+  "status": "SCOPED_NO_GO",
+  "owner": "Route B cell 4096 order 4",
+  "mechanism": "independent rational endpoint boxes replayed through Lean exponential/reciprocal/product boxes",
+  "failure": "replayed transition box is not contained in the tight Python transition box",
+  "cause": "dependency correlation is discarded between recurrence stages",
+  "action": "preserve correlated jet structure or price a proved inflation allowance",
+  "nonclaims": [
+    "Lean recurrence unsoundness",
+    "Python-to-Lean semantic bridge",
+    "ledger domination",
+    "SourceRH",
+    "RH"
+  ]
+}
