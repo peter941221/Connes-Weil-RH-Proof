@@ -1,0 +1,1 @@
+{"record":"2817","theorems":["routeB_exterior_power_tail2817"],"build":"ConnesWeilRH.Dev.C1RouteBExteriorPowerTail2817Audit","status":"passed","jobs":2701,"axioms":["propext","Classical.choice","Quot.sound"],"nonclaims":["row-B constants","D4/D7 instantiation","cardinal pins","SourceRH","RH"]}

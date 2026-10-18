@@ -1,0 +1,3 @@
+import ConnesWeilRH.Dev.C1RouteBExteriorPowerTail2817
+
+#print axioms ConnesWeilRH.Source.C1ExplicitSmoothSeed.routeB_exterior_power_tail2817
