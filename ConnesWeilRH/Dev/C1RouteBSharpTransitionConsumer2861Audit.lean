@@ -1,0 +1,3 @@
+import ConnesWeilRH.Dev.C1RouteBSharpTransitionConsumer2861
+
+#print axioms ConnesWeilRH.Dev.routeB_sharp_transition_mem2861
