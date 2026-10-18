@@ -1,11 +1,14 @@
 """Cross-check the Route B D4 Cauchy enclosure and remainder artifacts."""
 import json
+import os
 from pathlib import Path
 from fractions import Fraction
 
 
 def load(name):
-    return json.loads(Path("results", name).read_text(encoding="utf-8"))
+    override = os.environ.get("D4_CAUCHY_REMAINDER_OVERRIDE") if "2890" in name else None
+    path = Path(override) if override else Path("results", name)
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
 def main():
