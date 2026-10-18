@@ -1,0 +1,3 @@
+import ConnesWeilRH.Dev.C1RouteBNodeProductEnvelope2821
+
+#print axioms ConnesWeilRH.Source.C1ExplicitSmoothSeed.routeB_node_product_envelope2821
