@@ -1,0 +1,4 @@
+import ConnesWeilRH.Dev.C1RouteBDTableModelPins2828
+
+#print axioms ConnesWeilRH.Source.C1ExplicitSmoothSeed.routeB_model_D4_pin2828
+#print axioms ConnesWeilRH.Source.C1ExplicitSmoothSeed.routeB_model_D7_pin2828

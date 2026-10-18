@@ -1,0 +1,1 @@
+{"record":"2828","theorems":["routeB_model_D4_pin2828","routeB_model_D7_pin2828"],"build":"ConnesWeilRH.Dev.C1RouteBDTableModelPins2828Audit","status":"passed","jobs":2943,"scope":"stored model arithmetic only","axioms":["propext","Classical.choice","Quot.sound"],"nonclaims":["D-table generation","row-B constants","tail value","cardinal pins","SourceRH","RH"]}
