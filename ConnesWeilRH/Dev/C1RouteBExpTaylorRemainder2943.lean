@@ -23,6 +23,24 @@ theorem routeBExpTaylor20_upper_at_40_over_3992943 :
       (111 : ℝ) / 100 := by
   norm_num [routeBExpTaylor20, Finset.sum_range_succ, Nat.factorial]
 
+theorem routeBExpAtNormBound2943 :
+    Real.exp ((40 : ℝ) / 399) < (111 : ℝ) / 100 := by
+  have hrem := routeBExpTaylorRemainderBound2943 (x := (40 : ℝ) / 399) (by positivity)
+  rw [routeBExpTaylor20_eq_mathlib2943 (by norm_num)] at hrem
+  rw [Real.norm_eq_abs] at hrem
+  have h1 : Real.exp (1 : ℝ) ≤ 3 := routeBExpOneLtThree2943.le
+  have hbound :
+      |Real.exp ((40 : ℝ) / 399) - routeBExpTaylor20 ((40 : ℝ) / 399)| ≤
+        3 * ((40 : ℝ) / 399) ^ 21 / (Nat.factorial 20 : ℝ) := by
+    calc
+      |Real.exp ((40 : ℝ) / 399) - routeBExpTaylor20 ((40 : ℝ) / 399)| ≤
+          Real.exp 1 * ((40 : ℝ) / 399) ^ 21 / (Nat.factorial 20 : ℝ) := hrem
+      _ ≤ 3 * ((40 : ℝ) / 399) ^ 21 / (Nat.factorial 20 : ℝ) := by
+        gcongr
+  rw [abs_le] at hbound
+  have hupper := routeBExpTaylor20_upper_at_40_over_3992943
+  linarith
+
 theorem routeBExpTaylorRemainderBound2943 {x : ℝ} (hx : 0 ≤ x) :
     ‖Real.exp x -
         taylorWithinEval Real.exp 20 (Set.Icc 0 x) 0 x‖ ≤
