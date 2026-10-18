@@ -1,12 +1,14 @@
-# 2845 Route B phase-box gate failure
+# 2845 Route B phase-box bridge
 
-The first direct phase soundness gate was attempted on cell 4096 for orders
-0 through 7. The gate fails at order 2: the Python exported phase box is not
-proved to contain the exact Lean `phaseJetInterval2734` box.
+For cell 4096, the direct phase soundness gate now passes for orders 0 through
+7: the Python exported phase boxes contain the exact Lean
+`phaseJetInterval2734` boxes.
 
-This is a scoped gate failure, not a conclusion that either recurrence is
-wrong. It means the current Python phase endpoint artifact cannot yet be used
-as a Lean soundness input. The next action is to compute the endpoint delta and
-either correct the Python stage convention or add a proved outward inflation.
-No transition charge or global claim may consume the current phase boxes until
-this gate passes.
+The initial attempt hit Lean's default heartbeat limit while normalizing the
+order-2 expression; it was an elaboration resource limit, not a failed
+inequality. Exact Fraction diagnosis record 2846 independently confirms
+containment. The theorem uses elevated proof heartbeat and recursion limits.
+
+This closes the phase-box membership premise at one cell. It does not yet
+prove the exponential seed box, global cell coverage, ledger domination,
+SourceRH, or RH.
