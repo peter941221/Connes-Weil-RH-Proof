@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1RouteBSeedRectCornerNorm2810
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms seedJetComplexRect_cornerNormSq2810
+#print axioms seedJetComplexRect_cornerNorm_eq_absMax2810
