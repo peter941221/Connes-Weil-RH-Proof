@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteBSeedCellGeometry2809
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms routeBSeedCell2809_mem_unit
+#print axioms routeBSeedCell2809_adjacent
+#print axioms routeBSeedCell2809_d4_mem
+#print axioms routeBSeedCell2809_d7_mem
