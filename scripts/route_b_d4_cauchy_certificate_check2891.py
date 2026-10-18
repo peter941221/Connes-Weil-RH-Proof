@@ -55,6 +55,9 @@ def main():
         "remainder_artifact_marks_nonformal": remainder["claims"]["formal_analytic_bridge"] is False,
         "interval_generator_hash_matches": interval.get("generator_sha256") == generator_hash("route_b_d4_cauchy_interval2889.py"),
         "remainder_generator_hash_matches": remainder.get("generator_sha256") == generator_hash("route_b_d4_cauchy_remainder2890.py"),
+        "binary64_endpoint_roundtrip_removed":
+            "float(re.a)" not in Path("scripts", "route_b_d4_cauchy_interval2889.py").read_text(encoding="utf-8")
+            and "float(re.b)" not in Path("scripts", "route_b_d4_cauchy_interval2889.py").read_text(encoding="utf-8"),
     }
     payload = {"record": 2891, "checks": checks,
                "all_checks_pass": all(checks.values()),
