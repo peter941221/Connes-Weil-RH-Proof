@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1RouteBRealToComplexRect2806
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms complexRect_mem_of_real_bounds2806
+#print axioms norm_real_coe2806

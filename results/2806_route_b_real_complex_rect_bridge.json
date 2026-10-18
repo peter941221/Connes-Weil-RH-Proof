@@ -1,0 +1,1 @@
+{"record":"2806","theorems":["complexRect_mem_of_real_bounds2806","norm_real_coe2806"],"build":"ConnesWeilRH.Dev.C1RouteBRealToComplexRect2806Audit","status":"passed","jobs":2117,"axioms":["propext","Classical.choice","Quot.sound"],"nonclaims":["ledger import","finite integral","exterior D7 tail","cardinal pins","SourceRH","RH"]}
