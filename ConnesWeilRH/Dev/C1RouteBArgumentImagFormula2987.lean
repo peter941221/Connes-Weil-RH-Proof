@@ -6,7 +6,7 @@ theorem routeBArgumentImagFormula2987 {x y : ℝ}
     (hden : (1 - x ^ 2 + y ^ 2) ^ 2 + (2 * x * y) ^ 2 ≠ 0) :
     (2 * ((x : ℂ) + (y : ℝ) * Complex.I) /
         (1 - ((x : ℂ) + (y : ℝ) * Complex.I) ^ 2)).im =
-      (2 * y * (1 + x ^ 2 - y ^ 2)) /
+      (2 * y * (1 + x ^ 2 + y ^ 2)) /
         ((1 - x ^ 2 + y ^ 2) ^ 2 + (2 * x * y) ^ 2) := by
   rw [Complex.div_im]
   simp only [Complex.mul_re, Complex.mul_im, Complex.sub_re, Complex.sub_im,
