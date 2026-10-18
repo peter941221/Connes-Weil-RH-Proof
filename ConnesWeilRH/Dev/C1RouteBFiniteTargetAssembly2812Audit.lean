@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RouteBFiniteTargetAssembly2812
+
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms routeB_finite_target_2812
