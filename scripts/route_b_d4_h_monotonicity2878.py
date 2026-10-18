@@ -17,7 +17,7 @@ def h_of(t):
             + 96*y**4*z**3 + 144*y**4*z**2 + 68*y**4*z + 9*y**4
             + 144*y**3*z**3 + 72*y**3*z**2 - 148*y**3*z - 114*y**3
             + 96*y**2*z**3 - 144*y**2*z**2 - 240*y**2*z + 18*y**2
-            + 24*y*z**3 - 108*y*z**2 + 50*y + 63*y - 4*z + 21)
+            + 24*y*z**3 - 108*y*z**2 + 50*y*z + 63*y - 4*z + 21)
 
 
 def main():
@@ -41,7 +41,7 @@ def main():
     payload = {
         "record": 2878,
         "rows": rows,
-        "claims": {
+            "claims": {
             "owner_path_derivative_scan": True,
             "monotonicity_certificate": False,
             "sign_certificate": False,
