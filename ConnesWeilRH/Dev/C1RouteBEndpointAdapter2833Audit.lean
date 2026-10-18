@@ -1,0 +1,4 @@
+import ConnesWeilRH.Dev.C1RouteBEndpointAdapter2833
+
+#print axioms ConnesWeilRH.Source.C1ExplicitSmoothSeed.routeBSeedEndpoint2833_mono
+#print axioms ConnesWeilRH.Source.C1ExplicitSmoothSeed.routeBSeedEndpoint2833_cell_width
