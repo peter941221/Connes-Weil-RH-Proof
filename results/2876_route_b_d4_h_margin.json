@@ -1,0 +1,39 @@
+{
+  "record": 2876,
+  "object": "centered_residual_H",
+  "rows": [
+    {
+      "u_left": "0.000244140625",
+      "u_right": "0.1353",
+      "expected_sign": "+",
+      "z_left": "1.00048851978505129457743038593",
+      "z_right": "1.36562449053869697053251596706",
+      "h_min": "0.0119892474590647929386011383126",
+      "h_max": "127.438475639171673370321677937"
+    },
+    {
+      "u_left": "0.1354",
+      "u_right": "0.3028",
+      "expected_sign": "-",
+      "z_left": "1.36596900642905588824386766108",
+      "z_right": "1.8572515680522913752129487822",
+      "h_min": "-6.91447724600967890586217894931",
+      "h_max": "-0.0012834051888419201346355842663"
+    },
+    {
+      "u_left": "0.3029",
+      "u_right": "0.5",
+      "expected_sign": "+",
+      "z_left": "1.85743164019901751295657502654",
+      "z_right": "2.0",
+      "h_min": "0.0103858277144643493160197770425",
+      "h_max": "13.0"
+    }
+  ],
+  "claims": {
+    "corrected_owner_path_scan": true,
+    "sign_certificate": false,
+    "integral_bound_certificate": false
+  },
+  "next_target": "prove H sign from y=t^2 and owner bounds on z"
+}
