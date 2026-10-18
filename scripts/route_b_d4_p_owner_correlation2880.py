@@ -2,6 +2,21 @@
 import json
 from pathlib import Path
 import mpmath as mp
+import sympy as s
+
+T, Z, U, Q = s.symbols("t z u q")
+phi = 1 / U - 1 / (1 - U)
+velocity = -s.diff(phi, U) * Q * (1 - Q)
+jet = Q
+for _ in range(4):
+    jet = s.factor(s.diff(jet, U) + s.diff(jet, Q) * velocity)
+numerator, _ = s.fraction(jet)
+H_SYMBOLIC = s.factor(numerator.subs({U: (1 + T) / 2, Q: (1 + T * Z) / 2}) /
+                     (T * (T * Z - 1) * (T * Z + 1)))
+z_prime = (2*T*(1+T**2)*(1-T**2*Z**2)/(1-T**2)**2-Z)/T
+derivative = s.factor(s.diff(H_SYMBOLIC, T) + s.diff(H_SYMBOLIC, Z) * z_prime)
+numerator_p, _ = s.fraction(derivative)
+P_EVAL = s.lambdify((T, Z), s.factor(-numerator_p / 2), "mpmath")
 
 mp.mp.dps = 60
 
@@ -11,22 +26,8 @@ def z_of(t):
 
 
 def p_of(t, z):
-    # Exact P from record 2879, kept as a direct polynomial evaluator.
-    return (
-        72*t**15*z**4 + 72*t**15*z**3 + 18*t**15*z**2
-        - 84*t**14*z**3 - 144*t**14*z**2 - 81*t**14*z - 15*t**14
-        + 360*t**13*z**4 + 360*t**13*z**3 + 14*t**13*z**2 - 72*t**13*z - 18*t**13
-        - 72*t**12*z**3 - 144*t**12*z**2 - 76*t**12*z - 6*t**12
-        + 720*t**11*z**4 + 432*t**11*z**3 - 440*t**11*z**2 - 360*t**11*z - 86*t**11
-        + 180*t**10*z**3 + 576*t**10*z**2 + 765*t**10*z + 399*t**10
-        + 720*t**9*z**4 - 144*t**9*z**3 - 1108*t**9*z**2 - 432*t**9*z + 80*t**9
-        + 144*t**8*z**3 - 618*t**8*z - 756*t**8
-        + 360*t**7*z**4 - 504*t**7*z**3 - 910*t**7*z**2 + 144*t**7*z + 388*t**7
-        - 108*t**6*z**3 - 432*t**6*z**2 - 375*t**6*z + 351*t**6
-        + 72*t**5*z**4 - 216*t**5*z**3 - 314*t**5*z**2 + 504*t**5*z + 190*t**5
-        - 72*t**4*z**3 + 144*t**4*z**2 + 408*t**4*z + 90*t**4
-        - 76*t**3*z**2 + 216*t**3*z - 46*t**3
-        + 12*t**2*z**3 - 21*t**2*z - 63*t**2 + 4*t - 2*z)
+    # Rebuild P from the same exact SymPy derivation as record 2879.
+    return P_EVAL(t, z)
 
 
 def main():
