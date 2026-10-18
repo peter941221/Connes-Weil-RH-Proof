@@ -1,0 +1,8 @@
+{
+  "record": 2854,
+  "status": "PROBE_INTERFACE_FAIL",
+  "method": "Real.exp_bound order 30 at unsplit arguments",
+  "failure": "theorem requires absolute argument <= 1",
+  "action": "split exponent with exp_add before applying bounds",
+  "nonclaims": ["mathematical no-go", "ledger domination", "SourceRH", "RH"]
+}
