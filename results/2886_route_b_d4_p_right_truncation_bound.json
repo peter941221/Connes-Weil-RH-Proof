@@ -1,0 +1,13 @@
+{
+  "bound": "P_truncated / t^2 >= c0 - sum(abs(ck) * 10^(-4k))",
+  "claims": {
+    "exact_rational_truncation_bound": true,
+    "full_endpoint_sign_certificate": false,
+    "order_22_remainder_included": false
+  },
+  "domain": "|t| <= 1/100",
+  "lower_bound": "2828590559115742395042857430835243113655208021407/76131436484619140625000000000000000000000000000",
+  "lower_bound_decimal": 37.15404161180123,
+  "next_target": "add a certified order-22 remainder bound",
+  "record": 2886
+}
