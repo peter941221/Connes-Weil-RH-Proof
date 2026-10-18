@@ -1,0 +1,4 @@
+import ConnesWeilRH.Dev.C1RouteBSharpNormCharge2862
+
+#print axioms ConnesWeilRH.Dev.routeB_sharp_norm_le_abs_max2862
+#print axioms ConnesWeilRH.Dev.routeB_sharp_norm_bound2862
