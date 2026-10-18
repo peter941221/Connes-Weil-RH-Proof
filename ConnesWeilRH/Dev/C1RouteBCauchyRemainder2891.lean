@@ -132,6 +132,15 @@ theorem routeBCoshNonzeroSmall2900 (z : ℂ) (hz : ‖z‖ < 3 / 2) :
   rw [hkeq] at himag
   linarith
 
+theorem routeBComposedCoshNonzero2900 (t : ℂ)
+    (ht : ‖t‖ ≤ (1 : ℝ) / 20) :
+    Complex.cosh (2 * t / (1 - t ^ 2)) ≠ 0 := by
+  have hden := routeBDenominatorNonzero2900 t ht
+  have harg := routeBArgumentNormBound2900 t ht hden
+  have hstrict : ‖2 * t / (1 - t ^ 2)‖ < 3 / 2 := by
+    linarith [routeBArgumentRadiusConstant2900]
+  exact routeBCoshNonzeroSmall2900 _ hstrict
+
 theorem routeBCauchyRemainder2891
     (M : ℝ) (hM0 : 0 ≤ M) (hM : M ≤ 1377903608911726 / 10 ^ 14) :
     M * ((1 : ℝ) / 5) ^ 22 / (1 - (1 : ℝ) / 5) < 1 / 10 ^ 13 := by
