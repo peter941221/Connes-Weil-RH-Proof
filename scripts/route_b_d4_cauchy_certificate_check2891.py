@@ -37,6 +37,11 @@ def main():
             sum(row["angle_cells"] == cells for row in cell_rows) == cells
             for cells in (64, 256)
         ),
+        "cell_rectangles_have_ordered_endpoints": all(
+            Fraction(cell["re_lo"]) <= Fraction(cell["re_hi"])
+            and Fraction(cell["im_lo"]) <= Fraction(cell["im_hi"])
+            for cell in cell_rows
+        ),
         "row_max_replays_cell_max": all(
             Fraction(str(row["rigorous_rectangle_upper"])) ==
             max(Fraction(str(cell["rigorous_rectangle_upper"]))

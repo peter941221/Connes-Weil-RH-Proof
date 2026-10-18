@@ -3,6 +3,7 @@
   "checks": {
     "all_interval_rows_are_positive": true,
     "binary64_endpoint_roundtrip_removed": true,
+    "cell_rectangles_have_ordered_endpoints": true,
     "cell_rows_have_expected_partition": true,
     "finest_interval_is_below_declared_M": true,
     "interval_artifact_marks_nonformal": true,

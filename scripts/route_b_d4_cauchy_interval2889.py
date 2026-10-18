@@ -38,6 +38,11 @@ def abs_upper(value):
     return mp.sqrt(re_max**2 + im_max**2)
 
 
+def endpoint_text(x):
+    """Serialize an iv endpoint without a binary64 conversion."""
+    return mp.nstr(mp.mpf(x._mpi_[0]), 70)
+
+
 def main():
     rows = []
     cell_rows = []
@@ -49,11 +54,16 @@ def main():
             theta_hi = 2 * 3.141592653589793 * (k + 1) / cells
             theta = iv.mpf([theta_lo, theta_hi])
             t = radius * (iv.cos(theta) + 1j * iv.sin(theta))
-            upper = abs_upper(h_of(t, z_of(t)))
+            value = h_of(t, z_of(t))
+            upper = abs_upper(value)
             maximum = max(maximum, upper)
             cell_rows.append({"angle_cells": cells, "cell": k,
                               "theta_lo": repr(theta_lo),
                               "theta_hi": repr(theta_hi),
+                              "re_lo": endpoint_text(value.real.a),
+                              "re_hi": endpoint_text(value.real.b),
+                              "im_lo": endpoint_text(value.imag.a),
+                              "im_hi": endpoint_text(value.imag.b),
                               "rigorous_rectangle_upper": mp.nstr(upper, 70)})
         rows.append({"radius": "0.05", "angle_cells": cells,
                      "rigorous_rectangle_upper": mp.nstr(maximum, 70),
