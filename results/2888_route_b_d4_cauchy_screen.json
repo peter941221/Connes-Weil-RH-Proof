@@ -1,0 +1,29 @@
+{
+  "record": 2888,
+  "rows": [
+    {
+      "radius": "0.02",
+      "sample_count": 2000,
+      "sampled_max": "13.0297012064034744089520385826",
+      "order_22_geometric_scale": "0.00000310652284774863109802056278768"
+    },
+    {
+      "radius": "0.05",
+      "sample_count": 2000,
+      "sampled_max": "13.1845654659403865637922971208",
+      "order_22_geometric_scale": "5.53000756720556271260602869829e-15"
+    },
+    {
+      "radius": "0.1",
+      "sample_count": 2000,
+      "sampled_max": "13.7223091798328811319101579056",
+      "order_22_geometric_scale": "1.37223091798328811319101579056e-21"
+    }
+  ],
+  "claims": {
+    "complex_circle_sample_screen": true,
+    "analytic_circle_bound": false,
+    "full_remainder_certificate": false
+  },
+  "next_target": "replace sampled maximum by a rigorous complex-circle enclosure"
+}
