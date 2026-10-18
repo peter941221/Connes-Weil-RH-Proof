@@ -199,6 +199,13 @@ theorem routeBCenteredQ_hasFPowerSeriesOnBall2900 :
       (mem_closedBall_zero_iff.mp ht)).differentiableWithinAt
   · norm_num
 
+theorem routeBCenteredQ_continuousOn_closedBall2900 :
+    ContinuousOn routeBCenteredQ2900
+      (Metric.closedBall (0 : ℂ) (1 / 20 : ℝ)) := by
+  intro t ht
+  exact (routeBCenteredQ_differentiableAt2900 t
+    (mem_closedBall_zero_iff.mp ht)).continuousAt.continuousWithinAt
+
 theorem routeBCauchyRemainder2891
     (M : ℝ) (hM0 : 0 ≤ M) (hM : M ≤ 1377903608911726 / 10 ^ 14) :
     M * ((1 : ℝ) / 5) ^ 22 / (1 - (1 : ℝ) / 5) < 1 / 10 ^ 13 := by
