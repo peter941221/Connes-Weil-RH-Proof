@@ -1,0 +1,15 @@
+{
+  "all_checks_pass": true,
+  "checks": {
+    "finest_interval_is_below_declared_M": true,
+    "interval_artifact_marks_nonformal": true,
+    "remainder_artifact_marks_nonformal": true,
+    "remainder_formula_replays": true,
+    "tail_below_truncation_margin": true
+  },
+  "claims": {
+    "artifact_consistency": true,
+    "formal_cauchy_proof": false
+  },
+  "record": 2891
+}
