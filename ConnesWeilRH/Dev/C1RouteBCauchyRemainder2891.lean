@@ -11,6 +11,14 @@ theorem routeBComplexNormOne2900 : ‖(1 : ℂ)‖ = 1 := by
   rw [Complex.norm_def, Complex.normSq_one]
   norm_num
 
+theorem routeBReverseTriangle2900 (t : ℂ) :
+    1 - ‖t ^ 2‖ ≤ ‖1 - t ^ 2‖ := by
+  have h := norm_add_le (1 - t ^ 2) (t ^ 2)
+  have h' : ‖(1 : ℂ)‖ ≤ ‖1 - t ^ 2‖ + ‖t ^ 2‖ := by
+    simpa [sub_add_cancel] using h
+  rw [routeBComplexNormOne2900] at h'
+  linarith
+
 theorem routeBCauchyRemainder2891
     (M : ℝ) (hM0 : 0 ≤ M) (hM : M ≤ 1377903608911726 / 10 ^ 14) :
     M * ((1 : ℝ) / 5) ^ 22 / (1 - (1 : ℝ) / 5) < 1 / 10 ^ 13 := by
