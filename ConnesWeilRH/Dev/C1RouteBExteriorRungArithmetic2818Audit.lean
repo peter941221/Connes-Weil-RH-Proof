@@ -1,0 +1,4 @@
+import ConnesWeilRH.Dev.C1RouteBExteriorRungArithmetic2818
+
+#print axioms ConnesWeilRH.Source.C1ExplicitSmoothSeed.routeB_exterior_degree_nonpositive_2818
+#print axioms ConnesWeilRH.Source.C1ExplicitSmoothSeed.routeB_exterior_degree_positive_below_six_2818
