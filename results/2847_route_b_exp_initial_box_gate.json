@@ -1,0 +1,10 @@
+{
+  "record": 2847,
+  "status": "PRICING_GATE_FAIL",
+  "owner": "Route B cell 4096 order 4",
+  "initial_box": "[0,1]",
+  "target_slots": 5,
+  "target_contains_replay": [false, false, false, false, false],
+  "action": "prove a tighter Lean exponential initial box or re-price the wider replay",
+  "nonclaims": ["recurrence unsoundness", "ledger domination", "SourceRH", "RH"]
+}
