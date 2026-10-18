@@ -1,0 +1,1 @@
+{"record":"2835","theorems":["routeB_phase_python_form2835","routeB_quotient_python_form2835"],"build":"ConnesWeilRH.Dev.C1RouteBJetSemanticAnchor2835Audit","status":"passed","jobs":3653,"axioms":["propext","Classical.choice","Quot.sound"],"nonclaims":["Python-Lean interval equality","ledger domination","tail value","cardinal pins","SourceRH","RH"]}

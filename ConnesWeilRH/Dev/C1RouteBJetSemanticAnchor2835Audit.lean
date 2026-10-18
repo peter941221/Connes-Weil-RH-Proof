@@ -1,0 +1,4 @@
+import ConnesWeilRH.Dev.C1RouteBJetSemanticAnchor2835
+
+#print axioms ConnesWeilRH.Source.C1ExplicitSmoothSeed.routeB_phase_python_form2835
+#print axioms ConnesWeilRH.Source.C1ExplicitSmoothSeed.routeB_quotient_python_form2835
