@@ -1,0 +1,26 @@
+{
+  "record": 2880,
+  "rows": [
+    {
+      "u_left": "0.000244140625",
+      "u_right": "0.1353",
+      "owner_min": "-11.5262870597844011391225",
+      "owner_max": "-0.000546877343476436523909779",
+      "independent_box_min": "-3250.88834749274600856707",
+      "independent_box_max": "101.411658327196424907798"
+    },
+    {
+      "u_left": "0.3029",
+      "u_right": "0.5",
+      "owner_min": "-4.62443087606131331075912",
+      "owner_max": "2.46076800243911276735135",
+      "independent_box_min": "-4.85701974474344488905313",
+      "independent_box_max": "4.84528032560378294178613"
+    }
+  ],
+  "claims": {
+    "correlation_diagnostic": true,
+    "polynomial_sign_certificate": false
+  },
+  "decision": "retain t-z owner correlation in the formal enclosure"
+}
