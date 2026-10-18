@@ -213,6 +213,13 @@ theorem routeBCenteredQ_analyticAt_zero2900 :
     AnalyticAt ℂ routeBCenteredQ2900 0 :=
   routeBCenteredQ_hasFPowerSeriesOnBall2900.analyticAt
 
+theorem routeBCenteredQ_analyticAt_of_norm_lt2900 (t : ℂ)
+    (ht : ‖t‖ < (1 : ℝ) / 20) :
+    AnalyticAt ℂ routeBCenteredQ2900 t := by
+  apply routeBCenteredQ_hasFPowerSeriesOnBall2900.analyticAt_of_mem
+  rw [mem_eball_zero_iff]
+  exact_mod_cast ht
+
 theorem routeBCenteredQ_cauchyPowerSeries_coeff_zero2900
     (v : Fin 0 → ℂ) :
     (cauchyPowerSeries routeBCenteredQ2900 (0 : ℂ) (1 / 20 : NNReal)) 0 v =
