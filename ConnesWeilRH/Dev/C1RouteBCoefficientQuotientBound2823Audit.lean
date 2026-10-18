@@ -1,0 +1,4 @@
+import ConnesWeilRH.Dev.C1RouteBCoefficientQuotientBound2823
+
+#print axioms ConnesWeilRH.Source.C1ExplicitSmoothSeed.routeB_coefficient_quotient_bound2823
+#print axioms ConnesWeilRH.Source.C1ExplicitSmoothSeed.routeB_coefficient_scaled_quotient_bound2823
