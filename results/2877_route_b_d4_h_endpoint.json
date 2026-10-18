@@ -1,0 +1,18 @@
+{
+  "H_at_y0": "21 - 4*z",
+  "H_at_y1": "128*z*(3*z**2 - 2)",
+  "claims": {
+    "exact_endpoint_factorisation": true,
+    "global_sign_certificate": false,
+    "integral_bound_certificate": false
+  },
+  "owner_endpoint_values": {
+    "H_y0_z2": 13,
+    "H_y1_z1": 128
+  },
+  "partial_y_at_owner_endpoints": {
+    "dHdy_y0_z2": -77,
+    "dHdy_y1_z1": 1024
+  },
+  "record": 2877
+}
