@@ -1,0 +1,12 @@
+{
+  "claims": {
+    "algebraic_radius_check": true,
+    "analytic_convergence_certificate": false
+  },
+  "quadratic": "t^2 + i*b*t - 1",
+  "record": 2898,
+  "root_modulus_squared": "1",
+  "root_product": "-1",
+  "workspace_radius": "1/20",
+  "workspace_radius_lt_candidate": true
+}
