@@ -189,6 +189,16 @@ theorem routeBCenteredQ_neg2900 (t : ℂ) :
   rw [harg, Complex.tanh_neg]
   ring
 
+theorem routeBCenteredQ_hasFPowerSeriesOnBall2900 :
+    HasFPowerSeriesOnBall routeBCenteredQ2900
+      (cauchyPowerSeries routeBCenteredQ2900 (0 : ℂ) (1 / 20 : NNReal))
+      (0 : ℂ) (ENNReal.ofNNReal (1 / 20 : NNReal)) := by
+  apply DifferentiableOn.hasFPowerSeriesOnBall
+  · intro t ht
+    exact (routeBCenteredQ_differentiableAt2900 t
+      (mem_closedBall_zero_iff.mp ht)).differentiableWithinAt
+  · norm_num
+
 theorem routeBCauchyRemainder2891
     (M : ℝ) (hM0 : 0 ≤ M) (hM : M ≤ 1377903608911726 / 10 ^ 14) :
     M * ((1 : ℝ) / 5) ^ 22 / (1 - (1 : ℝ) / 5) < 1 / 10 ^ 13 := by
