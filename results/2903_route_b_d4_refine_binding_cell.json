@@ -1,0 +1,33 @@
+{
+  "record": 2903,
+  "binding_cell": 214,
+  "rows": [
+    {
+      "angle_cells": 256,
+      "upper": "13.77903608911726106903908859838761560809876174431695370400448435301510218994024",
+      "argmax": 41
+    },
+    {
+      "angle_cells": 512,
+      "upper": "13.435848468403776750252737872037316104219161182782320799953840116694753467841725",
+      "argmax": 89
+    },
+    {
+      "angle_cells": 1024,
+      "upper": "13.28094928917859166572813582590056840129320869581569781078662659839792095953214",
+      "argmax": 197
+    },
+    {
+      "angle_cells": 2048,
+      "upper": "13.218166491103113198226375956800808908649454220339508831531889202875668596576003",
+      "argmax": 436
+    }
+  ],
+  "generator_sha256": "e51a522faab701ee42dd0b1afba72b99f5cb35061cae6a510ce06740ffc24067",
+  "claims": {
+    "refinement_probe": true,
+    "formal_interval_soundness": false,
+    "full_cauchy_certificate": false
+  },
+  "decision": "refine binding cell before expanding Lean interval wrappers"
+}
