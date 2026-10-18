@@ -19,6 +19,13 @@ theorem routeBReverseTriangle2900 (t : ℂ) :
   rw [routeBComplexNormOne2900] at h'
   linarith
 
+theorem routeBSquareNormBound2900 (t : ℂ)
+    (ht : ‖t‖ ≤ (1 : ℝ) / 20) :
+    ‖t ^ 2‖ ≤ (1 : ℝ) / 400 := by
+  rw [norm_pow]
+  have ht0 : 0 ≤ ‖t‖ := norm_nonneg t
+  nlinarith
+
 theorem routeBCauchyRemainder2891
     (M : ℝ) (hM0 : 0 ≤ M) (hM : M ≤ 1377903608911726 / 10 ^ 14) :
     M * ((1 : ℝ) / 5) ^ 22 / (1 - (1 : ℝ) / 5) < 1 / 10 ^ 13 := by
