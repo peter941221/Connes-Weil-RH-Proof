@@ -1,0 +1,14 @@
+{
+  "claims": {
+    "endpoint_sign_certificate": false,
+    "exact_formal_series": true
+  },
+  "leading_terms": {
+    "left": "-384 * (t+1)^2",
+    "right": "(210735/5670) * t^2"
+  },
+  "left_P_series": "-3872*e**5 - 1760*e**4 + 1792*e**3 - 384*e**2",
+  "record": 2884,
+  "right_P_series": "1921426*t**8/567 - 386081*t**6/210 + 1891*t**4/15 + 223*t**2/6",
+  "right_z_series": "6166*t**8/2835 + 134*t**6/315 - 26*t**4/15 - 2*t**2/3 + 2"
+}
