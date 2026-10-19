@@ -436,10 +436,12 @@ pricing mechanism, not a no-go for the actual sign target.
 
 Record 3060 replaces the unquantified finite-span selection by one explicit
 family of translated log-bumps. Its Mellin matrix is a row-scaled exponential
-Vandermonde matrix. The determinant bound yields a finite correction decay
-constant depending on node count, height and minimum separation, but its
-log-cost contains a quadratic-in-node-count conditioning term. This is a
-constructive parameterized upper bound, not evidence that the 3058 allowance
-is affordable. The next gate is price it on a named certified node set and
-compare to record 1738's factorial lower bound and an actual same-owner core
-margin; otherwise retire this basis as too ill-conditioned.
+Vandermonde matrix. The determinant estimate uses both the nonnegative real
+parts of the actual nodes and a height-limited imaginary difference to avoid
+the exponential periodicity; a brief later audit incorrectly challenged this
+factor and was corrected. The resulting finite correction decay bound depends
+on node count, height and minimum separation, with a quadratic-in-node-count
+conditioning cost. This is a parameterized upper bound, not evidence that the
+3058 allowance is affordable. The next gate is to price it on a named
+certified node set and compare it to record 1738's factorial lower bound and
+an actual same-owner core margin.
