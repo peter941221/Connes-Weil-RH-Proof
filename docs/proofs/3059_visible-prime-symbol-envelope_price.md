@@ -80,6 +80,17 @@ show that `epsilon^2*L*exp(L)/T*^3` is small. In the pinned construction,
 `epsilon=1`; the geometry interface also permits other parameter choices,
 which would need their own price.
 
+The source of this gap is explicit. `fixed_window_finite_mellin_surjective`
+proves that the Mellin evaluation vectors span the finite target space, then
+selects a finite linear combination realizing the target values. It gives no
+bound on the coefficients or derivatives of that combination. The later
+quadratic decay constant is assembled as `C=4*(C0+C1+C2)`, where each `Cj`
+bounds an integral of the order-j derivative of the interpolant's logarithmic
+slice. Those bounds are obtained by compactness in the strip variable, with
+no estimate in terms of the node set, radius, or target values. Thus a
+quantitative interpolation norm/conditioning theorem is the missing bridge
+to an upper price for `C` and hence for `orbitIndex`.
+
 ## Verdict
 
 The 3058 reduction remains a valid same-owner decomposition, but its current
@@ -102,5 +113,9 @@ Evidence:
   minimal `orbitIndex`.
 - `ConnesWeilRH/Source/CC20YoshidaConvolution.lean` supplies the quadratic
   correction constant and the displayed sufficient orbit-index condition.
+- `ConnesWeilRH/Source/CC20YoshidaNearZeros.lean` proves finite-node
+  surjectivity by a span argument without a quantitative coefficient bound.
+- `ConnesWeilRH/Source/CC20YoshidaTail.lean` assembles `C` from three
+  derivative-integral bounds obtained by compactness.
 - `docs/proofs/3058_joint_symbol_absolute_tail_reduction.md` supplies the
   absolute-tail allowance being priced.

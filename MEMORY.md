@@ -423,7 +423,10 @@ connect the parameters: `tailStart` determines the zero-set radius, that
 radius determines a correction and its decay constant `C`, and then the
 minimal `orbitIndex` satisfies `(6*pi)^2*(1/2)^(orbitIndex+1)*C < 1`.
 However, no quantitative upper bound for `C` in terms of the radius is
-recorded, so this chain gives no usable upper bound on `orbitIndex` or a small
-3058 allowance. Next price that correction constant or replace the termwise
-prime envelope with a sharper same-owner bound. This is a scoped failure of
-the coarse pricing mechanism, not a no-go for the actual sign target.
+recorded: finite-node surjectivity is a span argument without coefficient
+bounds, and `C=4*(C0+C1+C2)` comes from derivative-integral bounds obtained by
+compactness. Thus this chain gives no usable upper bound on `orbitIndex` or a
+small 3058 allowance. Next prove a quantitative interpolation norm bound or
+replace the termwise prime envelope with a sharper same-owner bound. This is
+a scoped failure of the coarse pricing mechanism, not a no-go for the actual
+sign target.
