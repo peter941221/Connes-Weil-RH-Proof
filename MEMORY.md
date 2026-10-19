@@ -195,3 +195,14 @@ the 30-family count or the sigma values. A valid bridge must identify the
 provide the other three channels, or prove a new four-channel composition.
 Until that owner/channel identity is formal, the 2535 positive margin remains
 a single-channel external enclosure and does not license Producer GO.
+## 2535 refined identity result (2026-10-19)
+
+Symbol-level inspection corrects the earlier overly broad warning. The 2535
+evaluator squares each stored support width, matching the corrected physical
+owner used by `externalPhysical2344`; Lean's
+`weightedFunction2348 (externalFamilyValue2344 ...)` is the same weighted
+family form. Thus 2535 is a valid candidate enclosure for the `baseM0`
+channel. The identity is still not a completed bridge because the coefficient
+centres, modulation vector, and coefficient-ball error must be matched to
+`record2678BaseCoefficient` / `capturedModulations2584` in Lean. The other
+three channels (`baseD2`, `correctionM0`, `correctionD2`) remain separate.
