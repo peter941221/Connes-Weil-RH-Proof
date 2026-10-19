@@ -153,3 +153,5 @@
 - Record 3039 exports per-row canonical interval uppers for all 8192 cells; both D4 and D7 rows pass canonical_upper <= exact ledger rational + 1e-20 allowance in the mpmath replay. This is stronger row-level numerical evidence, still not Lean evaluator soundness.
 
 - Record 3040 exports 8192 per-cell D4/D7 interval upper rationals, including equal endpoint-majorant shares; sums reproduce 2730 totals exactly (D4 1400.650853119245, D7 592705254.0438685). This is numerical input for the Lean evaluator bridge, not yet its soundness proof.
+
+- Added 3041 Lean arithmetic projection generated from 3040's 8192 rational D4/D7 cell uppers; it proves row lengths and exact aggregate sums once Linux-native compiled. Evaluator semantic soundness remains separate.
