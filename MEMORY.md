@@ -411,3 +411,19 @@ reorganization: `C_S` may make the allowance too large, and no same-owner
 core margin is known. Do not call it a positive-credit lower bound or a
 producer result. Price the allowance against a separately proved core margin
 before promoting it.
+
+## 2026-10-19 visible-prime envelope price
+
+Record 3059 derives `C_S <= 48*L*exp(L)` from the support cutoff, where
+`L=orbitIndex+2`. The Lean owner stores visible prime powers, so this price
+chooses `S` as the exact set of their prime bases; it does not cover arbitrary
+supersets containing irrelevant primes. Substituting the bound into the 3058
+allowance gives an exponentially growing coarse budget. The source chain does
+connect the parameters: `tailStart` determines the zero-set radius, that
+radius determines a correction and its decay constant `C`, and then the
+minimal `orbitIndex` satisfies `(6*pi)^2*(1/2)^(orbitIndex+1)*C < 1`.
+However, no quantitative upper bound for `C` in terms of the radius is
+recorded, so this chain gives no usable upper bound on `orbitIndex` or a small
+3058 allowance. Next price that correction constant or replace the termwise
+prime envelope with a sharper same-owner bound. This is a scoped failure of
+the coarse pricing mechanism, not a no-go for the actual sign target.
