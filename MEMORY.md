@@ -497,3 +497,17 @@ positive. Hence the far-tail allowance alone can be made arbitrarily small
 for each fixed rho. The core signed integral changes with n and still has no
 lower bound, so this is not producer closure. It supersedes the earlier
 impression that the coarse `C_S` envelope by itself prevents small tail error.
+
+## 2026-10-19 contracted-annulus reduction
+
+Record 3065 applies the base contraction on `T<=|t|<=T*`. The squared
+convolution factor contributes `4^(-n)`, while the prime-symbol envelope is
+only `O(n*e^n)`, so this annulus also vanishes. Together with record 3064, all
+contributions outside the fixed base window `[-T,T]` tend to zero for one
+fixed rho and correction. What remains is the sequence of signed core
+integrals with both `|B|^(2(n+1))` and the visible-prime set `S_n` changing
+with n. The detector supplies only `qw(g_n)<0`, hence a core upper bound up
+to a vanishing error; the missing producer input is a lower bound for this
+varying core sequence. To contradict negativity at a finite index, require
+`Q_core,n >= E_ann,n + E_tail,n` for some n; a mere `Q_core,n >= -o(1)` limit
+does not suffice because `qw(g_n)` may approach zero from below.
