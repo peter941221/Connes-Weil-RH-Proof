@@ -7,7 +7,7 @@ def q(s):
     a=Fraction(s); return f"({a.numerator} : ℚ) / {a.denominator}"
 def main():
     d=json.loads((ROOT/'results/3048_cast_owner_chunk_sums.json').read_text())
-    lines=['import ConnesWeilRH.Dev.C1RouteAItem5Arithmetic','', 'namespace ConnesWeilRH.Dev','', '/-- Record 3049: exact chunk arithmetic projection for cast-owner 3047. -/']
+    lines=['import Mathlib','', 'namespace ConnesWeilRH.Dev','', '/-- Record 3049: exact chunk arithmetic projection for cast-owner 3047. -/']
     names=[]
     for sig in ('-1/2','1/2'):
         ident='minus' if sig.startswith('-') else 'plus'; vals=[c['sum_exact'] for c in d['chunks'] if c['sigma']==sig]
