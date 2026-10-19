@@ -149,3 +149,5 @@
 - Linux-native Mathlib build completed (8474 jobs). First real 3038 compile exposed and fixed noncomputable Real division and inverse-normalization issues; ext4 compile produced /tmp/3038.olean successfully.
 
 - Linux-native verification: Mathlib built successfully (8474 jobs); 3034, 3033, 3035 built; fixed 3031 to use the 1e-20 row allowance and explicit margins; 3036 then built successfully (8476 jobs total).
+
+- Record 3039 exports per-row canonical interval uppers for all 8192 cells; both D4 and D7 rows pass canonical_upper <= exact ledger rational + 1e-20 allowance in the mpmath replay. This is stronger row-level numerical evidence, still not Lean evaluator soundness.
