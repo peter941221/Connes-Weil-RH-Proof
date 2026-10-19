@@ -1,0 +1,35 @@
+{
+  "record": 3028,
+  "status": "CONTROL-FAIL",
+  "cells": 8192,
+  "orders": [
+    4,
+    7
+  ],
+  "pointwise_charge_containment": {
+    "4": false,
+    "7": false
+  },
+  "max_canonical_over_exported_ratio": {
+    "4": "1.0",
+    "7": "1.0"
+  },
+  "worst_canonical_minus_exported": {
+    "4": {
+      "excess": "1.45717103669437617717560052923e-39",
+      "cell": 7890
+    },
+    "7": {
+      "excess": "6.68056949459322436528792348834e-33",
+      "cell": 1360
+    }
+  },
+  "parent_sha256": "f16ce609d50c195d1c25c02a2e33ee00fa859575ee874491ec82b750f2ed19b8",
+  "ledger_sha256": "0f2cace675eb182a56e2617a8789eaa6dbad923ece84c95d12b23bd4d12c6412",
+  "checker_sha256": "5900e8175e9e111d3d2f6fe14cba7807b78d939579035ee625ba66f5152a5377",
+  "nonclaims": [
+    "Numerical interval control only.",
+    "Does not prove mpmath evaluator-to-Lean endpoint soundness.",
+    "Does not prove D4/D7, SourceRH, or RH."
+  ]
+}
