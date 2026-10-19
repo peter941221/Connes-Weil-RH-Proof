@@ -94,9 +94,13 @@ integral_{|t| < T_*} t^2*|G(t)|^2 dt
 in terms of `M` with a coefficient independent of the full tail threshold.
 The finite Laplace interpolation pins are point evaluations away from the
 critical Fourier line; they do not immediately provide this band-energy
-bound. Any proposed transfer must preserve the exact selected owner and use
-the actual interpolation nodes. The fourth-order tail alone is insufficient
-for this purpose.
+bound. Record 3055 makes the limitation precise for the interpolation-only
+class by constructing support-preserving null perturbations with unbounded
+derivative-to-mass ratio; it explicitly does not preserve the full geometry's
+tail field. Any proposed transfer must preserve the exact selected owner and
+use both the actual interpolation nodes and its tail constraint. The
+fourth-order tail alone gives no low-frequency estimate beyond the displayed
+`T_*^2` bound.
 
 Evidence:
 
@@ -108,6 +112,8 @@ Evidence:
   `FourthOrderSpectralTail` quantifiers used by `OrbitG8Geometry`.
 - `ConnesWeilRH/Dev/C1XiCenterTwoGammaDerivativeEnergy.lean` defines the
   derivative-energy quantity used in record 3053.
+- `docs/proofs/3055_finite_laplace_pins_do_not_bound_derivative_energy.md`
+  gives the scoped interpolation-only counterfamily and its boundary.
 
 The derivation uses the classical Plancherel theorem with the stated Fourier
 normalization. It is not currently formalized as a Lean bridge in this repo.

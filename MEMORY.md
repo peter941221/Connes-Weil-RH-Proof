@@ -372,3 +372,16 @@ geometry's fourth-order tail field to `z=1/2+i*t` yields, with
 this bridge alone does not prove the record-3053 small-derivative condition
 at large zero height. This is an insufficiency of the derived bound, not a
 no-go for stronger same-owner use of the interpolation data. See record 3054.
+
+## 2026-10-19 finite interpolation nullspace
+
+For a fixed support interval and finite Laplace node set, add a modulated bump
+`u_N=exp(-i*N*x) psi` after applying the product of the exact differential
+shifts `D_s h=h'+s*h` over all nodes. The transform law
+`L(D_s h,z)=(s-z)L(h,z)` makes this perturbation vanish at every pinned node;
+after normalization by `N^m`, its mass stays bounded while its derivative
+energy grows like `N^2`. Thus support plus finite pins alone cannot bound
+`D/M`. This does not preserve or refute the full OrbitG8Geometry fourth-order
+tail field, so the no-go is only for the interpolation-only API. See record
+3055; the remaining target combines finite pins with the full tail to bound
+the low-frequency Fourier energy.
