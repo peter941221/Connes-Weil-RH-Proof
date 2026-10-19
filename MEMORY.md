@@ -206,3 +206,14 @@ channel. The identity is still not a completed bridge because the coefficient
 centres, modulation vector, and coefficient-ball error must be matched to
 `record2678BaseCoefficient` / `capturedModulations2584` in Lean. The other
 three channels (`baseD2`, `correctionM0`, `correctionD2`) remain separate.
+## 3045 exact base-M0 identity audit (2026-10-19)
+
+The exact audit changed the status of the proposed 2535 -> `baseM0` bridge.
+All 30 modulations match `capturedModulations2584` exactly, and the squared
+support convention matches. However, all 30 Lean binary64 coefficient casts
+ differ from the exact 2338 interval midpoints and all 30 lie outside the
+2338 coefficient boxes. Float conversion had hidden this because it rounded
+the midpoint to the same binary64 value. Therefore 2535 cannot be consumed by
+the 2686 base-M0 owner as-is. The next task is a named coefficient-owner
+reconciliation (or a fresh enclosure for the 2678 midpoint-cast owner); do not
+claim a base-M0 identity from the 2535 artifact.
