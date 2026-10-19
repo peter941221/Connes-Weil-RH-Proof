@@ -181,3 +181,17 @@ for sigma = -0.5 are 0.0411/0.0836/0.0907 and for sigma = +0.5 are
 remaining obligation is stronger: replace the sampled 17-point familywise
 third-derivative supremum by a certified whole-cell enclosure. Do not use the
 1024-cell negative reading as a Route-A no-go.
+## 2535-to-2686 interface audit (2026-10-19)
+
+The existing `C1RouteAWeightedFamilyCell2538` / record-2535 certificate
+proves a whole-cell bound for one weighted external-family channel and its
+third-derivative curvature construction. The generic 2686 consumer requires
+four independent per-cell rectangle/charge inputs:
+`baseM0`, `baseD2`, `correctionM0`, and `correctionD2`.
+
+Therefore record 2535 cannot be connected to `chargeRest` merely by matching
+the 30-family count or the sigma values. A valid bridge must identify the
+2535 function with one of the four live channel definitions and separately
+provide the other three channels, or prove a new four-channel composition.
+Until that owner/channel identity is formal, the 2535 positive margin remains
+a single-channel external enclosure and does not license Producer GO.
