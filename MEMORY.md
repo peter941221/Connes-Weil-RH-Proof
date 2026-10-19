@@ -453,12 +453,14 @@ growth theorem and bounds node height/modulus from the exact geometry radius.
 The remaining unpriced quantity is the minimum pairwise gap `delta` among
 the finite source-zero/healthy-target nodes. Current discreteness proves only
 `delta>0` for each fixed owner; it supplies no quantitative gap as the radius
-grows. Since the record-3060 matrix cost contains `delta^(-N*(N-1)/2)`, the
-actual owner is still not priced. Either prove a quantitative owner-specific
-separation bound or replace the Vandermonde conditioning estimate with one
-that avoids a minimum gap. The explicit actual-owner correction currently has
-node-product denominators and only an L1 bound, so it has not bypassed this
-issue or produced the required quadratic strip constant.
+grows. Since the record-3060 matrix cost contains `delta^(-N*(N-1)/2)`, there
+is no uniform price across owners from the current inputs. Either prove a
+quantitative owner-specific separation bound or replace the Vandermonde
+conditioning estimate with one that avoids a minimum gap. Record 3064 shows
+that for each fixed owner `delta>0` yields a finite constant and epsilon can
+be tuned so the far-tail allowance tends to zero. The explicit actual-owner
+correction still has only an L1 budget and no quadratic strip constant; record
+3064 uses the parameterized fixed-bump bound for ownerwise tail pricing.
 
 ## 2026-10-19 near-collision interpolation cost
 
@@ -482,3 +484,16 @@ rules out a uniform interpolation-cost bound for uniformly bounded support
 across hypothetical zeros arbitrarily close to the line, but not a
 rho-dependent producer with growing support. The next
 route test must price this explicit `g` dependence in the full signed gate.
+
+## 2026-10-19 epsilon-tunable far-tail price
+
+Record 3064 uses the correction-before-orbit-count quantifier order to freeze
+the finite interpolation radius and its finite constant `C` for one fixed
+rho. For sufficiently small `epsilon`, the tail multiplicity index remains
+at its fixed height floor; then choose orbit count `n=ceil(log2(D*C/epsilon))`.
+The 3059 envelope grows like `exp(n)`, but the 3058 error has `epsilon^2`, so
+the product decays as `epsilon^(2-1/log(2))*log(1/epsilon)`; its exponent is
+positive. Hence the far-tail allowance alone can be made arbitrarily small
+for each fixed rho. The core signed integral changes with n and still has no
+lower bound, so this is not producer closure. It supersedes the earlier
+impression that the coarse `C_S` envelope by itself prevents small tail error.

@@ -84,8 +84,13 @@ h = min(1/N, pi/(2*max(H,1))).
 
 Therefore bounding `N`, `H`, and `S` does not produce a numerical bound on
 `C_bump`: as `delta` decreases, this factor grows without bound. This is the
-precise reason record 3060 remains a parameterized construction and cannot yet
-price the actual owner or the 3058 allowance.
+precise reason record 3060 gives no uniform cost bound as the owner varies.
+For each fixed owner, however, its finite distinct node set has `delta>0`, so
+the parameterized `C_bump` is finite. Record 3064 uses the correction-before-
+convolution quantifier order and a smaller tail accuracy to make the 3058
+far-tail allowance tend to zero for that fixed owner. The missing
+minimum-gap estimate therefore blocks a uniform interpolation price; it does
+not by itself block ownerwise far-tail pricing.
 
 ## Route consequence
 

@@ -110,6 +110,20 @@ Before spending effort on a core-margin proof for 3058, first establish one
 of those sharper same-owner controls. Without it, `Q_core(T*) >= E_tail(T*)`
 may impose an exponentially large error budget.
 
+## 2026-10-19 update: epsilon is a live owner parameter
+
+The preceding warning prices the coarse envelope at fixed `epsilon`; it does
+not account for choosing smaller `epsilon` while keeping the finite
+interpolation owner fixed. Record 3064 proves that for each fixed hypothetical
+`rho`, the multiplicity tail-start can be held at its height floor for all
+sufficiently small `epsilon`. The correction and its finite constant `C` are
+chosen before the convolution count, and the count grows only as
+`log_2(C/epsilon)`. Consequently the 3058 error, even with
+`C_S <= 48*L*exp(L)`, is `O(epsilon^(2-1/log(2))*log(1/epsilon))` and tends to
+zero. Record 3064 supersedes the preceding conclusion only for the
+far-tail allowance. The signed finite-core integral still varies with the
+owner and has no lower bound, so this does not close the sign target.
+
 Evidence:
 
 - `ConnesWeilRH/Dev/C1G8R0OrbitGeometry.lean` supplies the support-derived
