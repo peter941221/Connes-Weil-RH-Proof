@@ -359,3 +359,16 @@ negative, and the actual prime discrepancy must supply a positive
 mass-scale correction. This is a paper-level bound, not a selected-owner
 measurement or Lean theorem. The selected correction API does not yet prove
 the needed derivative-to-mass ratio; see record 3053.
+
+## 2026-10-19 fourth-order tail and derivative energy
+
+On the critical line `s=i*t`, the exact source identity gives
+`laplaceAt (g.convolutionSquare) s = |laplaceAt g s|^2`. Restricting the
+geometry's fourth-order tail field to `z=1/2+i*t` yields, with
+`T*=max(T,1,2|Im rho|)`, `|laplaceAt g (i*t)| <= 4 epsilon/t^2` for
+`|t|>=T*`. Plancherel then gives the paper-level bound
+`D <= T*^2 M + 16 epsilon^2/(pi*T*)`, where `D=integral |g'|^2` and
+`M=integral |g|^2`. The low-frequency term grows with the tail threshold, so
+this bridge alone does not prove the record-3053 small-derivative condition
+at large zero height. This is an insufficiency of the derived bound, not a
+no-go for stronger same-owner use of the interpolation data. See record 3054.

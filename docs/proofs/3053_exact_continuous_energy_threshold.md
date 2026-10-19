@@ -107,7 +107,10 @@ This is not an owner estimate. The selected correction family constrains
 support and finitely many Laplace values, but does not currently give the
 required ratio `D/M` or the signed discrepancy integral. In particular,
 near-pin derivative-cost obstructions prevent silently assuming a uniform
-small value of `D/M`.
+small value of `D/M`. Record 3054 transfers the existing fourth-order spectral
+tail into a Plancherel bound for the high-frequency part of `D`; its low-
+frequency remainder is `T_*^2*M`, so that tail field alone still does not
+establish the small-ratio condition at large zero height.
 
 The next useful test is to evaluate the two dimensionless owner quantities
 
@@ -128,5 +131,8 @@ Sources:
   supplies the exact energy identity, the full Stieltjes identity, and `K>4`.
 - `docs/proofs/3052_selected_physical_profile_chebyshev_readback.md` identifies
   the same selected owner's smoothed von Mangoldt profile.
+- `docs/proofs/3054_fourth_order_tail_to_derivative_energy.md` derives the
+  same-owner high-frequency derivative-energy consequence of the existing
+  fourth-order tail field and records the low-frequency limitation.
 - The `18` coefficient is record 1736's bound using the larger kernel `w`;
   record 3053 uses the exact residual kernel `w-exp(-y/2)` instead.
