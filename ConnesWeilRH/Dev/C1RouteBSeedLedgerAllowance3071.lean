@@ -16,6 +16,7 @@ theorem routeBSeedUniformAllowance_sum3071 :
       (8192 : ℝ) * ((2 : ℝ) / 10 ^ 10) := by
   simp [routeBSeedUniformAllowance3071, div_eq_mul_inv]
 
+set_option maxRecDepth 10000 in
 theorem routeBSeedLedger_order4_target3071
     {charge ledger : Fin 8192 → ℝ}
     (hpoint : ∀ i, charge i ≤ ledger i + routeBSeedUniformAllowance3071 i)
@@ -30,12 +31,13 @@ theorem routeBSeedLedger_order4_target3071
     norm_num
   · linarith
 
+set_option maxRecDepth 10000 in
 theorem routeBSeedLedger_order7_target3071
     {charge ledger : Fin 8192 → ℝ}
     (hpoint : ∀ i, charge i ≤ ledger i + routeBSeedUniformAllowance3071 i)
     (hledger : (∑ i : Fin 8192, ledger i) ≤ routeBSeedD7Aggregate3042) :
     (∑ i : Fin 8192, charge i) < (2000000000 : ℝ) := by
-  have haggregate : routeBSeedD7Aggregate3042 < 356408391 := by
+  have haggregate : routeBSeedD7Aggregate3042 < 600000000 := by
     norm_num [routeBSeedD7Aggregate3042]
   refine routeBSeedLedgerAggregate_with_allowance3031
     (aggregate := routeBSeedD7Aggregate3042) (margin := 1)
@@ -44,6 +46,7 @@ theorem routeBSeedLedger_order7_target3071
     norm_num
   · linarith
 
+set_option maxRecDepth 10000 in
 theorem routeBSeedLedger_order4_full_target3071
     {charge ledger : Fin 8192 → ℝ}
     (hpoint : ∀ i, charge i ≤ ledger i + routeBSeedUniformAllowance3071 i)
@@ -63,7 +66,7 @@ theorem routeBSeedLedger_order4_full_target3071
         rw [Finset.sum_add_distrib]
       _ ≤ routeBSeedD4Aggregate3042 +
           (∑ i : Fin 8192, routeBSeedUniformAllowance3071 i) :=
-        add_le_add_right hledger _
+        add_le_add hledger (le_refl _)
   have hallow : (∑ i : Fin 8192, routeBSeedUniformAllowance3071 i) < 1 := by
     rw [routeBSeedUniformAllowance_sum3071]
     norm_num
@@ -71,11 +74,15 @@ theorem routeBSeedLedger_order4_full_target3071
       4 * (∫ x in (0 : ℝ)..(1 / 4096),
         ‖iteratedDeriv 4 Real.smoothTransition x‖) < 1 := by
     exact lt_of_le_of_lt d4d7_endpoint_integral_charges2756.1
-      (lt_trans d4d7_endpoint_integral_charges_tiny2756.1 (by norm_num))
+      (lt_trans d4d7_endpoint_integral_charges_tiny2756.1 (by
+        simpa [one_div] using
+          (inv_lt_one₀ (by positivity : 0 < (10 : ℝ) ^ 1000)).2
+            (one_lt_pow₀ (by norm_num) (by norm_num))))
   have haggregate : routeBSeedD4Aggregate3042 < 1401 := by
     norm_num [routeBSeedD4Aggregate3042]
   linarith
 
+set_option maxRecDepth 10000 in
 theorem routeBSeedLedger_order7_full_target3071
     {charge ledger : Fin 8192 → ℝ}
     (hpoint : ∀ i, charge i ≤ ledger i + routeBSeedUniformAllowance3071 i)
@@ -95,7 +102,7 @@ theorem routeBSeedLedger_order7_full_target3071
         rw [Finset.sum_add_distrib]
       _ ≤ routeBSeedD7Aggregate3042 +
           (∑ i : Fin 8192, routeBSeedUniformAllowance3071 i) :=
-        add_le_add_right hledger _
+        add_le_add hledger (le_refl _)
   have hallow : (∑ i : Fin 8192, routeBSeedUniformAllowance3071 i) < 1 := by
     rw [routeBSeedUniformAllowance_sum3071]
     norm_num
@@ -103,8 +110,11 @@ theorem routeBSeedLedger_order7_full_target3071
       4 * (∫ x in (0 : ℝ)..(1 / 4096),
         ‖iteratedDeriv 7 Real.smoothTransition x‖) < 1 := by
     exact lt_of_le_of_lt d4d7_endpoint_integral_charges2756.2
-      (lt_trans d4d7_endpoint_integral_charges_tiny2756.2 (by norm_num))
-  have haggregate : routeBSeedD7Aggregate3042 < 356408391 := by
+      (lt_trans d4d7_endpoint_integral_charges_tiny2756.2 (by
+        simpa [one_div] using
+          (inv_lt_one₀ (by positivity : 0 < (10 : ℝ) ^ 1000)).2
+            (one_lt_pow₀ (by norm_num) (by norm_num))))
+  have haggregate : routeBSeedD7Aggregate3042 < 600000000 := by
     norm_num [routeBSeedD7Aggregate3042]
   linarith
 

@@ -565,9 +565,17 @@ An exact-Fraction cross-read confirms both stored 3040 row sums equal the 3042
 rational aggregates and that row-head plus endpoint charge reconstructs them;
 this is artifact arithmetic evidence, not the missing Lean connection. The
 endpoint charge underflows if cast to binary64, so this check must stay exact.
-Lean compilation is unverified because Lake timed out before emitting output
-while auditing repository/package state; the project checkout also lacks the
-direct `.olean` files needed for a standalone compiler invocation. Feed the
-per-cell comparisons and row-head aggregate proof into 3071 and existing
-3032-3036 consumers. Route A remains the binding producer lane; row-B carrier
-and rho duties remain open.
+The D7 aggregate evaluates to about `592705254.0438685`; use the proven coarse
+ceiling `600000000` in 3071. A prior attempted ceiling based on the leading
+digits of the rational numerator was below the actual quotient and failed
+Lean compilation; never infer a rational's decimal magnitude from its
+numerator prefix without accounting for the denominator.
+The revised 3071 module and its audit compiled successfully in an ext4 copy
+using the manifest-pinned Lean 4.30 dependencies and Mathlib cache. The axiom
+audit reports exactly `[propext, Classical.choice, Quot.sound]` for both full
+targets and the allowance sum. The normal Windows-mounted Lake path still
+stalls scanning Mathlib's Git worktree; use an ext4 verification copy for this
+checkout. The actual row-head vector is still not connected to the 3042
+aggregate, and the per-cell rational inequalities remain open. Feed those
+proofs into 3071 and existing 3032-3036 consumers. Route A remains the binding
+producer lane; row-B carrier and rho duties remain open.

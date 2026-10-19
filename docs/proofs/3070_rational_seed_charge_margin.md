@@ -69,6 +69,11 @@ row sum equals the corresponding 3042 rational aggregate, and that subtracting
 then restoring the endpoint charge recovers the sum exactly. This checks the
 artifact arithmetic only. Converting the endpoint charge to binary64 underflows
 to zero, so the equality check must remain rational rather than float-based.
+The D7 aggregate is approximately `592705254.0438685`; the 3071 arithmetic
+consumer uses the conservative exact ceiling `600000000` before adding the
+allowance and endpoint bounds. The leading digits of its rational numerator
+are not the decimal value of the aggregate because its denominator contributes
+roughly nine decimal orders.
 
 ## Reproduction and limits
 
