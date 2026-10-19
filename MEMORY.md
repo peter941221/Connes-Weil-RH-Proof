@@ -470,3 +470,15 @@ also grows at least like `1/delta`. This establishes that gap dependence is
 structural for arbitrary prescribed data. It does not establish a
 near-collision in the actual healthy owner or rule out exploiting additional
 structure of that owner.
+
+## 2026-10-19 forced healthy-orbit near-collision
+
+Record 3063 identifies a forced differing-value pair in the actual healthy
+target set: `rho` has value 1 and `1-conj(rho)` has value -1, with separation
+exactly `2*|Re(rho)-1/2|`. Any correction supported in a fixed window needs
+L1 mass at least `1/(B*exp(B)*g)`, and a matching quadratic strip constant at
+least `sqrt(3)/(64*B^3*exp(B)*g)`, where `g` is the off-line distance. This
+rules out a uniform interpolation-cost bound for uniformly bounded support
+across hypothetical zeros arbitrarily close to the line, but not a
+rho-dependent producer with growing support. The next
+route test must price this explicit `g` dependence in the full signed gate.
