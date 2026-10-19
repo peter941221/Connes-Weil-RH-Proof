@@ -1,5 +1,7 @@
 import Mathlib
 
+set_option maxHeartbeats 0
+
 namespace ConnesWeilRH.Dev
 
 def routeBSeedD4Upper3041 : List ℚ := [
