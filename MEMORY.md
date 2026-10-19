@@ -217,3 +217,114 @@ the midpoint to the same binary64 value. Therefore 2535 cannot be consumed by
 the 2686 base-M0 owner as-is. The next task is a named coefficient-owner
 reconciliation (or a fresh enclosure for the 2678 midpoint-cast owner); do not
 claim a base-M0 identity from the 2535 artifact.
+
+## 2026-10-19 producer-first direction review
+
+The 3047 external base-M0 enclosure and 3048/3049 rational projections do
+not discharge the selected-detector signed producer. In
+C1RouteAProducerWired.lean, chargeRest is a free Real parameter constrained
+by hcharge, not a definition of the actual physical residual. Record 2800
+still assumes hidentity, and its repaired total integrates only from zero
+to record2675CellRight. Neither fact supplies a full-support residual bound.
+
+The exact target remains the same-owner selected gate identity in
+C1RouteASelectedOwnerResidualReadback.lean: ICgate equals archimedeanTerm
+plus selectedOwnerVisiblePrimeProfileWeightedSum. Under triple vanishing,
+qw is the negative of that sum. Any proposed numerical import must name
+which premise of this selected-owner statement it removes and prove the
+owner, domain and orientation connection before batch expansion.
+
+The scoped record-2319 obstruction remains binding: the recorded quartic
+Hermitian transform is zero at the target while the selected convolution
+square has value -1 under the target pins. This does not close Route A;
+it rules out identifying those two expressions. Pause further 3047-3049
+expansion until a valid connection is established. Lean compilation of
+3049 remains unverified; source-level Python readback is not a substitute.
+
+## 2026-10-19 selected-geometry entry audit
+
+OrbitG8Geometry requires base_support and correction_support inside Ioo(-1,1),
+selected_owner_test, exact raw_target_values, minimal interpolation, and tail
+fields. The numerical correctedPhysical family has a proved support upper
+radius about 6.5536 (C1RouteAOwnerSupport, record 2314), which does not by
+itself establish either unit-window field. A large upper bound alone is not
+proof of a unit-window violation; actual nonvanishing outside the window or
+an explicit support-transfer theorem would be needed. No rescaling can be
+silently used: it changes Laplace arguments, derivative costs and the
+support-derived prime owner.
+
+The 3045 cast-vs-exact coefficient mismatch was already documented in
+record 2678 (docs/proofs/2678_owner_alignment_no_go.md). Treat 3045 as a
+repeat audit, not a novel obstruction. Fixed binary64 casts are not proved
+to realize the exact target equations by numerical closeness. Before any
+further full-grid import, require a named construction satisfying the actual
+geometry fields or a proved alternative consumer with its own support rules.
+
+## 2026-10-19 unit-support direct substitution ruled out
+
+Exact source readback at family index 4 gives base coefficient real part
+-41859404295843/4096 and correction coefficient real part
+-6001732121601251/32; both are nonzero. The existing proved
+correctedPhysical_six_ne_zero specializes to either vector for any modulation.
+Thus both untransformed correctedPhysical functions are nonzero at x=6,
+outside Ioo(-1,1). They cannot directly fill OrbitG8Geometry.base or
+.correction with its unit-support fields. This is an exact mathematical
+consequence of existing source lemmas plus exact coefficient decoding, not a
+fresh Lean compilation of the specializations. It does not exclude their use
+in a different support-aware consumer or a proved transformed construction.
+
+## 2026-10-19 geometry construction versus numerical owner
+
+`exists_indexed_orbitG8Geometry_of_sourceNontrivialZero_right` already
+constructs, for every hypothetical off-line source zero under its hypotheses,
+a base and correction with support in `Ioo (-1,1)`, target values, minimal
+interpolation, orbit index and spectral-tail fields. Therefore unit support is
+not the missing producer premise.
+
+The missing analytic statement is the signed physical-kernel budget for the
+constructed `geometry`:
+
+```text
+archimedeanTerm geometry.g.convolutionSquare
+ + sum visiblePrimeRange geometry
+     weight(n) * Re(K(log n) + K(-log n)) <= 0
+```
+
+The fixed 2678/2680 binary64 numerical owner is not proved equal to this
+existential construction. Its support mismatch is therefore a transfer
+failure, not a no-go for the abstract Route-A geometry. Do not use its
+positive norm margin as evidence for the constructed geometry until that
+identity is proved.
+
+## 2026-10-19 norm-majorant routing test
+
+The common-factor profile norm consumer is sufficient, not equivalent to the
+signed budget. Let h(t)=orbitRawFactor(-t), P(t)=the finite complex profile,
+F(t)=Re(conj(h(t))*P(t)), and U(t)=|h(t)|*|P(t)| on the actual support
+window. Then U-F>=0 pointwise and the excess cost is exactly integral(U-F).
+Consequently Arch+integral(U)<=0 requires Arch<=0. Preserving cancellation
+inside P does not preserve the phase cancellation between h and P, nor
+cancellation across t. Before pricing this method, establish Arch's sign on
+the same constructed geometry and bound the excess cost relative to the
+signed margin. The existing source theorem takes this budget as hbudget;
+its presence is not a quantitative producer construction.
+
+## 2026-10-19 record-3051 direction correction
+
+The evaluator-to-Lean batch belongs to the item-5 weighted-zero charge lane,
+not directly to the selected-detector physical-kernel producer. Record 2686's
+four-channel total is a captured repaired-owner integral on
+`[0, record2675CellRight]`; record 2800 proves its `chargeRest` consumer only
+under `hidentity`; record 2802 leaves the item-5 owner comparison open. The
+selected detector is built from hypothetical-zero geometry, and record 2319
+rules out direct replacement by the P-only transform. Therefore an 8192-cell
+import can close a repaired-owner item-5 enclosure, but cannot close the live
+B5 physical-kernel budget.
+
+Correct next gate: keep the item-5 owner comparison and the selected-detector
+signed physical-kernel certificate as separate obligations. Continue the
+item-5 batch only if it removes a named item-5 premise. For the binding route,
+derive a certificate for the actual `orbitFinitePhysicalKernelIntegrand` over
+`orbitVisiblePrimeRange geometry`, preserving signed cancellation and support
+ownership. This is a source-level direction correction, not a new no-go
+theorem or RH result.
