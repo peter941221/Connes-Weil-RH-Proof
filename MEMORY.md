@@ -511,3 +511,27 @@ to a vanishing error; the missing producer input is a lower bound for this
 varying core sequence. To contradict negativity at a finite index, require
 `Q_core,n >= E_ann,n + E_tail,n` for some n; a mere `Q_core,n >= -o(1)` limit
 does not suffice because `qw(g_n)` may approach zero from below.
+
+## 2026-10-19 core-weight concentration audit
+
+Record 3066 checks the next tempting inference from 3065. The affine base
+constructor proves the finite unit interpolation targets (including
+`B(1/2)=1`) and a quadratic vertical decay bound; the separate contraction
+theorem proves `|B|<=1/2` only outside the fixed threshold `T`. No premise
+gives `|B(1/2+i*t)|<=1` on `[-T,T]` or positivity of the base. Therefore
+`|B|^(2(n+1))` is not known to concentrate at `t=0`; it can grow
+exponentially at other core frequencies. Even a future modulus bound needs
+equality-set and changing-symbol control before a concentration limit follows.
+Record 3065 remains a valid fixed-window signed-sequence reduction, but no
+limiting core formula follows. Next gate: source-level audit whether the exact
+affine base construction can supply a certified core envelope without
+changing interpolation targets or dropping signed cancellation. This remains
+auxiliary to the binding Route-A selected-detector physical-kernel/C3' budget.
+
+The obvious repair `base.test >= 0` is incompatible with the base's existing
+three real pins. With the source convention `B(s)=integral exp(s*x)b(x)dx`,
+pins `B(1/2)=B(1)=B(3/2)=1` make `dmu=exp(x/2)b(x)dx` a probability measure
+and `Y=exp(x/2)` satisfy `E[Y]=E[Y^2]=1`; zero variance forces the measure to
+be a point mass, impossible for a nonzero smooth density. Record 3066 adds
+this scoped mechanism no-go. Any future core-envelope route must avoid relying
+on nonnegative base density while preserving the pins.
