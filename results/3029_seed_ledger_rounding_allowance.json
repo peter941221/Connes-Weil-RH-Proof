@@ -1,0 +1,26 @@
+{
+  "record": 3029,
+  "status": "ALLOWANCE-PASS",
+  "cells": 8192,
+  "total_excess": {
+    "4": "2.36185713597897424868628237569e-36",
+    "7": "2.58573066884511142763542115883e-30"
+  },
+  "max_cell_excess": {
+    "4": "1.45717103669437617717560052923e-39",
+    "7": "6.68056949459322436528792348834e-33"
+  },
+  "budget_margin": {
+    "4": "99.3491468807549061823587036466698694674058824415",
+    "7": "1407294745.9561314874586024777507175646878705639290"
+  },
+  "checks": {
+    "4": true,
+    "7": true
+  },
+  "nonclaims": [
+    "Allowance pricing is numerical interval evidence.",
+    "It does not prove evaluator-to-Lean endpoint soundness.",
+    "It does not itself prove D4/D7, SourceRH, or RH."
+  ]
+}
