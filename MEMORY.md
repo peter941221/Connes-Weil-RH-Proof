@@ -143,3 +143,5 @@
 - Added 3036 finite-sum bridge: pointwise row charge <= ledger + allowance plus separate ledger/allowance sums yields aggregate + margin, isolating the remaining row-wise numeric-to-Lean premise.
 
 - Record 3037 exports an exact rational allowance of 1e-20 for each of 8192 rows (aggregate 8.192e-17 per order), comfortably above the 3029 max excess and below D4/D7 margins. It is an input budget, not evaluator soundness.
+
+- Added 3038 Lean arithmetic anchor for 3037: defines 1/10^20 allowance over Fin 8192, proves exact sum, and proves it is below both D4 and D7 margins.
