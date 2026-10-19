@@ -1,4 +1,9 @@
-# Route A corrected next gate (record 3051)
+# Route A corrected next gate (record 3051; superseded by 3052)
+
+Status: the original evaluator-batch execution order is superseded. The
+record-2686/2802 work is the item-5 weighted-zero charge lane, not the binding
+selected-detector physical-kernel producer. See record 3052 for the current
+same-owner profile reduction and analytic target.
 
 The earlier 3050 contract is an interface description, not a request to
 regenerate all four channels. Existing evidence already contains the full
@@ -10,7 +15,7 @@ numerical inputs:
 - records 2676-2683: Lean bridges for representative cell/channel rectangles;
 - records 2684-2687: exact finite-grid arithmetic for the sampled ledger.
 
-The binding proof gap is now the evaluator-to-Lean bridge:
+The item-5 evaluator lane has this conditional bridge shape:
 
 ```text
 2242 interval hull operations
@@ -21,11 +26,9 @@ The binding proof gap is now the evaluator-to-Lean bridge:
         -> signed infinite-xi tail
 ```
 
-Do not start a new four-channel numerical replay unless a named evaluator
-change invalidates 2668/2670. The next concrete proof target is one generic
-parameterized theorem for the 2242 rectangle evaluator, followed by a generated
-8192-cell arithmetic import. The 3047 baseM0 certificate remains an independent
-cross-check and is not the binding producer path.
+This item-5 lane is not the binding Route-A producer. Its numerical replay
+should not be expanded unless it discharges a named item-5 premise; the
+selected-detector task is recorded separately below.
 
 ## Direction audit (2026-10-19)
 
@@ -58,31 +61,8 @@ selected detector geometry and support-derived prime owner
         -> Route-A producer consumer
 ```
 
-The next decision is to keep these two obligations separate. For the item-5
-lane, derive the exact owner comparison for `chargeRest` before batch import.
-For the binding Route-A lane, derive a signed certificate for the actual
-`orbitFinitePhysicalKernelIntegrand` and its support-derived prime range. If
-the item-5 comparison does not remove a named premise of the selected-detector
-consumer, freeze its numerical-import lane; coefficient closeness and finite-
-window agreement do not establish either missing fact. No new numerical
-experiment is licensed by this audit.
-
-## Correction after source audit (2026-10-19)
-
-The generic mathematical interval layer is already present in records 2672,
-2673, and 2676. In particular, the exact-real bump quotient, exponential,
-trigonometric hull, family derivative pins, and representative aggregate
-containment are proved. The remaining evaluator gap is narrower:
-
-```text
-MPFR directed-rounding soundness
-        + binary64 endpoint decoding/transfer
-        + generated 8192-cell rectangle instances
-        + exact charge sum import
-        + live chargeRest identity
-```
-
-Do not reopen the exact-real interval lemmas unless a source-hash or owner
-change invalidates them. The next implementation should connect the existing
-bridges to the 2242 evaluator's stored endpoint payload and batch the cell
-instances.
+The binding Route-A lane requires an estimate of the selected geometry's
+actual finite prime profile with its support-derived prime range. Record 3052
+reduces that profile exactly to a smoothed von Mangoldt sum and identifies the
+remaining signed discrepancy estimate. The item-5 charge comparison does not
+prove this selected-owner estimate.

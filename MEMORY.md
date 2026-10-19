@@ -328,3 +328,21 @@ derive a certificate for the actual `orbitFinitePhysicalKernelIntegrand` over
 `orbitVisiblePrimeRange geometry`, preserving signed cancellation and support
 ownership. This is a source-level direction correction, not a new no-go
 theorem or RH result.
+
+## 2026-10-19 selected profile reduction
+
+The actual selected-owner common-factor prime profile has the exact algebraic
+form `P(t) = 2 exp(-t) sum_n Lambda(n) phi(log(n)-t)`. In the source definition,
+each term is `2 Lambda(n)/sqrt(n) * exp(log(n)/2-t) * phi(log(n)-t)`;
+`exp(log(n)/2)=sqrt(n)` for n >= 2, while the n=0,1 von Mangoldt terms are
+zero. The physical integrand is `2 exp(-t) Re(conj(phi(-t)) * sum_n
+Lambda(n) phi(log(n)-t))`, with `phi = orbitRawFactor geometry`. This keeps
+all prime cancellation grouped and displays the exact selected correction
+against a smoothed von Mangoldt profile.
+
+Record 1736's Stieltjes identity applies to the same selected square under
+triple vanishing: `qw = Q_cont + 2 integral R(y) H_g'(y) dy`. Thus the
+remaining Route-A analysis is a signed discrepancy estimate for this actual
+owner. The identity is a target reduction, not a sign result; its integrand
+can change sign, and setting the discrepancy to zero does not yield the
+needed inequality. Item-5 repaired-owner charges remain separate.
