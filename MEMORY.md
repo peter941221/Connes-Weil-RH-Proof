@@ -133,3 +133,5 @@
   `1e-13`. WSL Lean passed.
 
 - Added 3031 formal allowance contract: uniform 1/10 per cell, with Lean arithmetic proving aggregate targets under the explicit pointwise evaluator-to-ledger premise. This is a contract, not yet the missing evaluator soundness proof.
+
+- Added 3032 finite-target allowance consumer and 3033 cell-level source-charge bridge. The remaining premise is explicit: exact evaluator norm <= certified norm, and row charge <= ledger + allowance.
