@@ -399,3 +399,15 @@ as an error but cannot supply positive credit. Record 3057 now gives an
 explicit owner-parameterized upper bound for that far-tail credit, leaving a
 finite-window lower-bound obligation. Record 1738's factorial-cost result
 only blocks its exact-zero extension strategy. See records 3056-3057.
+
+## 2026-10-19 absolute-tail reduction audit
+
+Record 3058 bounds the absolute signed joint-symbol contribution for every
+`|t| >= T*` directly from the same geometry's fourth-order tail and `C_S`.
+This reduces the sufficient sign target to a signed integral on `[-T*, T*]`
+with an explicit tail allowance, without extending the core window to the
+conservative symbol-sign threshold `T_S`. The result is only a paper-level
+reorganization: `C_S` may make the allowance too large, and no same-owner
+core margin is known. Do not call it a positive-credit lower bound or a
+producer result. Price the allowance against a separately proved core margin
+before promoting it.
