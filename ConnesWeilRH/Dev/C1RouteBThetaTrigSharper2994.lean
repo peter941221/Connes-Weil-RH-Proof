@@ -5,10 +5,10 @@ namespace ConnesWeilRH.Dev
 theorem routeBThetaTrigSharper2994 {δ : ℝ}
     (hδlo : Real.pi / 192 ≤ δ)
     (hδhi : δ ≤ Real.pi / 192 + Real.pi / 1024) :
-    -(867 : ℝ) / 1000 < Real.sin (5 * Real.pi / 3 + δ) ∧
-      Real.sin (5 * Real.pi / 3 + δ) < -(84 : ℝ) / 100 ∧
-      (48 : ℝ) / 100 < Real.cos (5 * Real.pi / 3 + δ) ∧
-      Real.cos (5 * Real.pi / 3 + δ) < (55 : ℝ) / 100 := by
+    -(86 : ℝ) / 100 < Real.sin (5 * Real.pi / 3 + δ) ∧
+      Real.sin (5 * Real.pi / 3 + δ) < -(85 : ℝ) / 100 ∧
+      (51 : ℝ) / 100 < Real.cos (5 * Real.pi / 3 + δ) ∧
+      Real.cos (5 * Real.pi / 3 + δ) < (52 : ℝ) / 100 := by
   have hd := routeBDeltaSharper2993 hδlo hδhi
   have hsqrt0 : 0 ≤ Real.sqrt 3 := Real.sqrt_nonneg _
   have hsqrtlo : (1732 : ℝ) / 1000 < Real.sqrt 3 := by
