@@ -30,7 +30,7 @@ def load_cast_families():
 def main():
     ctx.prec=192
     started=time.monotonic(); families=load_cast_families()
-    endpoints=[base.run_grid(families,10240,sign,False) for sign in (Fraction(-1,2),Fraction(1,2))]
+    endpoints=[base.run_grid(families,10240,sign,True) for sign in (Fraction(-1,2),Fraction(1,2))]
     result={"record":3047,"status":"EXTERNAL_WHOLE_CELL_CAST_OWNER_ENCLOSURE_NOT_LEAN",
             "precision_bits":ctx.prec,"python_flint_version":flint.__version__,
             "owner":"record2678BaseCoefficient binary64 casts; zero coefficient radius",
