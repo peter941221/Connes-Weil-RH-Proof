@@ -151,3 +151,5 @@
 - Linux-native verification: Mathlib built successfully (8474 jobs); 3034, 3033, 3035 built; fixed 3031 to use the 1e-20 row allowance and explicit margins; 3036 then built successfully (8476 jobs total).
 
 - Record 3039 exports per-row canonical interval uppers for all 8192 cells; both D4 and D7 rows pass canonical_upper <= exact ledger rational + 1e-20 allowance in the mpmath replay. This is stronger row-level numerical evidence, still not Lean evaluator soundness.
+
+- Record 3040 exports 8192 per-cell D4/D7 interval upper rationals, including equal endpoint-majorant shares; sums reproduce 2730 totals exactly (D4 1400.650853119245, D7 592705254.0438685). This is numerical input for the Lean evaluator bridge, not yet its soundness proof.
