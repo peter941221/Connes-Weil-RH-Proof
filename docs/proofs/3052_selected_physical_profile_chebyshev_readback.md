@@ -83,10 +83,12 @@ The exact profile simplification removes a normalization distraction but does
 not close the analytic gap. The next admissible Route-A result must either
 prove the same-owner signed discrepancy inequality above, or derive an
 equivalent signed node/integral certificate for
-`orbitFinitePhysicalKernelIntegrand`. The item-5 `chargeRest` enclosure and
-its repaired numerical owner do not provide this estimate. No further
-item-5 cell batch or numerical scan is justified until it removes a named
-premise of this selected-owner target.
+`orbitFinitePhysicalKernelIntegrand`. Record 3053 refines the continuous
+component and gives the exact derivative-energy threshold the discrepancy
+must overcome. The item-5 `chargeRest` enclosure and its repaired numerical
+owner do not provide this estimate. No further item-5 cell batch or numerical
+scan is justified until it removes a named premise of this selected-owner
+target.
 
 Evidence:
 

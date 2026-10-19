@@ -1,9 +1,9 @@
-# Route A corrected next gate (record 3051; superseded by 3052)
+# Route A corrected next gate (record 3051; superseded by 3052-3053)
 
 Status: the original evaluator-batch execution order is superseded. The
 record-2686/2802 work is the item-5 weighted-zero charge lane, not the binding
-selected-detector physical-kernel producer. See record 3052 for the current
-same-owner profile reduction and analytic target.
+selected-detector physical-kernel producer. See records 3052-3053 for the
+current same-owner profile reduction and analytic target.
 
 The earlier 3050 contract is an interface description, not a request to
 regenerate all four channels. Existing evidence already contains the full

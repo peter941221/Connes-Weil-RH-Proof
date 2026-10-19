@@ -346,3 +346,16 @@ remaining Route-A analysis is a signed discrepancy estimate for this actual
 owner. The identity is a target reduction, not a sign result; its integrand
 can change sign, and setting the discrepancy to zero does not yield the
 needed inequality. Item-5 repaired-owner charges remain separate.
+
+## 2026-10-19 exact continuous energy threshold
+
+Combining record 1736's exact `Q_cont` formula with `f(y)=M-E_g(y)/2` gives
+`Q_cont=(4-K)M+integral v(y)E_g(y)dy`, where
+`v(y)=exp(-y/2)/(exp(2y)-1)>0`. Its second moment is
+`16 sum_{k>=0}(4k+5)^(-3) <= 15914/91125 < 1/5`; therefore
+`Q_cont <= -(K-4)M + ||g'||_2^2/5`, improving the previous coefficient 18
+by a factor 90. If `||g'||_2^2/M < 5(K-4)`, the continuous term is strictly
+negative, and the actual prime discrepancy must supply a positive
+mass-scale correction. This is a paper-level bound, not a selected-owner
+measurement or Lean theorem. The selected correction API does not yet prove
+the needed derivative-to-mass ratio; see record 3053.
