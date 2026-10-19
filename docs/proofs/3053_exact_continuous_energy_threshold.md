@@ -112,7 +112,15 @@ tail into a Plancherel bound for the high-frequency part of `D`; its low-
 frequency remainder is `T_*^2*M`, so that tail field alone still does not
 establish the small-ratio condition at large zero height.
 
-The next useful test is to evaluate the two dimensionless owner quantities
+Direction correction: record 1738 already supplies the more direct exact
+same-owner joint Fourier symbol for the full `qw`, and record 1745 supplies
+the equivalent formal prime-domain credit-deficit socket. Thus estimating
+`D/M` and the Stieltjes discrepancy separately is an auxiliary route, not the
+primary producer target. Keep the threshold only if it prices a term in the
+joint-symbol credit-deficit balance; record 3056 specifies that reconciled
+target.
+
+The auxiliary dimensionless owner quantities are
 
 ```text
 r_owner = D/M,

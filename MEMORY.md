@@ -385,3 +385,17 @@ energy grows like `N^2`. Thus support plus finite pins alone cannot bound
 tail field, so the no-go is only for the interpolation-only API. See record
 3055; the remaining target combines finite pins with the full tail to bound
 the low-frequency Fourier energy.
+
+## 2026-10-19 joint-symbol target correction
+
+Re-audit found that records 1738 and 1745 already state the direct same-owner
+sign target: 1738's joint Fourier symbol `m_S(t)|G(t)|^2` and 1745's
+prime-domain credit-deficit inequality are equivalent exact readbacks. The
+3053 `D/M` threshold and 3054 tail-to-derivative bridge are auxiliary bounds,
+not the primary producer target. Return the main effort to proving positive-
+band credit dominates negative-band deficit for the same geometry and its
+actual visible-prime set. The fourth-order tail may bound far-positive credit
+as an error but cannot supply positive credit. Record 3057 now gives an
+explicit owner-parameterized upper bound for that far-tail credit, leaving a
+finite-window lower-bound obligation. Record 1738's factorial-cost result
+only blocks its exact-zero extension strategy. See records 3056-3057.

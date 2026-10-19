@@ -81,7 +81,8 @@ mass, so it may exclude this particular sequence. Record 3055 therefore rules
 out only a derivation from support plus finite Laplace pins; it does not rule
 out combining those data with the complete same-owner tail constraint.
 
-The next valid target is a low-frequency estimate that consumes both:
+One possible intermediate lemma is a low-frequency estimate that consumes
+both:
 
 ```text
 finite interpolation pins + exact FourthOrderSpectralTail
@@ -89,6 +90,10 @@ finite interpolation pins + exact FourthOrderSpectralTail
         -> derivative-energy ratio D/M
         -> record-3053 continuous-term threshold
 ```
+
+This can help price a term in the full joint-symbol balance, but it is not the
+Route-A acceptance target. Record 3056 identifies that target as positive-band
+credit dominating negative-band deficit on the same owner.
 
 The derivative-shift transform law is already formal in
 `C1LaneRD3Root.laplaceAt_derivativeShift`; the asymptotic `L2` carrier argument
