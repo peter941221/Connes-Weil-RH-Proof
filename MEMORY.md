@@ -459,3 +459,14 @@ separation bound or replace the Vandermonde conditioning estimate with one
 that avoids a minimum gap. The explicit actual-owner correction currently has
 node-product denominators and only an L1 bound, so it has not bypassed this
 issue or produced the required quadratic strip constant.
+
+## 2026-10-19 near-collision interpolation cost
+
+Record 3062 proves a two-node necessary cost estimate: if a compact-log
+Laplace transform takes values 1 and 0 at nodes separated by `delta`, then
+its L1 mass is at least `exp(-A*B)/(B*delta)` for support radius `B` and node
+real parts in `[0,A]`. With the record-1738 strip bridge, the decay constant
+also grows at least like `1/delta`. This establishes that gap dependence is
+structural for arbitrary prescribed data. It does not establish a
+near-collision in the actual healthy owner or rule out exploiting additional
+structure of that owner.
