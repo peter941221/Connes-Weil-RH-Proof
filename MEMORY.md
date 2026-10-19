@@ -137,3 +137,5 @@
 - Added 3032 finite-target allowance consumer and 3033 cell-level source-charge bridge. The remaining premise is explicit: exact evaluator norm <= certified norm, and row charge <= ledger + allowance.
 
 - Added 3034 exact cell norm bridge: existing seedTransitionJetInterval_mem2734 and cell geometry now directly prove the Lean derivative norm is bounded by routeBSourceNorm2834 on every cell.
+
+- Added 3035: combines exact cell derivative norm soundness (3034) with row allowance comparison (3033), yielding the weighted derivative charge <= ledger + allowance premise needed by finite-target assembly.
