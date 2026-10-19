@@ -544,18 +544,18 @@ orbit-power bound grows rather than decays.
 
 ## 2026-10-19 row-B D4/D7 artifact-to-Lean gate
 
-Record 3067 audits the reopened row-B seed derivative branch. The 3040
-artifact exports 8192 mpmath interval charges; 3041 copies their rational
-rows into Lean and proves list lengths/sums; 3042 proves the aggregate
-constants below the D4/D7 thresholds. Separately, Lean record 2809 proves
-the actual `Real.smoothTransition` derivatives lie in `seedTransitionJetInterval2734`
-on every cell. No theorem connects those Lean interval endpoints to the 3040
-rational row bounds. The 3025/3031 allowance contracts still take that
-pointwise relation as a hypothesis. Next real task: prove per-cell rational
-containment for the Lean interval jets (or one uniform theorem for all 8192
-cells), comparing `4*cellWidth*jetAbsUpper` to each integral-charge row after
-subtracting that row's apportioned endpoint share. The 3040 rows already
-include the endpoint total, so do not charge it twice. A regenerated Python
-replay or another exact sum does not close this semantic gap. This is only a
-row-B pin brick; Route A remains the binding producer lane and the
-rho-quantified duties remain open.
+Record 3067 is corrected: Lean already proves exact-real derivative enclosure
+on every cell (2809), and theorem 2738 proves the stronger rational-box
+derivative enclosure. The only missing link is the rational endpoint charge
+comparison with each 3040 row. Record 3070 runs the rational interval
+recurrence over all 8192 cells and finds maximum excess D4 `1.55e-17` (cell
+2010), D7 `1.283e-10` (cell 1249). Uniform `2e-10` per-cell allowance costs
+`1.6384e-6`, safely within the exact aggregate margin. This is mpmath routing
+evidence, not a Lean proof. Next formal target: prove generated per-cell
+rational inequalities against each row after removing its endpoint share, or
+a uniform excess bound. `C1RouteBSeedLedgerAllowance3071.lean` now states the
+sum and target theorems for the `2e-10` allowance, but has not been
+Lean-compiled: Lake stalled auditing the reused package Git worktrees and the
+isolated verification copy did not finish copying dependencies. Feed the
+per-cell comparisons into 3071 and existing 3032-3036 consumers. Route A
+remains the binding producer lane; row-B carrier and rho duties remain open.

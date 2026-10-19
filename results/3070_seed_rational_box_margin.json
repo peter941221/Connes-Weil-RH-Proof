@@ -1,0 +1,26 @@
+{
+  "record": 3070,
+  "indices": "all",
+  "status": "RATIONAL-BOX-ROUTING-DIAGNOSTIC",
+  "summary": {
+    "4": {
+      "max_excess_cell": 2010,
+      "max_excess": "1.5462928573392617565e-17",
+      "cells_above_1e-10": 0,
+      "passes_uniform_allowance_2e-10": true
+    },
+    "7": {
+      "max_excess_cell": 1249,
+      "max_excess": "1.2820844044711306088e-10",
+      "cells_above_1e-10": 59,
+      "passes_uniform_allowance_2e-10": true
+    }
+  },
+  "uniform_allowance": "2e-10 per cell",
+  "total_allowance": "1.6384e-6",
+  "nonclaims": [
+    "mpmath interval routing diagnostic only",
+    "does not prove Lean rational row comparisons",
+    "does not close D4/D7, row-B pins, carrier, or RH"
+  ]
+}
