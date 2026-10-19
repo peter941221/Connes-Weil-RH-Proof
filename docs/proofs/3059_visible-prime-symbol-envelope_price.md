@@ -91,6 +91,12 @@ no estimate in terms of the node set, radius, or target values. Thus a
 quantitative interpolation norm/conditioning theorem is the missing bridge
 to an upper price for `C` and hence for `orbitIndex`.
 
+The name `HealthyMinimalLaplaceRealizes` does not provide that optimization:
+its definition is exactly four conditions (three prescribed zero values and
+a nonzero value at `rho`). It contains no minimum over interpolants and no
+norm comparison. The radius-dependent correction used for the zero set is
+the finite-span construction above, not a proved minimum-energy correction.
+
 ## Verdict
 
 The 3058 reduction remains a valid same-owner decomposition, but its current
@@ -115,6 +121,9 @@ Evidence:
   correction constant and the displayed sufficient orbit-index condition.
 - `ConnesWeilRH/Source/CC20YoshidaNearZeros.lean` proves finite-node
   surjectivity by a span argument without a quantitative coefficient bound.
+- `ConnesWeilRH/Dev/C1HealthyYoshidaMinimalInterpolation.lean` defines
+  `HealthyMinimalLaplaceRealizes` by four value constraints only; it is not a
+  norm-minimization property.
 - `ConnesWeilRH/Source/CC20YoshidaTail.lean` assembles `C` from three
   derivative-integral bounds obtained by compactness.
 - `docs/proofs/3058_joint_symbol_absolute_tail_reduction.md` supplies the
