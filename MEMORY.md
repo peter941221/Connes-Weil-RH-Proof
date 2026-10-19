@@ -141,3 +141,5 @@
 - Added 3035: combines exact cell derivative norm soundness (3034) with row allowance comparison (3033), yielding the weighted derivative charge <= ledger + allowance premise needed by finite-target assembly.
 
 - Added 3036 finite-sum bridge: pointwise row charge <= ledger + allowance plus separate ledger/allowance sums yields aggregate + margin, isolating the remaining row-wise numeric-to-Lean premise.
+
+- Record 3037 exports an exact rational allowance of 1e-20 for each of 8192 rows (aggregate 8.192e-17 per order), comfortably above the 3029 max excess and below D4/D7 margins. It is an input budget, not evaluator soundness.
