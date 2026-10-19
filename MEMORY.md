@@ -445,3 +445,17 @@ conditioning cost. This is a parameterized upper bound, not evidence that the
 3058 allowance is affordable. The next gate is to price it on a named
 certified node set and compare it to record 1738's factorial lower bound and
 an actual same-owner core margin.
+
+## 2026-10-19 actual-owner fixed-bump parameter audit
+
+Record 3061 bounds the fixed-bump node count from the existing Jensen/xi
+growth theorem and bounds node height/modulus from the exact geometry radius.
+The remaining unpriced quantity is the minimum pairwise gap `delta` among
+the finite source-zero/healthy-target nodes. Current discreteness proves only
+`delta>0` for each fixed owner; it supplies no quantitative gap as the radius
+grows. Since the record-3060 matrix cost contains `delta^(-N*(N-1)/2)`, the
+actual owner is still not priced. Either prove a quantitative owner-specific
+separation bound or replace the Vandermonde conditioning estimate with one
+that avoids a minimum gap. The explicit actual-owner correction currently has
+node-product denominators and only an L1 bound, so it has not bypassed this
+issue or produced the required quadratic strip constant.
