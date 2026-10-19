@@ -22,9 +22,9 @@ cellCharge(i,k) = 4 * (2047/33554432) * endpointAbsMax(jetBox(i,k)).
 ```
 
 The exported 3040 row already contains its endpoint-majorant share. Therefore
-the comparison is against `row3040(i,k) - endpointShare(k)`, without charging
-the endpoint share twice. The script uses the existing rational rows and does
-not generate or alter Lean proof data.
+the comparison is against `rowHead3040(i,k) = row3040(i,k) -
+endpointShare(k)/8192`, without charging the endpoint share twice. The script
+uses the existing rational rows and does not generate or alter Lean proof data.
 
 ## All-cell result
 
@@ -44,15 +44,31 @@ aggregate. This is negligible relative to the D4 and D7 thresholds 1500 and
 The diagnostic is not a theorem. It establishes the right target and a
 plausible rational margin: formally prove, for every `i < 8192`,
 `4*cellWidth*endpointAbsMax(rationalSeedTransitionJet2738(B_i,m_i,k)) <=
-row3040(i,k) + 2e-10` for `k=4,7`, then pass these inequalities to the existing
-3032-3036 partition and allowance consumers. The arithmetic contract has now
-been written as `C1RouteBSeedLedgerAllowance3071.lean`: it proves the `2e-10`
-allowance sum against the exact aggregate constants from 3042, conditional on
-the per-cell comparisons. It uses coarse aggregate ceilings 1401 for D4 and
-356408391 for D7, both with margin 1. That module has not yet been
-Lean-compiled. The
-source theorem 2738 already proves that each rational jet encloses the actual
-derivative; only the endpoint comparisons and their Lean verification remain.
+rowHead3040(i,k) + 2e-10` for `k=4,7`. Summing these inequalities bounds the
+integral over `[1/4096, 1/2]` by the sum of the 3040 row heads plus the
+allowances. Then add the separately proved endpoint integral bound from 2803
+for `[0, 1/4096]`. This recovers the full 3040 row sum plus the allowance and
+does not double-count the endpoint share.
+
+The 3071 module now contains full-target arithmetic theorems that add the
+endpoint integral bound to the cell sum. The remaining connection is proving
+that the actual row-head vector satisfies its aggregate hypothesis; these
+theorem statements are still uncompiled.
+
+The arithmetic contract has been written as
+`C1RouteBSeedLedgerAllowance3071.lean`: it proves a generic `2e-10`
+per-cell allowance sum and target bound, conditional on per-cell inequalities
+and a ledger-sum bound. Its ledger must be instantiated by the row heads, with
+their sum bounded by the full 3042 aggregate. The source theorem 2738 already
+proves that each rational jet encloses the actual derivative; the endpoint
+comparisons and the formal connection from 3040/3042 row-head data to 3071
+remain open. The module has not yet been Lean-compiled.
+
+An exact-Fraction cross-read of the 8192 stored rows confirms that each 3040
+row sum equals the corresponding 3042 rational aggregate, and that subtracting
+then restoring the endpoint charge recovers the sum exactly. This checks the
+artifact arithmetic only. Converting the endpoint charge to binary64 underflows
+to zero, so the equality check must remain rational rather than float-based.
 
 ## Reproduction and limits
 

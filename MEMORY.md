@@ -553,9 +553,21 @@ recurrence over all 8192 cells and finds maximum excess D4 `1.55e-17` (cell
 `1.6384e-6`, safely within the exact aggregate margin. This is mpmath routing
 evidence, not a Lean proof. Next formal target: prove generated per-cell
 rational inequalities against each row after removing its endpoint share, or
-a uniform excess bound. `C1RouteBSeedLedgerAllowance3071.lean` now states the
-sum and target theorems for the `2e-10` allowance, but has not been
-Lean-compiled: Lake stalled auditing the reused package Git worktrees and the
-isolated verification copy did not finish copying dependencies. Feed the
-per-cell comparisons into 3071 and existing 3032-3036 consumers. Route A
-remains the binding producer lane; row-B carrier and rho duties remain open.
+a uniform excess bound. A 3040 row consists of a row-head integral plus one
+8192nd share of the endpoint-majorant charge. Prove each rational-jet cell
+charge <= rowHead + allowance, sum the row heads, and add the separately
+proved 2803 endpoint integral once; this recovers the full aggregate without
+double counting. The 3070 note and 3067 gate audit now state this convention.
+`C1RouteBSeedLedgerAllowance3071.lean` now adds the proved endpoint integral
+bound to a full-target arithmetic theorem, conditional on a ledger aggregate
+bound. The actual row-head vector is not yet connected to the 3042 aggregate.
+An exact-Fraction cross-read confirms both stored 3040 row sums equal the 3042
+rational aggregates and that row-head plus endpoint charge reconstructs them;
+this is artifact arithmetic evidence, not the missing Lean connection. The
+endpoint charge underflows if cast to binary64, so this check must stay exact.
+Lean compilation is unverified because Lake timed out before emitting output
+while auditing repository/package state; the project checkout also lacks the
+direct `.olean` files needed for a standalone compiler invocation. Feed the
+per-cell comparisons and row-head aggregate proof into 3071 and existing
+3032-3036 consumers. Route A remains the binding producer lane; row-B carrier
+and rho duties remain open.

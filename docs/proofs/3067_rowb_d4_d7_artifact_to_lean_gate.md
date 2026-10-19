@@ -85,9 +85,13 @@ per-cell rational endpoint comparison against row 3040
 8192-cell sum + allowance sum < D4/D7 threshold
 ```
 
-The rational endpoint comparison is the blocking proof obligation. Record 3070
-evaluates the 2738 recurrence on all 8192 cells with
-`m_i=ceil(-phaseCell.lo)` and compares each charge with its 3040 row. Its
+The rational endpoint comparison is the blocking proof obligation. A 3040 row
+is `rowHead3040 + endpointShare/8192`; the pointwise comparison uses
+`rowHead3040`, then the separately proved 2803 endpoint integral is added once
+after summing. This recovers the full 3040 aggregate without double counting.
+Record 3070 evaluates the 2738 recurrence on all 8192 cells with
+`m_i=ceil(-phaseCell.lo)` and compares each charge with the corresponding
+3040 row head. Its
 largest excess is `1.5462928573392617565e-17` for D4 at cell 2010 and
 `1.2820844044711306088e-10` for D7 at cell 1249. All cells fit a uniform
 `2e-10` allowance, costing `1.6384e-6` total, well below the aggregate margins.
@@ -95,8 +99,10 @@ This is an mpmath routing diagnostic, not a Lean theorem. The next formal brick
 is to prove the generated rational inequalities or a uniform theorem for their
 excess, then use the larger allowance in the new arithmetic consumer
 `C1RouteBSeedLedgerAllowance3071.lean` and the existing 3032-3036 assembly.
-The 3071 source also exposes standard-trio sum and target theorems for the
-`2e-10` allowance; its Lean compilation remains to be verified.
+The 3071 source proves generic allowance arithmetic and now adds the endpoint
+integral to a full-target inequality, conditional on the cell and ledger
+bounds. Connecting the actual row-head vector to the 3042 aggregate remains
+open. Its Lean compilation remains to be verified.
 
 ## Scope
 
