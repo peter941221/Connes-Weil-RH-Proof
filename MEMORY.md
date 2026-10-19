@@ -535,3 +535,9 @@ and `Y=exp(x/2)` satisfy `E[Y]=E[Y^2]=1`; zero variance forces the measure to
 be a point mass, impossible for a nonzero smooth density. Record 3066 adds
 this scoped mechanism no-go. Any future core-envelope route must avoid relying
 on nonnegative base density while preserving the pins.
+The triangle inequality gives the related strict fact
+`integral |exp(x/2)*base(x)|>1`: the half-pin gives signed integral one, and
+equality in the L1 bound would force a nonnegative density, already excluded.
+This does not establish any frequency where `|B|>1`; it rules out obtaining a
+unit core envelope from this crude global L1 majorant and warns that its
+orbit-power bound grows rather than decays.

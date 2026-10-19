@@ -65,6 +65,18 @@ real pins rule out a nonzero nonnegative smooth base. Positivity cannot be
 added as the simple route to a characteristic-function modulus bound; another
 core-envelope mechanism would be needed.
 
+There is a precise consequence for the usual global L1 estimate. Put
+`f(x)=exp(x/2)*b(x)`. The pin at `1/2` gives `integral f=1`, so
+`integral |f| >= 1`. Equality in the integral triangle inequality would force
+`f` to be real nonnegative almost everywhere; the three-pin variance argument
+rules that out. Therefore every admissible smooth base satisfies
+`integral |exp(x/2)*b(x)| > 1`. This does NOT prove that
+`|B(1/2+i*t)|>1` at any frequency: cancellation can keep a Fourier transform
+below one despite total variation above one. It does prove that the direct
+bound `|B(1/2+i*t)| <= integral |exp(x/2)*b(x)|` cannot supply the needed
+unit core envelope, and raising that crude bound to the orbit power gives a
+base greater than one rather than a decaying factor.
+
 ## Next mathematical gate
 
 Before deriving a limit or a core lower bound, inspect the exact constructed
