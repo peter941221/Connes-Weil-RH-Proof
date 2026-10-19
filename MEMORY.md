@@ -431,3 +431,15 @@ upper bound on `orbitIndex` or a small 3058 allowance. Next prove a
 quantitative interpolation norm bound or replace the termwise prime envelope
 with a sharper same-owner bound. This is a scoped failure of the coarse
 pricing mechanism, not a no-go for the actual sign target.
+
+## 2026-10-19 fixed-bump interpolation price
+
+Record 3060 replaces the unquantified finite-span selection by one explicit
+family of translated log-bumps. Its Mellin matrix is a row-scaled exponential
+Vandermonde matrix. The determinant bound yields a finite correction decay
+constant depending on node count, height and minimum separation, but its
+log-cost contains a quadratic-in-node-count conditioning term. This is a
+constructive parameterized upper bound, not evidence that the 3058 allowance
+is affordable. The next gate is price it on a named certified node set and
+compare to record 1738's factorial lower bound and an actual same-owner core
+margin; otherwise retire this basis as too ill-conditioned.
