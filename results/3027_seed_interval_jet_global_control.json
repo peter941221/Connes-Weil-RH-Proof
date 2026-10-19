@@ -1,0 +1,36 @@
+{
+  "record": 3027,
+  "status": "CONTROL-PASS",
+  "cells": 8192,
+  "max_normalized_deviation": [
+    "0.0",
+    "1.1638858668185537845e-40",
+    "6.6121557233753672323e-39",
+    "5.2513187133973505256e-38",
+    "7.5967263157561492219e-38",
+    "7.5336738034261713269e-38",
+    "1.0562966385333269668e-37",
+    "1.0518552073805963599e-37"
+  ],
+  "containment_by_order": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "checks": {
+    "cells": 8192,
+    "all_contained": true,
+    "max_deviation_below_1e-25": true
+  },
+  "parent_sha256": "f16ce609d50c195d1c25c02a2e33ee00fa859575ee874491ec82b750f2ed19b8",
+  "checker_sha256": "d66190213e04971193700ce34b47943d13b83270b7e8f714f44a030371a9c876",
+  "nonclaims": [
+    "Numerical mpmath interval control only.",
+    "Does not prove evaluator-to-Lean soundness or D4/D7/RH."
+  ]
+}
