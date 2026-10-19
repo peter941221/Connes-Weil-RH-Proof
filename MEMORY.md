@@ -541,3 +541,21 @@ equality in the L1 bound would force a nonnegative density, already excluded.
 This does not establish any frequency where `|B|>1`; it rules out obtaining a
 unit core envelope from this crude global L1 majorant and warns that its
 orbit-power bound grows rather than decays.
+
+## 2026-10-19 row-B D4/D7 artifact-to-Lean gate
+
+Record 3067 audits the reopened row-B seed derivative branch. The 3040
+artifact exports 8192 mpmath interval charges; 3041 copies their rational
+rows into Lean and proves list lengths/sums; 3042 proves the aggregate
+constants below the D4/D7 thresholds. Separately, Lean record 2809 proves
+the actual `Real.smoothTransition` derivatives lie in `seedTransitionJetInterval2734`
+on every cell. No theorem connects those Lean interval endpoints to the 3040
+rational row bounds. The 3025/3031 allowance contracts still take that
+pointwise relation as a hypothesis. Next real task: prove per-cell rational
+containment for the Lean interval jets (or one uniform theorem for all 8192
+cells), comparing `4*cellWidth*jetAbsUpper` to each integral-charge row after
+subtracting that row's apportioned endpoint share. The 3040 rows already
+include the endpoint total, so do not charge it twice. A regenerated Python
+replay or another exact sum does not close this semantic gap. This is only a
+row-B pin brick; Route A remains the binding producer lane and the
+rho-quantified duties remain open.
