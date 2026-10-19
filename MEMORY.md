@@ -147,3 +147,5 @@
 - Added 3038 Lean arithmetic anchor for 3037: defines 1/10^20 allowance over Fin 8192, proves exact sum, and proves it is below both D4 and D7 margins.
 
 - Linux-native Mathlib build completed (8474 jobs). First real 3038 compile exposed and fixed noncomputable Real division and inverse-normalization issues; ext4 compile produced /tmp/3038.olean successfully.
+
+- Linux-native verification: Mathlib built successfully (8474 jobs); 3034, 3033, 3035 built; fixed 3031 to use the 1e-20 row allowance and explicit margins; 3036 then built successfully (8476 jobs total).
