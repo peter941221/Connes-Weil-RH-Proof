@@ -9,6 +9,13 @@
     {"cells": 512, "curvature_ratio": "8.450591425230735"},
     {"cells": 1024, "curvature_ratio": "4.857317694066264", "curvature_remainder": "0.6254096675411813", "sampled_truth_remainder": "0.12875617921907527", "base_endpoint_margin": "-0.5203077975475935"}
   ],
-  "interpretation": "The C3-prime price is dominated by the sampled familywise third-derivative supremum. Grid refinement reduces the inflation, but the 1024-cell diagnostic remains above the registered endpoint pin. This is a routing diagnostic, not a whole-cell certificate or Producer theorem.",
+  "high_resolution_cross_read": {
+    "source": "results/2533_signed_grid_refinement_probe.json",
+    "cells": [2560, 5120, 10240],
+    "sigma_minus_0.5_base_endpoint_margin": ["0.0410558370456413", "0.0835597204199396", "0.0907159056563588"],
+    "sigma_plus_0.5_base_endpoint_margin": ["0.0529986418722538", "0.0953257710166121", "0.102424727092614"],
+    "note": "The earlier 1024-cell negative margin is a low-resolution diagnostic; the registered 10240-cell sampled result is positive for both sigma signs."
+  },
+  "interpretation": "The C3-prime price is dominated by the sampled familywise third-derivative supremum. Low-resolution grids can remain negative, while the registered 10240-cell sampled result is positive with margins about 0.091 to 0.102. The remaining gap is a whole-cell enclosure for the third-derivative supremum, not evidence that the sampled margin fails.",
   "nonclaims": ["no full-cell interval enclosure", "no selected-owner signed C3-prime margin", "no Producer GO", "no SourceRH", "no RH"]
 }

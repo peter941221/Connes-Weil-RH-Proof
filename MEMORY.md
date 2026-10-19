@@ -171,3 +171,13 @@ fixed lambda 24 signal does not establish the mainline gate prerequisites.
 This does not prove Route B impossible; it closes the current numerical probe
 as a route to a universal producer. Do not promote these numbers to Lean
 premises. Route A remains the binding producer lane.
+## 3044 correction: high-resolution C3' margin survives (2026-10-19)
+
+The first 3044 low-resolution diagnostic used 1024 cells and read a negative
+base endpoint margin. A cross-read of the authoritative 2533 artifact shows
+that this is a resolution effect: at 2560/5120/10240 cells the sampled margins
+for sigma = -0.5 are 0.0411/0.0836/0.0907 and for sigma = +0.5 are
+0.0530/0.0953/0.1024. Thus the sampled C3' margin survives refinement. The
+remaining obligation is stronger: replace the sampled 17-point familywise
+third-derivative supremum by a certified whole-cell enclosure. Do not use the
+1024-cell negative reading as a Route-A no-go.
