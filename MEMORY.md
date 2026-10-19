@@ -139,3 +139,5 @@
 - Added 3034 exact cell norm bridge: existing seedTransitionJetInterval_mem2734 and cell geometry now directly prove the Lean derivative norm is bounded by routeBSourceNorm2834 on every cell.
 
 - Added 3035: combines exact cell derivative norm soundness (3034) with row allowance comparison (3033), yielding the weighted derivative charge <= ledger + allowance premise needed by finite-target assembly.
+
+- Added 3036 finite-sum bridge: pointwise row charge <= ledger + allowance plus separate ledger/allowance sums yields aggregate + margin, isolating the remaining row-wise numeric-to-Lean premise.
