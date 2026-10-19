@@ -2,6 +2,8 @@ import Mathlib
 
 namespace ConnesWeilRH.Dev
 
+noncomputable section
+
 /-!
 Formal contract for the 3029 directed-rounding allowance.
 
@@ -12,7 +14,7 @@ conservative uniform allowance 1/10 per cell.  This file proves the arithmetic
 of that contract; it does not assert the missing evaluator soundness premise.
 -/
 
-def routeBSeedUniformAllowance3031 : Fin 8192 → ℝ := fun _ => (1 : ℝ) / 10
+def routeBSeedUniformAllowance3031 : Fin 8192 → ℝ := fun _ => (1 : ℝ) / 10 ^ 20
 
 theorem routeBSeedLedgerAggregate_with_allowance3031
     {charge ledger allowance : Fin 8192 → ℝ}
@@ -32,18 +34,19 @@ theorem routeBSeedLedgerAggregate_with_allowance3031
     _ < target := htarget
 
 theorem routeBSeedUniformAllowance_sum3031 :
-    (∑ i : Fin 8192, routeBSeedUniformAllowance3031 i) = (4096 : ℝ) / 5 := by
-  simp [routeBSeedUniformAllowance3031]
-  norm_num
+    (∑ i : Fin 8192, routeBSeedUniformAllowance3031 i) =
+      (8192 : ℝ) / 10 ^ 20 := by
+  simp [routeBSeedUniformAllowance3031, div_eq_mul_inv]
 
 theorem routeBSeedLedger_order4_target3031
     {charge ledger : Fin 8192 → ℝ}
     (hpoint : ∀ i, charge i ≤ ledger i + routeBSeedUniformAllowance3031 i)
     (hledger : (∑ i : Fin 8192, ledger i) ≤ (1400 : ℝ)) :
     (∑ i : Fin 8192, charge i) < (1500 : ℝ) := by
-  apply routeBSeedLedgerAggregate_with_allowance3031 hpoint hledger
+  refine routeBSeedLedgerAggregate_with_allowance3031
+    (aggregate := (1400 : ℝ)) (margin := (8192 : ℝ) / 10 ^ 20)
+    (target := (1500 : ℝ)) hpoint hledger ?_ ?_
   · rw [routeBSeedUniformAllowance_sum3031]
-    norm_num
   · norm_num
 
 theorem routeBSeedLedger_order7_target3031
@@ -51,9 +54,11 @@ theorem routeBSeedLedger_order7_target3031
     (hpoint : ∀ i, charge i ≤ ledger i + routeBSeedUniformAllowance3031 i)
     (hledger : (∑ i : Fin 8192, ledger i) ≤ (1999999000 : ℝ)) :
     (∑ i : Fin 8192, charge i) < (2000000000 : ℝ) := by
-  apply routeBSeedLedgerAggregate_with_allowance3031 hpoint hledger
+  refine routeBSeedLedgerAggregate_with_allowance3031
+    (aggregate := (1999999000 : ℝ)) (margin := (8192 : ℝ) / 10 ^ 20)
+    (target := (2000000000 : ℝ)) hpoint hledger ?_ ?_
   · rw [routeBSeedUniformAllowance_sum3031]
-    norm_num
   · norm_num
 
+end
 end ConnesWeilRH.Dev
