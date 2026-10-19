@@ -26,3 +26,23 @@ change invalidates 2668/2670. The next concrete proof target is one generic
 parameterized theorem for the 2242 rectangle evaluator, followed by a generated
 8192-cell arithmetic import. The 3047 baseM0 certificate remains an independent
 cross-check and is not the binding producer path.
+
+## Correction after source audit (2026-10-19)
+
+The generic mathematical interval layer is already present in records 2672,
+2673, and 2676. In particular, the exact-real bump quotient, exponential,
+trigonometric hull, family derivative pins, and representative aggregate
+containment are proved. The remaining evaluator gap is narrower:
+
+```text
+MPFR directed-rounding soundness
+        + binary64 endpoint decoding/transfer
+        + generated 8192-cell rectangle instances
+        + exact charge sum import
+        + live chargeRest identity
+```
+
+Do not reopen the exact-real interval lemmas unless a source-hash or owner
+change invalidates them. The next implementation should connect the existing
+bridges to the 2242 evaluator's stored endpoint payload and batch the cell
+instances.
