@@ -155,3 +155,19 @@
 - Record 3040 exports 8192 per-cell D4/D7 interval upper rationals, including equal endpoint-majorant shares; sums reproduce 2730 totals exactly (D4 1400.650853119245, D7 592705254.0438685). This is numerical input for the Lean evaluator bridge, not yet its soundness proof.
 
 - Added 3041 Lean arithmetic projection generated from 3040's 8192 rational D4/D7 cell uppers; it proves row lengths and exact aggregate sums once Linux-native compiled. Evaluator semantic soundness remains separate.
+## 3043 poweredSeed same-owner sign scan (2026-10-19)
+
+`scripts/fourpoint_powered_seed_3043_scan.py` scanned the repaired
+`poweredSeed` owner over 5 rho points and sigma = 0, 0.5, 1.0, with n = 0..4.
+The result is `results/3043_powered_seed_sign_scan.json` and is explicitly
+model-grade only: known zeta zeros under-approximate the owner, the orbit is
+hypothetical, and the xi integrals use a sampled trapezoid.
+
+Observed counts: 15 scan points; 25 rows satisfy the vertex sign predicate
+`C > 0`, `b > 0`, `det < 0`; 39 rows have the fixed-lambda-24 quadratic value
+negative. The successful row indices vary substantially with rho, sigma, and
+n. Hence determinant negativity is not a stable same-owner producer, and the
+fixed lambda 24 signal does not establish the mainline gate prerequisites.
+This does not prove Route B impossible; it closes the current numerical probe
+as a route to a universal producer. Do not promote these numbers to Lean
+premises. Route A remains the binding producer lane.
