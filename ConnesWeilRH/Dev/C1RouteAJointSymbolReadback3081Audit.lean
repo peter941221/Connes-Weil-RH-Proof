@@ -1,0 +1,11 @@
+import ConnesWeilRH.Dev.C1RouteAJointSymbolReadback3081
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1RouteAJointSymbolReadback3081Audit
+
+#print axioms C1RouteAJointSymbolReadback3081.qw_nonneg_of_routeAJointSymbolReadback
+
+end C1RouteAJointSymbolReadback3081Audit
+end Source
+end ConnesWeilRH

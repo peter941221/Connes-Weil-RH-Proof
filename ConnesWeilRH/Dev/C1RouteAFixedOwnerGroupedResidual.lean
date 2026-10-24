@@ -115,6 +115,70 @@ theorem not_ICgate_nonpos_of_healthyOrbitGeometry
   have hpos := ICgate_pos_of_healthyOrbitGeometry geometry hoff hright
   linarith
 
+/-- The actual grouped residual of a healthy off-line orbit geometry is
+strictly positive.  The producer's nonpositive target is therefore the
+RH-level contradiction for this owner, not an auxiliary enclosure goal. -/
+theorem groupedResidual_pos_of_healthyOrbitGeometry
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g)
+    (hoff : rho.1.re ≠ 1 / 2)
+    (hright : (1 / 2 : Real) < rho.1.re) :
+    0 < archimedeanTerm g.convolutionSquare +
+        ∫ t in (physicalKernelWindowLeft geometry)..
+          (physicalKernelWindowRight geometry),
+          orbitPhysicalKernelCoboundaryResidual geometry t := by
+  rw [archimedean_plus_actualResidual_eq_ICgate geometry]
+  exact ICgate_pos_of_healthyOrbitGeometry geometry hoff hright
+
+/-- No integration-by-parts coboundary certificate with a nonpositive
+residual budget can exist on the same healthy off-line geometry.  This is a
+scoped no-go result for the proposed B5 budget sign, not a proof of RH. -/
+theorem no_coboundaryCertificate_of_healthyOrbitGeometry
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g)
+    (hoff : rho.1.re ≠ 1 / 2)
+    (hright : (1 / 2 : Real) < rho.1.re) :
+    ¬ Nonempty (OrbitPhysicalKernelCoboundaryCertificate geometry) := by
+  rintro ⟨certificate⟩
+  have hcertificateResidual_eq_actual :
+      (∫ t in (physicalKernelWindowLeft geometry)..
+          (physicalKernelWindowRight geometry), certificate.residual t) =
+        ∫ t in (physicalKernelWindowLeft geometry)..
+          (physicalKernelWindowRight geometry),
+            orbitPhysicalKernelCoboundaryResidual geometry t := by
+    calc
+      (∫ t in (physicalKernelWindowLeft geometry)..
+          (physicalKernelWindowRight geometry), certificate.residual t) =
+          ∫ t in (physicalKernelWindowLeft geometry)..
+            (physicalKernelWindowRight geometry),
+              orbitFinitePhysicalKernelIntegrand geometry t :=
+        (intervalIntegral_orbitFinitePhysicalKernelIntegrand_eq_residual
+          certificate).symm
+      _ = ∫ t in (physicalKernelWindowLeft geometry)..
+            (physicalKernelWindowRight geometry),
+              orbitPhysicalKernelCoboundaryResidual geometry t :=
+        intervalIntegral_orbitFinitePhysicalKernelIntegrand_eq_actualResidual geometry
+  have hpositive := groupedResidual_pos_of_healthyOrbitGeometry geometry hoff hright
+  have hpositiveCertificate :
+      0 < archimedeanTerm g.convolutionSquare +
+          ∫ t in (physicalKernelWindowLeft geometry)..
+            (physicalKernelWindowRight geometry), certificate.residual t := by
+    rw [hcertificateResidual_eq_actual]
+    exact hpositive
+  have hnonpos := certificate.residual_budget
+  linarith
+
+/-- The certificate producer required by the current SourceRH consumer has no
+witness over any hypothetical right-of-line zero. -/
+theorem no_rightZero_coboundaryProducer_witness
+    (rho : sourceNontrivialZeroSet)
+    (hright : (1 / 2 : Real) < rho.1.re) :
+    ¬ ∃ g : CompactLogTest, ∃ geometry : OrbitG8Geometry rho g,
+        Nonempty (OrbitPhysicalKernelCoboundaryCertificate geometry) := by
+  rintro ⟨g, geometry, certificate⟩
+  exact no_coboundaryCertificate_of_healthyOrbitGeometry geometry
+    (ne_of_gt hright) hright certificate
+
 end
 end C1RouteAFixedOwnerGroupedResidual
 end Source

@@ -1,0 +1,16 @@
+import ConnesWeilRH.Dev.C1RouteACanonicalOwner3076
+import ConnesWeilRH.Dev.C1RouteASelectedOwnerSupportTailBridge3075
+
+namespace ConnesWeilRH.Dev
+
+open ConnesWeilRH.Source.C1RouteASelectedOwnerSupportTailBridge3075
+
+#print axioms routeACanonicalBase_test_eq_external3076
+#print axioms routeACanonicalCorrection_test_eq_external3076
+#print axioms routeACanonicalOwnerSource_eq3076
+#print axioms routeACanonicalOwnerSource_support3076
+#print axioms routeARecordedCenterCellChannelCharge_eq_record2800_terms3076
+#print axioms residualFamily_selectedOwner_support_subset_Icc
+#print axioms residualFamily_selectedOwner_source_tail
+
+end ConnesWeilRH.Dev

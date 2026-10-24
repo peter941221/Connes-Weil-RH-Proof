@@ -1,0 +1,13 @@
+import ConnesWeilRH.Dev.C1RouteACanonicalFiniteCharge3077
+import ConnesWeilRH.Dev.C1RouteASelectedOwnerChargeBridge3073
+
+namespace ConnesWeilRH.Dev
+
+#print axioms routeACanonicalFiniteGridCharge_lt_knownError3077
+#print axioms canonicalGridChannelIntegral_le_chargeSum3077
+#print axioms canonicalFourChannelFiniteIntegral_le_gridCharge3077
+#print axioms canonicalOwner_chargeRest_le_knownError_of_grid3077
+#print axioms selectedOwner_chargeRest_le_knownError_of_bridge3073
+#print axioms a005_item5_producer_wired_canonical_owner3073
+
+end ConnesWeilRH.Dev

@@ -1,0 +1,34 @@
+import ConnesWeilRH.Dev.C1RouteAJointSymbolData3080
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1RouteAJointSymbolData3080Audit
+
+open C1RouteAJointSymbolData3080
+
+#check routeAVisiblePrimes
+#check routeAOrbitTransform
+#check routeAOrbitTransform_eq_selectedSourceLaplace
+#check routeAFrequencyEnergyDensity_eq_credit_sub_deficit
+#check routeAFrequencyEnergyDensity_nonneg_on_jointSymbol_tail
+#check routeANegativeSymbolBand_is_bounded
+#check routeAPrimePoissonSymbol_abs_le
+#check routeAJointSymbol_primePart_abs_le
+#check routeAJointSymbol_lower_bound
+#check routeAJointSymbol_nonneg_of_archimedean_margin
+#check exists_routeAJointSymbol_nonneg_tail
+
+#print axioms routeAPrimePoissonSymbol_abs_le
+#print axioms routeAOrbitTransform_eq_selectedSourceLaplace
+#print axioms routeAFrequencyEnergyDensity_eq_credit_sub_deficit
+#print axioms exists_routeAJointSymbol_nonneg_tail
+#print axioms routeAFrequencyEnergyDensity_nonneg_on_jointSymbol_tail
+#print axioms routeANegativeSymbolBand_is_bounded
+#print axioms routeAJointSymbol_primePart_abs_le
+#print axioms routeAJointSymbol_lower_bound
+#print axioms routeAJointSymbol_nonneg_of_archimedean_margin
+#print axioms exists_routeAJointSymbol_nonneg_tail
+
+end C1RouteAJointSymbolData3080Audit
+end Source
+end ConnesWeilRH

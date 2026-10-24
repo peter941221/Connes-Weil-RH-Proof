@@ -11,6 +11,9 @@ open C1RouteAFixedOwnerGroupedResidual
 #print axioms exists_strict_groupedResidual_margin_iff_strict_ICgate
 #print axioms ICgate_pos_of_healthyOrbitGeometry
 #print axioms not_ICgate_nonpos_of_healthyOrbitGeometry
+#print axioms groupedResidual_pos_of_healthyOrbitGeometry
+#print axioms no_coboundaryCertificate_of_healthyOrbitGeometry
+#print axioms no_rightZero_coboundaryProducer_witness
 
 end C1RouteAFixedOwnerGroupedResidualAudit
 end Source

@@ -1,0 +1,14 @@
+import ConnesWeilRH.Dev.C1RouteAJointSymbolSquareScreen3082
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1RouteAJointSymbolSquareScreen3082Audit
+
+#print axioms C1RouteAJointSymbolSquareScreen3082.routeAPrimePoissonSymbol_zero_frequency_pos
+#print axioms C1RouteAJointSymbolSquareScreen3082.routeAPrimePoissonSymbol_pi_over_log_neg
+#print axioms C1RouteAJointSymbolSquareScreen3082.no_single_prime_nonnegative_kernel_factor
+#print axioms C1RouteAJointSymbolSquareScreen3082.routeAOrbitTransform_zero_eq_zero_of_off_line
+
+end C1RouteAJointSymbolSquareScreen3082Audit
+end Source
+end ConnesWeilRH
