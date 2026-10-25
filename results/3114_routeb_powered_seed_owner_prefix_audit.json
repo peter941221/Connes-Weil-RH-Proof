@@ -1,0 +1,13 @@
+{
+  "record": 3114,
+  "status": "PASS",
+  "module": "ConnesWeilRH.Dev.C1RouteBPoweredSeedOwnerPrefix3114",
+  "audit_module": "ConnesWeilRH.Dev.C1RouteBPoweredSeedOwnerPrefix3114Audit",
+  "declarations": [
+    "poweredSeedExplicitOwner_targetOrbit3114",
+    "poweredSeedExplicitOwner_prefixSquareZero3114",
+    "poweredSeedExplicitOwner_rowBSpanPrefix3114"
+  ],
+  "axioms": ["propext", "Classical.choice", "Quot.sound"],
+  "remaining": ["three cardinal pins", "hgate24", "SourceRH", "RH"]
+}

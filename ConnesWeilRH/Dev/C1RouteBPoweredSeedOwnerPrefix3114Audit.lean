@@ -1,0 +1,11 @@
+import ConnesWeilRH.Dev.C1RouteBPoweredSeedOwnerPrefix3114
+
+open ConnesWeilRH.Source.C1RouteBPoweredSeedOwnerPrefix3114
+
+#check poweredSeedExplicitOwner_targetOrbit3114
+#check poweredSeedExplicitOwner_prefixSquareZero3114
+#check poweredSeedExplicitOwner_rowBSpanPrefix3114
+
+#print axioms poweredSeedExplicitOwner_targetOrbit3114
+#print axioms poweredSeedExplicitOwner_prefixSquareZero3114
+#print axioms poweredSeedExplicitOwner_rowBSpanPrefix3114
