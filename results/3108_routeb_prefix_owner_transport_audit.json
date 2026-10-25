@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "build_returncode": 0,
+  "build_jobs": 3886,
+  "error_lines_present": false,
+  "sorryAx_present": false,
+  "required_theorems": {
+    "ConnesWeilRH.Source.C1RouteBPrefixOwnerTransport3108.package_hzero_prefix3108": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBPrefixOwnerTransport3108.package_rowBSpanPrefix3108": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "missing_required_theorems": [],
+  "unexpected_axioms": {},
+  "record": 3108,
+  "module": "ConnesWeilRH.Dev.C1RouteBPrefixOwnerTransport3108Audit",
+  "provenance": {
+    "ConnesWeilRH/Dev/C1RouteBPrefixOwnerTransport3108.lean": "68037cda7fd0bb2c488c802e57908fa365cb69726bbe6227b2450965c5055c81",
+    "ConnesWeilRH/Dev/C1RouteBPrefixOwnerTransport3108Audit.lean": "516cd5eaf3df4ca66736943fe27fa872fac03244c5ef09e75ca427865136c296"
+  },
+  "scope": "Conditional same-owner hzero and row-B prefix transport under tailStart >= 5. The current OrbitG8Geometry budget does not prove that lower bound unconditionally."
+}
