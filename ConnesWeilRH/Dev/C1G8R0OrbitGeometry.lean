@@ -282,11 +282,12 @@ The proof uses only the unscaled orbit interpolation, the fourth-order tail,
 and the support-derived prime cutoff.  It does not call the theorem that
 constructs `HealthyYoshidaDetectorData`; in particular, no Weil sign is an
 input to this package producer. -/
-theorem exists_orbitG8Geometry_of_sourceNontrivialZero_right
+theorem exists_orbitG8Geometry_of_sourceNontrivialZero_right_tailStart_ge_five
     (rho : sourceNontrivialZeroSet)
     (hoff : rho.1.re ≠ 1 / 2)
     (_hright : (1 / 2 : Real) < rho.1.re) :
-    ∃ g : CompactLogTest, Nonempty (OrbitG8Geometry rho g) := by
+    ∃ g : CompactLogTest, ∃ geometry : OrbitG8Geometry rho g,
+      5 ≤ geometry.tailStart := by
   obtain ⟨base, T, hbaseSupport, _hT, hconstruction⟩ :=
     exists_fixedWindows_nearbyZero_healthyUnscaledOrbit_selectedOwner_with_raw_targets
       rho.1 rho.2 hoff ∅
@@ -296,8 +297,32 @@ theorem exists_orbitG8Geometry_of_sourceNontrivialZero_right
       (1 : Real) (by norm_num)
   obtain ⟨tailStart, hT, hrhoHeight, hsmall⟩ :=
     exists_dyadic_tail_start_with_budget_lt_xiMultiplicity T (1 : Real) rho
+  /- The row-B prefix needs the shell index to start at least at 5.  The
+     dyadic tail theorem gives an arbitrary sufficient index, so enlarge that
+     index before asking the raw construction for its closed-ball zero data.
+     This keeps the owner construction and its tail budget on the same index;
+     reusing the old owner would not justify the larger zero ball. -/
+  let tailStart' : Nat := max 5 tailStart
+  have htailStart_le : tailStart ≤ tailStart' := by
+    exact Nat.le_max_right _ _
+  have hT' : T ≤ (2 : Real) ^ (tailStart' + 1) := by
+    exact hT.trans (pow_le_pow_right₀ (by norm_num) (by omega))
+  have hrhoHeight' : 2 * |rho.1.im| ≤ (2 : Real) ^ (tailStart' + 1) := by
+    exact hrhoHeight.trans (pow_le_pow_right₀ (by norm_num) (by omega))
+  have hsmall' :
+      4 * (1 : Real) ^ 2 * spectralMultiplicityConstant *
+          (3 / 4 : Real) ^ tailStart' < (xiMultiplicity rho : Real) := by
+    have hpow : (3 / 4 : Real) ^ tailStart' ≤
+        (3 / 4 : Real) ^ tailStart := by
+      exact pow_le_pow_of_le_one (by norm_num) (by norm_num) htailStart_le
+    have hcoef : 0 ≤ 4 * (1 : Real) ^ 2 * spectralMultiplicityConstant := by
+      have hcoef' : 0 ≤ (4 : Real) * spectralMultiplicityConstant :=
+        mul_nonneg (by norm_num) spectralMultiplicityConstant_nonneg
+      simpa using hcoef'
+    have hterm := mul_le_mul_of_nonneg_left hpow hcoef
+    exact hterm.trans_lt (by simpa using hsmall)
   let R : Real :=
-    (2 : Real) ^ (tailStart + 1) + 2 + dist (2 : Complex) rho.1
+    (2 : Real) ^ (tailStart' + 1) + 2 + dist (2 : Complex) rho.1
   have hR : 0 ≤ R := by
     dsimp only [R]
     positivity
@@ -307,7 +332,7 @@ theorem exists_orbitG8Geometry_of_sourceNontrivialZero_right
   have hsquareZeros' :
       ∀ w : FiniteMellinNode
           (sourceNontrivialZerosInClosedBallFinset rho.1
-              ((2 : Real) ^ (tailStart + 1) + 2 + dist (2 : Complex) rho.1) ∪
+              ((2 : Real) ^ (tailStart' + 1) + 2 + dist (2 : Complex) rho.1) ∪
             (∅ : Finset Complex)),
         w.1 ∉ healthyUnscaledTargetNodes rho.1 →
           laplaceAt (selectedOwner base correction orbitIndex).convolutionSquare
@@ -327,12 +352,26 @@ theorem exists_orbitG8Geometry_of_sourceNontrivialZero_right
       linarith
   let g : CompactLogTest :=
     (selectedOwner base correction orbitIndex).sourceTest
-  refine ⟨g, ?_⟩
-  exact orbitG8Geometry_of_indexed_raw_construction
-    rho base correction orbitIndex T 1 tailStart
-    hbaseSupport hcorrectionSupport hsupport hT hrhoHeight
-    (by simpa using hsmall) hsquareTail htargetValues hminimal horbitSum
-    hsquareZeros'
+  let geometry : OrbitG8Geometry rho g :=
+    rawOrbitG8GeometryOfIndexedConstruction
+      rho base correction orbitIndex T 1 tailStart'
+      hbaseSupport hcorrectionSupport hsupport hT' hrhoHeight'
+      hsmall' hsquareTail htargetValues hminimal horbitSum
+      hsquareZeros'
+  refine ⟨g, geometry, ?_⟩
+  change 5 ≤ tailStart'
+  exact Nat.le_max_left _ _
+
+/-- Compatibility projection for consumers that only need nonemptiness. -/
+theorem exists_orbitG8Geometry_of_sourceNontrivialZero_right
+    (rho : sourceNontrivialZeroSet)
+    (hoff : rho.1.re ≠ 1 / 2)
+    (hright : (1 / 2 : Real) < rho.1.re) :
+    ∃ g : CompactLogTest, Nonempty (OrbitG8Geometry rho g) := by
+  obtain ⟨g, geometry, _⟩ :=
+    exists_orbitG8Geometry_of_sourceNontrivialZero_right_tailStart_ge_five
+      rho hoff hright
+  exact ⟨g, ⟨geometry⟩⟩
 
 /-! The all-index healthy assembly can now feed the indexed geometry package
 directly.  The correction and its tail constant are fixed before the caller

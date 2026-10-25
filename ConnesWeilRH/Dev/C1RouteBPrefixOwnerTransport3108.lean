@@ -33,6 +33,7 @@ open CC20YoshidaNearZeros
 open CCM25Concrete.CompactLogConvolution
 open CCM25Concrete.UnscaledYoshidaSelectedOwner
 open C1HealthyYoshidaClosedPrefix
+open C1HealthyYoshidaDetector
 open C1HealthyYoshidaUnscaledOrbit
 open C1HealthyYoshidaSpectralNegativity
 open C1G8R0OrbitGeometry
@@ -46,6 +47,21 @@ open CC20ZetaCounting
 open scoped BigOperators
 
 noncomputable section
+
+/-- The rho-dependent G8 construction now chooses its dyadic tail index as
+`max 5 tailStart`.  This exposes the lower bound needed by the row-B prefix
+without adding it as an external owner premise. -/
+theorem exists_rhoOwnerPackage_tailStart_ge_five3108
+    (rho : sourceNontrivialZeroSet)
+    (hoff : rho.1.re ≠ 1 / 2)
+    (hright : (1 / 2 : Real) < rho.1.re) :
+    ∃ pkg : RhoOwnerPackage3106 rho, 5 ≤ pkg.geometry.tailStart := by
+  obtain ⟨g, geometry, htail⟩ :=
+    exists_orbitG8Geometry_of_sourceNontrivialZero_right_tailStart_ge_five
+      rho hoff hright
+  have hhealthy : HealthyYoshidaDetectorData rho.1 g :=
+    healthyDetectorData_of_orbitG8Geometry geometry hoff hright
+  exact ⟨⟨g, geometry, hhealthy⟩, htail⟩
 
 theorem package_hzero_prefix3108
     {rho : sourceNontrivialZeroSet} (pkg : RhoOwnerPackage3106 rho)
@@ -115,6 +131,28 @@ theorem package_rowBSpanPrefix3108
   exact rowBSpanPrefix_of_imCap_2723 pkg.g rho hoff hIm
     (package_source_orbit_target3106 pkg)
     (package_hzero_prefix3108 pkg hoff hright htailStart)
+
+/-- Unconditional owner-level row-B prefix transport.  The only remaining
+row-B inputs are the hypothesis that the candidate zero is off the critical
+line and the wired imaginary-part cap; the tail-index premise is discharged by
+the construction above on the same owner. -/
+theorem exists_rowBSpanPrefix_owner3108
+    (rho : sourceNontrivialZeroSet)
+    (hoff : rho.1.re ≠ 1 / 2)
+    (hright : (1 / 2 : Real) < rho.1.re)
+    (hIm : |rho.1.im| ≤ wiredRhoImCapRowB2721) :
+    ∃ pkg : RhoOwnerPackage3106 rho,
+      5 ≤ pkg.geometry.tailStart ∧
+      (∑ k ∈ Finset.range 6, ∑' z : spectralHeightShell k,
+        spectralTerm
+          (annihilatorDetectorSpanVector
+            (fullFunctionalEquationOrbitAnnihilator pkg.g rho.1) pkg.g 24).convolutionSquare
+          z.1).re ≤
+        -((xiMultiplicity rho : Real) * 24 ^ 2) := by
+  obtain ⟨pkg, htailStart⟩ :=
+    exists_rhoOwnerPackage_tailStart_ge_five3108 rho hoff hright
+  refine ⟨pkg, htailStart, ?_⟩
+  exact package_rowBSpanPrefix3108 pkg hoff hright hIm htailStart
 
 end
 end C1RouteBPrefixOwnerTransport3108

@@ -4,3 +4,5 @@ open ConnesWeilRH.Source.C1RouteBPrefixOwnerTransport3108
 
 #print axioms package_hzero_prefix3108
 #print axioms package_rowBSpanPrefix3108
+#print axioms exists_rhoOwnerPackage_tailStart_ge_five3108
+#print axioms exists_rowBSpanPrefix_owner3108

@@ -1,0 +1,46 @@
+{
+  "status": "PASS",
+  "build_returncode": 0,
+  "build_jobs": [
+    3668,
+    3886
+  ],
+  "error_lines_present": false,
+  "sorryAx_present": false,
+  "required_theorems": {
+    "ConnesWeilRH.Source.C1G8R0OrbitGeometry.exists_orbitG8Geometry_of_sourceNontrivialZero_right_tailStart_ge_five": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBPrefixOwnerTransport3108.exists_rhoOwnerPackage_tailStart_ge_five3108": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBPrefixOwnerTransport3108.exists_rowBSpanPrefix_owner3108": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBPrefixOwnerTransport3108.package_rowBSpanPrefix3108": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "missing_required_theorems": [],
+  "unexpected_axioms": {},
+  "record": 3109,
+  "modules": [
+    "ConnesWeilRH.Dev.C1G8R0OrbitGeometryAudit",
+    "ConnesWeilRH.Dev.C1RouteBPrefixOwnerTransport3108Audit"
+  ],
+  "provenance": {
+    "ConnesWeilRH/Dev/C1G8R0OrbitGeometry.lean": "22760f9e6db4e645d45ba362574edaf9f0c69e75373b8b882856db5725f7701c",
+    "ConnesWeilRH/Dev/C1G8R0OrbitGeometryAudit.lean": "e2b5f2b74176fa6e6f02f57db30632706de5052e8cc5b0c40e48fdf44df00503",
+    "ConnesWeilRH/Dev/C1RouteBPrefixOwnerTransport3108.lean": "52c8e1f5fd868e537b3559bc918861f5447f77a55926e3dcf3562f58804bc802",
+    "ConnesWeilRH/Dev/C1RouteBPrefixOwnerTransport3108Audit.lean": "17342f1a201838d50bc65ec92293ed5417e671f0311bbc438ea01bcd0af611cc"
+  },
+  "scope": "The G8 owner construction raises its own tail index to max 5 tailStart, rebuilding the enlarged closed-ball certificate; the same owner then supplies the row-B prefix."
+}
