@@ -1717,3 +1717,17 @@ target/zero duties and `hgate24` remain open. Evidence:
 `docs/proofs/3105_routeb_universalization_gate.md`,
 `results/3105_routeb_universalization_gate_audit.json`, and
 `scripts/routeb_universalization_gate_audit_3105.py`.
+
+## 3106 same-owner rho-dependent package (2026-10-25)
+
+The existing G8 construction is now packaged as `RhoOwnerPackage3106 rho`:
+the same `g` carries `OrbitG8Geometry rho g` and
+`HealthyYoshidaDetectorData rho g`. Lean also proves the centered
+source-orbit target identity and the support bound for that same `g`, then
+transports the height and inverse-gap costs. This removes the owner-identity
+gap from the parameterized Route-B continuation.
+
+The semi-local `hgate24`, cardinal pins, universal caps and RH remain open.
+Evidence: `docs/proofs/3106_routeb_rho_owner_package.md`,
+`results/3106_routeb_rho_owner_package_audit.json`, and
+`scripts/routeb_rho_owner_package_audit_3106.py`.
