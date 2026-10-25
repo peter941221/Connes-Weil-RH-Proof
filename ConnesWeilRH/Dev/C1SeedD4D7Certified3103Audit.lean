@@ -1,0 +1,28 @@
+import ConnesWeilRH.Dev.C1SeedD4D7Certified3103
+import ConnesWeilRH.Dev.C1SeedCertificateControls3103
+
+open ConnesWeilRH.Dev.C1SeedCertificate3098
+open ConnesWeilRH.Dev.C1SeedCertificate3101
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms initialExp_mem
+#print axioms power_chain_mem
+#print axioms valid_product_mem
+#print axioms cell_integral_le_price
+#print axioms checked_cells_integral_le
+#print axioms checked_full_integral_lt
+#print axioms norm_iteratedDeriv_one_sub3102
+#print axioms derivOrderL1_smoothSeed_eq_half_integral3102
+#print axioms transition_integral_four_lt3103
+#print axioms transition_integral_seven_lt3103
+#print axioms smoothSeed_derivOrderL1_four_lt3103
+#print axioms smoothSeed_derivOrderL1_seven_lt3103
+#print axioms smoothSeed_d4_d7_bounds3103
+#print axioms allCells_checked
+#print axioms allCells_length
+#print axioms allCells_price4
+#print axioms allCells_price7
+#print axioms reject_underpriced_four3103
+#print axioms reject_underpriced_seven3103
+#print axioms reject_false_initial_exp3103
+#print axioms reject_outside_partition3103

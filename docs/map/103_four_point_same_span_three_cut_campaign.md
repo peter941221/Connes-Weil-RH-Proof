@@ -579,7 +579,7 @@ not prove its signed margin. The actual-owner pairwise physical-kernel budget,
 joint margin, and cross-determinant inequality on the selected owner remain
 PROJECT CANDIDATES until proved. This record changes
 no binding route ruling and makes no RH claim. Preserve dated proof details and
-Lean/build/axiom evidence in `docs/proofs/` and `MEMORY.md` when a cut lands.
+Lean/build/axiom evidence in `docs/proofs/` when a cut lands.
 
 Record [1983](../proofs/1983_rh_reachability_probe.md) (pre-registered in
 `6d8fb8eb`, run after) answers the RH-reachability question for this lane by
@@ -1651,3 +1651,38 @@ conclusion is promoted.
 Evidence: `docs/proofs/3096_detector_parameter_gate.md`,
 `results/3096_detector_parameter_audit.json`, and
 `results/3097_coarse_seed_enclosure_probe.json`.
+
+## 3098-3103 actual smoothSeed D4/D7 certificates (2026-10-25)
+
+The actual seed derivative budgets are now proved, without interval or
+ledger-comparison hypotheses:
+
+```text
+derivOrderL1 4 smoothSeed < 1500
+derivOrderL1 7 smoothSeed < 2000000000
+```
+
+3098-3099 prove a rational witness checker's meaning for the actual
+transition derivatives. 3101 supplies 8192 kernel-checked cells on
+`[1/4096,1/2]`, with every exp initialization, squaring, derivative
+recurrence and price verified. 3100 sums exact adjacent-cell integrals
+and adds the proved endpoint charge 2756 once. 3102 proves the general
+reflection identity converting the half-interval integral to the actual
+smoothSeed derivative mass. 3103 assembles the unconditional bounds.
+
+The interior prices are exactly `5741418/4096` and
+`2427720724767/4096`. Each clears its final target after reserving one
+for the endpoint. These are certified upper prices, not measured integral
+values. The older 3040-ledger comparison remains unproved and unused.
+
+Linux ext4 audit: 4033 jobs, 31 axiom declarations using only the standard
+trio, no errors or `sorryAx`. Four Lean rejection controls and eight audit
+parser controls pass. The next live target is the actual three cardinal
+bounds through 2725/2729's decay envelope, retaining finite-cell coverage
+and a two-sided infinite tail. The triangle-mass no-go 2722B remains
+binding. PoweredSeed carrier transfer, actual rho-dependent targets/zeros,
+caps, gate and selected signed positivity remain open. No RH claim.
+
+Evidence: `docs/proofs/3103_seed_d4_d7_kernel_certificates.md`,
+`results/3103_seed_d4_d7_audit.json`, and
+`scripts/seed_d4_d7_audit_3103.py`.

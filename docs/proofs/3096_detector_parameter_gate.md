@@ -3,6 +3,13 @@
 Status: FORMAL necessary height and inverse-gap costs. The fixed row-B
 instance is not a universal producer. D4/D7 actual integral bounds remain open.
 
+Update 2026-10-25: record 3103 subsequently proves the actual smoothSeed
+D4/D7 bounds by checked rational cells and exact integral assembly. The
+old 3071 ledger comparisons remain conditional; no cardinal pin or
+rho-dependent producer duty is discharged by that seed result. Evidence:
+`3103_seed_d4_d7_kernel_certificates.md` and
+`results/3103_seed_d4_d7_audit.json`.
+
 1. The same raw factor in both bounds
 
 Fix `geometry : OrbitG8Geometry rho g`. Let `phi` be

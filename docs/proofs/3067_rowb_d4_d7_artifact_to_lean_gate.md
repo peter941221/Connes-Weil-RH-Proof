@@ -2,6 +2,12 @@
 
 Date: 2026-10-19.
 
+Update 2026-10-25: record 3103 closes the actual smoothSeed D4/D7 integral
+bounds with a new, kernel-checked rational certificate ledger. The old
+3040-row comparison described below remains unproved and is not used by
+that proof. See `3103_seed_d4_d7_kernel_certificates.md` and
+`results/3103_seed_d4_d7_audit.json` for the completed replacement route.
+
 Status: source-level gate audit for the reopened row-B campaign. The stored
 finite sums clear their numerical thresholds. Exact-real and rational derivative
 semantics are already proved in Lean; the remaining link is the per-cell

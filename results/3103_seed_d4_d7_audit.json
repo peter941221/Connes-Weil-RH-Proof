@@ -1,0 +1,537 @@
+{
+  "record": 3103,
+  "status": "PASS",
+  "returncode": 0,
+  "build_jobs": 4033,
+  "error_lines_present": false,
+  "sorryAx_present": false,
+  "declarations": {
+    "ConnesWeilRH.Dev.routeBSeedUniformAllowance_sum3071": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Dev.routeBSeedLedger_order4_target3071": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Dev.routeBSeedLedger_order7_target3071": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Dev.routeBSeedLedger_order4_full_target3071": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Dev.routeBSeedLedger_order7_full_target3071": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RowBPrefixTransport2723.dyadicShellIndex_abs_im_lt_six_2723": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RowBPrefixTransport2723.rowBSpanPrefix_re_le_negXiMult_sq_2723": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RowBPrefixTransport2723.rowBSpanPrefix_of_imCap_2723": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RowBPrefixTransport2723.storedRowBPrefix2723": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RowBPrefixTransport2723.fourPointContradictionRowBStored2723": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Dev.C1SeedCertificate3098.initialExp_mem": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Dev.C1SeedCertificate3098.power_chain_mem": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Dev.C1SeedCertificate3098.valid_product_mem": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Dev.C1SeedCertificate3098.cell_integral_le_price": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Dev.C1SeedCertificate3098.checked_cells_integral_le": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Dev.C1SeedCertificate3098.checked_full_integral_lt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1ExplicitSmoothSeed.norm_iteratedDeriv_one_sub3102": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1ExplicitSmoothSeed.derivOrderL1_smoothSeed_eq_half_integral3102": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Dev.C1SeedCertificate3101.transition_integral_four_lt3103": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Dev.C1SeedCertificate3101.transition_integral_seven_lt3103": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Dev.C1SeedCertificate3101.smoothSeed_derivOrderL1_four_lt3103": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Dev.C1SeedCertificate3101.smoothSeed_derivOrderL1_seven_lt3103": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Dev.C1SeedCertificate3101.smoothSeed_d4_d7_bounds3103": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Dev.C1SeedCertificate3101.allCells_checked": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Dev.C1SeedCertificate3101.allCells_length": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Dev.C1SeedCertificate3101.allCells_price4": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Dev.C1SeedCertificate3101.allCells_price7": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Dev.C1SeedCertificate3101.reject_underpriced_four3103": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Dev.C1SeedCertificate3101.reject_underpriced_seven3103": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Dev.C1SeedCertificate3101.reject_false_initial_exp3103": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Dev.C1SeedCertificate3101.reject_outside_partition3103": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "unexpected_axioms": {},
+  "missing_theorems": [],
+  "modules": [
+    "ConnesWeilRH.Dev.C1SeedD4D7Certified3103Audit",
+    "ConnesWeilRH.Dev.C1RouteBSeedLedgerAllowance3071Audit",
+    "ConnesWeilRH.Dev.C1RowBPrefixTransport2723Audit"
+  ],
+  "chunk_batch_size": 8,
+  "lean_toolchain": "leanprover/lean4:v4.30.0",
+  "chunk_batches": [
+    {
+      "start": 0,
+      "stop": 8,
+      "status": "PASS",
+      "returncode": 0,
+      "build_jobs": 3673,
+      "error_lines_present": false,
+      "sorryAx_present": false,
+      "declarations": {},
+      "unexpected_axioms": {},
+      "missing_theorems": []
+    },
+    {
+      "start": 8,
+      "stop": 16,
+      "status": "PASS",
+      "returncode": 0,
+      "build_jobs": 3673,
+      "error_lines_present": false,
+      "sorryAx_present": false,
+      "declarations": {},
+      "unexpected_axioms": {},
+      "missing_theorems": []
+    },
+    {
+      "start": 16,
+      "stop": 24,
+      "status": "PASS",
+      "returncode": 0,
+      "build_jobs": 3673,
+      "error_lines_present": false,
+      "sorryAx_present": false,
+      "declarations": {},
+      "unexpected_axioms": {},
+      "missing_theorems": []
+    },
+    {
+      "start": 24,
+      "stop": 32,
+      "status": "PASS",
+      "returncode": 0,
+      "build_jobs": 3673,
+      "error_lines_present": false,
+      "sorryAx_present": false,
+      "declarations": {},
+      "unexpected_axioms": {},
+      "missing_theorems": []
+    },
+    {
+      "start": 32,
+      "stop": 40,
+      "status": "PASS",
+      "returncode": 0,
+      "build_jobs": 3673,
+      "error_lines_present": false,
+      "sorryAx_present": false,
+      "declarations": {},
+      "unexpected_axioms": {},
+      "missing_theorems": []
+    },
+    {
+      "start": 40,
+      "stop": 48,
+      "status": "PASS",
+      "returncode": 0,
+      "build_jobs": 3673,
+      "error_lines_present": false,
+      "sorryAx_present": false,
+      "declarations": {},
+      "unexpected_axioms": {},
+      "missing_theorems": []
+    },
+    {
+      "start": 48,
+      "stop": 56,
+      "status": "PASS",
+      "returncode": 0,
+      "build_jobs": 3673,
+      "error_lines_present": false,
+      "sorryAx_present": false,
+      "declarations": {},
+      "unexpected_axioms": {},
+      "missing_theorems": []
+    },
+    {
+      "start": 56,
+      "stop": 64,
+      "status": "PASS",
+      "returncode": 0,
+      "build_jobs": 3673,
+      "error_lines_present": false,
+      "sorryAx_present": false,
+      "declarations": {},
+      "unexpected_axioms": {},
+      "missing_theorems": []
+    },
+    {
+      "start": 64,
+      "stop": 72,
+      "status": "PASS",
+      "returncode": 0,
+      "build_jobs": 3673,
+      "error_lines_present": false,
+      "sorryAx_present": false,
+      "declarations": {},
+      "unexpected_axioms": {},
+      "missing_theorems": []
+    },
+    {
+      "start": 72,
+      "stop": 80,
+      "status": "PASS",
+      "returncode": 0,
+      "build_jobs": 3673,
+      "error_lines_present": false,
+      "sorryAx_present": false,
+      "declarations": {},
+      "unexpected_axioms": {},
+      "missing_theorems": []
+    },
+    {
+      "start": 80,
+      "stop": 88,
+      "status": "PASS",
+      "returncode": 0,
+      "build_jobs": 3673,
+      "error_lines_present": false,
+      "sorryAx_present": false,
+      "declarations": {},
+      "unexpected_axioms": {},
+      "missing_theorems": []
+    },
+    {
+      "start": 88,
+      "stop": 96,
+      "status": "PASS",
+      "returncode": 0,
+      "build_jobs": 3673,
+      "error_lines_present": false,
+      "sorryAx_present": false,
+      "declarations": {},
+      "unexpected_axioms": {},
+      "missing_theorems": []
+    },
+    {
+      "start": 96,
+      "stop": 104,
+      "status": "PASS",
+      "returncode": 0,
+      "build_jobs": 3673,
+      "error_lines_present": false,
+      "sorryAx_present": false,
+      "declarations": {},
+      "unexpected_axioms": {},
+      "missing_theorems": []
+    },
+    {
+      "start": 104,
+      "stop": 112,
+      "status": "PASS",
+      "returncode": 0,
+      "build_jobs": 3673,
+      "error_lines_present": false,
+      "sorryAx_present": false,
+      "declarations": {},
+      "unexpected_axioms": {},
+      "missing_theorems": []
+    },
+    {
+      "start": 112,
+      "stop": 120,
+      "status": "PASS",
+      "returncode": 0,
+      "build_jobs": 3673,
+      "error_lines_present": false,
+      "sorryAx_present": false,
+      "declarations": {},
+      "unexpected_axioms": {},
+      "missing_theorems": []
+    },
+    {
+      "start": 120,
+      "stop": 128,
+      "status": "PASS",
+      "returncode": 0,
+      "build_jobs": 3673,
+      "error_lines_present": false,
+      "sorryAx_present": false,
+      "declarations": {},
+      "unexpected_axioms": {},
+      "missing_theorems": []
+    }
+  ],
+  "failure_controls": {
+    "valid_analytic_and_pure_computation": true,
+    "reject_missing_theorem": true,
+    "reject_extra_axiom": true,
+    "reject_sorryAx": true,
+    "reject_error_with_footer": true,
+    "reject_nonzero_exit": true,
+    "reject_missing_footer": true,
+    "reject_weakened_analytic_audit": true
+  },
+  "cells": 8192,
+  "price_units": {
+    "4": 5741418,
+    "7": 2427720724767
+  },
+  "units_denominator": 4096,
+  "endpoint_added": "proved charge < 1, once",
+  "hash_convention": "SHA-256 of text sources with CRLF normalized to LF",
+  "provenance": {
+    "ConnesWeilRH/Dev/C1SeedCertificateIntervals3098.lean": "d308112cfbb6d28268a949577b827a60dbcba4c11a842e9fdd2deb0415ed6ac7",
+    "ConnesWeilRH/Dev/C1SeedCellCertificate3099.lean": "4fef001e1153539f20c054841cdcdf317d264d58a36143a3d6fbf0a96ba7d0d7",
+    "ConnesWeilRH/Dev/C1SeedIntegralCertificate3100.lean": "e975629b32d8450f2f66397999d9bc8bd8e4c85796930392085ecdc9d1f9e4ac",
+    "ConnesWeilRH/Dev/C1SeedCertificatePilot3101.lean": "ae77ed9875e875953333aba14e6b9e263f202287a2e9be17f59d143daf592274",
+    "ConnesWeilRH/Dev/C1SeedDerivativeReflection3102.lean": "5f468b592788bcf457c8661c1150eb4d0b0cbd6fe1b946c88b2f2e516463705a",
+    "ConnesWeilRH/Dev/C1SeedD4D7Certified3103.lean": "30b0ef64a950369a6f83b44974c19584cec6e744ead61d49e8a38de1ca9572ab",
+    "ConnesWeilRH/Dev/C1SeedCertificateControls3103.lean": "a2e09c076094ffa59973c94e3219bf0f9a353ad5b0657b51c64f4e9d52a7ce82",
+    "ConnesWeilRH/Dev/C1SeedD4D7Certified3103Audit.lean": "43870725256749d4ea5643afa3b533dcfb8db8b516db2896bcc069e134fe6454",
+    "ConnesWeilRH/Dev/C1SeedJetSemantics2731.lean": "e7f93a399a09d890f589cc2ff4b635d6f7d8a6a7cdd7233459a205143545662f",
+    "ConnesWeilRH/Dev/C1SeedEndpointMajorants2732.lean": "49de3f5a38324c97ae3b43e683b41d9e3cca66d0f156147b3c92523654070c02",
+    "ConnesWeilRH/Dev/C1SeedEndpointIntegral2733.lean": "8f8e6d2c59dcc347c662186b429e803f1db06f969d62243df333940cae44e16f",
+    "ConnesWeilRH/Dev/C1RationalNegativeExp2735.lean": "30be901f0f52e5847e8ad6faf15b85fdf112848466d3fb743855a99f45a17717",
+    "ConnesWeilRH/Dev/C1SeedRationalPhaseBox2736.lean": "0f540485ac6be0717313302966ee883124a8e2c4ebed703c7e4ec1193d245452",
+    "ConnesWeilRH/Dev/C1D4D7EndpointCharges2756.lean": "c493b2619e928e763be70b4c0b74b4d17716c683d8c7b514e7cff10815fc03ef",
+    "ConnesWeilRH/Dev/C1ExplicitSeedTransitionReduction.lean": "ee5a4719d7699daceac78194f55da90b335f5cbbd4fc812a40abc68f1d58873a",
+    "ConnesWeilRH/Dev/C1ExplicitSeedThirdOrderStructure.lean": "b533e23d7da6fc2d0109ca6862a6be550e2a1604b8b955bcd2a5c99562862406",
+    "ConnesWeilRH/Dev/C1RouteBSeedLedgerAllowance3071.lean": "42d28c9ee6dc23e2c885b0a71e0a87873514a25b287993c0c746e1109ae9659a",
+    "ConnesWeilRH/Dev/C1RowBPrefixTransport2723.lean": "2ea6e86bb8226bfb0ef30a72de086919db3da245d45d37d4f6f5b781fe379763",
+    "scripts/generate_seed_certificates_3101.py": "840c07401bc52556f1736898258774186f06634025dc2d36b505e6a82d1f0a7c",
+    "scripts/seed_d4_d7_audit_3103.py": "1a6a4e321e87e59d513dd4b45f35fcd45a48aaca4cfbc9f241a10ae299f6f80c",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk000.lean": "8394b4e2f2d471aeb2f91fcbf6b1e32f89ddf3205dbb27f8d50104b2c9f0cf9e",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk001.lean": "f8ffcce14b20c8a3f9286288c44ea9f9908cdeb6e5a3b7015847290f6e58050c",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk002.lean": "9106fe14b01d71f5f1edec9b7820af5eb0cca015bcb0a449bdf420de3d4c96e5",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk003.lean": "724cdf9440d301cdac6c2cb52c5726e7a2551c27593d3792fcacc6699bddcd79",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk004.lean": "0010e2b65bba418ebe3ccc3cdbb9065d4031104de8b13b022bff776c9c8cfbd0",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk005.lean": "bd7eb0582422b429c0d25802e98979f7093e4842d65796a77d805612f5751a73",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk006.lean": "f86024b9d1f68e56f2582debf21282e8a3fdf51b4244ca2b623154d1510d2cf6",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk007.lean": "a676b028fd7996dac087f43eb7c109587e5f4d6913786301f4507b207dc0c932",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk008.lean": "ee0350683fc784a0a6720d99c3ab5ed3f8fa951b9b3bae9494f3d0f075f37dd7",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk009.lean": "10b8dddf454d6250f89eca993d77a3da46fe1088740b0910d5da9869cf900ed0",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk010.lean": "a815b5582c16acb300e5cfafeb4fbe255c6285c6ac6318733d891b6acf7a94f3",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk011.lean": "0fa8682c8fd0134a44b3223ebaa32410d7c4aca08fda3dec798cd380a8b763b4",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk012.lean": "9ac7363718dcb50ba37d46f93e6b15fa151937a9eb7d87346f09f0afd203d96f",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk013.lean": "477aeb700bdd3b7a1a8305f9bda8e2696170e4e2efc7016319bf45efec0a3251",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk014.lean": "e4e3a0b57c631c0781cadf9d80994c4c2b66854a7edb4307bf5e23bc6cb36621",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk015.lean": "8cb111ef65c3f93212943f0d4d8201f26a0388ca99d1b6f276ceeb79ccbfd447",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk016.lean": "9d25d03c6b338b15c9e03031a29250a9e447a22c68b2176695139c23c4b1bc59",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk017.lean": "41d65c4d6423c00f49cb54328b1b9385aca52459af92b2e1b090b83af4dfbab0",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk018.lean": "6db3be7ed07e69bc60163e74fe57e181892ac86a84cbc586e986bf08e55748ba",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk019.lean": "7a61696ee67eb892359daad60c1221eb9c400e3dd1538ece4010876158794d6f",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk020.lean": "3de19f64ad191a06006c15ac25902da4ece90a6a7ec849323983b0946ccbd02f",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk021.lean": "3ae4a25c3d70af7478c3193531c6d60dfc16b8bead2c3a057d95a932fdb9f9c6",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk022.lean": "7a241758fe2405fdc6dff0a09ba9682b30a95e480a52bd624efdaf5f5da680b9",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk023.lean": "5aa16bf25198ec52c63f9dc1239c8da038d9dfb7f317106ad04804c54662c495",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk024.lean": "9db9ba8c2288523ae6db15a847057ce44eae37ca32226e824ce66b464eb8f6bc",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk025.lean": "a149c23a98da3e8c6323a5f96eba5399864f3466dbefe534417f91ca16abd9d9",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk026.lean": "2f3b3f3a5f5d183d5c7b989981cab7be2bd8e634068140dfcca7927adde7d648",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk027.lean": "3df3a55a5875399e9974ff6ec0e499da9ab6345fbf9d249da9e5e99aa58ab9bb",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk028.lean": "5521bc81ef8663de2c7ec215261ea16b861e4fceb657a892e431cebc4d8f6355",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk029.lean": "51867f6602d7ea195e90c69a88e38e8142f5faaa5c7524b31129a8840028ed01",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk030.lean": "970f3d1a1a6c8ea1568a8e15f3ecbd379b54c295e561d0d1bf0731c9bcee793b",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk031.lean": "27a49ad8d824cd4af4f25483b7062b7170cdc387bc75bd2b03f3932fc72ac290",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk032.lean": "728fcb860762f394f5434e6c5a16343c3987b15e500ac2778f6b0a9a94d732ea",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk033.lean": "eb21f7877d20d344d8b220546d27c9a83d5dd6fa2c3749ae7b3eb25a1d872096",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk034.lean": "82ac8cdb033bc177790de9673d8ee24fcc8f637c522c674f91024c5916afc010",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk035.lean": "945c1a95aa2715ac4316bba75933627cadb07fcc3036ca2f339909f67ebaac58",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk036.lean": "ea420110a6165eda94e7b6baf0afb956a6f338abeb5f711642c8e066329ac30c",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk037.lean": "5b4332e5ca76f25ee845bc1d6ee6dd6fef7bdcbbce51260409aba20d0c0398ef",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk038.lean": "bdc4a13a477ee4bde4d2cbdcfb5db727c8b9cebb007585e7ceb286206666f077",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk039.lean": "ce3e31a5ed85e3fdb7f350344e7b1ff49bb39b889aa2390a906ffc54aafd249e",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk040.lean": "dd97b69b5fd1e64fe5eeacc2adfd0100409587686da9cea07fdc9f36c7f34cbe",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk041.lean": "f71e69bf487181b8e5829448376e7aa6999ef46330c1a1e2c4300393aff7197b",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk042.lean": "f3c9656672be708e1ced366fa639bcf6d4d309f4734adf9b7be829e8ca7ba9e8",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk043.lean": "5692825c1a0c30f18c6a33b86844a99b81433ed46617aa5e87d8215ceea97f2f",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk044.lean": "86908df5707581016955c3dae3ba5324cbfcc10af2c0e72be4b0082ac3751f46",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk045.lean": "04ace9366439d64e804b8fbbf2cc2269d90f7a0eb5fbf07d2ebfe01c821b2226",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk046.lean": "7e9a0ba5b4ae9fdacc3d549485f657121e3f8b60055fa499d28fe59b4fdb2db0",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk047.lean": "75a276807a71ec511b913df5cc14b84aa25219e61e2e76e9335d7c3bf2578093",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk048.lean": "abca9c41d49543861427b22ca226a542cd5e1e7afe26221e67f507e105df9468",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk049.lean": "944c762898d70325a0bb694df569d3fbdcb41663339f1c90551f0355f3d7ea08",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk050.lean": "f6d228b476b9b6c606c4c90ad33872f7a49ad2635910ce31c45ae0da2091007c",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk051.lean": "1ff22a3393a36741d8e0be50e0dcffb3ae799f32f4dbf68a547b85876aa8453b",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk052.lean": "f5d77347f5d9bc96b54274a8e15a457308b3fbe5ac236814628ecf2e3fdc6e85",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk053.lean": "2993b2b55291fcdb01ebf66c2f5ce6228f3565f2689d71a335499b5f9c8015b3",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk054.lean": "2f79689804a0559c9f6bde3941cf26b0b52489bf92a19e44e320434a7a0eee75",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk055.lean": "04ba337b4a819609428ade3543eaa82f14f98b2b17c919160fb61fa018896fdb",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk056.lean": "8573f00c819d802dd5940e20bd176b00a0d2fedbd26c50c747c988f8bfb4bb61",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk057.lean": "8ad43b6b147ca9ecaa677b3e6d804958e0aee84be0f6c9943ec11b069a408223",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk058.lean": "31d7c7ff973d3ec616a3301866d3174ec5c8eafdadce46f2956c1c9e01f9e442",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk059.lean": "d2441c64ca7fffabcc6bb08d08f57afb84f0c5c198ea953bbd59e1a192ad158c",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk060.lean": "ca46c8cfab8c5296fb7343c2ba8eecf804d4b2b7a7a40dee25146d854145ae4e",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk061.lean": "725db8e7f5aae9f639fe957203a1fae58f1fcb5d4a442ae6ac9b21cacd0b5a51",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk062.lean": "e3604dee19c3ff464e46364cc56baf3dd909bde2508ea19760d3ab13ebab7023",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk063.lean": "0dee0c3a869b15855a907f3bbf4a5f458fa8c8ab9649c00ce2fe31036a15d87b",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk064.lean": "9b182b0f9ad01c70859db564834d502bd8115632384448d4a9d139292a5de1cc",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk065.lean": "1335b4b8c492f9371bb3baef4f3fc1692abe04b45dc0606a964e022caddda0f4",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk066.lean": "e929e9685b27e25caff62c7e4b82edf908353e5dea748b1e12cf1cddbb8d9ab7",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk067.lean": "920dd6a88d465a38de116a51f615a1cf360d11b338d493146adcda1f7b8f2267",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk068.lean": "b5ea8f19766acf5f6b243a1436695da0bea51863c5df1eec08deaf09a01fa121",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk069.lean": "97413d3a685d8fc8161747cfc3ab7c7701b523cc278ec227b4eb8d2bd5c1216f",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk070.lean": "74eec675fd1f061ec2b27d9de27d9a6fe94b49ffbaae6d703b8192d92c2f48d0",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk071.lean": "e7b04081b01573f75f55e8751168fcfe426249ec17bb35c520aa1082531a8465",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk072.lean": "6d6a432a7e541aa92466d0504ce83174b39d8d19d497525ca1da9589bed78986",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk073.lean": "059c59e62bdba5a38f4c0388fa54cf62e5822f274fc12ec7c8d41456e2df6930",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk074.lean": "847eddf166c8be55132e1d94012bee2861e3b22c046a84b9daf2e0ace25407a7",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk075.lean": "22b4dfc22d0a3c7a14c18e75cc621d0de1072416d833f932f4d3416c4022a95c",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk076.lean": "b67b8943b113253f2c3d1d78984a9c8daeaebbadc629b9a9d0ae5d3085c36f98",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk077.lean": "3db625aae7b6572933d544d28f2587d4f5881d65eac2b0e18d4f01c0ffddaffc",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk078.lean": "cb8a7d80e92f295d50fafc6f739fa692f712623a1b84d8d8117c4011fddbd399",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk079.lean": "09bdf76e2779e18538eff72120b1d2b066366dd9478a7f55e05d80d08591f870",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk080.lean": "f62267c97eac9a80b4eecd2f3ad4e64378de1a0d6febe621290a51d9c949c66f",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk081.lean": "91f719ab6548f51ea69828f395515576b5e35c7c9b199343807720d784a92446",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk082.lean": "31fd37b8c494d3cd037d6818c983c49406ddfc35347986438c02b92f0e0542b3",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk083.lean": "032a28a92689900879af6b3a183d17263f9a1f360f1627bc55d7fd25b4f809d6",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk084.lean": "8b846c04d535dab7b0847fac9b90e1a9800ebeebbe6ecd2d4d5aca2907a7d828",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk085.lean": "146ab06df9bfb9c4af7ee3a407215ddbd45bfea28ab25720a3cb3ca1c5618e74",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk086.lean": "a3f5850a14ad05280a38685ab111300f8fcba9509a73db251e788b7063c53428",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk087.lean": "c8354b1104a9abba93bef8d16e460ba539281da80bffdd0ea81ebf5328002a42",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk088.lean": "fe0337518d7fad6ebbe102904b826077de5c31876d215fd93e0adcf50532c72b",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk089.lean": "40990f3ab65d6d94a04e1b194afa4ef0afc4de5ffda7d44cdf0b9fd2e5831cdc",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk090.lean": "913157f8497f7cc2d709da619ee336e708a959cd1f2abb0b618028f47d99796c",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk091.lean": "9284203e29ac5c1ef70724b3dbec98ee2ed74b4c597fedcf2c97674b1deab26f",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk092.lean": "9db0bf6a379df85396a4b2fa32707ee015bf523bcb1fb54221787818cd78342d",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk093.lean": "a5a7d146030b696db539b91bcdcdb7034bd9c73a171fefc97a2700e57ccd9069",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk094.lean": "f7ce580a3f90f4668a820e087de8929ed147a020a625a86de223e36c62d863d5",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk095.lean": "624d77cd9476ce0399f2d1dd9b46ac15afcf26a1d548082955430e1b8baead07",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk096.lean": "efadd9dc703e1deb54e62bfa3e2f3e3356212ca3b9cff9826fab8fb7e88ecd55",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk097.lean": "114b85d958dba99748a32f5bd50f4f22358f5940285bd0e293bf3d65d8633dc5",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk098.lean": "421607910bb16112a4fc089a4b39ccfa87e235cd95f7306156a9a7d7a86e2901",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk099.lean": "703d17f17b6cd7b1479e5c620f4fab8137fc4003d26f0239c77135007095c8fa",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk100.lean": "c3360afba1e2c186cfb617724f7f3f8741895d7315698e112635412fe35bbd50",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk101.lean": "3d1791c25ac4c45c5647ef61c31841d87c69504b97ab9fadf66cb243d151fd25",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk102.lean": "38cd3d7a8e69bc4d02e535925ec40ea706ab17f8aa9f02b01c482b567774c026",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk103.lean": "bfd7cf25d1f58710d521e7d359787edfa0b7859939398381208739b02f314e52",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk104.lean": "da6000e660125e071d75dca304800d88a5934f1a8c3b4b483d40ed75aca89c3c",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk105.lean": "936ad96767210c03c153f030a261e82b3d3998bed406557beb86cdf3055db777",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk106.lean": "71234df223eb028d9a4f1605b469baaf9b23d89ef2802dc3e9dbe94e70500bb4",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk107.lean": "efd95fa5162e68829299831d1c242dd844226c903369927d83e308ff3f19000e",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk108.lean": "04f756118e02697c50b76de3a453b49ff614b4bd7929ba63be07edd7eaba7557",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk109.lean": "81584eeb08cbd7b61dddd5d220ab7212c30783d428835ea087e1319077484a16",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk110.lean": "b0876e4593ba122ea9880ea108d4c97913de715d12d2d04f1e31c64a3da64ac6",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk111.lean": "62ad77c07ec33ec8f40d0f1691d0da2640bf0d2864ebd3b0f5bd2ba2bbf77f05",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk112.lean": "824737a59ae5737572b49fe516ba9820593169830b6893a5369ef1b1eec9d9a4",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk113.lean": "04be77c8d840025333a2c30734557959f71ded53988ea7374fa5f1a2160be165",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk114.lean": "6f9630fcf1abbf9136b668d299724628f55881dca8fa0000d78b4bd92494c4d8",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk115.lean": "d1c20c4c504117adc820adee1250d929399d60cdfd9504d1bc8f57f7c2f951a7",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk116.lean": "c8105ec800d67012587bc014a2b7ee5e2ac9810a3de93ffebde7ff2847b5f456",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk117.lean": "0595eaad25279ccd9d25c2f26e0a9f5152d326d530710fd57d173fbc33e473b4",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk118.lean": "1eda5a8640c6f48bf22bbc00fabe090cc0354a83c4d88ef8cc142a92f9b0f618",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk119.lean": "e315f535037fe5a866ca96f6a305a4ef96411661280045e9c9437a679e02a3e2",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk120.lean": "e8217839b3c340f16418793926de7e5f4832fa5d4d3bce0704f10245ba9250ad",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk121.lean": "d31f6001cd22e9d9bce9a70471abf128a784a03e04984d2020c7b06ef08abdfd",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk122.lean": "2d36d175acb6c15de8cae193f8528fbf6833e6c4d78521784eb15875e813ebcf",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk123.lean": "d02dcf8897f143f6d8a5bc765c8150a9f103f45f3cfa6e501ec1823dd3048d31",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk124.lean": "950bb807ab8eca616204df3ec11dc8764c53bf8ea9de31695d3bd5f543f5f383",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk125.lean": "5f6f2a2640cc620d8353b1f7a7db2825490d92647514564041ce1535a5242bd6",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk126.lean": "5611a19c1b79321cd1c87bce41234763ddf78672b705372225dd1ce76c761d6a",
+    "ConnesWeilRH/Dev/SeedCertificates3101/Chunk127.lean": "d7a69af107f38555738e9062d3b2159f06dcce3876c473df99f6c8d016968565"
+  },
+  "scope": "Actual smoothSeed D4/D7 bounds; cardinal pins, poweredSeed transfer, rho-dependent duties and selected signed positivity remain unproved."
+}

@@ -1,0 +1,1296 @@
+{
+  "record": 3101,
+  "status": "EXACT_RATIONAL_WITNESSES_GENERATED",
+  "cells": 8192,
+  "chunk_size": 64,
+  "dyadic_bits": 256,
+  "units_denominator": 4096,
+  "price_units": {
+    "4": 5741418,
+    "7": 2427720724767
+  },
+  "chunks": [
+    {
+      "chunk": 0,
+      "start": 0,
+      "count": 64,
+      "units": {
+        "4": 64,
+        "7": 64
+      },
+      "source_sha256": "8394b4e2f2d471aeb2f91fcbf6b1e32f89ddf3205dbb27f8d50104b2c9f0cf9e"
+    },
+    {
+      "chunk": 1,
+      "start": 64,
+      "count": 64,
+      "units": {
+        "4": 64,
+        "7": 64
+      },
+      "source_sha256": "f8ffcce14b20c8a3f9286288c44ea9f9908cdeb6e5a3b7015847290f6e58050c"
+    },
+    {
+      "chunk": 2,
+      "start": 128,
+      "count": 64,
+      "units": {
+        "4": 64,
+        "7": 64
+      },
+      "source_sha256": "9106fe14b01d71f5f1edec9b7820af5eb0cca015bcb0a449bdf420de3d4c96e5"
+    },
+    {
+      "chunk": 3,
+      "start": 192,
+      "count": 64,
+      "units": {
+        "4": 64,
+        "7": 64
+      },
+      "source_sha256": "724cdf9440d301cdac6c2cb52c5726e7a2551c27593d3792fcacc6699bddcd79"
+    },
+    {
+      "chunk": 4,
+      "start": 256,
+      "count": 64,
+      "units": {
+        "4": 64,
+        "7": 1109
+      },
+      "source_sha256": "0010e2b65bba418ebe3ccc3cdbb9065d4031104de8b13b022bff776c9c8cfbd0"
+    },
+    {
+      "chunk": 5,
+      "start": 320,
+      "count": 64,
+      "units": {
+        "4": 64,
+        "7": 446941
+      },
+      "source_sha256": "bd7eb0582422b429c0d25802e98979f7093e4842d65796a77d805612f5751a73"
+    },
+    {
+      "chunk": 6,
+      "start": 384,
+      "count": 64,
+      "units": {
+        "4": 64,
+        "7": 24442240
+      },
+      "source_sha256": "f86024b9d1f68e56f2582debf21282e8a3fdf51b4244ca2b623154d1510d2cf6"
+    },
+    {
+      "chunk": 7,
+      "start": 448,
+      "count": 64,
+      "units": {
+        "4": 64,
+        "7": 378643857
+      },
+      "source_sha256": "a676b028fd7996dac087f43eb7c109587e5f4d6913786301f4507b207dc0c932"
+    },
+    {
+      "chunk": 8,
+      "start": 512,
+      "count": 64,
+      "units": {
+        "4": 64,
+        "7": 2540501567
+      },
+      "source_sha256": "ee0350683fc784a0a6720d99c3ab5ed3f8fa951b9b3bae9494f3d0f075f37dd7"
+    },
+    {
+      "chunk": 9,
+      "start": 576,
+      "count": 64,
+      "units": {
+        "4": 112,
+        "7": 9559439230
+      },
+      "source_sha256": "10b8dddf454d6250f89eca993d77a3da46fe1088740b0910d5da9869cf900ed0"
+    },
+    {
+      "chunk": 10,
+      "start": 640,
+      "count": 64,
+      "units": {
+        "4": 449,
+        "7": 23869082302
+      },
+      "source_sha256": "a815b5582c16acb300e5cfafeb4fbe255c6285c6ac6318733d891b6acf7a94f3"
+    },
+    {
+      "chunk": 11,
+      "start": 704,
+      "count": 64,
+      "units": {
+        "4": 1536,
+        "7": 44364497087
+      },
+      "source_sha256": "0fa8682c8fd0134a44b3223ebaa32410d7c4aca08fda3dec798cd380a8b763b4"
+    },
+    {
+      "chunk": 12,
+      "start": 768,
+      "count": 64,
+      "units": {
+        "4": 4200,
+        "7": 66624489851
+      },
+      "source_sha256": "9ac7363718dcb50ba37d46f93e6b15fa151937a9eb7d87346f09f0afd203d96f"
+    },
+    {
+      "chunk": 13,
+      "start": 832,
+      "count": 64,
+      "units": {
+        "4": 9467,
+        "7": 85933681567
+      },
+      "source_sha256": "477aeb700bdd3b7a1a8305f9bda8e2696170e4e2efc7016319bf45efec0a3251"
+    },
+    {
+      "chunk": 14,
+      "start": 896,
+      "count": 64,
+      "units": {
+        "4": 18211,
+        "7": 101463262873
+      },
+      "source_sha256": "e4e3a0b57c631c0781cadf9d80994c4c2b66854a7edb4307bf5e23bc6cb36621"
+    },
+    {
+      "chunk": 15,
+      "start": 960,
+      "count": 64,
+      "units": {
+        "4": 30851,
+        "7": 128911151450
+      },
+      "source_sha256": "8cb111ef65c3f93212943f0d4d8201f26a0388ca99d1b6f276ceeb79ccbfd447"
+    },
+    {
+      "chunk": 16,
+      "start": 1024,
+      "count": 64,
+      "units": {
+        "4": 47110,
+        "7": 153247192248
+      },
+      "source_sha256": "9d25d03c6b338b15c9e03031a29250a9e447a22c68b2176695139c23c4b1bc59"
+    },
+    {
+      "chunk": 17,
+      "start": 1088,
+      "count": 64,
+      "units": {
+        "4": 66047,
+        "7": 166948384341
+      },
+      "source_sha256": "41d65c4d6423c00f49cb54328b1b9385aca52459af92b2e1b090b83af4dfbab0"
+    },
+    {
+      "chunk": 18,
+      "start": 1152,
+      "count": 64,
+      "units": {
+        "4": 86255,
+        "7": 169795110185
+      },
+      "source_sha256": "6db3be7ed07e69bc60163e74fe57e181892ac86a84cbc586e986bf08e55748ba"
+    },
+    {
+      "chunk": 19,
+      "start": 1216,
+      "count": 64,
+      "units": {
+        "4": 106091,
+        "7": 163514068667
+      },
+      "source_sha256": "7a61696ee67eb892359daad60c1221eb9c400e3dd1538ece4010876158794d6f"
+    },
+    {
+      "chunk": 20,
+      "start": 1280,
+      "count": 64,
+      "units": {
+        "4": 123980,
+        "7": 150767108328
+      },
+      "source_sha256": "3de19f64ad191a06006c15ac25902da4ece90a6a7ec849323983b0946ccbd02f"
+    },
+    {
+      "chunk": 21,
+      "start": 1344,
+      "count": 64,
+      "units": {
+        "4": 138635,
+        "7": 134314988769
+      },
+      "source_sha256": "3ae4a25c3d70af7478c3193531c6d60dfc16b8bead2c3a057d95a932fdb9f9c6"
+    },
+    {
+      "chunk": 22,
+      "start": 1408,
+      "count": 64,
+      "units": {
+        "4": 149114,
+        "7": 116507875689
+      },
+      "source_sha256": "7a241758fe2405fdc6dff0a09ba9682b30a95e480a52bd624efdaf5f5da680b9"
+    },
+    {
+      "chunk": 23,
+      "start": 1472,
+      "count": 64,
+      "units": {
+        "4": 154919,
+        "7": 102287807271
+      },
+      "source_sha256": "5aa16bf25198ec52c63f9dc1239c8da038d9dfb7f317106ad04804c54662c495"
+    },
+    {
+      "chunk": 24,
+      "start": 1536,
+      "count": 64,
+      "units": {
+        "4": 155945,
+        "7": 95282229839
+      },
+      "source_sha256": "9db9ba8c2288523ae6db15a847057ce44eae37ca32226e824ce66b464eb8f6bc"
+    },
+    {
+      "chunk": 25,
+      "start": 1600,
+      "count": 64,
+      "units": {
+        "4": 152404,
+        "7": 87656817015
+      },
+      "source_sha256": "a149c23a98da3e8c6323a5f96eba5399864f3466dbefe534417f91ca16abd9d9"
+    },
+    {
+      "chunk": 26,
+      "start": 1664,
+      "count": 64,
+      "units": {
+        "4": 144763,
+        "7": 79473039554
+      },
+      "source_sha256": "2f3b3f3a5f5d183d5c7b989981cab7be2bd8e634068140dfcca7927adde7d648"
+    },
+    {
+      "chunk": 27,
+      "start": 1728,
+      "count": 64,
+      "units": {
+        "4": 133624,
+        "7": 71081499562
+      },
+      "source_sha256": "3df3a55a5875399e9974ff6ec0e499da9ab6345fbf9d249da9e5e99aa58ab9bb"
+    },
+    {
+      "chunk": 28,
+      "start": 1792,
+      "count": 64,
+      "units": {
+        "4": 119681,
+        "7": 62787332361
+      },
+      "source_sha256": "5521bc81ef8663de2c7ec215261ea16b861e4fceb657a892e431cebc4d8f6355"
+    },
+    {
+      "chunk": 29,
+      "start": 1856,
+      "count": 64,
+      "units": {
+        "4": 103650,
+        "7": 54838574950
+      },
+      "source_sha256": "51867f6602d7ea195e90c69a88e38e8142f5faaa5c7524b31129a8840028ed01"
+    },
+    {
+      "chunk": 30,
+      "start": 1920,
+      "count": 64,
+      "units": {
+        "4": 86202,
+        "7": 47413730890
+      },
+      "source_sha256": "970f3d1a1a6c8ea1568a8e15f3ecbd379b54c295e561d0d1bf0731c9bcee793b"
+    },
+    {
+      "chunk": 31,
+      "start": 1984,
+      "count": 64,
+      "units": {
+        "4": 67966,
+        "7": 40625691161
+      },
+      "source_sha256": "27a49ad8d824cd4af4f25483b7062b7170cdc387bc75bd2b03f3932fc72ac290"
+    },
+    {
+      "chunk": 32,
+      "start": 2048,
+      "count": 64,
+      "units": {
+        "4": 49489,
+        "7": 34531220631
+      },
+      "source_sha256": "728fcb860762f394f5434e6c5a16343c3987b15e500ac2778f6b0a9a94d732ea"
+    },
+    {
+      "chunk": 33,
+      "start": 2112,
+      "count": 64,
+      "units": {
+        "4": 31231,
+        "7": 29142728828
+      },
+      "source_sha256": "eb21f7877d20d344d8b220546d27c9a83d5dd6fa2c3749ae7b3eb25a1d872096"
+    },
+    {
+      "chunk": 34,
+      "start": 2176,
+      "count": 64,
+      "units": {
+        "4": 16168,
+        "7": 24441467550
+      },
+      "source_sha256": "82ac8cdb033bc177790de9673d8ee24fcc8f637c522c674f91024c5916afc010"
+    },
+    {
+      "chunk": 35,
+      "start": 2240,
+      "count": 64,
+      "units": {
+        "4": 26044,
+        "7": 20390000594
+      },
+      "source_sha256": "945c1a95aa2715ac4316bba75933627cadb07fcc3036ca2f339909f67ebaac58"
+    },
+    {
+      "chunk": 36,
+      "start": 2304,
+      "count": 64,
+      "units": {
+        "4": 41012,
+        "7": 16928211828
+      },
+      "source_sha256": "ea420110a6165eda94e7b6baf0afb956a6f338abeb5f711642c8e066329ac30c"
+    },
+    {
+      "chunk": 37,
+      "start": 2368,
+      "count": 64,
+      "units": {
+        "4": 54683,
+        "7": 13994563107
+      },
+      "source_sha256": "5b4332e5ca76f25ee845bc1d6ee6dd6fef7bdcbbce51260409aba20d0c0398ef"
+    },
+    {
+      "chunk": 38,
+      "start": 2432,
+      "count": 64,
+      "units": {
+        "4": 66968,
+        "7": 11522093750
+      },
+      "source_sha256": "bdc4a13a477ee4bde4d2cbdcfb5db727c8b9cebb007585e7ceb286206666f077"
+    },
+    {
+      "chunk": 39,
+      "start": 2496,
+      "count": 64,
+      "units": {
+        "4": 77822,
+        "7": 9658308457
+      },
+      "source_sha256": "ce3e31a5ed85e3fdb7f350344e7b1ff49bb39b889aa2390a906ffc54aafd249e"
+    },
+    {
+      "chunk": 40,
+      "start": 2560,
+      "count": 64,
+      "units": {
+        "4": 87232,
+        "7": 8726051324
+      },
+      "source_sha256": "dd97b69b5fd1e64fe5eeacc2adfd0100409587686da9cea07fdc9f36c7f34cbe"
+    },
+    {
+      "chunk": 41,
+      "start": 2624,
+      "count": 64,
+      "units": {
+        "4": 95245,
+        "7": 7942833451
+      },
+      "source_sha256": "f71e69bf487181b8e5829448376e7aa6999ef46330c1a1e2c4300393aff7197b"
+    },
+    {
+      "chunk": 42,
+      "start": 2688,
+      "count": 64,
+      "units": {
+        "4": 101877,
+        "7": 7236658079
+      },
+      "source_sha256": "f3c9656672be708e1ced366fa639bcf6d4d309f4734adf9b7be829e8ca7ba9e8"
+    },
+    {
+      "chunk": 43,
+      "start": 2752,
+      "count": 64,
+      "units": {
+        "4": 107198,
+        "7": 6597746120
+      },
+      "source_sha256": "5692825c1a0c30f18c6a33b86844a99b81433ed46617aa5e87d8215ceea97f2f"
+    },
+    {
+      "chunk": 44,
+      "start": 2816,
+      "count": 64,
+      "units": {
+        "4": 111278,
+        "7": 6018834118
+      },
+      "source_sha256": "86908df5707581016955c3dae3ba5324cbfcc10af2c0e72be4b0082ac3751f46"
+    },
+    {
+      "chunk": 45,
+      "start": 2880,
+      "count": 64,
+      "units": {
+        "4": 114199,
+        "7": 5493144189
+      },
+      "source_sha256": "04ace9366439d64e804b8fbbf2cc2269d90f7a0eb5fbf07d2ebfe01c821b2226"
+    },
+    {
+      "chunk": 46,
+      "start": 2944,
+      "count": 64,
+      "units": {
+        "4": 116042,
+        "7": 5015164208
+      },
+      "source_sha256": "7e9a0ba5b4ae9fdacc3d549485f657121e3f8b60055fa499d28fe59b4fdb2db0"
+    },
+    {
+      "chunk": 47,
+      "start": 3008,
+      "count": 64,
+      "units": {
+        "4": 116886,
+        "7": 4580263663
+      },
+      "source_sha256": "75a276807a71ec511b913df5cc14b84aa25219e61e2e76e9335d7c3bf2578093"
+    },
+    {
+      "chunk": 48,
+      "start": 3072,
+      "count": 64,
+      "units": {
+        "4": 116831,
+        "7": 4184115646
+      },
+      "source_sha256": "abca9c41d49543861427b22ca226a542cd5e1e7afe26221e67f507e105df9468"
+    },
+    {
+      "chunk": 49,
+      "start": 3136,
+      "count": 64,
+      "units": {
+        "4": 115954,
+        "7": 3823021107
+      },
+      "source_sha256": "944c762898d70325a0bb694df569d3fbdcb41663339f1c90551f0355f3d7ea08"
+    },
+    {
+      "chunk": 50,
+      "start": 3200,
+      "count": 64,
+      "units": {
+        "4": 114342,
+        "7": 3493507937
+      },
+      "source_sha256": "f6d228b476b9b6c606c4c90ad33872f7a49ad2635910ce31c45ae0da2091007c"
+    },
+    {
+      "chunk": 51,
+      "start": 3264,
+      "count": 64,
+      "units": {
+        "4": 112081,
+        "7": 3192465789
+      },
+      "source_sha256": "1ff22a3393a36741d8e0be50e0dcffb3ae799f32f4dbf68a547b85876aa8453b"
+    },
+    {
+      "chunk": 52,
+      "start": 3328,
+      "count": 64,
+      "units": {
+        "4": 109246,
+        "7": 2917089619
+      },
+      "source_sha256": "f5d77347f5d9bc96b54274a8e15a457308b3fbe5ac236814628ecf2e3fdc6e85"
+    },
+    {
+      "chunk": 53,
+      "start": 3392,
+      "count": 64,
+      "units": {
+        "4": 105911,
+        "7": 2664839025
+      },
+      "source_sha256": "2993b2b55291fcdb01ebf66c2f5ce6228f3565f2689d71a335499b5f9c8015b3"
+    },
+    {
+      "chunk": 54,
+      "start": 3456,
+      "count": 64,
+      "units": {
+        "4": 102147,
+        "7": 2433410687
+      },
+      "source_sha256": "2f79689804a0559c9f6bde3941cf26b0b52489bf92a19e44e320434a7a0eee75"
+    },
+    {
+      "chunk": 55,
+      "start": 3520,
+      "count": 64,
+      "units": {
+        "4": 98031,
+        "7": 2220910895
+      },
+      "source_sha256": "04ba337b4a819609428ade3543eaa82f14f98b2b17c919160fb61fa018896fdb"
+    },
+    {
+      "chunk": 56,
+      "start": 3584,
+      "count": 64,
+      "units": {
+        "4": 93617,
+        "7": 2026614013
+      },
+      "source_sha256": "8573f00c819d802dd5940e20bd176b00a0d2fedbd26c50c747c988f8bfb4bb61"
+    },
+    {
+      "chunk": 57,
+      "start": 3648,
+      "count": 64,
+      "units": {
+        "4": 88967,
+        "7": 1847792118
+      },
+      "source_sha256": "8ad43b6b147ca9ecaa677b3e6d804958e0aee84be0f6c9943ec11b069a408223"
+    },
+    {
+      "chunk": 58,
+      "start": 3712,
+      "count": 64,
+      "units": {
+        "4": 84134,
+        "7": 1682695834
+      },
+      "source_sha256": "31d7c7ff973d3ec616a3301866d3174ec5c8eafdadce46f2956c1c9e01f9e442"
+    },
+    {
+      "chunk": 59,
+      "start": 3776,
+      "count": 64,
+      "units": {
+        "4": 79170,
+        "7": 1530098696
+      },
+      "source_sha256": "d2441c64ca7fffabcc6bb08d08f57afb84f0c5c198ea953bbd59e1a192ad158c"
+    },
+    {
+      "chunk": 60,
+      "start": 3840,
+      "count": 64,
+      "units": {
+        "4": 74118,
+        "7": 1388931784
+      },
+      "source_sha256": "ca46c8cfab8c5296fb7343c2ba8eecf804d4b2b7a7a40dee25146d854145ae4e"
+    },
+    {
+      "chunk": 61,
+      "start": 3904,
+      "count": 64,
+      "units": {
+        "4": 69026,
+        "7": 1258263293
+      },
+      "source_sha256": "725db8e7f5aae9f639fe957203a1fae58f1fcb5d4a442ae6ac9b21cacd0b5a51"
+    },
+    {
+      "chunk": 62,
+      "start": 3968,
+      "count": 64,
+      "units": {
+        "4": 63926,
+        "7": 1137280886
+      },
+      "source_sha256": "e3604dee19c3ff464e46364cc56baf3dd909bde2508ea19760d3ab13ebab7023"
+    },
+    {
+      "chunk": 63,
+      "start": 4032,
+      "count": 64,
+      "units": {
+        "4": 58854,
+        "7": 1025275028
+      },
+      "source_sha256": "0dee0c3a869b15855a907f3bbf4a5f458fa8c8ab9649c00ce2fe31036a15d87b"
+    },
+    {
+      "chunk": 64,
+      "start": 4096,
+      "count": 64,
+      "units": {
+        "4": 53843,
+        "7": 921623600
+      },
+      "source_sha256": "9b182b0f9ad01c70859db564834d502bd8115632384448d4a9d139292a5de1cc"
+    },
+    {
+      "chunk": 65,
+      "start": 4160,
+      "count": 64,
+      "units": {
+        "4": 48919,
+        "7": 825781685
+      },
+      "source_sha256": "1335b4b8c492f9371bb3baef4f3fc1692abe04b45dc0606a964e022caddda0f4"
+    },
+    {
+      "chunk": 66,
+      "start": 4224,
+      "count": 64,
+      "units": {
+        "4": 44104,
+        "7": 737328713
+      },
+      "source_sha256": "e929e9685b27e25caff62c7e4b82edf908353e5dea748b1e12cf1cddbb8d9ab7"
+    },
+    {
+      "chunk": 67,
+      "start": 4288,
+      "count": 64,
+      "units": {
+        "4": 39422,
+        "7": 655920765
+      },
+      "source_sha256": "920dd6a88d465a38de116a51f615a1cf360d11b338d493146adcda1f7b8f2267"
+    },
+    {
+      "chunk": 68,
+      "start": 4352,
+      "count": 64,
+      "units": {
+        "4": 34891,
+        "7": 581245127
+      },
+      "source_sha256": "b5ea8f19766acf5f6b243a1436695da0bea51863c5df1eec08deaf09a01fa121"
+    },
+    {
+      "chunk": 69,
+      "start": 4416,
+      "count": 64,
+      "units": {
+        "4": 30522,
+        "7": 512662045
+      },
+      "source_sha256": "97413d3a685d8fc8161747cfc3ab7c7701b523cc278ec227b4eb8d2bd5c1216f"
+    },
+    {
+      "chunk": 70,
+      "start": 4480,
+      "count": 64,
+      "units": {
+        "4": 26336,
+        "7": 449826998
+      },
+      "source_sha256": "74eec675fd1f061ec2b27d9de27d9a6fe94b49ffbaae6d703b8192d92c2f48d0"
+    },
+    {
+      "chunk": 71,
+      "start": 4544,
+      "count": 64,
+      "units": {
+        "4": 22324,
+        "7": 392424715
+      },
+      "source_sha256": "e7b04081b01573f75f55e8751168fcfe426249ec17bb35c520aa1082531a8465"
+    },
+    {
+      "chunk": 72,
+      "start": 4608,
+      "count": 64,
+      "units": {
+        "4": 18515,
+        "7": 340155907
+      },
+      "source_sha256": "6d6a432a7e541aa92466d0504ce83174b39d8d19d497525ca1da9589bed78986"
+    },
+    {
+      "chunk": 73,
+      "start": 4672,
+      "count": 64,
+      "units": {
+        "4": 14903,
+        "7": 292734878
+      },
+      "source_sha256": "059c59e62bdba5a38f4c0388fa54cf62e5822f274fc12ec7c8d41456e2df6930"
+    },
+    {
+      "chunk": 74,
+      "start": 4736,
+      "count": 64,
+      "units": {
+        "4": 11496,
+        "7": 249885549
+      },
+      "source_sha256": "847eddf166c8be55132e1d94012bee2861e3b22c046a84b9daf2e0ace25407a7"
+    },
+    {
+      "chunk": 75,
+      "start": 4800,
+      "count": 64,
+      "units": {
+        "4": 8296,
+        "7": 218436510
+      },
+      "source_sha256": "22b4dfc22d0a3c7a14c18e75cc621d0de1072416d833f932f4d3416c4022a95c"
+    },
+    {
+      "chunk": 76,
+      "start": 4864,
+      "count": 64,
+      "units": {
+        "4": 5301,
+        "7": 223249864
+      },
+      "source_sha256": "b67b8943b113253f2c3d1d78984a9c8daeaebbadc629b9a9d0ae5d3085c36f98"
+    },
+    {
+      "chunk": 77,
+      "start": 4928,
+      "count": 64,
+      "units": {
+        "4": 3172,
+        "7": 231430122
+      },
+      "source_sha256": "3db625aae7b6572933d544d28f2587d4f5881d65eac2b0e18d4f01c0ffddaffc"
+    },
+    {
+      "chunk": 78,
+      "start": 4992,
+      "count": 64,
+      "units": {
+        "4": 5006,
+        "7": 238288353
+      },
+      "source_sha256": "cb8a7d80e92f295d50fafc6f739fa692f712623a1b84d8d8117c4011fddbd399"
+    },
+    {
+      "chunk": 79,
+      "start": 5056,
+      "count": 64,
+      "units": {
+        "4": 7299,
+        "7": 243885221
+      },
+      "source_sha256": "09bdf76e2779e18538eff72120b1d2b066366dd9478a7f55e05d80d08591f870"
+    },
+    {
+      "chunk": 80,
+      "start": 5120,
+      "count": 64,
+      "units": {
+        "4": 9401,
+        "7": 248187000
+      },
+      "source_sha256": "f62267c97eac9a80b4eecd2f3ad4e64378de1a0d6febe621290a51d9c949c66f"
+    },
+    {
+      "chunk": 81,
+      "start": 5184,
+      "count": 64,
+      "units": {
+        "4": 11321,
+        "7": 251249031
+      },
+      "source_sha256": "91f719ab6548f51ea69828f395515576b5e35c7c9b199343807720d784a92446"
+    },
+    {
+      "chunk": 82,
+      "start": 5248,
+      "count": 64,
+      "units": {
+        "4": 13063,
+        "7": 253148727
+      },
+      "source_sha256": "31fd37b8c494d3cd037d6818c983c49406ddfc35347986438c02b92f0e0542b3"
+    },
+    {
+      "chunk": 83,
+      "start": 5312,
+      "count": 64,
+      "units": {
+        "4": 14631,
+        "7": 253973553
+      },
+      "source_sha256": "032a28a92689900879af6b3a183d17263f9a1f360f1627bc55d7fd25b4f809d6"
+    },
+    {
+      "chunk": 84,
+      "start": 5376,
+      "count": 64,
+      "units": {
+        "4": 16033,
+        "7": 253814062
+      },
+      "source_sha256": "8b846c04d535dab7b0847fac9b90e1a9800ebeebbe6ecd2d4d5aca2907a7d828"
+    },
+    {
+      "chunk": 85,
+      "start": 5440,
+      "count": 64,
+      "units": {
+        "4": 17273,
+        "7": 252765833
+      },
+      "source_sha256": "146ab06df9bfb9c4af7ee3a407215ddbd45bfea28ab25720a3cb3ca1c5618e74"
+    },
+    {
+      "chunk": 86,
+      "start": 5504,
+      "count": 64,
+      "units": {
+        "4": 18361,
+        "7": 250926762
+      },
+      "source_sha256": "a3f5850a14ad05280a38685ab111300f8fcba9509a73db251e788b7063c53428"
+    },
+    {
+      "chunk": 87,
+      "start": 5568,
+      "count": 64,
+      "units": {
+        "4": 19304,
+        "7": 248395239
+      },
+      "source_sha256": "c8354b1104a9abba93bef8d16e460ba539281da80bffdd0ea81ebf5328002a42"
+    },
+    {
+      "chunk": 88,
+      "start": 5632,
+      "count": 64,
+      "units": {
+        "4": 20109,
+        "7": 245268854
+      },
+      "source_sha256": "fe0337518d7fad6ebbe102904b826077de5c31876d215fd93e0adcf50532c72b"
+    },
+    {
+      "chunk": 89,
+      "start": 5696,
+      "count": 64,
+      "units": {
+        "4": 20779,
+        "7": 241643357
+      },
+      "source_sha256": "40990f3ab65d6d94a04e1b194afa4ef0afc4de5ffda7d44cdf0b9fd2e5831cdc"
+    },
+    {
+      "chunk": 90,
+      "start": 5760,
+      "count": 64,
+      "units": {
+        "4": 21331,
+        "7": 237611813
+      },
+      "source_sha256": "913157f8497f7cc2d709da619ee336e708a959cd1f2abb0b618028f47d99796c"
+    },
+    {
+      "chunk": 91,
+      "start": 5824,
+      "count": 64,
+      "units": {
+        "4": 21765,
+        "7": 233263960
+      },
+      "source_sha256": "9284203e29ac5c1ef70724b3dbec98ee2ed74b4c597fedcf2c97674b1deab26f"
+    },
+    {
+      "chunk": 92,
+      "start": 5888,
+      "count": 64,
+      "units": {
+        "4": 22089,
+        "7": 228685748
+      },
+      "source_sha256": "9db0bf6a379df85396a4b2fa32707ee015bf523bcb1fb54221787818cd78342d"
+    },
+    {
+      "chunk": 93,
+      "start": 5952,
+      "count": 64,
+      "units": {
+        "4": 22312,
+        "7": 223960721
+      },
+      "source_sha256": "a5a7d146030b696db539b91bcdcdb7034bd9c73a171fefc97a2700e57ccd9069"
+    },
+    {
+      "chunk": 94,
+      "start": 6016,
+      "count": 64,
+      "units": {
+        "4": 22441,
+        "7": 219185068
+      },
+      "source_sha256": "f7ce580a3f90f4668a820e087de8929ed147a020a625a86de223e36c62d863d5"
+    },
+    {
+      "chunk": 95,
+      "start": 6080,
+      "count": 64,
+      "units": {
+        "4": 22464,
+        "7": 214416467
+      },
+      "source_sha256": "624d77cd9476ce0399f2d1dd9b46ac15afcf26a1d548082955430e1b8baead07"
+    },
+    {
+      "chunk": 96,
+      "start": 6144,
+      "count": 64,
+      "units": {
+        "4": 22441,
+        "7": 209717813
+      },
+      "source_sha256": "efadd9dc703e1deb54e62bfa3e2f3e3356212ca3b9cff9826fab8fb7e88ecd55"
+    },
+    {
+      "chunk": 97,
+      "start": 6208,
+      "count": 64,
+      "units": {
+        "4": 22327,
+        "7": 205156173
+      },
+      "source_sha256": "114b85d958dba99748a32f5bd50f4f22358f5940285bd0e293bf3d65d8633dc5"
+    },
+    {
+      "chunk": 98,
+      "start": 6272,
+      "count": 64,
+      "units": {
+        "4": 22138,
+        "7": 200800533
+      },
+      "source_sha256": "421607910bb16112a4fc089a4b39ccfa87e235cd95f7306156a9a7d7a86e2901"
+    },
+    {
+      "chunk": 99,
+      "start": 6336,
+      "count": 64,
+      "units": {
+        "4": 21890,
+        "7": 196700263
+      },
+      "source_sha256": "703d17f17b6cd7b1479e5c620f4fab8137fc4003d26f0239c77135007095c8fa"
+    },
+    {
+      "chunk": 100,
+      "start": 6400,
+      "count": 64,
+      "units": {
+        "4": 21584,
+        "7": 192908853
+      },
+      "source_sha256": "c3360afba1e2c186cfb617724f7f3f8741895d7315698e112635412fe35bbd50"
+    },
+    {
+      "chunk": 101,
+      "start": 6464,
+      "count": 64,
+      "units": {
+        "4": 21224,
+        "7": 189478527
+      },
+      "source_sha256": "3d1791c25ac4c45c5647ef61c31841d87c69504b97ab9fadf66cb243d151fd25"
+    },
+    {
+      "chunk": 102,
+      "start": 6528,
+      "count": 64,
+      "units": {
+        "4": 20814,
+        "7": 186459420
+      },
+      "source_sha256": "38cd3d7a8e69bc4d02e535925ec40ea706ab17f8aa9f02b01c482b567774c026"
+    },
+    {
+      "chunk": 103,
+      "start": 6592,
+      "count": 64,
+      "units": {
+        "4": 20366,
+        "7": 183900152
+      },
+      "source_sha256": "bfd7cf25d1f58710d521e7d359787edfa0b7859939398381208739b02f314e52"
+    },
+    {
+      "chunk": 104,
+      "start": 6656,
+      "count": 64,
+      "units": {
+        "4": 19875,
+        "7": 181848415
+      },
+      "source_sha256": "da6000e660125e071d75dca304800d88a5934f1a8c3b4b483d40ed75aca89c3c"
+    },
+    {
+      "chunk": 105,
+      "start": 6720,
+      "count": 64,
+      "units": {
+        "4": 19350,
+        "7": 180352127
+      },
+      "source_sha256": "936ad96767210c03c153f030a261e82b3d3998bed406557beb86cdf3055db777"
+    },
+    {
+      "chunk": 106,
+      "start": 6784,
+      "count": 64,
+      "units": {
+        "4": 18796,
+        "7": 179459930
+      },
+      "source_sha256": "71234df223eb028d9a4f1605b469baaf9b23d89ef2802dc3e9dbe94e70500bb4"
+    },
+    {
+      "chunk": 107,
+      "start": 6848,
+      "count": 64,
+      "units": {
+        "4": 18214,
+        "7": 179219745
+      },
+      "source_sha256": "efd95fa5162e68829299831d1c242dd844226c903369927d83e308ff3f19000e"
+    },
+    {
+      "chunk": 108,
+      "start": 6912,
+      "count": 64,
+      "units": {
+        "4": 17606,
+        "7": 179682539
+      },
+      "source_sha256": "04f756118e02697c50b76de3a453b49ff614b4bd7929ba63be07edd7eaba7557"
+    },
+    {
+      "chunk": 109,
+      "start": 6976,
+      "count": 64,
+      "units": {
+        "4": 16979,
+        "7": 180902413
+      },
+      "source_sha256": "81584eeb08cbd7b61dddd5d220ab7212c30783d428835ea087e1319077484a16"
+    },
+    {
+      "chunk": 110,
+      "start": 7040,
+      "count": 64,
+      "units": {
+        "4": 16334,
+        "7": 182938311
+      },
+      "source_sha256": "b0876e4593ba122ea9880ea108d4c97913de715d12d2d04f1e31c64a3da64ac6"
+    },
+    {
+      "chunk": 111,
+      "start": 7104,
+      "count": 64,
+      "units": {
+        "4": 15676,
+        "7": 185851251
+      },
+      "source_sha256": "62ad77c07ec33ec8f40d0f1691d0da2640bf0d2864ebd3b0f5bd2ba2bbf77f05"
+    },
+    {
+      "chunk": 112,
+      "start": 7168,
+      "count": 64,
+      "units": {
+        "4": 15004,
+        "7": 189709160
+      },
+      "source_sha256": "824737a59ae5737572b49fe516ba9820593169830b6893a5369ef1b1eec9d9a4"
+    },
+    {
+      "chunk": 113,
+      "start": 7232,
+      "count": 64,
+      "units": {
+        "4": 14323,
+        "7": 194587256
+      },
+      "source_sha256": "04be77c8d840025333a2c30734557959f71ded53988ea7374fa5f1a2160be165"
+    },
+    {
+      "chunk": 114,
+      "start": 7296,
+      "count": 64,
+      "units": {
+        "4": 13631,
+        "7": 200569161
+      },
+      "source_sha256": "6f9630fcf1abbf9136b668d299724628f55881dca8fa0000d78b4bd92494c4d8"
+    },
+    {
+      "chunk": 115,
+      "start": 7360,
+      "count": 64,
+      "units": {
+        "4": 12934,
+        "7": 207748284
+      },
+      "source_sha256": "d1c20c4c504117adc820adee1250d929399d60cdfd9504d1bc8f57f7c2f951a7"
+    },
+    {
+      "chunk": 116,
+      "start": 7424,
+      "count": 64,
+      "units": {
+        "4": 12236,
+        "7": 216229540
+      },
+      "source_sha256": "c8105ec800d67012587bc014a2b7ee5e2ac9810a3de93ffebde7ff2847b5f456"
+    },
+    {
+      "chunk": 117,
+      "start": 7488,
+      "count": 64,
+      "units": {
+        "4": 11535,
+        "7": 226131172
+      },
+      "source_sha256": "0595eaad25279ccd9d25c2f26e0a9f5152d326d530710fd57d173fbc33e473b4"
+    },
+    {
+      "chunk": 118,
+      "start": 7552,
+      "count": 64,
+      "units": {
+        "4": 10833,
+        "7": 237586793
+      },
+      "source_sha256": "1eda5a8640c6f48bf22bbc00fabe090cc0354a83c4d88ef8cc142a92f9b0f618"
+    },
+    {
+      "chunk": 119,
+      "start": 7616,
+      "count": 64,
+      "units": {
+        "4": 10135,
+        "7": 250747813
+      },
+      "source_sha256": "e315f535037fe5a866ca96f6a305a4ef96411661280045e9c9437a679e02a3e2"
+    },
+    {
+      "chunk": 120,
+      "start": 7680,
+      "count": 64,
+      "units": {
+        "4": 9438,
+        "7": 265786061
+      },
+      "source_sha256": "e8217839b3c340f16418793926de7e5f4832fa5d4d3bce0704f10245ba9250ad"
+    },
+    {
+      "chunk": 121,
+      "start": 7744,
+      "count": 64,
+      "units": {
+        "4": 8747,
+        "7": 282896898
+      },
+      "source_sha256": "d31f6001cd22e9d9bce9a70471abf128a784a03e04984d2020c7b06ef08abdfd"
+    },
+    {
+      "chunk": 122,
+      "start": 7808,
+      "count": 64,
+      "units": {
+        "4": 8064,
+        "7": 302302719
+      },
+      "source_sha256": "2d36d175acb6c15de8cae193f8528fbf6833e6c4d78521784eb15875e813ebcf"
+    },
+    {
+      "chunk": 123,
+      "start": 7872,
+      "count": 64,
+      "units": {
+        "4": 7385,
+        "7": 324257021
+      },
+      "source_sha256": "d02dcf8897f143f6d8a5bc765c8150a9f103f45f3cfa6e501ec1823dd3048d31"
+    },
+    {
+      "chunk": 124,
+      "start": 7936,
+      "count": 64,
+      "units": {
+        "4": 6719,
+        "7": 349049046
+      },
+      "source_sha256": "950bb807ab8eca616204df3ec11dc8764c53bf8ea9de31695d3bd5f543f5f383"
+    },
+    {
+      "chunk": 125,
+      "start": 8000,
+      "count": 64,
+      "units": {
+        "4": 6063,
+        "7": 377009190
+      },
+      "source_sha256": "5f6f2a2640cc620d8353b1f7a7db2825490d92647514564041ce1535a5242bd6"
+    },
+    {
+      "chunk": 126,
+      "start": 8064,
+      "count": 64,
+      "units": {
+        "4": 5420,
+        "7": 408535996
+      },
+      "source_sha256": "5611a19c1b79321cd1c87bce41234763ddf78672b705372225dd1ce76c761d6a"
+    },
+    {
+      "chunk": 127,
+      "start": 8128,
+      "count": 64,
+      "units": {
+        "4": 4794,
+        "7": 444132531
+      },
+      "source_sha256": "d7a69af107f38555738e9062d3b2159f06dcce3876c473df99f6c8d016968565"
+    }
+  ],
+  "generator_sha256": "840c07401bc52556f1736898258774186f06634025dc2d36b505e6a82d1f0a7c",
+  "scope": "Candidate data only; Lean kernel checks are required."
+}
