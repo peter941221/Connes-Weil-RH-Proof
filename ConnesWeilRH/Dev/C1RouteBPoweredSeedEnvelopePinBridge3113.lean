@@ -1,5 +1,7 @@
 import ConnesWeilRH.Dev.C1RouteBPoweredSeedCarrier3110
 import ConnesWeilRH.Dev.C1RouteBLowRungPoweredSeedEnvelope3112
+import ConnesWeilRH.Dev.C1ExplicitSmoothSeed
+import ConnesWeilRH.Dev.C1TwoPointSpectralDecomposition
 
 /-! Envelope-to-pin bridge for the powered-seed carrier (3113).
 
