@@ -1,0 +1,11 @@
+import ConnesWeilRH.Dev.C1RouteAAnalyticPuncturedWitness3085
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1RouteAAnalyticPuncturedWitness3085Audit
+
+#print axioms C1RouteAAnalyticPuncturedWitness3085.exists_nonzero_point_in_ball_of_analyticAt_not_eventually_zero
+
+end C1RouteAAnalyticPuncturedWitness3085Audit
+end Source
+end ConnesWeilRH

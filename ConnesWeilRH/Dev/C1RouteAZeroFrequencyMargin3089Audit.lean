@@ -1,0 +1,11 @@
+import ConnesWeilRH.Dev.C1RouteAZeroFrequencyMargin3089
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1RouteAZeroFrequencyMargin3089Audit
+
+#print axioms C1RouteAZeroFrequencyMargin3089.routeAJointSymbol_zero_neg_of_c3Sigma_zero_pos
+
+end C1RouteAZeroFrequencyMargin3089Audit
+end Source
+end ConnesWeilRH

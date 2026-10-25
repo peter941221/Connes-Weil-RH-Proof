@@ -1,0 +1,11 @@
+import ConnesWeilRH.Dev.C1RouteAJointSymbolNegativeNeighbourhood3088
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1RouteAJointSymbolNegativeNeighbourhood3088Audit
+
+#print axioms C1RouteAJointSymbolNegativeNeighbourhood3088.exists_negative_ball_of_continuousAt_strict_neg
+
+end C1RouteAJointSymbolNegativeNeighbourhood3088Audit
+end Source
+end ConnesWeilRH

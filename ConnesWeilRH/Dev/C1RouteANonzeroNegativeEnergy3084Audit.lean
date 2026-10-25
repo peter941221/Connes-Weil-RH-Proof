@@ -1,0 +1,11 @@
+import ConnesWeilRH.Dev.C1RouteANonzeroNegativeEnergy3084
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1RouteANonzeroNegativeEnergy3084Audit
+
+#print axioms C1RouteANonzeroNegativeEnergy3084.exists_negative_energy_density_of_localWitness
+
+end C1RouteANonzeroNegativeEnergy3084Audit
+end Source
+end ConnesWeilRH

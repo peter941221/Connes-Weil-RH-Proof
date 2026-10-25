@@ -1,0 +1,11 @@
+import ConnesWeilRH.Dev.C1RouteANegativeEnergyWitness3093
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1RouteANegativeEnergyWitness3093Audit
+
+#print axioms C1RouteANegativeEnergyWitness3093.exists_nonzero_frequency_negative_energy
+
+end C1RouteANegativeEnergyWitness3093Audit
+end Source
+end ConnesWeilRH

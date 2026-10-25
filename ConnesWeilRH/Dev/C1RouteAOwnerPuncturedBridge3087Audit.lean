@@ -1,0 +1,12 @@
+import ConnesWeilRH.Dev.C1RouteAOwnerPuncturedBridge3087
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1RouteAOwnerPuncturedBridge3087Audit
+
+#print axioms C1RouteAOwnerPuncturedBridge3087.routeAOrbitTransform_not_eventually_zero_of_fourier_nonzero
+#print axioms C1RouteAOwnerPuncturedBridge3087.exists_routeA_nonzero_transform_in_ball
+
+end C1RouteAOwnerPuncturedBridge3087Audit
+end Source
+end ConnesWeilRH

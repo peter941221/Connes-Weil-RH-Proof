@@ -1,0 +1,12 @@
+import ConnesWeilRH.Dev.C1RouteALaplaceFourierBridge3086
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1RouteALaplaceFourierBridge3086Audit
+
+#print axioms C1RouteALaplaceFourierBridge3086.routeAOrbitTransform_eq_fourierLaplace
+#print axioms C1RouteALaplaceFourierBridge3086.routeAOrbitTransform_eq_fourier
+
+end C1RouteALaplaceFourierBridge3086Audit
+end Source
+end ConnesWeilRH
