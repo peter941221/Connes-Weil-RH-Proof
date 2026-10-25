@@ -1701,3 +1701,19 @@ Linux audit: 4028 jobs, four declarations, standard axiom trio only, no
 errors or `sorryAx`. Evidence: `docs/proofs/3104_powered_seed_d4_d7_adapter.md`,
 `results/3104_powered_seed_d4_d7_adapter_audit.json`, and
 `scripts/powered_seed_d4_d7_adapter_audit_3104.py`.
+
+## 3105 Route-B universalization gate (2026-10-25)
+
+Gate U is now formalized. For a fixed compact-log owner with support radius
+`B` and unit target in the row-B strip `|Re(s)| <= 1`, Lean proves
+`|Im(s)| <= exp(B) * derivOrderL1 1 f`; it also proves that one fixed owner
+cannot provide unit targets at arbitrarily large heights. The actual
+rho-dependent geometry retains the height cost and inverse-gap mass cost.
+
+This closes the fixed-cap universalization shortcut and makes the next Route-B
+target explicit: a rho-dependent owner, support and derivative budget must be
+constructed before the three cardinal pins can count toward RH. The gate,
+target/zero duties and `hgate24` remain open. Evidence:
+`docs/proofs/3105_routeb_universalization_gate.md`,
+`results/3105_routeb_universalization_gate_audit.json`, and
+`scripts/routeb_universalization_gate_audit_3105.py`.

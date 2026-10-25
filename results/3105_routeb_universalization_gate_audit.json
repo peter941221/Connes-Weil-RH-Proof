@@ -1,0 +1,43 @@
+{
+  "status": "PASS",
+  "build_returncode": 0,
+  "build_jobs": 3881,
+  "error_lines_present": false,
+  "sorryAx_present": false,
+  "required_theorems": {
+    "ConnesWeilRH.Source.C1RouteBUniversalizationGate3105.fixed_owner_height_cap3105": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBUniversalizationGate3105.fixed_owner_unbounded_height_no_go3105": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBUniversalizationGate3105.actual_geometry_height_cost3105": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBUniversalizationGate3105.actual_geometry_inverse_gap_cost3105": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBUniversalizationGate3105.fixed_rowB_caps_are_local3105": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "missing_required_theorems": [],
+  "unexpected_axioms": {},
+  "record": 3105,
+  "module": "ConnesWeilRH.Dev.C1RouteBUniversalizationGate3105Audit",
+  "provenance": {
+    "ConnesWeilRH/Dev/C1RouteBUniversalizationGate3105.lean": "fd43e8ed2ec8d365f70f556a71637049da27f73635d044f921bf1ce5e8dcf98b",
+    "ConnesWeilRH/Dev/C1RouteBUniversalizationGate3105Audit.lean": "33679f9b65b201971f567eba7a81b4334403835649dc2d0c7b07350280db6d15"
+  },
+  "scope": "Fixed row-B universalization is formally rejected; rho-dependent parameterization remains required and unproved."
+}

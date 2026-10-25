@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.C1RouteBUniversalizationGate3105
+
+open ConnesWeilRH.Source.C1RouteBUniversalizationGate3105
+
+#print axioms fixed_owner_height_cap3105
+#print axioms fixed_owner_unbounded_height_no_go3105
+#print axioms actual_geometry_height_cost3105
+#print axioms actual_geometry_inverse_gap_cost3105
+#print axioms fixed_rowB_caps_are_local3105
