@@ -1,0 +1,23 @@
+{
+  "record": 3111,
+  "status": "PASS",
+  "module": "ConnesWeilRH.Dev.C1RouteBPoweredSeedOwnerFacts3111Audit",
+  "source_sha256": "9845c3d0566f7ed1da5fa23a779555fb4fe869da06f973e0f1592d4a8ccd1d69",
+  "audit_sha256": "d4201f72d892d34814f5759069bfd06e235fab448a28050975a5b0d31704e302",
+  "declarations": {
+    "poweredSeedExplicitOwner_target3111": true,
+    "poweredSeedExplicitOwner_square_zero3111": true,
+    "poweredSeedExplicitOwner_minimal3111": true,
+    "poweredSeedExplicitOwner_centeredOrbit_sum3111": true,
+    "poweredSeedExplicitOwner_support3111": true
+  },
+  "axiom_lines": [
+    "[propext,  Classical.choice,  Quot.sound]",
+    "[propext,  Classical.choice,  Quot.sound]",
+    "[propext,  Classical.choice,  Quot.sound]",
+    "[propext,  Classical.choice,  Quot.sound]",
+    "[propext,  Classical.choice,  Quot.sound]"
+  ],
+  "exit_code": 0,
+  "build_footer": true
+}

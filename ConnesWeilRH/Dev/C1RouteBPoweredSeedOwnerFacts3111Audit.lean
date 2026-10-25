@@ -1,0 +1,16 @@
+import ConnesWeilRH.Dev.C1RouteBPoweredSeedOwnerFacts3111
+
+open ConnesWeilRH.Source.C1RouteBPoweredSeedOwnerFacts3111
+
+#check poweredSeedExplicitOwner3111
+#check poweredSeedExplicitOwner_target3111
+#check poweredSeedExplicitOwner_square_zero3111
+#check poweredSeedExplicitOwner_minimal3111
+#check poweredSeedExplicitOwner_centeredOrbit_sum3111
+#check poweredSeedExplicitOwner_support3111
+
+#print axioms poweredSeedExplicitOwner_target3111
+#print axioms poweredSeedExplicitOwner_square_zero3111
+#print axioms poweredSeedExplicitOwner_minimal3111
+#print axioms poweredSeedExplicitOwner_centeredOrbit_sum3111
+#print axioms poweredSeedExplicitOwner_support3111
