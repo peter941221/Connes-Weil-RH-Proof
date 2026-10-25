@@ -1,0 +1,15 @@
+import ConnesWeilRH.Dev.C1RouteBLowRungPoweredSeedEnvelope3112
+
+open ConnesWeilRH.Source.C1RouteBLowRungPoweredSeedEnvelope3112
+
+#check lowRungs3112
+#check lowRungD3112
+#check lowRungs_nonempty3112
+#check lowRungD_nonneg3112
+#check lowRungD_bound3112
+#check norm_cardinalSum_poweredSeed_le_lowRung_env3112
+
+#print axioms lowRungs_nonempty3112
+#print axioms lowRungD_nonneg3112
+#print axioms lowRungD_bound3112
+#print axioms norm_cardinalSum_poweredSeed_le_lowRung_env3112

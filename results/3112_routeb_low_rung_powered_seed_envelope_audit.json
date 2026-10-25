@@ -1,0 +1,31 @@
+{
+  "record": 3112,
+  "status": "PASS",
+  "module": "ConnesWeilRH.Dev.C1RouteBLowRungPoweredSeedEnvelope3112",
+  "audit_module": "ConnesWeilRH.Dev.C1RouteBLowRungPoweredSeedEnvelope3112Audit",
+  "rungs": [1, 2, 3, 4],
+  "bounds": {
+    "D1": "2",
+    "D2": "8",
+    "D3": "84",
+    "D4": "1500"
+  },
+  "declarations": [
+    "lowRungs_nonempty3112",
+    "lowRungD_nonneg3112",
+    "lowRungD_bound3112",
+    "norm_cardinalSum_poweredSeed_le_lowRung_env3112"
+  ],
+  "axioms": {
+    "lowRungs_nonempty3112": ["propext", "Quot.sound"],
+    "lowRungD_nonneg3112": ["propext", "Classical.choice", "Quot.sound"],
+    "lowRungD_bound3112": ["propext", "Classical.choice", "Quot.sound"],
+    "norm_cardinalSum_poweredSeed_le_lowRung_env3112": [
+      "propext", "Classical.choice", "Quot.sound"
+    ]
+  },
+  "nonclaims": [
+    "three full-frequency cardinal pins remain open",
+    "hgate24, hprefix, SourceRH and RH remain open"
+  ]
+}
