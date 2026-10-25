@@ -5,6 +5,9 @@ namespace Dev
 namespace C1C3SigmaZeroMargin3090Audit
 
 #print axioms C1C3SigmaZeroMargin3090.c3Sigma_zero_pos_of_digamma_re_lt_log_pi
+#print axioms C1C3SigmaZeroMargin3090.digamma_quarter_lt_half_of_reciprocal_series
+#print axioms C1C3SigmaZeroMargin3090.digamma_half_re_lt_log_pi
+#print axioms C1C3SigmaZeroMargin3090.c3Sigma_zero_pos
 #print axioms C1C3SigmaZeroMargin3090.digamma_zero_margin_target
 
 end C1C3SigmaZeroMargin3090Audit

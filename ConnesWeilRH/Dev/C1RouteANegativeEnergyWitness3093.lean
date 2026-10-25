@@ -2,13 +2,16 @@ import ConnesWeilRH.Dev.C1RouteAZeroFrequencyMargin3089
 import ConnesWeilRH.Dev.C1RouteAJointSymbolContinuity3091
 import ConnesWeilRH.Dev.C1RouteAOwnerPuncturedBridge3087
 import ConnesWeilRH.Dev.C1RouteANonzeroNegativeEnergy3084
+import ConnesWeilRH.Dev.C1C3SigmaZeroMargin3090
+import ConnesWeilRH.Dev.C1RouteAOwnerAnalyticTransform3092
 
 /-!
 # Route A assembled local negative-energy witness (record 3093)
 
-This is the final local composition theorem.  The two unresolved analytic
-inputs remain explicit: continuity of `c3Sigma` at zero and analyticity/global
-nonvanishing of the actual owner transform.
+This is the final local composition theorem.  The only unresolved analytic
+input is the actual owner transform's global analyticity; zero-frequency
+margin, symbol continuity, and a global nonzero owner frequency are now
+instantiated below.
 -/
 
 namespace ConnesWeilRH
@@ -21,6 +24,8 @@ open C1RouteAJointSymbolContinuity3091
 open C1RouteAJointSymbolNegativeNeighbourhood3088
 open C1RouteAOwnerPuncturedBridge3087
 open C1RouteANonzeroNegativeEnergy3084
+open Dev.C1C3SigmaZeroMargin3090
+open C1RouteAOwnerAnalyticTransform3092
 open C1G8R0OrbitGeometry
 open CC20YoshidaNearZeros
 open CC20YoshidaConvolution
@@ -58,6 +63,21 @@ theorem exists_nonzero_frequency_negative_energy
         norm_pos_iff.mpr hxi_transform
       positivity)
   exact ⟨xi, hxi_ne, hneg xi hxi_ball, hxi_transform, henergy⟩
+
+theorem exists_nonzero_frequency_negative_energy_of_owner_analytic
+    {rho : sourceNontrivialZeroSet}
+    {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g)
+    (hanalytic : AnalyticOnNhd Real
+      (fun xi : Real => routeAOrbitTransform geometry xi) Set.univ) :
+    ∃ xi : Real,
+      xi ≠ 0 ∧
+      routeAJointSymbol geometry xi < 0 ∧
+      routeAOrbitTransform geometry xi ≠ 0 ∧
+      routeAFrequencyEnergyDensity geometry xi < 0 := by
+  exact exists_nonzero_frequency_negative_energy geometry
+    c3Sigma_zero_pos c3Sigma_continuousAt_zero hanalytic
+    (routeAOrbitTransform_global_nonzero geometry)
 
 end
 end C1RouteANegativeEnergyWitness3093

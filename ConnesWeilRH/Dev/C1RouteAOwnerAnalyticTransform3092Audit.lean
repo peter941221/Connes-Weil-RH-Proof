@@ -1,0 +1,12 @@
+import ConnesWeilRH.Dev.C1RouteAOwnerAnalyticTransform3092
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1RouteAOwnerAnalyticTransform3092Audit
+
+#print axioms C1RouteAOwnerAnalyticTransform3092.routeAOwnerTest_ne_zero
+#print axioms C1RouteAOwnerAnalyticTransform3092.routeAOrbitTransform_global_nonzero
+
+end C1RouteAOwnerAnalyticTransform3092Audit
+end Source
+end ConnesWeilRH

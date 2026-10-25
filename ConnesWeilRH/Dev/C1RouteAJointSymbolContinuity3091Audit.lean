@@ -5,6 +5,7 @@ namespace Source
 namespace C1RouteAJointSymbolContinuity3091Audit
 
 #print axioms C1RouteAJointSymbolContinuity3091.routeAPrimePoissonSymbol_continuousAt_zero
+#print axioms C1RouteAJointSymbolContinuity3091.c3Sigma_continuousAt_zero
 #print axioms C1RouteAJointSymbolContinuity3091.routeAJointSymbol_continuousAt_zero_of_c3Sigma
 
 end C1RouteAJointSymbolContinuity3091Audit

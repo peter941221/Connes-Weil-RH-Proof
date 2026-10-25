@@ -1,4 +1,5 @@
 import ConnesWeilRH.Dev.C1RouteAJointSymbolNegativeNeighbourhood3088
+import ConnesWeilRH.Dev.C1G8R3ScatteringPhaseDigamma
 
 /-!
 # Route A joint-symbol continuity (record 3091)
@@ -46,6 +47,27 @@ theorem routeAPrimePoissonSymbol_continuousAt_zero
     · fun_prop
     · simpa using hden'
   · fun_prop
+
+theorem c3Sigma_continuousAt_zero : ContinuousAt Dev.c3Sigma 0 := by
+  have hdig : ContinuousAt Complex.digamma ((1 / 4 : Complex)) := by
+    simpa using
+      (Dev.hasDerivAt_digamma_criticalQuarterLine (0 : Real)).continuousAt
+  have harg : ContinuousAt
+      (fun xi : Real =>
+        ((1 / 4 : Real) : Complex) - ((xi : Complex) * Complex.I) / 2) 0 := by
+    fun_prop
+  have hcomp : ContinuousAt
+      (fun xi : Real =>
+        Complex.digamma
+          (((1 / 4 : Real) : Complex) - ((xi : Complex) * Complex.I) / 2)) 0 :=
+    hdig.comp_of_eq harg (by norm_num)
+  have hreal : ContinuousAt
+      (fun xi : Real =>
+        (Complex.digamma
+          (((1 / 4 : Real) : Complex) - ((xi : Complex) * Complex.I) / 2)).re) 0 :=
+    Complex.continuous_re.continuousAt.comp hcomp
+  unfold Dev.c3Sigma
+  exact continuousAt_const.sub hreal
 
 theorem routeAJointSymbol_continuousAt_zero_of_c3Sigma
     {rho : sourceNontrivialZeroSet}

@@ -1,7 +1,12 @@
-# 3091 - joint-symbol continuity adapter
+# 3091 - joint-symbol continuity
 
-The finite prime Poisson terms and their owner-specific finite sum are proved
-continuous at zero. The assembled joint-symbol theorem takes continuity of
-`c3Sigma` as an explicit premise. The current Mathlib snapshot does not expose
-a direct digamma continuity theorem at `1/4`, so that premise remains a named
-analytic gap.
+Continuity at zero is now fully instantiated for the actual joint symbol.
+
+The finite prime Poisson terms and their owner-specific finite sum are
+continuous at zero. The archimedean term `c3Sigma` is continuous because the
+existing `hasDerivAt_digamma_criticalQuarterLine` theorem supplies a genuine
+derivative of `Complex.digamma` at the quarter-line boundary point. Composing
+that continuity with the real-frequency affine map and `Complex.re` gives
+`c3Sigma_continuousAt_zero`.
+
+The audit uses only `[propext, Classical.choice, Quot.sound]` and no `sorryAx`.

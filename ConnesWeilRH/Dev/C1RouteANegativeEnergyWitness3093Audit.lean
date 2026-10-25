@@ -5,6 +5,7 @@ namespace Source
 namespace C1RouteANegativeEnergyWitness3093Audit
 
 #print axioms C1RouteANegativeEnergyWitness3093.exists_nonzero_frequency_negative_energy
+#print axioms C1RouteANegativeEnergyWitness3093.exists_nonzero_frequency_negative_energy_of_owner_analytic
 
 end C1RouteANegativeEnergyWitness3093Audit
 end Source
