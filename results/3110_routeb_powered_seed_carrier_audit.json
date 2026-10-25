@@ -1,0 +1,48 @@
+{
+  "status": "PASS",
+  "build_returncode": 0,
+  "build_jobs": 3870,
+  "error_lines_present": false,
+  "sorryAx_present": false,
+  "required_theorems": {
+    "ConnesWeilRH.Source.C1RouteBPoweredSeedCarrier3110.poweredSeedCarrier_target3110": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBPoweredSeedCarrier3110.poweredSeedCarrier_cc20Vanishes3110": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBPoweredSeedCarrier3110.poweredSeedCarrier_sourceTest_support3110": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBPoweredSeedCarrier3110.fourPointContradictionRowBPoweredSeed3110": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBPoweredSeedCarrier3110.poweredSeedStoredCarrierSourceTest3110": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBPoweredSeedCarrier3110.fourPointContradictionRowBPoweredSeedStored3110": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "missing_required_theorems": [],
+  "unexpected_axioms": {},
+  "record": 3110,
+  "module": "ConnesWeilRH.Dev.C1RouteBPoweredSeedCarrier3110Audit",
+  "provenance": {
+    "ConnesWeilRH/Dev/C1RouteBPoweredSeedCarrier3110.lean": "c7321e1187dcfad827d9f83bbde03c689ddc638fee7a59e16cdcfe4aea8a5ae8",
+    "ConnesWeilRH/Dev/C1RouteBPoweredSeedCarrier3110Audit.lean": "f15b640eee234797017c2b17628f67df04f1ad3d46d69e6d6c8d32026a71a4e7"
+  },
+  "scope": "Rebuilds the row-B finite carrier at poweredSeed, proving interpolation, CC20 vanishing, support, and the contradiction interface while leaving cardinal pins, gate, and prefix explicit."
+}

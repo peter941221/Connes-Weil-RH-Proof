@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1RouteBPoweredSeedCarrier3110
+
+open ConnesWeilRH.Source.C1RouteBPoweredSeedCarrier3110
+
+#print axioms poweredSeedCarrier_target3110
+#print axioms poweredSeedCarrier_cc20Vanishes3110
+#print axioms poweredSeedCarrier_sourceTest_support3110
+#print axioms fourPointContradictionRowBPoweredSeed3110
+#print axioms poweredSeedStoredCarrierSourceTest3110
+#print axioms fourPointContradictionRowBPoweredSeedStored3110
