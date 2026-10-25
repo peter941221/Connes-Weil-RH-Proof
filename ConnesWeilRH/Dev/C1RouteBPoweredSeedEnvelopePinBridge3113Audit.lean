@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1RouteBPoweredSeedEnvelopePinBridge3113
+
+open ConnesWeilRH.Source.C1RouteBPoweredSeedEnvelopePinBridge3113
+
+#check fourPointContradictionRowBPoweredSeed_of_lowRungEnvelopePins3113
+#print axioms fourPointContradictionRowBPoweredSeed_of_lowRungEnvelopePins3113

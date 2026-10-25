@@ -1,0 +1,15 @@
+{
+  "record": 3113,
+  "status": "PASS",
+  "module": "ConnesWeilRH.Dev.C1RouteBPoweredSeedEnvelopePinBridge3113",
+  "audit_module": "ConnesWeilRH.Dev.C1RouteBPoweredSeedEnvelopePinBridge3113Audit",
+  "declaration": "fourPointContradictionRowBPoweredSeed_of_lowRungEnvelopePins3113",
+  "axioms": ["propext", "Classical.choice", "Quot.sound"],
+  "consumer": "fourPointContradictionRowBPoweredSeed3110",
+  "remaining_premises": [
+    "three full-frequency low-rung envelope inequalities",
+    "hgate24",
+    "hprefix"
+  ],
+  "nonclaims": ["SourceRH", "Mathlib RH"]
+}
