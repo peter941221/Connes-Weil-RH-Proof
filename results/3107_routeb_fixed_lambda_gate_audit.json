@@ -1,0 +1,38 @@
+{
+  "status": "PASS",
+  "build_returncode": 0,
+  "build_jobs": 3830,
+  "error_lines_present": false,
+  "sorryAx_present": false,
+  "required_theorems": {
+    "ConnesWeilRH.Source.C1RouteBFixedLambdaGate3107.hgate24Predicate3107_iff_gate_qform": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBFixedLambdaGate3107.hgate24Predicate3107_iff_signed_margin": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBFixedLambdaGate3107.hgate24Predicate3107_iff_owner_gate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBFixedLambdaGate3107.fixed_lambda24_not_implied_by_discriminant3107": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "missing_required_theorems": [],
+  "unexpected_axioms": {},
+  "record": 3107,
+  "module": "ConnesWeilRH.Dev.C1RouteBFixedLambdaGate3107Audit",
+  "provenance": {
+    "ConnesWeilRH/Dev/C1RouteBFixedLambdaGate3107.lean": "a203571d5bcb96739fe308ff8011cfe37358d9140c8879905254424619610a54",
+    "ConnesWeilRH/Dev/C1RouteBFixedLambdaGate3107Audit.lean": "b92c637419f031fef1a6866d8d3f30b016064de6b9568625107b75ef1cfbc9fc"
+  },
+  "scope": "Fixed lambda=24 is connected to the same-owner gate matrix and semi-local gate. No signed numerical margin or RH conclusion is claimed; the formal scalar counterexample blocks the invalid existential-lambda-to-24 inference."
+}

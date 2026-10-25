@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteBFixedLambdaGate3107
+
+open ConnesWeilRH.Source.C1RouteBFixedLambdaGate3107
+
+#print axioms hgate24Predicate3107_iff_gate_qform
+#print axioms hgate24Predicate3107_iff_signed_margin
+#print axioms hgate24Predicate3107_iff_owner_gate
+#print axioms fixed_lambda24_not_implied_by_discriminant3107
