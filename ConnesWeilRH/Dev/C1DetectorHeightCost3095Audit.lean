@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1DetectorHeightCost3095
+
+open ConnesWeilRH.Source.C1RouteAOwnerAnalyticTransform3092
+open ConnesWeilRH.Source.C1DetectorHeightCost3095
+
+#print axioms routeAOwner_laplaceAt_rho_eq_one
+#print axioms unit_laplace_target_height_le
+#print axioms no_unit_target_above_height_budget
+#print axioms fixed_detector_unit_targets_not_unbounded
+#print axioms selected_detector_height_le

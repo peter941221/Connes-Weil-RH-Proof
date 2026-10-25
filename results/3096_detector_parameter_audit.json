@@ -1,0 +1,200 @@
+{
+  "status": "PASS",
+  "build_returncode": 0,
+  "build_jobs": 4202,
+  "error_lines_present": false,
+  "sorryAx_present": false,
+  "required_theorems": {
+    "ConnesWeilRH.Dev.C1C3SigmaZeroMargin3090.c3Sigma_zero_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteAJointSymbolContinuity3091.routeAJointSymbol_continuousAt_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteAOwnerAnalyticTransform3092.routeAOrbitTransform_analytic": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteAOwnerAnalyticTransform3092.routeAOrbitTransform_global_nonzero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteANegativeEnergyWitness3093.exists_nonzero_frequency_negative_energy_witness": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteANegativeEnergyWitness3093.not_routeAFrequencyEnergyDensity_pointwise_nonneg": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteANegativeEnergyWitness3093Audit.empty_prime_set_zero_margin": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteANegativeEnergyWitness3093Audit.energy_at_zero_eq_zero_of_off_line": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteANegativeEnergyWitness3093Audit.no_localWitness_when_transform_vanishes_on_its_ball": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteAReadbackNormalization3094.routeAOrbitTransform_squared_mass": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteAReadbackNormalization3094.routeA_normalized_squared_mass": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteAReadbackNormalization3094.routeA_unscaled_squared_mass_ne_square_at_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteAReadbackNormalization3094.exists_normalized_negative_energy_density": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteAOwnerAnalyticTransform3092.routeAOwner_laplaceAt_rho_eq_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1DetectorHeightCost3095.unit_laplace_target_height_le": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1DetectorHeightCost3095.no_unit_target_above_height_budget": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1DetectorHeightCost3095.fixed_detector_unit_targets_not_unbounded": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1DetectorHeightCost3095.selected_detector_height_le": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1DetectorNearCollisionCost3096.laplace_derivative_norm_le_mass": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1DetectorNearCollisionCost3096.laplace_gap_le_mass": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1DetectorNearCollisionCost3096.raw_factor_unit_targets": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1DetectorNearCollisionCost3096.raw_factor_height_le": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1DetectorNearCollisionCost3096.opposite_targets_nodes_ne": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1DetectorNearCollisionCost3096.raw_factor_inverse_gap_mass": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1DetectorNearCollisionCost3096.no_raw_factor_mass_cap_below_inverse_gap": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Dev.routeBSeedLedger_order4_full_target3071": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Dev.routeBSeedLedger_order7_full_target3071": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RowBPrefixTransport2723.fourPointContradictionRowBStored2723": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "all_reported_axiom_declarations": 64,
+  "unexpected_axioms": {},
+  "missing_required_theorems": [],
+  "record": 3096,
+  "modules": [
+    "ConnesWeilRH.Dev.C1C3SigmaZeroMargin3090Audit",
+    "ConnesWeilRH.Dev.C1RouteAJointSymbolContinuity3091Audit",
+    "ConnesWeilRH.Dev.C1RouteAOwnerAnalyticTransform3092Audit",
+    "ConnesWeilRH.Dev.C1RouteANegativeEnergyWitness3093Audit",
+    "ConnesWeilRH.Dev.C1RouteAReadbackNormalization3094Audit",
+    "ConnesWeilRH.Dev.C1RouteAJointSymbolReadback3081Audit",
+    "ConnesWeilRH.Dev.C1RouteAJointSymbolSquareScreen3082Audit",
+    "ConnesWeilRH.Dev.C1RouteANonzeroNegativeEnergy3084Audit",
+    "ConnesWeilRH.Dev.C1RouteAAnalyticPuncturedWitness3085Audit",
+    "ConnesWeilRH.Dev.C1RouteALaplaceFourierBridge3086Audit",
+    "ConnesWeilRH.Dev.C1RouteAOwnerPuncturedBridge3087Audit",
+    "ConnesWeilRH.Dev.C1RouteAJointSymbolNegativeNeighbourhood3088Audit",
+    "ConnesWeilRH.Dev.C1RouteAZeroFrequencyMargin3089Audit",
+    "ConnesWeilRH.Dev.C1G8MasterExitAudit",
+    "ConnesWeilRH.Dev.C1DetectorHeightCost3095Audit",
+    "ConnesWeilRH.Dev.C1DetectorNearCollisionCost3096Audit",
+    "ConnesWeilRH.Dev.C1RouteBSeedLedgerAllowance3071Audit",
+    "ConnesWeilRH.Dev.C1RowBPrefixTransport2723Audit"
+  ],
+  "failure_controls": {
+    "valid_log": true,
+    "reject_missing_name": true,
+    "reject_extra_axiom": true,
+    "reject_sorry_axiom": true,
+    "reject_error_with_footer": true,
+    "reject_nonzero_exit": true,
+    "reject_missing_footer": true
+  },
+  "hash_convention": "SHA-256 of text sources with CRLF normalized to LF",
+  "provenance": {
+    "ConnesWeilRH/Dev/C1DetectorHeightCost3095.lean": "80ccb2650fed3091341ecc77e968d9bbcc53f36792e8159ffbbc23d6b8500444",
+    "ConnesWeilRH/Dev/C1DetectorNearCollisionCost3096.lean": "cf8ac575213b81a7001dd7601646c18ecd231f938a477bcb4011343504ec5d43",
+    "ConnesWeilRH/Dev/C1RouteAOwnerAnalyticTransform3092.lean": "a0635e45a82c17576d1ac41adf6b763ed93570ad7d3db2082de491bd2d7edf92",
+    "ConnesWeilRH/Dev/C1RouteBSeedLedgerAllowance3071.lean": "42d28c9ee6dc23e2c885b0a71e0a87873514a25b287993c0c746e1109ae9659a",
+    "ConnesWeilRH/Dev/C1RouteBSeedLedgerAllowanceContract3031.lean": "65473a68baceb36121e8c03ec90a42b18499041271915de62fa95bbfabbe921f",
+    "ConnesWeilRH/Dev/C1RouteBSeedD4D7Aggregate3042.lean": "2798c2731d80deb4394fb3983cd8e05d1166d55d66cfbd3c02aa0cea8ceb7668",
+    "ConnesWeilRH/Dev/C1RowBPrefixTransport2723.lean": "2ea6e86bb8226bfb0ef30a72de086919db3da245d45d37d4f6f5b781fe379763",
+    "scripts/detector_parameter_audit_3096.py": "2bf50762ab75fbb5330ddef90ed510f769e4f59bc94e90843b580b3d5769ce77"
+  },
+  "scope": {
+    "height": "Unit detection requires a height-dependent support/derivative budget.",
+    "gap": "The actual raw factor has inverse-gap L1 cost at its opposite targets.",
+    "row_b": "Fixed caps, poweredSeed transfer and rho-dependent gate duties remain open.",
+    "D4_D7": "3071 arithmetic is audited; actual per-cell comparisons remain premises.",
+    "RH": "No selected Weil nonnegativity or RH theorem is claimed."
+  }
+}

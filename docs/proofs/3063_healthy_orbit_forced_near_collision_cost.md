@@ -86,6 +86,12 @@ cannot remain uniformly bounded as `rho` approaches the critical line.
 
 ## Route interpretation
 
+Formal update (record 3096): `raw_factor_inverse_gap_mass` now proves the
+inverse-gap L1 bound on the actual `orbitRawFactor geometry`, with
+`B=geometry.orbitIndex+2`. The separate L1-to-quadratic-strip-constant
+comparison remains a paper-level deduction. The new proof and audit
+are documented in `docs/proofs/3096_detector_parameter_gate.md`.
+
 This pins a real degeneration parameter in the RH contradiction owner:
 `g=|Re(rho)-1/2|`. Any proof using this normalized interpolation correction
 with support radius uniformly bounded over all off-line `rho` cannot have a

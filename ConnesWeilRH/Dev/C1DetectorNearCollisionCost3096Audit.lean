@@ -1,0 +1,11 @@
+import ConnesWeilRH.Dev.C1DetectorNearCollisionCost3096
+
+open ConnesWeilRH.Source.C1DetectorNearCollisionCost3096
+
+#print axioms laplace_derivative_norm_le_mass
+#print axioms laplace_gap_le_mass
+#print axioms raw_factor_unit_targets
+#print axioms raw_factor_height_le
+#print axioms opposite_targets_nodes_ne
+#print axioms raw_factor_inverse_gap_mass
+#print axioms no_raw_factor_mass_cap_below_inverse_gap

@@ -99,10 +99,11 @@ This is an mpmath routing diagnostic, not a Lean theorem. The next formal brick
 is to prove the generated rational inequalities or a uniform theorem for their
 excess, then use the larger allowance in the new arithmetic consumer
 `C1RouteBSeedLedgerAllowance3071.lean` and the existing 3032-3036 assembly.
-The 3071 source proves generic allowance arithmetic and now adds the endpoint
+The 3071 source proves generic allowance arithmetic and adds the endpoint
 integral to a full-target inequality, conditional on the cell and ledger
-bounds. Connecting the actual row-head vector to the 3042 aggregate remains
-open. Its Lean compilation remains to be verified.
+bounds. Record 3096 adds its Linux build and paired axiom audit. Connecting
+the actual row-head vector to the 3042 aggregate and proving the per-cell
+comparisons remain open; that audit does not supply either premise.
 
 ## Scope
 

@@ -1617,3 +1617,37 @@ The generic transition-jet output is now named as `representativeD4Box2755` and 
 ## 2756 D4/D7 endpoint integral charges (2026-10-17)
 
 `d4d7_endpoint_integral_charges2756` combines the existing endpoint majorant and interval-integral theorem at orders 4 and 7, while `d4d7_endpoint_integral_charges_tiny2756` proves both charges are below 10^-1000. Linux-native audit: 3656/3656, zero errors, standard axiom trio only. This closes the endpoint contribution for these two derivative orders; finite interior replay, full D4/D7 numerical bounds, pins, Producer GO and RH remain open. Evidence: `docs/proofs/2756_d4_d7_endpoint_charges.md`, `results/2756_d4_d7_endpoint_charges.json`.
+
+## 3095-3097 parameter extension gate (2026-10-25)
+
+The fixed row-B consumer retains norm cap 22, height cap 421/20, orbit index
+3 and coefficient 24. Its target, prefix-zero and gate hypotheses are not
+discharged by a seed derivative certificate. A universal extension may use
+rho-dependent parameters; no fixed constants are required or supplied here.
+
+Records 3095-3096 prove necessary costs for actual `OrbitG8Geometry` data.
+For the same raw factor `phi`, support radius `L=orbitIndex+2`, and
+`delta=|Re(rho)-1/2|>0`, the Lean theorems give:
+
+```text
+|Im(rho)| <= exp(L) * derivOrderL1(1,phi)
+1/(L*exp(L)*delta) <= l1Mass(phi)
+```
+
+Thus a parameter extension must account for both height and the opposite
+interpolation values at the functional-equation companion nodes. These are
+necessary budget constraints, not a selected gate sign or a Route-B no-go.
+They do not assert high or small-gap off-line zeros exist.
+
+The 3071 arithmetic consumer's existing paired audit is now verified. Its
+per-cell and ledger comparison premises remain explicit. Record 3097 rejects only the tested
+256/512/1024/2048-cell uniform enclosures as sufficient D4 certificates; it
+does not bound the true integral from below or reject the finer 8192-cell
+campaign. The next finite-proof target remains the exact rational per-cell
+comparisons in record 3067, followed by the actual derivative integral bounds.
+No cardinal pin, poweredSeed carrier transfer, universal-rho producer or RH
+conclusion is promoted.
+
+Evidence: `docs/proofs/3096_detector_parameter_gate.md`,
+`results/3096_detector_parameter_audit.json`, and
+`results/3097_coarse_seed_enclosure_probe.json`.

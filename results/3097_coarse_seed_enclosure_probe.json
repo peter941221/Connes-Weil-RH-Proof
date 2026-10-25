@@ -1,0 +1,96 @@
+{
+  "record": 3097,
+  "status": "COARSE_ENCLOSURES_DO_NOT_CLEAR",
+  "owner": "Real.smoothTransition derivatives, rational-exp jet recurrence 2738",
+  "interval": [
+    "1/128",
+    "1/2"
+  ],
+  "iv_dps": 80,
+  "rows": [
+    {
+      "cells": 256,
+      "orders": {
+        "4": {
+          "upper_rational": "320706189421999627272976781275112964269694886466997096084682185265126830518548075/57896044618658097711785492504343953926634992332820282019728792003956564819968",
+          "upper_decimal_diagnostic": "5539.34541702087156",
+          "target": "1500",
+          "core_upper_below_full_target": false
+        },
+        "7": {
+          "upper_rational": "940478882492216076567320748320346571529815598732216936013433878089423629216512211/55213970774324510299478046898216203619608871777363092441300193790394368",
+          "upper_decimal_diagnostic": "17033349880.5261743",
+          "target": "2000000000",
+          "core_upper_below_full_target": false
+        }
+      }
+    },
+    {
+      "cells": 512,
+      "orders": {
+        "4": {
+          "upper_rational": "785444333811833722972767980615050033573316885019175878682873364574276649894025931/231584178474632390847141970017375815706539969331281128078915168015826259279872",
+          "upper_decimal_diagnostic": "3391.61482872143134",
+          "target": "1500",
+          "core_upper_below_full_target": false
+        },
+        "7": {
+          "upper_rational": "228108708045824465238339014046577384117281083383350623218330959660964331013483705/27606985387162255149739023449108101809804435888681546220650096895197184",
+          "upper_decimal_diagnostic": "8262717020.59505266",
+          "target": "2000000000",
+          "core_upper_below_full_target": false
+        }
+      }
+    },
+    {
+      "cells": 1024,
+      "orders": {
+        "4": {
+          "upper_rational": "269424765660482458240208893999370423538850546500967034236805516677937708824178575/115792089237316195423570985008687907853269984665640564039457584007913129639936",
+          "upper_decimal_diagnostic": "2326.79768916074813",
+          "target": "1500",
+          "core_upper_below_full_target": false
+        },
+        "7": {
+          "upper_rational": "455550656839607007153183430991936797007932135428486568591355902155926533977797481/110427941548649020598956093796432407239217743554726184882600387580788736",
+          "upper_decimal_diagnostic": "4125320552.48819614",
+          "target": "2000000000",
+          "core_upper_below_full_target": false
+        }
+      }
+    },
+    {
+      "cells": 2048,
+      "orders": {
+        "4": {
+          "upper_rational": "831885531361607648743643461065624148845753629186394884838628291008414644604152917/463168356949264781694283940034751631413079938662562256157830336031652518559744",
+          "upper_decimal_diagnostic": "1796.07591684578736",
+          "target": "1500",
+          "core_upper_below_full_target": false
+        },
+        "7": {
+          "upper_rational": "462759090135504117988167732681607832957400200926559498512173395275735030988607213/220855883097298041197912187592864814478435487109452369765200775161577472",
+          "upper_decimal_diagnostic": "2095298905.53848474",
+          "target": "2000000000",
+          "core_upper_below_full_target": false
+        }
+      }
+    }
+  ],
+  "checks": {
+    "partition_endpoints_exact": true,
+    "reference_controls": true,
+    "reference_control_count": true,
+    "all_tested_coarse_D4_uppers_exceed_target": true
+  },
+  "provenance": {
+    "scripts/coarse_seed_enclosure_probe_3097.py": "c081119259abd6c02b239ea26d163cfe7d9bc8023e14446f056701ee74696006",
+    "scripts/diag_seed_rational_charge_3070.py": "b46cd4c0fc887bd66143576342b10a9d6e5228f3b23c44676322e646a5da5ef9"
+  },
+  "nonclaims": [
+    "No Lean numerical integral theorem or rounding certificate.",
+    "An excessive upper enclosure is not a lower bound for the integral.",
+    "No rejection of a finer grid, adaptive partition or different enclosure method.",
+    "No row-B pins, universal-rho producer, Weil positivity or RH conclusion."
+  ]
+}

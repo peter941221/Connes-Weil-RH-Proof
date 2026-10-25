@@ -51,11 +51,10 @@ theorem routeAOrbitTransform_analytic
     (compactLogLaplace_analytic g _ (Set.mem_univ _)).restrictScalars
   exact hlaplace.comp (f := fun x : Real => (x : Complex) * Complex.I) hpath
 
-theorem routeAOwnerTest_ne_zero
+theorem routeAOwner_laplaceAt_rho_eq_one
     {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
     (geometry : OrbitG8Geometry rho g) :
-    g.test ≠ 0 := by
-  intro hzero
+    CompactLogTest.laplaceAt g (rho.1 - 1 / 2) = 1 := by
   let w : FiniteMellinNode (healthyUnscaledTargetNodes rho.1) :=
     ⟨rho.1, mem_healthyUnscaledTargetNodes_rho rho.1⟩
   have hraw :
@@ -71,9 +70,15 @@ theorem routeAOwnerTest_ne_zero
     simpa only [geometry.selected_owner_test] using
       (selectedOwner_laplaceAt_sourceTest_centered
         geometry.base geometry.correction geometry.orbitIndex rho.1)
-  have hvalue : CompactLogTest.laplaceAt g (rho.1 - 1 / 2) = 1 := by
-    rw [hsource]
-    simpa [w] using hraw.trans (healthyUnscaledTargetValue_rho rho.1)
+  rw [hsource]
+  simpa [w] using hraw.trans (healthyUnscaledTargetValue_rho rho.1)
+
+theorem routeAOwnerTest_ne_zero
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    g.test ≠ 0 := by
+  intro hzero
+  have hvalue := routeAOwner_laplaceAt_rho_eq_one geometry
   have hzeroLaplace : CompactLogTest.laplaceAt g (rho.1 - 1 / 2) = 0 := by
     unfold CompactLogTest.laplaceAt
     simp [CompactLogTest.exponentialWeight_apply, hzero]
