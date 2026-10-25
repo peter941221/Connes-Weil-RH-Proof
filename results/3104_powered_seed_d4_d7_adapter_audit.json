@@ -1,0 +1,43 @@
+{
+  "status": "PASS",
+  "build_returncode": 0,
+  "build_jobs": 4028,
+  "error_lines_present": false,
+  "sorryAx_present": false,
+  "required_theorems": {
+    "ConnesWeilRH.Dev.C1PoweredSeedD4D7Adapter3104.d4d7Rungs_nonempty3104": [
+      "propext",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Dev.C1PoweredSeedD4D7Adapter3104.d4d7D_nonneg3104": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Dev.C1PoweredSeedD4D7Adapter3104.d4d7D_bound3104": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Dev.C1PoweredSeedD4D7Adapter3104.norm_cardinalSum_poweredSeed_le_d4d7_env3104": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "unexpected_axioms": {},
+  "missing_required_theorems": [],
+  "record": 3104,
+  "module": "ConnesWeilRH.Dev.C1PoweredSeedD4D7Adapter3104Audit",
+  "failure_controls": {
+    "accept_good": true,
+    "reject_error": true,
+    "reject_sorry": true,
+    "reject_exit": true
+  },
+  "provenance": {
+    "ConnesWeilRH/Dev/C1PoweredSeedD4D7Adapter3104.lean": "eb9ddd1739222537aa296764de4e1da378f28b7977c180fdeaa915bf9f8c455a",
+    "ConnesWeilRH/Dev/C1PoweredSeedD4D7Adapter3104Audit.lean": "0edc5d13ba3e89efaac70358fb3bef656a9b6543bc8e9c1ee80f52289a1f93a2"
+  },
+  "scope": "Actual smoothSeed mass and D4/D7 bounds are instantiated in the poweredSeed envelope; numerical cardinal pins, carrier transfer, rho duties and RH remain open."
+}

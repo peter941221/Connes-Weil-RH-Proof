@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1PoweredSeedD4D7Adapter3104
+
+open ConnesWeilRH.Dev.C1PoweredSeedD4D7Adapter3104
+
+#print axioms d4d7Rungs_nonempty3104
+#print axioms d4d7D_nonneg3104
+#print axioms d4d7D_bound3104
+#print axioms norm_cardinalSum_poweredSeed_le_d4d7_env3104

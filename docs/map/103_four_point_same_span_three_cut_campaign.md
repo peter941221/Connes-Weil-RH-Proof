@@ -1686,3 +1686,18 @@ caps, gate and selected signed positivity remain open. No RH claim.
 Evidence: `docs/proofs/3103_seed_d4_d7_kernel_certificates.md`,
 `results/3103_seed_d4_d7_audit.json`, and
 `scripts/seed_d4_d7_audit_3103.py`.
+
+## 3104 actual D4/D7 poweredSeed adapter (2026-10-25)
+
+The premise-free seed mass and D4/D7 bounds are now instantiated in the
+2725 poweredSeed envelope. `d4d7Rungs3104 = {4, 7}` and
+`d4d7D3104 4 = 1500`, `d4d7D3104 7 = 2000000000`; the theorem
+`norm_cardinalSum_poweredSeed_le_d4d7_env3104` removes the generic mass and
+rung-bound hypotheses for every finite node set, coefficient function,
+strip coordinate and real frequency. The envelope remains explicit in node
+products and coefficients, so the three numerical cardinal pins remain open.
+
+Linux audit: 4028 jobs, four declarations, standard axiom trio only, no
+errors or `sorryAx`. Evidence: `docs/proofs/3104_powered_seed_d4_d7_adapter.md`,
+`results/3104_powered_seed_d4_d7_adapter_audit.json`, and
+`scripts/powered_seed_d4_d7_adapter_audit_3104.py`.
