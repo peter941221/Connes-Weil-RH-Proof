@@ -4,6 +4,8 @@ namespace ConnesWeilRH
 namespace Source
 namespace C1RouteAOwnerAnalyticTransform3092Audit
 
+#print axioms C1RouteAOwnerAnalyticTransform3092.compactLogLaplace_analytic
+#print axioms C1RouteAOwnerAnalyticTransform3092.routeAOrbitTransform_analytic
 #print axioms C1RouteAOwnerAnalyticTransform3092.routeAOwnerTest_ne_zero
 #print axioms C1RouteAOwnerAnalyticTransform3092.routeAOrbitTransform_global_nonzero
 

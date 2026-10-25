@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.C1RouteAReadbackNormalization3094
+
+open ConnesWeilRH.Source.C1RouteAReadbackNormalization3094
+
+#print axioms routeAOrbitTransform_squared_mass
+#print axioms routeAOwner_square_at_zero_pos
+#print axioms routeA_unscaled_squared_mass_ne_square_at_zero
+#print axioms routeA_normalized_squared_mass
+#print axioms exists_normalized_negative_energy_density

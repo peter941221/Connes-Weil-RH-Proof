@@ -2,11 +2,11 @@ import ConnesWeilRH.Dev.C1C3SigmaKernel
 import ConnesWeilRH.Dev.C1XiCenterTwoGamma
 
 /-!
-# Route A c3Sigma zero margin reduction (record 3090)
+# Route A c3Sigma zero margin (record 3090)
 
-The exact remaining special-function obligation is a strict upper bound on the
-real part of `digamma (1/4)`. This module records the reduction without hiding
-that bound behind a numerical constant.
+The half-anchored reciprocal series proves a strict quarter-to-half digamma
+comparison. The exact half-value and elementary signs then prove the positive
+zero-frequency margin, without a numerical special-function certificate.
 -/
 
 namespace ConnesWeilRH

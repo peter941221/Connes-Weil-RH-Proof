@@ -1,0 +1,93 @@
+{
+  "status": "PASS",
+  "modules": [
+    "ConnesWeilRH.Dev.C1C3SigmaZeroMargin3090Audit",
+    "ConnesWeilRH.Dev.C1RouteAJointSymbolContinuity3091Audit",
+    "ConnesWeilRH.Dev.C1RouteAOwnerAnalyticTransform3092Audit",
+    "ConnesWeilRH.Dev.C1RouteANegativeEnergyWitness3093Audit",
+    "ConnesWeilRH.Dev.C1RouteAReadbackNormalization3094Audit",
+    "ConnesWeilRH.Dev.C1RouteAJointSymbolReadback3081Audit",
+    "ConnesWeilRH.Dev.C1RouteAJointSymbolSquareScreen3082Audit",
+    "ConnesWeilRH.Dev.C1RouteANonzeroNegativeEnergy3084Audit",
+    "ConnesWeilRH.Dev.C1RouteAAnalyticPuncturedWitness3085Audit",
+    "ConnesWeilRH.Dev.C1RouteALaplaceFourierBridge3086Audit",
+    "ConnesWeilRH.Dev.C1RouteAOwnerPuncturedBridge3087Audit",
+    "ConnesWeilRH.Dev.C1RouteAJointSymbolNegativeNeighbourhood3088Audit",
+    "ConnesWeilRH.Dev.C1RouteAZeroFrequencyMargin3089Audit",
+    "ConnesWeilRH.Dev.C1G8MasterExitAudit"
+  ],
+  "build_returncode": 0,
+  "build_jobs": 4111,
+  "sorryAx_present": false,
+  "required_theorems": {
+    "ConnesWeilRH.Dev.C1C3SigmaZeroMargin3090.c3Sigma_zero_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteAJointSymbolContinuity3091.routeAJointSymbol_continuousAt_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteAOwnerAnalyticTransform3092.routeAOrbitTransform_analytic": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteAOwnerAnalyticTransform3092.routeAOrbitTransform_global_nonzero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteANegativeEnergyWitness3093.exists_nonzero_frequency_negative_energy_witness": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteANegativeEnergyWitness3093.not_routeAFrequencyEnergyDensity_pointwise_nonneg": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteANegativeEnergyWitness3093Audit.empty_prime_set_zero_margin": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteANegativeEnergyWitness3093Audit.energy_at_zero_eq_zero_of_off_line": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteANegativeEnergyWitness3093Audit.no_localWitness_when_transform_vanishes_on_its_ball": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteAReadbackNormalization3094.routeAOrbitTransform_squared_mass": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteAReadbackNormalization3094.routeA_normalized_squared_mass": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteAReadbackNormalization3094.routeA_unscaled_squared_mass_ne_square_at_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteAReadbackNormalization3094.exists_normalized_negative_energy_density": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "all_reported_axiom_declarations": 42,
+  "unexpected_axioms": {},
+  "missing_required_theorems": [],
+  "scope": "Local negative density and Fourier normalization; no qw sign or RH proof."
+}

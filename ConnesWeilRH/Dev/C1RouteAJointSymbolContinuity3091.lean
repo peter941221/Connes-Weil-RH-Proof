@@ -4,8 +4,8 @@ import ConnesWeilRH.Dev.C1G8R3ScatteringPhaseDigamma
 /-!
 # Route A joint-symbol continuity (record 3091)
 
-This module proves continuity at zero for the actual finite joint symbol.  The
-special-function sign margin is intentionally separate.
+This module proves continuity at zero for the actual finite joint symbol.
+The quarter-line derivative supplies the archimedean continuity premise.
 -/
 
 namespace ConnesWeilRH
@@ -100,6 +100,12 @@ theorem routeAJointSymbol_continuousAt_zero_of_c3Sigma
         intro p hp
         exact (Finset.mem_filter.mp hp).2)
     simpa [S] using hsum
+
+theorem routeAJointSymbol_continuousAt_zero
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    ContinuousAt (routeAJointSymbol geometry) 0 :=
+  routeAJointSymbol_continuousAt_zero_of_c3Sigma geometry c3Sigma_continuousAt_zero
 
 end
 end C1RouteAJointSymbolContinuity3091

@@ -1,13 +1,15 @@
 import ConnesWeilRH.Dev.C1RouteALaplaceFourierBridge3086
+import ConnesWeilRH.Dev.C1XiResidue
 
 /-!
-# Route A owner transform nonzero value (record 3092)
+# Route A owner transform analyticity and nonzero value (record 3092)
 
 The selected owner is nonzero independently of any numerical certificate:
 the raw interpolation value at the source node `rho` is exactly one.  Fourier
 injectivity then supplies a genuine real frequency at which the owner
-transform is nonzero.  The separate entire analyticity theorem for the
-compact-support Laplace transform is intentionally not asserted here.
+transform is nonzero. The existing dominated-integral Laplace derivative
+theorem gives entire complex analyticity. Restriction of scalars and the
+actual imaginary-frequency map give real analyticity for the same owner.
 -/
 
 namespace ConnesWeilRH
@@ -26,6 +28,28 @@ open CC20YoshidaNearZeros
 open scoped FourierTransform
 
 noncomputable section
+
+theorem compactLogLaplace_analytic (g : CompactLogTest) :
+    AnalyticOnNhd Complex (CompactLogTest.laplaceAt g) Set.univ := by
+  intro z _
+  exact (C1XiResidue.differentiable_laplaceAt g).analyticAt z
+
+theorem routeAOrbitTransform_analytic
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    AnalyticOnNhd Real (routeAOrbitTransform geometry) Set.univ := by
+  have heq : routeAOrbitTransform geometry =
+      (fun xi : Real => CompactLogTest.laplaceAt g ((xi : Complex) * Complex.I)) := by
+    funext xi
+    exact routeAOrbitTransform_eq_selectedSourceLaplace geometry xi
+  rw [heq]
+  intro xi _
+  have hpath : AnalyticAt Real (fun x : Real => (x : Complex) * Complex.I) xi :=
+    (Complex.ofRealCLM.analyticAt xi).mul analyticAt_const
+  have hlaplace : AnalyticAt Real (CompactLogTest.laplaceAt g)
+      ((xi : Complex) * Complex.I) :=
+    (compactLogLaplace_analytic g _ (Set.mem_univ _)).restrictScalars
+  exact hlaplace.comp (f := fun x : Real => (x : Complex) * Complex.I) hpath
 
 theorem routeAOwnerTest_ne_zero
     {rho : sourceNontrivialZeroSet} {g : CompactLogTest}

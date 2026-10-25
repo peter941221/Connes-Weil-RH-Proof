@@ -8,10 +8,10 @@ import ConnesWeilRH.Dev.C1RouteAOwnerAnalyticTransform3092
 /-!
 # Route A assembled local negative-energy witness (record 3093)
 
-This is the final local composition theorem.  The only unresolved analytic
-input is the actual owner transform's global analyticity; zero-frequency
-margin, symbol continuity, and a global nonzero owner frequency are now
-instantiated below.
+This closes the local screen for the actual owner: the scalar margin, symbol
+continuity, owner analyticity, and global nonzero value are all instantiated.
+The original conditional adapters are retained as reusable interfaces.
+No integral sign or RH conclusion follows from this pointwise result.
 -/
 
 namespace ConnesWeilRH
@@ -78,6 +78,26 @@ theorem exists_nonzero_frequency_negative_energy_of_owner_analytic
   exact exists_nonzero_frequency_negative_energy geometry
     c3Sigma_zero_pos c3Sigma_continuousAt_zero hanalytic
     (routeAOrbitTransform_global_nonzero geometry)
+
+theorem exists_nonzero_frequency_negative_energy_witness
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    ∃ xi : Real,
+      xi ≠ 0 ∧
+      routeAJointSymbol geometry xi < 0 ∧
+      routeAOrbitTransform geometry xi ≠ 0 ∧
+      routeAFrequencyEnergyDensity geometry xi < 0 :=
+  exists_nonzero_frequency_negative_energy_of_owner_analytic geometry
+    (routeAOrbitTransform_analytic geometry)
+
+theorem not_routeAFrequencyEnergyDensity_pointwise_nonneg
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    ¬ (∀ xi : Real, 0 ≤ routeAFrequencyEnergyDensity geometry xi) := by
+  obtain ⟨xi, _, _, _, henergy⟩ :=
+    exists_nonzero_frequency_negative_energy_witness geometry
+  intro hnonneg
+  exact (not_lt_of_ge (hnonneg xi)) henergy
 
 end
 end C1RouteANegativeEnergyWitness3093
