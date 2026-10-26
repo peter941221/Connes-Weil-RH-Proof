@@ -1843,3 +1843,30 @@ on paper in 2708/2713. Another quadratic wrapper would remove no sign
 premise. No numerical experiment, Lean module, new gate sign or RH result
 was produced by this review. Evidence:
 `../proofs/3118_routeb_gate_coverage_direction_review.md`.
+
+## 3119 signed prime-cut accounting and bounded band (2026-10-26)
+
+Lean now proves the exact cut-plus-signed-remainder decomposition for the
+actual powered spans. The cut gate is sufficient exactly when the actual
+remainder is at most minus that cut gate. The stored powered span has
+support inside (-56,56), hence a complete symbolic prime bound ceil(exp112).
+No large prime book is generated and no zero remainder at the old cutoff
+is inferred. Boundary checks cover cutoff zero, inclusive endpoints,
+cancellation, and failure to infer a full sign from a truncated sign.
+
+The fixed stored n=3, lambda=24 model reproduces the old C,b,D values
+bitwise on both grids. The added band 10<log(q)<=12 has 12508 prime powers
+and contributes about -1.06179e12, 9.0194 times the magnitude of the old
+gate. Direct-span evaluation agrees with coefficient polarization, and
+grid/rule refinement changes the band by at most 9.36e-9 relative. Sixteen
+model controls pass. This rejects ignoring that band on this model; it
+does not determine the continuum or the full prime remainder's sign.
+
+Linux ext4 Lake build: 3904 jobs, 78.90 seconds, all fifteen audit leaves
+exactly the standard trio, no errors or sorryAx. No full gate, new RH-core
+sign estimate or RH proof is supplied. The next duty is an independent
+signed estimate of the complete remainder and any needed Fourier readback.
+Route A remains binding. Evidence:
+`../proofs/3119_routeb_signed_prime_cut.md`,
+`results/3119_routeb_signed_prime_cut_audit.json`, and
+`results/3119_routeb_prime_cut_probe.json`.

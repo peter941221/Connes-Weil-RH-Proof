@@ -226,3 +226,17 @@ cutoff, seed power and support statements were checked directly; no new
 mathematical software API was assumed. The patch changes proof records
 only, so it introduces no Lean module and needs no new axiom build. The
 3117 source hashes and its existing twelve-leaf PASS audit remain unchanged.
+
+## Follow-up: exact accounting and a bounded band (3119)
+
+Record 3119 proves the signed cut-plus-remainder identity on the actual
+powered spans and finite complete prime coverage for the stored span.
+Its conservative open span window is (-56,56), giving the symbolic bound
+ceil(exp(112)); this is not a claim that the old cutoff covers the function.
+
+A same-owner finite-frequency model check adds only the band
+10<log(q)<=12. Its signed value at n=3 and lambda=24 is about -1.06179e12,
+about 9.0194 times the old gate magnitude. The old row is reproduced
+bitwise, and frequency-grid and seed-rule refinements agree. This is
+model evidence that the omitted band cannot be ignored, not a theorem
+about the full continuum remainder. The complete gate sign remains open.

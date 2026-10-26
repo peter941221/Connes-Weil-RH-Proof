@@ -1,0 +1,128 @@
+{
+  "status": "PASS",
+  "returncode": 0,
+  "build_jobs": 3904,
+  "error_lines_present": false,
+  "sorryAx_present": false,
+  "declarations": {
+    "ConnesWeilRH.Source.C1RouteBSignedPrimeCut3119.primeCut_eq_visible_filter3119": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBSignedPrimeCut3119.finitePrimeSum_eq_cut_add_remainder3119": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBSignedPrimeCut3119.full_gate_eq_cut_add_remainder3119": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBSignedPrimeCut3119.gate_iff_signed_remainder_budget3119": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBSignedPrimeCut3119.poweredFamily_full_gate3119": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBSignedPrimeCut3119.storedSpan_support3119": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBSignedPrimeCut3119.storedSpan_visible_prime_bound3119": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBSignedPrimeCut3119.storedSpan_remainder_at_complete_bound3119": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBSignedPrimeCut3119.storedSpan_complete_prime_cut3119": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBSignedPrimeCut3119.storedSpan_full_gate3119": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBSignedPrimeCut3119.primeCut_zero3119": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBSignedPrimeCut3119.remainder_at_zero3119": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBSignedPrimeCut3119.primeCut_succ3119": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBSignedPrimeCut3119.nonzero_terms_can_cancel3119": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBSignedPrimeCut3119.negative_cut_does_not_determine_full_sign3119": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "unexpected_axioms": {},
+  "missing_theorems": [],
+  "record": 3119,
+  "modules": [
+    "ConnesWeilRH.Dev.C1RouteBSignedPrimeCut3119",
+    "ConnesWeilRH.Dev.C1RouteBSignedPrimeCut3119Audit"
+  ],
+  "failure_controls": {
+    "accept_lake_format": true,
+    "accept_direct_format": true,
+    "reject_wrong_identifier_suffix": true,
+    "reject_missing_footer": true,
+    "reject_nonzero_exit": true,
+    "reject_sorryAx": true,
+    "reject_new_axiom": true,
+    "reject_weakened_analytic_footprint": true,
+    "reject_error_with_footer": true,
+    "reject_source_error_with_footer": true
+  },
+  "elapsed_seconds": 78.89909757702844,
+  "max_rss_bytes": 4119408640,
+  "free_bytes_before": 278219472896,
+  "free_bytes_after": 278214787072,
+  "source_unchanged_during_build": true,
+  "lean_toolchain": "leanprover/lean4:v4.30.0",
+  "mathlib_revision": "c5ea00351c28e24afc9f0f84379aa41082b1188f",
+  "hash_convention": "SHA-256 of text with CRLF normalized to LF",
+  "provenance": {
+    "ConnesWeilRH/Dev/C1RouteBSignedPrimeCut3119.lean": "4183eccafb00d7080d7c9e83c219a3a620be96960c788eac5ad26a8bb502e597",
+    "ConnesWeilRH/Dev/C1RouteBSignedPrimeCut3119Audit.lean": "199fa03f37629bb1902ccd7724e13fd0dea3c387631aad880582589efdaa6bdd",
+    "scripts/routeb_signed_prime_cut_audit_3119.py": "558f3c5234971730413442917fd8cd313cd801cc87294aa308b115181e19d9d4",
+    "scripts/seed_d4_d7_audit_3103.py": "1a6a4e321e87e59d513dd4b45f35fcd45a48aaca4cfbc9f241a10ae299f6f80c",
+    "ConnesWeilRH/Dev/C1RouteBAdaptivePoweredTail3117.lean": "90f9d03faaf99ce888fc4a1ed7abf6bce139446e30afba829cac00d94fe46c1c",
+    "ConnesWeilRH/Dev/C1RouteBPoweredSeedCarrier3110.lean": "c7321e1187dcfad827d9f83bbde03c689ddc638fee7a59e16cdcfe4aea8a5ae8",
+    "ConnesWeilRH/Dev/C1RowBStoredCapture2722F.lean": "2244175cc4b92d483f07d8b9b746aae3dc8220a27c6035400e1a554bc1d6f2e7",
+    "ConnesWeilRH/Dev/C1ExplicitSmoothSeed.lean": "3c7d3dd287067022c0896833bb312a96ca21d6b9c941cf84eda245e82fc739ee",
+    "ConnesWeilRH/Dev/C1SameOwnerWeil.lean": "343f66e4b4cbf45be95dd5438b9e2065739cb785b801ab98f473ac6d9c32fc07",
+    "ConnesWeilRH/Dev/C1OrbitWindowSemiLocalGate.lean": "811e41c1980d9238a1d2e59b9559e339e92c4e80c924dbcbef19d93d7c1277d0",
+    "ConnesWeilRH/Dev/C1FourPointSpectralPrefixTransport.lean": "8595a5b0704b709e0fbab8f99901cd69b71e65100a94184224e315e916b7b15e",
+    "ConnesWeilRH/Dev/C1TwoPointSpectralDecomposition.lean": "8e88eaa6a08593f5463ab879beb4e113c83a30e0b14322367945783c7fe78837",
+    "lean-toolchain": "54727eec5cba149c18842e6deb5c41b369d66455c93ce135d7d5347c782b2325",
+    "lake-manifest.json": "3bf90f4294bc0fbaf77400fb260ffbd2a638f59a206a0464c2bddfaab06b231b"
+  },
+  "scope": "Exact signed cut/remainder identity on the actual powered spans; proved finite complete prime bound on the stored n=3 span. No truncated Fourier readback, numerical remainder value, full gate sign, zero-set assertion or RH proof."
+}

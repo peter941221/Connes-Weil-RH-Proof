@@ -1,0 +1,120 @@
+{
+  "record": 3119,
+  "status": "MODEL-DIAGNOSTIC",
+  "owner": "Exact stored 2722F nodes/values, powered seed, n=3, lambda=24",
+  "rho_exact": [
+    "2476979795053773/4503599627370496",
+    "5917178117733711/281474976710656"
+  ],
+  "n": 3,
+  "lambda": 24,
+  "node_count": 56,
+  "prime_log_cut": 10,
+  "prime_log_end": 12,
+  "cut_prime_power_count": 2532,
+  "band_prime_power_count": 12508,
+  "frequency_window": [
+    -25,
+    25
+  ],
+  "controls": {
+    "capture_identity": true,
+    "nonempty_omitted_band": true,
+    "independent_prime_generator_control": true,
+    "band_polarization_0.02_300": true,
+    "cut_polarization_0.02_300": true,
+    "legacy_bitwise_0.02": true,
+    "band_polarization_0.01_300": true,
+    "cut_polarization_0.01_300": true,
+    "legacy_bitwise_0.01": true,
+    "band_polarization_0.01_1200": true,
+    "cut_polarization_0.01_1200": true,
+    "source_unchanged": true,
+    "finite_output": true,
+    "grid_and_rule_stable": true,
+    "empty_band_exact_zero": true,
+    "resource_budget": true
+  },
+  "rows": [
+    {
+      "dxi": 0.02,
+      "seed_order": 300,
+      "C_cut": -8491.122976739127,
+      "cut_coefficients_C_b_D": [
+        -8491.122976739127,
+        -19981166.22162229,
+        -118676448089.28778
+      ],
+      "band_coefficients_C_b_D": [
+        -79720.69582901645,
+        -351592467.15302134,
+        -1078617432512.4141
+      ],
+      "gate_cut_lambda24": -117722242997.48451,
+      "signed_band_lambda24": -1061786913209.8666,
+      "gate_through_log12_lambda24": -1179509156207.351,
+      "signed_band_over_abs_old_gate": -9.019424759283213,
+      "direct_band_lambda24": -1061786913209.8667
+    },
+    {
+      "dxi": 0.01,
+      "seed_order": 300,
+      "C_cut": -8491.122975767292,
+      "cut_coefficients_C_b_D": [
+        -8491.122975767292,
+        -19981166.185090795,
+        -118676448098.12354
+      ],
+      "band_coefficients_C_b_D": [
+        -79720.69621318855,
+        -351592466.2869712,
+        -1078617422537.7473
+      ],
+      "gate_cut_lambda24": -117722243008.07321,
+      "signed_band_lambda24": -1061786903276.9915,
+      "gate_through_log12_lambda24": -1179509146285.0647,
+      "signed_band_over_abs_old_gate": -9.01942467409643,
+      "direct_band_lambda24": -1061786903276.992
+    },
+    {
+      "dxi": 0.01,
+      "seed_order": 1200,
+      "C_cut": -8491.122975767466,
+      "cut_coefficients_C_b_D": [
+        -8491.122975767466,
+        -19981166.185081393,
+        -118676448098.06604
+      ],
+      "band_coefficients_C_b_D": [
+        -79720.69621313887,
+        -351592466.286934,
+        -1078617422538.0178
+      ],
+      "gate_cut_lambda24": -117722243008.01617,
+      "signed_band_lambda24": -1061786903277.2638,
+      "gate_through_log12_lambda24": -1179509146285.28,
+      "signed_band_over_abs_old_gate": -9.019424674103114,
+      "direct_band_lambda24": -1061786903277.2632
+    }
+  ],
+  "relative_band_stability": [
+    9.354610376663716e-09,
+    2.5649107777362017e-13,
+    0.0
+  ],
+  "decision": "OMITTED-BAND-EXCEEDS-OLD-MARGIN",
+  "elapsed_seconds": 2.834714896976948,
+  "max_rss_bytes": 117764096,
+  "hash_convention": "SHA-256 with CRLF normalized to LF",
+  "provenance": {
+    "scripts/routeb_prime_cut_probe_3119.py": "1e61cc3bb4e6b7a7a8eddb3eb6d680dd7760858eb9ccbd16d0ad8c52eec0f067",
+    "scripts/fourpoint_actual_owner_1980.py": "7c6792479033bfd9ea24a7bdb9a104b849e1268af0b42e310330627aaa418c69",
+    "scripts/fourpoint_coupling_scan_2028.py": "12b5add115c1b9a490ad1f3ff6a3f65a050bf7eaec71f9d52ab5acb688340de6",
+    "scripts/fourpoint_diagonal_sign_1918.py": "298d152c98fa5d34ba209b1a8931faf7d4b06c948cf9547eb17bfd24008eb079",
+    "scripts/fourpoint_owner_density_1959.py": "b53006160a6ea8423eaee91289f8c7889908bae12e07751db40291af536669a6",
+    "scripts/fourpoint_powered_seed_1981.py": "be376c26b2f1b15f1a838759e08903a3c260652cfe9c87c491e5151de5c2bc8b",
+    "results/2722f_rowB_capture_data.json": "c1391b21e49791ae8dbd51c87462664ca378ba7fa769abec9ebbc15ac2ed24bb",
+    "results/2032_gate_row_search.json": "a8e8ba6857b452c98ff2cfae2953555bba8e873c9efafeaa8bb45e23bc84ad92"
+  },
+  "scope": "Signed finite-frequency quadrature diagnostics only; no continuum readback, full prime coverage, zero-set assertion or RH proof."
+}
