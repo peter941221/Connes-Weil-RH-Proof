@@ -1,0 +1,173 @@
+{
+  "status": "PASS",
+  "returncode": 0,
+  "build_jobs": 3907,
+  "error_lines_present": false,
+  "sorryAx_present": false,
+  "declarations": {
+    "ConnesWeilRH.Source.C1RouteBArchimedeanFourierReadback3121.weightedEnergy_integrable3121": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBArchimedeanFourierReadback3121.quarterPoint_re3121": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBArchimedeanFourierReadback3121.norm_reciprocal_le3121": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBArchimedeanFourierReadback3121.reciprocal_energy_integrable3121": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBArchimedeanFourierReadback3121.summable_integral_norm_reciprocal_energy3121": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBArchimedeanFourierReadback3121.summable_reciprocal3121": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBArchimedeanFourierReadback3121.sigma_eq_reciprocal_series3121": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBArchimedeanFourierReadback3121.cycle_resolvent_readback3121": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBArchimedeanFourierReadback3121.reciprocal_sum_integrable3121": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBArchimedeanFourierReadback3121.sigma_energy_integrable3121": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBArchimedeanFourierReadback3121.exp_test_integrable3121": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBArchimedeanFourierReadback3121.profile_integral_re3121": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBArchimedeanFourierReadback3121.integral_sigma_eq_series3121": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBArchimedeanFourierReadback3121.archimedean_eq_sigma_energy3121": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBArchimedeanFourierReadback3121.complete_gate_readback3121": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBArchimedeanFourierReadback3121.complete_gate_integrable3121": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBArchimedeanFourierReadback3121.poweredFamily_complete_gate_readback3121": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBArchimedeanFourierReadback3121.poweredFamily_complete_gate_integrable3121": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBArchimedeanFourierReadback3121.quarterPoint_zero3121": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBArchimedeanFourierReadback3121.reciprocal_first_zero3121": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBArchimedeanFourierReadback3121.quarterPoint_avoids_poles3121": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBArchimedeanFourierReadback3121.empty_kernel_not_everywhere_nonpos3121": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "unexpected_axioms": {},
+  "missing_theorems": [],
+  "record": 3121,
+  "modules": [
+    "ConnesWeilRH.Dev.C1RouteBArchimedeanFourierReadback3121",
+    "ConnesWeilRH.Dev.C1RouteBArchimedeanFourierReadback3121Audit"
+  ],
+  "failure_controls": {
+    "accept_lake_format": true,
+    "accept_direct_format": true,
+    "reject_wrong_identifier_suffix": true,
+    "reject_missing_footer": true,
+    "reject_nonzero_exit": true,
+    "reject_sorryAx": true,
+    "reject_new_axiom": true,
+    "reject_weakened_analytic_footprint": true,
+    "reject_error_with_footer": true,
+    "reject_source_error_with_footer": true
+  },
+  "elapsed_seconds": 34.49015246599447,
+  "max_rss_bytes": 834859008,
+  "build_bytes_before": 65902529362,
+  "build_bytes_after": 65902529362,
+  "build_growth_bytes": 0,
+  "free_bytes_before": 278203625472,
+  "free_bytes_after": 278203625472,
+  "source_unchanged_during_build": true,
+  "lean_toolchain": "leanprover/lean4:v4.30.0",
+  "mathlib_revision": "c5ea00351c28e24afc9f0f84379aa41082b1188f",
+  "hash_convention": "SHA-256 of text with CRLF normalized to LF",
+  "provenance": {
+    "ConnesWeilRH/Dev/C1RouteBArchimedeanFourierReadback3121.lean": "daed471a04bbeb34fbea62edf2c8a1585505ba8a113d332d5f74706832e99eea",
+    "ConnesWeilRH/Dev/C1RouteBArchimedeanFourierReadback3121Audit.lean": "bb41f36cb004c934a0d7d8c5d74b993890d6dda8ff5f993bbe8c6c38114727c8",
+    "scripts/routeb_archimedean_fourier_readback_audit_3121.py": "3f8a4d8ac0d659a526786251b81a4476e4045b62d62c69f2985601a8cbeddd51",
+    "scripts/seed_d4_d7_audit_3103.py": "1a6a4e321e87e59d513dd4b45f35fcd45a48aaca4cfbc9f241a10ae299f6f80c",
+    "ConnesWeilRH/Dev/C1RouteBSignedPrimeCut3119.lean": "4183eccafb00d7080d7c9e83c219a3a620be96960c788eac5ad26a8bb502e597",
+    "ConnesWeilRH/Dev/C1RouteBAdaptivePoweredTail3117.lean": "90f9d03faaf99ce888fc4a1ed7abf6bce139446e30afba829cac00d94fe46c1c",
+    "ConnesWeilRH/Dev/C1RouteBPoweredSeedCarrier3110.lean": "c7321e1187dcfad827d9f83bbde03c689ddc638fee7a59e16cdcfe4aea8a5ae8",
+    "ConnesWeilRH/Dev/C1RowBStoredCapture2722F.lean": "2244175cc4b92d483f07d8b9b746aae3dc8220a27c6035400e1a554bc1d6f2e7",
+    "ConnesWeilRH/Dev/C1XiArithmeticPrimePowerReadback.lean": "ecc5cdb9a655990884769d1991482d41915f3e999eb1a275ce7a9eba5142038b",
+    "ConnesWeilRH/Dev/C1HealthyYoshidaDetector.lean": "e60e398e3805da370775266913984af447801c822c121ad64058f22a751112fd",
+    "ConnesWeilRH/Dev/C1SameOwnerWeil.lean": "343f66e4b4cbf45be95dd5438b9e2065739cb785b801ab98f473ac6d9c32fc07",
+    "ConnesWeilRH/Dev/C1FourPointSpectralPrefixTransport.lean": "8595a5b0704b709e0fbab8f99901cd69b71e65100a94184224e315e916b7b15e",
+    "ConnesWeilRH/Dev/C1TwoPointSpectralDecomposition.lean": "8e88eaa6a08593f5463ab879beb4e113c83a30e0b14322367945783c7fe78837",
+    "ConnesWeilRH/Source/CCM25Concrete/CompactLogConvolution.lean": "7fa75483b47754b5adeb8ea4cdd3347f6ac9794d0dc942c37b85dd44a3e6c078",
+    "ConnesWeilRH/Dev/C1RouteBPrimeFourierReadback3120.lean": "e1589c92e2331b30c3713c7d22bc0a8972a35034aa468e35d3ef8b70702772c1",
+    "ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean": "ffd05e1d0073c3e5f8c0ba9ba85732bb5f5fbd84c76c381a5fba44c3d037ae7b",
+    "ConnesWeilRH/Dev/C1XiCenterTwoPole.lean": "f139b4429a7f298d2923a3e5eee6d5f8f363b9480353178163666c822eef72d1",
+    "ConnesWeilRH/Dev/C1C3SigmaKernel.lean": "fead11a2c60447301db7b06e22b3b637bf9fac1372b32d3ce5d2cd1f7f652c2f",
+    "ConnesWeilRH/Dev/C1C3SigmaZeroMargin3090.lean": "6367b604ea928b11412557b0a44ec0725a65d3810573c9ced03c90f6e9553502",
+    "lean-toolchain": "54727eec5cba149c18842e6deb5c41b369d66455c93ce135d7d5347c782b2325",
+    "lake-manifest.json": "3bf90f4294bc0fbaf77400fb260ffbd2a638f59a206a0464c2bddfaab06b231b"
+  },
+  "scope": "Exact complete archimedean and prime Fourier readback on the actual powered spans, with integrability and complex norm squared. Cycle frequency; no energy-evenness assumption. No signed bound, numerical value, full gate sign or RH proof."
+}

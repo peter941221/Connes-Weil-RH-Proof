@@ -1899,3 +1899,30 @@ remains binding. Evidence:
 `../proofs/3120_routeb_prime_fourier_readback.md`,
 `results/3120_routeb_prime_fourier_readback_audit.json`, and
 `scripts/routeb_prime_fourier_readback_audit_3120.py`.
+
+## 3121 complete physical gate Fourier readback (2026-10-26)
+
+The actual archimedean term now equals the full-line cycle-frequency
+integral against sigma(2*pi*xi), with integrability proved from a weighted
+Schwartz moment and a summable reciprocal-series majorant. The existing
+physical Gamma profile series is matched one term at a time, retaining
+the paired cancellation before infinite summation.
+
+Combined with 3120, this gives an exact complete gate integral for the
+actual rho-dependent powered span, including every actual visible prime
+and the complete complex four-point multiplier. Eighteen analytic leaves
+and four boundary leaves have exactly the standard axiom trio, with no
+sorryAx. The symbol-only empty-prime guard rejects an everywhere-nonpositive
+kernel claim without asserting nonzero owner energy at frequency zero.
+
+This resolves the complete physical Fourier identification, not its sign.
+The selected triple-vanishing consumer still needs the complete integral
+to be nonpositive. Neither a local sign nor a finite numerical prime band
+supplies it. The same-owner gate/tail coefficient and universal rho coverage
+remain open; Route A remains binding. No numerical experiment or RH proof
+is part of this record. The different Poisson-symbol readback contract
+in 3081 is not reopened by this cosine-kernel identity.
+
+Evidence: `../proofs/3121_routeb_archimedean_fourier_readback.md`,
+`results/3121_routeb_archimedean_fourier_readback_audit.json`, and
+`scripts/routeb_archimedean_fourier_readback_audit_3121.py`.

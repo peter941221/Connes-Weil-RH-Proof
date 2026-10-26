@@ -173,3 +173,13 @@ and a gate coefficient compatible with 3117's adaptive tail. An estimate
 which throws away prime cancellation cannot discharge that task. Passing
 the stored numerical gate cannot supply universal rho coverage. Route A
 remains binding, and RH remains unproved.
+
+## Follow-up: complete physical gate readback (3121)
+
+Record 3121 proves the missing sigma-weighted archimedean equality and
+integrability, then combines them with this complete prime channel on
+the same actual powered span. Its full-line cycle-frequency integral
+retains the complete complex multiplier and actual visible-prime set.
+The signed integral inequality, gate/tail intersection and universal rho
+coverage remain open. The distinct Poisson-symbol contract of 3081 is
+not identified with this physical cosine-kernel formula.
