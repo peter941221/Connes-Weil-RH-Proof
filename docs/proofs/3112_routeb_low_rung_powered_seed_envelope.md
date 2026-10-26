@@ -51,3 +51,10 @@ three cardinal pins -> hgate24 + hprefix -> SourceRH
 The numerical replay remains separate because an analytic upper envelope is a
 formula, while a pin is a quantified inequality over the entire frequency
 line. No model-grade float result is promoted by this record.
+
+Scope correction (3115): record 2729 withdrew the full-line interpretation
+of the 2727 reduced-rung screen. For the 56-node correction, its 55
+polynomial factors and quadratic weight leave degree 17 with rung 4.
+Consequently, this low-rung envelope cannot alone satisfy the full-line C2
+pin for that owner. The theorem remains valid; the continuation requires
+an additional proved high-order exterior arm, not a wider four-rung scan.

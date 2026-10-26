@@ -44,3 +44,9 @@ three full-frequency envelope inequalities -> cardinal pins
 hgate24                                    -> still open
 3114 prefix transport                       -> discharged for this owner
 ```
+
+Scope clarification (3115): "this owner" is the rho-dependent explicit
+powered-seed owner, not the fixed stored 56-node capture. This theorem
+does not transfer that capture's numerical pins or gate. The four-rung
+envelope alone also cannot close the stored correction's full-line C2
+premise; record 2729 requires a higher-order exterior arm.

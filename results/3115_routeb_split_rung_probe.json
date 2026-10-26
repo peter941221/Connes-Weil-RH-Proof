@@ -1,0 +1,182 @@
+{
+  "record": 3115,
+  "status": "MODEL-PASS",
+  "checks": {
+    "capture_matches_lean_source": true,
+    "single_disclosed_distance_repair": true,
+    "crossing_and_endpoint_distances": true,
+    "external_distances_both_sides": true,
+    "coverage_guard_accepts_overlays": true,
+    "coverage_guard_rejects_gap": true,
+    "legacy_bitwise_C4": true,
+    "legacy_bitwise_C2": true,
+    "legacy_bitwise_q": true,
+    "owner_count_and_distinctness": true,
+    "target_count_and_distinctness": true,
+    "target_indices": true,
+    "same_frozen_owner": true,
+    "same_frozen_targets": true,
+    "same_frozen_values": true,
+    "three_active_correction_terms": true,
+    "all_owner_heights_below_exterior_threshold": true,
+    "actual_owner_degrees_fit_seventh_rung": true,
+    "base_compact_coverage": true,
+    "base_compact_end_below_tail": true,
+    "correction_compact_coverage": true,
+    "correction_compact_end_below_tail": true,
+    "C4_has_nonpositive_tail_degree": true,
+    "C4_attached_tail_covers_sharper_model": true,
+    "C4_model_pin": true,
+    "C2_has_nonpositive_tail_degree": true,
+    "C2_attached_tail_covers_sharper_model": true,
+    "C2_model_pin": true,
+    "q_has_nonpositive_tail_degree": true,
+    "q_attached_tail_covers_sharper_model": true,
+    "q_model_pin": true,
+    "reject_low_rung_full_line_correction": true,
+    "empty_owner_tail": true,
+    "resident_memory_within_budget": true
+  },
+  "legacy": {
+    "C4": 60524298.630698465,
+    "C2": 28161344.216206506,
+    "q": 2.5248153557101123e-16
+  },
+  "proved_D": {
+    "1": "2.0",
+    "2": "8.0",
+    "3": "78.7283385",
+    "4": "1500.0",
+    "7": "2000000000.0"
+  },
+  "finite": {
+    "C4": 60524298.63069846,
+    "C2": 28161344.21620648,
+    "q": 2.0031030255537812e-16
+  },
+  "two_sided_tail": {
+    "C4": 3.255329643027688e-58,
+    "C2": 2.4031527198926412e-05,
+    "q": 3.9147987844860587e-66
+  },
+  "tail_choices": {
+    "C4": [
+      {
+        "rung": 7,
+        "exponent": -59
+      },
+      {
+        "rung": 7,
+        "exponent": -59
+      },
+      {
+        "rung": 7,
+        "exponent": -59
+      },
+      {
+        "rung": 7,
+        "exponent": -59
+      },
+      {
+        "rung": 7,
+        "exponent": -59
+      },
+      {
+        "rung": 7,
+        "exponent": -59
+      },
+      {
+        "rung": 7,
+        "exponent": -59
+      },
+      {
+        "rung": 7,
+        "exponent": -59
+      }
+    ],
+    "C2": [
+      {
+        "rung": 7,
+        "exponent": -13
+      },
+      {
+        "rung": 7,
+        "exponent": -13
+      },
+      {
+        "rung": 7,
+        "exponent": -13
+      }
+    ],
+    "q": [
+      {
+        "rung": 7,
+        "exponent": -63
+      },
+      {
+        "rung": 7,
+        "exponent": -63
+      },
+      {
+        "rung": 7,
+        "exponent": -63
+      },
+      {
+        "rung": 7,
+        "exponent": -63
+      },
+      {
+        "rung": 7,
+        "exponent": -63
+      },
+      {
+        "rung": 7,
+        "exponent": -63
+      },
+      {
+        "rung": 7,
+        "exponent": -63
+      },
+      {
+        "rung": 7,
+        "exponent": -63
+      }
+    ]
+  },
+  "attached_cardinal_exterior_tail": {
+    "C4": 3.280759860923577e-58,
+    "C2": 2.514543830164837e-05,
+    "q": 3.9453806907827886e-66
+  },
+  "global_model_bound": {
+    "C4": 60524298.63069846,
+    "C2": 28161344.21620648,
+    "q": 2.0031030255537812e-16
+  },
+  "pins": {
+    "C4": 61000000.0,
+    "C2": 29000000.0,
+    "q": 2.6e-16
+  },
+  "relative_slack": {
+    "C4": 0.007798383103303941,
+    "C2": 0.028919164958397303,
+    "q": 0.22957575940239183
+  },
+  "tail_threshold": 600.0,
+  "elapsed_seconds": 37.90518591797445,
+  "max_rss_bytes": 88752128,
+  "hash_convention": "SHA-256 of text with CRLF normalized to LF",
+  "provenance": {
+    "scripts/routeb_split_rung_probe_3115.py": "da1eae82f5860d59af0e6e8973664db1fe130cb93aa810b35963fcf5c928a744",
+    "scripts/p3_certified_strip_constants_2720.py": "f16ce609d50c195d1c25c02a2e33ee00fa859575ee874491ec82b750f2ed19b8",
+    "results/2722f_rowB_capture_data.json": "c1391b21e49791ae8dbd51c87462664ca378ba7fa769abec9ebbc15ac2ed24bb",
+    "ConnesWeilRH/Dev/C1RowBStoredCapture2722F.lean": "2244175cc4b92d483f07d8b9b746aae3dc8220a27c6035400e1a554bc1d6f2e7",
+    "scripts/full_line_envelope_reaudit_2729.py": "82e6bf0f6e943b45bd51d9abd269fde8355dd6c7364399cccc5897466730a04c",
+    "ConnesWeilRH/Dev/C1RouteBSplitRungEnvelope3115.lean": "bfb40a59bd96f75fdc2d96f0a1551bfc96b6beddda2855249b1b6669d1eb8db9",
+    "ConnesWeilRH/Dev/C1RouteBCardinalExterior3115.lean": "5d507e4e86e63bc8c6c1235856fab23ddd5ec87c295203728e9294e8b31f5e21",
+    "ConnesWeilRH/Dev/C1SeedD4D7Certified3103.lean": "30b0ef64a950369a6f83b44974c19584cec6e744ead61d49e8a38de1ca9572ab",
+    "ConnesWeilRH/Dev/C1ExplicitSeedThirdOrderIntervalCertificate.lean": "42557d8161b13fd96f5b0a6468ba56c8e2c19aa26b505424674d4ebae98a0145"
+  },
+  "scope": "Exact stored dyadic inputs lifted into diagnostic mpf arithmetic; both frequency signs and infinite tails. No Lean pin, no directed-rounding certificate, no arbitrary-rho transfer, no RH."
+}

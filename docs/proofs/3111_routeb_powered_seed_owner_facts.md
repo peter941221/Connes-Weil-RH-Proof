@@ -75,3 +75,10 @@ comparison found that the stored pin lane clears at rung set `{1,2,3,4}` while
 `{1,2,3}` fails the quadratic and contraction pins; this makes low-order rung
 certificates the next mathematical target. No numerical screen is promoted to
 a Lean theorem by this record.
+
+Scope correction (3115): the preceding rung comparison is a finite-scan
+result. Record 2729 already rules out the four-rung full-line correction
+envelope: 55 polynomial factors plus frequency weight 2 minus decay 40
+leaves degree 17. A higher-order exterior arm is required. The explicit
+rho-dependent owner proved here is also distinct from the fixed stored
+56-node model; its cardinal pins and gate need their own same-owner proof.

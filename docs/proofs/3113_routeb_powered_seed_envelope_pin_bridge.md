@@ -26,3 +26,10 @@ Verification used Linux ext4 with direct Lean source compilation and explicit
 The next numerical/formal target is now sharply scoped: prove the three
 envelope inequalities over the complete strip and full frequency line. Until
 that replay is kernel-checked, this bridge is only a transport theorem.
+
+Scope correction (3115): the conditional theorem is valid, but its
+four-rung C2 envelope premise cannot close on the fixed 56-node correction
+owner. Record 2729 already establishes the residual degree 17 obstruction.
+The correct continuation uses a higher-order exterior arm together with
+the low-rung compact-interval bound. It does not attempt to discharge the
+impossible full-line four-rung envelope premise.

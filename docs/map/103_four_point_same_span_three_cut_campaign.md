@@ -1731,3 +1731,31 @@ The semi-local `hgate24`, cardinal pins, universal caps and RH remain open.
 Evidence: `docs/proofs/3106_routeb_rho_owner_package.md`,
 `results/3106_routeb_rho_owner_package_audit.json`, and
 `scripts/routeb_rho_owner_package_audit_3106.py`.
+
+## 3115 split-rung envelope and actual exterior bound (2026-10-26)
+
+The four-rung full-line interpretation in records 3111-3113 is corrected:
+2729 already rules it out for the fixed 56-node correction, because
+`55 + 2 - 10*4 = 17`. Their conditional analytic theorems remain valid.
+Record 3115 combines proved orders `{1,2,3,4,7}`, using the sharp D3 upper
+endpoint `787283385/10000000` and actual D7 bound `2000000000`.
+
+`normalized_cardinalSum_le_exterior3115` now bounds the actual powered-seed
+cardinal function on both exterior half-lines. It retains the full node
+products and separation denominator and requires `nodes.card+p <= 71`.
+The exterior supremum is reduced to an explicit finite expression at the
+threshold; its exact numeric price and compact-interval replay remain open.
+
+The exact stored-capture model passes the three wired prices, with relative
+slacks 0.7798% (C4), 2.8919% (C2), and 22.9576% (q), including corrected
+cell distances and both infinite tails. This is MODEL-PASS, not a Lean pin.
+Linux ext4 Lake build and twelve named axiom audits pass; analytic leaves
+use exactly the standard trio, with no errors or `sorryAx`.
+
+The prefix transport of 3114 applies to the explicit rho-dependent owner;
+it does not transfer the stored capture's numerical pins or gate. The
+universalization costs of 3105 remain binding. No same-owner gate or RH
+exit is established, and Route A remains the binding selected-detector
+producer. Evidence: `../proofs/3115_routeb_split_rung_envelope.md`,
+`results/3115_routeb_split_rung_audit.json`, and
+`results/3115_routeb_split_rung_probe.json`.

@@ -1,0 +1,105 @@
+{
+  "status": "PASS",
+  "build_returncode": 0,
+  "build_jobs": 4161,
+  "error_lines_present": false,
+  "sorryAx_present": false,
+  "required_theorems": {
+    "ConnesWeilRH.Source.C1RouteBSplitRungEnvelope3115.splitRungs_nonempty3115": [
+      "propext",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBSplitRungEnvelope3115.splitD_nonneg3115": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBSplitRungEnvelope3115.splitD_bound3115": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBSplitRungEnvelope3115.norm_cardinalSum_poweredSeed_le_split_env3115": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBSplitRungEnvelope3115.poweredSeed_exterior_arm3115": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBSplitRungEnvelope3115.weighted_cardinalSum_le_exterior3115": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBSplitRungEnvelope3115.normalized_cardinalSum_le_exterior3115": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBSplitRungEnvelope3115.empty_exterior_bound3115": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBSplitRungEnvelope3115.zero_values_exterior_bound3115": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBSplitRungEnvelope3115.reject_low_rung_degree3115": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBSplitRungEnvelope3115.reject_zero_frequency_exterior3115": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBSplitRungEnvelope3115.negative_frequency_exterior3115": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "missing_theorems": [],
+  "unexpected_axioms": {},
+  "record": 3115,
+  "modules": [
+    "ConnesWeilRH.Dev.C1RouteBSplitRungEnvelope3115",
+    "ConnesWeilRH.Dev.C1RouteBCardinalExterior3115",
+    "ConnesWeilRH.Dev.C1RouteBSplitRungEnvelope3115Audit"
+  ],
+  "failure_controls": {
+    "accept_complete_audit": true,
+    "accept_lake_info_prefix": true,
+    "reject_nonzero_exit": true,
+    "reject_missing_footer": true,
+    "reject_suffix_name_substitution": true,
+    "reject_new_axiom": true,
+    "reject_sorryAx": true,
+    "reject_error_with_success_footer": true,
+    "reject_source_error_with_success_footer": true,
+    "reject_weakened_analytic_footprint": true
+  },
+  "elapsed_seconds": 1.7737366509973072,
+  "max_rss_bytes": 861323264,
+  "free_bytes_before": 278231056384,
+  "free_bytes_after": 278231056384,
+  "source_unchanged_during_build": true,
+  "lean_toolchain": "leanprover/lean4:v4.30.0",
+  "hash_convention": "SHA-256 of text with CRLF normalized to LF",
+  "provenance": {
+    "ConnesWeilRH/Dev/C1RouteBSplitRungEnvelope3115.lean": "bfb40a59bd96f75fdc2d96f0a1551bfc96b6beddda2855249b1b6669d1eb8db9",
+    "ConnesWeilRH/Dev/C1RouteBCardinalExterior3115.lean": "5d507e4e86e63bc8c6c1235856fab23ddd5ec87c295203728e9294e8b31f5e21",
+    "ConnesWeilRH/Dev/C1RouteBSplitRungEnvelope3115Audit.lean": "d693c5ce398a78bca62ed303a271f743b230b8a539446e31754e77f674b22e01",
+    "scripts/routeb_split_rung_audit_3115.py": "2d6468954741c88e43571061921e81140c9438b90bfdab8ce8560295b3c6b028",
+    "ConnesWeilRH/Dev/C1SeedD4D7Certified3103.lean": "30b0ef64a950369a6f83b44974c19584cec6e744ead61d49e8a38de1ca9572ab",
+    "ConnesWeilRH/Dev/C1ExplicitSeedThirdOrderIntervalCertificate.lean": "42557d8161b13fd96f5b0a6468ba56c8e2c19aa26b505424674d4ebae98a0145",
+    "ConnesWeilRH/Dev/C1PoweredSeedEnvelope2725.lean": "d04e2ee3d91f46621fa93d98ade8dc0b0d13ba33602cacc1ce63199b88d2d9de"
+  },
+  "scope": "Proved split-rung envelope and actual-cardinal two-sided exterior bound; finite interval replay, numeric pins, gate and arbitrary-rho duties remain open."
+}

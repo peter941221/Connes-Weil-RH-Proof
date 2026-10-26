@@ -6,12 +6,14 @@ import ConnesWeilRH.Dev.C1ExplicitSeedThirdOrderIntervalCertificate
 
 /-! Low-rung powered-seed envelope adapter (3112).
 
-Record 2727 identified `{1,2,3,4}` as the first rung set that clears all
-three stored row-B pin prices at model grade.  This module instantiates the
+Record 2727 identified `{1,2,3,4}` as a finite-scan clearing rung set.
+Record 2729 withdrew the full-line reduction: the stored correction's
+quadratic envelope grows at degree 17 without a rung of at least six.
+This module instantiates the
 existing endpoint-envelope theorem with kernel-checked low-rung bounds:
 `D1 = 2`, `D2 = 8`, `D3 <= 84`, and `D4 <= 1500`.
 
-It proves an analytic envelope only.  The finite full-frequency numerical
+It proves an analytic envelope only. A high-order exterior arm, finite-cell
 replay and the three wired pin inequalities remain separate obligations.
 -/
 
