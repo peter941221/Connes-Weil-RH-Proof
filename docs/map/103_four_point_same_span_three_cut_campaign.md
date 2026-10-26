@@ -1817,3 +1817,29 @@ or RH proof is claimed. Evidence:
 `../proofs/3117_routeb_adaptive_powered_tail.md`,
 `results/3117_routeb_adaptive_powered_tail_audit.json`, and
 `scripts/routeb_adaptive_powered_tail_audit_3117.py`.
+
+## 3118 full-prime gate coverage review (2026-10-26)
+
+Source review identifies a coverage gap between the stored gate and the
+current powered-seed carrier. The 2718 rig at n=3 includes prime powers
+only through log(q)=10. The 3110 carrier has the proved support bound
+(-55,55), which gives visible q<exp(110), not exclusion above exp(10).
+This does not prove any particular omitted term is nonzero or that the
+support bound is sharp. It requires a sharper coverage theorem, actual
+sample vanishing, or an omitted-contribution bound before model gate signs
+can be read as the complete gate. Interpolation zero-node completeness
+(2719) does not prove prime-power coverage.
+
+The model C<0 branch also cannot be transferred to the positive pivot
+proved under HealthyYoshidaDetectorData. No numerical sign is declared
+wrong, no conditional Lean theorem is invalidated, and reopening authority
+is unchanged. The 3117 theorem and its audit remain valid.
+
+The next actual signed target is a full-prime joint gate/tail intersection.
+On the healthy C>0 branch, compare the upper gate root with the strict tail
+threshold; a positive coefficient floor is sufficient but need not be
+imposed on every shrinking coefficient sequence. This algebra was already
+on paper in 2708/2713. Another quadratic wrapper would remove no sign
+premise. No numerical experiment, Lean module, new gate sign or RH result
+was produced by this review. Evidence:
+`../proofs/3118_routeb_gate_coverage_direction_review.md`.

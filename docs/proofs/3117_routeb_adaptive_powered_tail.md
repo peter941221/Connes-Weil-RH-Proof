@@ -187,6 +187,12 @@ entry, so shared Dev outputs are retained.
 
 ## Remaining RH obligation
 
+The source review in record 3118 identifies a prime-cut coverage gap before
+the old model gate can be used here: its n=3 calculation stops at log(q)=10,
+whereas the current carrier support theorem does not certify that cutoff.
+An actual full-prime readback or an omitted-contribution bound is required.
+The formal tail theorem of this record is unchanged.
+
 The tail/prefix side now accepts the actual rho-dependent finite price,
 under its positive coefficient floor. It does not prove that the same
 family has a gate-compatible coefficient above that floor at any accepted
