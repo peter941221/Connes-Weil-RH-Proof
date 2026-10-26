@@ -1784,3 +1784,36 @@ use exactly the standard trio, with no errors or `sorryAx`.
 Evidence: `../proofs/3116_routeb_quadratic_pin_gap_cost.md`,
 `results/3116_routeb_quadratic_pin_gap_audit.json`, and
 `scripts/routeb_quadratic_pin_gap_audit_3116.py`.
+
+## 3117 actual powered-family adaptive tail (2026-10-26)
+
+`exists_eventual_powered_span_qw_neg3117` now fixes the actual rho-dependent
+base, chooses its contraction threshold and complete zero prefix, builds
+the correction for that prefix, obtains its genuine finite C2 upper bound,
+and only then chooses a convolution threshold n0. For every n>=n0 and
+every coefficient lambda>=ell>0, the exact four-point span has `qw<0`.
+The same family preserves CC20 triple vanishing and the prefix square zeros.
+The 3116 necessary inverse-gap price is retained alongside the upper bound.
+No wired height, norm, node-count or numeric C2 cap is used.
+
+The scalar argument formalizes the positive-lower-coefficient criterion
+already stated on paper in 1957: divide the tail budget by lambda^2 and
+bound `(1+H/lambda)^2` by `(1+H/ell)^2`, with H=(3+norm(rho))^4. An upper
+bound on lambda is unnecessary. This instantiates the actual family rather
+than repeating the generic fixed-owner existence result of 1933/1934.
+
+The same-owner gate remains open. Increasing n changes the test, support
+and visible-prime owner; fixed-owner gates or lambda=24 do not transfer.
+The audit connects negative qw to exclusion of the gate under the same
+hypothetical-zero premise, and rejects scalar shortcuts with a rapidly
+shrinking coefficient, a nonpositive floor, or a unit contraction factor.
+Those scalar guards are not actual-owner gate counterexamples.
+
+Linux ext4 Lake build: 3900 jobs, about 25 seconds and 3.88 GiB peak resident
+memory, mostly cached. All twelve audited declarations have exactly the
+standard axiom trio, with no errors or `sorryAx`; ten parser controls pass.
+Route A remains binding; no gate supplier, universal numerical certificate
+or RH proof is claimed. Evidence:
+`../proofs/3117_routeb_adaptive_powered_tail.md`,
+`results/3117_routeb_adaptive_powered_tail_audit.json`, and
+`scripts/routeb_adaptive_powered_tail_audit_3117.py`.

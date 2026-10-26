@@ -1,0 +1,114 @@
+{
+  "status": "PASS",
+  "returncode": 0,
+  "build_jobs": 3900,
+  "error_lines_present": false,
+  "sorryAx_present": false,
+  "declarations": {
+    "ConnesWeilRH.Source.C1RouteBAdaptivePoweredTail3117.poweredFamily_target3117": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBAdaptivePoweredTail3117.poweredFamily_raw_targets3117": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBAdaptivePoweredTail3117.poweredFamily_raw_kills3117": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBAdaptivePoweredTail3117.poweredFamily_prefix_square_zero3117": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBAdaptivePoweredTail3117.poweredFamily_span_prefix3117": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBAdaptivePoweredTail3117.poweredFamily_cc20_vanishes3117": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBAdaptivePoweredTail3117.exists_eventual_relative_tail_budget3117": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBAdaptivePoweredTail3117.exists_eventual_powered_span_qw_neg3117": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBAdaptivePoweredTail3117.negative_powered_span_rejects_gate3117": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBAdaptivePoweredTail3117.shrinking_coefficient_blocks_relative_decay3117": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBAdaptivePoweredTail3117.nonpositive_floor_cannot_supply_relative_budget3117": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBAdaptivePoweredTail3117.unit_factor_does_not_contract3117": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "unexpected_axioms": {},
+  "missing_theorems": [],
+  "record": 3117,
+  "modules": [
+    "ConnesWeilRH.Dev.C1RouteBAdaptivePoweredTail3117",
+    "ConnesWeilRH.Dev.C1RouteBAdaptivePoweredTail3117Audit"
+  ],
+  "failure_controls": {
+    "accept_lake_format": true,
+    "accept_direct_format": true,
+    "reject_wrong_identifier_suffix": true,
+    "reject_missing_footer": true,
+    "reject_nonzero_exit": true,
+    "reject_sorryAx": true,
+    "reject_new_axiom": true,
+    "reject_weakened_analytic_footprint": true,
+    "reject_error_with_footer": true,
+    "reject_source_error_with_footer": true
+  },
+  "elapsed_seconds": 24.986361573974136,
+  "max_rss_bytes": 4163014656,
+  "free_bytes_before": 278224490496,
+  "free_bytes_after": 278219702272,
+  "source_unchanged_during_build": true,
+  "lean_toolchain": "leanprover/lean4:v4.30.0",
+  "mathlib_revision": "c5ea00351c28e24afc9f0f84379aa41082b1188f",
+  "hash_convention": "SHA-256 of text with CRLF normalized to LF",
+  "provenance": {
+    "ConnesWeilRH/Dev/C1RouteBAdaptivePoweredTail3117.lean": "90f9d03faaf99ce888fc4a1ed7abf6bce139446e30afba829cac00d94fe46c1c",
+    "ConnesWeilRH/Dev/C1RouteBAdaptivePoweredTail3117Audit.lean": "3ac33ac3141619cd15df5edbe0e42b498966ac31ff5c69670d3fd0295b3746cb",
+    "scripts/routeb_adaptive_powered_tail_audit_3117.py": "6e5548aa5f529b91a7e241deff0bd4a94b2449dc23e9abca0916c797ce212376",
+    "scripts/seed_d4_d7_audit_3103.py": "1a6a4e321e87e59d513dd4b45f35fcd45a48aaca4cfbc9f241a10ae299f6f80c",
+    "ConnesWeilRH/Dev/C1RouteBQuadraticPinGapCost3116.lean": "59931aaa6815bd58d7bad9d59c86b7276efa2c43d84f713013589f6035add6c8",
+    "ConnesWeilRH/Dev/C1ExplicitHealthyCorrectionBudget.lean": "6d34f8e0bb301e0b2021fbfdad824a4bb74ba6bb726393908de0f0862d54cbb9",
+    "ConnesWeilRH/Dev/C1HealthyYoshidaClosedPrefix.lean": "990f2e6350a3a7ecae06a1ff172b0fd70ad693ee7aa4f793cf4ab4c0e263bc2a",
+    "ConnesWeilRH/Dev/C1FourPointContradictionAssembly.lean": "380c189d1ed1240395d5578fa1712afdfe9823f4f6edb53141c2dc40d01f8754",
+    "ConnesWeilRH/Dev/C1FourPointHighShellTail.lean": "39b60ce789446dda40af0cecbf2242eaeafc9aada7a28e13229642eb96bb2b85",
+    "ConnesWeilRH/Dev/C1FourPointSpectralPrefixTransport.lean": "8595a5b0704b709e0fbab8f99901cd69b71e65100a94184224e315e916b7b15e",
+    "ConnesWeilRH/Dev/C1SpectralWeil.lean": "b0a6ba4c84ae0c265dceb8708f5416ae9aee5e83c77e6f1a0ad1883c2badbfb1",
+    "ConnesWeilRH/Dev/C1SpectralTailBound.lean": "e8d10e57c1b95513bbddded96e8e5a82606e83a70d81e4d52aeb4036e8bea051",
+    "ConnesWeilRH/Dev/C1LaneRD3Root.lean": "bb00de459c1df10ac33bd1364094ccbf652ffd15caaa8d3e419b13029a1cad7c",
+    "lean-toolchain": "54727eec5cba149c18842e6deb5c41b369d66455c93ce135d7d5347c782b2325",
+    "lake-manifest.json": "3bf90f4294bc0fbaf77400fb260ffbd2a638f59a206a0464c2bddfaab06b231b"
+  },
+  "scope": "Under a hypothetical right off-line source zero, choose a complete prefix and its actual powered correction before the convolution threshold; all later counts and all coefficients above a positive floor give negative same-owner qw. Retains the necessary C2 cost. No uniform numeric C2, same-owner gate supplier or RH proof."
+}
