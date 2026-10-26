@@ -178,3 +178,16 @@ constant and opened the existing vanishing consumer's namespace. These
 were corrected before the successful source/audit build; no mathematical
 assumption was added. The implementation and audit stayed within the
 registered budgets, without a numerical run or additional analytic target.
+
+## Follow-up: signed arithmetic feasibility (3123)
+
+Record 3123 reviews an explicit unconditional prime-number-theorem error
+bound on the current physical remainder. Partial summation retains the
+cutoff endpoint and exposes a signed pairing with the actual autocorrelation
+derivative. The imported scalar envelope gives no independent same-function
+sign; its weighted budget remains unpriced. Exact rational endpoint controls
+do not certify an actual detector integral. The strict deficit theorem here
+is unchanged, and no credit domination or RH conclusion follows.
+
+Evidence: `3123_signed_arithmetic_pnt_feasibility.md` and
+`results/3123_signed_arithmetic_pnt_feasibility.json`.

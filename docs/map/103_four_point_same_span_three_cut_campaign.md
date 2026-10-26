@@ -1955,3 +1955,26 @@ sign or RH proof is supplied. Evidence:
 `../proofs/3122_actual_weil_unavoidable_deficit.md`,
 `results/3122_actual_weil_unavoidable_deficit_audit.json`, and
 `scripts/actual_weil_unavoidable_deficit_audit_3122.py`.
+
+## 3123 signed arithmetic/PNT feasibility review (2026-10-26)
+
+The current physical prime remainder admits paper-level partial summation
+against the right-continuous Chebyshev discrepancy, retaining the cutoff
+endpoint. Johnston-Yang Theorem 1.1 (arXiv:2204.01980v2) supplies an external
+unconditional scalar error envelope. It leaves an unpriced weighted
+autocorrelation derivative budget on the actual source. Its exponentially
+growing log-coordinate weight alone is not a failure certificate: the actual
+correlation factor must be retained. The scalar envelope is compatible with
+off-line exponential scales and cannot be treated as a zero-exclusion input.
+
+All 33 exact rational/symbolic controls pass in Linux, including 21 finite
+prime-power endpoint cases and mutation rejection. These are auxiliary
+algebra controls, not detector data or a Lean proof of the PNT estimate.
+No new sign premise is removed, no actual prime book is enlarged, and no
+Lean campaign is admitted without an independent signed estimate. The
+actual weighted PNT budget is UNPRICED; the signed pairing, same-function
+gate/tail intersection and universal zero coverage remain OPEN. Route A
+remains binding; RH unproved. Evidence:
+`../proofs/3123_signed_arithmetic_pnt_feasibility.md`,
+`results/3123_signed_arithmetic_pnt_feasibility.json`, and
+`scripts/signed_arithmetic_pnt_feasibility_3123.py`.

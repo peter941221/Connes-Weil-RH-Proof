@@ -1,0 +1,422 @@
+{
+  "record": 3123,
+  "status": "EXACT-CONTROLS-PASS",
+  "scope": "Rational algebra and auxiliary finite prime-power endpoint controls only. No actual detector integral, external PNT theorem, Lean sign, or RH is certified.",
+  "literature": {
+    "url": "https://arxiv.org/html/2204.01980v2",
+    "theorem": "Johnston-Yang Theorem 1.1 (1.3), x>=2",
+    "A": "939/100",
+    "r": "303/200",
+    "c": "4137/5000",
+    "grade": "External literature input; not formalized or axiomatized"
+  },
+  "controls": {
+    "partial_summation_2_3_upper_endpoint_zero": true,
+    "partial_summation_2_3_both_endpoints_zero": true,
+    "partial_summation_2_3_nonzero_upper_endpoint": true,
+    "partial_summation_2_8_upper_endpoint_zero": true,
+    "partial_summation_2_8_both_endpoints_zero": true,
+    "partial_summation_2_8_nonzero_upper_endpoint": true,
+    "partial_summation_3_9_upper_endpoint_zero": true,
+    "partial_summation_3_9_both_endpoints_zero": true,
+    "partial_summation_3_9_nonzero_upper_endpoint": true,
+    "partial_summation_4_12_upper_endpoint_zero": true,
+    "partial_summation_4_12_both_endpoints_zero": true,
+    "partial_summation_4_12_nonzero_upper_endpoint": true,
+    "partial_summation_8_13_upper_endpoint_zero": true,
+    "partial_summation_8_13_both_endpoints_zero": true,
+    "partial_summation_8_13_nonzero_upper_endpoint": true,
+    "partial_summation_12_13_upper_endpoint_zero": true,
+    "partial_summation_12_13_both_endpoints_zero": true,
+    "partial_summation_12_13_nonzero_upper_endpoint": true,
+    "partial_summation_4_4_upper_endpoint_zero": true,
+    "partial_summation_4_4_both_endpoints_zero": true,
+    "partial_summation_4_4_nonzero_upper_endpoint": true,
+    "empty_excluded_band_is_zero": true,
+    "nonzero_cutoff_endpoint_retained": true,
+    "missing_endpoint_rejected": true,
+    "left_limit_psi_at_cutoff_rejected": true,
+    "including_cutoff_prime_rejected": true,
+    "missing_hermitian_factor_two_rejected": true,
+    "prime_power_repeats_retained": true,
+    "envelope_derivative_square_identity": true,
+    "envelope_derivative_remainder_positive": true,
+    "envelope_growth_square_identity": true,
+    "sources_unchanged": true,
+    "resource_budget": true
+  },
+  "rows": [
+    {
+      "cutoff": 2,
+      "end": 3,
+      "profile": "upper_endpoint_zero",
+      "direct_sum": {},
+      "by_parts": {},
+      "endpoint": {
+        "constant": "4",
+        "log(2)": "-2"
+      }
+    },
+    {
+      "cutoff": 2,
+      "end": 3,
+      "profile": "both_endpoints_zero",
+      "direct_sum": {},
+      "by_parts": {},
+      "endpoint": {}
+    },
+    {
+      "cutoff": 2,
+      "end": 3,
+      "profile": "nonzero_upper_endpoint",
+      "direct_sum": {
+        "log(3)": "8"
+      },
+      "by_parts": {
+        "log(3)": "8"
+      },
+      "endpoint": {
+        "constant": "-12",
+        "log(2)": "2",
+        "log(3)": "8"
+      }
+    },
+    {
+      "cutoff": 2,
+      "end": 8,
+      "profile": "upper_endpoint_zero",
+      "direct_sum": {
+        "log(2)": "32",
+        "log(3)": "50",
+        "log(5)": "18",
+        "log(7)": "2"
+      },
+      "by_parts": {
+        "log(2)": "32",
+        "log(3)": "50",
+        "log(5)": "18",
+        "log(7)": "2"
+      },
+      "endpoint": {
+        "constant": "144",
+        "log(2)": "-72"
+      }
+    },
+    {
+      "cutoff": 2,
+      "end": 8,
+      "profile": "both_endpoints_zero",
+      "direct_sum": {
+        "log(2)": "128",
+        "log(3)": "50",
+        "log(5)": "162",
+        "log(7)": "50"
+      },
+      "by_parts": {
+        "log(2)": "128",
+        "log(3)": "50",
+        "log(5)": "162",
+        "log(7)": "50"
+      },
+      "endpoint": {}
+    },
+    {
+      "cutoff": 2,
+      "end": 8,
+      "profile": "nonzero_upper_endpoint",
+      "direct_sum": {
+        "log(2)": "28",
+        "log(3)": "8",
+        "log(5)": "12",
+        "log(7)": "16"
+      },
+      "by_parts": {
+        "log(2)": "28",
+        "log(3)": "8",
+        "log(5)": "12",
+        "log(7)": "16"
+      },
+      "endpoint": {
+        "constant": "-132",
+        "log(2)": "48",
+        "log(3)": "18",
+        "log(5)": "18",
+        "log(7)": "18"
+      }
+    },
+    {
+      "cutoff": 3,
+      "end": 9,
+      "profile": "upper_endpoint_zero",
+      "direct_sum": {
+        "log(2)": "52",
+        "log(5)": "32",
+        "log(7)": "8"
+      },
+      "by_parts": {
+        "log(2)": "52",
+        "log(5)": "32",
+        "log(7)": "8"
+      },
+      "endpoint": {
+        "constant": "216",
+        "log(2)": "-72",
+        "log(3)": "-72"
+      }
+    },
+    {
+      "cutoff": 3,
+      "end": 9,
+      "profile": "both_endpoints_zero",
+      "direct_sum": {
+        "log(2)": "100",
+        "log(5)": "128",
+        "log(7)": "128"
+      },
+      "by_parts": {
+        "log(2)": "100",
+        "log(5)": "128",
+        "log(7)": "128"
+      },
+      "endpoint": {}
+    },
+    {
+      "cutoff": 3,
+      "end": 9,
+      "profile": "nonzero_upper_endpoint",
+      "direct_sum": {
+        "log(2)": "28",
+        "log(3)": "20",
+        "log(5)": "12",
+        "log(7)": "16"
+      },
+      "by_parts": {
+        "log(2)": "28",
+        "log(3)": "20",
+        "log(5)": "12",
+        "log(7)": "16"
+      },
+      "endpoint": {
+        "constant": "-156",
+        "log(2)": "52",
+        "log(3)": "32",
+        "log(5)": "20",
+        "log(7)": "20"
+      }
+    },
+    {
+      "cutoff": 4,
+      "end": 12,
+      "profile": "upper_endpoint_zero",
+      "direct_sum": {
+        "log(11)": "2",
+        "log(2)": "32",
+        "log(3)": "18",
+        "log(5)": "98",
+        "log(7)": "50"
+      },
+      "by_parts": {
+        "log(11)": "2",
+        "log(2)": "32",
+        "log(3)": "18",
+        "log(5)": "98",
+        "log(7)": "50"
+      },
+      "endpoint": {
+        "constant": "512",
+        "log(2)": "-256",
+        "log(3)": "-128"
+      }
+    },
+    {
+      "cutoff": 4,
+      "end": 12,
+      "profile": "both_endpoints_zero",
+      "direct_sum": {
+        "log(11)": "98",
+        "log(2)": "512",
+        "log(3)": "450",
+        "log(5)": "98",
+        "log(7)": "450"
+      },
+      "by_parts": {
+        "log(11)": "98",
+        "log(2)": "512",
+        "log(3)": "450",
+        "log(5)": "98",
+        "log(7)": "450"
+      },
+      "endpoint": {}
+    },
+    {
+      "cutoff": 4,
+      "end": 12,
+      "profile": "nonzero_upper_endpoint",
+      "direct_sum": {
+        "log(11)": "24",
+        "log(2)": "18",
+        "log(3)": "20",
+        "log(5)": "12",
+        "log(7)": "16"
+      },
+      "by_parts": {
+        "log(11)": "24",
+        "log(2)": "18",
+        "log(3)": "20",
+        "log(5)": "12",
+        "log(7)": "16"
+      },
+      "endpoint": {
+        "constant": "-272",
+        "log(11)": "26",
+        "log(2)": "58",
+        "log(3)": "42",
+        "log(5)": "26",
+        "log(7)": "26"
+      }
+    },
+    {
+      "cutoff": 8,
+      "end": 13,
+      "profile": "upper_endpoint_zero",
+      "direct_sum": {
+        "log(11)": "8",
+        "log(3)": "32"
+      },
+      "by_parts": {
+        "log(11)": "8",
+        "log(3)": "32"
+      },
+      "endpoint": {
+        "constant": "400",
+        "log(2)": "-150",
+        "log(3)": "-50",
+        "log(5)": "-50",
+        "log(7)": "-50"
+      }
+    },
+    {
+      "cutoff": 8,
+      "end": 13,
+      "profile": "both_endpoints_zero",
+      "direct_sum": {
+        "log(11)": "72",
+        "log(3)": "32"
+      },
+      "by_parts": {
+        "log(11)": "72",
+        "log(3)": "32"
+      },
+      "endpoint": {}
+    },
+    {
+      "cutoff": 8,
+      "end": 13,
+      "profile": "nonzero_upper_endpoint",
+      "direct_sum": {
+        "log(11)": "24",
+        "log(13)": "28",
+        "log(3)": "20"
+      },
+      "by_parts": {
+        "log(11)": "24",
+        "log(13)": "28",
+        "log(3)": "20"
+      },
+      "endpoint": {
+        "constant": "-220",
+        "log(11)": "28",
+        "log(13)": "28",
+        "log(2)": "30",
+        "log(3)": "38",
+        "log(5)": "10",
+        "log(7)": "10"
+      }
+    },
+    {
+      "cutoff": 12,
+      "end": 13,
+      "profile": "upper_endpoint_zero",
+      "direct_sum": {},
+      "by_parts": {},
+      "endpoint": {
+        "constant": "24",
+        "log(11)": "-2",
+        "log(2)": "-6",
+        "log(3)": "-4",
+        "log(5)": "-2",
+        "log(7)": "-2"
+      }
+    },
+    {
+      "cutoff": 12,
+      "end": 13,
+      "profile": "both_endpoints_zero",
+      "direct_sum": {},
+      "by_parts": {},
+      "endpoint": {}
+    },
+    {
+      "cutoff": 12,
+      "end": 13,
+      "profile": "nonzero_upper_endpoint",
+      "direct_sum": {
+        "log(13)": "28"
+      },
+      "by_parts": {
+        "log(13)": "28"
+      },
+      "endpoint": {
+        "constant": "-52",
+        "log(11)": "2",
+        "log(13)": "28",
+        "log(2)": "6",
+        "log(3)": "4",
+        "log(5)": "2",
+        "log(7)": "2"
+      }
+    },
+    {
+      "cutoff": 4,
+      "end": 4,
+      "profile": "upper_endpoint_zero",
+      "direct_sum": {},
+      "by_parts": {},
+      "endpoint": {}
+    },
+    {
+      "cutoff": 4,
+      "end": 4,
+      "profile": "both_endpoints_zero",
+      "direct_sum": {},
+      "by_parts": {},
+      "endpoint": {}
+    },
+    {
+      "cutoff": 4,
+      "end": 4,
+      "profile": "nonzero_upper_endpoint",
+      "direct_sum": {},
+      "by_parts": {},
+      "endpoint": {}
+    }
+  ],
+  "derivative_square_positive_remainder": "285885231/100000000",
+  "actual_signed_pairing": "OPEN",
+  "actual_pnt_envelope_budget": "UNPRICED",
+  "rh": "UNPROVED",
+  "elapsed_seconds": 0.003687701013404876,
+  "max_rss_bytes": 17039360,
+  "hash_convention": "SHA-256 with CRLF normalized to LF",
+  "provenance": {
+    "scripts/signed_arithmetic_pnt_feasibility_3123.py": "f1d50560cf0e90b8a81c2573ce4350c85250c52d1f17a26fa50a0b923e0ae355",
+    "ConnesWeilRH/Dev/C1RouteBSignedPrimeCut3119.lean": "4183eccafb00d7080d7c9e83c219a3a620be96960c788eac5ad26a8bb502e597",
+    "ConnesWeilRH/Dev/C1RouteBPrimeFourierReadback3120.lean": "e1589c92e2331b30c3713c7d22bc0a8972a35034aa468e35d3ef8b70702772c1",
+    "ConnesWeilRH/Dev/C1RouteBAdaptivePoweredTail3117.lean": "90f9d03faaf99ce888fc4a1ed7abf6bce139446e30afba829cac00d94fe46c1c",
+    "ConnesWeilRH/Dev/C1RouteBQuadraticPinGapCost3116.lean": "59931aaa6815bd58d7bad9d59c86b7276efa2c43d84f713013589f6035add6c8",
+    "ConnesWeilRH/Dev/C1ActualWeilUnavoidableDeficit3122.lean": "ce56576be07ed826290b1b8dfdfccdd17c9a264d83da5e9f7b3e5073b1a73294",
+    "docs/proofs/215_pnt_main_kernel_and_all_prime_principal_screen.md": "533e535e50c2bea831f0d201d82c1251c5aadf8032e536f7c7fd82b10ee13e15",
+    "docs/proofs/220_qroot_pnt_green_identity.md": "911ab4a7865a7b2c8b47691cf5027e21d89aad87b1137d9d5c51a6df4a07e31b",
+    "docs/proofs/221_target_zero_chebyshev_pairing.md": "dc6e1ded541733d74dc1bdfaf9a8ce882bb62c37ab1df8cf6afbe7806e3a3aab"
+  }
+}
