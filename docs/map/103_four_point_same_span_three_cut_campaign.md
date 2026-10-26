@@ -1870,3 +1870,32 @@ Route A remains binding. Evidence:
 `../proofs/3119_routeb_signed_prime_cut.md`,
 `results/3119_routeb_signed_prime_cut_audit.json`, and
 `results/3119_routeb_prime_cut_probe.json`.
+
+## 3120 actual powered-span prime Fourier readback (2026-10-26)
+
+The physical prime remainder of 3119 now equals a full-real-line Fourier
+integral on the actual rho-dependent powered span. Its kernel includes
+the complete actual visible-prime set above the cutoff, and its energy
+retains the complete complex four-point multiplier. Integrability is
+proved without a source-zero or Fourier-energy-evenness hypothesis.
+The same source also proves the cut and complete-prime-sum readbacks.
+
+The normalization is cycles per unit: Laplace argument -2*pi*i*xi, unit
+integration factor. This does not replace the angular convention in 3094
+or reopen that failed Route A density contract. Hermitian sample pairing
+produces the cosine kernel; no positive-half-line doubling is used.
+
+Linux ext4 Lake build: 3905 jobs, 95.60 seconds, 4116926464-byte peak
+resident memory and 4520162-byte build-tree growth. All 24 audited leaves
+have exactly the standard trio, with no errors or sorryAx. Ten parser
+controls pass, and sixteen normalized source hashes are recorded.
+
+This removes an exact readback premise, not the actual sign estimate.
+The next admissible target is an independent signed upper bound for the
+complete same-owner remainder compatible with the gate/tail coefficient.
+The numerical band of 3119 remains model-grade. No numerical run, complete
+archimedean readback, full gate sign or RH proof is supplied. Route A
+remains binding. Evidence:
+`../proofs/3120_routeb_prime_fourier_readback.md`,
+`results/3120_routeb_prime_fourier_readback_audit.json`, and
+`scripts/routeb_prime_fourier_readback_audit_3120.py`.

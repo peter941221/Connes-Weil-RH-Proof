@@ -215,3 +215,17 @@ identification of any proposed Fourier computation. A bare absolute-value
 allowance cannot be substituted for the needed prime cancellation. The
 joint gate/tail coefficient and the eventual coverage of every hypothetical
 right off-line source zero remain unresolved. Route A remains binding.
+
+## Follow-up: exact prime-channel readback (3120)
+
+Record 3120 closes the analytic equality and integrability premise for
+this actual powered-family prime remainder. It uses cycle-frequency
+Fourier inversion, the complete visible-prime set, and the full complex
+four-point multiplier. It also gives the complete-prime-sum readback.
+
+This does not promote the finite-frequency model values above to exact
+real numbers. Frequency-tail and quadrature errors, the signed remainder
+bound, the full archimedean/gate contribution and universal rho coverage
+remain unresolved. Evidence:
+`3120_routeb_prime_fourier_readback.md` and
+`results/3120_routeb_prime_fourier_readback_audit.json`.
