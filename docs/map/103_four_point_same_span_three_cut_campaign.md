@@ -1759,3 +1759,28 @@ exit is established, and Route A remains the binding selected-detector
 producer. Evidence: `../proofs/3115_routeb_split_rung_envelope.md`,
 `results/3115_routeb_split_rung_audit.json`, and
 `results/3115_routeb_split_rung_probe.json`.
+
+## 3116 necessary C2 price near the critical line (2026-10-26)
+
+The actual `explicitPoweredHealthyCorrection rho N routeNodes` obeys a
+new necessary condition for its all-strip quadratic cardinal pin. Write
+`delta=abs(Re(rho)-1/2)` and `t=Im(rho)`. For `delta<=1/16`, `abs(t)>=1`
+and an off-line rho, the proved target values and Schwarz's disk estimate
+give `t^2 <= (16*(2*pi)^2*C2+4*t^2)*delta`.
+
+At wired `C2=29000000`, the same actual correction therefore requires
+`delta>=1/29696000004`, with no small-gap premise. The exact point
+`rho=(1/2+1/10^12)+i`, inside the existing norm/height caps, formally
+rejects that fixed pin for every N and additional node set. No membership
+of this point in the zeta zero set is asserted.
+
+This rejects the all-parameter fixed-C2 shortcut, not the rho-dependent
+route. A universal pin supplier must re-price C2 with rho or prove its
+necessary gap restriction. The stored 3115 margins do not supply that
+step. Tail acceptance at the actual cost and the same-owner signed gate
+remain open. Linux ext4 Lake build: 3899 jobs; all eleven audited leaves
+use exactly the standard trio, with no errors or `sorryAx`.
+
+Evidence: `../proofs/3116_routeb_quadratic_pin_gap_cost.md`,
+`results/3116_routeb_quadratic_pin_gap_audit.json`, and
+`scripts/routeb_quadratic_pin_gap_audit_3116.py`.

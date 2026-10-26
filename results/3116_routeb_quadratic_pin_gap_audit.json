@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "returncode": 0,
+  "build_jobs": 3899,
+  "error_lines_present": false,
+  "sorryAx_present": false,
+  "declarations": {
+    "ConnesWeilRH.Source.C1RouteBQuadraticPinGapCost3116.analytic_opposite_targets_quadratic_cost3116": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBQuadraticPinGapCost3116.quadratic_pin_im_square3116": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBQuadraticPinGapCost3116.quadratic_pin_gap_cost3116": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBQuadraticPinGapCost3116.powered_correction_pin_gap_cost3116": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBQuadraticPinGapCost3116.powered_correction_cardinal_pin_cost3116": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBQuadraticPinGapCost3116.powered_correction_fixed_pin_gap_floor3116": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBQuadraticPinGapCost3116.reject_fixed_pin_below_gap_floor3116": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBQuadraticPinGapCost3116.tiny_gap_correction_rejects_fixed_pin3116": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBQuadraticPinGapCost3116.opposite_targets_reject_critical_line3116": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBQuadraticPinGapCost3116.reject_zero_height_guard3116": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1RouteBQuadraticPinGapCost3116.tiny_point_within_rowB_caps3116": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "unexpected_axioms": {},
+  "missing_theorems": [],
+  "record": 3116,
+  "modules": [
+    "ConnesWeilRH.Dev.C1RouteBQuadraticPinGapCost3116",
+    "ConnesWeilRH.Dev.C1RouteBQuadraticPinGapCost3116Audit"
+  ],
+  "failure_controls": {
+    "accept_lake_format": true,
+    "accept_direct_format": true,
+    "reject_wrong_identifier_suffix": true,
+    "reject_missing_footer": true,
+    "reject_nonzero_exit": true,
+    "reject_sorryAx": true,
+    "reject_new_axiom": true,
+    "reject_weakened_analytic_footprint": true,
+    "reject_error_with_footer": true,
+    "reject_source_error_with_footer": true
+  },
+  "elapsed_seconds": 68.4765733180102,
+  "max_rss_bytes": 4128522240,
+  "free_bytes_before": 278225559552,
+  "free_bytes_after": 278225518592,
+  "source_unchanged_during_build": true,
+  "lean_toolchain": "leanprover/lean4:v4.30.0",
+  "mathlib_revision": "c5ea00351c28e24afc9f0f84379aa41082b1188f",
+  "hash_convention": "SHA-256 of text with CRLF normalized to LF",
+  "provenance": {
+    "ConnesWeilRH/Dev/C1RouteBQuadraticPinGapCost3116.lean": "59931aaa6815bd58d7bad9d59c86b7276efa2c43d84f713013589f6035add6c8",
+    "ConnesWeilRH/Dev/C1RouteBQuadraticPinGapCost3116Audit.lean": "6134960ac1a2ecf1e847462cf6ba7fea0391f9d7e26bdb0ebaced433fc75cc8e",
+    "scripts/routeb_quadratic_pin_gap_audit_3116.py": "e314ce76f3ee9931c573ce029baa729f9886ac319cc8f47ba45223a045748a99",
+    "scripts/seed_d4_d7_audit_3103.py": "1a6a4e321e87e59d513dd4b45f35fcd45a48aaca4cfbc9f241a10ae299f6f80c",
+    "ConnesWeilRH/Dev/C1DetectorNearCollisionCost3096.lean": "cf8ac575213b81a7001dd7601646c18ecd231f938a477bcb4011343504ec5d43",
+    "ConnesWeilRH/Dev/C1ExplicitHealthyCorrectionBudget.lean": "6d34f8e0bb301e0b2021fbfdad824a4bb74ba6bb726393908de0f0862d54cbb9",
+    "ConnesWeilRH/Dev/C1StripTransport2722C.lean": "f70bc529f670c03a6fd90a048ff12e10d357497089deb7adae46b2e33d219e0a",
+    "ConnesWeilRH/Dev/C1FourPointRowBWired2721.lean": "40e493fe3f3c9169e4ba516da52d33d798ecdebe88c9c52e07a2c8275668870c"
+  },
+  "scope": "Necessary quadratic strip-pin cost on the actual powered correction; exact fixed-cap counterexample at a specified complex point, not a zeta-zero existence claim, a pin supplier, or an RH proof."
+}
