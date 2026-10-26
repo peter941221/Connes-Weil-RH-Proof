@@ -1926,3 +1926,32 @@ in 3081 is not reopened by this cosine-kernel identity.
 Evidence: `../proofs/3121_routeb_archimedean_fourier_readback.md`,
 `results/3121_routeb_archimedean_fourier_readback_audit.json`, and
 `scripts/routeb_archimedean_fourier_readback_audit_3121.py`.
+
+## 3122 unavoidable deficit in the exact Weil density (2026-10-26)
+
+The exact physical density from 3121 now has proved integrable credit and
+deficit parts and the signed Weil identity on triple-vanishing tests.
+For every nonzero compact-log source its deficit integral is strictly
+positive: the complete cosine-prime gate kernel is positive near zero,
+and a nonzero analytic Fourier transform cannot vanish on that interval.
+This rules out pointwise nonnegativity for the exact density without
+inferring the sign of its full integral.
+
+The actual powered span is proved nonzero from its exact Laplace target
+-lambda whenever lambda is nonzero. Its strict deficit result needs no
+source-zero or numerical-cap premise. The boundary audit also proves
+zero Fourier value at the origin under the actual right-zero/triple-vanishing
+conditions while the integrated deficit remains positive. The binding
+selected detector has its own instantiated strict deficit result.
+
+Linux ext4 Lake build: 3919 jobs, 39.24 seconds, 4165025792-byte peak resident
+memory and 4520161-byte build-tree growth. All 21 audited leaves have
+exactly the standard trio, with no errors or sorryAx; ten parser controls
+pass and 22 normalized source hashes are recorded. No numerical run or
+additional family scan was made. Route A remains binding; the surviving
+target is a full signed credit bound that covers this nonzero deficit,
+with compatible gate/tail parameters and universal rho coverage. No Weil
+sign or RH proof is supplied. Evidence:
+`../proofs/3122_actual_weil_unavoidable_deficit.md`,
+`results/3122_actual_weil_unavoidable_deficit_audit.json`, and
+`scripts/actual_weil_unavoidable_deficit_audit_3122.py`.

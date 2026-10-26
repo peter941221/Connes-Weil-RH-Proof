@@ -1,0 +1,169 @@
+{
+  "status": "PASS",
+  "returncode": 0,
+  "build_jobs": 3919,
+  "error_lines_present": false,
+  "sorryAx_present": false,
+  "declarations": {
+    "ConnesWeilRH.Source.C1ActualWeilUnavoidableDeficit3122.c3Sigma_continuous3122": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1ActualWeilUnavoidableDeficit3122.gateSymbol_continuous3122": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1ActualWeilUnavoidableDeficit3122.weilDensity_continuous3122": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1ActualWeilUnavoidableDeficit3122.gateSymbol_zero_pos3122": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1ActualWeilUnavoidableDeficit3122.fourier_analytic3122": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1ActualWeilUnavoidableDeficit3122.fourier_global_nonzero3122": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1ActualWeilUnavoidableDeficit3122.exists_deficit_frequency3122": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1ActualWeilUnavoidableDeficit3122.weilDensity_integrable3122": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1ActualWeilUnavoidableDeficit3122.credit_integrable3122": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1ActualWeilUnavoidableDeficit3122.deficit_integrable3122": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1ActualWeilUnavoidableDeficit3122.deficit_integral_pos3122": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1ActualWeilUnavoidableDeficit3122.not_weilDensity_pointwise_nonneg3122": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1ActualWeilUnavoidableDeficit3122.density_eq_credit_sub_deficit3122": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1ActualWeilUnavoidableDeficit3122.qw_eq_credit_sub_deficit3122": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1ActualWeilUnavoidableDeficit3122.poweredFamily_span_test_ne_zero3122": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1ActualWeilUnavoidableDeficit3122.poweredFamily_deficit_integral_pos3122": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1ActualWeilUnavoidableDeficit3122.selectedOwner_deficit_integral_pos3122": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1ActualWeilUnavoidableDeficit3122.density_zero_at_origin_of_transform_zero3122": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1ActualWeilUnavoidableDeficit3122.deficit_zero_of_zero_test3122": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1ActualWeilUnavoidableDeficit3122.poweredFamily_span_fourier_zero3122": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ConnesWeilRH.Source.C1ActualWeilUnavoidableDeficit3122.zero_at_origin_and_strict_deficit3122": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "unexpected_axioms": {},
+  "missing_theorems": [],
+  "record": 3122,
+  "modules": [
+    "ConnesWeilRH.Dev.C1ActualWeilUnavoidableDeficit3122",
+    "ConnesWeilRH.Dev.C1ActualWeilUnavoidableDeficit3122Audit"
+  ],
+  "failure_controls": {
+    "accept_lake_format": true,
+    "accept_direct_format": true,
+    "reject_wrong_identifier_suffix": true,
+    "reject_missing_footer": true,
+    "reject_nonzero_exit": true,
+    "reject_sorryAx": true,
+    "reject_new_axiom": true,
+    "reject_weakened_analytic_footprint": true,
+    "reject_error_with_footer": true,
+    "reject_source_error_with_footer": true
+  },
+  "elapsed_seconds": 39.23801205604104,
+  "max_rss_bytes": 4165025792,
+  "build_bytes_before": 65902844490,
+  "build_bytes_after": 65907364651,
+  "build_growth_bytes": 4520161,
+  "free_bytes_before": 278203224064,
+  "free_bytes_after": 278198480896,
+  "source_unchanged_during_build": true,
+  "lean_toolchain": "leanprover/lean4:v4.30.0",
+  "mathlib_revision": "c5ea00351c28e24afc9f0f84379aa41082b1188f",
+  "hash_convention": "SHA-256 of text with CRLF normalized to LF",
+  "provenance": {
+    "ConnesWeilRH/Dev/C1ActualWeilUnavoidableDeficit3122.lean": "ce56576be07ed826290b1b8dfdfccdd17c9a264d83da5e9f7b3e5073b1a73294",
+    "ConnesWeilRH/Dev/C1ActualWeilUnavoidableDeficit3122Audit.lean": "2d4ed4b377636b70eee0f3ead72357c13c62a670bcf7489d006d8244a47bfe8f",
+    "scripts/actual_weil_unavoidable_deficit_audit_3122.py": "487fed1e8867fcc46facfc794dc1937394732a904193644737224fe1bc21874a",
+    "scripts/seed_d4_d7_audit_3103.py": "1a6a4e321e87e59d513dd4b45f35fcd45a48aaca4cfbc9f241a10ae299f6f80c",
+    "ConnesWeilRH/Dev/C1RouteBArchimedeanFourierReadback3121.lean": "daed471a04bbeb34fbea62edf2c8a1585505ba8a113d332d5f74706832e99eea",
+    "ConnesWeilRH/Dev/C1RouteBPrimeFourierReadback3120.lean": "e1589c92e2331b30c3713c7d22bc0a8972a35034aa468e35d3ef8b70702772c1",
+    "ConnesWeilRH/Dev/C1RouteBSignedPrimeCut3119.lean": "4183eccafb00d7080d7c9e83c219a3a620be96960c788eac5ad26a8bb502e597",
+    "ConnesWeilRH/Dev/C1RouteBAdaptivePoweredTail3117.lean": "90f9d03faaf99ce888fc4a1ed7abf6bce139446e30afba829cac00d94fe46c1c",
+    "ConnesWeilRH/Dev/C1RouteAOwnerAnalyticTransform3092.lean": "a0635e45a82c17576d1ac41adf6b763ed93570ad7d3db2082de491bd2d7edf92",
+    "ConnesWeilRH/Dev/C1RouteAAnalyticPuncturedWitness3085.lean": "dbeeeee114a80bf6e886e10decfc70ffc20f08ccc1879efbdb4374e616dad430",
+    "ConnesWeilRH/Dev/C1RouteAOwnerPuncturedBridge3087.lean": "bae7e4718e5d2bcdeabe180a315007cfcba8b8100699ec6adce34a1d290391a1",
+    "ConnesWeilRH/Dev/C1RouteANegativeEnergyWitness3093.lean": "37933c7e80e84a920b0f36d543b4565817eb84f988f38fab4ee122cb4c9e9925",
+    "ConnesWeilRH/Dev/C1C3SigmaZeroMargin3090.lean": "6367b604ea928b11412557b0a44ec0725a65d3810573c9ced03c90f6e9553502",
+    "ConnesWeilRH/Dev/C1C3SigmaKernel.lean": "fead11a2c60447301db7b06e22b3b637bf9fac1372b32d3ce5d2cd1f7f652c2f",
+    "ConnesWeilRH/Dev/C1G8R3ScatteringPhaseDigamma.lean": "3acf9c248220e55e229b20f9fa5d58cf5fabe4765a98ee6010ef824e3801bf87",
+    "ConnesWeilRH/Dev/C1SameOwnerWeil.lean": "343f66e4b4cbf45be95dd5438b9e2065739cb785b801ab98f473ac6d9c32fc07",
+    "ConnesWeilRH/Dev/C1HealthyYoshidaDetector.lean": "e60e398e3805da370775266913984af447801c822c121ad64058f22a751112fd",
+    "ConnesWeilRH/Dev/C1HealthyYoshidaUnscaledOrbit.lean": "1e251ad087001b2d2fd21b15a3574485009984748283598b7bfd64bb4455d544",
+    "ConnesWeilRH/Dev/C1FourPointSpectralPrefixTransport.lean": "8595a5b0704b709e0fbab8f99901cd69b71e65100a94184224e315e916b7b15e",
+    "ConnesWeilRH/Source/CCM25Concrete/CompactLogConvolution.lean": "7fa75483b47754b5adeb8ea4cdd3347f6ac9794d0dc942c37b85dd44a3e6c078",
+    "lean-toolchain": "54727eec5cba149c18842e6deb5c41b369d66455c93ce135d7d5347c782b2325",
+    "lake-manifest.json": "3bf90f4294bc0fbaf77400fb260ffbd2a638f59a206a0464c2bddfaab06b231b"
+  },
+  "scope": "Integrable exact physical Weil credit and deficit with the actual signed identity. Strict positive deficit on the selected detector and actual powered spans; zero at the origin does not erase it. No global credit-deficit domination, Weil sign or RH proof."
+}

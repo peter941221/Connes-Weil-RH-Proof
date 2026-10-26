@@ -172,3 +172,14 @@ to the first successful source/audit proof outputs took less than the
 20-minute implementation budget; no further analytic target was opened.
 The toolchain is Lean v4.30.0 and Mathlib revision
 `c5ea00351c28e24afc9f0f84379aa41082b1188f`.
+
+## Follow-up: unavoidable actual deficit (3122)
+
+Record 3122 uses this exact physical density to prove integrability of
+its credit and deficit, their signed Weil identity on triple-vanishing
+tests, and a strictly positive deficit integral for every nonzero source.
+The result is instantiated on the binding selected detector and actual
+powered spans with nonzero coefficient. An actual zero Fourier value at
+the origin coexists with that strict integral. Thus origin vanishing does
+not remove the unfavourable band of this exact formula. The independent
+credit-versus-deficit inequality remains unresolved.
