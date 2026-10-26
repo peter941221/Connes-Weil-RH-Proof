@@ -1,5 +1,17 @@
 # 1408 — 1407 dictionary double-evaluation outcome: PLUS_ONE; the 1406 triangle resolves by SUPPORT RADIUS, and the separating hypothesis is located inside the register
 
+Applicability erratum (2026-10-26, record 3124): section 6 correctly locates
+the missing small-support premise, but overstates what the large constructed
+radius proves. A containment in `[-R,R]` with large R does not prove failure
+of containment in `[-0.8,0.8]`. The statements that the support hypotheses
+are "DISJOINT", or that a large available radius forces the actual support
+outside the certified window, are withdrawn. The defensible conclusion is
+that no matching support theorem is supplied. Nor does the displayed choice
+of R justify the asserted asymptotic `R(rho) ~ 2^gamma`. Current arXiv
+metadata attributes the external paper to Xuefeng Zhu; historical labels
+and the scoped model measurements below are retained. No RH inference or
+automatic route reopening follows from this correction.
+
 Date: 2026-09-14. Model-level outcome record for the prereg committed at
 `docs/proofs/1407_chuk_psi_Q_dictionary_double_evaluation_prereg.md`
 (prereg file UNTOUCHED; gate classes UNCHANGED across all three

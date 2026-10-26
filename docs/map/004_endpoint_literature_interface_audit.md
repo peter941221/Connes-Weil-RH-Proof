@@ -106,6 +106,21 @@ prove qw(g_rho) >= 0.
 No stored conclusion, `SourceRH` premise, universal positivity premise, or
 RH-equivalent coverage socket may be used as analytic source data.
 
+## 2026-10-26 compact-window source and support correction
+
+Record [3124](../proofs/3124_window_certificate_scope_reaudit.md) checks the
+current arXiv:2608.24827v2 metadata and theorem scope. The author is Xuefeng
+Zhu; historical records use the label "Chuk". The source's support-2.38
+certificate retraction was already recorded in 1405. Its retained fixed
+source window `[-0.8,0.8]` still requires a matching selected-detector
+support theorem and a formal functional transport before use here.
+
+The stronger inference in 1408 that a large available support upper bound
+proves exclusion from the small certified window is withdrawn. The correct
+status is a missing applicability proof; a large containing interval alone
+proves neither an exact support nor failure of a tighter containment. This
+correction supplies no new gate sign or RH conclusion.
+
 ## 2026-09-29 semilocal spectral-descent import audit
 
 Record [2158](../proofs/2158_semilocal_spectral_descent_import_no_go.md)

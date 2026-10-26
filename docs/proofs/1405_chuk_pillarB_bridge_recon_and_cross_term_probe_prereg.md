@@ -1,5 +1,11 @@
 # 1405 — Chuk arXiv:2608.24827 as a pillar-B supplier? Recon, and a prereg for the one-cell cross-term dictionary probe
 
+Current citation correction (2026-10-26): arXiv:2608.24827v2 identifies
+Xuefeng Zhu as author. The historical "Chuk" labels below are retained to
+identify the original probe; the current bibliography is corrected in
+record 3124. The support-2.38 retraction was already recorded here and is
+not a new discovery in that follow-up. No old model result is promoted.
+
 Date: 2026-09-14. Zero-digit record: literature re-screen + paper audit
 + a locked probe specification. NO measurement is reported here; the
 outcome is 1406. No Lean was written. RH not claimed.

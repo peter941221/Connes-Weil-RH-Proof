@@ -1978,3 +1978,19 @@ remains binding; RH unproved. Evidence:
 `../proofs/3123_signed_arithmetic_pnt_feasibility.md`,
 `results/3123_signed_arithmetic_pnt_feasibility.json`, and
 `scripts/signed_arithmetic_pnt_feasibility_3123.py`.
+
+## 3124 fixed-window supplier scope re-audit (2026-10-26)
+
+The existing arXiv:2608.24827v2 candidate supplies no new applicable signed
+estimate for the actual source in 3123. Its retained positivity statement
+has source window `[-0.8,0.8]`; a matching support theorem is absent, and
+its general finite reduction retains a matrix-sign premise at other windows.
+The larger-window retraction was already recorded in 1405. Current primary
+metadata corrects the author attribution to Xuefeng Zhu.
+
+Record 1408's inference that a large support upper bound forces the actual
+function outside the smaller window is withdrawn: lack of a small-support
+proof is not proof of its negation. This correction does not reopen a frozen
+mechanism or supply an independent arithmetic estimate. No new Lean module,
+detector experiment or RH-core sign improvement is claimed. Evidence:
+`../proofs/3124_window_certificate_scope_reaudit.md`.

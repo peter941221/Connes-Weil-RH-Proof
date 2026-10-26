@@ -870,10 +870,15 @@ theorem.
    kernel/index warning: factorization alone does not produce a nonzero
    Toeplitz kernel.
 
-11. **Chuk: Marcus Chuk, *Weil positivity in compact windows: certified two-sided bounds and a Landau--Widom decay law*.**
-   [arXiv:2608.24827](https://arxiv.org/abs/2608.24827) is an unreviewed
-   external candidate for endpoint certificates. Its conventions and numerical
-   bounds still need a project-owned bridge.
+11. **Zhu: Xuefeng Zhu, *Weil positivity in compact windows: a finite reduction, certified two-sided bounds, and a Landau--Widom decay law*.**
+   [arXiv:2608.24827v2](https://arxiv.org/abs/2608.24827v2) is an unreviewed
+   external candidate for endpoint certificates. The stated lower certificate
+   has source support in `[-0.8,0.8]`; the larger support-2.38 certification
+   claim is retracted in the source. The actual selected detector still needs
+   a matching support theorem and a formal transport of the external result.
+   A large available support upper bound does not prove that a smaller window
+   is impossible. Historical records use the label "Chuk"; see the attribution
+   and applicability correction in [3124](docs/proofs/3124_window_certificate_scope_reaudit.md).
 
 12. **Special-function references.** The prolate and Gamma-side checks use the
     [NIST Digital Library of Mathematical Functions](https://dlmf.nist.gov/18.15),
