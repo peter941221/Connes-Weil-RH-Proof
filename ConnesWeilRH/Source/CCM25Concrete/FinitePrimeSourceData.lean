@@ -596,6 +596,24 @@ def fixedLambdaArithmeticCertificateSourceTestDataOfCertificate
       cert.atomsWithSourceTest :=
   rfl
 
+/--
+Finite-prime source data with the indexed certificate boundary. This is the
+additive replacement for the legacy owner; it is intentionally separate until
+all consumers have migrated.
+-/
+structure IndexedFinitePrimeArithmeticSourceData
+    (W : WeilFormSymbols)
+    (common : CommonSourceTest.ConcreteCommonSourceTest W) where
+  selector : FinitePrimeSourceTestSelectorData W common
+  certificateData :
+    ∀ f g : TestFunction, ∀ lambda : ℝ,
+      1 < lambda →
+      FinitePrimeCertificate.FixedLambdaFinitePrimeIndexedArithmeticCertificate
+        W f g lambda
+  certificateSourceTest :
+    ∀ (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda),
+      (certificateData f g lambda hlambda).support.sourceTest =
+        selector.sourceTest f g
 /-- Exact finite-prime arithmetic data for all test pairs over one common test. -/
 structure FinitePrimeArithmeticSourceData
     (W : WeilFormSymbols)

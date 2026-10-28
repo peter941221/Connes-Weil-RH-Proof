@@ -64,6 +64,27 @@ structure FixedLambdaArithmeticSourceTestCertificatesForTest
     ∀ (lambda : ℝ) (hlambda : 1 < lambda),
       (certificate lambda hlambda).support.sourceTest = sourceTest
 
+/--
+Indexed source-test certificates. These carry only the finite-index arithmetic
+support needed by the evaluator sums; they do not require an atom normalization
+for every natural number.
+-/
+structure FixedLambdaIndexedArithmeticSourceTestCertificatesForTest
+    (W : WeilFormSymbols) (f g : TestFunction) where
+  sourceTest : PrimePowerTest.SourceTestEvaluationInterface W f g
+  certificate :
+    ∀ lambda : ℝ,
+      1 < lambda →
+        FinitePrimeCertificate.FixedLambdaFinitePrimeIndexedArithmeticCertificate
+          W f g lambda
+  certificateSourceTest :
+    ∀ (lambda : ℝ) (hlambda : 1 < lambda),
+      (certificate lambda hlambda).support.sourceTest = sourceTest
+
+def FixedLambdaIndexedArithmeticSourceTestCertificatesForAllTests
+    (W : WeilFormSymbols) : Type :=
+  ∀ f g : TestFunction,
+    FixedLambdaIndexedArithmeticSourceTestCertificatesForTest W f g
 def FixedLambdaArithmeticSourceTestCertificatesForAllTests
     (W : WeilFormSymbols) : Type :=
   ∀ f g : TestFunction,
