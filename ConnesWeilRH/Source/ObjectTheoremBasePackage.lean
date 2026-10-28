@@ -2641,6 +2641,58 @@ def toPackage
 
 end SourceObjectTheoremBaseConstructorInput
 
+/-
+Constructor input for the indexed CCM25 migration path.  The resulting
+package keeps the established `SourceObjectTheoremBasePackage` shape, while
+the CCM25 model is derived directly from the indexed source boundary.
+-/
+structure IndexedSourceObjectTheoremBaseConstructorInput where
+  ccm24Model : CCM24SourceModel
+  indexedCcm25Input : IndexedCCM25SourceArithmeticConstructorInput
+  cc20TraceModel : CC20TraceModel
+  s2b1NormalizedSeed :
+    CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols
+  s2b1NormalizedSeedArchimedeanSymbolsEq :
+    (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
+      s2b1NormalizedSeed).archimedeanSymbols =
+      cc20TraceModel.archimedeanSymbols
+  s2b1RemainderRowsOutsideNoBulk :
+    S2B1NormalizedCC20RemainderRowsOutsideNoBulk s2b1NormalizedSeed
+  s2b1TraceScaleRemainingConstructorInput :
+    S2B1TraceScaleRemainingConstructorInput
+      cc20TraceModel.archimedeanSymbols
+      indexedCcm25Input.toIndexedCCM25SourceModel.toWeilFormSymbols
+  rhDefinitionBridge : RHDefinitionBridge
+  cc20RHExitObjectPackage :
+    CC20RHExitObjectPackage rhDefinitionBridge
+
+namespace IndexedSourceObjectTheoremBaseConstructorInput
+
+noncomputable def toPackage
+    (data : IndexedSourceObjectTheoremBaseConstructorInput) :
+    SourceObjectTheoremBasePackage where
+  ccm24Model := data.ccm24Model
+  ccm25Model := data.indexedCcm25Input.toIndexedCCM25SourceModel
+  cc20TraceModel := data.cc20TraceModel
+  s2b1NormalizedSeed := data.s2b1NormalizedSeed
+  s2b1NormalizedSeedArchimedeanSymbolsEq :=
+    data.s2b1NormalizedSeedArchimedeanSymbolsEq
+  s2b1RemainderRowsOutsideNoBulk :=
+    data.s2b1RemainderRowsOutsideNoBulk
+  s2b1TraceScaleRemainingConstructorInput :=
+    data.s2b1TraceScaleRemainingConstructorInput
+  rhDefinitionBridge := data.rhDefinitionBridge
+  cc20RHExitObjectPackage := data.cc20RHExitObjectPackage
+
+@[simp]
+theorem toPackage_ccm25Model
+    (data : IndexedSourceObjectTheoremBaseConstructorInput) :
+    data.toPackage.ccm25Model =
+      data.indexedCcm25Input.toIndexedCCM25SourceModel := by
+  rfl
+
+end IndexedSourceObjectTheoremBaseConstructorInput
+
 /--
 Scalar CC20/common-test bridge rows.
 
