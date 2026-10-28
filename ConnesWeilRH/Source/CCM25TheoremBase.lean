@@ -48,6 +48,27 @@ structure CCM25SourceArithmeticConstructorInput where
       weilSymbols
   poleRows : CCM25Concrete.Rows.ConcretePoleNormalizationRows weilSymbols
 
+/-- Constructor input for the indexed CCM25 arithmetic-row boundary. -/
+structure IndexedCCM25SourceArithmeticConstructorInput where
+  weilSymbols : WeilFormSymbols
+  globalRows : CCM25Concrete.Rows.ConcreteGlobalQWPsiRows weilSymbols
+  restrictedRows : CCM25Concrete.Rows.ConcreteRestrictedQWLambdaRows weilSymbols
+  finitePrimeArithmeticCertificates :
+    CCM25Concrete.FinitePrimeInterface.FixedLambdaIndexedArithmeticSourceTestCertificatesForAllTests
+      weilSymbols
+  poleRows : CCM25Concrete.Rows.ConcretePoleNormalizationRows weilSymbols
+
+namespace IndexedCCM25SourceArithmeticConstructorInput
+
+def toIndexedConcreteArithmeticRows
+    (input : IndexedCCM25SourceArithmeticConstructorInput) :
+    CCM25Concrete.Rows.ConcreteCCM25IndexedArithmeticRows input.weilSymbols where
+  globalRows := input.globalRows
+  restrictedRows := input.restrictedRows
+  finitePrimeArithmeticCertificates := input.finitePrimeArithmeticCertificates
+  poleRows := input.poleRows
+
+end IndexedCCM25SourceArithmeticConstructorInput
 namespace CCM25SourceArithmeticConstructorInput
 
 def toConcreteArithmeticRows
