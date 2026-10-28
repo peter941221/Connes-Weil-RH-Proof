@@ -80,6 +80,13 @@ structure FixedLambdaIndexedArithmeticSourceTestCertificatesForTest
   certificateSourceTest :
     ∀ (lambda : ℝ) (hlambda : 1 < lambda),
       (certificate lambda hlambda).support.sourceTest = sourceTest
+  restrictedPrimeIndexCoverage :
+    ∀ lambda : ℝ,
+      1 < lambda →
+      WeilFormSymbols.RestrictedPrimeIndexCoverageStatement W lambda
+        (W.convolutionStar f g)
+  finitePrimeTermNormalization :
+    WeilFormSymbols.FinitePrimeTermNormalizationStatement W f g
 
 def FixedLambdaIndexedArithmeticSourceTestCertificatesForAllTests
     (W : WeilFormSymbols) : Type :=
@@ -229,6 +236,17 @@ theorem certificate_atom_visible_in_pairing_source_test_of_source_test_certifica
   FinitePrimeCertificate.arithmetic_atom_visible_in_pairing_source_test_of_certificate
     (h.certificate lambda hlambda) n
 
+theorem finite_prime_visibility_of_indexed_source_test_certificates
+    {W : WeilFormSymbols} {f g : TestFunction}
+    (h : FixedLambdaIndexedArithmeticSourceTestCertificatesForTest W f g) :
+    WeilFormSymbols.FinitePrimeVisibilityStatement W f g := by
+  let hcert := h.certificate 2 (by norm_num : (1 : ℝ) < 2)
+  refine
+    { globalPrimeIndexCoverage := ?_
+      restrictedPrimeIndexCoverage := h.restrictedPrimeIndexCoverage
+      finitePrimeTermNormalization := h.finitePrimeTermNormalization }
+  intro n hn
+  exact hcert.support.routeVisibleGlobalIndex n hn
 theorem finite_prime_visibility_of_fixed_lambda_certificates
     {W : WeilFormSymbols} {f g : TestFunction}
     (h : FixedLambdaCertificatesForTest W f g) :
