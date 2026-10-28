@@ -458,6 +458,36 @@ theorem arithmetic_restricted_mathlib_sum_formula_of_certificate
       PrimePowerArithmetic.source_restricted_finite_prime_evaluator_sum_on_index_set_eq_mathlib
         _
 
+theorem arithmetic_restricted_mathlib_sum_eq_global_of_coverage
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda)
+    (hcoverage :
+      W.globalPrimeIndexSet ⊆ W.restrictedPrimeIndexSet lambda) :
+    PrimePowerArithmetic.MathlibRestrictedFinitePrimeEvaluatorSumOnIndexSet
+        W f g lambda
+        (arithmetic_data_on_restricted_index_set_of_certificate h) =
+      PrimePowerArithmetic.MathlibGlobalFinitePrimeEvaluatorSumOnIndexSet
+        W f g (arithmetic_data_on_global_index_set_of_certificate h) := by
+  have hsets :
+      W.restrictedPrimeIndexSet lambda = W.globalPrimeIndexSet := by
+    apply Finset.Subset.antisymm
+    · intro n hn
+      exact h.support.routeVisibleGlobalIndex n
+        (h.support.restrictedIndexData n hn).atomVisible
+    · exact hcoverage
+  calc
+    PrimePowerArithmetic.MathlibRestrictedFinitePrimeEvaluatorSumOnIndexSet
+        W f g lambda
+        (arithmetic_data_on_restricted_index_set_of_certificate h) =
+        ∑ n ∈ W.restrictedPrimeIndexSet lambda,
+          W.finitePrimeTerm n (W.convolutionStar f g) :=
+      (arithmetic_restricted_mathlib_sum_formula_of_certificate h).symm
+    _ = ∑ n ∈ W.globalPrimeIndexSet,
+          W.finitePrimeTerm n (W.convolutionStar f g) := by
+      rw [hsets]
+    _ = PrimePowerArithmetic.MathlibGlobalFinitePrimeEvaluatorSumOnIndexSet
+        W f g (arithmetic_data_on_global_index_set_of_certificate h) :=
+      arithmetic_global_mathlib_sum_formula_of_certificate h
 theorem arithmetic_restricted_mathlib_von_mangoldt_pairing_sum_formula_of_certificate
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda) :
