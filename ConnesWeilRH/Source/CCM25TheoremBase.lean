@@ -81,6 +81,12 @@ theorem toIndexedCCM25SourceModel_toWeilFormSymbols
   simp [toIndexedCCM25SourceModel, toIndexedConcreteArithmeticRows,
     ccm25_source_model_of_indexed_arithmetic_rows_to_weil_form_symbols]
 
+theorem finite_prime_normalization
+    (input : IndexedCCM25SourceArithmeticConstructorInput) :
+    WeilFormSymbols.FinitePrimeNormalizationStatement input.weilSymbols :=
+  CCM25Concrete.Rows.finite_prime_normalization_of_indexed_arithmetic_rows
+    input.toIndexedConcreteArithmeticRows
+
 end IndexedCCM25SourceArithmeticConstructorInput
 namespace CCM25SourceArithmeticConstructorInput
 
@@ -173,6 +179,22 @@ noncomputable def SourceWeilFormData.toCCM25SourceArithmeticConstructorInput
   restrictedRows :=
     { qwLambdaFormula := W.qw_lambda_formula_statement }
   finitePrimeArithmeticSourceData := finitePrimeArithmeticSourceData
+  poleRows :=
+    { poleNormalization := W.pole_normalization_statement }
+
+noncomputable def SourceWeilFormData.toIndexedCCM25SourceArithmeticConstructorInput
+    {A : SourceTestAlgebra} (W : SourceWeilFormData A)
+    (finitePrimeArithmeticCertificates :
+      CCM25Concrete.FinitePrimeInterface.FixedLambdaIndexedArithmeticSourceTestCertificatesForAllTests
+        W.toWeilFormSymbols) :
+    IndexedCCM25SourceArithmeticConstructorInput where
+  weilSymbols := W.toWeilFormSymbols
+  globalRows :=
+    { qwDefinition := W.qw_definition_statement
+      psiSign := W.psi_sign_statement }
+  restrictedRows :=
+    { qwLambdaFormula := W.qw_lambda_formula_statement }
+  finitePrimeArithmeticCertificates := finitePrimeArithmeticCertificates
   poleRows :=
     { poleNormalization := W.pole_normalization_statement }
 
