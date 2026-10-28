@@ -357,6 +357,20 @@ theorem visibleIff
   · intro hdata
     exact hdata.atomVisible
 
+theorem restrictedIndexSet_eq_global_of_coverage
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    {sourceTest : PrimePowerTest.SourceTestEvaluationInterface W f g}
+    (data :
+      FixedLambdaArithmeticCertificateSourceTestData
+        W f g lambda sourceTest)
+    (hcoverage :
+      W.globalPrimeIndexSet ⊆ W.restrictedPrimeIndexSet lambda) :
+    W.restrictedPrimeIndexSet lambda = W.globalPrimeIndexSet := by
+  apply Finset.Subset.antisymm
+  · intro n hn
+    exact data.routeVisibleGlobalIndex n
+      (data.restrictedIndexData n hn).atomVisible
+  · exact hcoverage
 def toSupport
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     {sourceTest : PrimePowerTest.SourceTestEvaluationInterface W f g}
