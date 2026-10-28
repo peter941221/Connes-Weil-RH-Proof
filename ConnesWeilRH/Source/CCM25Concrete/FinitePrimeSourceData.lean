@@ -806,11 +806,6 @@ structure IndexedCommonFinitePrimeNormalizationSourceData
   finitePrimeData :
     IndexedFinitePrimeArithmeticSourceData W
       (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
-  restrictedPrimeIndexCoverage :
-    ∀ (f g : TestFunction) (lambda : ℝ),
-      1 < lambda →
-      WeilFormSymbols.RestrictedPrimeIndexCoverageStatement W lambda
-        (W.convolutionStar f g)
   finitePrimeTermNormalization :
     ∀ (f g : TestFunction),
       WeilFormSymbols.FinitePrimeTermNormalizationStatement W f g
@@ -839,7 +834,9 @@ def fixedLambdaIndexedArithmeticSourceTestCertificatesForAllTests
         exact data.finitePrimeData.certificateSourceTest f g lambda hlambda
       restrictedPrimeIndexCoverage := by
         intro lambda hlambda
-        exact data.restrictedPrimeIndexCoverage f g lambda hlambda
+        exact
+          PrimePowerSupport.SourcePrimePowerArithmeticSupportSkeletonAtLambda.restrictedPrimeIndexCoverage
+            (data.finitePrimeData.certificateData f g lambda hlambda).support
       finitePrimeTermNormalization := data.finitePrimeTermNormalization f g }
 
 def indexedCommonFinitePrimeArithmeticSourceDataOfSourceTestCertificates
