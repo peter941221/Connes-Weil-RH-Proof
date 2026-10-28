@@ -797,6 +797,51 @@ structure IndexedCommonFinitePrimeArithmeticSourceData
         SourceScopedArchimedeanContributionBalance
           W commonTestFunction lambda globalData restrictedData
 
+/-- Indexed common source data with the two normalization rows needed by the
+minimal finite-prime boundary. The support skeleton alone is intentionally not
+accepted as a substitute for these rows. -/
+structure IndexedCommonFinitePrimeNormalizationSourceData
+    (W : WeilFormSymbols) where
+  commonTestFunction : TestFunction
+  finitePrimeData :
+    IndexedFinitePrimeArithmeticSourceData W
+      (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+  restrictedPrimeIndexCoverage :
+    ∀ (f g : TestFunction) (lambda : ℝ),
+      1 < lambda →
+      WeilFormSymbols.RestrictedPrimeIndexCoverageStatement W lambda
+        (W.convolutionStar f g)
+  finitePrimeTermNormalization :
+    ∀ (f g : TestFunction),
+      WeilFormSymbols.FinitePrimeTermNormalizationStatement W f g
+  scopedArchimedeanContributionBalance :
+    ∀ lambda : ℝ,
+      ∀ globalData :
+        PrimePowerArithmetic.SourceGlobalFinitePrimeArithmeticData
+          W commonTestFunction commonTestFunction,
+      ∀ restrictedData :
+        PrimePowerArithmetic.SourceRestrictedFinitePrimeArithmeticData
+          W commonTestFunction commonTestFunction lambda,
+        SourceScopedArchimedeanContributionBalance
+          W commonTestFunction lambda globalData restrictedData
+
+def fixedLambdaIndexedArithmeticSourceTestCertificatesForAllTests
+    {W : WeilFormSymbols}
+    (data : IndexedCommonFinitePrimeNormalizationSourceData W) :
+    FinitePrimeInterface.FixedLambdaIndexedArithmeticSourceTestCertificatesForAllTests
+      W := by
+  intro f g
+  exact
+    { sourceTest := data.finitePrimeData.selector.sourceTest f g
+      certificate := data.finitePrimeData.certificateData f g
+      certificateSourceTest := by
+        intro lambda hlambda
+        exact data.finitePrimeData.certificateSourceTest f g lambda hlambda
+      restrictedPrimeIndexCoverage := by
+        intro lambda hlambda
+        exact data.restrictedPrimeIndexCoverage f g lambda hlambda
+      finitePrimeTermNormalization := data.finitePrimeTermNormalization f g }
+
 def indexedCommonFinitePrimeArithmeticSourceDataOfSourceTestCertificates
     {W : WeilFormSymbols}
     (commonTestFunction : TestFunction)

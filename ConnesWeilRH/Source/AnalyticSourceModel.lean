@@ -563,6 +563,15 @@ theorem SourceWeilFormData.finitePrimeDominance_of_indexed_normalization_certifi
   simpa [SourceWeilFormData.toWeilFormSymbols_finitePrimeAtomVisible,
     SourceFinitePrimeData.sourceAtomVisible, A.legacy.decode_encode W.common] using hrev
 
+theorem SourceWeilFormData.finitePrimeDominance_of_indexed_common_normalization_data
+    {A : SourceTestAlgebra} (W : SourceWeilFormData A)
+    (data :
+      CCM25Concrete.FinitePrimeSourceData.IndexedCommonFinitePrimeNormalizationSourceData
+        W.toWeilFormSymbols) :
+    W.finitePrimeDominance :=
+  W.finitePrimeDominance_of_indexed_certificates
+    (CCM25Concrete.FinitePrimeSourceData.fixedLambdaIndexedArithmeticSourceTestCertificatesForAllTests data)
+
 def SourceWeilFormData.indexedNormalizationCertificates_of_dominance
     {A : SourceTestAlgebra} (W : SourceWeilFormData A)
     (hdom : W.finitePrimeDominance) :
