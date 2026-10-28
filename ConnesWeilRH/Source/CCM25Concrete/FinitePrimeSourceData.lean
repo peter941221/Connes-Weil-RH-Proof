@@ -614,6 +614,25 @@ structure IndexedFinitePrimeArithmeticSourceData
     ∀ (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda),
       (certificateData f g lambda hlambda).support.sourceTest =
         selector.sourceTest f g
+def indexedFinitePrimeArithmeticSourceDataOfSourceTestCertificates
+    {W : WeilFormSymbols}
+    (common : CommonSourceTest.ConcreteCommonSourceTest W)
+    (certs :
+      FinitePrimeInterface.FixedLambdaIndexedArithmeticSourceTestCertificatesForAllTests
+        W)
+    (commonPairSourceTest :
+      (certs common.sourceTest common.sourceTest).sourceTest =
+        common.toSourceTestEvaluationInterface) :
+    IndexedFinitePrimeArithmeticSourceData W common where
+  selector :=
+    { sourceTest := fun f g => (certs f g).sourceTest
+      commonPairSourceTest := commonPairSourceTest }
+  certificateData := by
+    intro f g lambda hlambda
+    exact (certs f g).certificate lambda hlambda
+  certificateSourceTest := by
+    intro f g lambda hlambda
+    exact (certs f g).certificateSourceTest lambda hlambda
 /-- Exact finite-prime arithmetic data for all test pairs over one common test. -/
 structure FinitePrimeArithmeticSourceData
     (W : WeilFormSymbols)
