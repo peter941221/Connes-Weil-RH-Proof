@@ -3,14 +3,15 @@
 Date: 2026-10-28
 
 The existing `IndexedCommonFinitePrimeArithmeticSourceData` contains an
-indexed support skeleton, but it does not contain the two rows required by the
-minimal normalization boundary: arbitrary-pair restricted-index coverage and
-arbitrary-pair finite-prime term normalization.
+indexed support skeleton. Its support certificate already derives arbitrary-pair
+restricted-index coverage; the remaining row required by the minimal
+normalization boundary is arbitrary-pair finite-prime term normalization.
 
 Added `IndexedCommonFinitePrimeNormalizationSourceData` in
 `ConnesWeilRH/Source/CCM25Concrete/FinitePrimeSourceData.lean`. It preserves the
-indexed support selector and adds exactly these missing rows, together with the
-existing scoped archimedean balance row.
+indexed support selector and adds the remaining term-normalization row, together
+with the existing scoped archimedean balance row. Restricted coverage is
+derived directly from each indexed support skeleton.
 
 Added the constructor
 `fixedLambdaIndexedArithmeticSourceTestCertificatesForAllTests`, which converts
