@@ -520,6 +520,25 @@ theorem SourceWeilFormData.finitePrimeDominance_of_certificates
     SourceFinitePrimeData.sourceAtomVisible, A.legacy.decode_encode W.common] using hrev
 
 
+
+/-- Indexed finite-prime certificates provide the same dominance consequence
+without passing through the legacy all-natural-number arithmetic certificate. -/
+theorem SourceWeilFormData.finitePrimeDominance_of_indexed_certificates
+    {A : SourceTestAlgebra} (W : SourceWeilFormData A)
+    (cert : CCM25Concrete.FinitePrimeInterface.FixedLambdaIndexedArithmeticSourceTestCertificatesForAllTests
+      W.toWeilFormSymbols) :
+    W.finitePrimeDominance := by
+  intro f g n hvis
+  have hidx : n ∈ W.toWeilFormSymbols.globalPrimeIndexSet :=
+    (CCM25Concrete.FinitePrimeInterface.finite_prime_visibility_of_indexed_source_test_certificates
+      (cert f g)).globalPrimeIndexCoverage n hvis
+  have hrev : W.finitePrime.sourceAtomVisible n W.common :=
+    W.finitePrime.support.commonGlobalIndex n
+      (by
+        simpa [SourceWeilFormData.toWeilFormSymbols_globalPrimeIndexSet,
+          SourceFinitePrimeData.globalPrimeIndexSet_eq_support] using hidx)
+  simpa [SourceWeilFormData.toWeilFormSymbols_finitePrimeAtomVisible,
+    SourceFinitePrimeData.sourceAtomVisible, A.legacy.decode_encode W.common] using hrev
 end AnalyticCore
 end Source
 end ConnesWeilRH
