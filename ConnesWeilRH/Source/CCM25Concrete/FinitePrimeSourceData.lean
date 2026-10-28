@@ -53,6 +53,38 @@ def SourceScopedArchimedeanContributionBalance
     SourceScopedRestrictedArchimedeanFormula W f lambda restrictedData =
       SourceScopedGlobalArchimedeanFormula W f globalData
 
+theorem sourceScopedArchimedeanContributionBalance_iff_archimedeanTerm_eq_zero
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    {globalData :
+      PrimePowerArithmetic.SourceGlobalFinitePrimeArithmeticData W f f}
+    {restrictedData :
+      PrimePowerArithmetic.SourceRestrictedFinitePrimeArithmeticData
+        W f f lambda}
+    (hcoverage :
+      W.globalPrimeIndexSet ⊆ W.restrictedPrimeIndexSet lambda)
+    (hsum :
+      PrimePowerArithmetic.MathlibRestrictedFinitePrimeEvaluatorSumOnIndexSet
+          W f f lambda restrictedData =
+        PrimePowerArithmetic.MathlibGlobalFinitePrimeEvaluatorSumOnIndexSet
+          W f f globalData)
+    (hpole :
+      W.polePairing f = W.poleFunctional (W.convolutionStar f f)) :
+    SourceScopedArchimedeanContributionBalance
+        W f lambda globalData restrictedData ↔
+      W.archimedeanTerm (W.convolutionStar f f) = 0 := by
+  constructor
+  · intro hbalance
+    have heq := hbalance hcoverage
+    dsimp [SourceScopedRestrictedArchimedeanFormula,
+      SourceScopedGlobalArchimedeanFormula] at heq
+    rw [hsum, hpole] at heq
+    linarith
+  · intro harch
+    intro _
+    dsimp [SourceScopedRestrictedArchimedeanFormula,
+      SourceScopedGlobalArchimedeanFormula]
+    rw [hsum, hpole, harch]
+    ring
 structure SourceArchimedeanTermData
     (W : WeilFormSymbols) (f : TestFunction) where
   sourceConvolutionSquare : TestFunction
