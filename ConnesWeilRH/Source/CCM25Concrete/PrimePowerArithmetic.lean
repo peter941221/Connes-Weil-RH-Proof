@@ -352,6 +352,36 @@ structure SourceFinitePrimeArithmeticDataOnIndexSet
   atIndex :
     ∀ n : ℕ, n ∈ indexSet → SourceFinitePrimeArithmeticData W f g n
 
+structure SourceFinitePrimeArithmeticDataForSourceTestOnIndexSet
+    (W : WeilFormSymbols) (f g : TestFunction)
+    (sourceTest : PrimePowerTest.SourceTestEvaluationInterface W f g)
+    (indexSet : Finset ℕ) where
+  atIndex :
+    ∀ n : ℕ, n ∈ indexSet →
+      SourceFinitePrimeArithmeticDataForSourceTest W f g sourceTest n
+
+namespace SourceFinitePrimeArithmeticDataForSourceTestOnIndexSet
+
+def toDataOnIndexSet
+    {W : WeilFormSymbols} {f g : TestFunction}
+    {sourceTest : PrimePowerTest.SourceTestEvaluationInterface W f g}
+    {indexSet : Finset ℕ}
+    (h : SourceFinitePrimeArithmeticDataForSourceTestOnIndexSet
+      W f g sourceTest indexSet) :
+    SourceFinitePrimeArithmeticDataOnIndexSet W f g indexSet where
+  atIndex := fun n hn => (h.atIndex n hn).data
+
+theorem sourceTestReadOff
+    {W : WeilFormSymbols} {f g : TestFunction}
+    {sourceTest : PrimePowerTest.SourceTestEvaluationInterface W f g}
+    {indexSet : Finset ℕ}
+    (h : SourceFinitePrimeArithmeticDataForSourceTestOnIndexSet
+      W f g sourceTest indexSet) (n : ℕ) (hn : n ∈ indexSet) :
+    (h.atIndex n hn).data.sourceTest = sourceTest :=
+  (h.atIndex n hn).sourceTestReadOff
+
+end SourceFinitePrimeArithmeticDataForSourceTestOnIndexSet
+
 structure SourceVisibleFinitePrimeArithmeticData
     (W : WeilFormSymbols) (f g : TestFunction)
     (sourceTest : PrimePowerTest.SourceTestEvaluationInterface W f g) where

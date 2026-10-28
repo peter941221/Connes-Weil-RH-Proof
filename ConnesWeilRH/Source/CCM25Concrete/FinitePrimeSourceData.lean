@@ -273,6 +273,25 @@ def sourceGlobalArithmeticData
         ((PrimePowerTest.route_visibility_iff_source_visibility sourceTest n).1
           (data.globalIndexData n hn).atomVisible) }
 
+def sourceGlobalArithmeticDataForSourceTest
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    {sourceTest : PrimePowerTest.SourceTestEvaluationInterface W f g}
+    (data :
+      FixedLambdaArithmeticCertificateSourceTestData
+        W f g lambda sourceTest) :
+    PrimePowerArithmetic.SourceFinitePrimeArithmeticDataForSourceTestOnIndexSet
+      W f g sourceTest W.globalPrimeIndexSet where
+  atIndex := fun n hn => data.atoms.atIndex n
+
+def sourceRestrictedArithmeticDataForSourceTest
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    {sourceTest : PrimePowerTest.SourceTestEvaluationInterface W f g}
+    (data :
+      FixedLambdaArithmeticCertificateSourceTestData
+        W f g lambda sourceTest) :
+    PrimePowerArithmetic.SourceFinitePrimeArithmeticDataForSourceTestOnIndexSet
+      W f g sourceTest (W.restrictedPrimeIndexSet lambda) where
+  atIndex := fun n hn => data.atoms.atIndex n
 theorem DirectAtomVisibleReadOff_of_functionReadOff
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     {sourceTest : PrimePowerTest.SourceTestEvaluationInterface W f g}

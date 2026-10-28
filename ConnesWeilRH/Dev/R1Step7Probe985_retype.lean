@@ -33,39 +33,65 @@ open ConnesWeilRH.Source.CCM25Concrete
 open ConnesWeilRH.Source.CCM25Concrete.PrimePowerTest
 open ConnesWeilRH.Source.CCM25Concrete.PrimePowerArithmetic
 
-structure SourceFinitePrimeArithmeticDataOnGlobalIndexSet
-    (W : WeilFormSymbols) (f g : TestFunction)
-    (sourceTest : PrimePowerTest.SourceTestEvaluationInterface W f g) where
-  atIndex :
-    ∀ n : ℕ, n ∈ W.globalPrimeIndexSet →
-      SourceFinitePrimeArithmeticDataForSourceTest W f g sourceTest n
+lemma restrictedSetTwo :
+    W0.restrictedPrimeIndexSet (2 : ℝ) = ({2} : Finset Nat) := by
+  unfold W0
+  simp [ConnesWeilRH.Source.Dev.ConcreteP1SupportProbe.concreteWeilForm,
+    ConnesWeilRH.Source.Dev.ConcreteP1SupportProbe.perCommonSupport]
+  norm_num
 
-noncomputable def concreteGlobalData :
-    SourceFinitePrimeArithmeticDataOnGlobalIndexSet W0 f0 f0 sourceIface where
+noncomputable def concreteGlobalDataViaProductionAdapter :
+    SourceFinitePrimeArithmeticDataForSourceTestOnIndexSet
+      W0 f0 f0 sourceIface W0.globalPrimeIndexSet where
   atIndex := fun n hn =>
     { data := gd_reduce.atIndex n hn
       sourceTestReadOff := by
         rfl }
 
 lemma concreteGlobalData_at_two (h : 2 ∈ W0.globalPrimeIndexSet) :
-    (concreteGlobalData.atIndex 2 h).data = gd_reduce.atIndex 2 h := by
+    (concreteGlobalDataViaProductionAdapter.atIndex 2 h).data =
+      gd_reduce.atIndex 2 h := by
   rfl
 
 lemma concreteGlobalData_source_test (n : ℕ)
     (hn : n ∈ W0.globalPrimeIndexSet) :
-    (concreteGlobalData.atIndex n hn).data.sourceTest = sourceIface := by
-  exact (concreteGlobalData.atIndex n hn).sourceTestReadOff
+    (concreteGlobalDataViaProductionAdapter.atIndex n hn).data.sourceTest =
+      sourceIface := by
+  exact (concreteGlobalDataViaProductionAdapter.atIndex n hn).sourceTestReadOff
 
 lemma concreteGlobalData_exists :
     Nonempty
-      (SourceFinitePrimeArithmeticDataOnGlobalIndexSet W0 f0 f0 sourceIface) :=
-  ⟨concreteGlobalData⟩
+      (SourceFinitePrimeArithmeticDataForSourceTestOnIndexSet
+        W0 f0 f0 sourceIface W0.globalPrimeIndexSet) :=
+  ⟨concreteGlobalDataViaProductionAdapter⟩
 
-#print axioms concreteGlobalData
+noncomputable def concreteRestrictedData :
+    SourceFinitePrimeArithmeticDataForSourceTestOnIndexSet
+      W0 f0 f0 sourceIface (W0.restrictedPrimeIndexSet 2) where
+  atIndex := fun n hn =>
+    { data := gd_reduce.atIndex n (by simpa [restrictedSetTwo, globalSetTwo] using hn)
+      sourceTestReadOff := by
+        rfl }
+
+lemma concreteRestrictedData_exists :
+    Nonempty
+      (SourceFinitePrimeArithmeticDataForSourceTestOnIndexSet
+        W0 f0 f0 sourceIface (W0.restrictedPrimeIndexSet 2)) :=
+  ⟨concreteRestrictedData⟩
+
+lemma concreteGlobalData_toDataOnIndexSet_source_test (n : ℕ)
+    (hn : n ∈ W0.globalPrimeIndexSet) :
+    (concreteGlobalDataViaProductionAdapter.toDataOnIndexSet.atIndex n hn).sourceTest =
+      sourceIface := by
+  exact concreteGlobalData_source_test n hn
+
+#print axioms concreteGlobalDataViaProductionAdapter
+#print axioms concreteRestrictedData
 #print axioms concreteGlobalData_at_two
 #print axioms concreteGlobalData_source_test
 #print axioms concreteGlobalData_exists
-
+#print axioms concreteRestrictedData_exists
+#print axioms concreteGlobalData_toDataOnIndexSet_source_test
 end R1Step7Probe985
 end Dev
 end Source
