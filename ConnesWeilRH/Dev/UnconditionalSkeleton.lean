@@ -660,6 +660,17 @@ axiom normalizedCoreCCM25FinitePrimeArithmeticSourceDataRoot :
   Source.CCM25Concrete.FinitePrimeSourceData.CommonFinitePrimeArithmeticSourceData
     normalizedCoreSourceAnalyticCoreFromTheorems.toWeilFormSymbols
 
+/--
+The legacy root type is formally empty because its total atom-normalization
+field asks for an `IsPrimePow 1` witness.  This audit theorem deliberately
+exposes the inconsistency instead of allowing the root to look like a valid
+producer input.
+-/
+theorem normalizedCoreCCM25FinitePrimeArithmeticSourceDataRoot_is_inconsistent :
+    False :=
+  Source.CCM25Concrete.FinitePrimeSourceData.not_commonFinitePrimeArithmeticSourceData
+    normalizedCoreCCM25FinitePrimeArithmeticSourceDataRoot
+
 noncomputable def normalizedCoreCCM25FinitePrimeArithmeticSourceDataFromTheorems :
     Source.CCM25Concrete.FinitePrimeSourceData.CommonFinitePrimeArithmeticSourceData
       normalizedCoreSourceAnalyticCoreFromTheorems.toWeilFormSymbols :=
