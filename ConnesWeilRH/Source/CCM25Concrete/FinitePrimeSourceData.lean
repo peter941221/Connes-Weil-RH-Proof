@@ -633,6 +633,7 @@ def indexedFinitePrimeArithmeticSourceDataOfSourceTestCertificates
   certificateSourceTest := by
     intro f g lambda hlambda
     exact (certs f g).certificateSourceTest lambda hlambda
+
 namespace IndexedFinitePrimeArithmeticSourceData
 
 noncomputable def globalArithmeticData
@@ -679,6 +680,21 @@ theorem not_finitePrimeArithmeticSourceData
   rintro ⟨h⟩
   exact not_fixedLambdaArithmeticCertificateSourceTestData
     ⟨h.certificateData common.sourceTest common.sourceTest 2 (by norm_num)⟩
+/-- Compatibility projection only: this reindexes an existing legacy owner and does not construct one. -/
+def indexedFinitePrimeArithmeticSourceDataOfFinitePrimeArithmeticSourceData
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W}
+    (data : FinitePrimeArithmeticSourceData W common) :
+    IndexedFinitePrimeArithmeticSourceData W common where
+  selector := data.selector
+  certificateData := by
+    intro f g lambda hlambda
+    exact
+      { support :=
+          (data.certificateData f g lambda hlambda).toSupport hlambda }
+  certificateSourceTest := by
+    intro f g lambda hlambda
+    rfl
 
 namespace FinitePrimeArithmeticSourceData
 
@@ -797,6 +813,17 @@ structure IndexedCommonFinitePrimeArithmeticSourceData
         SourceScopedArchimedeanContributionBalance
           W commonTestFunction lambda globalData restrictedData
 
+/-- Compatibility projection only: this preserves the legacy common owner and does not discharge its root. -/
+def indexedCommonFinitePrimeArithmeticSourceDataOfCommonFinitePrimeArithmeticSourceData
+    {W : WeilFormSymbols}
+    (data : CommonFinitePrimeArithmeticSourceData W) :
+    IndexedCommonFinitePrimeArithmeticSourceData W where
+  commonTestFunction := data.commonTestFunction
+  finitePrimeData :=
+    indexedFinitePrimeArithmeticSourceDataOfFinitePrimeArithmeticSourceData
+      data.finitePrimeData
+  scopedArchimedeanContributionBalance :=
+    data.scopedArchimedeanContributionBalance
 def indexedCommonFinitePrimeArithmeticSourceDataOfSourceTestCertificates
     {W : WeilFormSymbols}
     (commonTestFunction : TestFunction)
