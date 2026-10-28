@@ -779,6 +779,52 @@ structure CommonFinitePrimeArithmeticSourceData
         SourceScopedArchimedeanContributionBalance
           W commonTestFunction lambda globalData restrictedData
 
+/-- Common-test source data with the indexed finite-prime boundary. -/
+structure IndexedCommonFinitePrimeArithmeticSourceData
+    (W : WeilFormSymbols) where
+  commonTestFunction : TestFunction
+  finitePrimeData :
+    IndexedFinitePrimeArithmeticSourceData W
+      (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+  scopedArchimedeanContributionBalance :
+    ∀ lambda : ℝ,
+      ∀ globalData :
+        PrimePowerArithmetic.SourceGlobalFinitePrimeArithmeticData
+          W commonTestFunction commonTestFunction,
+      ∀ restrictedData :
+        PrimePowerArithmetic.SourceRestrictedFinitePrimeArithmeticData
+          W commonTestFunction commonTestFunction lambda,
+        SourceScopedArchimedeanContributionBalance
+          W commonTestFunction lambda globalData restrictedData
+
+def indexedCommonFinitePrimeArithmeticSourceDataOfSourceTestCertificates
+    {W : WeilFormSymbols}
+    (commonTestFunction : TestFunction)
+    (certs :
+      FinitePrimeInterface.FixedLambdaIndexedArithmeticSourceTestCertificatesForAllTests
+        W)
+    (commonPairSourceTest :
+      (certs commonTestFunction commonTestFunction).sourceTest =
+        (CommonSourceTest.concreteCommonSourceTest
+          W commonTestFunction).toSourceTestEvaluationInterface)
+    (scopedArchimedeanContributionBalance :
+      ∀ lambda : ℝ,
+        ∀ globalData :
+          PrimePowerArithmetic.SourceGlobalFinitePrimeArithmeticData
+            W commonTestFunction commonTestFunction,
+        ∀ restrictedData :
+          PrimePowerArithmetic.SourceRestrictedFinitePrimeArithmeticData
+            W commonTestFunction commonTestFunction lambda,
+          SourceScopedArchimedeanContributionBalance
+            W commonTestFunction lambda globalData restrictedData) :
+    IndexedCommonFinitePrimeArithmeticSourceData W where
+  commonTestFunction := commonTestFunction
+  finitePrimeData :=
+    indexedFinitePrimeArithmeticSourceDataOfSourceTestCertificates
+      (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+      certs commonPairSourceTest
+  scopedArchimedeanContributionBalance :=
+    scopedArchimedeanContributionBalance
 theorem not_commonFinitePrimeArithmeticSourceData
     {W : WeilFormSymbols} :
     ¬ Nonempty (CommonFinitePrimeArithmeticSourceData W) := by
