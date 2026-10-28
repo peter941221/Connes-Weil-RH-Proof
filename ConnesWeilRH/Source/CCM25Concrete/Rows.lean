@@ -52,6 +52,21 @@ structure ConcreteCCM25ArithmeticRows (W : WeilFormSymbols) where
     FinitePrimeInterface.FixedLambdaArithmeticSourceTestCertificatesForAllTests W
   poleRows : ConcretePoleNormalizationRows W
 
+/-- Arithmetic rows using the indexed finite-prime certificate boundary. -/
+structure ConcreteCCM25IndexedArithmeticRows (W : WeilFormSymbols) where
+  globalRows : ConcreteGlobalQWPsiRows W
+  restrictedRows : ConcreteRestrictedQWLambdaRows W
+  finitePrimeArithmeticCertificates :
+    FinitePrimeInterface.FixedLambdaIndexedArithmeticSourceTestCertificatesForAllTests W
+  poleRows : ConcretePoleNormalizationRows W
+
+theorem finite_prime_normalization_of_indexed_arithmetic_rows
+    {W : WeilFormSymbols} (h : ConcreteCCM25IndexedArithmeticRows W) :
+    WeilFormSymbols.FinitePrimeNormalizationStatement W := by
+  intro f g
+  exact
+    FinitePrimeInterface.finite_prime_visibility_of_indexed_source_test_certificates
+      (h.finitePrimeArithmeticCertificates f g)
 def concrete_rows_of_atom_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25AtomRows W) :
     ConcreteCCM25Rows W where
