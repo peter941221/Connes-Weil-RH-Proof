@@ -1,0 +1,16 @@
+{
+  "record": 3130,
+  "status": "PASS",
+  "module": "ConnesWeilRH.Dev.C1RouteBVariableLambdaGate3130Audit",
+  "build_jobs": 3830,
+  "returncode": 0,
+  "missing_theorems": [],
+  "unexpected_axioms": {},
+  "error_lines_present": false,
+  "sorryAx_present": false,
+  "provenance": {
+    "ConnesWeilRH/Dev/C1RouteBVariableLambdaGate3130.lean": "6dd8a027ea91a2ee84c05bba5bb1300b2faa9a8cc4cc58c16e5c34b0abc8d676",
+    "ConnesWeilRH/Dev/C1RouteBVariableLambdaGate3130Audit.lean": "af6195d616a008e6406195c2f50548812e326da1274b970b0c970cf9dac8fdde"
+  },
+  "scope": "Arbitrary real lambda is connected to the same-owner gate matrix, signed margin, and owner-local semi-local gate. No numerical gate margin, owner manifest, tail budget, Producer GO, or RH claim."
+}

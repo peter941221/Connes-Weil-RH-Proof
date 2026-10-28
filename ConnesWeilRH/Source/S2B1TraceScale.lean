@@ -31,6 +31,7 @@ theorem common_data_scoped_archimedean_contribution_balance
     {W : WeilFormSymbols}
     (data : CCM25Concrete.FinitePrimeSourceData.CommonFinitePrimeArithmeticSourceData W)
     (lambda : ℝ)
+    (hcoverage : W.globalPrimeIndexSet ⊆ W.restrictedPrimeIndexSet lambda)
     (pkg : CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
       W data.commonTestFunction lambda) :
     CCM25Concrete.Package.ScopedArchimedeanContributionBalance
@@ -48,6 +49,7 @@ theorem common_data_scoped_archimedean_contribution_balance
             (CCM25Concrete.Package.formula_components pkg).commonCertificate)
           (CCM25Concrete.FinitePrimeCertificate.arithmetic_data_on_restricted_index_set_of_certificate
             (CCM25Concrete.Package.formula_components pkg).commonCertificate)
+          hcoverage
 
 /--
 Fixed-tuple S2-B1 theorem data.
@@ -1521,6 +1523,7 @@ theorem normalized_seed_source_no_defect_trace_eq_global_formula_of_common_data
     (ccm25 :
       CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
         W data.commonTestFunction lambda)
+    (hcoverage : W.globalPrimeIndexSet ⊆ W.restrictedPrimeIndexSet lambda)
     (identification :
       NormalizedSeedRestrictedEvaluatorScalarIdentification
         A W remainders g data.commonTestFunction ccm25) :
@@ -1535,7 +1538,7 @@ theorem normalized_seed_source_no_defect_trace_eq_global_formula_of_common_data
   normalized_seed_source_no_defect_trace_eq_global_formula_of_scalar_identification
     A W remainders g data.commonTestFunction ccm25 identification
       (common_data_scoped_archimedean_contribution_balance
-        data lambda ccm25)
+        data lambda hcoverage ccm25)
 
 /--
 Actual normalized-seed fixed-tuple theorem data from the scalar identification

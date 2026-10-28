@@ -1,0 +1,21 @@
+{
+  "record": 3132,
+  "status": "PASS",
+  "module": "ConnesWeilRH.Dev.C1RouteBAdaptiveVariableLambdaContradiction3132Audit",
+  "build_jobs": 3831,
+  "returncode": 0,
+  "theorem_found": true,
+  "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "unexpected_axioms": [],
+  "error_lines_present": false,
+  "sorryAx_present": false,
+  "provenance": {
+    "ConnesWeilRH/Dev/C1RouteBAdaptiveVariableLambdaContradiction3132.lean": "6be1cd99c6c7e9298fe7e901661ca403471484470b9a90cfbd10240712a9fb2f",
+    "ConnesWeilRH/Dev/C1RouteBAdaptiveVariableLambdaContradiction3132Audit.lean": "c29c97da624bf334519e9d799878954f2ff363ccb4dbdf97a525cf6fd85eff43"
+  },
+  "scope": "Same-owner logical rejection of the arbitrary variable-lambda gate under span qw < 0 and span triple vanishing; no numerical owner manifest, margin, Producer GO, SourceRH, or RH claim."
+}

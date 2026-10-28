@@ -1,4 +1,9 @@
-# 984 — R1 Step6: the `ccm25ArithmeticPackage` assembly seam is structurally blocked on the concrete `{2}` carrier
+# 984 — R1 Step6: the `ccm25ArithmeticPackage` assembly seam on the concrete `{2}` carrier
+
+Historical status: the scoped-balance portion of this record is superseded by
+the coverage-guarded contract adopted in option 1.  The remaining `∀n`
+finite-atomic obstruction and the other route boundaries remain historical
+evidence where stated below.
 
 Status: execution record (negative result).  RH NOT claimed.  Axiom-clean
 (`[propext, Classical.choice, Quot.sound]`, 0 sorry).
@@ -10,9 +15,10 @@ Feed the reduce-lane arithmetic (982) and the on-visible re-type (983) into
 concrete carrier `W0` (the "wire-in" step of the R1 route toward the arithmetic
 `qw`/`psi` sign), then assemble toward the `FullWeilPositivity` exit.
 
-## Result — the assembly seam is **blocked**, axiom-cleanly
+## Historical result — the old assembly seam was **blocked**, axiom-cleanly
 
-`Dev/R1Step6Probe984_assembly.lean` (build 2952 jobs green) proves:
+The superseded version of `Dev/R1Step6Probe984_assembly.lean` (build 2952 jobs
+green) proved:
 
 ```lean
 theorem common_source_data_f0_uninhabited
@@ -30,23 +36,25 @@ scopedArchimedeanContributionBalance :
   ∀ lambda, ∀ globalData, ∀ restrictedData, balance W0 common lambda globalData restrictedData
 ```
 
-but probe 983b showed `balance W0 f0 0 gd rd` is refuted (this is precise), so
-at `commonTestFunction = f0` the field is uninhabited and the record cannot
-be built.  `#print axioms` on both theorems = `[propext, Classical.choice,
-Quot.sound]`.
+but the old unconditional balance contract was too broad at the drained
+window.  Option 1 replaced that claim with the precise statement that
+`W0.globalPrimeIndexSet ⊆ W0.restrictedPrimeIndexSet 0` is false.  The new
+coverage-guarded balance is vacuous at `lambda = 0`; it does not prove that the
+record is uninhabited.  The `#print axioms` result for the new coverage leaves
+remains `[propext, Classical.choice, Quot.sound]`.
 
 ## The two walls the `ccm25ArithmeticPackage` seam crosses
 
 | Seam                         | Content                                                                  | Status on `{2}` carrier |
 |------------------------------|--------------------------------------------------------------------------|--------------------------|
-| scoped balance leaf           | `CommonFinitePrimeArithmeticSourceData.scopedArchimedeanContributionBalance` (`∀λ ∈ ∀gd ∈ ∀rd`) | **REFUTED** (983b): λ=0 family empty |
+| scoped balance leaf           | `CommonFinitePrimeArithmeticSourceData.scopedArchimedeanContributionBalance` (coverage -> equality) | **VACUOUS** at λ=0: coverage is false |
 | finite-prime arithmetic certs | `FixedLambdaArithmeticSourceTestCertificatesForAllTests = ∀ f g, ... atomsWithSourceTest (∀n IsPrimePow)` | **L653 wall** (∀n uninhabitable at composites) |
 | `ConcreteCCM25ArithmeticPackage.rows` needs both |  | blocked on concrete `{2}` |
 
-This **closes** the earlier "wire the reduce-lane into `ccm25ArithmeticPackage`"
-target (R1 step-6 original): it is structurally impossible on the concrete
-carrier, at TWO independent seams (scoped balance leaf AND all-tests
-`∀n`).
+The old record treated the wire-in target as blocked at two seams.  After
+option 1, only the all-tests `∀n` obstruction remains a structural blocker;
+the scoped-balance issue is now a coverage boundary rather than an
+uninhabited record.
 
 ## What the reduce-lane DOES provide (still defensive, unaffected)
 
@@ -74,9 +82,10 @@ witness (Wall-1) is fed — that route is already axiom-clean.
 
 ## Honest bottom line
 
-- The concrete `{2}` carrier cannot serve as the arithmetic-package base for
-  the R1 `qw` sign path: both the scoped-balance leaf and the `∀n`
-  finite-atomic family are home of `False` or `∀n` walls.
+- The concrete `{2}` carrier still cannot serve as the arithmetic-package base
+  for the R1 `qw` sign path because the `∀n` finite-atomic family remains a
+  structural wall; the scoped-balance leaf is no longer a `False` wall under
+  the coverage-guarded contract.
 - The positive, still-live vectors to C1→RH stay:
   1. Re-type `FixedLambdaArithmeticCertificateSourceTestData.atoms` to the
      on-index-set finite conjunction (true 653 structural fix),

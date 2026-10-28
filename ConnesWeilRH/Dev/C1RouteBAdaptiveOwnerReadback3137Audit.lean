@@ -1,0 +1,15 @@
+import ConnesWeilRH.Dev.C1RouteBAdaptiveOwnerReadback3137
+
+namespace ConnesWeilRH.Source.C1RouteBAdaptiveOwnerReadback3137Audit
+
+open ConnesWeilRH.Source.C1RouteBAdaptiveOwnerReadback3137
+
+#check poweredFamilyOwner_identity3137
+#check poweredFamily_globalPrimeIndexSet_mem_iff3137
+#check poweredFamily_globalPrimeIndexSet_selected3137
+
+#print axioms poweredFamilyOwner_identity3137
+#print axioms poweredFamily_globalPrimeIndexSet_mem_iff3137
+#print axioms poweredFamily_globalPrimeIndexSet_selected3137
+
+end ConnesWeilRH.Source.C1RouteBAdaptiveOwnerReadback3137Audit

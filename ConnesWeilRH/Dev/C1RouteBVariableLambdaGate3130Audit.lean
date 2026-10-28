@@ -1,0 +1,15 @@
+import ConnesWeilRH.Dev.C1RouteBVariableLambdaGate3130
+
+namespace ConnesWeilRH.Source.C1RouteBVariableLambdaGate3130Audit
+
+open ConnesWeilRH.Source.C1RouteBVariableLambdaGate3130
+
+#check variableLambdaGatePredicate3130_iff_gate_qform
+#check variableLambdaGatePredicate3130_iff_signed_margin
+#check variableLambdaGatePredicate3130_iff_owner_gate
+
+#print axioms variableLambdaGatePredicate3130_iff_gate_qform
+#print axioms variableLambdaGatePredicate3130_iff_signed_margin
+#print axioms variableLambdaGatePredicate3130_iff_owner_gate
+
+end ConnesWeilRH.Source.C1RouteBVariableLambdaGate3130Audit

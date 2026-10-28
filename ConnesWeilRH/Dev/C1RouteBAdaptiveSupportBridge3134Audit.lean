@@ -1,0 +1,13 @@
+import ConnesWeilRH.Dev.C1RouteBAdaptiveSupportBridge3134
+
+namespace ConnesWeilRH.Source.C1RouteBAdaptiveSupportBridge3134Audit
+open ConnesWeilRH.Source.C1RouteBAdaptiveSupportBridge3134
+#check poweredFamilyOwner_support3134
+#check poweredFamily_gate_bridge3134
+#check negative_powered_owner_rejects_gate3134
+#check exists_eventual_powered_owner_rejects_gate3135
+#print axioms poweredFamilyOwner_support3134
+#print axioms poweredFamily_gate_bridge3134
+#print axioms negative_powered_owner_rejects_gate3134
+#print axioms exists_eventual_powered_owner_rejects_gate3135
+end ConnesWeilRH.Source.C1RouteBAdaptiveSupportBridge3134Audit

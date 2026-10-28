@@ -1540,7 +1540,10 @@ theorem restricted_certificate_boundary_formula_eq_global_formula_of_concrete_co
     {base : SourceObjectTheoremBasePackage}
     (data : SourceObjectConcreteCommonData base)
     (lambda : ℝ)
-    (boundary : CommonFinitePrimeCertificateBoundary data lambda) :
+    (boundary : CommonFinitePrimeCertificateBoundary data lambda)
+    (hcoverage :
+      base.ccm25Model.toWeilFormSymbols.globalPrimeIndexSet ⊆
+        base.ccm25Model.toWeilFormSymbols.restrictedPrimeIndexSet lambda) :
     base.ccm25Model.toWeilFormSymbols.archimedeanTerm
         (base.ccm25Model.toWeilFormSymbols.convolutionStar
           data.concreteCommonTest.sourceTest
@@ -1567,13 +1570,16 @@ theorem restricted_certificate_boundary_formula_eq_global_formula_of_concrete_co
             boundary.globalArithmeticData := by
   exact
     data.commonFinitePrimeArithmeticSourceData_scopedArchimedeanContributionBalance
-      lambda boundary.globalArithmeticData boundary.restrictedArithmeticData
+      lambda boundary.globalArithmeticData boundary.restrictedArithmeticData hcoverage
 
 theorem restricted_boundary_formula_eq_global_formula_of_concrete_common
     {base : SourceObjectTheoremBasePackage}
     (data : SourceObjectConcreteCommonData base)
     (lambda : ℝ)
-    (boundary : SourceEvaluationVisibleFinitePrimeBoundary data lambda) :
+    (boundary : SourceEvaluationVisibleFinitePrimeBoundary data lambda)
+    (hcoverage :
+      base.ccm25Model.toWeilFormSymbols.globalPrimeIndexSet ⊆
+        base.ccm25Model.toWeilFormSymbols.restrictedPrimeIndexSet lambda) :
     base.ccm25Model.toWeilFormSymbols.archimedeanTerm
         (base.ccm25Model.toWeilFormSymbols.convolutionStar
           data.concreteCommonTest.sourceTest
@@ -1601,7 +1607,7 @@ theorem restricted_boundary_formula_eq_global_formula_of_concrete_common
   by
     exact
       data.commonFinitePrimeArithmeticSourceData_scopedArchimedeanContributionBalance
-        lambda boundary.globalArithmeticData boundary.restrictedArithmeticData
+        lambda boundary.globalArithmeticData boundary.restrictedArithmeticData hcoverage
 
 theorem common_restricted_finite_prime_term_sum_read_off
     {base : SourceObjectTheoremBasePackage}
@@ -1762,7 +1768,10 @@ theorem restricted_formula_eq_global_formula_of_concrete_common
     (lambda : ℝ)
     (pkg : CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
       base.ccm25Model.toWeilFormSymbols
-      data.concreteCommonTest.sourceTest lambda) :
+      data.concreteCommonTest.sourceTest lambda)
+    (hcoverage :
+      base.ccm25Model.toWeilFormSymbols.globalPrimeIndexSet ⊆
+        base.ccm25Model.toWeilFormSymbols.restrictedPrimeIndexSet lambda) :
     base.ccm25Model.toWeilFormSymbols.archimedeanTerm
         (base.ccm25Model.toWeilFormSymbols.convolutionStar
           data.concreteCommonTest.sourceTest
@@ -1795,6 +1804,7 @@ theorem restricted_formula_eq_global_formula_of_concrete_common
             (CCM25Concrete.Package.formula_components pkg).commonCertificate)
           (CCM25Concrete.FinitePrimeCertificate.arithmetic_data_on_restricted_index_set_of_certificate
             (CCM25Concrete.Package.formula_components pkg).commonCertificate)
+          hcoverage
 
 theorem common_finite_prime_normalization
     {base : SourceObjectTheoremBasePackage}

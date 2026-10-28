@@ -1,0 +1,16 @@
+{
+  "record": 3129,
+  "status": "CONTROL-FAIL",
+  "failure": "OWNER-DATA-MISSING",
+  "decision": "Do not evaluate the owner residual or claim a margin.",
+  "detail": "No actual globalPrimeIndexSet manifest was supplied.",
+  "partition_status": "NOT-RUN",
+  "residual_status": "UNPRICED",
+  "continuum_status": "NOT-RUN",
+  "provenance": {
+    "script": "scripts/routea_owner_prime_power_partition_probe_3129.py",
+    "script_sha256": "114fd1271ca3b1e326aad86159e4a7af082a96331260acaf572a874c324a49ce",
+    "owner_manifest": null,
+    "owner_manifest_sha256": null
+  }
+}

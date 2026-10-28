@@ -1,0 +1,41 @@
+{
+  "record": 3137,
+  "status": "PASS",
+  "module": "ConnesWeilRH.Dev.C1RouteBAdaptiveOwnerReadback3137Audit",
+  "build_jobs": 3904,
+  "returncode": 0,
+  "theorems_found": [
+    "ConnesWeilRH.Source.C1RouteBAdaptiveOwnerReadback3137.poweredFamilyOwner_identity3137",
+    "ConnesWeilRH.Source.C1RouteBAdaptiveOwnerReadback3137.poweredFamily_globalPrimeIndexSet_mem_iff3137",
+    "ConnesWeilRH.Source.C1RouteBAdaptiveOwnerReadback3137.poweredFamily_globalPrimeIndexSet_selected3137"
+  ],
+  "axioms": {
+    "ConnesWeilRH.Source.C1RouteBAdaptiveOwnerReadback3137.poweredFamilyOwner_identity3137": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "ConnesWeilRH.Source.C1RouteBAdaptiveOwnerReadback3137.poweredFamily_globalPrimeIndexSet_mem_iff3137": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "ConnesWeilRH.Source.C1RouteBAdaptiveOwnerReadback3137.poweredFamily_globalPrimeIndexSet_selected3137": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "unexpected_axioms": {
+    "ConnesWeilRH.Source.C1RouteBAdaptiveOwnerReadback3137.poweredFamilyOwner_identity3137": [],
+    "ConnesWeilRH.Source.C1RouteBAdaptiveOwnerReadback3137.poweredFamily_globalPrimeIndexSet_mem_iff3137": [],
+    "ConnesWeilRH.Source.C1RouteBAdaptiveOwnerReadback3137.poweredFamily_globalPrimeIndexSet_selected3137": []
+  },
+  "error_lines_present": false,
+  "sorryAx_present": false,
+  "provenance": {
+    "ConnesWeilRH/Dev/C1RouteBAdaptiveOwnerReadback3137.lean": "2835765b3f880da6e4da755c9dffc6e4ffcb356484166b92494141b50423152f",
+    "ConnesWeilRH/Dev/C1RouteBAdaptiveOwnerReadback3137Audit.lean": "ff66a5cec088089994bd970ee63bfbcb5aa03fdc082af8bfb6875c5ad943f44e"
+  },
+  "scope": "Exact 3117 powered-owner identity and prime-power index-set readback only; no numerical manifest, gate margin, Producer GO, SourceRH, or RH claim."
+}

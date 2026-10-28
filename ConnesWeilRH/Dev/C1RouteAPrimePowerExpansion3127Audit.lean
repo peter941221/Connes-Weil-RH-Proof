@@ -1,0 +1,11 @@
+import ConnesWeilRH.Dev.C1RouteAPrimePowerExpansion3127
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1RouteAPrimePowerExpansion3127Audit
+
+#print axioms C1RouteAPrimePowerExpansion3127.routeAPrimePoissonSymbol_eq_primePowerExpansion
+
+end C1RouteAPrimePowerExpansion3127Audit
+end Source
+end ConnesWeilRH

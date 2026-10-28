@@ -1,0 +1,12 @@
+import ConnesWeilRH.Dev.C1RouteAOwnerPrimePowerResidual3128
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1RouteAOwnerPrimePowerResidual3128Audit
+
+#print axioms C1RouteAOwnerPrimePowerResidual3128.routeAActualFinitePrimeKernel_eq_coordinateNormalizedSum
+#print axioms C1RouteAOwnerPrimePowerResidual3128.routeAInfinitePrimePowerKernel_eq_actual_add_residual
+
+end C1RouteAOwnerPrimePowerResidual3128Audit
+end Source
+end ConnesWeilRH

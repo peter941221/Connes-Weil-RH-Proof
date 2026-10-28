@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1RouteBAdaptiveVariableLambdaContradiction3132
+
+namespace ConnesWeilRH.Source.C1RouteBAdaptiveVariableLambdaContradiction3132Audit
+
+open ConnesWeilRH.Source.C1RouteBAdaptiveVariableLambdaContradiction3132
+
+#check negative_owner_rejects_variable_lambda_gate3132
+#print axioms negative_owner_rejects_variable_lambda_gate3132
+
+end ConnesWeilRH.Source.C1RouteBAdaptiveVariableLambdaContradiction3132Audit

@@ -1,0 +1,15 @@
+import ConnesWeilRH.Dev.C1RouteAOwnerPrimePowerPartition3129
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1RouteAOwnerPrimePowerPartition3129Audit
+
+#print axioms C1RouteAOwnerPrimePowerPartition3129.vonMangoldt_primePower_eq_log
+#print axioms C1RouteAOwnerPrimePowerPartition3129.actualOwner_mem_cutoff
+#print axioms C1RouteAOwnerPrimePowerPartition3129.actualOwner_mem_primePowerClosure
+#print axioms C1RouteAOwnerPrimePowerPartition3129.actualOwner_mem_closureWithinCutoff
+#print axioms C1RouteAOwnerPrimePowerPartition3129.primePowerClosure_partition
+
+end C1RouteAOwnerPrimePowerPartition3129Audit
+end Source
+end ConnesWeilRH

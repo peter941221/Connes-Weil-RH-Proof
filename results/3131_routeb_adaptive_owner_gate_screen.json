@@ -1,0 +1,15 @@
+{
+  "record": 3131,
+  "status": "CONTROL-FAIL",
+  "failure": "OWNER-DATA-MISSING",
+  "decision": "Do not claim qw < 0, qw >= 0, a gate margin, Producer GO, SourceRH, or RH.",
+  "detail": "No actual adaptive owner manifest was supplied.",
+  "owner_gate_status": "NOT-RUN",
+  "tail_status": "NOT-RUN",
+  "provenance": {
+    "script": "scripts/routeb_adaptive_owner_gate_screen_3131.py",
+    "script_sha256": "8968e03f84eac00693ace6b35346645353d20cb7a1106c46688e2b9e713ea3f8",
+    "owner_manifest": null,
+    "owner_manifest_sha256": null
+  }
+}

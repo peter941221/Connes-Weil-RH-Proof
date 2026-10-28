@@ -1,0 +1,14 @@
+{
+  "record": 3136,
+  "status": "CONTROL-FAIL",
+  "failure": "OWNER-DATA-MISSING",
+  "detail": "No exact-owner certificate manifest was supplied.",
+  "certificate_status": "NOT-RUN",
+  "decision": "Do not claim a gate margin, Producer GO, SourceRH, or RH.",
+  "provenance": {
+    "script": "scripts/routeb_exact_owner_gate_certificate_contract_3136.py",
+    "script_sha256": "71e5b25692ad6b10d3c329db36a9fccbdf876ca044fe1c171b13d80acd45674f",
+    "owner_manifest": null,
+    "owner_manifest_sha256": null
+  }
+}

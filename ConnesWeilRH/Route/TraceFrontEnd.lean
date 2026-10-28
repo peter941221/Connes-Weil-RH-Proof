@@ -7331,7 +7331,10 @@ theorem normalizedBoundaryScalarFullTraceArchimedeanBalance
           rhExit bridges fixedData))
     (boundary :
       Source.SourceObjectConcreteCommonData.SourceEvaluationVisibleFinitePrimeBoundary
-        data traceData.lambda) :
+        data traceData.lambda)
+    (hcoverage :
+      base.ccm25Model.toWeilFormSymbols.globalPrimeIndexSet ⊆
+        base.ccm25Model.toWeilFormSymbols.restrictedPrimeIndexSet traceData.lambda) :
     NormalizedBoundaryScalarFullTraceArchimedeanBalance
       base data ccm24 normalizedSeed remainders rhExit bridges fixedData
       traceData boundary := by
@@ -7339,6 +7342,7 @@ theorem normalizedBoundaryScalarFullTraceArchimedeanBalance
   exact
     Source.SourceObjectConcreteCommonData.restricted_boundary_formula_eq_global_formula_of_concrete_common
       data traceData.lambda boundary
+      hcoverage
 
 def NormalizedCertificateBoundaryScalarFullTraceArchimedeanBalance
     (base : Source.SourceObjectTheoremBasePackage)
@@ -7424,7 +7428,10 @@ theorem normalizedCertificateBoundaryScalarFullTraceArchimedeanBalance
           rhExit bridges fixedData))
     (boundary :
       Source.SourceObjectConcreteCommonData.CommonFinitePrimeCertificateBoundary
-        data traceData.lambda) :
+        data traceData.lambda)
+    (hcoverage :
+      base.ccm25Model.toWeilFormSymbols.globalPrimeIndexSet ⊆
+        base.ccm25Model.toWeilFormSymbols.restrictedPrimeIndexSet traceData.lambda) :
     NormalizedCertificateBoundaryScalarFullTraceArchimedeanBalance
       base data ccm24 normalizedSeed remainders rhExit bridges fixedData
       traceData boundary := by
@@ -7432,6 +7439,7 @@ theorem normalizedCertificateBoundaryScalarFullTraceArchimedeanBalance
   exact
     Source.SourceObjectConcreteCommonData.restricted_certificate_boundary_formula_eq_global_formula_of_concrete_common
       data traceData.lambda boundary
+      hcoverage
 
 theorem normalizedScalarFullTraceArchimedeanBalanceOfPoleBalance
     (base : Source.SourceObjectTheoremBasePackage)

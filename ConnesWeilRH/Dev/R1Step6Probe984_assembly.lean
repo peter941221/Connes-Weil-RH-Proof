@@ -3,31 +3,24 @@ import ConnesWeilRH.Dev.R1Step5Probe983b_balance
 import ConnesWeilRH.Source.CCM25Concrete.FinitePrimeSourceData
 
 /-!
-# R1 step 6 — `CommonFinitePrimeArithmeticSourceData` is uninhabited at the
-common test f0 (984)
+# R1 step 6 — drained-window coverage boundary for common test f0 (984)
 
-Probe 983b refuted the analytic leaf
-`SourceScopedArchimedeanContributionBalance W0 f0 λ gd rd` at the drained
-window λ = 0 (and hence the whole `∀λ` family on the concrete carrier).  This
-probe makes the *assembly* consequence explicit:
+Probe 983b shows that the drained window λ = 0 does not cover the global prime
+index set.  This probe records the corresponding assembly boundary:
 
 `CommonFinitePrimeArithmeticSourceData W0` requires a field
 
-    scopedArchimedeanContributionBalance :
-      ∀ λ, ∀ globalData, ∀ restrictedData,
-        SourceScopedArchimedeanContributionBalance W0 commonTestFunction λ
-          globalData restrictedData
+      coverage -> SourceScopedArchimedeanContributionBalance ...
 
-which, at `commonTestFunction = f0` and `λ = 0`, instantiates over the very
-`gd` / `rd` objects whose balance `L657DiagProbe` refutes.  Therefore any
-`CommonFinitePrimeArithmeticSourceData W0` with `commonTestFunction = f0` is
-inconsistent — the "wire the reduce-lane into `ccm25ArithmeticPackage`" seam
-(984 target) is blocked *structurally* on the concrete `{2}` carrier.
+At `commonTestFunction = f0` and `λ = 0`, the coverage premise is false for
+the concrete `{2}` carrier.  The scoped balance is therefore vacuous at this
+drained parameter; this does not prove that
+`CommonFinitePrimeArithmeticSourceData W0` is uninhabited.
 
-This is honest negative evidence, not a closure: it pins that the balance leaf
-is a REFUTED prerequisite of the package, so the route keeps needing the
-canonical-Weil sign repair (847b/912 seam) business — it is NOT an analysis
-gap one can close locally on the concrete model.
+This is honest boundary evidence, not a closure: the old unconditional balance
+contract was too broad, while the new coverage-guarded contract excludes the
+drained case.  The route still needs its canonical-Weil sign repair and the
+remaining producer obligations; this probe does not claim SourceRH or RH.
 
 Zero `sorry`, no new `axiom`.  RH NOT claimed.
 -/
@@ -41,29 +34,20 @@ open ConnesWeilRH.Source.CCM25Concrete
 open ConnesWeilRH.Source.CCM25Concrete.FinitePrimeSourceData
 open ConnesWeilRH.Source.Dev.L657DiagProbe
 
-/-- The `CommonFinitePrimeArithmeticSourceData` at `commonTestFunction = f0`
-is empty: its `scopedArchimedeanContributionBalance` field is refuted at λ=0
-over the concrete `gd`/`rd` objects. -/
-theorem common_source_data_f0_uninhabited
+/-- The drained coverage guard is false for the concrete common test. -/
+theorem common_source_data_f0_zero_coverage_false
     (h : CommonFinitePrimeArithmeticSourceData W0)
-    (hcomm : h.commonTestFunction = f0) : False := by
-  rcases h with ⟨commonTestFunction, finitePrimeData, scopedArchimedeanContributionBalance⟩
-  subst hcomm
-  -- instantiate the field at λ=0 with the concrete global/restricted objects
-  exact L657DiagProbe.probe_balance_false
-    (scopedArchimedeanContributionBalance (0 : ℝ) gd rd)
+    (hcomm : h.commonTestFunction = f0) :
+    ¬ W0.globalPrimeIndexSet ⊆ W0.restrictedPrimeIndexSet 0 := by
+  exact L657DiagProbe.probe_coverage_false
 
-/-- Corollary: no `CommonFinitePrimeArithmeticSourceData W0` can use the common
-bump as its common test — the reduce-lane package seam is blocked on the
-concrete `{2}` carrier. -/
-theorem no_common_source_data_with_f0 :
-    ¬ (∃ h : CommonFinitePrimeArithmeticSourceData W0, h.commonTestFunction = f0) := by
-  intro h
-  rcases h with ⟨h, hcomm⟩
-  exact common_source_data_f0_uninhabited h hcomm
+/-- The concrete drained window is not a valid covered window. -/
+theorem no_zero_coverage_for_f0 :
+    ¬ W0.globalPrimeIndexSet ⊆ W0.restrictedPrimeIndexSet 0 := by
+  exact L657DiagProbe.probe_coverage_false
 
-#print axioms common_source_data_f0_uninhabited
-#print axioms no_common_source_data_with_f0
+#print axioms common_source_data_f0_zero_coverage_false
+#print axioms no_zero_coverage_for_f0
 
 end R1Step6Probe984
 end Dev

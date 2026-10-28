@@ -1,0 +1,67 @@
+{
+  "record": 3139,
+  "status": "CONTROL-FAIL",
+  "module": "ConnesWeilRH.Dev.UnconditionalSkeletonAxiomAudit3139",
+  "build_jobs": 3774,
+  "verification_environment": "Linux-side WSL2 ext4 verification environment",
+  "error_lines_present": false,
+  "sorryAx_present": false,
+  "allowed_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "audited_constants": {
+    "normalizedRouteTraceDataFromTheorems": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound",
+      "UnconditionalSkeleton.normalizedCoreCC20PropositionC1SourceCriterionRoot",
+      "UnconditionalSkeleton.normalizedCoreCCM25FinitePrimeArithmeticSourceDataRoot",
+      "UnconditionalSkeleton.normalizedCoreS2B1RemainderRowsOutsideNoBulkRoot",
+      "UnconditionalSkeleton.normalizedCoreS2B1TracePackageRemaindersRoot"
+    ],
+    "normalizedLedgersClearedFromTheorems": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound",
+      "UnconditionalSkeleton.normalizedCoreCC20PropositionC1SourceCriterionRoot",
+      "UnconditionalSkeleton.normalizedCoreCCM25FinitePrimeArithmeticSourceDataRoot",
+      "UnconditionalSkeleton.normalizedCoreS2B1RemainderRowsOutsideNoBulkRoot",
+      "UnconditionalSkeleton.normalizedCoreS2B1TracePackageRemaindersRoot",
+      "UnconditionalSkeleton.normalizedSelectedFinitePrimeIndexDifferenceInputRoot"
+    ],
+    "normalizedRouteCertificateFromTheorems": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound",
+      "UnconditionalSkeleton.normalizedCoreCC20PropositionC1SourceCriterionRoot",
+      "UnconditionalSkeleton.normalizedCoreCCM25FinitePrimeArithmeticSourceDataRoot",
+      "UnconditionalSkeleton.normalizedCoreS2B1RemainderRowsOutsideNoBulkRoot",
+      "UnconditionalSkeleton.normalizedCoreS2B1TracePackageRemaindersRoot"
+    ],
+    "unconditional_rh_skeleton": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound",
+      "UnconditionalSkeleton.normalizedCoreCC20PropositionC1SourceCriterionRoot",
+      "UnconditionalSkeleton.normalizedCoreCCM25FinitePrimeArithmeticSourceDataRoot",
+      "UnconditionalSkeleton.normalizedCoreS2B1RemainderRowsOutsideNoBulkRoot",
+      "UnconditionalSkeleton.normalizedCoreS2B1TracePackageRemaindersRoot",
+      "UnconditionalSkeleton.normalizedSelectedFinalRouteDetectorCriterionCoverageRoot"
+    ],
+    "unconditional_rh_contract_skeleton": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound",
+      "UnconditionalSkeleton.normalizedCoreCC20PropositionC1SourceCriterionRoot",
+      "UnconditionalSkeleton.normalizedCoreCCM25FinitePrimeArithmeticSourceDataRoot",
+      "UnconditionalSkeleton.normalizedCoreS2B1RemainderRowsOutsideNoBulkRoot",
+      "UnconditionalSkeleton.normalizedCoreS2B1TracePackageRemaindersRoot",
+      "UnconditionalSkeleton.normalizedSelectedFinalRouteCanonicalSquareDataTraceRowsPackageRoot",
+      "UnconditionalSkeleton.normalizedSelectedFinalRouteCertificateCarrierRoot"
+    ]
+  },
+  "decision": "Do not treat the development skeleton or either RH outlet as a verified proof; replace root dependencies and re-audit.",
+  "scope": "Axiom dependency audit only; no Producer GO, SourceRH, or RH claim."
+}

@@ -1,0 +1,49 @@
+{
+  "record": 3134,
+  "status": "PASS",
+  "module": "ConnesWeilRH.Dev.C1RouteBAdaptiveSupportBridge3134Audit",
+  "build_jobs": 3903,
+  "returncode": 0,
+  "theorems_found": [
+    "ConnesWeilRH.Source.C1RouteBAdaptiveSupportBridge3134.exists_eventual_powered_owner_rejects_gate3135",
+    "ConnesWeilRH.Source.C1RouteBAdaptiveSupportBridge3134.negative_powered_owner_rejects_gate3134",
+    "ConnesWeilRH.Source.C1RouteBAdaptiveSupportBridge3134.poweredFamilyOwner_support3134",
+    "ConnesWeilRH.Source.C1RouteBAdaptiveSupportBridge3134.poweredFamily_gate_bridge3134"
+  ],
+  "axioms": {
+    "ConnesWeilRH.Source.C1RouteBAdaptiveSupportBridge3134.poweredFamilyOwner_support3134": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "ConnesWeilRH.Source.C1RouteBAdaptiveSupportBridge3134.poweredFamily_gate_bridge3134": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "ConnesWeilRH.Source.C1RouteBAdaptiveSupportBridge3134.negative_powered_owner_rejects_gate3134": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "ConnesWeilRH.Source.C1RouteBAdaptiveSupportBridge3134.exists_eventual_powered_owner_rejects_gate3135": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "unexpected_axioms": {
+    "ConnesWeilRH.Source.C1RouteBAdaptiveSupportBridge3134.poweredFamilyOwner_support3134": [],
+    "ConnesWeilRH.Source.C1RouteBAdaptiveSupportBridge3134.poweredFamily_gate_bridge3134": [],
+    "ConnesWeilRH.Source.C1RouteBAdaptiveSupportBridge3134.negative_powered_owner_rejects_gate3134": [],
+    "ConnesWeilRH.Source.C1RouteBAdaptiveSupportBridge3134.exists_eventual_powered_owner_rejects_gate3135": []
+  },
+  "error_lines_present": false,
+  "sorryAx_present": false,
+  "provenance": {
+    "ConnesWeilRH/Dev/C1RouteBVariableLambdaGate3130.lean": "3c1d8808e12747df3a54e733f6da83b62879d64f986c6c2903141fc2e2a7f51e",
+    "ConnesWeilRH/Dev/C1RouteBAdaptiveSupportBridge3134.lean": "bfd567ca573a23e33b5ee857317b3dfbe21da6fef12165d8b4635f8705731163",
+    "ConnesWeilRH/Dev/C1RouteBAdaptiveSupportBridge3134Audit.lean": "e8cc10cf9583835fb459d6657c56067b943fc557e5bc2a4e6cb8b41e89c3a774"
+  },
+  "scope": "Actual 3117 powered-owner support bridge, eventual negative-span composition, and logical gate rejection only; no numerical gate margin, Producer GO, SourceRH, or RH claim."
+}

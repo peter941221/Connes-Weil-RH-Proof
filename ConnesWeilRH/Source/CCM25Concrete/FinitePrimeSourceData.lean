@@ -49,8 +49,9 @@ def SourceScopedArchimedeanContributionBalance
     (restrictedData :
       PrimePowerArithmetic.SourceRestrictedFinitePrimeArithmeticData
         W f f lambda) : Prop :=
-  SourceScopedRestrictedArchimedeanFormula W f lambda restrictedData =
-    SourceScopedGlobalArchimedeanFormula W f globalData
+  W.globalPrimeIndexSet ⊆ W.restrictedPrimeIndexSet lambda →
+    SourceScopedRestrictedArchimedeanFormula W f lambda restrictedData =
+      SourceScopedGlobalArchimedeanFormula W f globalData
 
 structure SourceArchimedeanTermData
     (W : WeilFormSymbols) (f : TestFunction) where

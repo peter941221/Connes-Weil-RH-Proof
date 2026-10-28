@@ -150,15 +150,22 @@ lemma globalSum_positive :
   have hProd : 0 < (Real.sqrt (2 : Real))⁻¹ * (2 : Real) := by positivity
   exact mul_pos hLam hProd
 
-theorem probe_balance_false :
-    SourceScopedArchimedeanContributionBalance W0 f0 0 gd rd -> False := by
-  intro hb
-  unfold SourceScopedArchimedeanContributionBalance at hb
-  simp only [SourceScopedRestrictedArchimedeanFormula,
-             SourceScopedGlobalArchimedeanFormula,
-             archimedeanTerm_zero, restrictedSumZero] at hb
-  rw [polePairingEqual] at hb
-  nlinarith [globalSum_positive]
+theorem probe_coverage_false :
+    ¬ W0.globalPrimeIndexSet ⊆ W0.restrictedPrimeIndexSet 0 := by
+  intro hcoverage
+  have htwo : 2 ∈ W0.globalPrimeIndexSet := by
+    rw [globalSetTwo]
+    simp
+  have htwoRestricted : 2 ∈ W0.restrictedPrimeIndexSet 0 :=
+    hcoverage htwo
+  rw [restrictedSetZero] at htwoRestricted
+  simp at htwoRestricted
+
+theorem probe_balance_with_coverage_false :
+    SourceScopedArchimedeanContributionBalance W0 f0 0 gd rd →
+      W0.globalPrimeIndexSet ⊆ W0.restrictedPrimeIndexSet 0 → False := by
+  intro hbalance hcoverage
+  exact probe_coverage_false hcoverage
 end L657DiagProbe
 end Dev
 end Source
