@@ -2596,6 +2596,35 @@ structure SourceObjectTheoremBasePackage where
     CC20RHExitObjectPackage rhDefinitionBridge
 
 /--
+Indexed provenance wrapper for the theorem-base package.
+
+The existing package remains the consumer-facing shape.  This wrapper records
+which indexed CCM25 input produced its `ccm25Model`, so a later root migration
+can be checked by an explicit read-back equality instead of by field names.
+-/
+structure IndexedSourceObjectTheoremBasePackage where
+  base : SourceObjectTheoremBasePackage
+  indexedCcm25Input : IndexedCCM25SourceArithmeticConstructorInput
+  ccm25Model_readback :
+    base.ccm25Model = indexedCcm25Input.toIndexedCCM25SourceModel
+
+namespace IndexedSourceObjectTheoremBasePackage
+
+def toLegacyPackage
+    (pkg : IndexedSourceObjectTheoremBasePackage) :
+    SourceObjectTheoremBasePackage :=
+  pkg.base
+
+@[simp]
+theorem toLegacyPackage_ccm25Model
+    (pkg : IndexedSourceObjectTheoremBasePackage) :
+    pkg.toLegacyPackage.ccm25Model =
+      pkg.indexedCcm25Input.toIndexedCCM25SourceModel :=
+  pkg.ccm25Model_readback
+
+end IndexedSourceObjectTheoremBasePackage
+
+/--
 Constructor-facing source data for `SourceObjectTheoremBasePackage`.
 
 This keeps the theorem-base models, normalized S2-B1 trace-scale rows, and
@@ -2689,6 +2718,19 @@ theorem toPackage_ccm25Model
     (data : IndexedSourceObjectTheoremBaseConstructorInput) :
     data.toPackage.ccm25Model =
       data.indexedCcm25Input.toIndexedCCM25SourceModel := by
+  rfl
+
+noncomputable def toIndexedPackage
+    (data : IndexedSourceObjectTheoremBaseConstructorInput) :
+    IndexedSourceObjectTheoremBasePackage where
+  base := data.toPackage
+  indexedCcm25Input := data.indexedCcm25Input
+  ccm25Model_readback := data.toPackage_ccm25Model
+
+@[simp]
+theorem toIndexedPackage_base
+    (data : IndexedSourceObjectTheoremBaseConstructorInput) :
+    data.toIndexedPackage.base = data.toPackage := by
   rfl
 
 end IndexedSourceObjectTheoremBaseConstructorInput
