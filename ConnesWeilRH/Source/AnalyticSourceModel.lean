@@ -539,6 +539,41 @@ theorem SourceWeilFormData.finitePrimeDominance_of_indexed_certificates
           SourceFinitePrimeData.globalPrimeIndexSet_eq_support] using hidx)
   simpa [SourceWeilFormData.toWeilFormSymbols_finitePrimeAtomVisible,
     SourceFinitePrimeData.sourceAtomVisible, A.legacy.decode_encode W.common] using hrev
+
+/-
+The minimal normalization boundary needs only the global coverage row for
+dominance. It deliberately does not reconstruct the stronger reverse support
+data carried by the fixed-lambda arithmetic certificate family.
+-/
+theorem SourceWeilFormData.finitePrimeDominance_of_indexed_normalization_certificates
+    {A : SourceTestAlgebra} (W : SourceWeilFormData A)
+    (cert :
+      CCM25Concrete.FinitePrimeInterface.IndexedFinitePrimeNormalizationCertificatesForAllTests
+        W.toWeilFormSymbols) :
+    W.finitePrimeDominance := by
+  intro f g n hvis
+  have hidx : n ∈ W.toWeilFormSymbols.globalPrimeIndexSet :=
+    (CCM25Concrete.FinitePrimeInterface.finite_prime_visibility_of_indexed_normalization_certificates
+      (cert f g)).globalPrimeIndexCoverage n hvis
+  have hrev : W.finitePrime.sourceAtomVisible n W.common :=
+    W.finitePrime.support.commonGlobalIndex n
+      (by
+        simpa [SourceWeilFormData.toWeilFormSymbols_globalPrimeIndexSet,
+          SourceFinitePrimeData.globalPrimeIndexSet_eq_support] using hidx)
+  simpa [SourceWeilFormData.toWeilFormSymbols_finitePrimeAtomVisible,
+    SourceFinitePrimeData.sourceAtomVisible, A.legacy.decode_encode W.common] using hrev
+
+def SourceWeilFormData.indexedNormalizationCertificates_of_dominance
+    {A : SourceTestAlgebra} (W : SourceWeilFormData A)
+    (hdom : W.finitePrimeDominance) :
+    CCM25Concrete.FinitePrimeInterface.IndexedFinitePrimeNormalizationCertificatesForAllTests
+      W.toWeilFormSymbols := by
+  intro f g
+  let h := W.finite_prime_term_normalization_statement hdom f g
+  exact
+    { globalPrimeIndexCoverage := h.globalPrimeIndexCoverage
+      restrictedPrimeIndexCoverage := h.restrictedPrimeIndexCoverage
+      finitePrimeTermNormalization := h.finitePrimeTermNormalization }
 end AnalyticCore
 end Source
 end ConnesWeilRH

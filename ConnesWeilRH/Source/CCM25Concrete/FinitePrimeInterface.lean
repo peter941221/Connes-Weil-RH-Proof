@@ -92,6 +92,40 @@ def FixedLambdaIndexedArithmeticSourceTestCertificatesForAllTests
     (W : WeilFormSymbols) : Type :=
   ∀ f g : TestFunction,
     FixedLambdaIndexedArithmeticSourceTestCertificatesForTest W f g
+
+/-
+Minimal indexed normalization boundary.
+
+The arithmetic support skeleton above is stronger than the normalization
+consumer needs: it asks for reverse index-data witnesses for every member of
+the global and restricted index sets. This boundary keeps only the three
+obligations consumed by `FinitePrimeVisibilityStatement`.
+-/
+structure IndexedFinitePrimeNormalizationCertificatesForTest
+    (W : WeilFormSymbols) (f g : TestFunction) where
+  globalPrimeIndexCoverage :
+    WeilFormSymbols.GlobalPrimeIndexCoverageStatement W
+      (W.convolutionStar f g)
+  restrictedPrimeIndexCoverage :
+    ∀ lambda : ℝ, 1 < lambda →
+      WeilFormSymbols.RestrictedPrimeIndexCoverageStatement W lambda
+        (W.convolutionStar f g)
+  finitePrimeTermNormalization :
+    WeilFormSymbols.FinitePrimeTermNormalizationStatement W f g
+
+def IndexedFinitePrimeNormalizationCertificatesForAllTests
+    (W : WeilFormSymbols) : Prop :=
+  ∀ f g : TestFunction,
+    IndexedFinitePrimeNormalizationCertificatesForTest W f g
+
+theorem finite_prime_visibility_of_indexed_normalization_certificates
+    {W : WeilFormSymbols} {f g : TestFunction}
+    (h : IndexedFinitePrimeNormalizationCertificatesForTest W f g) :
+    WeilFormSymbols.FinitePrimeVisibilityStatement W f g :=
+  { globalPrimeIndexCoverage := h.globalPrimeIndexCoverage
+    restrictedPrimeIndexCoverage := h.restrictedPrimeIndexCoverage
+    finitePrimeTermNormalization := h.finitePrimeTermNormalization }
+
 def FixedLambdaArithmeticSourceTestCertificatesForAllTests
     (W : WeilFormSymbols) : Type :=
   ∀ f g : TestFunction,
