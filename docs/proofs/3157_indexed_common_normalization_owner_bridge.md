@@ -1,32 +1,29 @@
-# 3157: Indexed common normalization owner bridge
+# 3157: Indexed common arithmetic owner bridge
 
 Date: 2026-10-28
 
-The existing `IndexedCommonFinitePrimeArithmeticSourceData` contains an
-indexed support skeleton. Its support certificate already derives arbitrary-pair
-restricted-index coverage; the remaining row required by the minimal
-normalization boundary is arbitrary-pair finite-prime term normalization.
+The existing `IndexedCommonFinitePrimeArithmeticSourceData` already contains the
+indexed support skeleton for every test pair and every `lambda`. Its support
+certificate derives both global and restricted index coverage.
 
-Added `IndexedCommonFinitePrimeNormalizationSourceData` in
-`ConnesWeilRH/Source/CCM25Concrete/FinitePrimeSourceData.lean`. It preserves the
-indexed support selector and adds the remaining term-normalization row, together
-with the existing scoped archimedean balance row. Restricted coverage is
-derived directly from each indexed support skeleton.
+The remaining normalization fact does not need another owner field. For a
+`SourceWeilFormData`, the finite-prime term identity is already an unconditional
+read-off from `SourceFinitePrimeData.finitePrimeTerm_convolutionStar`.
 
-Added the constructor
-`fixedLambdaIndexedArithmeticSourceTestCertificatesForAllTests`, which converts
-this owner into the indexed source-test certificate family consumed by the
-minimal interface.
+Added in `ConnesWeilRH/Source/AnalyticSourceModel.lean`:
 
-Added
-`SourceWeilFormData.finitePrimeDominance_of_indexed_common_normalization_data`
-in `ConnesWeilRH/Source/AnalyticSourceModel.lean`. Therefore a genuinely
-constructed indexed normalization owner now discharges `finitePrimeDominance`
-without using the legacy all-natural-number arithmetic certificate.
+- `SourceWeilFormData.finite_prime_term_normalization_statement_of_source_data`
+- `SourceWeilFormData.finitePrimeDominance_of_indexed_common_arithmetic_source_data`
 
-This is a consumer bridge, not a root construction. The normalized project root
-still lacks a real `IndexedCommonFinitePrimeNormalizationSourceData` instance;
-no SourceRH or RH claim follows.
+The second bridge consumes the existing indexed common arithmetic owner,
+derives restricted coverage from each indexed support certificate, derives term
+normalization from the source evaluation data, and then proves
+`finitePrimeDominance`. No legacy all-natural-number arithmetic certificate is
+used by this bridge.
+
+This is still a consumer bridge, not a construction of the normalized indexed
+owner. The normalized project root remains incomplete; no SourceRH or RH claim
+follows.
 
 Verification:
 

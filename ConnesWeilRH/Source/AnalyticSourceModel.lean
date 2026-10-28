@@ -563,14 +563,38 @@ theorem SourceWeilFormData.finitePrimeDominance_of_indexed_normalization_certifi
   simpa [SourceWeilFormData.toWeilFormSymbols_finitePrimeAtomVisible,
     SourceFinitePrimeData.sourceAtomVisible, A.legacy.decode_encode W.common] using hrev
 
-theorem SourceWeilFormData.finitePrimeDominance_of_indexed_common_normalization_data
+theorem SourceWeilFormData.finite_prime_term_normalization_statement_of_source_data
+    {A : SourceTestAlgebra} (W : SourceWeilFormData A) :
+    ∀ (f g : TestFunction),
+      WeilFormSymbols.FinitePrimeTermNormalizationStatement W.toWeilFormSymbols f g := by
+  intro f g n
+  simpa [SourceWeilFormData.toWeilFormSymbols_finitePrimeTerm,
+    SourceFinitePrimeData.legacyFinitePrimeTerm,
+    SourceFinitePrimeData.legacyPrimePowerPairing] using
+    W.finitePrime.finitePrimeTerm_convolutionStar
+      (A.legacy.decode f) (A.legacy.decode g) n
+
+theorem SourceWeilFormData.finitePrimeDominance_of_indexed_common_arithmetic_source_data
     {A : SourceTestAlgebra} (W : SourceWeilFormData A)
     (data :
-      CCM25Concrete.FinitePrimeSourceData.IndexedCommonFinitePrimeNormalizationSourceData
+      CCM25Concrete.FinitePrimeSourceData.IndexedCommonFinitePrimeArithmeticSourceData
         W.toWeilFormSymbols) :
-    W.finitePrimeDominance :=
-  W.finitePrimeDominance_of_indexed_certificates
-    (CCM25Concrete.FinitePrimeSourceData.fixedLambdaIndexedArithmeticSourceTestCertificatesForAllTests data)
+    W.finitePrimeDominance := by
+  apply W.finitePrimeDominance_of_indexed_certificates
+  intro f g
+  exact
+    { sourceTest := data.finitePrimeData.selector.sourceTest f g
+      certificate := data.finitePrimeData.certificateData f g
+      certificateSourceTest := by
+        intro lambda hlambda
+        exact data.finitePrimeData.certificateSourceTest f g lambda hlambda
+      restrictedPrimeIndexCoverage := by
+        intro lambda hlambda
+        exact
+          CCM25Concrete.PrimePowerSupport.SourcePrimePowerArithmeticSupportSkeletonAtLambda.restrictedPrimeIndexCoverage
+            (data.finitePrimeData.certificateData f g lambda hlambda).support
+      finitePrimeTermNormalization :=
+        W.finite_prime_term_normalization_statement_of_source_data f g }
 
 def SourceWeilFormData.indexedNormalizationCertificates_of_dominance
     {A : SourceTestAlgebra} (W : SourceWeilFormData A)
