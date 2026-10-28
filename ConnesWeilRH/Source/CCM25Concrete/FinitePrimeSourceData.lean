@@ -607,6 +607,23 @@ structure FinitePrimeArithmeticSourceData
       FixedLambdaArithmeticCertificateSourceTestData
         W f g lambda (selector.sourceTest f g)
 
+theorem not_fixedLambdaArithmeticCertificateSourceTestData
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    {sourceTest : PrimePowerTest.SourceTestEvaluationInterface W f g} :
+    ¬ Nonempty (FixedLambdaArithmeticCertificateSourceTestData W f g lambda sourceTest) := by
+  rintro ⟨h⟩
+  have hprime : IsPrimePow 1 :=
+    (h.atoms.atIndex 1).data.indexData.sourcePrimePowerIndex
+  exact not_isPrimePow_one hprime
+
+theorem not_finitePrimeArithmeticSourceData
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W} :
+    ¬ Nonempty (FinitePrimeArithmeticSourceData W common) := by
+  rintro ⟨h⟩
+  exact not_fixedLambdaArithmeticCertificateSourceTestData
+    ⟨h.certificateData common.sourceTest common.sourceTest 2 (by norm_num)⟩
+
 namespace FinitePrimeArithmeticSourceData
 
 /-- Source-data-level version of direct atom/visible read-off.  It is the
@@ -705,6 +722,12 @@ structure CommonFinitePrimeArithmeticSourceData
           W commonTestFunction commonTestFunction lambda,
         SourceScopedArchimedeanContributionBalance
           W commonTestFunction lambda globalData restrictedData
+
+theorem not_commonFinitePrimeArithmeticSourceData
+    {W : WeilFormSymbols} :
+    ¬ Nonempty (CommonFinitePrimeArithmeticSourceData W) := by
+  rintro ⟨h⟩
+  exact not_finitePrimeArithmeticSourceData ⟨h.finitePrimeData⟩
 
 def commonFinitePrimeArithmeticSourceDataOfSourceTestCertificates
     {W : WeilFormSymbols}
