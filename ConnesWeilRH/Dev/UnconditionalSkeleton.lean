@@ -319,6 +319,11 @@ noncomputable def normalizedCoreSourceAnalyticCoreFromTheorems :
   weilForm := normalizedCoreSourceWeilFormDataFromTheorems
   traceScale := normalizedCoreSourceTraceScaleDataFromTheorems
 
+theorem normalizedCoreSourceAnalyticCore_archimedeanTerm_zero
+    (F : TestFunction) :
+    normalizedCoreSourceAnalyticCoreFromTheorems.toWeilFormSymbols.archimedeanTerm F = 0 := by
+  rfl
+
 theorem normalizedCoreSourceAnalyticCore_testAlgebra :
     normalizedCoreSourceAnalyticCoreFromTheorems.testAlgebra =
       normalizedCoreSourceTestAlgebraFromTheorems := by
