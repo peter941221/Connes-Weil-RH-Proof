@@ -633,6 +633,25 @@ def indexedFinitePrimeArithmeticSourceDataOfSourceTestCertificates
   certificateSourceTest := by
     intro f g lambda hlambda
     exact (certs f g).certificateSourceTest lambda hlambda
+namespace IndexedFinitePrimeArithmeticSourceData
+
+noncomputable def globalArithmeticData
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W}
+    (data : IndexedFinitePrimeArithmeticSourceData W common)
+    (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda) :
+    PrimePowerArithmetic.SourceGlobalFinitePrimeArithmeticData W f g :=
+  (data.certificateData f g lambda hlambda).globalArithmeticData
+
+noncomputable def restrictedArithmeticData
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W}
+    (data : IndexedFinitePrimeArithmeticSourceData W common)
+    (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda) :
+    PrimePowerArithmetic.SourceRestrictedFinitePrimeArithmeticData W f g lambda :=
+  (data.certificateData f g lambda hlambda).restrictedArithmeticData
+
+end IndexedFinitePrimeArithmeticSourceData
 /-- Exact finite-prime arithmetic data for all test pairs over one common test. -/
 structure FinitePrimeArithmeticSourceData
     (W : WeilFormSymbols)
