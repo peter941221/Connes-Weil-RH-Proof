@@ -44,6 +44,45 @@ structure FixedLambdaFinitePrimeArithmeticCertificate
     PrimePowerArithmetic.SourceFinitePrimeArithmeticNormalizationForSourceTest
       W f g support.sourceTest
 
+/--
+An indexed fixed-lambda arithmetic certificate.
+
+Unlike `FixedLambdaFinitePrimeArithmeticCertificate`, this boundary does not
+ask for arithmetic data at every natural number. The support skeleton already
+contains the source-visible arithmetic data, and the two read-off functions
+below restrict it to the exact finite global and restricted prime index sets.
+-/
+structure FixedLambdaFinitePrimeIndexedArithmeticCertificate
+    (W : WeilFormSymbols) (f g : TestFunction) (lambda : ℝ) where
+  support :
+    PrimePowerSupport.SourcePrimePowerArithmeticSupportSkeletonAtLambda
+      W f g lambda
+
+namespace FixedLambdaFinitePrimeIndexedArithmeticCertificate
+
+noncomputable def globalArithmeticData
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeIndexedArithmeticCertificate W f g lambda) :
+    PrimePowerArithmetic.SourceGlobalFinitePrimeArithmeticData W f g where
+  atIndex := fun n hn =>
+    h.support.visibleArithmeticData.atVisibleIndex n
+      ((PrimePowerTest.route_visibility_iff_source_visibility
+        h.support.sourceTest n).1
+        (h.support.globalIndexData n hn).atomVisible)
+
+noncomputable def restrictedArithmeticData
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeIndexedArithmeticCertificate W f g lambda) :
+    PrimePowerArithmetic.SourceRestrictedFinitePrimeArithmeticData
+      W f g lambda where
+  atIndex := fun n hn =>
+    h.support.visibleArithmeticData.atVisibleIndex n
+      ((PrimePowerTest.route_visibility_iff_source_visibility
+        h.support.sourceTest n).1
+        (h.support.restrictedIndexData n hn).atomVisible)
+
+end FixedLambdaFinitePrimeIndexedArithmeticCertificate
+
 def FixedLambdaFinitePrimeArithmeticCertificate.atoms
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda) :
