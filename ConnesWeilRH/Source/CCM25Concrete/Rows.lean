@@ -67,6 +67,27 @@ theorem finite_prime_normalization_of_indexed_arithmetic_rows
   exact
     FinitePrimeInterface.finite_prime_visibility_of_indexed_source_test_certificates
       (h.finitePrimeArithmeticCertificates f g)
+
+theorem qw_definition_of_indexed_arithmetic_rows
+    {W : WeilFormSymbols} (h : ConcreteCCM25IndexedArithmeticRows W) :
+    WeilFormSymbols.QWDefinitionStatement W :=
+  h.globalRows.qwDefinition
+
+theorem psi_sign_of_indexed_arithmetic_rows
+    {W : WeilFormSymbols} (h : ConcreteCCM25IndexedArithmeticRows W) :
+    WeilFormSymbols.PsiSignStatement W :=
+  h.globalRows.psiSign
+
+theorem qw_lambda_formula_of_indexed_arithmetic_rows
+    {W : WeilFormSymbols} (h : ConcreteCCM25IndexedArithmeticRows W) :
+    WeilFormSymbols.QWLambdaFormulaStatement W :=
+  h.restrictedRows.qwLambdaFormula
+
+theorem pole_normalization_of_indexed_arithmetic_rows
+    {W : WeilFormSymbols} (h : ConcreteCCM25IndexedArithmeticRows W) :
+    WeilFormSymbols.PoleNormalizationStatement W :=
+  h.poleRows.poleNormalization
+
 def concrete_rows_of_atom_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25AtomRows W) :
     ConcreteCCM25Rows W where

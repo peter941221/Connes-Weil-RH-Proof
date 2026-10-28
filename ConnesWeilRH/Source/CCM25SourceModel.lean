@@ -171,11 +171,45 @@ noncomputable def ccm25_source_model_of_arithmetic_rows
   pole_normalization :=
     CCM25Concrete.Rows.pole_normalization_of_arithmetic_rows rows
 
+noncomputable def ccm25_source_model_of_indexed_arithmetic_rows
+    {W : WeilFormSymbols}
+    (rows : CCM25Concrete.Rows.ConcreteCCM25IndexedArithmeticRows W) :
+    CCM25SourceModel where
+  qw := W.qw
+  convolutionStar := W.convolutionStar
+  psi := W.psi
+  qwLambda := W.qwLambda
+  globalPrimeIndexSet := W.globalPrimeIndexSet
+  restrictedPrimeIndexSet := W.restrictedPrimeIndexSet
+  finitePrimeTerm := W.finitePrimeTerm
+  archimedeanTerm := W.archimedeanTerm
+  poleFunctional := W.poleFunctional
+  polePairing := W.polePairing
+  primePowerPairing := W.primePowerPairing
+  finitePrimeNormalization :=
+    CCM25Concrete.Rows.finite_prime_normalization_of_indexed_arithmetic_rows rows
+  qw_eq_psi_convolution :=
+    CCM25Concrete.Rows.qw_definition_of_indexed_arithmetic_rows rows
+  psi_sign_formula :=
+    CCM25Concrete.Rows.psi_sign_of_indexed_arithmetic_rows rows
+  qw_lambda_formula :=
+    CCM25Concrete.Rows.qw_lambda_formula_of_indexed_arithmetic_rows rows
+  pole_normalization :=
+    CCM25Concrete.Rows.pole_normalization_of_indexed_arithmetic_rows rows
+
 @[simp]
 theorem ccm25_source_model_of_arithmetic_rows_to_weil_form_symbols
     {W : WeilFormSymbols}
     (rows : CCM25Concrete.Rows.ConcreteCCM25ArithmeticRows W) :
     (ccm25_source_model_of_arithmetic_rows rows).toWeilFormSymbols = W := by
+  cases W
+  rfl
+
+@[simp]
+theorem ccm25_source_model_of_indexed_arithmetic_rows_to_weil_form_symbols
+    {W : WeilFormSymbols}
+    (rows : CCM25Concrete.Rows.ConcreteCCM25IndexedArithmeticRows W) :
+    (ccm25_source_model_of_indexed_arithmetic_rows rows).toWeilFormSymbols = W := by
   cases W
   rfl
 

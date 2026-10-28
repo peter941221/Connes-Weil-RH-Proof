@@ -68,6 +68,19 @@ def toIndexedConcreteArithmeticRows
   finitePrimeArithmeticCertificates := input.finitePrimeArithmeticCertificates
   poleRows := input.poleRows
 
+noncomputable def toIndexedCCM25SourceModel
+    (input : IndexedCCM25SourceArithmeticConstructorInput) :
+    CCM25SourceModel :=
+  ccm25_source_model_of_indexed_arithmetic_rows
+    input.toIndexedConcreteArithmeticRows
+
+@[simp]
+theorem toIndexedCCM25SourceModel_toWeilFormSymbols
+    (input : IndexedCCM25SourceArithmeticConstructorInput) :
+    input.toIndexedCCM25SourceModel.toWeilFormSymbols = input.weilSymbols := by
+  simp [toIndexedCCM25SourceModel, toIndexedConcreteArithmeticRows,
+    ccm25_source_model_of_indexed_arithmetic_rows_to_weil_form_symbols]
+
 end IndexedCCM25SourceArithmeticConstructorInput
 namespace CCM25SourceArithmeticConstructorInput
 
