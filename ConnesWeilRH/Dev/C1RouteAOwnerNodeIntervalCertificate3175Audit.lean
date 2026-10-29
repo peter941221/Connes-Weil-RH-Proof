@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteAOwnerNodeIntervalCertificate3175
+
+namespace ConnesWeilRH.Source.C1RouteAOwnerNodeIntervalCertificate3175Audit
+
+#print axioms C1RouteAOwnerNodeIntervalCertificate3175.no_owner_node_interval_certificate_of_right_off_line_zero
+
+end ConnesWeilRH.Source.C1RouteAOwnerNodeIntervalCertificate3175Audit

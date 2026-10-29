@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteAOwnerNodeIntervalCertificate3173
+
+namespace ConnesWeilRH.Source.C1RouteAOwnerNodeIntervalCertificate3173Audit
+
+#print axioms C1RouteAOwnerNodeIntervalCertificate3173.RouteAOwnerNodeIntervalCertificate.enclosure
+#print axioms C1RouteAOwnerNodeIntervalCertificate3173.orbitWindowSemiLocalGate_of_owner_node_interval_certificate
+
+end ConnesWeilRH.Source.C1RouteAOwnerNodeIntervalCertificate3173Audit

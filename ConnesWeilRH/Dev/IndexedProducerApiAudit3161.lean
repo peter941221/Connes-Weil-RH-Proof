@@ -1,0 +1,10 @@
+import ConnesWeilRH.Source.AnalyticSourceModel
+
+open ConnesWeilRH
+open ConnesWeilRH.Source
+open ConnesWeilRH.Source.AnalyticCore
+
+#print axioms SourceWeilFormData.indexedSourceTestCertificates_of_indexed_common_arithmetic_source_data
+#print axioms SourceWeilFormData.toIndexedCCM25SourceArithmeticConstructorInput_of_indexed_common_arithmetic_source_data
+#print axioms SourceWeilFormData.IndexedFinitePrimeProducer.indexedSourceTestCertificates
+#print axioms SourceWeilFormData.IndexedFinitePrimeProducer.toIndexedCommonFinitePrimeArithmeticSourceData

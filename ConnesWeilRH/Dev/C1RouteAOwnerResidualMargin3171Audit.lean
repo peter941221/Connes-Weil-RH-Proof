@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteAOwnerResidualMargin3171
+
+namespace ConnesWeilRH.Source.C1RouteAOwnerResidualMargin3171Audit
+
+#print axioms C1RouteAOwnerResidualMargin3171.routeAJointSymbol_lower_bound_of_owner_residual_allowance
+#print axioms C1RouteAOwnerResidualMargin3171.routeAJointSymbol_nonneg_of_owner_residual_margin
+
+end ConnesWeilRH.Source.C1RouteAOwnerResidualMargin3171Audit

@@ -1,0 +1,13 @@
+import ConnesWeilRH.Dev.C1RouteAOwnerResidualMargin3130
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1RouteAOwnerResidualMargin3130Audit
+
+#print axioms C1RouteAOwnerResidualMargin3130.routeAJointSymbol_eq_actualOwnerSymbol_sub_residual
+#print axioms C1RouteAOwnerResidualMargin3130.routeAFrequencyEnergyDensity_eq_actual_sub_residual
+#print axioms C1RouteAOwnerResidualMargin3130.routeAFrequencyEnergyIntegral_eq_actual_sub_residual
+
+end C1RouteAOwnerResidualMargin3130Audit
+end Source
+end ConnesWeilRH

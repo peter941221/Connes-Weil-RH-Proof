@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteAOwnerResidualBound3170
+
+namespace ConnesWeilRH.Source.C1RouteAOwnerResidualBound3170Audit
+
+#print axioms C1RouteAOwnerResidualBound3170.routeAActualFinitePrimeKernel_abs_le
+#print axioms C1RouteAOwnerResidualBound3170.routeAOwnerPrimePowerResidual_abs_le
+
+end ConnesWeilRH.Source.C1RouteAOwnerResidualBound3170Audit

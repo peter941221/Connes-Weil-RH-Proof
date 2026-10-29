@@ -574,13 +574,73 @@ theorem SourceWeilFormData.finite_prime_term_normalization_statement_of_source_d
     W.finitePrime.finitePrimeTerm_convolutionStar
       (A.legacy.decode f) (A.legacy.decode g) n
 
-theorem SourceWeilFormData.finitePrimeDominance_of_indexed_common_arithmetic_source_data
+structure SourceWeilFormData.IndexedFinitePrimeProducer
+    {A : SourceTestAlgebra} (W : SourceWeilFormData A) where
+  commonTestFunction : TestFunction
+  sourceTest : ∀ f g : TestFunction,
+    CCM25Concrete.PrimePowerTest.SourceTestEvaluationInterface
+      W.toWeilFormSymbols f g
+  support : ∀ (f g : TestFunction) (lambda : ℝ), 1 < lambda →
+    CCM25Concrete.PrimePowerSupport.SourcePrimePowerArithmeticSupportSkeletonAtLambda
+      W.toWeilFormSymbols f g lambda
+  supportSourceTest : ∀ (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda),
+    (support f g lambda hlambda).sourceTest = sourceTest f g
+  commonPairSourceTest :
+    sourceTest commonTestFunction commonTestFunction =
+      (CCM25Concrete.CommonSourceTest.concreteCommonSourceTest
+        W.toWeilFormSymbols commonTestFunction).toSourceTestEvaluationInterface
+  scopedArchimedeanContributionBalance :
+    ∀ lambda : ℝ,
+      ∀ globalData :
+        CCM25Concrete.PrimePowerArithmetic.SourceGlobalFinitePrimeArithmeticData
+          W.toWeilFormSymbols commonTestFunction commonTestFunction,
+      ∀ restrictedData :
+        CCM25Concrete.PrimePowerArithmetic.SourceRestrictedFinitePrimeArithmeticData
+          W.toWeilFormSymbols commonTestFunction commonTestFunction lambda,
+        CCM25Concrete.FinitePrimeSourceData.SourceScopedArchimedeanContributionBalance
+          W.toWeilFormSymbols commonTestFunction lambda globalData restrictedData
+
+namespace SourceWeilFormData.IndexedFinitePrimeProducer
+
+noncomputable def indexedSourceTestCertificates
+    {A : SourceTestAlgebra} {W : SourceWeilFormData A}
+    (producer : W.IndexedFinitePrimeProducer) :
+    CCM25Concrete.FinitePrimeInterface.FixedLambdaIndexedArithmeticSourceTestCertificatesForAllTests
+      W.toWeilFormSymbols := by
+  intro f g
+  exact
+    { sourceTest := producer.sourceTest f g
+      certificate := fun lambda hlambda =>
+        { support := producer.support f g lambda hlambda }
+      certificateSourceTest := by
+        intro lambda hlambda
+        exact producer.supportSourceTest f g lambda hlambda
+      restrictedPrimeIndexCoverage := by
+        intro lambda hlambda
+        exact
+          CCM25Concrete.PrimePowerSupport.SourcePrimePowerArithmeticSupportSkeletonAtLambda.restrictedPrimeIndexCoverage
+            (producer.support f g lambda hlambda)
+      finitePrimeTermNormalization :=
+        W.finite_prime_term_normalization_statement_of_source_data f g }
+
+noncomputable def toIndexedCommonFinitePrimeArithmeticSourceData
+    {A : SourceTestAlgebra} {W : SourceWeilFormData A}
+    (producer : W.IndexedFinitePrimeProducer) :
+    CCM25Concrete.FinitePrimeSourceData.IndexedCommonFinitePrimeArithmeticSourceData
+      W.toWeilFormSymbols :=
+  CCM25Concrete.FinitePrimeSourceData.indexedCommonFinitePrimeArithmeticSourceDataOfSourceTestCertificates
+    producer.commonTestFunction producer.indexedSourceTestCertificates
+    producer.commonPairSourceTest producer.scopedArchimedeanContributionBalance
+
+end SourceWeilFormData.IndexedFinitePrimeProducer
+
+noncomputable def SourceWeilFormData.indexedSourceTestCertificates_of_indexed_common_arithmetic_source_data
     {A : SourceTestAlgebra} (W : SourceWeilFormData A)
     (data :
       CCM25Concrete.FinitePrimeSourceData.IndexedCommonFinitePrimeArithmeticSourceData
         W.toWeilFormSymbols) :
-    W.finitePrimeDominance := by
-  apply W.finitePrimeDominance_of_indexed_certificates
+    CCM25Concrete.FinitePrimeInterface.FixedLambdaIndexedArithmeticSourceTestCertificatesForAllTests
+      W.toWeilFormSymbols := by
   intro f g
   exact
     { sourceTest := data.finitePrimeData.selector.sourceTest f g
@@ -595,6 +655,24 @@ theorem SourceWeilFormData.finitePrimeDominance_of_indexed_common_arithmetic_sou
             (data.finitePrimeData.certificateData f g lambda hlambda).support
       finitePrimeTermNormalization :=
         W.finite_prime_term_normalization_statement_of_source_data f g }
+
+noncomputable def SourceWeilFormData.toIndexedCCM25SourceArithmeticConstructorInput_of_indexed_common_arithmetic_source_data
+    {A : SourceTestAlgebra} (W : SourceWeilFormData A)
+    (data :
+      CCM25Concrete.FinitePrimeSourceData.IndexedCommonFinitePrimeArithmeticSourceData
+        W.toWeilFormSymbols) :
+    IndexedCCM25SourceArithmeticConstructorInput :=
+  W.toIndexedCCM25SourceArithmeticConstructorInput
+    (W.indexedSourceTestCertificates_of_indexed_common_arithmetic_source_data data)
+
+theorem SourceWeilFormData.finitePrimeDominance_of_indexed_common_arithmetic_source_data
+    {A : SourceTestAlgebra} (W : SourceWeilFormData A)
+    (data :
+      CCM25Concrete.FinitePrimeSourceData.IndexedCommonFinitePrimeArithmeticSourceData
+        W.toWeilFormSymbols) :
+    W.finitePrimeDominance := by
+  apply W.finitePrimeDominance_of_indexed_certificates
+  exact W.indexedSourceTestCertificates_of_indexed_common_arithmetic_source_data data
 
 def SourceWeilFormData.indexedNormalizationCertificates_of_dominance
     {A : SourceTestAlgebra} (W : SourceWeilFormData A)
