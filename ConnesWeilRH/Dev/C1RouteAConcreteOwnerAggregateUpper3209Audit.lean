@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerAggregateUpper3209
+
+namespace ConnesWeilRH.Dev
+
+#print axioms intervalIntegral_record2680_aggregate_upper3209
+
+end ConnesWeilRH.Dev

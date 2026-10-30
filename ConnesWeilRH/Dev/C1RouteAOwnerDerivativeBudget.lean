@@ -62,7 +62,7 @@ theorem widthBump_ofReal_iteratedDeriv2350 (order : ℕ) {radius position : ℝ}
       ← iteratedDeriv_succ]
 
 theorem externalFamilyValue2344_iteratedDeriv_budget2350
-    (order : ℕ) (horder : order ≤ 4) (coefficient : ℂ) (modulation : ℝ)
+    (order : ℕ) (horder : order ≤ 6) (coefficient : ℂ) (modulation : ℝ)
     {radius position : ℝ} (hradius : 0 < radius) :
     ‖iteratedDeriv order (externalFamilyValue2344 coefficient modulation radius) position‖ ≤
       familyDerivativeBudget2350 order coefficient modulation radius := by
@@ -103,7 +103,7 @@ theorem externalFamilyValue2344_iteratedDeriv_budget2350
           (le_trans (Nat.sub_le order index) horder) hradius)
         (mul_nonneg (Nat.cast_nonneg _) (pow_nonneg (abs_nonneg _) _))
 
-theorem correctedPhysical_iteratedDeriv_budget2350 (order : ℕ) (horder : order ≤ 4)
+theorem correctedPhysical_iteratedDeriv_budget2350 (order : ℕ) (horder : order ≤ 6)
     (coefficients : Fin 30 → ℂ) (modulations : Fin 30 → ℝ) (position : ℝ) :
     ‖iteratedDeriv order (correctedPhysical coefficients modulations) position‖ ≤
       ownerDerivativeBudget2350 order coefficients modulations := by
@@ -119,6 +119,13 @@ theorem correctedPhysical_iteratedDeriv_budget2350 (order : ℕ) (horder : order
   exact (norm_sum_le _ _).trans (Finset.sum_le_sum fun index _ =>
     externalFamilyValue2344_iteratedDeriv_budget2350 order horder _ _
       (pow_pos (storedWidth_pos index) 2))
+
+theorem correctedPhysical_sixth_iteratedDeriv_budget2350
+    (coefficients : Fin 30 → ℂ) (modulations : Fin 30 → ℝ) (position : ℝ) :
+    ‖iteratedDeriv 6 (correctedPhysical coefficients modulations) position‖ ≤
+      ownerDerivativeBudget2350 6 coefficients modulations := by
+  exact correctedPhysical_iteratedDeriv_budget2350 6 (by norm_num)
+    coefficients modulations position
 
 
 theorem correctedPhysical_stripNorm_le_nodeUpper_from_budget2350

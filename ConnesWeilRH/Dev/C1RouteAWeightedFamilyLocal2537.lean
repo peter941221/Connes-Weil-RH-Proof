@@ -97,7 +97,7 @@ noncomputable def weightedFamilyLocalUpper2537 (order : ℕ)
         localCoupledBumpUpper2536 (order - index) radius near far)
 
 theorem weightedExternalFamily_iteratedDeriv_le_local2537
-    (order : ℕ) (horder : order ≤ 4) (sigma : ℝ) (coefficient : ℂ) (modulation : ℝ)
+    (order : ℕ) (horder : order ≤ 6) (sigma : ℝ) (coefficient : ℂ) (modulation : ℝ)
     {radius position near far : ℝ} (hradius : 0 < radius)
     (hnear : 0 ≤ near) (hnear_one : near < 1)
     (hlower : near ≤ |position / radius|) (hupper : |position / radius| ≤ far) :

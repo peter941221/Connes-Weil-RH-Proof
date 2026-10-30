@@ -1,0 +1,60 @@
+{
+  "record": 3181,
+  "status": "SIGNED_CORRECTION_INTERPOLATION_DIAGNOSTIC",
+  "cells": 2560,
+  "alpha_step": "1.0",
+  "rows": [
+    {
+      "alpha": "0.0",
+      "signs": {
+        "-0.5": {
+          "signed_midpoint_integral": "1.000000001367264932534995450876324038397572014475",
+          "coefficient_uncertainty_charge": "4.2213581396113382886136270705789211499854452696797e-45",
+          "signed_upper_diagnostic": "1.0000000013672649325349954508763240383975720186963",
+          "negative_midpoint": false,
+          "negative_upper": false
+        },
+        "0.5": {
+          "signed_midpoint_integral": "1.0",
+          "coefficient_uncertainty_charge": "4.2213581396113382886136270705789211499854452696797e-45",
+          "signed_upper_diagnostic": "1.0000000000000000000000000000000000000000000042214",
+          "negative_midpoint": false,
+          "negative_upper": false
+        }
+      }
+    },
+    {
+      "alpha": "1.0",
+      "signs": {
+        "-0.5": {
+          "signed_midpoint_integral": "-0.000000014151672441702890887565226436684534516120783609184",
+          "coefficient_uncertainty_charge": "8.0477090647930694622025955062213563902710051879334e-42",
+          "signed_upper_diagnostic": "-0.000000014151672441702890887565226436684526468411718816114",
+          "negative_midpoint": true,
+          "negative_upper": true
+        },
+        "0.5": {
+          "signed_midpoint_integral": "1.4904981613826471941371254203880854908180527353284e-49",
+          "coefficient_uncertainty_charge": "8.0477090647930694622025955062213563902710051879334e-42",
+          "signed_upper_diagnostic": "8.0477092138428856004673149199338984290795542697387e-42",
+          "negative_midpoint": false,
+          "negative_upper": false
+        }
+      }
+    }
+  ],
+  "negative_midpoint_count": 1,
+  "arithmetic": "mpmath 80 decimal digits; composite trapezoid; no curvature enclosure",
+  "interpolation": "alpha=0 base midpoint/box, alpha=1 correction midpoint/box; intermediate alpha is diagnostic only",
+  "owner_inputs": {
+    "repair_sha256": "7efde152db5e18c2d312cae16309172154044b443477bca75b9619b3070eb258",
+    "capture_sha256": "743fe372bef89b5730c38274d5a5517ac9ea4d3421989d46c49d4af3e78b5e74"
+  },
+  "nonclaims": [
+    "no certified quadrature error",
+    "no Lean certificate",
+    "no producer GO",
+    "no SourceRH",
+    "no RH"
+  ]
+}

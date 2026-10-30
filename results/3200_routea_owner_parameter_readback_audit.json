@@ -1,0 +1,28 @@
+{
+  "record": 3200,
+  "status": "OWNER_PARAMETER_READBACK_BOUNDARY_AUDIT",
+  "formula_identity": {
+    "status": "PASS",
+    "python": "exp(-30/q + sigma*x + i*theta*x), q=1-(x/r)^2",
+    "lean": "externalFamilyValue2344; externalFamilyValue2344_eq_familyTerm",
+    "source": "ConnesWeilRH\\Dev\\C1RouteAExternalOwnerIdentity.lean",
+    "python_source": "scripts\\routea_owner_whole_cell_2535.py"
+  },
+  "captured_radius_matches_stored_width_squared": true,
+  "radius_mismatch_indices": [],
+  "python_window_radius": "65536001/10000000",
+  "lean_owner_max_radius": "2076918743413931858457251756481/316912650057057350374175801344",
+  "python_window_exceeds_owner_support": true,
+  "coefficient_boxes_valid": true,
+  "lean_concrete_coefficient_readback": false,
+  "lean_concrete_modulation_readback": false,
+  "producer_certificate": false,
+  "nonclaims": [
+    "does not prove the outer radius extension is zero in Lean",
+    "does not import JSONL into Lean",
+    "does not prove derivative upper rows",
+    "does not prove the full-line tail",
+    "no SourceRH",
+    "no RH"
+  ]
+}

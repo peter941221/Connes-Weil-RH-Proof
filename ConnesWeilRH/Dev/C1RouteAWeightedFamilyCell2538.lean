@@ -29,7 +29,7 @@ theorem localCoupledBumpUpper2536_nonneg (order : ℕ) {radius near far : ℝ}
   positivity
 
 theorem weightedExternalFamily_iteratedDeriv_le_cell2538
-    (order : ℕ) (horder : order ≤ 4) (sigma : ℝ) (coefficient : ℂ) (modulation : ℝ)
+    (order : ℕ) (horder : order ≤ 6) (sigma : ℝ) (coefficient : ℂ) (modulation : ℝ)
     {radius near far a b position : ℝ} (hradius : 0 < radius)
     (hnear : 0 ≤ near) (hnear_one : near < 1)
     (hlower : near ≤ |position / radius|) (hupper : |position / radius| ≤ far)

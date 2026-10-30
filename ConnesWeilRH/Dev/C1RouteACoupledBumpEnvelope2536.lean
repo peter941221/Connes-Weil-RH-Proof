@@ -45,6 +45,12 @@ noncomputable def bumpNumeratorAbsUpper2536 : ℕ → ℝ → ℝ
   | 3, t => 10080 * t + 193680 * t ^ 3 + 31680 * t ^ 5 + 720 * t ^ 7
   | 4, t => 10080 + 1085040 * t ^ 2 + 10189440 * t ^ 4 +
       3575520 * t ^ 6 + 266400 * t ^ 8 + 3600 * t ^ 10
+  | 5, t => 2613600 * t + 92678400 * t ^ 3 + 493207200 * t ^ 5 +
+      320371200 * t ^ 7 + 51703200 * t ^ 9 + 2361600 * t ^ 11 +
+      21600 * t ^ 13
+  | 6, t => 2613600 + 387806400 * t ^ 2 + 6679584000 * t ^ 4 +
+      20842228800 * t ^ 6 + 24232824000 * t ^ 8 + 7137633600 * t ^ 10 +
+      714873600 * t ^ 12 + 22680000 * t ^ 14 + 151200 * t ^ 16
   | _, _ => 0
 
 theorem bumpNumeratorAbsUpper2536_nonneg (order : ℕ) {t : ℝ} (ht : 0 ≤ t) :
@@ -52,7 +58,7 @@ theorem bumpNumeratorAbsUpper2536_nonneg (order : ℕ) {t : ℝ} (ht : 0 ≤ t) 
   unfold bumpNumeratorAbsUpper2536
   split <;> positivity
 
-theorem bumpNumerator_abs_le_local2536 (order : ℕ) (horder : order ≤ 4)
+theorem bumpNumerator_abs_le_local2536 (order : ℕ) (horder : order ≤ 6)
     {position t : ℝ} (hposition : |position| ≤ t) :
     |bumpNumerator2350 order position| ≤ bumpNumeratorAbsUpper2536 order t := by
   interval_cases order
@@ -77,6 +83,19 @@ theorem bumpNumerator_abs_le_local2536 (order : ℕ) (horder : order ≤ 4)
     convert h using 1 <;>
       norm_num [bumpNumerator2350, bumpNumeratorAbsUpper2536, Fin.sum_univ_succ] <;>
       ring_nf
+  · have h := polynomialAbsUpperLocal2536 (Finset.univ : Finset (Fin 7))
+      ![(-2613600 : ℝ), 92678400, -493207200, -320371200, -51703200,
+        -2361600, -21600] ![1, 3, 5, 7, 9, 11, 13] hposition
+    convert h using 1 <;>
+      norm_num [bumpNumerator2350, bumpNumeratorAbsUpper2536, Fin.sum_univ_succ] <;>
+      ring_nf
+  · have h := polynomialAbsUpperLocal2536 (Finset.univ : Finset (Fin 9))
+      ![(-2613600 : ℝ), 387806400, -6679584000, 20842228800, 24232824000,
+        7137633600, 714873600, 22680000, 151200]
+      ![0, 2, 4, 6, 8, 10, 12, 14, 16] hposition
+    convert h using 1 <;>
+      norm_num [bumpNumerator2350, bumpNumeratorAbsUpper2536, Fin.sum_univ_succ] <;>
+      ring_nf
 
 noncomputable def localCoupledBumpUpper2536 (order : ℕ) (radius near far : ℝ) : ℝ :=
   bumpNumeratorAbsUpper2536 order far *
@@ -84,7 +103,7 @@ noncomputable def localCoupledBumpUpper2536 (order : ℕ) (radius near far : ℝ
       radius ^ order
 
 theorem widthBump_iteratedDeriv_abs_le_local2536
-    (order : ℕ) (horder : order ≤ 4) {radius position near far : ℝ}
+    (order : ℕ) (horder : order ≤ 6) {radius position near far : ℝ}
     (hradius : 0 < radius) (hnear : 0 ≤ near) (hnear_one : near < 1)
     (hlower : near ≤ |position / radius|) (hupper : |position / radius| ≤ far) :
     |iteratedDeriv order (widthBump radius) position| ≤
@@ -105,7 +124,7 @@ theorem widthBump_iteratedDeriv_abs_le_local2536
     have ht : (1 - near ^ 2)⁻¹ ≤ (bumpDeficit2350 (position / radius))⁻¹ := by
       simpa only [one_div] using one_div_le_one_div_of_le hq hqle
     have hpower : ((2 * order : ℕ) : ℝ) ≤ 30 * (1 - near ^ 2)⁻¹ := by
-      have hn : ((2 * order : ℕ) : ℝ) ≤ 8 := by exact_mod_cast (show 2 * order ≤ 8 by omega)
+      have hn : ((2 * order : ℕ) : ℝ) ≤ 12 := by exact_mod_cast (show 2 * order ≤ 12 by omega)
       linarith
     have hexp := powerExp_le_at_lower2536 (inv_pos.mpr hqnear) ht hpower
     have hnum := bumpNumerator_abs_le_local2536 order horder hupper

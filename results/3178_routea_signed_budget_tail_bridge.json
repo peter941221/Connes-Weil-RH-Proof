@@ -1,0 +1,62 @@
+{
+  "record": 3178,
+  "status": "TAIL_BRIDGED_MAIN_BUDGET_STILL_OPEN",
+  "tail_supplier": {
+    "threshold_exact": "128",
+    "q_exact": "1/16384",
+    "both_height_signs": true,
+    "base_order4_exact": "8282359850463808115006393090845388543929476665196451270821713838719261378113417415823776460333152770879433694808495849083104186995563396458199/11090678776483259438313656736572334813745748301503266300681918322458485231222502492159897624416558312389564843845614287315896631296",
+    "correction_order2_exact": "184064394191035141483496376031586703840978039917210814313059901562905905559636289907681885555484237600485343781429067277223444859105/2582249878086908589655919172003011874329705792829223512830659356540647622016841194629645353280137831435903171972747493376",
+    "full_signed_kernel_priced": false,
+    "tail_supplier_imported_in_lean": false
+  },
+  "scalar_acceptance_lanes": [
+    {
+      "iterate": 2,
+      "shell": 6,
+      "lambda_exact": "256",
+      "ratio_exact": "48875941510887657400791173875381103700357140111720222461348911/64277521770359611021678483693646504100888119751311713412055040",
+      "headroom_exact": "15401580259471953620887309818265400400530979639591490950706129/64277521770359611021678483693646504100888119751311713412055040",
+      "headroom_display": 0.23961067314474632,
+      "registered_scalar_budget_pass": true,
+      "not_a_gate_row": true,
+      "actual_tail_acceptance_instantiated": false
+    },
+    {
+      "iterate": 3,
+      "shell": 6,
+      "lambda_exact": "1/10000000000000",
+      "ratio_exact": "1281078476399335901438459523727850792117718464339875162251766211782966105532396784713932999071/5214812099416284380847220962328008092291759087784796801628519550347216127394141967829497282560",
+      "headroom_exact": "3933733623016948479408761438600157300174040623444921639376753338564250021861745183115564283489/5214812099416284380847220962328008092291759087784796801628519550347216127394141967829497282560",
+      "headroom_display": 0.7543385165224396,
+      "registered_scalar_budget_pass": true,
+      "not_a_gate_row": true,
+      "actual_tail_acceptance_instantiated": false
+    }
+  ],
+  "main_budget": {
+    "missing_certificate_components": [
+      "source_transform_interval",
+      "signed_kernel_interval",
+      "h1_coefficient_solve_interval",
+      "finite_window_quadrature_error",
+      "full_line_tail_bound",
+      "resulting_full_line_interval"
+    ],
+    "finite_window_interval": "NOT_CLOSED",
+    "full_line_tail": "MISSING",
+    "negative_aggregate_margin_closed": false
+  },
+  "semantic_boundary": {
+    "scalar_lane_can_be_added_to_physical_kernel_budget": false,
+    "reason": "2354 marks each row not_a_gate_row; its ratio is a conditional scalar acceptance inequality, not a signed prime-node aggregate bound",
+    "owner_transfer_closed": false
+  },
+  "input_sha256": {
+    "results/2353_same_owner_tail_supplier.json": "970064b629325278c9927af9ee0f2a4454f2a92ee98242e4a21769f7723b6a2e",
+    "results/2354_same_owner_tail_acceptance.json": "22b7d74e9e2a607d7b90027443067c9e5c65c65a9bf0b02bd9c54b0e104ff814",
+    "results/2038_route_a_one_copy_interval_certificate_audit.json": "2dafc024e81bfade19d6c64ffcd253680d0f341d243c817c8071659abd1d1db6"
+  },
+  "producer_go": false,
+  "rh_claim": false
+}

@@ -1,0 +1,20 @@
+{
+  "record": 3199,
+  "status": "PASS",
+  "source_record": 3187,
+  "cells": 40960,
+  "formula_rows": 40960,
+  "rounded_coefficient_fields": 163840,
+  "decimal_places": 80,
+  "grid_continuous": true,
+  "formula_replay_exact": true,
+  "aggregate_replay_exact": true,
+  "total_upper_negative": true,
+  "nonclaims": [
+    "does not prove owner derivative readback",
+    "does not import data into Lean",
+    "full-line tail missing",
+    "no SourceRH",
+    "no RH"
+  ]
+}

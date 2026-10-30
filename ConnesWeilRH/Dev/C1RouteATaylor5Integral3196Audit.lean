@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RouteATaylor5Integral3196
+
+open ConnesWeilRH.Dev
+
+#print axioms intervalIntegral_taylor5_upper_cancel_odd3196

@@ -1,0 +1,38 @@
+{
+  "record": 3176,
+  "status": "STOP_MISSING_PRODUCER_PREMISE",
+  "checks": {
+    "same_owner_identity": true,
+    "signed_plus_and_minus_frequency": false,
+    "exact_visible_prime_support": false,
+    "source_transform_closed": false,
+    "signed_kernel_closed": false,
+    "coefficient_enclosure_closed": false,
+    "finite_window_error_closed": false,
+    "full_line_tail_closed": false,
+    "negative_aggregate_margin_closed": false,
+    "lean_numeric_certificate_imported": false
+  },
+  "blocking_reasons": [
+    "the legacy payload does not certify both signed frequency contributions",
+    "exact owner/support transfer is not certified",
+    "source-transform enclosure is not closed",
+    "signed physical-kernel enclosure is not closed",
+    "coefficient enclosure is not closed",
+    "finite-window quadrature error is not closed",
+    "full-line tail bound is missing or not closed",
+    "no certified negative aggregate margin survives all error terms",
+    "numeric evidence has not been imported as a Lean certificate"
+  ],
+  "input_sha256": {
+    "results\\2038_route_a_one_copy_interval_certificate_audit.json": "2dafc024e81bfade19d6c64ffcd253680d0f341d243c817c8071659abd1d1db6",
+    "results\\2535_whole_cell_enclosure.json": "8928d255790ef25e7c62b673f2e15761c669eec2db2fbadd116b0c2d4b4edb81",
+    "results\\2539_signed_aggregate_validation.json": "ac3851517d887b43b71c20a33103cbe3ef0db7e569779462dbeb0d96fbf54d99",
+    "results\\2353_same_owner_tail_supplier.json": "970064b629325278c9927af9ee0f2a4454f2a92ee98242e4a21769f7723b6a2e"
+  },
+  "scope": "same-owner Route-A producer evidence gate; no SourceRH or RH claim",
+  "producer_go": false,
+  "rh_claim": false,
+  "next_admissible_artifact": "same-owner signed integrand certificate with exact support and full-line tail",
+  "source_script_sha256": "2165f86c565c2d1fee1987ebda16441acfb887b1d56feb4d90199ffdd7eb67a6"
+}

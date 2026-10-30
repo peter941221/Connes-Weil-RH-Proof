@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerWindowDecomposition3207
+
+namespace ConnesWeilRH.Dev
+
+#print axioms intervalIntegral_record2680_weightedExternal_eq_ownerWindow3207
+
+end ConnesWeilRH.Dev

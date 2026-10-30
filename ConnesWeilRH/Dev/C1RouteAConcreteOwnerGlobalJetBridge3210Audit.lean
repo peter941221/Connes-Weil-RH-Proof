@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerGlobalJetBridge3210
+
+namespace ConnesWeilRH.Dev
+
+#print axioms record2680_iteratedDerivWithin_eq_global3210
+#print axioms intervalIntegral_record2680_cell_upper_from_global_bounds3210
+
+end ConnesWeilRH.Dev

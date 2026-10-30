@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerCellUpper3208
+
+namespace ConnesWeilRH.Dev
+
+#print axioms record2680_weightedExternal_contDiff3208
+#print axioms intervalIntegral_record2680_cell_upper3208
+
+end ConnesWeilRH.Dev

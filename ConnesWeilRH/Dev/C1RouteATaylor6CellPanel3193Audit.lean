@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RouteATaylor6CellPanel3193
+
+open ConnesWeilRH.Dev
+
+#print axioms intervalIntegral_symmetricTaylor6_upper3193

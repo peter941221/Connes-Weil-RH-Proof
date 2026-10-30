@@ -17,6 +17,15 @@ noncomputable def bumpNumerator2350 : ℕ → ℝ → ℝ
       31680 * position ^ 5 - 720 * position ^ 7
   | 4, position => 10080 - 1085040 * position ^ 2 + 10189440 * position ^ 4 +
       3575520 * position ^ 6 + 266400 * position ^ 8 + 3600 * position ^ 10
+  | 5, position => -2613600 * position + 92678400 * position ^ 3 -
+      493207200 * position ^ 5 - 320371200 * position ^ 7 -
+      51703200 * position ^ 9 - 2361600 * position ^ 11 -
+      21600 * position ^ 13
+  | 6, position => -2613600 + 387806400 * position ^ 2 -
+      6679584000 * position ^ 4 + 20842228800 * position ^ 6 +
+      24232824000 * position ^ 8 + 7137633600 * position ^ 10 +
+      714873600 * position ^ 12 + 22680000 * position ^ 14 +
+      151200 * position ^ 16
   | _, _ => 0
 
 noncomputable def bumpNumeratorPrime2350 : ℕ → ℝ → ℝ
@@ -25,6 +34,12 @@ noncomputable def bumpNumeratorPrime2350 : ℕ → ℝ → ℝ
   | 2, position => 6960 * position + 720 * position ^ 3
   | 3, position => 10080 - 581040 * position ^ 2 -
       158400 * position ^ 4 - 5040 * position ^ 6
+  | 4, position => -2170080 * position + 40757760 * position ^ 3 +
+      21453120 * position ^ 5 + 2131200 * position ^ 7 + 36000 * position ^ 9
+  | 5, position => -2613600 + 278035200 * position ^ 2 -
+      2466036000 * position ^ 4 - 2242598400 * position ^ 6 -
+      465328800 * position ^ 8 - 25977600 * position ^ 10 -
+      280800 * position ^ 12
   | _, _ => 0
 
 def bumpConstant2350 : ℕ → ℕ
@@ -33,6 +48,8 @@ def bumpConstant2350 : ℕ → ℕ
   | 2 => 3720
   | 3 => 236160
   | 4 => 15130080
+  | 5 => 962956800
+  | 6 => 60020395200
   | _ => 0
 
 noncomputable def bumpJet2350 (order : ℕ) (polynomial : ℝ → ℝ) (position : ℝ) : ℝ :=
@@ -48,7 +65,7 @@ theorem bumpDeficit2350_hasDerivAt (position : ℝ) :
   dsimp [bumpDeficit2350]
   ring
 
-theorem bumpNumerator2350_hasDerivAt (order : ℕ) (horder : order ≤ 3) (position : ℝ) :
+theorem bumpNumerator2350_hasDerivAt (order : ℕ) (horder : order ≤ 5) (position : ℝ) :
     HasDerivAt (bumpNumerator2350 order) (bumpNumeratorPrime2350 order position) position := by
   interval_cases order
   · exact hasDerivAt_const position 1
@@ -65,8 +82,25 @@ theorem bumpNumerator2350_hasDerivAt (order : ℕ) (horder : order ≤ 3) (posit
       (((hasDerivAt_id position).pow 7).const_mul 720) using 1
     dsimp [bumpNumerator2350, bumpNumeratorPrime2350]
     ring
+  · convert (((hasDerivAt_const position (10080 : ℝ)).sub
+        (((hasDerivAt_id position).pow 2).const_mul 1085040)).add
+        (((hasDerivAt_id position).pow 4).const_mul 10189440) |>.add
+        (((hasDerivAt_id position).pow 6).const_mul 3575520) |>.add
+        (((hasDerivAt_id position).pow 8).const_mul 266400) |>.add
+        (((hasDerivAt_id position).pow 10).const_mul 3600)) using 1
+    dsimp [bumpNumerator2350, bumpNumeratorPrime2350]
+    ring
+  · convert (((hasDerivAt_id position).const_mul (-2613600 : ℝ)).add
+        (((hasDerivAt_id position).pow 3).const_mul 92678400) |>.sub
+        (((hasDerivAt_id position).pow 5).const_mul 493207200) |>.sub
+        (((hasDerivAt_id position).pow 7).const_mul 320371200) |>.sub
+        (((hasDerivAt_id position).pow 9).const_mul 51703200) |>.sub
+        (((hasDerivAt_id position).pow 11).const_mul 2361600) |>.sub
+        (((hasDerivAt_id position).pow 13).const_mul 21600)) using 1
+    dsimp [bumpNumerator2350, bumpNumeratorPrime2350]
+    ring
 
-theorem bumpNumerator2350_recurrence (order : ℕ) (horder : order ≤ 3) (position : ℝ) :
+theorem bumpNumerator2350_recurrence (order : ℕ) (horder : order ≤ 5) (position : ℝ) :
     bumpNumerator2350 (order + 1) position =
       bumpDeficit2350 position ^ 2 * bumpNumeratorPrime2350 order position +
         (-60 * position + 4 * (order : ℝ) * position * bumpDeficit2350 position) *
@@ -74,7 +108,7 @@ theorem bumpNumerator2350_recurrence (order : ℕ) (horder : order ≤ 3) (posit
   interval_cases order <;>
     norm_num [bumpNumerator2350, bumpNumeratorPrime2350, bumpDeficit2350] <;> ring
 
-theorem bumpJet2350_hasDerivAt (order : ℕ) (horder : order ≤ 3)
+theorem bumpJet2350_hasDerivAt (order : ℕ) (horder : order ≤ 5)
     {polynomial : ℝ → ℝ} {polynomialPrime position : ℝ}
     (hpolynomial : HasDerivAt polynomial polynomialPrime position)
     (hdeficit : bumpDeficit2350 position ≠ 0) :
@@ -91,7 +125,7 @@ theorem bumpJet2350_hasDerivAt (order : ℕ) (horder : order ≤ 3)
   dsimp [bumpJet2350]
   interval_cases order <;> norm_num <;> field_simp [hdeficit] <;> ring
 
-theorem normalizedBumpJet2350_hasDerivAt (order : ℕ) (horder : order ≤ 3)
+theorem normalizedBumpJet2350_hasDerivAt (order : ℕ) (horder : order ≤ 5)
     {position : ℝ} (hdeficit : bumpDeficit2350 position ≠ 0) :
     HasDerivAt (bumpJet2350 order (bumpNumerator2350 order))
       (bumpJet2350 (order + 1) (bumpNumerator2350 (order + 1)) position) position := by
@@ -99,7 +133,7 @@ theorem normalizedBumpJet2350_hasDerivAt (order : ℕ) (horder : order ≤ 3)
     (bumpNumerator2350_hasDerivAt order horder position) hdeficit
   simpa only [bumpJet2350, ← bumpNumerator2350_recurrence order horder position] using hjet
 
-theorem scaledBumpJet2350_hasDerivAt (order : ℕ) (horder : order ≤ 3)
+theorem scaledBumpJet2350_hasDerivAt (order : ℕ) (horder : order ≤ 5)
     {radius position : ℝ} (hradius : 0 < radius) (hinside : |position| < radius) :
     HasDerivAt (scaledBumpJet2350 order radius)
       (scaledBumpJet2350 (order + 1) radius position) position := by
@@ -112,7 +146,7 @@ theorem scaledBumpJet2350_hasDerivAt (order : ℕ) (horder : order ≤ 3)
   rw [pow_succ]
   field_simp
 
-theorem widthBump_iteratedDeriv_inside2350 (order : ℕ) (horder : order ≤ 4)
+theorem widthBump_iteratedDeriv_inside2350 (order : ℕ) (horder : order ≤ 6)
     {radius position : ℝ} (hradius : 0 < radius) (hinside : |position| < radius) :
     iteratedDeriv order (widthBump radius) position = scaledBumpJet2350 order radius position := by
   induction order generalizing position with
@@ -120,8 +154,8 @@ theorem widthBump_iteratedDeriv_inside2350 (order : ℕ) (horder : order ≤ 4)
     simp [scaledBumpJet2350, bumpJet2350, bumpNumerator2350, bumpDeficit2350,
       widthBump, if_pos hinside]
   | succ order ih =>
-    have hprevious : order ≤ 4 := by omega
-    have hstep : order ≤ 3 := by omega
+    have hprevious : order ≤ 6 := by omega
+    have hstep : order ≤ 5 := by omega
     have heq : iteratedDeriv order (widthBump radius) =ᶠ[𝓝 position]
         scaledBumpJet2350 order radius := by
       filter_upwards [IsOpen.mem_nhds (isOpen_lt continuous_abs continuous_const) hinside]
@@ -169,7 +203,7 @@ theorem widthBump_iteratedDeriv_outside2350 (order : ℕ) {radius position : ℝ
     change position ≤ -radius
     linarith
 
-theorem widthBump_iteratedDeriv_global2350 (order : ℕ) (horder : order ≤ 4)
+theorem widthBump_iteratedDeriv_global2350 (order : ℕ) (horder : order ≤ 6)
     {radius position : ℝ} (hradius : 0 < radius) :
     iteratedDeriv order (widthBump radius) position =
       if |position| < radius then scaledBumpJet2350 order radius position else 0 := by
@@ -178,7 +212,7 @@ theorem widthBump_iteratedDeriv_global2350 (order : ℕ) (horder : order ≤ 4)
   · exact widthBump_iteratedDeriv_outside2350 order hradius (not_lt.mp hinside)
 
 
-theorem bumpNumerator2350_abs_le (order : ℕ) (horder : order ≤ 4)
+theorem bumpNumerator2350_abs_le (order : ℕ) (horder : order ≤ 6)
     {position : ℝ} (hposition : |position| ≤ 1) :
     |bumpNumerator2350 order position| ≤ (bumpConstant2350 order : ℝ) := by
   interval_cases order
@@ -206,8 +240,23 @@ theorem bumpNumerator2350_abs_le (order : ℕ) (horder : order ≤ 4)
       norm_num [bumpNumerator2350, bumpConstant2350, Fin.sum_univ_succ]
     congr 1
     ring
+  · have hbound := polynomialAbsUpper2349 (Finset.univ : Finset (Fin 7))
+      ![(-2613600 : ℝ), 92678400, -493207200, -320371200, -51703200,
+        -2361600, -21600] ![1, 3, 5, 7, 9, 11, 13] hposition
+    convert hbound using 1 <;>
+      norm_num [bumpNumerator2350, bumpConstant2350, Fin.sum_univ_succ]
+    congr 1
+    ring
+  · have hbound := polynomialAbsUpper2349 (Finset.univ : Finset (Fin 9))
+      ![(-2613600 : ℝ), 387806400, -6679584000, 20842228800, 24232824000,
+        7137633600, 714873600, 22680000, 151200]
+      ![0, 2, 4, 6, 8, 10, 12, 14, 16] hposition
+    convert hbound using 1 <;>
+      norm_num [bumpNumerator2350, bumpConstant2350, Fin.sum_univ_succ]
+    congr 1
+    ring
 
-theorem bumpJet2350_abs_le (order : ℕ) (horder : order ≤ 4)
+theorem bumpJet2350_abs_le (order : ℕ) (horder : order ≤ 6)
     {position : ℝ} (hposition : |position| < 1) :
     |bumpJet2350 order (bumpNumerator2350 order) position| ≤
       (bumpConstant2350 order : ℝ) * Real.exp (-30) := by
@@ -233,7 +282,7 @@ theorem bumpJet2350_abs_le (order : ℕ) (horder : order ≤ 4)
           Real.exp (-30 * (bumpDeficit2350 position)⁻¹)) := by ring
     _ ≤ _ := mul_le_mul_of_nonneg_left hexp hconstant
 
-theorem scaledBumpJet2350_abs_le (order : ℕ) (horder : order ≤ 4)
+theorem scaledBumpJet2350_abs_le (order : ℕ) (horder : order ≤ 6)
     {radius position : ℝ} (hradius : 0 < radius) (hinside : |position| < radius) :
     |scaledBumpJet2350 order radius position| ≤
       (bumpConstant2350 order : ℝ) * Real.exp (-30) / radius ^ order := by
@@ -244,7 +293,7 @@ theorem scaledBumpJet2350_abs_le (order : ℕ) (horder : order ≤ 4)
   exact div_le_div_of_nonneg_right (bumpJet2350_abs_le order horder hratio)
     (pow_nonneg hradius.le _)
 
-theorem widthBump_iteratedDeriv_abs_le2350 (order : ℕ) (horder : order ≤ 4)
+theorem widthBump_iteratedDeriv_abs_le2350 (order : ℕ) (horder : order ≤ 6)
     {radius position : ℝ} (hradius : 0 < radius) :
     |iteratedDeriv order (widthBump radius) position| ≤
       (bumpConstant2350 order : ℝ) * Real.exp (-30) / radius ^ order := by

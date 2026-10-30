@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.C1RouteAOwnerWeightedIntervalIntegrable3206
+
+namespace ConnesWeilRH.Dev
+
+#print axioms weightedExternal3201_eq_weightedPhysical2539_re
+#print axioms weightedExternal3201_continuous
+#print axioms weightedExternal3201_intervalIntegrable
+
+end ConnesWeilRH.Dev

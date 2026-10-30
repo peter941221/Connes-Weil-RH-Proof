@@ -1,0 +1,13 @@
+import ConnesWeilRH.Dev.C1RouteAOwnerWindowZeroExtension3201
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ownerRadius_lt_diagnosticRadius3201
+#print axioms correctedPhysical_eq_zero_of_abs_ge_ownerRadius3201
+#print axioms externalPhysical_eq_zero_of_abs_ge_ownerRadius3201
+#print axioms externalPhysical_eq_zero_on_diagnostic_outer3201
+#print axioms intervalIntegral_weightedExternal_eq_zero_of_ownerOutside3201
+#print axioms intervalIntegral_weightedExternal_zero_on_diagnostic_right3201
+#print axioms intervalIntegral_weightedExternal_zero_on_diagnostic_left3201
+
+end ConnesWeilRH.Dev

@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RouteATaylor6IntegralBridge3197
+
+open ConnesWeilRH.Dev
+
+#print axioms intervalIntegral_taylor6_upper_from_global3197

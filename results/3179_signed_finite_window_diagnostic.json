@@ -1,0 +1,34 @@
+{
+  "record": 3179,
+  "status": "SIGNED_FINITE_WINDOW_DIAGNOSTIC",
+  "cells": 2560,
+  "signs": {
+    "-0.5": {
+      "signed_midpoint_integral": "1.0000000013672649325349954508763240383975720144749664761017",
+      "coefficient_uncertainty_charge": "4.22135813961133828861362707057892114998544526967970945201809e-45",
+      "signed_upper_diagnostic": "1.00000000136726493253499545087632403839757201869632461571304",
+      "negative_midpoint": false,
+      "negative_upper": false
+    },
+    "0.5": {
+      "signed_midpoint_integral": "1.00000000000000000000000000000000000000000000000000033039746",
+      "coefficient_uncertainty_charge": "4.22135813961133828861362707057892114998544526967970945201809e-45",
+      "signed_upper_diagnostic": "1.0000000000000000000000000000000000000000000042213584700088",
+      "negative_midpoint": false,
+      "negative_upper": false
+    }
+  },
+  "coefficient_representation": "2338 box midpoint plus Euclidean radius charge",
+  "arithmetic": "mpmath 100 decimal digits; composite trapezoid; no curvature enclosure",
+  "owner_inputs": {
+    "repair_sha256": "7efde152db5e18c2d312cae16309172154044b443477bca75b9619b3070eb258",
+    "capture_sha256": "743fe372bef89b5730c38274d5a5517ac9ea4d3421989d46c49d4af3e78b5e74"
+  },
+  "nonclaims": [
+    "no certified quadrature error",
+    "no Lean certificate",
+    "no producer GO",
+    "no SourceRH",
+    "no RH"
+  ]
+}

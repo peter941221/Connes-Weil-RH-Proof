@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteAOwnerSignedTailBridge3191
+
+open ConnesWeilRH.Source
+open C1RouteAOwnerSignedTailBridge3191
+
+#print axioms RouteAOwnerSignedTailCertificate.toNodeInterval
+#print axioms RouteAOwnerSignedTailCertificate.toPhysicalKernelEnvelope
+#print axioms orbitWindowSemiLocalGate_of_owner_signed_tail_certificate

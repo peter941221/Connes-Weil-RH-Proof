@@ -1,0 +1,20 @@
+{
+  "record": 3205,
+  "status": "PASS",
+  "source_record": 3204,
+  "cells": 40960,
+  "formula_rows": 40960,
+  "rounded_fields": 163840,
+  "grid_continuous": true,
+  "formula_replay_exact": true,
+  "aggregate_replay_exact": true,
+  "concrete_owner_source": "ConnesWeilRH\\Dev\\C1RouteARepairedOwnerCorrectionM02680.lean",
+  "total_upper_negative": true,
+  "nonclaims": [
+    "not imported into Lean",
+    "full-line tail missing",
+    "no producer GO",
+    "no SourceRH",
+    "no RH"
+  ]
+}
