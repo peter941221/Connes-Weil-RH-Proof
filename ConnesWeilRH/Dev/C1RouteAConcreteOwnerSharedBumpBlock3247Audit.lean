@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerSharedBumpBlock3247
+
+open ConnesWeilRH.Dev
+
+#print axioms ConnesWeilRH.Dev.record2680_cell17168_shared_family_width3247
+#print axioms ConnesWeilRH.Dev.record2680_cell17168_shared_bump_rect_mem3247
+#print axioms ConnesWeilRH.Dev.record2680_cell17168_phase_block_rect_mem3247
+#print axioms ConnesWeilRH.Dev.record2680_cell17168_shared_block_rect_mem3247
+#print axioms ConnesWeilRH.Dev.record2680_cell17168_shared_block_target_eq3247

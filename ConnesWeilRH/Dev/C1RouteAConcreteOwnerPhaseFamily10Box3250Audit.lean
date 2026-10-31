@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerPhaseFamily10Box3250
+
+open ConnesWeilRH.Dev
+
+#print axioms ConnesWeilRH.Dev.record2680_cell17168_phase_family10_box_subset3250

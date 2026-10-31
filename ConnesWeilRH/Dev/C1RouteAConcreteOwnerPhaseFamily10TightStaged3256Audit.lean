@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerPhaseFamily10TightStaged3256
+
+open ConnesWeilRH.Dev
+
+#print axioms ConnesWeilRH.Dev.record2680_cell17168_family10_tight_base_mem3256
+#print axioms ConnesWeilRH.Dev.record2680_cell17168_family10_tight_step_mem3256
+#print axioms ConnesWeilRH.Dev.record2680_cell17168_family10_tight_phase_box_mem3256

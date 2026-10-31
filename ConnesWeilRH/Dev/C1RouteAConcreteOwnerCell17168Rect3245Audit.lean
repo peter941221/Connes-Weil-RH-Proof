@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerCell17168Rect3245
+
+open ConnesWeilRH.Dev
+
+#print axioms ConnesWeilRH.Dev.record2680_cell17168_bump_rect_mem3245
+#print axioms ConnesWeilRH.Dev.record2680_cell17168_phase_rect_mem3245
+#print axioms ConnesWeilRH.Dev.record2680_cell17168_family_rect_mem3245
+#print axioms ConnesWeilRH.Dev.record2680_cell17168_aggregate_rect_mem3245
+#print axioms ConnesWeilRH.Dev.record2680_cell17168_unweighted_rect_value_upper3245

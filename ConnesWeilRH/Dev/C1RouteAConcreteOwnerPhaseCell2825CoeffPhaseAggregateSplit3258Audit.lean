@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerPhaseCell2825CoeffPhaseAggregateSplit3258
+
+open ConnesWeilRH.Dev
+
+#print axioms ConnesWeilRH.Dev.record2680_cell2825_coeff_phase_aggregate_re_upper_split3258

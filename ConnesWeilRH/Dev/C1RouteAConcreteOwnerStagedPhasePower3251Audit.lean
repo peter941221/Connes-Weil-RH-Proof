@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerStagedPhasePower3251
+
+open ConnesWeilRH.Dev
+
+#print axioms ConnesWeilRH.Dev.complexRectPowSq_staged_step3251
+#print axioms ConnesWeilRH.Dev.complexRectPowSq_staged_mem3251
+#print axioms ConnesWeilRH.Dev.complexRectPowSq_staged_mem_of_bound3251
+#print axioms ConnesWeilRH.Dev.complexRectPowSq_staged_step_of_subset3251

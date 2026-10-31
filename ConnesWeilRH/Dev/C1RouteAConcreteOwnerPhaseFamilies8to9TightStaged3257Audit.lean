@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerPhaseFamilies8to9TightStaged3257
+
+open ConnesWeilRH.Dev
+
+#print axioms ConnesWeilRH.Dev.record2680_cell17168_families8to9_coeff_phase_rect_mem3257
+#print axioms ConnesWeilRH.Dev.record2680_cell17168_family8_coeff_phase_re_upper3257

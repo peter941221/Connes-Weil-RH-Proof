@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerSharedCoeffPhaseBall3253
+
+open ConnesWeilRH.Dev
+
+#print axioms ConnesWeilRH.Dev.complexTaxiBall3235_real_upper
+#print axioms ConnesWeilRH.Dev.record2680_cell17168_coeff_phase_ball_mem3253
+#print axioms ConnesWeilRH.Dev.record2680_cell17168_shared_coeff_phase_ball_mem3253
+#print axioms ConnesWeilRH.Dev.record2680_cell17168_shared_coeff_phase_re_upper3253

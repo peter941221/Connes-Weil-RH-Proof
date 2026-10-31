@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerSharedBumpCell2825Split3259
+
+open ConnesWeilRH.Dev
+
+#print axioms ConnesWeilRH.Dev.record2680_cell2825_coeff_phase_aggregate_value_re_upper_split3259
+#print axioms ConnesWeilRH.Dev.record2680_cell2825_shared_family_width_split3259
+#print axioms ConnesWeilRH.Dev.record2680_cell2825_shared_bump_target_eq_split3259
