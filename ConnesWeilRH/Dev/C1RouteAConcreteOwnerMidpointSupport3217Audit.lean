@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerMidpointSupport3217
+
+namespace ConnesWeilRH.Dev
+
+#print axioms record2680_first_center_only_family4_3217
+
+end ConnesWeilRH.Dev

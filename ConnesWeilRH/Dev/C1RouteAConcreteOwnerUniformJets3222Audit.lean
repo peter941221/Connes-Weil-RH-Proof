@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerUniformJets3222
+
+open ConnesWeilRH.Dev
+
+#print axioms ConnesWeilRH.Dev.record2680_uniform_second_bound3222
+#print axioms ConnesWeilRH.Dev.record2680_uniform_fourth_bound3222
+#print axioms ConnesWeilRH.Dev.record2680_uniform_second_bound_nonneg3222
+#print axioms ConnesWeilRH.Dev.record2680_uniform_fourth_bound_nonneg3222

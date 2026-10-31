@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerUniformSixth3220
+
+open ConnesWeilRH.Dev
+
+#print axioms ConnesWeilRH.Dev.iteratedDeriv_re_eq_re_iteratedDeriv3220
+#print axioms ConnesWeilRH.Dev.record2680_uniform_sixth_complex_bound3220
+#print axioms ConnesWeilRH.Dev.record2680_uniform_sixth_real_bound3220
+#print axioms ConnesWeilRH.Dev.record2680_uniform_sixth_upper_nonneg3220
+#print axioms ConnesWeilRH.Dev.record2680_uniform_sixth_array_bound3220

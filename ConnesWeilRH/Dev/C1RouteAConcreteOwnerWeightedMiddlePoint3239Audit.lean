@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerWeightedMiddlePoint3239
+
+open ConnesWeilRH.Dev
+
+#print axioms record2680_middle_point_weight_ball_mem3239
+#print axioms record2680_middle_point_weighted_aggregate_ball_mem3239
+#print axioms record2680_middle_point_weighted_value_upper3239

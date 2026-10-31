@@ -1,0 +1,11 @@
+import ConnesWeilRH.Dev.C1RouteAWeightedTaxiBallBridge3241
+
+open ConnesWeilRH.Dev
+
+#print axioms weighted_owner_taxi_ball_mem_of_component_balls3241
+#print axioms weighted_owner_value_upper_of_component_balls3241
+#print axioms record2680_middle_point_weighted_value_upper_via_bridge3241
+#print axioms weighted_owner_aggregate_ball_mem_of_component_balls3241
+#print axioms weighted_owner_value_upper_of_component_members3241
+#print axioms weighted_owner_phase_ball_mem3241
+#print axioms weighted_owner_weight_ball_mem3241

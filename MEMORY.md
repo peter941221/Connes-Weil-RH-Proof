@@ -516,3 +516,371 @@ fixed grid, leaving only the concrete owner bound arrays as premises. Focused
 WSL2 Lean 4.30.0 builds and audits passed with exactly the standard axiom trio;
 JSONL replay, numeric bound proofs, the full-line tail, SourceRH, and RH remain
 open.
+
+Record 3214 validates every row of the concrete-owner 3204 JSONL and retains
+indices 0, 17168, and 40959 as representative cells. The two outer diagnostic
+boundary cells have zero value, second-derivative, and fourth-derivative uppers;
+their charge is entirely the sixth-order remainder. Index 17168 is the most
+negative cell, approximately -38.0161. The full grid has 18695 negative and
+22265 positive cell uppers, so the final margin comes from signed aggregate
+cancellation rather than a single central cell. This is a proof-design probe
+only: Arb interval containment, derivative-row proofs, Lean import, the
+full-line tail, SourceRH, and RH remain open. The next formalization target is
+one outer cell and one interior cell, not another full-grid diagnostic.
+
+
+The 3215 geometry probe is now a valid negative result: the first diagnostic
+cell midpoint is strictly inside the owner support. Therefore its 3204
+`value_upper = 0` is only a one-sided signed upper bound, not a support-zero
+identity. The support-zero theorem cannot close this cell; the next proof
+primitive must establish a concrete signed midpoint inequality.
+
+Record 3215 is a focused Lean geometry result for the first 40960-cell
+midpoint. It proves `|record2680Center3212 0| < storedWidth 4 ^ 2` and the
+negation of the support-zero condition. Thus the first cell midpoint is inside
+the owner support; its 3204 `value_upper = 0` is a signed one-sided upper bound,
+not a zero identity. The WSL2 Lean 4.30.0 build and audit passed with exactly
+the standard axiom trio. The next cell theorem must prove the signed midpoint
+inequality and derivative bounds, not use the support-zero theorem.
+
+
+A second 3216 reuse check found that `record2680CorrectionM0CellContained`
+only encloses the legacy normalized interval `[0, record2675CellRight]`. It is
+not a certificate for the 3212 diagnostic coordinate at index 0, so it cannot
+be reused without an owner-coordinate transfer theorem. Preserve this boundary:
+the next producer artifact must generate a rectangle or signed upper directly
+at `record2680Center3212 0` (and later on its actual cell), not relabel the old
+cell containment result.
+
+
+Record 3216 evaluates the actual record2680 owner at the actual 3212 cell-0
+midpoint `-2684289064959 / 409600000000`, not the legacy normalized coordinate.
+After outward rounding to the `10^-80` rational grid, only family 4 is nonzero
+and the aggregate real rectangle is `[-1/10^80, 0]`, matching the 3204
+`value_upper = 0` row. This remains external Arb evidence: Lean has not yet
+proved family-4 interval membership at that midpoint, and coordinate transfer,
+full-line tail, producer_go, SourceRH, and RH remain open.
+
+Record 3217 closes the support part of that midpoint boundary in Lean. At the
+actual `record2680Center3212 0`, every family index other than 4 is outside
+its squared support radius, so `externalPhysical2344` reduces exactly to the
+family-4 term. It also expands that remaining term's real part into the exact
+real formula using `cos` and `sin`, so the next numeric proof can operate on a
+single real inequality. The theorem was built in WSL2 with Lean 4.30.0 and audited to
+`[propext, Classical.choice, Quot.sound]`. The family-4 signed real upper is
+still open; no external rectangle was imported as a theorem, and
+producer_go, SourceRH, and RH remain open.
+
+A direct attempt to prove the family-4 midpoint sign with the existing
+small-angle `cosPin2676`/`sinPin2676` lemmas was rejected: the exact phase at
+cell 0 has absolute value about 257, not at most 1. The failure is structural,
+not a numerical margin issue. The next phase certificate must split or scale
+`Complex.exp (angle * I)` into bounded pieces before applying the small-angle
+Taylor pin, then compose the pieces with interval multiplication.
+
+Record 3218 implements the first phase-scaling primitive. Lean proves the
+exact identity
+`exp(angle * I) = exp((angle / 512) * I)^512` using `Complex.exp_nat_mul`,
+and proves the actual cell-0 scaled phase has absolute value at most 1. This
+does not yet compose the 512 rectangles or prove the family-4 sign, but it
+removes the direct high-frequency obstruction without importing numeric phase
+data. The same file now proves that the actual record2680 cell-0 phase lies
+in the recursively composed 512-factor rectangle. The remaining local step
+is coefficient/bump multiplication and extraction of a nonpositive real upper.
+
+
+Record 3218 is now fully verified. In addition to the exact identity
+`exp(angle * I) = exp((angle / 512) * I)^512` and the scaled small-angle
+membership theorem, Lean proves the actual cell-0 phase lies in a coarse
+rectangle with real part in `[9/10, 1]` and imaginary part in `[-2/5, -3/10]`.
+The numerical enclosure uses `complexRectPowSq3218`: nine repeated-squaring
+levels represent the exact 512th power and avoid the heartbeat timeout from
+unfolding 512 sequential interval multiplications. The focused WSL2 Lean
+4.30.0 build and axioms audit pass with exactly `[propext, Classical.choice,
+Quot.sound]`. The next local obligation is multiplying this phase rectangle
+by the family-4 coefficient and bump rectangle to prove a strictly negative
+real upper at the same owner and coordinate; producer_go remains false.
+
+The 3218 local phase certificate now also includes an exact binary64-derived coarse
+box for the selected owner family-4 correction coefficient:
+`re in [-200000000000000, -100000000000000]` and
+`im in [-100000000000000, 0]`. Lean proves the actual coefficient is in this
+box and proves the real upper of its product with the phase coarse box is
+strictly negative. This is a deliberately wider, transparent box than the
+legacy generated correction box; it is sufficient for the sign and avoids
+silently transferring an unrelated coefficient enclosure. The new theorems
+pass the WSL2 Lean 4.30.0 axioms audit with the standard trio. The remaining
+step is to prove the bump at the actual midpoint is strictly positive and
+transport the negative coefficient-phase upper through the exact family-4
+real-part formula.
+
+The 3218 chain now closes the selected-owner cell-0 midpoint sign in Lean:
+strict bump positivity follows from the same-owner support-inside theorem and
+`Real.exp_pos`; the phase is transferred into the coarse phase rectangle; the
+family-4 coefficient-phase real part is strictly negative; the other 29
+families are removed by the exact 3217 support identity; and the positive
+`weightedExternal3201` exponential factor preserves strict negativity. The
+resulting `record2680_first_center_weighted_value_upper3218` proves the cell-0
+hvalue premise with upper 0. This is not yet a producer certificate: the other
+40959 cell value bounds, second/fourth derivative bounds, sixth-derivative
+norm bounds, and the signed finite aggregate are still open.
+
+A boundary probe for the last diagnostic midpoint was rejected and removed:
+`record2680Center3212 40959` is still inside the selected owner radius because
+`storedWidth 4 ^ 2` is approximately `6.5536`, while the diagnostic radius is
+only slightly larger. Therefore the outer cell's external `value_upper = 0`
+row cannot be justified by support-zero at its midpoint; it remains a signed
+Taylor upper with a nonzero local physical function. This preserves the same
+owner/support boundary already found at cell 0 and rules out a shortcut based
+on endpoint proximity.
+
+Record 3219 formalizes the outer-boundary check: Lean proves
+`|record2680Center3212 40959| < storedWidth 4 ^ 2`. Thus even the final
+40960-grid midpoint is inside the selected owner's support. The theorem builds
+and audits in WSL2 Lean 4.30.0 with exactly `[propext, Classical.choice,
+Quot.sound]`. This closes the boundary fact as a reusable premise and confirms
+that both end cells require signed Taylor bounds; support-zero cannot discharge
+any endpoint midpoint in the current diagnostic grid.
+
+Record 3220 closes the uniform sixth-derivative input for the concrete
+record2680 owner. The theorem keeps the complex 30-family weighted sum intact,
+uses the existing 2538 family-cell envelope with conservative near/far
+parameters, applies exact support-zero outside each family radius, and then
+projects to the real-valued producer function. It exports a nonnegative
+`record2680UniformSixthBound3220` array wrapper accepted by the 3213 aggregate
+shape for every index and coordinate. The focused WSL2 Lean 4.30.0 build and
+axioms audit pass with exactly `[propext, Classical.choice, Quot.sound]`.
+This changes the producer ledger by closing only the sixth-derivative array;
+value, second-derivative, fourth-derivative, signed finite aggregate, and
+full-line tail remain open.
+
+Record 3226 closes the positive outer midpoint value upper. The proof mirrors
+3218 with a positive-imaginary phase rectangle, proves exact family-4 support
+reduction, and obtains a strictly negative coefficient-phase real upper; the
+midpoint remains inside support, so this is not support-zero. Record 3227 wires
+the two endpoint value bounds into the aggregate and reduces the remaining
+value premise to interior indices `1` through `40958`. The internal signed
+value array, finite aggregate, full-line tail, and `producer_go` remain open.
+
+Record 3224 replaces the conservative uniform second/fourth derivative inputs
+with cell-local bounds. It explicitly distinguishes a cell that crosses a
+family support boundary from a midpoint that is outside that support; the
+latter uses the exact derivative-zero theorem. Record 3225 wires these local
+jets, together with the verified uniform sixth bound, into the 40960-cell
+aggregate. The aggregate now has only the signed midpoint `valueUpper` array
+as an explicit premise. This is the correct cancellation-preserving boundary;
+the value array, finite signed aggregate, full-line tail, and producer gate
+remain open.
+
+Record 3222 proves same-owner uniform second- and fourth-derivative bounds for
+the concrete record2680 correction using the 2538 family envelope. Record 3223
+wires those bounds, together with 3220's sixth bound, into the 40960-cell
+aggregate. The aggregate interface now has only the midpoint `valueUpper`
+array as an explicit per-cell premise. This is not yet a negative finite
+aggregate: the uniform derivative geometry is deliberately conservative and
+may lose the observed signed margin. The next numerical/formal target is a
+cell-local value/jet certificate that preserves cancellation.
+
+Record 3221 wires the verified 3220 uniform sixth bound into the fixed-grid
+40960-cell aggregate theorem. The resulting adapter no longer asks for a
+sixth-derivative array or its nonnegativity; only the concrete value, second-
+derivative, and fourth-derivative arrays remain as aggregate premises. The
+focused WSL2 Lean 4.30.0 build and audit pass with exactly
+`[propext, Classical.choice, Quot.sound]`. This is an interface reduction,
+not yet a negative finite aggregate or producer result.
+
+Record 3228 closes one genuine interior signed midpoint value premise at
+`record2680Center3212 40958`. The proof reuses the family-4 phase rectangle
+method from the endpoint chain, but separately proves exact family-4 support
+reduction at the interior midpoint and proves the midpoint bump is positive
+by an explicit rational support inequality. The focused WSL2 Lean 4.30.0
+build and axioms audit pass with exactly `[propext, Classical.choice,
+Quot.sound]`. This removes one interior array entry only; the remaining
+interior value array, finite signed aggregate, full-line tail, `producer_go`,
+`SourceRH`, and RH remain open.
+
+Record 3229 extracts the reusable family-4 signed midpoint kernel and closes
+the adjacent interior values at `record2680Center3212 40956` and
+`record2680Center3212 40957`. The kernel takes
+exact family-4 support reduction, a negative coefficient-phase real upper,
+and positive support as premises, then derives the weighted value upper `<= 0`.
+The 40957 phase uses a wider formal rectangle `[0.8, 1] x [0.2, 0.5]` than
+3228 because repeated axis-aligned interval squaring widens the enclosure;
+the coefficient product remains strictly negative. Focused WSL2 Lean 4.30.0
+build and axioms audit pass with exactly `[propext, Classical.choice,
+Quot.sound]`. The remaining interior array, finite signed aggregate,
+full-line tail, `producer_go`, `SourceRH`, and RH remain open.
+
+Record 3230 wires the verified right-band values for indices `40956`, `40957`,
+and `40958`, together with both endpoint values, into a new aggregate adapter.
+Its remaining midpoint premise excludes exactly `{0, 40956, 40957, 40958,
+40959}` and is required only for the other 40955 cells. The focused WSL2 Lean
+4.30.0 build and axioms audit pass with exactly `[propext, Classical.choice,
+Quot.sound]`. This reduces the aggregate interface but does not prove its
+finite sum negative, close the full-line tail, or set `producer_go`.
+
+Records 3231-3232 build the first multi-family interior enclosure bridge at
+`record2680Center3212 17168`, the most negative diagnostic cell. Lean proves
+the point bump interval for every one of the 30 families using only the owner
+definition and scaled exponential Taylor bounds, then proves each phase and
+family contribution rectangle and the exact 30-family aggregate membership.
+The independent axis-aligned aggregate rectangle is deliberately not claimed
+to have negative real upper: it loses shared phase/cancellation information.
+This identifies the next root cause for the producer: the final value proof
+needs a correlated signed evaluator, not a sum of independently widened family
+rectangles. Focused WSL2 Lean 4.30.0 builds and audits pass with exactly
+`[propext, Classical.choice, Quot.sound]`; `producer_go` remains open.
+
+The 3231 bump interval was tightened after the first enclosure screen: its
+upper endpoint now uses the same point-specific `tAdd` exponential Taylor
+upper as the lower endpoint, rather than the uniform `exp(-30)` pin. The
+independent 30-family rectangle screen consequently drops from an estimated
+upper of about `59934` to about `52`, but still does not certify the observed
+negative midpoint. The remaining loss is phase/cancellation correlation, so
+the next evaluator must preserve shared phase error instead of summing
+independent axis-aligned family rectangles.
+
+Record 3233 adds `ComplexNormBall3233`, a center-plus-radius complex enclosure
+using the standard complex norm.
+Its sum theorem accumulates one shared norm error radius and its multiplication
+theorem propagates product error without replacing the final signed aggregate
+by independent real/imaginary rectangles. The generic definitions and audit
+build under WSL2 Lean 4.30.0 use exactly `[propext, Classical.choice,
+Quot.sound]`. This is an enclosure primitive, not yet a negative numerical
+bound.
+
+Record 3234 connects the existing 30-family `17168` midpoint rectangles to
+that correlated-ball interface. Lean proves each family contribution is in
+the ball obtained from its existing rectangle, and proves the full signed
+30-family aggregate is in the sum ball. The rectangle endpoint ordering is
+now discharged structurally: every `ComplexRect2427.mul` output is ordered,
+and the bump/phase/power order lemmas are separately available. An attempted
+direct `fin_cases` plus large `norm_num` discharge of all endpoint facts was
+stopped after more than ten minutes of high-CPU expansion; it was removed and
+left no running Lean process. The structural bridge and axiom audit rebuilt
+successfully in WSL2.
+
+Record 3235 adds `ComplexTaxiBall3235`. This uses the rational-friendly
+taxicab norm `|re| + |im|`, proves its triangle and multiplicative bounds, and
+supports center-preserving addition, multiplication, and finite sums.
+Focused WSL2 Lean 4.30.0 build and audit pass with exactly the standard axiom
+trio.
+
+Record 3236 connects the taxi-ball evaluator to the actual Route-A owner at
+`17168`: the scaled phase Taylor remainder, the midpoint bump interval, all
+30 owner family products, and the signed aggregate are formally enclosed.
+The phase power is transferred back through the exact 512th-power identity;
+the bump coercion is proved directly from its existing interval certificate.
+Focused WSL2 Lean 4.30.0 build and audit pass with exactly the standard axiom
+trio. A direct full aggregate `norm_num` sign screen was attempted but left
+an enormous unresolved rational absolute-value expression, so it was deleted
+and is not evidence of a sign. No negative aggregate sign, remaining midpoint
+array, full-line tail, producer GO, SourceRH, or RH claim follows.
+
+Record 3237 resolves the apparent contradiction between the 3204 external
+negative window diagnostic and the 3236 owner midpoint evaluation. The Lean
+target used by records 3208-3230 is `weightedExternal3201 sigma`, namely the
+real part of `exp (sigma * x) * externalPhysical2344 x`. In contrast, the
+Python `jets` function used by 3204 starts at `raw[j + 2]`; its `jets(...)[0]`
+is the second derivative of the weighted family, not the weighted function
+value. Consequently, 3204's `value_upper`, its Taylor terms, and its negative
+aggregate price the integral of the weighted second derivative (with the
+corresponding higher derivative remainder), while the Lean aggregate theorem
+prices the integral of the weighted original function. The 3204 negative
+number cannot discharge the `hvalue` premise of records 3225 or 3230.
+
+Record 3236 encloses `externalPhysical2344` itself, but does not yet multiply
+the taxi ball by the real weight and does not prove a sign. At the diagnostic
+midpoint `17168`, independent reproduction gives approximately `52.2935` for
+the unweighted owner real value and `88.8289` for the sigma `-1/2` weighted
+real value; the old `-38.0161` row is therefore a second-derivative diagnostic,
+not an original-function value. The next producer step is an object-alignment
+decision: either build a correlated Lean certificate for the weighted original
+function and prove its 40960-cell aggregate negative, or explicitly move the
+producer target to the second-derivative channel and prove the exact integration
+by parts and detector interface needed by that channel. Do not copy the 3204
+negative array into the current weighted-original-function aggregate.
+
+The current `producer_go` dependency chain is therefore: aligned integrand
+identity; all-cell weighted midpoint/jet certificates; negative finite signed
+aggregate; full-line tail bound for the same owner and integrand; exact B5
+readback; then the producer theorem. `producer_go`, `SourceRH`, and RH remain
+false.
+
+Record 3238 corrects the external evaluator to the formal integrand instead
+of the second-derivative diagnostic. It computes the original weighted
+function jets, with `raw[j]` rather than `raw[j + 2]`, on the same concrete
+owner, sigma `-1/2`, and 40960-cell grid. The upward-rounded Taylor-6 window
+upper is approximately `-1.4151657848627206e-8`, with a sixth-order remainder
+of approximately `1.4593071872206805e-14`. A coarser 2560-cell run is positive
+at approximately `3.563796884971633e-6`, so the fine grid is not cosmetic: it
+is needed to control the boundary derivative budget. The minimum 40960-cell
+upper occurs at index `16923` and is approximately `-0.0267471569005385`.
+
+This is still external Arb evidence: no JSON row is imported into Lean, no
+all-cell midpoint/jet array is proved, and no full-line tail or B5 readback is
+closed. It does restore the correct numerical target and justifies continuing
+Route A with the weighted-original-function evaluator. The next formal step
+is a same-owner weighted correlated-ball theorem, starting from the existing
+3236 unweighted midpoint enclosure and an explicit exponential weight interval.
+
+Record 3239 closes that first formal weighted-original-function step at
+`record2680Center3212 17168`. It builds an explicit order-30 Taylor interval
+for `exp ((-1/2) * midpoint)`, multiplies that real weight ball with the
+existing 3236 same-owner correlated taxi ball, and proves membership for the
+actual `weightedFunction2348` applied to `externalPhysical2344`. A generic
+real-part projection then yields a formal upper bound for the exact
+`weightedExternal3201` value. The theorem does not claim the midpoint upper is
+negative; its purpose is object alignment and a reusable weighted enclosure.
+The focused WSL2 Lean 4.30.0 build completed successfully and the audit for
+all three new theorems reported exactly `[propext, Classical.choice,
+Quot.sound]`. The remaining midpoint array, finite aggregate sign, full-line
+tail, B5 readback, and `producer_go` remain open.
+
+Record 3241 extracts the index-independent weighted component bridge from the
+fixed 3239 midpoint proof. The generic theorem
+weighted_owner_taxi_ball_mem_of_component_balls3241 multiplies a weight ball
+and an owner aggregate ball while preserving one shared taxicab-norm error
+radius; weighted_owner_value_upper_of_component_balls3241 then projects the
+final ball to the real weightedExternal3201 upper. The concrete theorem
+record2680_middle_point_weighted_value_upper_via_bridge3241 reuses the existing
+3239 weight ball and 3236 same-owner aggregate ball at index 17168. The 3240
+aggregate adapter now imports 3241 and calls this bridge theorem. Focused
+WSL2 Lean 4.30.0 builds of 3241 and 3240 and their audits passed with exactly
+[propext, Classical.choice, Quot.sound]. This is an interface reduction, not
+a negative sign result: 40954 midpoint value certificates, the strict finite
+aggregate, the same-owner full-line tail, and exact B5 readback remain open.
+See docs/proofs/3241_routea_weighted_taxi_ball_bridge.md.Record 3241 now also exposes the cell-facing facade
+weighted_owner_value_upper_of_component_members3241. Given one weight ball,
+family-indexed bump balls, family-indexed phase balls, and their three
+membership proofs, it constructs the 30-family aggregate ball and returns the
+weightedExternal3201 real upper in one theorem. The focused build and audit
+still pass with exactly [propext, Classical.choice, Quot.sound]. This is the
+next reusable unit for covering the remaining 40954 midpoint values; it does
+not yet instantiate any new cell or prove the finite signed aggregate.Record 3241 additionally exposes weighted_owner_phase_ball3241 and
+weighted_owner_phase_ball_mem3241. These reuse the existing exact 512-fold
+phase identity and require only the explicit scale condition
+|(capturedModulations2584 family * x) / 512| <= 1. The phase theorem audits to
+the standard axiom trio. The remaining cell-specific work is now concentrated
+in the weight interval, bump interval, and signed aggregate endpoint bound.Record 3241 now includes the generic weight interval
+weighted_owner_weight_ball3241 and its membership theorem
+weighted_owner_weight_ball_mem3241 for arbitrary sigma and x under
+|sigma * x| <= 1. The bridge API therefore covers arbitrary-cell weight,
+phase, family aggregation, and final real projection. Focused build and
+axioms audit pass with the standard trio. Cell-specific bump enclosures and
+the signed aggregate are still the binding numerical obligations.
+
+Record 3243 adds a real-part-preserving rectangle interface for the strongly
+cancelling weighted-original-function cell 16923. It replaces the independent
+taxicab-ball sign experiment with `ComplexRect2427` interval multiplication:
+the exact coefficient point, the cell-specific bump interval, and the exact
+512-fold phase rectangle are multiplied family by family and then summed.
+Lean proves bump, phase, family, and aggregate rectangle membership, and exports
+the exact unweighted physical real-part upper as the aggregate rectangle's
+`reHi`. The focused WSL2 Lean 4.30.0 build and audit pass with exactly
+[propext, Classical.choice, Quot.sound]. A direct 30-family `norm_num` sign
+closure was intentionally not retained: it exceeded the practical heartbeat
+budget, so 3243 is an enclosure interface rather than a negative certificate.
+The next step is a smaller sign-aware block decomposition with local `reHi`
+thresholds; the finite aggregate, full-line tail, exact B5 readback,
+`producer_go`, `SourceRH`, and RH remain open.

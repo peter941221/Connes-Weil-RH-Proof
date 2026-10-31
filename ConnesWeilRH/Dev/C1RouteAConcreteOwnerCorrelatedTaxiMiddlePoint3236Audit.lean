@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerCorrelatedTaxiMiddlePoint3236
+
+open ConnesWeilRH.Dev
+
+#print axioms ConnesWeilRH.Dev.record2680_middle_point_phase_base_mem3236
+#print axioms ConnesWeilRH.Dev.record2680_middle_point_phase_ball_mem3236
+#print axioms ConnesWeilRH.Dev.record2680_middle_point_bump_ball_mem3236
+#print axioms ConnesWeilRH.Dev.record2680_middle_point_family_ball_mem3236
+#print axioms ConnesWeilRH.Dev.record2680_middle_point_aggregate_ball_mem3236

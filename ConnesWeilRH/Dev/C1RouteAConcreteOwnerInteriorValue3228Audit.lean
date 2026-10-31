@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerInteriorValue3228
+
+open ConnesWeilRH.Dev
+
+#print axioms ConnesWeilRH.Dev.record2680_interior_center_weighted_value_upper3228

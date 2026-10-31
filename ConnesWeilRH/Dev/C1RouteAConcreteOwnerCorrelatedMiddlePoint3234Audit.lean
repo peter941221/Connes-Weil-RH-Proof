@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerCorrelatedMiddlePoint3234
+
+open ConnesWeilRH.Dev
+
+#print axioms ConnesWeilRH.Dev.record2680_middle_point_family_ball_mem3234
+#print axioms ConnesWeilRH.Dev.record2680_middle_point_aggregate_ball_mem3234
+#print axioms ConnesWeilRH.Dev.record2680MiddlePointFamilyRect3232_order
+#print axioms ConnesWeilRH.Dev.record2680_middle_point_aggregate_ball_mem_of_order3234

@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerAggregateWithRightBand3230
+
+open ConnesWeilRH.Dev
+
+#print axioms ConnesWeilRH.Dev.intervalIntegral_record2680_40960_aggregate_upper_with_right_band3230

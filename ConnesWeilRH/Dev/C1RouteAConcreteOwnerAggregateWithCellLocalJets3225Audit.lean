@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerAggregateWithCellLocalJets3225
+
+open ConnesWeilRH.Dev
+
+#print axioms
+  ConnesWeilRH.Dev.intervalIntegral_record2680_40960_aggregate_upper_with_cell_local_jets3225

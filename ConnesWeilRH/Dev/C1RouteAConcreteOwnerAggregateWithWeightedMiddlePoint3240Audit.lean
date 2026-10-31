@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerAggregateWithWeightedMiddlePoint3240
+
+open ConnesWeilRH.Dev
+
+#print axioms intervalIntegral_record2680_40960_aggregate_upper_with_weighted_middle_point3240

@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerAggregateWithUniformSixth3221
+
+open ConnesWeilRH.Dev
+
+#print axioms
+  ConnesWeilRH.Dev.intervalIntegral_record2680_40960_aggregate_upper_with_uniform_sixth3221

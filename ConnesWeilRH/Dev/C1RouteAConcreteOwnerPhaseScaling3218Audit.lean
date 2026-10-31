@@ -1,0 +1,23 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerPhaseScaling3218
+
+namespace ConnesWeilRH.Dev
+
+#print axioms complex_phase_eq_pow512_3218
+#print axioms phaseRect_mem3218
+#print axioms complexRectPow_mem3218
+#print axioms record2680_first_center_phase_scaled512_3218
+#print axioms record2680_first_center_phase_rect_mem3218
+#print axioms record2680_first_center_phase_coarse_subset3218
+#print axioms record2680_correction4_mem_coarse_box3218
+#print axioms record2680_correction4_phase_product_upper3218
+#print axioms record2680_first_center_bump_pos3218
+#print axioms record2680_first_center_phase_coarse_mem3218
+#print axioms record2680_first_center_coeff_phase_mem3218
+#print axioms record2680_first_center_coeff_phase_re_neg3218
+#print axioms record2680_first_center_family4_re_bump_mul3218
+#print axioms record2680_first_center_family4_re_neg3218
+#print axioms record2680_first_center_physical_re_neg3218
+#print axioms record2680_first_center_weighted_re_neg3218
+#print axioms record2680_first_center_weighted_value_upper3218
+
+end ConnesWeilRH.Dev

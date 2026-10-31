@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerInteriorValue3229
+
+open ConnesWeilRH.Dev
+
+#print axioms ConnesWeilRH.Dev.record2680_weighted_value_upper_of_family4_phase3229
+#print axioms ConnesWeilRH.Dev.record2680_40957_weighted_value_upper3229
+#print axioms ConnesWeilRH.Dev.record2680_40956_weighted_value_upper3229

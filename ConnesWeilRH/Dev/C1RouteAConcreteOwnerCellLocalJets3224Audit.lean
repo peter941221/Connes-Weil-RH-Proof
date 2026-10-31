@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerCellLocalJets3224
+
+open ConnesWeilRH.Dev
+
+#print axioms ConnesWeilRH.Dev.record2680_cell_second_bound3224
+#print axioms ConnesWeilRH.Dev.record2680_cell_fourth_bound3224

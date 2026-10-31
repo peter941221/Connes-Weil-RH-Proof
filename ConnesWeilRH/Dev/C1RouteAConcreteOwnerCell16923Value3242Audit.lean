@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerCell16923Value3242
+
+open ConnesWeilRH.Dev
+
+#print axioms record2680_cell16923_bump_mem3242
+#print axioms record2680_cell16923_bump_ball_mem3242
+#print axioms record2680_cell16923_value_upper3242

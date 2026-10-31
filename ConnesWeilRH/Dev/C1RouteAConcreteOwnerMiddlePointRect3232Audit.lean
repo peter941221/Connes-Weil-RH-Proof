@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerMiddlePointRect3232
+
+open ConnesWeilRH.Dev
+
+#print axioms ConnesWeilRH.Dev.record2680_middle_point_bump_mem3231
+#print axioms ConnesWeilRH.Dev.record2680_middle_point_family_mem3232
+#print axioms ConnesWeilRH.Dev.record2680_middle_point_aggregate_mem3232

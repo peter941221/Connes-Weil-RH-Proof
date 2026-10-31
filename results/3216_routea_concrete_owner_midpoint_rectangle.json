@@ -1,0 +1,237 @@
+{
+  "record": 3216,
+  "status": "PASS_EXTERNAL_MIDPOINT_RECTANGLE",
+  "source_record": 3204,
+  "cell_index": 0,
+  "midpoint": "-2684289064959/409600000000",
+  "sigma": "-1/2",
+  "precision_bits": 192,
+  "owner_source": "ConnesWeilRH\\Dev\\C1RouteARepairedOwnerCorrectionM02680.lean",
+  "owner_sha256": "bba7db5da4e099c0d634741ff0df0154fe0e38f915fd7bf728ae378295ad4200",
+  "rounding_grid": "10^-80; lower floors and upper ceilings",
+  "family_rectangles": [
+    {
+      "index": 0,
+      "reLo": "0",
+      "reHi": "0",
+      "imLo": "0",
+      "imHi": "0"
+    },
+    {
+      "index": 1,
+      "reLo": "0",
+      "reHi": "0",
+      "imLo": "0",
+      "imHi": "0"
+    },
+    {
+      "index": 2,
+      "reLo": "0",
+      "reHi": "0",
+      "imLo": "0",
+      "imHi": "0"
+    },
+    {
+      "index": 3,
+      "reLo": "0",
+      "reHi": "0",
+      "imLo": "0",
+      "imHi": "0"
+    },
+    {
+      "index": 4,
+      "reLo": "-1/100000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "reHi": "0",
+      "imLo": "0",
+      "imHi": "1/100000000000000000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "index": 5,
+      "reLo": "0",
+      "reHi": "0",
+      "imLo": "0",
+      "imHi": "0"
+    },
+    {
+      "index": 6,
+      "reLo": "0",
+      "reHi": "0",
+      "imLo": "0",
+      "imHi": "0"
+    },
+    {
+      "index": 7,
+      "reLo": "0",
+      "reHi": "0",
+      "imLo": "0",
+      "imHi": "0"
+    },
+    {
+      "index": 8,
+      "reLo": "0",
+      "reHi": "0",
+      "imLo": "0",
+      "imHi": "0"
+    },
+    {
+      "index": 9,
+      "reLo": "0",
+      "reHi": "0",
+      "imLo": "0",
+      "imHi": "0"
+    },
+    {
+      "index": 10,
+      "reLo": "0",
+      "reHi": "0",
+      "imLo": "0",
+      "imHi": "0"
+    },
+    {
+      "index": 11,
+      "reLo": "0",
+      "reHi": "0",
+      "imLo": "0",
+      "imHi": "0"
+    },
+    {
+      "index": 12,
+      "reLo": "0",
+      "reHi": "0",
+      "imLo": "0",
+      "imHi": "0"
+    },
+    {
+      "index": 13,
+      "reLo": "0",
+      "reHi": "0",
+      "imLo": "0",
+      "imHi": "0"
+    },
+    {
+      "index": 14,
+      "reLo": "0",
+      "reHi": "0",
+      "imLo": "0",
+      "imHi": "0"
+    },
+    {
+      "index": 15,
+      "reLo": "0",
+      "reHi": "0",
+      "imLo": "0",
+      "imHi": "0"
+    },
+    {
+      "index": 16,
+      "reLo": "0",
+      "reHi": "0",
+      "imLo": "0",
+      "imHi": "0"
+    },
+    {
+      "index": 17,
+      "reLo": "0",
+      "reHi": "0",
+      "imLo": "0",
+      "imHi": "0"
+    },
+    {
+      "index": 18,
+      "reLo": "0",
+      "reHi": "0",
+      "imLo": "0",
+      "imHi": "0"
+    },
+    {
+      "index": 19,
+      "reLo": "0",
+      "reHi": "0",
+      "imLo": "0",
+      "imHi": "0"
+    },
+    {
+      "index": 20,
+      "reLo": "0",
+      "reHi": "0",
+      "imLo": "0",
+      "imHi": "0"
+    },
+    {
+      "index": 21,
+      "reLo": "0",
+      "reHi": "0",
+      "imLo": "0",
+      "imHi": "0"
+    },
+    {
+      "index": 22,
+      "reLo": "0",
+      "reHi": "0",
+      "imLo": "0",
+      "imHi": "0"
+    },
+    {
+      "index": 23,
+      "reLo": "0",
+      "reHi": "0",
+      "imLo": "0",
+      "imHi": "0"
+    },
+    {
+      "index": 24,
+      "reLo": "0",
+      "reHi": "0",
+      "imLo": "0",
+      "imHi": "0"
+    },
+    {
+      "index": 25,
+      "reLo": "0",
+      "reHi": "0",
+      "imLo": "0",
+      "imHi": "0"
+    },
+    {
+      "index": 26,
+      "reLo": "0",
+      "reHi": "0",
+      "imLo": "0",
+      "imHi": "0"
+    },
+    {
+      "index": 27,
+      "reLo": "0",
+      "reHi": "0",
+      "imLo": "0",
+      "imHi": "0"
+    },
+    {
+      "index": 28,
+      "reLo": "0",
+      "reHi": "0",
+      "imLo": "0",
+      "imHi": "0"
+    },
+    {
+      "index": 29,
+      "reLo": "0",
+      "reHi": "0",
+      "imLo": "0",
+      "imHi": "0"
+    }
+  ],
+  "aggregate": {
+    "reLo": "-1/100000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "reHi": "0",
+    "imLo": "0",
+    "imHi": "1/100000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "reHi_decimal": -0.0
+  },
+  "nonzero_family_count": 1,
+  "matches_3204_value_upper": true,
+  "lean_certificate": false,
+  "coordinate_transfer_closed": false,
+  "producer_go": false,
+  "rh_claim": false
+}

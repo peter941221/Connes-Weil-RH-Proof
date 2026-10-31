@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerAggregateWithEndpointValues3227
+
+open ConnesWeilRH.Dev
+
+#print axioms
+  ConnesWeilRH.Dev.intervalIntegral_record2680_40960_aggregate_upper_with_endpoint_values3227
