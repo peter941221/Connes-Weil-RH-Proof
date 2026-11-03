@@ -1,0 +1,21 @@
+{
+  "record": 3299,
+  "status": "PASS",
+  "cells": 40960,
+  "blocks": 160,
+  "formula_rows": 40960,
+  "grid_continuous": true,
+  "exact_serialized_row_block_total_closure": true,
+  "negative_blocks": 62,
+  "total_upper": "-1.415165784862719484304109681996383988568775205947784491970157756341383454872674267889130612283932985E-8",
+  "total_upper_negative": true,
+  "lean_endpoint_dominance_closed": false,
+  "lean_manifest_imported": false,
+  "producer_go": false,
+  "rh_claim": false,
+  "nonclaims": [
+    "Decimal endpoint arithmetic is not directed rounding",
+    "this audit proves only artifact structure and arithmetic replay",
+    "no Lean theorem or RH conclusion follows"
+  ]
+}

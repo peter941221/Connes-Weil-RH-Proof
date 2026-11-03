@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1RouteARationalCellCertificates3277
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratCellValueUpper3277_spec
+#print axioms ratCellValueUpper3277_family_spec
+#print axioms record2680_40960_midpoint_upper_of_rat_cell_certificates3277
+#print axioms intervalIntegral_record2680_40960_global_aggregate_upper_of_rat_cell_certificates3277
+
+end ConnesWeilRH.Dev

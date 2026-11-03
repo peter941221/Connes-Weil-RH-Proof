@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteARationalCorrectedSignedBlockManifest3309
+
+namespace ConnesWeilRH.Dev
+
+#print axioms routeACorrectedSignedBlockUpper3309_sum_lt_zero
+#print axioms routeACorrectedSignedBlockUpper3309_real_sum_lt_zero
+
+end ConnesWeilRH.Dev

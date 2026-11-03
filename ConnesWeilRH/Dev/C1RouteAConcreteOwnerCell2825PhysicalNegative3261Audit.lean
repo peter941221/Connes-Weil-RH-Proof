@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerCell2825PhysicalNegative3261
+
+namespace ConnesWeilRH.Dev
+
+#print axioms record2680_cell2825_shared_bump_zero3261
+#print axioms record2680_cell2825_physical_block_zero3261
+#print axioms record2680_cell2825_physical_block_zero_eq3261
+
+end ConnesWeilRH.Dev

@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1RouteARationalRealProjection3298
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratIntervalMemSub3298
+#print axioms ratCoefficientPhaseRealInterval_mem3298
+#print axioms ratRealFamilyInterval_mem3298
+#print axioms ratRealFamilyInterval_external_mem3298
+
+end ConnesWeilRH.Dev

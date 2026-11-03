@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteASignedRealJetProvider3306
+
+open ConnesWeilRH.Dev
+
+#print axioms ConnesWeilRH.Dev.weightedExternal3306_real_jet_le
+#print axioms ConnesWeilRH.Dev.record2680_signed_real_second_bound3306
+#print axioms ConnesWeilRH.Dev.record2680_signed_real_fourth_bound3306

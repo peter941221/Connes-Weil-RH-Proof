@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteARationalTightSignedBlockConsumer3305
+
+namespace ConnesWeilRH.Dev
+
+#print axioms intervalIntegral_record2680_40960_strict_upper_of_tight_signed_block_manifest3305
+
+end ConnesWeilRH.Dev

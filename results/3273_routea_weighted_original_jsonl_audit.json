@@ -1,0 +1,18 @@
+{
+  "record": 3273,
+  "status": "PASS",
+  "source_record": 3238,
+  "cells": 40960,
+  "formula_rows": 40960,
+  "grid_continuous": true,
+  "formula_replay_exact": true,
+  "aggregate_replay_exact": true,
+  "total_upper_negative": true,
+  "minimum_cell": 16923,
+  "nonclaims": [
+    "not imported into Lean",
+    "full-line tail missing",
+    "no SourceRH",
+    "no RH"
+  ]
+}

@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.C1RouteARationalCorrectedSignedBlockConsumer3309
+
+namespace ConnesWeilRH.Dev
+
+#print axioms routeACorrectedSignedBlockUpper3309Real_sum_eq
+#print axioms routeACorrectedSignedBlockUpper3309Real_sum_lt_zero
+#print axioms intervalIntegral_record2680_40960_strict_upper_of_tight_signed_block_manifest3309
+
+end ConnesWeilRH.Dev

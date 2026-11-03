@@ -1,0 +1,12 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerPhaseFamilies11to14TightStaged3264
+
+open ConnesWeilRH.Dev
+
+#print axioms ConnesWeilRH.Dev.record2680_cell17168_family11_tight_base_mem3264
+#print axioms ConnesWeilRH.Dev.record2680_cell17168_family11_tight_phase_box_mem3264
+#print axioms ConnesWeilRH.Dev.record2680_cell17168_family12_tight_base_mem3264
+#print axioms ConnesWeilRH.Dev.record2680_cell17168_family12_tight_phase_box_mem3264
+#print axioms ConnesWeilRH.Dev.record2680_cell17168_family13_tight_base_mem3264
+#print axioms ConnesWeilRH.Dev.record2680_cell17168_family13_tight_phase_box_mem3264
+#print axioms ConnesWeilRH.Dev.record2680_cell17168_family14_tight_base_mem3264
+#print axioms ConnesWeilRH.Dev.record2680_cell17168_family14_tight_phase_box_mem3264

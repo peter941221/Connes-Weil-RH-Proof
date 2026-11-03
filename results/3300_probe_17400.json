@@ -1,0 +1,32 @@
+{
+  "record": 3300,
+  "status": "DIRECTED_DECIMAL_ENDPOINT_REPLAY",
+  "cells": 40960,
+  "start": 17400,
+  "count": 1,
+  "precision_digits": 110,
+  "rounding": "outward Decimal intervals, then upward 10^-80 grid",
+  "formula": "ratCellValueUpperTight3298 mirror",
+  "all_cells_replayed": false,
+  "lean_endpoint_dominance_closed": false,
+  "lean_manifest_imported": false,
+  "producer_go": false,
+  "rh_claim": false,
+  "input_sha256": {
+    "ConnesWeilRH/Dev/C1RouteARationalTightTail3298.lean": "8d5b53c66758805bbf6d6a0abb15bb800732dbe322fe6639faa5ef5bd2ee40b9",
+    "ConnesWeilRH/Dev/C1RouteARationalRealProjection3298.lean": "c921c1d2e230328b3b8db8111c1aaeab7423f6f61e50b5da3411046e5dd2d322",
+    "ConnesWeilRH/Dev/C1RouteARationalTightCell3298.lean": "42a7630d0639b215c03365f0451185485156c653f16c9bbbd5215446386069ce"
+  },
+  "rows": [
+    {
+      "index": 17400,
+      "value_upper": "-2880160299061522817174123943075200753843477115293502481618583986357826477796345341/100000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "value_upper_decimal": "-28.80160299061522817174123943075200753843477115293502481618583986357826477796345341"
+    }
+  ],
+  "nonclaims": [
+    "directed Decimal replay is external evidence, not a Lean theorem",
+    "the rows have not been imported into Lean",
+    "the full-line tail and producer bridge remain open"
+  ]
+}

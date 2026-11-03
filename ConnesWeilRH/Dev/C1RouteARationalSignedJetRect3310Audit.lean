@@ -1,0 +1,16 @@
+import ConnesWeilRH.Dev.C1RouteARationalSignedJetRect3310
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratBumpNumerator_cast3310
+#print axioms ratBumpJetInterval_mem3310
+#print axioms ratRectPowNat_mem3310
+#print axioms ratWeightedLambdaRect_mem3310
+#print axioms ratWeightedPhaseRect_mem3310
+#print axioms ratBumpRect_mem3310
+#print axioms ratWeightedUnitJetRect_mem3310
+#print axioms ratWeightedUnitJetSumRect_mem3310
+#print axioms ratWeightedPhysicalRect_mem3310
+#print axioms ratWeightedPhysicalBlockRect_mem3310
+
+end ConnesWeilRH.Dev

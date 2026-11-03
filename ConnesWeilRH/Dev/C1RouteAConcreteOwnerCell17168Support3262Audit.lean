@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerCell17168Support3262
+
+namespace ConnesWeilRH.Dev
+
+#print axioms record2680_cell17168_center_inside_support3262
+#print axioms record2680_cell17168_family8_bump_pos3262
+
+end ConnesWeilRH.Dev

@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteARationalBlockManifest3294
+
+namespace ConnesWeilRH.Dev
+
+#print axioms sum_range_mul_block_decomp3294
+#print axioms intervalIntegral_record2680_40960_strict_upper_of_block_manifest3294
+
+end ConnesWeilRH.Dev

@@ -102,7 +102,7 @@ def sixth_upper(families, left, right, sigma):
     return owner.taylor.base.base.base.exact_upper(abs(aggregate) + fallback)
 
 
-def run(cells: int, precision: int) -> dict:
+def run(cells: int, precision: int, cell_output: Path | None = None) -> dict:
     ctx.prec = precision
     families = owner.load_owner_families()
     sigma = F(-1, 2)
@@ -111,38 +111,74 @@ def run(cells: int, precision: int) -> dict:
     total = F(0)
     remainder = F(0)
     minimum = None
-    for index in range(cells):
-        left = -radius + index * step
-        right = left + step
-        midpoint = (left + right) / 2
-        value = acb(0)
-        second = acb(0)
-        fourth = acb(0)
-        for family in families:
-            jets = original_jets(family, midpoint, sigma, 4)
-            value += family["center"] * jets[0]
-            second += family["center"] * jets[2]
-            fourth += family["center"] * jets[4]
-        value_upper = owner.taylor.rounded_up(
-            owner.taylor.base.base.base.exact_upper(value.real)
-        )
-        second_upper = owner.taylor.rounded_up(
-            owner.taylor.base.base.base.exact_upper(second.real)
-        )
-        fourth_upper = owner.taylor.rounded_up(
-            owner.taylor.base.base.base.exact_upper(fourth.real)
-        )
-        sixth = owner.taylor.rounded_up(sixth_upper(families, left, right, sigma))
-        cell_upper = (
-            step * value_upper
-            + step**3 * second_upper / 24
-            + step**5 * fourth_upper / 1920
-            + step**7 * sixth / 322560
-        )
-        total += cell_upper
-        remainder += step**7 * sixth / 322560
-        if minimum is None or cell_upper < minimum[1]:
-            minimum = (index, cell_upper, value_upper)
+    cell_file = None
+    if cell_output is not None:
+        cell_output.parent.mkdir(parents=True, exist_ok=True)
+        cell_file = cell_output.open("w", encoding="utf-8")
+        cell_file.write(json.dumps({
+            "format": "3238-weighted-original-cell-upper-jsonl-v1",
+            "record": 3238,
+            "status": "WEIGHTED_ORIGINAL_TAYLOR6_DIAGNOSTIC",
+            "cells": cells,
+            "precision_bits": precision,
+            "sigma": str(sigma),
+            "step": str(step),
+            "formula": "h*f + h^3*f2/24 + h^5*f4/1920 + h^7*sup_abs_f6/322560",
+            "rounding": "every serialized upper is rounded upward to the 10^-80 grid",
+            "nonclaims": ["not imported into Lean", "full-line tail missing", "no SourceRH", "no RH"],
+        }, sort_keys=True) + "\n")
+    try:
+        for index in range(cells):
+            left = -radius + index * step
+            right = left + step
+            midpoint = (left + right) / 2
+            value = acb(0)
+            second = acb(0)
+            fourth = acb(0)
+            for family in families:
+                jets = original_jets(family, midpoint, sigma, 4)
+                value += family["center"] * jets[0]
+                second += family["center"] * jets[2]
+                fourth += family["center"] * jets[4]
+            value_upper = owner.taylor.rounded_up(
+                owner.taylor.base.base.base.exact_upper(value.real)
+            )
+            second_upper = owner.taylor.rounded_up(
+                owner.taylor.base.base.base.exact_upper(second.real)
+            )
+            fourth_upper = owner.taylor.rounded_up(
+                owner.taylor.base.base.base.exact_upper(fourth.real)
+            )
+            sixth = owner.taylor.rounded_up(sixth_upper(families, left, right, sigma))
+            cell_upper = (
+                step * value_upper
+                + step**3 * second_upper / 24
+                + step**5 * fourth_upper / 1920
+                + step**7 * sixth / 322560
+            )
+            remainder_upper = step**7 * sixth / 322560
+            total += cell_upper
+            remainder += remainder_upper
+            if minimum is None or cell_upper < minimum[1]:
+                minimum = (index, cell_upper, value_upper)
+            if cell_file is not None:
+                cell_file.write(json.dumps({
+                    "index": index,
+                    "left": str(left),
+                    "right": str(right),
+                    "midpoint": str(midpoint),
+                    "step": str(step),
+                    "value_upper": str(value_upper),
+                    "second_upper": str(second_upper),
+                    "fourth_upper": str(fourth_upper),
+                    "sixth_upper": str(sixth),
+                    "cell_upper": str(cell_upper),
+                    "sixth_order_remainder_upper": str(remainder_upper),
+                    "upper_semantics": "Arb enclosure rounded upward to an exact rational on the 10^-80 grid",
+                }, sort_keys=True) + "\n")
+    finally:
+        if cell_file is not None:
+            cell_file.close()
     return {
         "record": 3238,
         "status": "WEIGHTED_ORIGINAL_TAYLOR6_DIAGNOSTIC",
@@ -174,8 +210,9 @@ def main() -> None:
         type=Path,
         default=ROOT / "results/3238_weighted_original_taylor6.json",
     )
+    parser.add_argument("--cell-output", type=Path, default=None)
     args = parser.parse_args()
-    result = run(args.cells, args.precision)
+    result = run(args.cells, args.precision, args.cell_output)
     args.output.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(result, indent=2))
 

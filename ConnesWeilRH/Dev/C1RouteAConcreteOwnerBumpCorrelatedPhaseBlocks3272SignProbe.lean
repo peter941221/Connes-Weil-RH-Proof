@@ -1,0 +1,163 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerBumpCorrelatedPhaseBlocks3272
+
+namespace ConnesWeilRH.Dev
+
+open ConnesWeilRH.Dev.C1RouteAOwnerScaleAudit
+
+set_option maxHeartbeats 10000000 in
+theorem record2680_cell16923_bump_correlated_block5to9_reHi_negative3272 :
+    record2680Cell16923BumpCorrelatedBlock5to9Rect3272.reHi < 0 := by
+  norm_num [record2680Cell16923BumpCorrelatedBlock5to9Rect3272,
+    record2680Cell16923BumpCorrelatedGroup5_5to7Rect3272,
+    record2680Cell16923BumpCorrelatedGroup5_8to8Rect3272,
+    record2680Cell16923BumpCorrelatedGroup5_9to9Rect3272,
+    record2680Cell16923BumpBase5_5to7Rect3272,
+    record2680Cell16923BumpBase5_8to8Rect3272,
+    record2680Cell16923BumpBase5_9to9Rect3272,
+    record2680Cell16923Family5CoeffBumpRect3272,
+    record2680Cell16923Family6CoeffBumpRect3272,
+    record2680Cell16923Family7CoeffBumpRect3272,
+    record2680Cell16923Family8CoeffBumpRect3272,
+    record2680Cell16923Family9CoeffBumpRect3272,
+    record2680Cell16923Family5BumpRect3272,
+    record2680Cell16923Family6BumpRect3272,
+    record2680Cell16923Family7BumpRect3272,
+    record2680Cell16923Family8BumpRect3272,
+    record2680Cell16923Family9BumpRect3272,
+    record2680Cell16923BumpInterval3242, record2680Cell16923Family5TightStageBox3269,
+    record2680Cell16923Family8TightStageBox3269, record2680Cell16923Family9TightStageBox3269,
+    ComplexRect2427.point, ComplexRect2427.add, ComplexRect2427.mul,
+    RealInterval2429.mul, RealInterval2429.add, RealInterval2429.sub,
+    min_def, max_def, record2680CorrectionCoefficient, storedWidth,
+    binary64Value2674, binary64ExponentBits2674, binary64Significand2674,
+    binary64FractionBits2674, binary64Sign2674, capturedModulations2584,
+    record2680Center3212, record2680Grid3212, diagnosticRadius3201,
+    Matrix.cons_val_zero, Matrix.cons_val_four, Matrix.cons_val_5,
+    Matrix.cons_val_6, Matrix.cons_val_7, Matrix.cons_val_8,
+    Matrix.cons_val_9, Fin.ext_iff] <;>
+    norm_num [min_def, max_def]
+
+set_option maxHeartbeats 10000000 in
+theorem record2680_cell16923_bump_correlated_block10to14_reHi_negative3272 :
+    record2680Cell16923BumpCorrelatedBlock10to14Rect3272.reHi < 0 := by
+  norm_num [record2680Cell16923BumpCorrelatedBlock10to14Rect3272,
+    record2680Cell16923BumpCorrelatedGroup10_10to10Rect3272,
+    record2680Cell16923BumpCorrelatedGroup10_11to11Rect3272,
+    record2680Cell16923BumpCorrelatedGroup10_12to12Rect3272,
+    record2680Cell16923BumpCorrelatedGroup10_13to13Rect3272,
+    record2680Cell16923BumpCorrelatedGroup10_14to14Rect3272,
+    record2680Cell16923BumpBase10_10to10Rect3272,
+    record2680Cell16923BumpBase10_11to11Rect3272,
+    record2680Cell16923BumpBase10_12to12Rect3272,
+    record2680Cell16923BumpBase10_13to13Rect3272,
+    record2680Cell16923BumpBase10_14to14Rect3272,
+    record2680Cell16923Family10CoeffBumpRect3272,
+    record2680Cell16923Family11CoeffBumpRect3272,
+    record2680Cell16923Family12CoeffBumpRect3272,
+    record2680Cell16923Family13CoeffBumpRect3272,
+    record2680Cell16923Family14CoeffBumpRect3272,
+    record2680Cell16923Family10BumpRect3272,
+    record2680Cell16923Family11BumpRect3272,
+    record2680Cell16923Family12BumpRect3272,
+    record2680Cell16923Family13BumpRect3272,
+    record2680Cell16923Family14BumpRect3272,
+    record2680Cell16923BumpInterval3242,
+    record2680Cell16923Family10TightStageBox3268,
+    record2680Cell16923Family11TightStageBox3268,
+    record2680Cell16923Family12TightStageBox3268,
+    record2680Cell16923Family13TightStageBox3268,
+    record2680Cell16923Family14TightStageBox3268,
+    ComplexRect2427.point, ComplexRect2427.add, ComplexRect2427.mul,
+    RealInterval2429.mul, RealInterval2429.add, RealInterval2429.sub,
+    min_def, max_def, record2680CorrectionCoefficient, storedWidth,
+    binary64Value2674, binary64ExponentBits2674, binary64Significand2674,
+    binary64FractionBits2674, binary64Sign2674, capturedModulations2584,
+    record2680Center3212, record2680Grid3212, diagnosticRadius3201,
+    Matrix.cons_val_zero, Matrix.cons_val_four, Matrix.cons_val_10,
+    Matrix.cons_val_11, Matrix.cons_val_12, Matrix.cons_val_13,
+    Matrix.cons_val_14, Fin.ext_iff] <;>
+    norm_num [min_def, max_def]
+
+set_option maxHeartbeats 10000000 in
+theorem record2680_cell16923_bump_correlated_block20to24_reHi_negative3272 :
+    record2680Cell16923BumpCorrelatedBlock20to24Rect3272.reHi < 0 := by
+  norm_num [record2680Cell16923BumpCorrelatedBlock20to24Rect3272,
+    record2680Cell16923BumpCorrelatedGroup20_20to20Rect3272,
+    record2680Cell16923BumpCorrelatedGroup20_21to21Rect3272,
+    record2680Cell16923BumpCorrelatedGroup20_22to22Rect3272,
+    record2680Cell16923BumpCorrelatedGroup20_23to23Rect3272,
+    record2680Cell16923BumpCorrelatedGroup20_24to24Rect3272,
+    record2680Cell16923BumpBase20_20to20Rect3272,
+    record2680Cell16923BumpBase20_21to21Rect3272,
+    record2680Cell16923BumpBase20_22to22Rect3272,
+    record2680Cell16923BumpBase20_23to23Rect3272,
+    record2680Cell16923BumpBase20_24to24Rect3272,
+    record2680Cell16923Family20CoeffBumpRect3272,
+    record2680Cell16923Family21CoeffBumpRect3272,
+    record2680Cell16923Family22CoeffBumpRect3272,
+    record2680Cell16923Family23CoeffBumpRect3272,
+    record2680Cell16923Family24CoeffBumpRect3272,
+    record2680Cell16923Family20BumpRect3272,
+    record2680Cell16923Family21BumpRect3272,
+    record2680Cell16923Family22BumpRect3272,
+    record2680Cell16923Family23BumpRect3272,
+    record2680Cell16923Family24BumpRect3272,
+    record2680Cell16923BumpInterval3242,
+    record2680Cell16923Family20TightStageBox3269,
+    record2680Cell16923Family21TightStageBox3269,
+    record2680Cell16923Family22TightStageBox3269,
+    record2680Cell16923Family23TightStageBox3269,
+    record2680Cell16923Family24TightStageBox3269,
+    ComplexRect2427.point, ComplexRect2427.add, ComplexRect2427.mul,
+    RealInterval2429.mul, RealInterval2429.add, RealInterval2429.sub,
+    min_def, max_def, record2680CorrectionCoefficient, storedWidth,
+    binary64Value2674, binary64ExponentBits2674, binary64Significand2674,
+    binary64FractionBits2674, binary64Sign2674, capturedModulations2584,
+    record2680Center3212, record2680Grid3212, diagnosticRadius3201,
+    Matrix.cons_val_zero, Matrix.cons_val_four, Matrix.cons_val_20,
+    Matrix.cons_val_21, Matrix.cons_val_22, Matrix.cons_val_23,
+    Matrix.cons_val_24, Fin.ext_iff] <;>
+    norm_num [min_def, max_def]
+
+set_option maxHeartbeats 10000000 in
+theorem record2680_cell16923_bump_correlated_block25to29_reHi_negative3272 :
+    record2680Cell16923BumpCorrelatedBlock25to29Rect3272.reHi < 0 := by
+  norm_num [record2680Cell16923BumpCorrelatedBlock25to29Rect3272,
+    record2680Cell16923BumpCorrelatedGroup25_25to25Rect3272,
+    record2680Cell16923BumpCorrelatedGroup25_26to26Rect3272,
+    record2680Cell16923BumpCorrelatedGroup25_27to27Rect3272,
+    record2680Cell16923BumpCorrelatedGroup25_28to28Rect3272,
+    record2680Cell16923BumpCorrelatedGroup25_29to29Rect3272,
+    record2680Cell16923BumpBase25_25to25Rect3272,
+    record2680Cell16923BumpBase25_26to26Rect3272,
+    record2680Cell16923BumpBase25_27to27Rect3272,
+    record2680Cell16923BumpBase25_28to28Rect3272,
+    record2680Cell16923BumpBase25_29to29Rect3272,
+    record2680Cell16923Family25CoeffBumpRect3272,
+    record2680Cell16923Family26CoeffBumpRect3272,
+    record2680Cell16923Family27CoeffBumpRect3272,
+    record2680Cell16923Family28CoeffBumpRect3272,
+    record2680Cell16923Family29CoeffBumpRect3272,
+    record2680Cell16923Family25BumpRect3272,
+    record2680Cell16923Family26BumpRect3272,
+    record2680Cell16923Family27BumpRect3272,
+    record2680Cell16923Family28BumpRect3272,
+    record2680Cell16923Family29BumpRect3272,
+    record2680Cell16923BumpInterval3242,
+    record2680Cell16923Family25TightStageBox3269,
+    record2680Cell16923Family26TightStageBox3269,
+    record2680Cell16923Family27TightStageBox3269,
+    record2680Cell16923Family28TightStageBox3269,
+    record2680Cell16923Family29TightStageBox3269,
+    ComplexRect2427.point, ComplexRect2427.add, ComplexRect2427.mul,
+    RealInterval2429.mul, RealInterval2429.add, RealInterval2429.sub,
+    min_def, max_def, record2680CorrectionCoefficient, storedWidth,
+    binary64Value2674, binary64ExponentBits2674, binary64Significand2674,
+    binary64FractionBits2674, binary64Sign2674, capturedModulations2584,
+    record2680Center3212, record2680Grid3212, diagnosticRadius3201,
+    Matrix.cons_val_zero, Matrix.cons_val_four, Matrix.cons_val_25,
+    Matrix.cons_val_26, Matrix.cons_val_27, Matrix.cons_val_28,
+    Matrix.cons_val_29, Fin.ext_iff] <;>
+    norm_num [min_def, max_def]
+
+end ConnesWeilRH.Dev

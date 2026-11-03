@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerCell17168WeightedBlock10to14Shared3263
+
+namespace ConnesWeilRH.Dev
+
+#print axioms record2680_cell17168_block10to14_shared_width3263
+#print axioms record2680_cell17168_block10to14_weighted_shared_target_eq3263
+
+end ConnesWeilRH.Dev

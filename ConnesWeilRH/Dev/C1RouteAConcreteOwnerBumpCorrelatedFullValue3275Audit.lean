@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteAConcreteOwnerBumpCorrelatedFullValue3275
+
+namespace ConnesWeilRH.Dev
+
+#print axioms record2680_cell16923_bump_correlated_full_reHi_decomposition3275
+#print axioms record2680_cell16923_bump_correlated_full_reHi_le_of_block_bounds3275
+
+end ConnesWeilRH.Dev

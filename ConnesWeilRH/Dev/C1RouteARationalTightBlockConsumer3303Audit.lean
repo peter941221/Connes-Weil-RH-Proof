@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.C1RouteARationalTightBlockConsumer3303
+
+namespace ConnesWeilRH.Dev
+
+#print axioms routeADirectedBlockUpper3302Real_sum_eq
+#print axioms routeADirectedBlockUpper3302Real_sum_lt_zero
+#print axioms intervalIntegral_record2680_40960_strict_upper_of_tight_block_manifest3303
+
+end ConnesWeilRH.Dev

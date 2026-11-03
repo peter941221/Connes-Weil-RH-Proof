@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteARationalTightAggregate3299
+
+namespace ConnesWeilRH.Dev
+
+#print axioms intervalIntegral_record2680_40960_tight_aggregate_upper3299
+
+end ConnesWeilRH.Dev

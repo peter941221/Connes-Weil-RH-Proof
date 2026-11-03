@@ -1,0 +1,21 @@
+{
+  "record": 3299,
+  "status": "PASS",
+  "cells": 40960,
+  "blocks": 160,
+  "formula_rows": 40960,
+  "grid_continuous": true,
+  "exact_serialized_row_block_total_closure": true,
+  "negative_blocks": 62,
+  "total_upper": "-1.41516578486271948430410968199638398842229049828075772532358985813121018016309673955205366821385165798318276029794542508E-8",
+  "total_upper_negative": true,
+  "lean_endpoint_dominance_closed": false,
+  "lean_manifest_imported": false,
+  "producer_go": false,
+  "rh_claim": false,
+  "nonclaims": [
+    "this audit proves only artifact structure and arithmetic replay",
+    "the external endpoint replay is not a Lean proof",
+    "no Lean theorem or RH conclusion follows"
+  ]
+}

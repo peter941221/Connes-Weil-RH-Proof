@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1RouteARational40960Aggregate3290
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratCellWeight3289_spec
+#print axioms ratCellFamilyRect3288_spec
+#print axioms record2680_40960_midpoint_upper3289
+#print axioms intervalIntegral_record2680_40960_rational_aggregate_upper3290
+
+end ConnesWeilRH.Dev
