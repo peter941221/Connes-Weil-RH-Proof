@@ -2145,3 +2145,47 @@ bounds of its summands. These are structural bridges, not a numerical budget:
 they preserve the distinction between a coordinate bound and a full complex
 rectangle bound. The focused WSL2 Lean 4.30.0 build and independent audit pass
 with exactly `[propext, Classical.choice, Quot.sound]`.
+
+Record 3372 closes the next local numerical budget layer for cell 0, family 4,
+order 2. It proves full complex endpoint bounds for the three weighted jet
+leaves:
+
+```text
+index 0: endpointAbs <= 3 * 10^-14
+index 1: endpointAbs <= 10^-25
+index 2: endpointAbs <= 10^-33
+sum:     endpointAbs <= 31 * 10^-15
+```
+
+The proof composes the audited phase bound `<= 128`, lambda bound `<= 40`,
+the exact binomial factors, and the three bump budgets through the complex
+rectangle multiplication bound. The sum bound uses the audited rectangle-add
+subadditivity theorem, so it is a full complex budget and can feed the 3370
+physical-term interface through the 3371 coordinate bridges. The WSL2 ext4
+Lean 4.30.0 `lake build` and independent `#print axioms` audit pass; all four
+new theorems report exactly `[propext, Classical.choice, Quot.sound]`.
+This remains one cell/family local result: no complete 30-family cell sum,
+physical endpoint sign, 160-block inequality, `SourceRH`, or Riemann
+Hypothesis claim is established. Mathlib brick check 2049 was rerun and its
+result was recorded in `results/2049_mathlib_brick_check.json`.
+
+Record 3373 consumes the 3372 full-complex budget for the selected cell-0,
+family-4, order-2 physical term. It defines the local three-index jet sum,
+derives its real and imaginary rectangle ordering from the audited `Mem`
+certificates, transfers the `<= 31 * 10^-15` full endpoint budget through the 3371
+coordinate bridges, and instantiates the 3370 signed coefficient consumer.
+The resulting local physical real endpoint is proved to satisfy:
+
+```text
+ratWeightedPhysicalTermRect3310 2 0 4).reHi <= 8
+```
+
+The coefficient is about `10^14` in magnitude, so this is intentionally a
+constant-scale physical budget; the small jet budget does not imply a small
+physical term before coefficient multiplication. The exact coefficient-weight
+sum is about `240.207`, and multiplying by `31 * 10^-15` gives about `7.447`,
+so `8` is an outward-rounded integer budget. The WSL2 ext4 Lean
+4.30.0 focused build and independent audit pass with exactly
+`[propext, Classical.choice, Quot.sound]`. This is still one local family and
+one cell. It does not prove a negative physical endpoint, a complete
+30-family cell sum, a 160-block inequality, `SourceRH`, or RH.

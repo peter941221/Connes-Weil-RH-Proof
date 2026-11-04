@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteARationalPhysicalTermCell0Budget3373
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratWeightedJetSumRect_cell0_order2_family4_ordered3373
+#print axioms ratWeightedPhysicalTermRect_cell0_order2_family4_reHi_le3373
+
+end ConnesWeilRH.Dev
