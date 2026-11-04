@@ -2184,8 +2184,17 @@ The coefficient is about `10^14` in magnitude, so this is intentionally a
 constant-scale physical budget; the small jet budget does not imply a small
 physical term before coefficient multiplication. The exact coefficient-weight
 sum is about `240.207`, and multiplying by `27 * 10^-15` gives about `6.486`,
-so `8` is an outward-rounded integer budget. The WSL2 ext4 Lean
+so `7` is an outward-rounded integer budget. The WSL2 ext4 Lean
 4.30.0 focused build and independent audit pass with exactly
 `[propext, Classical.choice, Quot.sound]`. This is still one local family and
 one cell. It does not prove a negative physical endpoint, a complete
 30-family cell sum, a 160-block inequality, `SourceRH`, or RH.
+
+Record 3374 replaces the failed direct-unfolding attempt of the historical
+3318 family leaf with a small compatibility bridge. It defines the audited
+endpoint `routeASignedJetFamilyLeafUpper3374 = 7` and proves the same selected
+cell-0/family-4 physical term is below that endpoint by consuming 3373. This
+is an interface replacement only: it does not populate the other 29 family
+leaves, does not prove any block aggregate, and does not change the owner or
+family identity. The focused WSL2 Lean 4.30.0 build and independent audit pass
+with exactly `[propext, Classical.choice, Quot.sound]`.
