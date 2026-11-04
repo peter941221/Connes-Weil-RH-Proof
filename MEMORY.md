@@ -2257,3 +2257,30 @@ coordinate/order local result: no cell-1 jet sum, physical coefficient term,
 30-family sum, block inequality, `SourceRH`, or RH is established. The WSL2
 ext4 Lean 4.30.0 build and independent audit pass with exactly
 `[propext, Classical.choice, Quot.sound]`.
+
+Record 3382 adds the cell-1/family-4 order-1 and order-0 bump endpoint layer.
+Both lower endpoints are proved exactly `0`; the corresponding upper endpoint
+expressions are proved by the audited tail-branch interval multiplication
+interface. Record 3384 then proves the order-0 upper endpoint is `<= 10^-40`.
+All focused WSL2 ext4 Lean 4.30.0 builds and independent audits pass with
+exactly `[propext, Classical.choice, Quot.sound]` and no forbidden proof
+artifacts.
+
+Record 3383 consumes the cell-1 weighted phase bound, the order-1 bump bound,
+and the existing rectangle multiplication budget to prove
+`(ratWeightedUnitJetRect3310 2 1 1 4).reHi <= 10^-26`.
+Record 3385 performs the analogous order-0 bump composition for index 2 and
+proves `(ratWeightedUnitJetRect3310 2 2 1 4).reHi <= 10^-33`. Both focused
+WSL2 Lean 4.30.0 builds and independent audits pass with exactly the standard
+axiom trio.
+
+Record 3386 defines the complete cell-1/family-4 order-2 three-index jet sum,
+proves its real and imaginary rectangle coordinates are ordered from the
+audited membership certificates, and proves its real upper endpoint is
+`<= 7 / 10^15` by adding the three audited jet budgets
+`64 / 10^16`, `1 / 10^26`, and `1 / 10^33`. This is now a complete local
+jet-sum budget for one cell and family, but not yet the coefficient-weighted
+physical term, a family aggregate, a block certificate, `SourceRH`, or RH.
+The WSL2 ext4 Lean 4.30.0 build and independent audit pass with exactly
+`[propext, Classical.choice, Quot.sound]`; the complete logs contain no
+`sorry`, `admit`, `sorryAx`, or `native_decide`.

@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteARationalWeightedJetSumEndpoint3386
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratWeightedJetSumRect_cell1_order2_family4_ordered3386
+#print axioms ratWeightedJetSumRect_cell1_order2_family4_reHi_le3386
+
+end ConnesWeilRH.Dev
