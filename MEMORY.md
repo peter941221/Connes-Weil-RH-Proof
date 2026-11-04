@@ -2228,6 +2228,17 @@ focused WSL2 ext4 Lean 4.30.0 build and independent audit pass with exactly
 `[propext, Classical.choice, Quot.sound]`; the complete logs contain no
 `sorry`, `admit`, `sorryAx`, or `native_decide`.
 
+The follow-up signed-budget investigation after record 3387 did not produce a
+new theorem. Directly expanding the exact cell-1/family-4 rational rectangle
+was too large for a maintainable proof and did not close the target `<= 1`.
+The signed interface remains the correct route:
+`cRe * jet.reLo - cIm * jet.imHi`, with both family-4 coefficients negative.
+The next implementation should prove small, separately named rational bounds
+for `jet.reLo` and `jet.imHi`, then consume them through
+`ratWeightedPhysicalTermRect3310_family4_reHi_signed3332`; do not replace
+those projections with the shared absolute endpoint budget, which is exactly
+the cancellation loss that produced the coarse `<= 7` result.
+
 Record 3388 upgrades the cell-1/family-4 jet budget from the real upper
 endpoint to a full rectangle endpoint-absolute bound. The order-2 index-0
 leaf is bounded by `26 / 10^15`; the index-1 and index-2 leaves are bounded
