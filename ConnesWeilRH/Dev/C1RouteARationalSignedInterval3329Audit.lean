@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1RouteARationalSignedInterval3329
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratInterval_mul_singleton_nonneg_hi3329
+#print axioms ratInterval_mul_singleton_nonpos_hi3329
+#print axioms ratInterval_mul_singleton_nonneg_lo3329
+#print axioms ratInterval_mul_singleton_nonpos_lo3329
+
+end ConnesWeilRH.Dev

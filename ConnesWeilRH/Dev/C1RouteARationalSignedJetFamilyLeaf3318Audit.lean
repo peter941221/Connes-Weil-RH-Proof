@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteARationalSignedJetFamilyLeaf3318
+
+namespace ConnesWeilRH.Dev
+
+#print axioms routeASignedJetFamilyLeafUpper3318_spec
+
+end ConnesWeilRH.Dev

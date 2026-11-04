@@ -1,0 +1,10 @@
+{
+  "record": 3314,
+  "status": "REPLAY_3314_DECOMPOSED_BLOCK_CERTIFICATE",
+  "block": 1,
+  "cells": 256,
+  "passed": true,
+  "failures": [],
+  "arb_enclosure_proved": false,
+  "rh_claim": false
+}

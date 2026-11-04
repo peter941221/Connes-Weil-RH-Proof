@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1RouteARationalPhaseCoordinatePropagation3352
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratInterval_mul_endpoint_abs_le3352
+#print axioms ratRect_mul_square_re_abs_le3352
+#print axioms ratRect_mul_square_im_abs_le3352
+#print axioms ratPhaseRect_square_coordinate_bounds3352_cell0_family4
+
+end ConnesWeilRH.Dev

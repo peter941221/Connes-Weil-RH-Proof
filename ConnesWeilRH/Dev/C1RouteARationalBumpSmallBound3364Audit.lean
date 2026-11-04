@@ -1,0 +1,4 @@
+import ConnesWeilRH.Dev.C1RouteARationalBumpSmallBound3364
+namespace ConnesWeilRH.Dev
+#print axioms signed_bump_endpoint3364_cell0_order1_family4_hi_le
+end ConnesWeilRH.Dev

@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteARationalSignedJetCoarse3327
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratWeightedPhysicalTermRect3310_order2_reHi_le_abs_bound3329
+
+end ConnesWeilRH.Dev

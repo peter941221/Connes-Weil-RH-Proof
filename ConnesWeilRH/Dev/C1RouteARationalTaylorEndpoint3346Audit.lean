@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.C1RouteARationalTaylorEndpoint3346
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratBaseInterval3284_order3346
+#print axioms ratBaseInterval3284_powNat_hi_eq_pow3346
+#print axioms signed_bump_tail_selector3335_cell0_family4_hi3346
+
+end ConnesWeilRH.Dev

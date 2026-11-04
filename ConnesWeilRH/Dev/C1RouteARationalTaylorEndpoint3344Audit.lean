@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1RouteARationalTaylorEndpoint3344
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratBaseInterval3284_lo_nonneg3344
+#print axioms ratBaseInterval3284_hi_nonneg3344
+#print axioms ratInterval_powNat_hi_nonneg3344
+#print axioms ratBaseInterval3284_powNat_hi_nonneg3344
+
+end ConnesWeilRH.Dev

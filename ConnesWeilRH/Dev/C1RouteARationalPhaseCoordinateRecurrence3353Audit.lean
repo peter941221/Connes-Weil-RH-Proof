@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1RouteARationalPhaseCoordinateRecurrence3353
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratPhasePowSqRealBound3353_nonneg
+#print axioms ratPhasePowSqImagBound3353_nonneg
+#print axioms ratPhasePowSqCoordinateBounds3353_cell0_family4
+#print axioms ratPhasePowSqCoordinateBounds3353_cell0_family4_nine
+
+end ConnesWeilRH.Dev

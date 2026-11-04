@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteARationalComplexEndpointBounds3328
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratRect_add_endpointAbsBound_le_sum3328
+
+end ConnesWeilRH.Dev

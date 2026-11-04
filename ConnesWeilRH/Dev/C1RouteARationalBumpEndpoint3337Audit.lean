@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.C1RouteARationalBumpEndpoint3337
+
+namespace ConnesWeilRH.Dev
+
+#print axioms signed_bump_factor3336_cell0_order2_family4_nonneg
+#print axioms ratInterval_mul_lo_nonneg3336
+#print axioms signed_bump_endpoint3337_cell0_order2_family4_reLo_eq_zero
+
+end ConnesWeilRH.Dev

@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteARationalComplexEndpointBounds3326
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratRectEndpointAbsBound3326_nonneg
+#print axioms ratRect_mul_reHi_le_abs_bound3326
+
+end ConnesWeilRH.Dev

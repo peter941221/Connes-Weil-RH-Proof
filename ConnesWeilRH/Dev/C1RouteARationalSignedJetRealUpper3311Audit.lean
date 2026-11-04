@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteARationalSignedJetRealUpper3311
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratWeightedPhysicalBlockRealUpper3311_spec
+#print axioms ratWeightedPhysicalBlockRealUpper3311_order0_spec
+
+end ConnesWeilRH.Dev

@@ -1,0 +1,11 @@
+import ConnesWeilRH.Dev.C1RouteARationalCellWeightEndpoint3357
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratCellWeightTaylorHi3357_cell0
+#print axioms ratCellWeightTaylorLoNonneg3357_cell0
+#print axioms ratCellWeightTaylorHiNonneg3357_cell0
+#print axioms ratCellWeightTaylorOrder3357_cell0
+#print axioms ratCellWeightIntervalEndpointAbsBound3357_cell0
+
+end ConnesWeilRH.Dev

@@ -1,0 +1,14 @@
+import ConnesWeilRH.Dev.C1RouteARationalPhaseExactProbe3354
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratPhasePowSqEndpointAbsBound3354_cell0_family4_two
+#print axioms ratPhasePowSqEndpointAbsBound3354_cell0_family4_three
+#print axioms ratPhasePowSqEndpointAbsBound3354_cell0_family4_four
+#print axioms ratPhasePowSqEndpointAbsBound3354_cell0_family4_five
+#print axioms ratPhasePowSqEndpointAbsBound3354_cell0_family4_six
+#print axioms ratPhasePowSqEndpointAbsBound3354_cell0_family4_seven
+#print axioms ratPhasePowSqEndpointAbsBound3354_cell0_family4_eight
+#print axioms ratPhasePowSqEndpointAbsBound3354_cell0_family4_nine
+
+end ConnesWeilRH.Dev

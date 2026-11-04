@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteARationalSignedJetFamilyCertificate3318
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratWeightedPhysicalBlockRect3310_reHi_le_of_family_endpoint_certificate
+#print axioms ratWeightedPhysicalBlockRect3310_reHi_le_of_family_sum_certificate
+
+end ConnesWeilRH.Dev

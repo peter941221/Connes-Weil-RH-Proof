@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1RouteARationalImaginaryEndpointBudget3371
+namespace ConnesWeilRH.Dev
+#print axioms ratRectImagEndpointAbsBound3342_le_endpointAbsBound3371
+#print axioms ratRectRealEndpointAbsBound3342_le_endpointAbsBound3371
+#print axioms ratRect_add_imagEndpointAbsBound3342_le_sum3371
+end ConnesWeilRH.Dev

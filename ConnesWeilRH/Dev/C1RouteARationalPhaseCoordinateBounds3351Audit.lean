@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteARationalPhaseCoordinateBounds3351
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratPhaseRealEndpointAbsBound3351_cell0_family4
+#print axioms ratPhaseImagEndpointAbsBound3351_cell0_family4
+
+end ConnesWeilRH.Dev

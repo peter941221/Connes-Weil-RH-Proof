@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1RouteARationalBumpEndpoint3347
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratInterval_mul_hi_eq_hi_mul_of_zero_lo_nonneg3347
+#print axioms signed_bump_endpoint3347_cell0_order0_family4_hi_eq
+#print axioms signed_bump_endpoint3347_cell0_order1_family4_hi_eq
+#print axioms signed_bump_endpoint3347_cell0_order2_family4_hi_eq
+
+end ConnesWeilRH.Dev

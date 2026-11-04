@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.C1RouteARationalSignedJetFamilyBridge3317
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratWeightedPhysicalRect3310_reHi_eq_family_sum
+#print axioms ratWeightedPhysicalBlockRect3310_reHi_eq_cell_sum
+#print axioms ratWeightedPhysicalBlockRect3310_reHi_eq_family_cell_sum
+
+end ConnesWeilRH.Dev

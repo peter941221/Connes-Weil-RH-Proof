@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteARationalJetEndpoint3339
+
+namespace ConnesWeilRH.Dev
+
+#print axioms signed_bump_endpoint3339_cell0_order0_family4_reLo_eq_zero
+#print axioms signed_jet_endpoint3339_cell0_order2_index2_reLo_le_zero
+
+end ConnesWeilRH.Dev

@@ -1,0 +1,12 @@
+import ConnesWeilRH.Dev.C1RouteARationalSignedJetInactive3320
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratWeightedPhysicalTermRect3310_eq_zero_of_inactive
+#print axioms ratWeightedPhysicalTermRect3310_reHi_eq_zero_of_inactive
+#print axioms ratWeightedPhysicalTermRect3310_cell0_family0_reHi
+#print axioms ratWeightedPhysicalTermRect3310_cell0_family4_active
+#print axioms ratWeightedPhaseRect3310_cell0_family4_mem
+#print axioms ratBumpRect3310_order2_cell0_family4_mem
+
+end ConnesWeilRH.Dev

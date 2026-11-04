@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.C1RouteARationalRealScalingEndpoint3358
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratRect_mul_real_hi_le_coordinate_bound3358
+#print axioms ratRect_mul_real_coordinate_abs_bound3358
+#print axioms ratCellWeightRealScalingEndpoint3358_cell0
+
+end ConnesWeilRH.Dev

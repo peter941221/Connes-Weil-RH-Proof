@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1RouteARationalSignedFamily3332
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratCoefficientRect3282_family4_signs3332
+#print axioms ratWeightedPhysicalTermRect3310_family4_reHi_signed3332
+#print axioms ratWeightedPhysicalTermRect3310_cell0_order2_family4_reHi_signed3332
+#print axioms ratWeightedPhysicalTermRect3310_family4_reHi_le_of_signed_certificate3332
+
+end ConnesWeilRH.Dev

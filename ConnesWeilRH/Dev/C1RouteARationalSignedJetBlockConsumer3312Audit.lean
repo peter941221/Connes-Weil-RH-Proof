@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.C1RouteARationalSignedJetBlockConsumer3312
+
+namespace ConnesWeilRH.Dev
+
+#print axioms routeASignedJetRectBlockUpper3312Real_sum_eq
+#print axioms routeASignedJetRectBlockUpper3312Real_sum_lt_zero
+#print axioms intervalIntegral_record2680_40960_strict_upper_of_signed_jet_block_manifest3312
+
+end ConnesWeilRH.Dev

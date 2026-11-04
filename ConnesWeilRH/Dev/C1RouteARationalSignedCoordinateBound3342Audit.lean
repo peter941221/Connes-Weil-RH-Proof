@@ -1,0 +1,11 @@
+import ConnesWeilRH.Dev.C1RouteARationalSignedCoordinateBound3342
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratRect_reLo_ge_neg_abs_bound3342
+#print axioms ratRect_imHi_le_abs_bound3342
+#print axioms signed_singleton_reHi_le_coordinate_bound3342
+#print axioms signed_selected_reHi_le_coordinate_bound3342
+#print axioms ratWeightedPhysicalTermRect3310_family4_reHi_le_coordinate_bound3342
+
+end ConnesWeilRH.Dev

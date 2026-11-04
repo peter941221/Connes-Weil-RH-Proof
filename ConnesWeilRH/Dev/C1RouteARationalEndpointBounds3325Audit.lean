@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.C1RouteARationalEndpointBounds3325
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratIntervalEndpointAbsBound3325_nonneg
+#print axioms ratInterval_mul_hi_le_abs_bound3325
+#print axioms ratInterval_mul_lo_ge_neg_abs_bound3325
+
+end ConnesWeilRH.Dev

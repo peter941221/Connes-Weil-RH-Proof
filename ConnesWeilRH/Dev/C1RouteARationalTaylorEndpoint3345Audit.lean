@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteARationalTaylorEndpoint3345
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratInterval_mul_hi_eq_hi_mul_hi_of_nonneg3345
+#print axioms ratInterval_powNat_hi_eq_pow_of_nonneg3345
+
+end ConnesWeilRH.Dev

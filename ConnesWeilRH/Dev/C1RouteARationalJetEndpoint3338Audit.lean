@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteARationalJetEndpoint3338
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratRect_mul_real_reLo_le_zero_of_zero_lo3338
+#print axioms signed_jet_endpoint3338_cell0_order2_index0_reLo_le_zero
+
+end ConnesWeilRH.Dev

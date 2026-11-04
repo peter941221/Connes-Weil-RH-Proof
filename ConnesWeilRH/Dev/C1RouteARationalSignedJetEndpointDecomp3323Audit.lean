@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteARationalSignedJetEndpointDecomp3323
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratWeightedUnitJetSumRect3310_order2_eq
+#print axioms ratWeightedPhysicalTermRect3310_order2_eq
+
+end ConnesWeilRH.Dev

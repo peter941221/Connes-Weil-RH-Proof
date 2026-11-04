@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteARationalWeightedPhaseOrientation3361
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratWeightedPhaseRect_orientation3361
+
+end ConnesWeilRH.Dev

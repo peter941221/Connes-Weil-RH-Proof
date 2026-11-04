@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteARationalRealProductEndpoint3356
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratRect_mul_real_hi_le_coordinate_bound3356
+
+end ConnesWeilRH.Dev

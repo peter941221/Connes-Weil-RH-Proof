@@ -1,0 +1,4 @@
+import ConnesWeilRH.Dev.C1RouteARationalWeightedJetInterval3369
+namespace ConnesWeilRH.Dev
+#print axioms signed_jet_sum_interval3369_cell0_order2_family4
+end ConnesWeilRH.Dev

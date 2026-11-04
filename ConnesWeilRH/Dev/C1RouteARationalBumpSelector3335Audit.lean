@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteARationalBumpSelector3335
+
+namespace ConnesWeilRH.Dev
+
+#print axioms signed_bump_selector3335_cell0_family4
+#print axioms signed_bump_tail_selector3335_cell0_family4
+
+end ConnesWeilRH.Dev

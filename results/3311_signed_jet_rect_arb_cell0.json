@@ -1,0 +1,16 @@
+{
+  "record": 3311,
+  "status": "ARB_ORDER0_SIGNED_JET_RECTANGLE_PROBE",
+  "cells": 1,
+  "precision_bits": 192,
+  "block_re_hi": "0",
+  "rows": [
+    {
+      "index": 0,
+      "re_hi": "0"
+    }
+  ],
+  "formula_source": "C1RouteARationalSignedJetRect3310 finite rational definitions",
+  "lean_imported": false,
+  "rh_claim": false
+}
