@@ -64,7 +64,7 @@ theorem ratWeightedBumpRect_endpointAbs_le_hi3372
 set_option maxHeartbeats 10000000 in
 theorem ratWeightedUnitJetRect_cell0_order2_index0_family4_endpointAbs_le3372 :
     ratRectEndpointAbsBound3326 (ratWeightedUnitJetRect3310 2 0 0 4) ≤
-      3 / 10 ^ 14 := by
+      26 / 10 ^ 15 := by
   have hphase := ratWeightedPhaseRect_cell0_family4_endpointAbs_le3372
   have hbumpLo : 0 ≤ (ratBumpJetInterval3310 2
       (storedWidthRat3287 4 ^ 2) (record2680CenterRat3279 0)).lo := by
@@ -138,7 +138,7 @@ theorem ratWeightedUnitJetRect_cell0_order2_index0_family4_endpointAbs_le3372 :
       exact mul_le_mul
         (mul_le_mul_of_nonneg_left hphase (by norm_num))
         hbumpAbs' (ratRectEndpointAbsBound3326_nonneg _) (by norm_num)
-    _ ≤ 3 / 10 ^ 14 := by norm_num
+    _ ≤ 26 / 10 ^ 15 := by norm_num
 
 set_option maxHeartbeats 10000000 in
 theorem ratWeightedUnitJetRect_cell0_order2_index1_family4_endpointAbs_le3372 :
@@ -365,7 +365,7 @@ theorem ratWeightedUnitJetSumRect_cell0_order2_family4_endpointAbs_le3372 :
           (ratWeightedUnitJetRect3310 2 0 0 4)
           (ratWeightedUnitJetRect3310 2 1 0 4))
         (ratWeightedUnitJetRect3310 2 2 0 4)) ≤
-      31 / 10 ^ 15 := by
+      27 / 10 ^ 15 := by
   calc
     _ ≤ ratRectEndpointAbsBound3326 (ratWeightedUnitJetRect3310 2 0 0 4) +
         ratRectEndpointAbsBound3326 (ratWeightedUnitJetRect3310 2 1 0 4) +
@@ -379,11 +379,11 @@ theorem ratWeightedUnitJetSumRect_cell0_order2_family4_endpointAbs_le3372 :
         (add_le_add
           (ratRect_add_endpointAbsBound_le_sum3328 _ _)
           (le_refl _))
-    _ ≤ 3 / 10 ^ 14 + 1 / 10 ^ 25 + 1 / 10 ^ 33 := by
+    _ ≤ 26 / 10 ^ 15 + 1 / 10 ^ 25 + 1 / 10 ^ 33 := by
       exact add_le_add (add_le_add
         ratWeightedUnitJetRect_cell0_order2_index0_family4_endpointAbs_le3372
         ratWeightedUnitJetRect_cell0_order2_index1_family4_endpointAbs_le3372)
         ratWeightedUnitJetRect_cell0_order2_index2_family4_endpointAbs_le3372
-    _ ≤ 31 / 10 ^ 15 := by norm_num
+    _ ≤ 27 / 10 ^ 15 := by norm_num
 
 end ConnesWeilRH.Dev

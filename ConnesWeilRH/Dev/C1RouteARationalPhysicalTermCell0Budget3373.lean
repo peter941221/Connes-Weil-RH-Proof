@@ -92,7 +92,7 @@ theorem ratWeightedJetSumRect_cell0_order2_family4_ordered3373 :
     linarith
 
 theorem ratWeightedPhysicalTermRect_cell0_order2_family4_reHi_le3373 :
-    (ratWeightedPhysicalTermRect3310 2 0 4).reHi ≤ 8 := by
+    (ratWeightedPhysicalTermRect3310 2 0 4).reHi ≤ 7 := by
   have hordered := ratWeightedJetSumRect_cell0_order2_family4_ordered3373
   have hreal0 := ratRectRealEndpointAbsBound3342_le_endpointAbsBound3371
     (ratWeightedJetSumRect_cell0_order2_family4_3373)
@@ -100,14 +100,14 @@ theorem ratWeightedPhysicalTermRect_cell0_order2_family4_reHi_le3373 :
     (ratWeightedJetSumRect_cell0_order2_family4_3373)
   have hbudget := ratWeightedUnitJetSumRect_cell0_order2_family4_endpointAbs_le3372
   have hreal : ratRectRealEndpointAbsBound3342
-      (ratWeightedJetSumRect_cell0_order2_family4_3373) ≤ 31 / 10 ^ 15 :=
+      (ratWeightedJetSumRect_cell0_order2_family4_3373) ≤ 27 / 10 ^ 15 :=
     hreal0.trans hbudget
   have himag : ratRectImagEndpointAbsBound3342
-      (ratWeightedJetSumRect_cell0_order2_family4_3373) ≤ 31 / 10 ^ 15 :=
+      (ratWeightedJetSumRect_cell0_order2_family4_3373) ≤ 27 / 10 ^ 15 :=
     himag0.trans hbudget
   exact le_trans
     (ratWeightedPhysicalTermRect3310_family4_reHi_le_of_coordinate_budgets3370
-      0 hordered.1 hordered.2 (31 / 10 ^ 15) (31 / 10 ^ 15) hreal himag)
+      0 hordered.1 hordered.2 (27 / 10 ^ 15) (27 / 10 ^ 15) hreal himag)
     (by norm_num [ratCoefficientRect3282, Matrix.cons_val_four])
 
 end ConnesWeilRH.Dev

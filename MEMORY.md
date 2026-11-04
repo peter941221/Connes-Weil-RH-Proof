@@ -2151,10 +2151,10 @@ order 2. It proves full complex endpoint bounds for the three weighted jet
 leaves:
 
 ```text
-index 0: endpointAbs <= 3 * 10^-14
+index 0: endpointAbs <= 26 * 10^-15
 index 1: endpointAbs <= 10^-25
 index 2: endpointAbs <= 10^-33
-sum:     endpointAbs <= 31 * 10^-15
+sum:     endpointAbs <= 27 * 10^-15
 ```
 
 The proof composes the audited phase bound `<= 128`, lambda bound `<= 40`,
@@ -2172,18 +2172,18 @@ result was recorded in `results/2049_mathlib_brick_check.json`.
 Record 3373 consumes the 3372 full-complex budget for the selected cell-0,
 family-4, order-2 physical term. It defines the local three-index jet sum,
 derives its real and imaginary rectangle ordering from the audited `Mem`
-certificates, transfers the `<= 31 * 10^-15` full endpoint budget through the 3371
+certificates, transfers the `<= 27 * 10^-15` full endpoint budget through the 3371
 coordinate bridges, and instantiates the 3370 signed coefficient consumer.
 The resulting local physical real endpoint is proved to satisfy:
 
 ```text
-ratWeightedPhysicalTermRect3310 2 0 4).reHi <= 8
+ratWeightedPhysicalTermRect3310 2 0 4).reHi <= 7
 ```
 
 The coefficient is about `10^14` in magnitude, so this is intentionally a
 constant-scale physical budget; the small jet budget does not imply a small
 physical term before coefficient multiplication. The exact coefficient-weight
-sum is about `240.207`, and multiplying by `31 * 10^-15` gives about `7.447`,
+sum is about `240.207`, and multiplying by `27 * 10^-15` gives about `6.486`,
 so `8` is an outward-rounded integer budget. The WSL2 ext4 Lean
 4.30.0 focused build and independent audit pass with exactly
 `[propext, Classical.choice, Quot.sound]`. This is still one local family and
