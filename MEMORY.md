@@ -2198,3 +2198,24 @@ is an interface replacement only: it does not populate the other 29 family
 leaves, does not prove any block aggregate, and does not change the owner or
 family identity. The focused WSL2 Lean 4.30.0 build and independent audit pass
 with exactly `[propext, Classical.choice, Quot.sound]`.
+
+Record 3375 adds the next independent phase endpoint for cell 1, family 4.
+It proves the exact rational Taylor rectangle for
+`record2680PhaseAngleRat3279 1 4` has endpoint absolute bound `<= 2`.
+This is a phase-only prerequisite: it preserves the selected family and cell
+identity, and it does not yet bound the cell weight, bump, weighted jet, or
+physical term. The WSL2 ext4 Lean 4.30.0 `lake build` and independent audit
+pass with exactly `[propext, Classical.choice, Quot.sound]`; the complete
+build and audit logs contain no `sorry`, `admit`, `sorryAx`, or
+`native_decide`.
+
+Record 3376 propagates the 3375 cell-1/family-4 phase bound through the nine
+repeated-square steps used by the owner phase power. It proves the endpoint
+absolute bound for
+`RatRect3276.powSq (ratPhaseRect3279 (record2680PhaseAngleRat3279 1 4)) 9`
+is below the explicit recursive budget `ratPhasePowSqBound3376 9`.
+The focused WSL2 ext4 Lean 4.30.0 `lake build` and independent audit pass
+with exactly `[propext, Classical.choice, Quot.sound]`, and the complete
+logs contain no `sorry`, `admit`, `sorryAx`, or `native_decide`. This remains
+a phase-only cell/family result; it does not establish a physical endpoint,
+a complete family sum, a block inequality, `SourceRH`, or RH.
