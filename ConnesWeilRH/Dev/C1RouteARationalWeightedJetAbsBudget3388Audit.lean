@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1RouteARationalWeightedJetAbsBudget3388
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratWeightedPhaseRect_cell1_family4_endpointAbs_le3388
+#print axioms ratWeightedBumpRect_endpointAbs_le_hi3388
+#print axioms ratWeightedUnitJetRect_cell1_order2_index0_family4_endpointAbs_le3388
+#print axioms ratWeightedUnitJetSumRect_cell1_order2_family4_endpointAbs_le3388
+
+end ConnesWeilRH.Dev

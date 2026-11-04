@@ -2228,6 +2228,22 @@ focused WSL2 ext4 Lean 4.30.0 build and independent audit pass with exactly
 `[propext, Classical.choice, Quot.sound]`; the complete logs contain no
 `sorry`, `admit`, `sorryAx`, or `native_decide`.
 
+Record 3388 upgrades the cell-1/family-4 jet budget from the real upper
+endpoint to a full rectangle endpoint-absolute bound. The order-2 index-0
+leaf is bounded by `26 / 10^15`; the index-1 and index-2 leaves are bounded
+by `1 / 10^25` and `1 / 10^33`; the complete three-index sum is bounded by
+`27 / 10^15`. The focused WSL2 ext4 Lean 4.30.0 build and independent axiom
+audit pass with exactly `[propext, Classical.choice, Quot.sound]`, and the
+logs contain no `sorry`, `admit`, `sorryAx`, or `native_decide`.
+
+Record 3387 consumes the 3388 full-complex budget and proves the corresponding
+cell-1/family-4 coefficient-weighted physical-term upper bound is `<= 7`.
+The stronger target `<= 1` is not closed by this budget: the coefficient
+majorant multiplied by `27 / 10^15` is too large. This is a coarse verified
+bound, not a producer sign, block certificate, `SourceRH`, or RH result. Its
+focused WSL2 ext4 Lean 4.30.0 build and independent audit pass with exactly
+the standard axiom trio and no forbidden proof artifacts.
+
 Record 3378 closes the numerically useful, exact phase-power layer for cell 1,
 family 4. Direct rational unfolding proves the nine repeated-square phase
 rectangle has endpoint absolute bound `<= 2`. This replaces the much looser
