@@ -2219,3 +2219,41 @@ with exactly `[propext, Classical.choice, Quot.sound]`, and the complete
 logs contain no `sorry`, `admit`, `sorryAx`, or `native_decide`. This remains
 a phase-only cell/family result; it does not establish a physical endpoint,
 a complete family sum, a block inequality, `SourceRH`, or RH.
+
+Record 3377 proves the cell-1/family-4 weight prerequisites. The exact
+Taylor interval at `ratCellWeightArgument3289 1` has the required upper and
+lower nonnegative bounds, the interval is ordered, and the resulting
+`ratCellWeightInterval3289 1` has endpoint absolute bound `<= 32`. The
+focused WSL2 ext4 Lean 4.30.0 build and independent audit pass with exactly
+`[propext, Classical.choice, Quot.sound]`; the complete logs contain no
+`sorry`, `admit`, `sorryAx`, or `native_decide`.
+
+Record 3378 closes the numerically useful, exact phase-power layer for cell 1,
+family 4. Direct rational unfolding proves the nine repeated-square phase
+rectangle has endpoint absolute bound `<= 2`. This replaces the much looser
+structural recursive budget from 3376 for downstream numerical consumption.
+The WSL2 ext4 Lean 4.30.0 build and independent audit pass with exactly the
+standard axiom trio and no forbidden proof artifacts.
+
+Record 3379 combines 3377 and 3378 through the existing orientation and real
+scaling interfaces. It proves the cell-1/family-4 weighted phase rectangle has
+real-coordinate endpoint absolute bound `<= 64`. This is still a local
+phase/weight result, not a physical term or family aggregate. The focused
+WSL2 Lean 4.30.0 build and independent audit pass with exactly
+`[propext, Classical.choice, Quot.sound]`.
+
+Record 3380 proves that cell 1, family 4 takes the same signed tail bump branch
+as cell 0, with bump order-2 lower endpoint exactly `0` and upper endpoint
+`<= 10^-16`. The proof keeps the cell-1 rational center in every selector and
+endpoint calculation; it does not transfer the cell-0 bump certificate. The
+focused WSL2 Lean 4.30.0 build and independent audit pass with exactly the
+standard axiom trio and no `sorry`, `admit`, `sorryAx`, or `native_decide`.
+
+Record 3381 consumes the cell-1 weighted phase and bump bounds and proves the
+order-2, index-0 weighted jet endpoint satisfies
+`(ratWeightedUnitJetRect3310 2 0 1 4).reHi <= 64 / 10^16`.
+This is the first cell-1 jet leaf in the new chain. It remains a single
+coordinate/order local result: no cell-1 jet sum, physical coefficient term,
+30-family sum, block inequality, `SourceRH`, or RH is established. The WSL2
+ext4 Lean 4.30.0 build and independent audit pass with exactly
+`[propext, Classical.choice, Quot.sound]`.

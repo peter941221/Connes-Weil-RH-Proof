@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1RouteARationalBumpEndpoint3380
+
+namespace ConnesWeilRH.Dev
+
+#print axioms signed_bump_selector3380_cell1_family4
+#print axioms signed_bump_tail_selector3380_cell1_family4
+#print axioms signed_bump_endpoint3380_cell1_order2_family4_reLo_eq_zero
+#print axioms signed_bump_endpoint3380_cell1_order2_family4_hi_le
+
+end ConnesWeilRH.Dev

@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteARationalWeightedJetEndpoint3381
+
+namespace ConnesWeilRH.Dev
+
+#print axioms signed_jet_endpoint3381_cell1_order2_index0_family4_reHi_le
+
+end ConnesWeilRH.Dev

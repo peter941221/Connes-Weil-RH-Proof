@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteARationalPhaseExactEndpoint3378
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratPhasePowSqEndpointAbsBound3378_cell1_family4_nine
+
+end ConnesWeilRH.Dev
