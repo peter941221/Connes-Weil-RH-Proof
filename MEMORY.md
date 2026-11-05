@@ -2311,3 +2311,43 @@ physical term, a family aggregate, a block certificate, `SourceRH`, or RH.
 The WSL2 ext4 Lean 4.30.0 build and independent audit pass with exactly
 `[propext, Classical.choice, Quot.sound]`; the complete logs contain no
 `sorry`, `admit`, `sorryAx`, or `native_decide`.
+
+Record 3389 closes the cell-1/family-4 signed-coordinate envelope interface. It
+reuses the audited 3388 full rectangle budget to prove the same-owner jet sum
+has `reLo >= -27 / 10^15` and `imHi <= 27 / 10^15`, then reconstructs the
+signed physical-term consumer and reproves the coarse upper bound `<= 7`.
+This is an audited interface/result boundary, not the target `<= 1`: separate
+coordinate envelopes at this scale still lose the real/imaginary correlation.
+The focused WSL2 ext4 Lean 4.30.0 module build and independent audit pass with
+exactly `[propext, Classical.choice, Quot.sound]`; no `sorry`, `admit`,
+`sorryAx`, or `native_decide` appears in the log. The next productive target is
+therefore a genuinely joint signed evaluator or a changed owner/partition
+budget, not another copy of the same absolute rectangle envelope.
+
+The 3390 follow-up tested a direct exact-rational expansion of the cell-1 /
+family-4 physical rectangle and a tighter weighted-phase coordinate bound.
+The direct physical probe failed with Lean simplifier step exhaustion. The
+weighted-phase coordinate attempt also failed to produce a focused `.olean`
+within a 300-second WSL2 build budget, despite the same expressions being
+usable in a non-importable direct probe. These are not mathematical no-goes;
+they show that large `norm_num` expansion is not a stable proof boundary.
+Keep the unverified 3390 probe out of the theorem surface. The next formal
+implementation should introduce explicit coordinate-wise interval multiplication
+lemmas, prove phase-power endpoint bounds first, and compose them without
+re-expanding the complete physical rectangle.
+
+Record 3391 adds and audits generic signed coordinate scaling lemmas for a
+complex rational rectangle multiplied by a nonnegative real interval. They
+prove a lower bound for the real lower endpoint and an upper bound for the
+imaginary upper endpoint without expanding the complete rectangle. The
+focused WSL2 ext4 Lean 4.30.0 module build and independent audit pass with
+exactly the standard axiom trio.
+
+Record 3392 consumes 3391 with the actual cell-1 weight interval lower,
+upper, and order premises. It proves the cell-1/family-4 weighted phase
+rectangle has `reLo >= -64` and `imHi <= 64`, improving the generic endpoint
+scale `128` by preserving the coordinate direction through the final real
+scaling. The focused WSL2 ext4 Lean 4.30.0 build and independent audit pass
+with exactly `[propext, Classical.choice, Quot.sound]`; no `sorry`, `admit`,
+`sorryAx`, or `native_decide` appears in the logs. This remains a phase
+coordinate result, not yet a physical-term `<= 1` certificate.

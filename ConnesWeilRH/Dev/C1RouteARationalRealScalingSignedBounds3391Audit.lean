@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteARationalRealScalingSignedBounds3391
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratRect_mul_real_reLo_ge_coordinate_bound3391
+#print axioms ratRect_mul_real_imHi_le_coordinate_bound3391
+
+end ConnesWeilRH.Dev

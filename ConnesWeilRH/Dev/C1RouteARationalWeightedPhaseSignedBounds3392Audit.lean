@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteARationalWeightedPhaseSignedBounds3392
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratWeightedPhaseRect_cell1_family4_reLo_ge3392
+#print axioms ratWeightedPhaseRect_cell1_family4_imHi_le3392
+
+end ConnesWeilRH.Dev

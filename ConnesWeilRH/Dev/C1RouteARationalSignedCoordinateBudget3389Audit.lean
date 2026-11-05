@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.C1RouteARationalSignedCoordinateBudget3389
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratWeightedJetSumRect_cell1_order2_family4_reLo_ge3389
+#print axioms ratWeightedJetSumRect_cell1_order2_family4_imHi_le3389
+#print axioms ratWeightedPhysicalTermRect_cell1_order2_family4_reHi_le3389
+
+end ConnesWeilRH.Dev
