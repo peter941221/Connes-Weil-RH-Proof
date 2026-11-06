@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteARationalPhysicalCellCertificate3413
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratWeightedPhysicalRect3310_cell1_reHi_le_of_partial_family_certificate3413
+
+end ConnesWeilRH.Dev

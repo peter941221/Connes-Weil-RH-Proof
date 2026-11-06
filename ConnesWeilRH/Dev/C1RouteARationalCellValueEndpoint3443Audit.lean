@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.C1RouteARationalCellValueEndpoint3443
+
+namespace ConnesWeilRH.Dev
+
+#print axioms record2680_cell0_real_sum_abs_le_1_20_3443
+#print axioms record2680_cell0_weight_abs_le_27_3443
+#print axioms record2680_cell0_value_upper_le_1_18_3443
+
+end ConnesWeilRH.Dev

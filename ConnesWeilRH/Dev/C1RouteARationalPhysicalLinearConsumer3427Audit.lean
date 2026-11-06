@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteARationalPhysicalLinearConsumer3427
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratWeightedPhysicalTerm_cell1_family4_le_of_linear3427
+
+end ConnesWeilRH.Dev

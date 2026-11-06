@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1RouteARationalIntervalIdentity3442
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratInterval_mul_singleton_one3442
+#print axioms record2680_cell0_family4_bump_tail3442
+#print axioms record2680_cell0_family4_bump_hi_le_1_40_3442
+#print axioms record2680_cell0_family4_real_abs_le_1_20_3442
+
+end ConnesWeilRH.Dev

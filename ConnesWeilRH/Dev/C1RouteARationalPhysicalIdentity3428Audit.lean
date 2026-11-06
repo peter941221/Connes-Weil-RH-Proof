@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteARationalPhysicalIdentity3428
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratWeightedPhysicalTerm_cell1_family4_identity3428
+
+end ConnesWeilRH.Dev

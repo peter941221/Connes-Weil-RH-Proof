@@ -2351,3 +2351,153 @@ scaling. The focused WSL2 ext4 Lean 4.30.0 build and independent audit pass
 with exactly `[propext, Classical.choice, Quot.sound]`; no `sorry`, `admit`,
 `sorryAx`, or `native_decide` appears in the logs. This remains a phase
 coordinate result, not yet a physical-term `<= 1` certificate.
+
+Record 3393 adds and independently audits the first signed-coordinate jet leaf for cell 1, family 4, order 2, index 0. It consumes the 3392 weighted-phase lower coordinate bound together with the existing nonnegative bump interval and proves the unit-jet real lower endpoint is at least `-64 / 10^16`. The focused WSL2 ext4 Lean 4.30.0 build and independent audit pass with exactly `[propext, Classical.choice, Quot.sound]`. This is one local jet leaf only; it is not yet a complete cell sum, family aggregate, physical-term sign, block certificate, `SourceRH`, or RH.
+Record 3394 adds and independently audits the matching signed-coordinate jet leaf for cell 1, family 4, order 2, index 0. It consumes the 3392 weighted-phase `imHi <= 64` result through a new direction-preserving nonnegative-real scaling lemma and proves the unit-jet imaginary upper endpoint is `<= 64 / 10^16`. The focused WSL2 ext4 Lean 4.30.0 build and independent audit pass with exactly `[propext, Classical.choice, Quot.sound]`. The next bottleneck is exporting composable endpoint budgets for the index-1 and index-2 leaves; repeating index-0 is no longer the productive move.
+Record 3395 exports independently audited public absolute endpoint budgets for the cell-1/family-4 order-2 index-1 and index-2 unit jets: `<= 1 / 10^25` and `<= 1 / 10^33`. Record 3396 consumes those exports together with the 3393 real lower and 3394 imaginary upper signed index-0 bounds. It proves the complete three-index jet sum satisfies `reLo >= -(64 / 10^16 + 10^-25 + 10^-33)` and `imHi <= 64 / 10^16 + 10^-25 + 10^-33`. The focused WSL2 ext4 Lean 4.30.0 build and independent audit pass with exactly `[propext, Classical.choice, Quot.sound]`. This is a mixed coordinate budget; it still does not prove the physical term is `<= 1`, because the existing physical consumer also needs complete absolute real and imaginary endpoint budgets.
+Record 3397 adds the generic weighted-phase imaginary lower endpoint bound `imLo >= -64` for cell 1, family 4. It uses endpoint-absolute scaling rather than direct phase-power expansion, avoiding the simplifier/heartbeat failure observed in the 3390 probe. The focused WSL2 ext4 Lean 4.30.0 build and independent audit pass with exactly the standard axiom trio.
+Record 3398 consumes 3397 and proves the cell-1/family-4 order-2 index-0 signed jet leaf has `imLo >= -64 / 10^16`. Its independent WSL2 audit passes with exactly `[propext, Classical.choice, Quot.sound]` and no `sorryAx`, `sorry`, `admit`, or `native_decide`.
+Record 3399 combines 3398 with the audited 3395 absolute budgets for indices 1 and 2. It proves the complete three-index jet sum has `imLo >= -(64 / 10^16 + 10^-25 + 10^-33)`, matching the 3396 `imHi` bound. The focused build and independent audit pass with exactly the standard axiom trio.
+The 3400 physical-consumer probe was not retained: the coordinate budget proof was structurally available, but the imported `3370` consumer spent more than 40 minutes in Lean elaboration after a local heartbeat increase and was stopped before producing an audited `.olean`. Do not treat this as a mathematical no-go. The next implementation should introduce a lightweight coordinate-budget interface or reduce the consumer's definitional expansion before attempting the final `<= 1` inequality again.
+Record 3402 is an audited no-go for the current separate absolute-coordinate route. Lean proves that `(6001732121601251 / 32) * (7 / 10^15) + (6739580861423611 / 128) * (64 / 10^16 + 10^-25 + 10^-33) <= 1` is false. Therefore improving the 3370 consumer or tightening only one independent coordinate envelope cannot close the family-4 `reHi <= 1` target through the current absolute-budget inequality. The next producer must preserve real/imaginary correlation, or prove a materially tighter joint signed relation for the same owner.
+Record 3409 tightens the exact phase-power endpoint for cell 1 / family 4 / power 9 from the previous coarse `<= 2` to `<= 1`. The focused WSL2 Lean 4.30.0 build and independent audit pass with exactly `[propext, Classical.choice, Quot.sound]`.
+Record 3410 consumes 3409 and the nonnegative cell-weight interval to prove the weighted phase has both real-coordinate and imaginary-coordinate endpoint absolute bounds `<= 32`. Its focused build and independent audit pass with exactly the standard axiom trio. The proof preserves coordinate direction instead of using the factor-2 generic complex rectangle envelope.
+Record 3411 consumes 3410 and proves the cell-1/family-4 order-2 index-0 jet has `reLo >= -32 / 10^16` and `imHi <= 32 / 10^16`. Both leaves are independently audited with exactly the standard axiom trio.
+Record 3412 combines the 3411 signed index-0 leaves with the audited 3395 absolute index-1/index-2 tail budgets. It uses the existing same-owner signed physical identity and proves `(ratWeightedPhysicalTermRect3310 2 1 4).reHi <= 1`. The focused WSL2 build and independent audit pass with exactly `[propext, Classical.choice, Quot.sound]`. This closes one physical family-4 term only; it is not yet the 30-family aggregate, 160-block certificate, `SourceRH`, or RH.
+Record 3413 exposes the first composable consumer for 3412 at the cell-1 family aggregate. It proves that `ratWeightedPhysicalRect3310 2 1` is bounded by an explicit family certificate sum when the other 29 family terms satisfy their certificate premises and family 4 is supplied with the concrete `<= 1` result from 3412. The theorem keeps those remaining premises explicit; it does not claim a complete cell, block, 160-block aggregate, `SourceRH`, or RH. The focused WSL2 ext4 Lean 4.30.0 build and independent audit pass with exactly `[propext, Classical.choice, Quot.sound]`. The next binding work is to produce a numerically useful certificate for the remaining cell-1 families, or prove that the current `1` endpoint is too coarse for the target block budget.
+Record 3414 packages the signed second-derivative cell consumer. It defines `signedCellFamilyCertificate3414`, substitutes the concrete family-4 endpoint from 3412, and leaves the other 29 family endpoint producers as explicit hypotheses. Record 3415 then consumes that signed second-derivative bound through the existing global-derivative Taylor bridge and proves a cell-1 integral upper bound in the same four-term shape used by the block consumer. Both focused WSL2 ext4 Lean 4.30.0 builds and independent audits pass with exactly `[propext, Classical.choice, Quot.sound]`. This is a real cell-level consumer, but it still has 29-family premises and does not close block 0, the 160-block aggregate, `SourceRH`, or RH.
+Record 3416 adds the block-consumer compatibility layer. It replaces only the cell-1 upper endpoint with the 3415 signed cell expression and proves that the resulting 256-cell block sum is bounded by the existing old block sum whenever the new cell-1 endpoint is no larger than the old endpoint. Therefore the existing block manifest can be reused without changing block index semantics; the remaining named premise is exactly the comparison between the signed cell-1 bound and `record2680CellUpper3209` at index 1. The focused WSL2 ext4 Lean 4.30.0 build and independent audit pass with exactly `[propext, Classical.choice, Quot.sound]`. No block certificate, `SourceRH`, or RH claim is made.
+Record 3417 adds and audits the scalar monotonicity bridge `record2680CellUpperSigned3415_le_old_of_second_bound`: if the signed family certificate sum for cell 1 is no larger than the existing `record2680CellSecondBound3224 1`, then the signed Taylor cell upper from 3415 is no larger than the old `record2680CellUpper3209` endpoint at index 1. This isolates the remaining block-compatibility obligation to one second-derivative budget comparison; no numerical comparison or block closure is claimed.
+Record 3418 was an exploratory exact-expansion probe for a 1 / 10^14 endpoint. The WSL2 Lean 4.30.0 build ran for 78 seconds and failed with simplifier step exhaustion, not a mathematical counterexample. It is not a theorem surface result. This confirms that the next producer must use explicit joint signed rectangle lemmas or a smaller structured object, not full definitional expansion.
+Record 3419 formalizes the cell-1 Taylor budget sensitivity. Lean proves the second-derivative unit cost `(grid 2 - grid 1)^3 / 24 > 1 / 10^12`, and proves the exact difference formula between two cell upper expressions: changing only the second-derivative bound by `delta` changes the cell upper by `(grid 2 - grid 1)^3 * delta / 24`. The focused WSL2 ext4 Lean 4.30.0 build and independent audit pass with exactly `[propext, Classical.choice, Quot.sound]`. This quantifies why the 3412 endpoint `<= 1` must be judged against the block margin before it can be considered useful.
+Record 3420 is an audited budget diagnostic. It proves the historical block-0 manifest entry from 3312 is less than `1 / 10^12`, while the exact cell-1 second-derivative unit cost from 3419 is larger than that entry. Therefore inserting a new second-derivative allowance of `1` into block 0 cannot preserve the old manifest inequality. The 3312 manifest is explicitly historical and not a certified 3310 producer, so this is a budget no-go for direct reuse only, not a Route A mathematical no-go. A successful next route must either generate a new block manifest with the signed cell cost included or tighten the physical endpoint substantially.
+The 3421 sharpen probe was not retained. It attempted to reuse the audited 3411/3395 budgets to prove the same-owner family-4 physical endpoint below `1 / 10^6`, which is already numerically sufficient because the cell-1 Taylor unit cost is below `1 / 10^12`. The WSL2 Lean 4.30.0 target remained in high-CPU elaboration for more than five minutes without an error or audited `.olean`; the earlier `1 / 10^30` variant also stalled because it expanded the 188-fold Taylor interval arithmetic. This is a proof-term/elaboration bottleneck, not a mathematical no-go. The next implementation should extract a lightweight coefficient-linear-form lemma from `ratWeightedPhysicalTermRect3310_family4_reHi_signed3332`, prove the bound using only the signed `reLo`/`imHi` inequalities, and keep the large rectangle definition out of the final arithmetic tactic.
+Record 3423 proves the same-owner cell-1/family-4 order-2 bump upper endpoint is <= 1 / 10^18. The proof reuses the existing exact endpoint identity and only changes the rational target of the audited 188-fold Taylor interval arithmetic. Focused WSL2 Lean 4.30.0 build completed in about two seconds; independent audit reports exactly the standard axiom trio.
+Record 3424 consumes 3423 with the existing direction-preserving real/imaginary rectangle scaling lemmas and proves the index-0 signed jet leaves reLo >= -32 / 10^18 and imHi <= 32 / 10^18. Both focused builds and the independent audit pass with exactly the standard axiom trio. The files are separate from 3411 so the earlier 1 / 10^16 interface remains intact.
+Record 3426 proves the fixed family-4 coefficient linear form is <= 1 / 100 under the tightened 3424 real/imaginary endpoint budget plus the audited 1 / 10^25 and 1 / 10^33 tail budgets. Record 3427 packages that arithmetic as a lightweight physical consumer requiring only an owner identity and two endpoint inequalities. Both focused builds and audits pass with exactly the standard axiom trio.
+Record 3428 isolates and audits the cell-1/family-4 same-owner physical identity with the explicit rational coefficient linear form. It builds in about two seconds and has exactly the standard axiom trio. Record 3429 composes 3424, 3426, 3427, and 3428 to prove the family-4 physical endpoint is <= 1 / 100; its focused build completes in about one second and its independent audit passes with exactly the standard axiom trio.
+Record 3430 replaces the family-4 entry in the signed cell second-derivative certificate from 1 to 1 / 100, consuming 3429 while preserving the owner identity and leaving the other 29 family producers explicit. Record 3431 carries that tightened certificate through the existing global derivative/Taylor bridge and audits both the cell upper theorem and the monotonicity comparison interface. Both focused builds pass and all audited leaves retain exactly the standard axiom trio. No complete 30-family cell, block certificate, SourceRH, or RH claim is made.
+Record 3432 proves the cell-1 inactive-family reduction. For every family != 4, Lean proves the rational bump interval is exactly zero, then uses the stable unfolding order from the existing unit-jet membership proof to prove all three order-2 weighted unit-jet rectangles are zero, and finally proves the complete physical term is zero after expanding the three-term rational rectangle sum. The focused WSL2 ext4 Lean 4.30.0 build completes successfully and the independent audit reports exactly [propext, Classical.choice, Quot.sound]. The next producer should sum these 29 zero physical terms with the audited family-4 <= 1 / 100 endpoint; no complete cell sum, block certificate, SourceRH, or RH claim is made yet. Direct rewriting of the weighted unit-jet definition and symbolic-prefix change were rejected as deterministic whnf/isDefEq timeouts; the stable pattern is to unfold the weighted unit jet, bump rectangle, and bump interval, rewrite the inactive if, then apply the zero-multiplication lemma.
+Record 3433 closes the complete cell-1 aggregate. It proves the 30-family rational physical rectangle is exactly the family-4 physical term because all 29 other physical terms are zero by 3432, then consumes the audited 3429 family-4 endpoint to prove the full cell-1 rectangle upper endpoint is <= 1 / 100. The rectangle membership theorem is then used with the weightedPhysical2539-to-weightedExternal derivative bridge to prove the actual cell-1 second derivative is <= 1 / 100. Finally, the existing global Taylor bridge is instantiated with this complete second-derivative bound and produces an audited interval-integral cell upper theorem without an hrest assumption. WSL2 ext4 Lean 4.30.0 build and independent audit pass with exactly [propext, Classical.choice, Quot.sound]. This is still only cell 1; block closure and SourceRH remain open.
+Record 3433 also proves record2680CellUpperSigned3433 equals the existing 3431 signed-certificate upper with familyUpper set to zero. This is an exact compatibility bridge: the new aggregate producer can reuse the existing cell-upper comparison surface without duplicating the Taylor derivation. The historical block manifest remains only a comparison target; its 3312 constants are not promoted to certified 3310 producers.
+
+Record 3435 establishes the replacement block-consumer boundary forced by the
+3434 budget probe. The new cell-1 upper is used at index 1 and the old cell
+upper is preserved everywhere else. A new block-0 certificate plus unchanged
+historical-form certificates for blocks 1 through 159 yields the full modified
+block family. The focused WSL2 ext4 Lean 4.30.0 build and independent audit
+pass with exactly [propext, Classical.choice, Quot.sound]. No sorryAx or
+native_decide appears. This is an interface theorem only: the new block-0
+producer and numeric manifest entry remain open.
+
+Record 3436 proves an exact arithmetic margin probe. It defines a rational
+block-0 adjustment equal, after casting to ℝ, to the cell-1 Taylor cost
+(record2680Grid3212 2 - record2680Grid3212 1)^3 / 2400, corresponding to a
+1 / 100 second-derivative allowance. Replacing only the historical block-0
+entry by this adjusted entry leaves the exact 160-block sum strictly negative.
+The focused WSL2 ext4 Lean 4.30.0 build and independent audit pass with
+exactly [propext, Classical.choice, Quot.sound]. This is a feasibility
+result, not a certified manifest: the 3312 base entries still carry their
+historical producer defects, and the new block-0 producer inequality remains
+open.
+
+Record 3437 connects the complete cell-1 producer to the parameterized signed
+block consumer. It defines a new second-derivative row that uses 1 / 100 at
+cell 1 and the audited 3306 signed-real row elsewhere; the fourth and sixth
+rows remain the existing audited rows. With the 3436 adjusted block manifest,
+Lean proves the full interval integral is strictly negative under exactly 160
+explicit block producer inequalities. The focused WSL2 ext4 Lean 4.30.0 build
+and independent audit pass with exactly [propext, Classical.choice,
+Quot.sound]; no sorryAx or native_decide appears. The remaining Route A
+obligation is now concrete: prove the 160 hblock inequalities against the
+adjusted manifest, rather than reopen the cell-1 Taylor argument.
+
+Record 3438 tests the stronger corrected signed-real manifest candidate. It
+adds the same cell-1 h^3/2400 allowance to the corrected 3309 block-0
+entry, rather than to the obsolete 3312 entry, and proves the exact rational
+sum over all 160 blocks remains strictly negative. The focused WSL2 ext4
+Lean 4.30.0 build and independent audit pass with exactly
+[propext, Classical.choice, Quot.sound]. This remains arithmetic feasibility
+only: 3309 is still an external-generator mirror without Lean block-dominance
+producer proofs.
+
+Record 3439 establishes the first Lean-native block-0 physical producer. For
+all 256 cells in block 0, the second and fourth derivative rows are bounded by
+the exact 3310 rational physical rectangles; cell 1 uses the complete
+same-owner 1 / 100 producer from 3433. The block integral is bounded by the
+corresponding 256-cell Taylor sum with an explicit sixth-order parameter.
+The focused WSL2 ext4 Lean 4.30.0 build and independent audit pass with
+exactly [propext, Classical.choice, Quot.sound]; no sorryAx or
+
+ative_decide appears. The remaining numeric work is now isolated to a
+sixth-order rational upper and the comparison of this exact block sum with a
+manifest entry.
+
+The 3440 block-0 comparison probe remains open. Direct `norm_num` expansion of
+the 256-cell Taylor sum, including the tight value interval and rational
+rectangle operations, hits the simplifier step limit. Splitting into a 16-cell
+chunk still leaves a large interval reduction; even one fully unfolded cell
+was not a practical route after raising the local heartbeat budget. This is a
+proof-engineering obstruction, not evidence that the numeric inequality is
+false. The next producer should expose reusable endpoint lemmas for the value
+interval and rectangle operations, then combine those opaque lemmas with
+small rational arithmetic chunks. Do not promote the 3440 comparison theorem
+or its external sixth bound to a certified result.
+
+Record 3441 adds a reusable block-0 endpoint layer. For every index below 256,
+all families other than family 4 are proved inactive by exact rational
+arithmetic; their tight real family intervals are therefore exactly the zero
+interval. The cell real-sum interval is consequently proved equal to the
+single family-4 interval. The same module proves the cell-0 weight endpoint is
+at most 27 (and also records the weaker 32 bound), while a direct family-0
+endpoint check proves its real interval upper endpoint is at most 1/100. The
+focused WSL2 ext4 Lean 4.30.0 build and independent audit pass with exactly
+[propext, Classical.choice, Quot.sound]. This is an endpoint reduction only;
+it does not yet prove the family-4 value bound, block-0 Taylor comparison, or
+the sixth-order premise.
+
+A follow-up family-4 probe showed the next proof-engineering boundary. The
+value-side bump interval is mathematically the order-0 signed bump interval,
+but Lean does not reduce multiplication by the singleton interval `{1, 1}`
+without explicit nonnegativity and endpoint-order lemmas. Direct unfolding
+again expands `min`/`max` and fails. The correct next abstraction is a proved
+interval identity for `mul a {lo := 1, hi := 1}` under `0 ≤ a.lo` and
+`a.lo ≤ a.hi`, followed by a branch-specific proof for the block-0 tail
+interval. The failed family-4 identity probe was removed; no unverified theorem
+was retained.
+
+Record 3442 closes the interval identity and proves the cell-0 family-4
+real endpoint is at most 1 / 10^20. Record 3443 combines that result with
+the owner reduction and cell-0 weight endpoint <= 27, proving the tight
+cell-0 value upper is at most 1 / 10^18. Focused WSL2 ext4 Lean 4.30.0
+builds and independent audits pass with exactly [propext, Classical.choice,
+Quot.sound]. These records do not close block 0 or certify the sixth-order
+bound. The 3443 proof avoids direct 60-fold Taylor unfolding by reusing the
+3357 and 3344 nonnegativity/order lemmas.
+
+Records 3445--3454 add the block-0 family-4 uniform endpoint layer. Record
+3445 proves the common 188-tail bump branch for every index below 256.
+Records 3446--3453 split the family-4 phase bound into eight 32-index chunks;
+each focused WSL2 ext4 Lean 4.30.0 build and independent audit passed with
+exactly [propext, Classical.choice, Quot.sound]. Record 3454 recombines the
+chunks and proves the phase endpoint absolute bound <= 2 for every block-0
+index. These are verified reusable bounds, not yet a block value certificate.
+
+Record 3455 combines the uniform bump and phase bounds with the rational
+rectangle endpoint algebra and targets the family-4 real endpoint bound <=
+1 / 10^20 for every block-0 index. The first revised focused build was run
+in the native WSL2 ext4 workspace with Lean 4.30.0, but Lean hit a
+deterministic timeout at 20,000,000 heartbeats after about 686 seconds, at
+the projected endpoint and final theorem lines. Therefore 3455 is not
+verified and must not be consumed as a proved theorem. The next proof should
+reduce the projected-rectangle theorem to smaller opaque endpoint lemmas,
+not increase the heartbeat limit again.
+
+Build hygiene incident: a first attempted WSL command inherited the Windows
+working directory and built on /mnt/c despite the WSL gate. That run was
+stopped and its Windows build directory was confirmed absent. Future WSL
+build commands must use `wsl.exe --cd /home/peter/rh-native`, print `pwd`,
+and verify the path before invoking Lake. The two Windows and native WSL
+`.lake/build` directories were later removed after the phase-chunk proof
+generated multi-hundred-megabyte `.olean` files. The source and `.lake/packages`
+directories were preserved.

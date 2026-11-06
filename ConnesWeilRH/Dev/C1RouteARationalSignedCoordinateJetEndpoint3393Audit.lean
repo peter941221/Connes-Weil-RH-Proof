@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteARationalSignedCoordinateJetEndpoint3393
+
+namespace ConnesWeilRH.Dev
+
+#print axioms signed_coordinate_jet_endpoint3393_cell1_order2_index0_family4_reLo_ge
+
+end ConnesWeilRH.Dev

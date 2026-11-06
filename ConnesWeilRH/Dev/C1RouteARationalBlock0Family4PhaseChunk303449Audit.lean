@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteARationalBlock0Family4PhaseChunk303449
+
+namespace ConnesWeilRH.Dev
+
+#print axioms record2680_block0_family4_phase_chunk3_abs_le_2_3449
+
+end ConnesWeilRH.Dev

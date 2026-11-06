@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteARationalWeightedPhaseTightBounds3410
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratWeightedPhaseRect_cell1_family4_realAbs_le3410
+#print axioms ratWeightedPhaseRect_cell1_family4_imagAbs_le3410
+
+end ConnesWeilRH.Dev

@@ -107,4 +107,76 @@ theorem ratRect_mul_real_imHi_le_coordinate_bound3391
   simpa [zero_add] using (max_le
     (max_le himLoLo himLo) (max_le himHiLo himHi))
 
-end ConnesWeilRH.Dev
+
+theorem ratRect_mul_real_imHi_le_coordinate_upper_bound3391
+    (a : RatRect3276) (b : RatInterval3276) (bound : ℚ)
+    (haImOrder : a.imLo ≤ a.imHi) (haImHi : a.imHi ≤ bound)
+    (hbound : 0 ≤ bound)
+    (hbLo : 0 ≤ b.lo) (hbHi : 0 ≤ b.hi) (hbOrder : b.lo ≤ b.hi) :
+    (RatRect3276.mul a (ratRealRect3281 b)).imHi ≤ bound * b.hi := by
+  unfold RatRect3276.mul RatInterval3276.mul RatInterval3276.add
+    ratRealRect3281
+  simp only [zero_mul, min_self, max_self, add_zero]
+  have himLoLo : a.imLo * b.lo ≤ bound * b.hi := by
+    exact (mul_le_mul_of_nonneg_right
+      (haImOrder.trans haImHi) hbLo).trans
+      (mul_le_mul_of_nonneg_left hbOrder hbound)
+  have himHiLo : a.imHi * b.lo ≤ bound * b.hi := by
+    exact (mul_le_mul_of_nonneg_right haImHi hbLo).trans
+      (mul_le_mul_of_nonneg_left hbOrder hbound)
+  have himLo : a.imLo * b.hi ≤ bound * b.hi := by
+    exact mul_le_mul_of_nonneg_right (haImOrder.trans haImHi) hbHi
+  have himHi : a.imHi * b.hi ≤ bound * b.hi := by
+    exact mul_le_mul_of_nonneg_right haImHi hbHi
+  simpa [zero_add] using (max_le
+    (max_le himLoLo himLo) (max_le himHiLo himHi))
+
+
+theorem ratRect_mul_real_imLo_ge_coordinate_bound3391
+    (a : RatRect3276) (b : RatInterval3276)
+    (hbLo : 0 ≤ b.lo) (hbHi : 0 ≤ b.hi) (hbOrder : b.lo ≤ b.hi) :
+    -(ratRectImagCoordinateAbsBound3391 a * b.hi) ≤
+      (RatRect3276.mul a (ratRealRect3281 b)).imLo := by
+  unfold RatRect3276.mul RatInterval3276.mul RatInterval3276.add
+    ratRealRect3281 ratRectImagCoordinateAbsBound3391
+  simp only [zero_mul, min_self, max_self, add_zero]
+  have hA : 0 ≤ max |a.imLo| |a.imHi| :=
+    le_trans (abs_nonneg _) (le_max_left _ _)
+  have himLo :
+      -(max |a.imLo| |a.imHi| * b.hi) ≤ a.imLo * b.hi := by
+    simpa [neg_mul] using
+      mul_le_mul_of_nonneg_right
+        ((neg_le_neg (le_max_left |a.imLo| |a.imHi|)).trans
+          (neg_abs_le a.imLo)) hbHi
+  have himHi :
+      -(max |a.imLo| |a.imHi| * b.hi) ≤ a.imHi * b.hi := by
+    simpa [neg_mul] using
+      mul_le_mul_of_nonneg_right
+        ((neg_le_neg (le_max_right |a.imLo| |a.imHi|)).trans
+          (neg_abs_le a.imHi)) hbHi
+  have himLoLo :
+      -(max |a.imLo| |a.imHi| * b.hi) ≤ a.imLo * b.lo := by
+    have hscale :
+        -(max |a.imLo| |a.imHi| * b.hi) ≤
+          -(max |a.imLo| |a.imHi| * b.lo) := by
+      simpa [neg_mul] using
+        mul_le_mul_of_nonpos_left hbOrder (neg_nonpos.mpr hA)
+    exact hscale.trans (by
+      simpa [neg_mul] using
+        mul_le_mul_of_nonneg_right
+          ((neg_le_neg (le_max_left |a.imLo| |a.imHi|)).trans
+            (neg_abs_le a.imLo)) hbLo)
+  have himHiLo :
+      -(max |a.imLo| |a.imHi| * b.hi) ≤ a.imHi * b.lo := by
+    have hscale :
+        -(max |a.imLo| |a.imHi| * b.hi) ≤
+          -(max |a.imLo| |a.imHi| * b.lo) := by
+      simpa [neg_mul] using
+        mul_le_mul_of_nonpos_left hbOrder (neg_nonpos.mpr hA)
+    exact hscale.trans (by
+      simpa [neg_mul] using
+        mul_le_mul_of_nonneg_right
+          ((neg_le_neg (le_max_right |a.imLo| |a.imHi|)).trans
+            (neg_abs_le a.imHi)) hbLo)
+  simpa [zero_add] using (le_min
+    (le_min himLoLo himLo) (le_min himHiLo himHi))end ConnesWeilRH.Dev

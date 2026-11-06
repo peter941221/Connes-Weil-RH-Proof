@@ -41,7 +41,7 @@ theorem ratWeightedPhaseRect_cell1_family4_reLo_ge3392 :
           (ratPhaseRect3279
             (record2680PhaseAngleRat3279 1 4)) 9) *
         (ratCellWeightInterval3289 1).hi) := by
-      nlinarith
+      nlinarith [hphase, hweight, hhi]
     _ ≤ (RatRect3276.mul
         (RatRect3276.powSq
           (ratPhaseRect3279
@@ -90,5 +90,55 @@ theorem ratWeightedPhaseRect_cell1_family4_imHi_le3392 :
             (record2680PhaseAngleRat3279 1 4)) 9) *
         (ratCellWeightInterval3289 1).hi := hscale
     _ ≤ 64 := by nlinarith
+
+
+
+theorem ratWeightedPhaseRect_cell1_family4_imLo_ge3397 :
+    -(64 : ℚ) ≤ (ratWeightedPhaseRect3310 1 4).imLo := by
+  rw [ratWeightedPhaseRect_orientation3361]
+  have hlo := ratInterval_powNat_lo_nonneg3344
+    (ratTaylorInterval3283 (ratCellWeightArgument3289 1))
+    ratCellWeightTaylorLoNonneg3377_cell1
+    ratCellWeightTaylorHiNonneg3377_cell1 60
+  have hhi := ratInterval_powNat_hi_nonneg3344
+    (ratTaylorInterval3283 (ratCellWeightArgument3289 1))
+    ratCellWeightTaylorLoNonneg3377_cell1
+    ratCellWeightTaylorHiNonneg3377_cell1 60
+  have horder := ratInterval_powNat_order3344
+    (ratTaylorInterval3283 (ratCellWeightArgument3289 1)) 60
+  have hscale := ratRect_mul_real_imLo_ge_coordinate_bound3391
+    (RatRect3276.powSq
+      (ratPhaseRect3279
+        (record2680PhaseAngleRat3279 1 4)) 9)
+    (ratCellWeightInterval3289 1) hlo hhi horder
+  have hphase : ratRectImagCoordinateAbsBound3391
+      (RatRect3276.powSq
+        (ratPhaseRect3279
+          (record2680PhaseAngleRat3279 1 4)) 9) ≤ 2 := by
+    unfold ratRectImagCoordinateAbsBound3391
+    exact le_trans (le_max_right _ _)
+      ratPhasePowSqEndpointAbsBound3378_cell1_family4_nine
+  have hphaseNonneg : 0 ≤ ratRectImagCoordinateAbsBound3391
+      (RatRect3276.powSq
+        (ratPhaseRect3279
+          (record2680PhaseAngleRat3279 1 4)) 9) := by
+    unfold ratRectImagCoordinateAbsBound3391
+    exact le_trans (abs_nonneg _) (le_max_left _ _)
+  have hweight : (ratCellWeightInterval3289 1).hi ≤ 32 := by
+    exact le_trans (le_abs_self _)
+      (le_trans (le_max_right _ _)
+        ratCellWeightIntervalEndpointAbsBound3377_cell1)
+  calc
+    -(64 : ℚ) ≤ -(ratRectImagCoordinateAbsBound3391
+        (RatRect3276.powSq
+          (ratPhaseRect3279
+            (record2680PhaseAngleRat3279 1 4)) 9) *
+        (ratCellWeightInterval3289 1).hi) := by
+      nlinarith [hphase, hphaseNonneg, hweight, hhi]
+    _ ≤ (RatRect3276.mul
+        (RatRect3276.powSq
+          (ratPhaseRect3279
+            (record2680PhaseAngleRat3279 1 4)) 9)
+        (ratRealRect3281 (ratCellWeightInterval3289 1))).imLo := hscale
 
 end ConnesWeilRH.Dev

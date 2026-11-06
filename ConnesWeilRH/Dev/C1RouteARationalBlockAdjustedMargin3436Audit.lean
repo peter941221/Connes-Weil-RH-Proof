@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteARationalBlockAdjustedMargin3436
+
+namespace ConnesWeilRH.Dev
+
+#print axioms routeASignedJetRectBlockUpper3436_sum_lt_zero
+#print axioms routeASignedJetRectBlockDelta3436_cast_eq_grid_cost
+
+end ConnesWeilRH.Dev

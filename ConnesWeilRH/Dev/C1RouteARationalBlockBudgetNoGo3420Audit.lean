@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteARationalBlockBudgetNoGo3420
+
+namespace ConnesWeilRH.Dev
+
+#print axioms routea_block0_manifest3312_lt_one_e12_3420
+#print axioms routea_cell1_second_unit_cost_gt_block0_manifest3312_3420
+
+end ConnesWeilRH.Dev

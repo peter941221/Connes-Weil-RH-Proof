@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteARationalBlock0Family4Uniform3454
+
+namespace ConnesWeilRH.Dev
+
+#print axioms record2680_block0_family4_phase_abs_le_2_3454
+#print axioms record2680_block0_family4_bump_tail3454
+
+end ConnesWeilRH.Dev

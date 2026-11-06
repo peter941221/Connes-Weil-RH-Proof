@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteARationalAbsoluteBudgetNoGo3402
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratWeightedFamily4_absolute_budget_no_go3402
+
+end ConnesWeilRH.Dev

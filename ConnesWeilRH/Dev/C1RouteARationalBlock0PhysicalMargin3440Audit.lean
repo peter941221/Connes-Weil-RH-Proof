@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteARationalBlock0PhysicalMargin3440
+
+namespace ConnesWeilRH.Dev
+
+#print axioms record2680Block0PhysicalTaylorUpper3440_le_manifest
+
+end ConnesWeilRH.Dev

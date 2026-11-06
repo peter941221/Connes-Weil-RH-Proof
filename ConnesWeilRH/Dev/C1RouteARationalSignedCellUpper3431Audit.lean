@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteARationalSignedCellUpper3431
+
+namespace ConnesWeilRH.Dev
+
+#print axioms intervalIntegral_record2680_cell1_upper_signed3431
+
+end ConnesWeilRH.Dev
+#print axioms ConnesWeilRH.Dev.record2680CellUpperSigned3431_le_old_of_second_bound

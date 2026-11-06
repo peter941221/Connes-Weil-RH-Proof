@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteARationalPhysicalTermSignedBudget3401
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratCoefficientRect3282_family4_mul_reHi_le_coordinate_budgets3401
+#print axioms ratWeightedPhysicalTermRect_cell1_order2_family4_reHi_le3401
+
+end ConnesWeilRH.Dev

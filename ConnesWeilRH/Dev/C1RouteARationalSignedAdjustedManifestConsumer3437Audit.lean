@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1RouteARationalSignedAdjustedManifestConsumer3437
+
+namespace ConnesWeilRH.Dev
+
+#print axioms record2680_signed_real_second_bound3437
+#print axioms record2680_signed_real_fourth_bound3437
+#print axioms routeASignedJetRectBlockUpper3436Real_sum_lt_zero
+#print axioms intervalIntegral_record2680_40960_strict_upper_of_adjusted_manifest3437
+
+end ConnesWeilRH.Dev

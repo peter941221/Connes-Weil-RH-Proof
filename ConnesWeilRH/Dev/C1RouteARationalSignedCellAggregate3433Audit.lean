@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1RouteARationalSignedCellAggregate3433
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratWeightedPhysicalRect3310_cell1_reHi_le3433
+#print axioms record2680_cell1_second_bound_3433
+#print axioms intervalIntegral_record2680_cell1_upper_signed3433
+#print axioms record2680CellUpperSigned3433_eq_zero_certificate3433
+
+end ConnesWeilRH.Dev

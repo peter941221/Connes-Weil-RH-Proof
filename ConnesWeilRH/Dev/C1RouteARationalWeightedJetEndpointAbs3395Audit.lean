@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1RouteARationalWeightedJetEndpointAbs3395
+
+namespace ConnesWeilRH.Dev
+
+#print axioms ratWeightedUnitJetRect_cell1_order2_index1_family4_endpointAbs_le3395
+#print axioms ratWeightedUnitJetRect_cell1_order2_index2_family4_endpointAbs_le3395
+
+end ConnesWeilRH.Dev

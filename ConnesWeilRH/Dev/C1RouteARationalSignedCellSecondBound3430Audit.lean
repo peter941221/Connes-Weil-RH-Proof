@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1RouteARationalSignedCellSecondBound3430
+
+namespace ConnesWeilRH.Dev
+
+#print axioms record2680_cell_second_bound_signed3430_from3429
+
+end ConnesWeilRH.Dev

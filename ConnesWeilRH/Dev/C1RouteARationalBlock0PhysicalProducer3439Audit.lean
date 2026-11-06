@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1RouteARationalBlock0PhysicalProducer3439
+
+namespace ConnesWeilRH.Dev
+
+#print axioms record2680_rational_physical_derivative_bound3439
+#print axioms record2680_rational_second_bound3439
+#print axioms record2680_rational_fourth_bound3439
+#print axioms intervalIntegral_record2680_block0_physical_upper3439
+
+end ConnesWeilRH.Dev

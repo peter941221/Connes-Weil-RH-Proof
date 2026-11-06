@@ -1,0 +1,11 @@
+import ConnesWeilRH.Dev.C1RouteARationalCell1InactiveFamilies3432
+
+namespace ConnesWeilRH.Dev
+
+#print axioms record2680_cell1_family_ne4_inactive3432
+#print axioms ratBumpJetInterval3310_cell1_family_ne4_zero3432
+#print axioms ratWeightedUnitJetRect3310_cell1_family_ne4_zero3432
+#print axioms ratWeightedPhysicalTermRect3310_cell1_family_ne4_zero3432
+#print axioms ratWeightedPhysicalRect3310_cell1_eq_family4_3432
+
+end ConnesWeilRH.Dev
